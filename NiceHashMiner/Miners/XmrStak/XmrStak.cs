@@ -11,9 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NiceHashMiner.Enums;
 using NiceHashMiner.Configs;
-using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
-using Timer = System.Timers.Timer;
 
 namespace NiceHashMiner.Miners
 {
@@ -35,6 +33,8 @@ namespace NiceHashMiner.Miners
             return 5 * 60 * 1000;  // 5 minutes
         }
 
+        #region Filename Helpers
+
         protected string GetDevConfigFileName(DeviceType type) {
             var ids = MiningSetup.MiningPairs.Where(pair => pair.Device.DeviceType == type).Select(pair => pair.Device.ID).ToList();
             return $"{type}_{string.Join(",", ids)}.txt";
@@ -49,6 +49,11 @@ namespace NiceHashMiner.Miners
             return $"{(int) MiningSetup.MiningPairs[0].Device.DeviceType}-{base.GetLogFileName()}";
         }
 
+        #endregion
+
+        #region Commandline helpers
+
+        // Return command to disable unused devices
         private string DisableDevCmd(ICollection<DeviceType> usedDevs) {
             var devTypes = new List<DeviceType> {
                 DeviceType.AMD,
@@ -61,6 +66,8 @@ namespace NiceHashMiner.Miners
         private string DisableDevCmd(DeviceType usedDev) {
             return DisableDevCmd(new List<DeviceType> {usedDev});
         }
+
+        #endregion
 
         protected override void _Stop(MinerStopType willswitch) {
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
@@ -91,12 +98,70 @@ namespace NiceHashMiner.Miners
             return $"-c {configName} {devs} {DisableDevCmd(devConfigs.Keys)}";
         }
 
+        protected virtual Dictionary<DeviceType, string> PrepareConfigFiles(string url, string btcAddress, string worker, bool bench = false) {
+            var configs = new Dictionary<DeviceType, string>();
+            var types = new List<DeviceType>();
+            foreach (var pair in MiningSetup.MiningPairs) {
+                if (!types.Contains(pair.Device.DeviceType)) types.Add(pair.Device.DeviceType);
+            }
+
+            var configName = bench ? GetBenchConfigName() : _configName;
+            var config = ParseJsonFile<XmrStakConfig>(filename: _defConfigName) ?? new XmrStakConfig();
+            config.SetupPools(url, GetUsername(btcAddress, worker));
+            config.httpd_port = APIPort;
+            if (bench) {
+                config.SetBenchmarkOptions(GetLogFileName());
+            }
+            WriteJsonFile(config, configName, _defConfigName);
+
+            foreach (var type in types) {
+                if (type == DeviceType.CPU) {
+                    var cpuPair = MiningSetup.MiningPairs.Find(p => p.Device.DeviceType == type);
+                    var isHyperThreadingEnabled = cpuPair.CurrentExtraLaunchParameters.Contains("enable_ht=true");
+                    var numTr = ExtraLaunchParametersParser.GetThreadsNumber(cpuPair);
+                    var no_prefetch = ExtraLaunchParametersParser.GetNoPrefetch(cpuPair);
+                    if (isHyperThreadingEnabled) {
+                        numTr /= 2;
+                    }
+                    // Fallback on classic config if haven't been able to open 
+                    var configCpu = ParseJsonFile<XmrStakConfigCpu>(type) ?? new XmrStakConfigCpu(numTr);
+                    if (configCpu.cpu_threads_conf.Count == 0) {
+                        // No thread count would prevent CPU from mining, so fill with estimates
+                        // Otherwise use values set by xmr-stak/user
+                        configCpu.Inti_cpu_threads_conf(false, no_prefetch, false, isHyperThreadingEnabled);
+                    }
+                    configs[type] = WriteJsonFile(configCpu, type);
+                } else {
+                    var ids = MiningSetup.MiningPairs.Where(p => p.Device.DeviceType == type).Select(p => p.Device.ID);
+
+                    if (type == DeviceType.AMD) {
+                        var configGpu = ParseJsonFile<XmrStakConfigAmd>(type) ?? new XmrStakConfigAmd();
+                        configGpu.SetupThreads(ids);
+                        configs[type] = WriteJsonFile(configGpu, type);
+                    } else {
+                        var keepBVals = MiningSetup.MiningPairs.Any(p =>
+                            p.CurrentExtraLaunchParameters.Contains("--keep-b") && p.Device.DeviceType == type);
+                        var configGpu = ParseJsonFile<XmrStakConfigNvidia>(type) ?? new XmrStakConfigNvidia();
+                        // B values do not seem to work on many nv setups, workaround by forcing higher vals unless user opts out
+                        configGpu.SetupThreads(ids);
+                        if (!keepBVals) configGpu.OverrideBVals();
+                        configs[type] = WriteJsonFile(configGpu, type);
+                    }
+                }
+            }
+
+            return configs;
+        }
+
+        #region Benchmarking
+
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
             var url = Globals.GetLocationURL(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
             var configs = PrepareConfigFiles(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim(), true);
             _benchmarkCount = 0;
             _benchmarkSum = 0;
             BenchmarkTimeInSeconds = Math.Max(time, 60);
+            CleanOldLogs();
             return CreateLaunchCommand(GetBenchConfigName(), configs);
         }
 
@@ -121,58 +186,7 @@ namespace NiceHashMiner.Miners
             CheckOutdata(outdata);
         }
 
-        protected virtual Dictionary<DeviceType, string> PrepareConfigFiles(string url, string btcAddress, string worker, bool bench = false) {
-            var configs = new Dictionary<DeviceType, string>();
-            var types = new List<DeviceType>();
-            foreach (var pair in MiningSetup.MiningPairs) {
-                if (!types.Contains(pair.Device.DeviceType)) types.Add(pair.Device.DeviceType);
-            }
-
-            var configName = bench ? GetBenchConfigName() : _configName;
-            var config = ParseJsonFile<XmrStakConfig>(filename: _defConfigName) ?? new XmrStakConfig();
-            config.SetupPools(url, GetUsername(btcAddress, worker));
-            config.httpd_port = APIPort;
-            if (bench) {
-                config.SetBenchmarkOptions(GetLogFileName());
-            }
-            WriteJsonFile(config, configName);
-
-            foreach (var type in types) {
-                if (type == DeviceType.CPU) {
-                    var cpuPair = MiningSetup.MiningPairs.Find(p => p.Device.DeviceType == type);
-                    var isHyperThreadingEnabled = cpuPair.CurrentExtraLaunchParameters.Contains("enable_ht=true");
-                    var numTr = ExtraLaunchParametersParser.GetThreadsNumber(cpuPair);
-                    var no_prefetch = ExtraLaunchParametersParser.GetNoPrefetch(cpuPair);
-                    if (isHyperThreadingEnabled) {
-                        numTr /= 2;
-                    }
-                    // Fallback on classic config if haven't been able to open 
-                    var configCpu = ParseJsonFile<XmrStakConfigCpu>(type) ?? new XmrStakConfigCpu(numTr);
-                    if (configCpu.cpu_threads_conf.Count == 0) {
-                        // No thread count would prevent CPU from mining, so fill with estimates
-                        // Otherwise use values set by xmr-stak/user
-                        configCpu.Inti_cpu_threads_conf(false, no_prefetch, false, isHyperThreadingEnabled);
-                    }
-                    configs[type] = WriteJsonFile(configCpu, type);
-                }
-                else {
-                    var ids = MiningSetup.MiningPairs.Where(p => p.Device.DeviceType == type).Select(p => p.Device.ID);
-
-                    if (type == DeviceType.AMD) {
-                        var configGpu = ParseJsonFile<XmrStakConfigAmd>(type) ?? new XmrStakConfigAmd();
-                        configGpu.SetupThreads(ids);
-                        configs[type] = WriteJsonFile(configGpu, type);
-                    }
-                    else {
-                        var configGpu = ParseJsonFile<XmrStakConfigNvidia>(type) ?? new XmrStakConfigNvidia();
-                        configGpu.SetupThreads(ids);
-                        configs[type] = WriteJsonFile(configGpu, type);
-                    }
-                }
-            }
-
-            return configs;
-        }
+        #endregion
 
         #region JSON Helpers
 
@@ -185,12 +199,16 @@ namespace NiceHashMiner.Miners
                 json = JsonConvert.DeserializeObject<T>(file);
             }
             catch (Exception e) {
-                Helpers.ConsolePrint(MinerTAG(), e.ToString());
+                if (e is FileNotFoundException) {
+                    Helpers.ConsolePrint(MinerTAG(), $"Config file {filename} not found, attempting to generate");
+                }
+                else {
+                    Helpers.ConsolePrint(MinerTAG(), e.ToString());
+                }
             }
             if (json == null) {
                 // If from recursive call, don't try again
                 if (fallback) return default(T);
-                // Try running xmr-stak to create default configs
                 if (!File.Exists(WorkingDirectory + _defConfigName)) {
                     // Exception since xmr-stak won't passively generate general config
                     var config = new XmrStakConfig();
@@ -202,29 +220,42 @@ namespace NiceHashMiner.Miners
                     WriteJsonFile(config, filename);
                 }
                 if (typeof(T) != typeof(XmrStakConfig)) {
-                    var handle = BenchmarkStartProcess(DisableDevCmd(type));
+                    // Try running xmr-stak to create default configs
+                    var handle = BenchmarkStartProcess(DisableDevCmd(type) + " --generate-configs ");
                     var timer = new Stopwatch();
                     timer.Start();
                     handle.Start();
-                    while (timer.Elapsed.TotalSeconds < 10) {
-                        if (!File.Exists(WorkingDirectory + filename)) Thread.Sleep(1000);
-                        else break;
+                    try {
+                        if (!handle.WaitForExit(20 * 1000)) {
+                            handle.Kill(); // Should have exited already if using right xmr-stak ver
+                            handle.WaitForExit(20 * 1000);
+                            handle.Close();
+                        }
                     }
-                    handle.Kill();
-                    handle.WaitForExit(20 * 1000);
+                    catch { }
                     json = ParseJsonFile<T>(type, filename, true);
                 }
             }
             return json;
         }
 
-        private string WriteJsonFile(object config, string filename) {
+        private string WriteJsonFile(object config, string filename, string genFrom = "", bool isNv = false) {
+            var header = "// This config file was autogenerated by NHML.";
+            if (genFrom != "") {
+                header +=
+                    $"\n// The values were filled from {genFrom}. If you wish to edit them, you should edit that file instead.";
+            }
+            if (isNv) {
+                header +=
+                    "\n// bsleep and bfactor are overriden by default for compatibility. You can disable this functionality by adding \"--keep-b\" to extra launch parameters.";
+            }
             try {
                 var confJson = JObject.FromObject(config);
                 var writeStr = confJson.ToString();
                 var start = writeStr.IndexOf("{");
                 var end = writeStr.LastIndexOf("}");
                 writeStr = writeStr.Substring(start + 1, end - 1);
+                writeStr = header + "\n" + writeStr;
                 File.WriteAllText(WorkingDirectory + filename, writeStr);
             } catch (Exception e) {
                 Helpers.ConsolePrint(MinerTAG(), e.ToString());
@@ -234,29 +265,9 @@ namespace NiceHashMiner.Miners
         }
 
         private string WriteJsonFile(object config, DeviceType type) {
-            return WriteJsonFile(config, GetDevConfigFileName(type));
+            return WriteJsonFile(config, GetDevConfigFileName(type), $"{type.ToString().ToLower()}.txt", type == DeviceType.NVIDIA);
         }
 
         #endregion
-
-        protected override NiceHashProcess _Start() {
-            NiceHashProcess P = base._Start();
-
-            var AffinityMask = MiningSetup.MiningPairs[0].Device.AffinityMask;
-            if (AffinityMask != 0 && P != null)
-                CPUID.AdjustAffinity(P.Id, AffinityMask);
-
-            return P;
-        }
-
-        protected override Process BenchmarkStartProcess(string CommandLine) {
-            Process BenchmarkHandle = base.BenchmarkStartProcess(CommandLine);
-
-            var AffinityMask = MiningSetup.MiningPairs[0].Device.AffinityMask;
-            if (AffinityMask != 0 && BenchmarkHandle != null)
-                CPUID.AdjustAffinity(BenchmarkHandle.Id, AffinityMask);
-
-            return BenchmarkHandle;
-        }
     }
 }
