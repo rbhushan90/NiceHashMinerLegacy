@@ -183,11 +183,11 @@ namespace NiceHashMiner
                     }
                 } else
                 {
-                    Helpers.ConsolePrint("SOCKET", "Using default SMA");
+//                    Helpers.ConsolePrint("SOCKET", "Using default SMA");
 
-                    dynamic defversion = "{\"method\":\"versions\",\"v2\":\"2.0.1.1\",\"legacy\":\"1.8.1.5\"}";
-                    JArray verdata = (JArray.Parse(defversion));
-                    SetVersion(verdata.legacy.Value);
+//                    dynamic defversion = "{\"method\":\"versions\",\"v2\":\"2.0.1.1\",\"legacy\":\"1.8.1.5\"}";
+//                    JArray verdata = (JArray.Parse(defversion));
+//                    SetVersion(verdata.legacy.Value);
                 }
                 //******
                 if (System.IO.File.Exists("configs\\sma.dat"))
