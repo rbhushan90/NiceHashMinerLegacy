@@ -3,6 +3,7 @@ using NiceHashMiner.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace NiceHashMiner.Miners {
     public class ClaymoreDual : ClaymoreBaseMiner {
@@ -47,15 +48,17 @@ namespace NiceHashMiner.Miners {
 
         private string GetStartCommand(string url, string btcAdress, string worker) {
             string username = GetUsername(btcAdress, worker);
-
+            AlgorithmType dual = AlgorithmType.Lbry; //on default
             string dualModeParams = "";
+            AlgorithmType alg = dual;
+            string poolport = "3354";
             if (!IsDual())
             {  // leave convenience param for non-dual entry
                 foreach (var pair in MiningSetup.MiningPairs)
                 {
                     if (pair.CurrentExtraLaunchParameters.Contains("-dual="))
                     {
-                        AlgorithmType dual = AlgorithmType.NONE;
+                        dual = AlgorithmType.NONE;
                         string coinP = "";
                         if (pair.CurrentExtraLaunchParameters.Contains("Decred")) {
                             dual = AlgorithmType.Decred;
@@ -78,16 +81,53 @@ namespace NiceHashMiner.Miners {
                             dualModeParams = String.Format(" {0} -dpool {1} -dwal {2}", coinP, urlSecond, username);
                             break;
                         }
+                        if (dual == AlgorithmType.Decred) { poolport = "3354"; }
+                        if (dual == AlgorithmType.Lbry) { poolport = "3356"; }
+                        if (dual == AlgorithmType.Pascal) { poolport = "3358"; }
+                        if (dual == AlgorithmType.Sia) { poolport = "3360"; }
+                        alg = dual;
                     }
                 }
             } else {
                 string urlSecond = Globals.GetLocationURL(SecondaryAlgorithmType, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
                 dualModeParams = String.Format(" -dcoin {0} -dpool {1} -dwal {2} -dpsw x", SecondaryShortName(), urlSecond, username);
+                if (SecondaryAlgorithmType == AlgorithmType.Decred) { poolport = "3354"; }
+                if (SecondaryAlgorithmType == AlgorithmType.Lbry) { poolport = "3356"; }
+                if (SecondaryAlgorithmType == AlgorithmType.Pascal) { poolport = "3358"; }
+                if (SecondaryAlgorithmType == AlgorithmType.Sia) { poolport = "3360"; }
+                alg = SecondaryAlgorithmType;
             }
+
+
+           String dpools = "POOL: stratum+tcp://" + alg.ToString().ToLower() + ".usa.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
+            + "POOL: stratum+tcp://" + alg.ToString().ToLower() + ".hk.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
+            + "POOL: stratum+tcp://" + alg.ToString().ToLower() + ".jp.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
+            + "POOL: stratum+tcp://" + alg.ToString().ToLower() + ".in.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
+            + "POOL: stratum+tcp://" + alg.ToString().ToLower() + ".br.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
+            + "POOL: stratum+tcp://" + alg.ToString().ToLower() + ".eu.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n";
+
+            FileStream fs1 = new FileStream("bin_3rdparty\\claymore_dual\\dpools.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter w1 = new StreamWriter(fs1);
+            w1.WriteAsync(dpools);
+            w1.Flush();
+            w1.Close();
+
+            String epools = String.Format("POOL: daggerhashimoto.usa.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username, APIPort) +"\n"
+                + String.Format("POOL: daggerhashimoto.hk.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username, APIPort) + "\n"
+                + String.Format("POOL: daggerhashimoto.jp.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username, APIPort) + "\n"
+                + String.Format("POOL: daggerhashimoto.in.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username, APIPort) + "\n"
+                + String.Format("POOL: daggerhashimoto.br.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username, APIPort) + "\n"
+                + String.Format("POOL: daggerhashimoto.eu.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username, APIPort) + "\n";
+
+            FileStream fs = new FileStream("bin_3rdparty\\claymore_dual\\epools.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter w = new StreamWriter(fs);
+            w.WriteAsync(epools);
+            w.Flush();
+            w.Close();
 
             return " "
                 + GetDevicesCommandString()
-                + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1", url, username, APIPort)
+                + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5", url, username, APIPort)
                 + dualModeParams;
         }
 
