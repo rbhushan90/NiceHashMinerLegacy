@@ -27,6 +27,7 @@ namespace NiceHashMiner
     using NiceHashMiner.Miners.Grouping;
     using NiceHashMiner.Miners.Parsing;
     using System.IO;
+    using System.Runtime.Serialization.Formatters.Binary;
 
     public partial class Form_Main : Form, Form_Loading.IAfterInitializationCaller, IMainFormRatesComunication
     {
@@ -51,6 +52,7 @@ namespace NiceHashMiner
         int flowLayoutPanelRatesIndex = 0;
 
         const string _betaAlphaPostfixString = "";
+        const string ForkString = " Fork Fix 1";
 
         private bool _isDeviceDetectionInitialized = false;
 
@@ -85,7 +87,7 @@ namespace NiceHashMiner
 
             R = new Random((int)DateTime.Now.Ticks);
 
-            Text += " v" + Application.ProductVersion + _betaAlphaPostfixString;
+            Text += " v" + Application.ProductVersion + _betaAlphaPostfixString + ForkString;
 
             label_NotProfitable.Visible = false;
 
@@ -296,14 +298,14 @@ namespace NiceHashMiner
             NiceHashStats.OnConnectionEstablished += ConnectionEstablishedCallback;
             NiceHashStats.OnVersionBurn += VersionBurnCallback;
             NiceHashStats.StartConnection(Links.NHM_Socket_Address);
-
+/*
             // increase timeout
             if (Globals.IsFirstNetworkCheckTimeout) {
                 while (!Helpers.WebRequestTestGoogle() && Globals.FirstNetworkCheckTimeoutTries > 0) {
                     --Globals.FirstNetworkCheckTimeoutTries;
                 }
             }
-
+*/
             LoadingScreen.IncreaseLoadCounterAndMessage(International.GetText("Form_Main_loadtext_GetBTCRate"));
 
             BitcoinExchangeCheck = new Timer();
@@ -435,7 +437,10 @@ namespace NiceHashMiner
 #endif
             if (isSMAUpdated) {  // Don't bother checking for new profits unless SMA has changed
                 isSMAUpdated = false;
-                await MinersManager.SwichMostProfitableGroupUpMethod(Globals.NiceHashData);
+//                if (Globals.NiceHashData != null)
+//                    {
+                    await MinersManager.SwichMostProfitableGroupUpMethod(Globals.NiceHashData);
+//                }
             }
         }
 
@@ -892,9 +897,9 @@ namespace NiceHashMiner
                                 International.GetText("Error_with_Exclamation"),
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                return StartMiningReturnType.IgnoreMsg;
+                //  return StartMiningReturnType.IgnoreMsg;
+                //isSMAUpdated = false;
             }
-
 
             // Check if there are unbenchmakred algorithms
             bool isBenchInit = true;
@@ -1014,5 +1019,7 @@ namespace NiceHashMiner
 
             UpdateGlobalRate();
         }
+
+
     }
 }

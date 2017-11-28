@@ -53,8 +53,8 @@ namespace NiceHashMiner.Miners
             var server = Globals.GetLocationURL(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], 
                 ConectionType);
-            _benchmarkTimeWait = time;
-            return GetStartCommand(server, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim())
+         //   _benchmarkTimeWait = time;
+            return GetStartCommand(server, Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim())
                 + " -l benchmark_log.txt --print-time=2";
         }
 

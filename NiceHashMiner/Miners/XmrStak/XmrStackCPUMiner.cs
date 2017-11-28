@@ -175,7 +175,6 @@ namespace NiceHashMiner.Miners {
 
         protected override Process BenchmarkStartProcess(string CommandLine) {
             Process BenchmarkHandle = base.BenchmarkStartProcess(CommandLine);
-
             var AffinityMask = MiningSetup.MiningPairs[0].Device.AffinityMask;
             if (AffinityMask != 0 && BenchmarkHandle != null)
                 CPUID.AdjustAffinity(BenchmarkHandle.Id, AffinityMask);

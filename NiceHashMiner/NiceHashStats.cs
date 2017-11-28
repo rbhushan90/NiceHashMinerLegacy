@@ -130,10 +130,26 @@ namespace NiceHashMiner
                         Helpers.ConsolePrint("SOCKET", "Received: " + e.Data);
                         dynamic message = JsonConvert.DeserializeObject(e.Data);
                         if (message.method == "sma") {
+                            FileStream fs = new FileStream("configs\\sma.dat", FileMode.Create, FileAccess.Write);
+                            StreamWriter w = new StreamWriter(fs);
+                            w.Write(message.data);
+                            //w.Write(JsonConvert.SerializeObject(message));
+                            w.Flush();
+                            w.Close();
                             SetAlgorithmRates(message.data);
                         } else if (message.method == "balance") {
+                            FileStream fs = new FileStream("configs\\balance.dat", FileMode.Create, FileAccess.Write);
+                            StreamWriter w = new StreamWriter(fs);
+                            w.WriteAsync(e.Data);
+                            w.Flush();
+                            w.Close();
                             SetBalance(message.value.Value);
                         } else if (message.method == "versions") {
+                            FileStream fs = new FileStream("configs\\versions.dat", FileMode.Create, FileAccess.Write);
+                            StreamWriter w = new StreamWriter(fs);
+                            w.WriteAsync(e.Data);
+                            w.Flush();
+                            w.Close();
                             SetVersion(message.legacy.Value);
                         } else if (message.method == "burn") {
                             OnVersionBurn.Emit(null, new SocketEventArgs(message.message.Value));
@@ -144,12 +160,74 @@ namespace NiceHashMiner
                 }
             }
 
-            private static void ErrorCallback(object sender, WebSocketSharp.ErrorEventArgs e) {
+            private static void ErrorCallback(object sender, WebSocketSharp.ErrorEventArgs e)
+            {
                 Helpers.ConsolePrint("SOCKET", e.ToString());
             }
 
             private static void CloseCallback(object sender, CloseEventArgs e) {
                 Helpers.ConsolePrint("SOCKET", $"Connection closed code {e.Code}: {e.Reason}");
+                //******
+                if (System.IO.File.Exists("configs\\versions.dat"))
+                    {
+                    FileStream fs1 = new FileStream("configs\\versions.dat", FileMode.Open, FileAccess.Read);
+                    StreamReader w1 = new StreamReader(fs1);
+                    String fakeSMA1 = w1.ReadToEnd();
+                    dynamic message1 = JsonConvert.DeserializeObject(fakeSMA1);
+              //      Helpers.ConsolePrint("SOCKET-oldSMA", "Received: " + fakeSMA1);
+                    Helpers.ConsolePrint("SOCKET", "Using previous versions data");
+                    w1.Close();
+                    if (message1.method == "versions")
+                    {
+                        SetVersion(message1.legacy.Value);
+                    }
+                } else
+                {
+                    Helpers.ConsolePrint("SOCKET", "Using default SMA");
+
+                    dynamic defversion = "{\"method\":\"versions\",\"v2\":\"2.0.1.1\",\"legacy\":\"1.8.1.5\"}";
+                    JArray verdata = (JArray.Parse(defversion));
+                    SetVersion(verdata.legacy.Value);
+                }
+                //******
+                if (System.IO.File.Exists("configs\\sma.dat"))
+                {
+                    if (AlgorithmRates == null || niceHashData == null)
+                    {
+                        niceHashData = new NiceHashData();
+                        AlgorithmRates = niceHashData.NormalizedSMA();
+                    }
+
+                    dynamic jsonData = (File.ReadAllText("configs\\sma.dat"));
+                    Helpers.ConsolePrint("SOCKET", "Using previous SMA");
+                    JArray smadata = (JArray.Parse(jsonData));
+                    SetAlgorithmRates(smadata);
+                } else {               
+                    Helpers.ConsolePrint("SOCKET", "Using default SMA");
+                    if (AlgorithmRates == null || niceHashData == null)
+                    {
+                        niceHashData = new NiceHashData();
+                        AlgorithmRates = niceHashData.NormalizedSMA();
+                    }
+                    dynamic defsma = "[[5,\"0.00031031\"],[7,\"0.00401\"],[8,\"0.26617936\"],[14,\"0.00677556\"],[20,\"0.00833567\"],[21,\"0.00005065\"],[22,\"352.1073569\"],[23,\"0.00064179\"],[24,\"620.89332464\"],[25,\"0.00009207\"],[26,\"0.01044116\"],[27,\"0.00005085\"],[28,\"0.00003251\"],[29,\"0.00778864\"]]";
+                    JArray smadata = (JArray.Parse(defsma));
+                    SetAlgorithmRates(smadata);
+                }
+                //******
+                if (System.IO.File.Exists("configs\\balance.dat"))
+                {
+                    FileStream fs3 = new FileStream("configs\\balance.dat", FileMode.Open, FileAccess.Read);
+                    StreamReader w3 = new StreamReader(fs3);
+                    String fakeSMA3 = w3.ReadToEnd();
+                    dynamic message3 = JsonConvert.DeserializeObject(fakeSMA3);
+                    //Helpers.ConsolePrint("SOCKET-oldSMA", "Received: " + fakeSMA3);
+                    Helpers.ConsolePrint("SOCKET", "Using previous balance");
+                    w3.Close();
+                    if (message3.method == "balance")
+                    {
+                        SetBalance(message3.value.Value);
+                    }
+                }
                 AttemptReconnect();
             }
 
@@ -286,7 +364,7 @@ namespace NiceHashMiner
                     array.Add((uint)device.FanSpeed);
 
                     deviceList.Add(array);
-                } catch (Exception e) { Helpers.ConsolePrint("SOCKET", e.ToString()); }
+                } catch (Exception e) { Helpers.ConsolePrint("SOCKET-ErrorDeviceStatus", e.ToString()); }
             }
             var data = new nicehash_device_status();
             data.devices = deviceList;

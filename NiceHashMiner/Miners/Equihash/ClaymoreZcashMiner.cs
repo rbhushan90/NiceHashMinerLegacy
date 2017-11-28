@@ -34,9 +34,12 @@ namespace NiceHashMiner.Miners {
 
         // benchmark stuff
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
-            benchmarkTimeWait = time / 3; // 3 times faster than sgminer
+            benchmarkTimeWait = time; // 3 times faster than sgminer
+            string username = GetUsername(Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim());
+            string url = "equihash.eu.nicehash.com:3357";
+            string ret = " " + GetDevicesCommandString() + " -mport 127.0.0.1:" + APIPort + " -zpool " + url + " -zwal " + username + " -zpsw x -dbg 0";
 
-            string ret =  " -mport 127.0.0.1:" + APIPort + " -benchmark 1 " + GetDevicesCommandString();
+          //  string ret =  " -mport 127.0.0.1:" + APIPort + " -benchmark 1 " + GetDevicesCommandString();
             return ret;
         }
     }
