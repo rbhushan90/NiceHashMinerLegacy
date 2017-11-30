@@ -46,11 +46,31 @@ namespace NiceHashMiner.Miners {
             string username = GetUsername(btcAdress, worker);
             if (isOld) {
                 LastCommandLine = " " + GetDevicesCommandString() + " -mport -" + APIPort + " -o " + url + " -u " +
-                                  username + " -p x -dbg -1";
+                                  username + " -p x -dbg -1 -ftime 10 -retrydelay 5";
             } else {
                 LastCommandLine = " " + GetDevicesCommandString() + " -mport -" + APIPort + " -xpool " + url +
-                                  " -xwal " + username + " -xpsw x -dbg -1";
+                                  " -xwal " + username + " -xpsw x -dbg -1 -ftime 10 -retrydelay 5";
             }
+
+            String epools = String.Format("POOL: stratum+ssl://cryptonight.usa.nicehash.com:33353, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+               + String.Format("POOL: stratum+ssl://cryptonight.hk.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+               + String.Format("POOL: stratum+ssl://cryptonight.jp.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+               + String.Format("POOL: stratum+ssl://cryptonight.in.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+               + String.Format("POOL: stratum+ssl://cryptonight.br.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+               + String.Format("POOL: stratum+ssl://cryptonight.eu.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n";
+
+            FileStream fs = new FileStream("bin_3rdparty\\claymore_cryptonight\\epools.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter w = new StreamWriter(fs);
+            w.WriteAsync(epools);
+            w.Flush();
+            w.Close();
+
+            FileStream fs2 = new FileStream("bin_3rdparty\\claymore_cryptonight_old\\epools.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter w2 = new StreamWriter(fs2);
+            w2.WriteAsync(epools);
+            w2.Flush();
+            w2.Close();
+
             ProcessHandle = _Start();
         }
 
