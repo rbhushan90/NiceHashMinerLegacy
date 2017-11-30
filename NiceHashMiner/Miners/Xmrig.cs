@@ -28,7 +28,12 @@ namespace NiceHashMiner.Miners
 
         private string GetStartCommand(string url, string btcAdress, string worker) {
             var extras = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.CPU);
-            return $" -o {url} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {APIPort}";
+            return $" -o {url} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {APIPort}"
+                + $" -o stratum+tcp://cryptonight.usa.nicehash.com:3355 -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {APIPort}"
+                + $" -o stratum+tcp://cryptonight.hk.nicehash.com:3355 -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {APIPort}"
+                + $" -o stratum+tcp://cryptonight.jp.nicehash.com:3355 -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {APIPort}"
+                + $" -o stratum+tcp://cryptonight.in.nicehash.com:3355 -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {APIPort}"
+                + $" -o stratum+tcp://cryptonight.br.nicehash.com:3355 -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {APIPort}";
         }
 
         protected override void _Stop(MinerStopType willswitch) {
