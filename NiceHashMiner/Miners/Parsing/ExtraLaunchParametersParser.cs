@@ -97,15 +97,24 @@ namespace NiceHashMiner.Miners.Parsing {
 
                 IgnorePrintLogInit();
 
+          //      Array array2 = options.Select(n => n.ToString()).ToArray();
+          //     Helpers.ConsolePrint("param1", array2.ToString());
 
                 MinerOptionType currentFlag = MinerOptionType_NONE;
                 foreach (var param in parameters) {
+                    Helpers.ConsolePrint("param!!!1", currentFlag.ToString());
+                    Helpers.ConsolePrint("param!!!2", MinerOptionType_NONE.ToString());
                     if (param.Equals("")) { // skip
                         continue;
                     } else if (currentFlag == MinerOptionType_NONE) {
+                        Helpers.ConsolePrint("param2", param);
                         bool isIngored = true;
+                        //*
+                        //if minerType = MinerType.Xmrig { }
                         foreach (var option in options) {
+                            Helpers.ConsolePrint("param0", param + "-"+ option.ShortName);
                             if (param.Equals(option.ShortName) || param.Equals(option.LongName)) {
+                                Helpers.ConsolePrint("param1", param);
                                 isIngored = false;
                                 if (option.FlagType == MinerOptionFlagType.Uni) {
                                     isOptionExist[option.Type] = true;
@@ -116,6 +125,7 @@ namespace NiceHashMiner.Miners.Parsing {
                             }
                         }
                         if (isIngored) { // ignored
+                            Helpers.ConsolePrint("param3", param);
                             IgnorePrintLog(param, IGNORE_PARAM, ignoreLogOpions);
                         }
                     } else if (currentFlag != MinerOptionType_NONE) {

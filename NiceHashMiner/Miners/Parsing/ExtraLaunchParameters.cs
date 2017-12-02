@@ -248,36 +248,32 @@ namespace NiceHashMiner.Miners.Parsing {
                     new MinerOption("EWBF_intensity", "--intensity", "--intensity", "64", MinerOptionFlagType.MultiParam, " "),
                     new MinerOption("EWBF_powercalc", "--pec", "--pec", null, MinerOptionFlagType.Uni, " "),
                 },
-                new List<MinerOption>()
+                new List<MinerOption>(){ }
             ),
             new MinerOptionPackage(
                 MinerType.DSTM,
                 new List<MinerOption>() {
                     // parameters differ according to algorithm
-                    new MinerOption("EWBF_fee", "--fee", "--fee", "0", MinerOptionFlagType.SingleParam, " "),
-                    new MinerOption("EWBF_templimit", "--templimit", "--templimit", "90", MinerOptionFlagType.SingleParam, " "),
-                    new MinerOption("EWBF_tempunits", "--tempunits", "--tempunits", "C", MinerOptionFlagType.SingleParam, " "),
-                    new MinerOption("EWBF_eexit", "--eexit", "--eexit", null, MinerOptionFlagType.SingleParam, " "),
-                    new MinerOption("EWBF_solver", "--solver", "--solver", "0", MinerOptionFlagType.MultiParam, " "),
-                    new MinerOption("EWBF_intensity", "--intensity", "--intensity", "64", MinerOptionFlagType.MultiParam, " "),
-                    new MinerOption("EWBF_powercalc", "--pec", "--pec", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("DSTM_temperature", "--temp-target", "--temp-target", "90", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("DSTM_reconnect", "--noreconnect", "--noreconnect", null, MinerOptionFlagType.SingleParam, " "),
                 },
-                new List<MinerOption>()
+                new List<MinerOption>(){}
             ),
             new MinerOptionPackage(
                 MinerType.Xmrig,
-                new List<MinerOption> {
-                    new MinerOption("Xmrig_fee", "--donate-level=", "0", MinerOptionFlagType.SingleParam),
-                    new MinerOption("Xmrig_threads", "-t", "--threads=", null, MinerOptionFlagType.SingleParam),
-                    new MinerOption("Xmrig_av", "-v", "--av=", "0", MinerOptionFlagType.SingleParam),
-                    new MinerOption("Xmrig_affinity", "--cpu-affinity", null, MinerOptionFlagType.SingleParam),
-                    new MinerOption("Xmrig_priority", "--cpu-priority", null, MinerOptionFlagType.SingleParam),
-                    new MinerOption("Xmrig_nohugepages", "--no-huge-pages", null, MinerOptionFlagType.Uni),
-                    new MinerOption("Xmrig_nocolor", "--no-color", null, MinerOptionFlagType.Uni),
-                    new MinerOption("Xmrig_maxusage", "--max-cpu-usage=", "75", MinerOptionFlagType.SingleParam),
-                    new MinerOption("Xmrig_safe", "--safe", null, MinerOptionFlagType.Uni)
+                new List<MinerOption>() {
+                    new MinerOption("Xmrig_fee", "--donate-level=", "0", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("Xmrig_threads", "-t", "--threads=", null, MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("Xmrig_av", "-v", "--av=", "0", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("Xmrig_affinity", "--cpu-affinity", null, MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("Xmrig_priority", "--cpu-priority", null, MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("Xmrig_nohugepages", "--no-huge-pages", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("Xmrig_nocolor", "--no-color", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("Xmrig_maxusage", "--max-cpu-usage=", "75", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("Xmrig_safe", "--safe", null, MinerOptionFlagType.Uni, " ")
                 },
-                new List<MinerOption>())
+                new List<MinerOption>(){ }
+                )
         };
 
         private static List<MinerOptionPackage> MinerOptionPackages = new List<MinerOptionPackage>();
