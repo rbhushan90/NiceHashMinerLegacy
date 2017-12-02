@@ -292,6 +292,11 @@ namespace NiceHashMiner.Devices {
                             new Algorithm(MinerBaseType.EWBF, AlgorithmType.Equihash, "")
                         }
                     },
+                    { MinerBaseType.DSTM,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.DSTM, AlgorithmType.Equihash, "")
+                        }
+                    },
                     { MinerBaseType.Claymore,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.Claymore, AlgorithmType.DaggerHashimoto, ""),
@@ -316,7 +321,8 @@ namespace NiceHashMiner.Devices {
                     ToRemoveMinerTypes.AddRange(new MinerBaseType[] {
                         MinerBaseType.eqm,
                         MinerBaseType.excavator,
-                        MinerBaseType.EWBF
+                        MinerBaseType.EWBF,
+                        MinerBaseType.DSTM
                     });
                 }
                 if (DeviceGroupType.NVIDIA_2_1 == deviceGroupType) {

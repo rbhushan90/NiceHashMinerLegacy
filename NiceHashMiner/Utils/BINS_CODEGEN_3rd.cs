@@ -56,7 +56,7 @@ namespace NiceHashMiner.Utils {
 @"\ewbf\cudart32_80.dll",
 @"\ewbf\cudart64_80.dll",
 @"\ewbf\miner.exe",
-@"\ewbf\msvcr120.dll",
+@"\ewbf\msvcr120.dll",@"\dstm\libcrypto-1_1-x64.dll",@"\dstm\libssl-1_1-x64.dll",@"\dstm\pthreadVC2.dll",@"\dstm\zm.exe",
 @"\optiminer_zcash_win\Optiminer.exe",
 @"\optiminer_zcash_win\bin\asm.bin",
 @"\optiminer_zcash_win\bin\base.bin",

@@ -275,6 +275,10 @@ namespace NiceHashMiner.Miners.Parsing {
             if (MinerBaseType.EWBF == minerBaseType) {
                 return MinerType.EWBF;
             }
+            if (MinerBaseType.DSTM == minerBaseType)
+            {
+                return MinerType.DSTM;
+            }
             if (MinerBaseType.Xmrig == minerBaseType) {
                 return MinerType.Xmrig;
             }
