@@ -130,28 +130,39 @@ namespace NiceHashMiner.Miners.Grouping {
             // assume none is profitable
             MostProfitableAlgorithmType = AlgorithmType.NONE;
             MostProfitableMinerBaseType = MinerBaseType.NONE;
-            // calculate new profits
-            foreach (var algo in Algorithms) {
-                AlgorithmType key = algo.NiceHashID;
-                AlgorithmType secondaryKey = algo.SecondaryNiceHashID;
-                if (NiceHashData.ContainsKey(key)) {
-                    algo.CurNhmSMADataVal = NiceHashData[key].paying;
-                    algo.CurrentProfit = algo.CurNhmSMADataVal * algo.AvaragedSpeed * 0.000000001;
-                    if (NiceHashData.ContainsKey(secondaryKey))  {
-                        algo.SecondaryCurNhmSMADataVal = NiceHashData[secondaryKey].paying;
-                        algo.CurrentProfit += algo.SecondaryCurNhmSMADataVal * algo.SecondaryAveragedSpeed * 0.000000001;
+            if (Globals.NiceHashData != null)
+            {
+                // calculate new profits
+                foreach (var algo in Algorithms)
+                {
+                    AlgorithmType key = algo.NiceHashID;
+                    AlgorithmType secondaryKey = algo.SecondaryNiceHashID;
+
+                    if (NiceHashData.ContainsKey(key))
+                    {
+                        algo.CurNhmSMADataVal = NiceHashData[key].paying;
+                        algo.CurrentProfit = algo.CurNhmSMADataVal * algo.AvaragedSpeed * 0.000000001;
+                        if (NiceHashData.ContainsKey(secondaryKey))
+                        {
+                            algo.SecondaryCurNhmSMADataVal = NiceHashData[secondaryKey].paying;
+                            algo.CurrentProfit += algo.SecondaryCurNhmSMADataVal * algo.SecondaryAveragedSpeed * 0.000000001;
+                        }
                     }
-                } else {
-                    algo.CurrentProfit = 0;
+                    else
+                    {
+                        algo.CurrentProfit = 0;
+                    }
                 }
-            }
-            // find max paying value and save key
-            double maxProfit = 0;
-            foreach (var algo in Algorithms) {
-                if (maxProfit < algo.CurrentProfit) {
-                    maxProfit = algo.CurrentProfit;
-                    MostProfitableAlgorithmType = algo.DualNiceHashID();
-                    MostProfitableMinerBaseType = algo.MinerBaseType;
+                // find max paying value and save key
+                double maxProfit = 0;
+                foreach (var algo in Algorithms)
+                {
+                    if (maxProfit < algo.CurrentProfit)
+                    {
+                        maxProfit = algo.CurrentProfit;
+                        MostProfitableAlgorithmType = algo.DualNiceHashID();
+                        MostProfitableMinerBaseType = algo.MinerBaseType;
+                    }
                 }
             }
 #if (SWITCH_TESTING)
