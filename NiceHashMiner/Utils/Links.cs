@@ -6,11 +6,11 @@ namespace NiceHashMiner {
     public static class Links {
         public static string VisitURL = "https://www.nicehash.com?utm_source=NHM";
         // add version
-        public static string VisitURLNew = "https://github.com/NiceHash/NiceHashMinerLegacy/releases/tag/";
+        public static string VisitURLNew = "https://github.com/angelbbs/NiceHashMinerLegacy/releases/";
         // add btc adress as parameter
         public static string CheckStats = "https://www.nicehash.com/index.jsp?utm_source=NHM&p=miners&addr=";
         // help and faq
-        public static string NHM_Help = "https://github.com/nicehash/NiceHashMinerLegacy/";
+        public static string NHM_Help = "https://github.com/angelbbs/NiceHashMinerLegacy/";
         public static string NHM_NoDev_Help = "https://github.com/nicehash/NiceHashMinerLegacy/wiki/Troubleshooting#nosupportdev";
         // faq
         public static string NHM_BTC_Wallet_Faq = "https://www.nicehash.com/help/how-to-create-the-bitcoin-addresswallet?utm_source=NHM";
