@@ -74,6 +74,17 @@ namespace NiceHashMiner.Miners.Parsing {
             Dictionary<string, Dictionary<MinerOptionType, string>> cdevOptions = new Dictionary<string, Dictionary<MinerOptionType, string>>();
             Dictionary<MinerOptionType, bool> isOptionDefaults = new Dictionary<MinerOptionType, bool>();
             Dictionary<MinerOptionType, bool> isOptionExist = new Dictionary<MinerOptionType, bool>();
+
+            if (MiningPairs[0].Algorithm.MinerBaseType.ToString() == "Xmrig") // it's stupid
+            {
+                var parString = "";
+                foreach (var pair in MiningPairs)
+                {
+                    parString = parString + pair.CurrentExtraLaunchParameters;
+                }
+                LogParser(String.Format("Final extra launch params parse \"{0}\"", parString));
+                return parString;
+            }
             // init devs options, and defaults
             foreach (var pair in MiningPairs) {
                 var defaults = new Dictionary<MinerOptionType, string>();
@@ -94,27 +105,15 @@ namespace NiceHashMiner.Miners.Parsing {
             foreach (var pair in MiningPairs) {
                 LogParser(String.Format("ExtraLaunch params \"{0}\" for device UUID {1}", pair.CurrentExtraLaunchParameters, pair.Device.UUID));
                 var parameters = pair.CurrentExtraLaunchParameters.Replace("=", "= ").Split(' ');
-
                 IgnorePrintLogInit();
-
-          //      Array array2 = options.Select(n => n.ToString()).ToArray();
-          //     Helpers.ConsolePrint("param1", array2.ToString());
-
                 MinerOptionType currentFlag = MinerOptionType_NONE;
                 foreach (var param in parameters) {
-                    Helpers.ConsolePrint("param!!!1", currentFlag.ToString());
-                    Helpers.ConsolePrint("param!!!2", MinerOptionType_NONE.ToString());
                     if (param.Equals("")) { // skip
                         continue;
                     } else if (currentFlag == MinerOptionType_NONE) {
-                        Helpers.ConsolePrint("param2", param);
                         bool isIngored = true;
-                        //*
-                        //if minerType = MinerType.Xmrig { }
                         foreach (var option in options) {
-                            Helpers.ConsolePrint("param0", param + "-"+ option.ShortName);
                             if (param.Equals(option.ShortName) || param.Equals(option.LongName)) {
-                                Helpers.ConsolePrint("param1", param);
                                 isIngored = false;
                                 if (option.FlagType == MinerOptionFlagType.Uni) {
                                     isOptionExist[option.Type] = true;
@@ -125,7 +124,6 @@ namespace NiceHashMiner.Miners.Parsing {
                             }
                         }
                         if (isIngored) { // ignored
-                            Helpers.ConsolePrint("param3", param);
                             IgnorePrintLog(param, IGNORE_PARAM, ignoreLogOpions);
                         }
                     } else if (currentFlag != MinerOptionType_NONE) {

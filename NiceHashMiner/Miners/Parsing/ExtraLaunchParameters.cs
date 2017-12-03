@@ -273,7 +273,7 @@ namespace NiceHashMiner.Miners.Parsing {
                     new MinerOption("Xmrig_safe", "--safe", null, MinerOptionFlagType.Uni, " ")
                 },
                 new List<MinerOption>(){ }
-                )
+             )
         };
 
         private static List<MinerOptionPackage> MinerOptionPackages = new List<MinerOptionPackage>();
