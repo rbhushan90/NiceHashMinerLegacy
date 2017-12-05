@@ -96,7 +96,7 @@ namespace NiceHashMiner
                     webSocket.EmitOnPing = true;
                     webSocket.Log.Level = LogLevel.Debug;
                     webSocket.Log.Output = (data, s) => Helpers.ConsolePrint("SOCKET", data.ToString());
-                    webSocket.Connect();
+                    webSocket.ConnectAsync();
                     connectionEstablished = true;
                 } catch (Exception e) {
                     Helpers.ConsolePrint("SOCKET", e.ToString());
@@ -130,6 +130,16 @@ namespace NiceHashMiner
                         Helpers.ConsolePrint("SOCKET", "Received: " + e.Data);
                         dynamic message = JsonConvert.DeserializeObject(e.Data);
                         if (message.method == "sma") {
+                            /*
+                            foreach (var algo in message.data)
+                            {
+                                var algoKey = (AlgorithmType)algo[0].Value<int>();
+                                niceHashData.AppendPayingForAlgo(algoKey, algo[1].Value<double>());
+                                Helpers.ConsolePrint("SMA-DATA", algoKey.ToString() + " - " + algo[1].Value<double>().toString());
+                            }
+                            AlgorithmRates = niceHashData.NormalizedSMA();
+                            OnSMAUpdate.Emit(null, EventArgs.Empty);
+                            */
                             FileStream fs = new FileStream("configs\\sma.dat", FileMode.Create, FileAccess.Write);
                             StreamWriter w = new StreamWriter(fs);
                             w.Write(message.data);
@@ -307,7 +317,14 @@ namespace NiceHashMiner
             try {
                 foreach (var algo in data) {
                     var algoKey = (AlgorithmType)algo[0].Value<int>();
-                    niceHashData.AppendPayingForAlgo(algoKey, algo[1].Value<double>());
+                    if (algo[1].Value<double>() != 0)
+                    {
+                       niceHashData.AppendPayingForAlgo(algoKey, algo[1].Value<double>());
+                    }
+                    else
+                    {
+                        Helpers.ConsolePrint("SMA-DATA-BUG", algoKey.ToString() + " - " + algo[1].Value<double>() + " use previous profit");
+                    }
                 }
                 AlgorithmRates = niceHashData.NormalizedSMA();
                 OnSMAUpdate.Emit(null, EventArgs.Empty);
