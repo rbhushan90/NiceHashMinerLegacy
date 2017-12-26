@@ -144,14 +144,20 @@ namespace NiceHashMiner
                             AlgorithmRates = niceHashData.NormalizedSMA();
                             OnSMAUpdate.Emit(null, EventArgs.Empty);
                             */
-                            if (!GetSmaAPI())
-                            {
+                           
                                 FileStream fs = new FileStream("configs\\sma.dat", FileMode.Create, FileAccess.Write);
                                 StreamWriter w = new StreamWriter(fs);
                                 w.Write(message.data);
                                 //w.Write(JsonConvert.SerializeObject(message));
                                 w.Flush();
                                 w.Close();
+                            foreach (var algo in message.data)
+                            {
+                                var algoKey = (AlgorithmType)algo[0];
+                                    Helpers.ConsolePrint("SMA-DATA-WS: ", Enum.GetName(typeof(AlgorithmType), algoKey) + " - " + algo[1]);
+                            }
+                            if (!GetSmaAPI())
+                            {
                                 SetAlgorithmRates(message.data);
                             }
                         } else if (message.method == "balance") {
@@ -221,6 +227,10 @@ namespace NiceHashMiner
 
                         foreach (var result in list.result.simplemultialgo)
                         {
+                            if (!result.algo.ToString().Contains("UNUSED"))
+                            {
+                                Helpers.ConsolePrint("SMA-DATA-API: ", Enum.GetName(typeof(AlgorithmType), result.algo) + " - " + result.paying);
+                            }
                             /*
                                    var algoKey = (AlgorithmType)result.algo;
                                CultureInfo temp_culture = System.Threading.Thread.CurrentThread.CurrentCulture;
@@ -443,7 +453,10 @@ namespace NiceHashMiner
                     }
                     else
                     {
-                        Helpers.ConsolePrint("SMA-DATA-BUG", algoKey.ToString() + " - " + algo[1].Value<double>() + " use previous profit");
+                        if (!algoKey.ToString().Contains("UNUSED"))
+                        {
+                            Helpers.ConsolePrint("SMA-DATA-BUG", algoKey.ToString() + " - " + algo[1].Value<double>() + " use previous profit");
+                        }
                     }
                 }
                 AlgorithmRates = niceHashData.NormalizedSMA();
