@@ -7,7 +7,7 @@ namespace NiceHashMiner {
     public class Globals {
         // Constants
         public static string[] MiningLocation = { "eu", "usa", "hk", "jp", "in", "br" };
-        public static readonly string DemoUser = "3CA99YwKjUN3ts76hqUjDQ62be9xjXaNVa";
+        public static readonly string DemoUser = "3LysVG8rv8gzcYVAqkqLUzjSJSrE6pATJB";
         // change this if TOS changes
         public static int CURRENT_TOS_VER = 3;
 

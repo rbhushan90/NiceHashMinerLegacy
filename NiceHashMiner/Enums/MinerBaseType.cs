@@ -12,6 +12,7 @@ namespace NiceHashMiner.Enums {
         cpuminer,
         ccminer,
         sgminer,
+        GatelessGate,
         nheqminer,
         eqm,
         ethminer,

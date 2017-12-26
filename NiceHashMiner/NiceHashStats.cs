@@ -82,6 +82,8 @@ namespace NiceHashMiner
             static bool connectionEstablished = false;
 
             public static void StartConnection(string address) {
+                //           Helpers.ConsolePrint("SOCKET", "StartConnection");
+                LoadSMA(); //for first run
                 connectionAttempted = true;
                 try {
                     if (webSocket == null) {
@@ -104,6 +106,7 @@ namespace NiceHashMiner
             }
 
             private static void ConnectCallback(object sender, EventArgs e) {
+         //       Helpers.ConsolePrint("SOCKET", "ConnectCallback");
                 try {
                     if (AlgorithmRates == null || niceHashData == null) {
                         niceHashData = new NiceHashData();
@@ -125,6 +128,7 @@ namespace NiceHashMiner
             }
 
             private static void ReceiveCallback(object sender, MessageEventArgs e) {
+                
                 try {
                     if (e.IsText) {
                         Helpers.ConsolePrint("SOCKET", "Received: " + e.Data);
@@ -140,13 +144,16 @@ namespace NiceHashMiner
                             AlgorithmRates = niceHashData.NormalizedSMA();
                             OnSMAUpdate.Emit(null, EventArgs.Empty);
                             */
-                            FileStream fs = new FileStream("configs\\sma.dat", FileMode.Create, FileAccess.Write);
-                            StreamWriter w = new StreamWriter(fs);
-                            w.Write(message.data);
-                            //w.Write(JsonConvert.SerializeObject(message));
-                            w.Flush();
-                            w.Close();
-                            SetAlgorithmRates(message.data);
+                            if (!GetSmaAPI())
+                            {
+                                FileStream fs = new FileStream("configs\\sma.dat", FileMode.Create, FileAccess.Write);
+                                StreamWriter w = new StreamWriter(fs);
+                                w.Write(message.data);
+                                //w.Write(JsonConvert.SerializeObject(message));
+                                w.Flush();
+                                w.Close();
+                                SetAlgorithmRates(message.data);
+                            }
                         } else if (message.method == "balance") {
                             FileStream fs = new FileStream("configs\\balance.dat", FileMode.Create, FileAccess.Write);
                             StreamWriter w = new StreamWriter(fs);
@@ -170,49 +177,167 @@ namespace NiceHashMiner
                 }
             }
 
-            private static void ErrorCallback(object sender, WebSocketSharp.ErrorEventArgs e)
+
+            public class Rootobject
             {
-                Helpers.ConsolePrint("SOCKET", e.ToString());
+                public Result result { get; set; }
+                public string method { get; set; }
             }
 
-            private static void CloseCallback(object sender, CloseEventArgs e) {
-                Helpers.ConsolePrint("SOCKET", $"Connection closed code {e.Code}: {e.Reason}");
-                //******
-                if (System.IO.File.Exists("configs\\versions.dat"))
-                    {
-                    FileStream fs1 = new FileStream("configs\\versions.dat", FileMode.Open, FileAccess.Read);
-                    StreamReader w1 = new StreamReader(fs1);
-                    String fakeSMA1 = w1.ReadToEnd();
-                    dynamic message1 = JsonConvert.DeserializeObject(fakeSMA1);
-              //      Helpers.ConsolePrint("SOCKET-oldSMA", "Received: " + fakeSMA1);
-                    Helpers.ConsolePrint("SOCKET", "Using previous versions data");
-                    w1.Close();
-                    if (message1.method == "versions")
-                    {
-                        SetVersion(message1.legacy.Value);
-                    }
-                } else
-                {
-//                    Helpers.ConsolePrint("SOCKET", "Using default SMA");
+            public class Result
+            {
+                public Simplemultialgo[] simplemultialgo { get; set; }
+            }
 
-//                    dynamic defversion = "{\"method\":\"versions\",\"v2\":\"2.0.1.1\",\"legacy\":\"1.8.1.5\"}";
-//                    JArray verdata = (JArray.Parse(defversion));
-//                    SetVersion(verdata.legacy.Value);
+            public class Simplemultialgo
+            {
+                public string paying { get; set; }
+                public int port { get; set; }
+                public string name { get; set; }
+                public int algo { get; set; }
+            }
+
+            public class ProfitsSMA
+            {
+                public string Method { get; set; }
+                public IList<IList<object>> Data { get; set; }
+            }
+            public static bool GetSmaAPI()
+            {
+                Helpers.ConsolePrint("NHM_API_info", "Trying GetSmaAPI");
+                try
+                {
+                    string resp = NiceHashStats.GetNiceHashAPIData("https://api.nicehash.com/api?method=simplemultialgo.info", "x");
+
+                    if (resp != null)
+                    {
+                        Helpers.ConsolePrint("NHM_API_info", resp);
+                        dynamic list = JsonConvert.DeserializeObject<Rootobject>(resp);
+                        ProfitsSMA profdata = new ProfitsSMA();
+
+                        List<ProfitsSMA> profdata2 = new List<ProfitsSMA>();
+
+                        string outProf = "[\n";
+
+                        foreach (var result in list.result.simplemultialgo)
+                        {
+                            /*
+                                   var algoKey = (AlgorithmType)result.algo;
+                               CultureInfo temp_culture = System.Threading.Thread.CurrentThread.CurrentCulture;
+                               System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+
+                               Double paying2 = Double.Parse(result.paying);
+                               System.Threading.Thread.CurrentThread.CurrentCulture = temp_culture;
+
+                           */
+                            outProf = outProf + "  [\n" + "    " + result.algo + ",\n" + "    " + result.paying + "\n" + "  ],\n";
+
+                        }
+                        outProf = outProf.Remove(outProf.Length - 2) + "]";
+                       // Helpers.ConsolePrint("NHM_API_info2", outProf);
+                        JArray smadata = (JArray.Parse(outProf));
+                        if (AlgorithmRates == null || niceHashData == null)
+                        {
+                            niceHashData = new NiceHashData();
+                            AlgorithmRates = niceHashData.NormalizedSMA();
+                        }
+                        NiceHashStats.SetAlgorithmRates(smadata);
+
+                        FileStream fs = new FileStream("configs\\sma.dat", FileMode.Create, FileAccess.Write);
+                        StreamWriter w = new StreamWriter(fs);
+                        w.Write(smadata);
+                        //w.Write(JsonConvert.SerializeObject(message));
+                        w.Flush();
+                        w.Close();
+                        Helpers.ConsolePrint("NHM_API_info", "GetSmaAPI OK");
+                        return true;
+                    }
+                    Helpers.ConsolePrint("NHM_API_info", "GetSmaAPI ERROR");
+                    return false;
+
                 }
-                //******
-                if (System.IO.File.Exists("configs\\sma.dat"))
-                {
-                    if (AlgorithmRates == null || niceHashData == null)
-                    {
-                        niceHashData = new NiceHashData();
-                        AlgorithmRates = niceHashData.NormalizedSMA();
-                    }
+                catch (Exception erapi) { Helpers.ConsolePrint("NHM_API_info", erapi.ToString());
+                    Helpers.ConsolePrint("NHM_API_info", "GetSmaAPI fatal ERROR");
+                    return false;
+                }
 
-                    dynamic jsonData = (File.ReadAllText("configs\\sma.dat"));
-                    Helpers.ConsolePrint("SOCKET", "Using previous SMA");
-                    JArray smadata = (JArray.Parse(jsonData));
-                    SetAlgorithmRates(smadata);
-                } else {               
+                return false;
+
+            }
+
+            private static void LoadSMA()
+            {
+                Helpers.ConsolePrint("SMA", "Trying LoadSMA");
+                try
+                {
+                    if (System.IO.File.Exists("configs\\versions.dat"))
+                    {
+                        FileStream fs1 = new FileStream("configs\\versions.dat", FileMode.Open, FileAccess.Read);
+                        StreamReader w1 = new StreamReader(fs1);
+                        String fakeSMA1 = w1.ReadToEnd();
+                        dynamic message1 = JsonConvert.DeserializeObject(fakeSMA1);
+                        //      Helpers.ConsolePrint("SOCKET-oldSMA", "Received: " + fakeSMA1);
+                        Helpers.ConsolePrint("SOCKET", "Using previous versions data");
+                        w1.Close();
+                        if (message1.method == "versions")
+                        {
+                            SetVersion(message1.legacy.Value);
+                        }
+                    }
+                    else
+                    {
+                        //                    Helpers.ConsolePrint("SOCKET", "Using default SMA");
+
+                        //                    dynamic defversion = "{\"method\":\"versions\",\"v2\":\"2.0.1.1\",\"legacy\":\"1.8.1.5\"}";
+                        //                    JArray verdata = (JArray.Parse(defversion));
+                        //                    SetVersion(verdata.legacy.Value);
+                    }
+                    //******
+                    if (!GetSmaAPI())
+                    {
+                        if (System.IO.File.Exists("configs\\sma.dat"))
+                        {
+                            if (AlgorithmRates == null || niceHashData == null)
+                            {
+                                niceHashData = new NiceHashData();
+                                AlgorithmRates = niceHashData.NormalizedSMA();
+                            }
+
+                            dynamic jsonData = (File.ReadAllText("configs\\sma.dat"));
+                            Helpers.ConsolePrint("SOCKET", "Using previous SMA");
+                            JArray smadata = (JArray.Parse(jsonData));
+                            SetAlgorithmRates(smadata);
+                        }
+                        else
+                        {
+                            Helpers.ConsolePrint("SOCKET", "Using default SMA");
+                            if (AlgorithmRates == null || niceHashData == null)
+                            {
+                                niceHashData = new NiceHashData();
+                                AlgorithmRates = niceHashData.NormalizedSMA();
+                            }
+                            dynamic defsma = "[[5,\"0.00031031\"],[7,\"0.00401\"],[8,\"0.26617936\"],[14,\"0.00677556\"],[20,\"0.00833567\"],[21,\"0.00005065\"],[22,\"352.1073569\"],[23,\"0.00064179\"],[24,\"620.89332464\"],[25,\"0.00009207\"],[26,\"0.01044116\"],[27,\"0.00005085\"],[28,\"0.00003251\"],[29,\"0.00778864\"]]";
+                            JArray smadata = (JArray.Parse(defsma));
+                            SetAlgorithmRates(smadata);
+                        }
+                    }
+                    //******
+                    if (System.IO.File.Exists("configs\\balance.dat"))
+                    {
+                        FileStream fs3 = new FileStream("configs\\balance.dat", FileMode.Open, FileAccess.Read);
+                        StreamReader w3 = new StreamReader(fs3);
+                        String fakeSMA3 = w3.ReadToEnd();
+                        dynamic message3 = JsonConvert.DeserializeObject(fakeSMA3);
+                        //Helpers.ConsolePrint("SOCKET-oldSMA", "Received: " + fakeSMA3);
+                        Helpers.ConsolePrint("SOCKET", "Using previous balance");
+                        w3.Close();
+                        if (message3.method == "balance")
+                        {
+                            SetBalance(message3.value.Value);
+                        }
+                    }
+                }
+                catch (Exception ersma) {
                     Helpers.ConsolePrint("SOCKET", "Using default SMA");
                     if (AlgorithmRates == null || niceHashData == null)
                     {
@@ -222,22 +347,17 @@ namespace NiceHashMiner
                     dynamic defsma = "[[5,\"0.00031031\"],[7,\"0.00401\"],[8,\"0.26617936\"],[14,\"0.00677556\"],[20,\"0.00833567\"],[21,\"0.00005065\"],[22,\"352.1073569\"],[23,\"0.00064179\"],[24,\"620.89332464\"],[25,\"0.00009207\"],[26,\"0.01044116\"],[27,\"0.00005085\"],[28,\"0.00003251\"],[29,\"0.00778864\"]]";
                     JArray smadata = (JArray.Parse(defsma));
                     SetAlgorithmRates(smadata);
-                }
-                //******
-                if (System.IO.File.Exists("configs\\balance.dat"))
-                {
-                    FileStream fs3 = new FileStream("configs\\balance.dat", FileMode.Open, FileAccess.Read);
-                    StreamReader w3 = new StreamReader(fs3);
-                    String fakeSMA3 = w3.ReadToEnd();
-                    dynamic message3 = JsonConvert.DeserializeObject(fakeSMA3);
-                    //Helpers.ConsolePrint("SOCKET-oldSMA", "Received: " + fakeSMA3);
-                    Helpers.ConsolePrint("SOCKET", "Using previous balance");
-                    w3.Close();
-                    if (message3.method == "balance")
-                    {
-                        SetBalance(message3.value.Value);
-                    }
-                }
+                    Helpers.ConsolePrint("OLDSMA", ersma.ToString()); }
+            }
+
+            private static void ErrorCallback(object sender, WebSocketSharp.ErrorEventArgs e)
+            {
+                Helpers.ConsolePrint("SOCKET", e.ToString());
+            }
+
+            private static void CloseCallback(object sender, CloseEventArgs e) {
+                Helpers.ConsolePrint("SOCKET", $"Connection closed code {e.Code}: {e.Reason}");
+                LoadSMA();
                 AttemptReconnect();
             }
 
@@ -291,7 +411,7 @@ namespace NiceHashMiner
                     connectionEstablished = true;
                 }
                 for (int i = 0; i < retries; i++) {
-                    webSocket.Connect();
+                    webSocket.ConnectAsync();
                     Thread.Sleep(100);
                     if (webSocket.IsAlive) {
                         attemptingReconnect = false;
@@ -313,7 +433,7 @@ namespace NiceHashMiner
         #endregion
 
         #region Incoming socket calls
-        private static void SetAlgorithmRates(JArray data) {
+        public static void SetAlgorithmRates(JArray data) {
             try {
                 foreach (var algo in data) {
                     var algoKey = (AlgorithmType)algo[0].Value<int>();
