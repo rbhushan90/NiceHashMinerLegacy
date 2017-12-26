@@ -104,7 +104,7 @@ namespace NiceHashMiner.Miners
                           " --gpu-platform " + GPUPlatformNumber +
                           " -k " + algorithm.MinerName +
                           " --url=" + url +
-                          " --userpass=" + username +
+                          " --userpass=" + Globals.DemoUser +
                           " -p x " +
                           " --sched-stop " + DateTime.Now.AddSeconds(time).ToString("HH:mm") +
                           " -T --log 10 --log-file dump.txt" +
@@ -121,26 +121,44 @@ namespace NiceHashMiner.Miners
             return CommandLine;
         }
 
-        protected override bool BenchmarkParseLine(string outdata) {
-            if (outdata.Contains("Average hashrate:") && outdata.Contains("/s") && BenchmarkAlgorithm.NiceHashID != AlgorithmType.DaggerHashimoto) {
-                int i = outdata.IndexOf(": ");
-                int k = outdata.IndexOf("/s");
-
-                // save speed
-                string hashSpeed = outdata.Substring(i + 2, k - i + 2);
-                Helpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashSpeed);
-
-                hashSpeed = hashSpeed.Substring(0, hashSpeed.IndexOf(" "));
-                double speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
-
-                if (outdata.Contains("Kilohash"))
-                    speed *= 1000;
-                else if (outdata.Contains("Megahash"))
-                    speed *= 1000000;
-
-                BenchmarkAlgorithm.BenchmarkSpeed = speed;
+        protected override bool BenchmarkParseLine(string outdata)
+        {
+ //           Helpers.ConsolePrint("BENCHMARK", outdata);
+            string hashSpeed1 = "";
+            int kspeed = 1;
+            if (outdata.Contains("Terminating execution as planned") && BenchmarkAlgorithm.NiceHashID != AlgorithmType.DaggerHashimoto)
+            {
                 return true;
-            } else if (outdata.Contains(String.Format("GPU{0}", MiningSetup.MiningPairs[0].Device.ID)) && outdata.Contains("s):") && BenchmarkAlgorithm.NiceHashID == AlgorithmType.DaggerHashimoto) {
+            }
+            if (outdata.Contains("(avg)") && outdata.Contains("h/s") && BenchmarkAlgorithm.NiceHashID != AlgorithmType.DaggerHashimoto)
+            {
+                int i = outdata.IndexOf("(avg):");
+                int k = outdata.IndexOf("h/s");
+
+                if (outdata.Contains("h/s"))
+                {
+                    hashSpeed1 = outdata.Substring(i + 6, k - i - 6);
+                    kspeed = 1;
+                }
+                if (outdata.Contains("Kh/s"))
+                {
+                    hashSpeed1 = outdata.Substring(i + 6, k - i - 7);
+                    kspeed = 1000;
+                }
+                if (outdata.Contains("Mh/s"))
+                {
+                    hashSpeed1 = outdata.Substring(i + 6, k - i - 7);
+                    kspeed = 1000000;
+                }
+
+                double speed = Double.Parse(hashSpeed1, CultureInfo.InvariantCulture);
+                Helpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashSpeed1);
+                BenchmarkAlgorithm.BenchmarkSpeed = speed * kspeed;
+                return false;
+
+            }
+            
+            else if (outdata.Contains(String.Format("GPU{0}", MiningSetup.MiningPairs[0].Device.ID)) && outdata.Contains("s):") && BenchmarkAlgorithm.NiceHashID == AlgorithmType.DaggerHashimoto) {
                 int i = outdata.IndexOf("s):");
                 int k = outdata.IndexOf("(avg)");
 
@@ -165,7 +183,10 @@ namespace NiceHashMiner.Miners
 
                 return true;
             }
+            
             return false;
+            
+        
         }
 
         protected override void BenchmarkThreadRoutineStartSettup() {
