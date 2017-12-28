@@ -54,11 +54,36 @@ namespace NiceHashMiner.Miners
                 algo = "--algo=" + MiningSetup.MinerName;
                 apiBind = " --api-bind=" + APIPort.ToString();
             }
-
+            /*
             LastCommandLine = algo +
                                   " --url=" + url +
                                   " --userpass=" + username + ":x " +
                                   apiBind + " " +
+                                  ExtraLaunchParametersParser.ParseForMiningSetup(
+                                                                MiningSetup,
+                                                                DeviceType.NVIDIA) +
+                                  " --devices ";
+*/
+            //add failover
+            string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
+            string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
+
+            LastCommandLine = algo +
+                              " --url=" + url +
+                              " --userpass=" + username + ":x " +
+                              " --url stratum+tcp://" + alg + ".hk.nicehash.com:" + port +
+                              " --userpass=" + username + ":x " +
+                              " --url stratum+tcp://" + alg + ".in.nicehash.com:" + port +
+                              " --userpass=" + username + ":x " +
+                              " --url stratum+tcp://" + alg + ".jp.nicehash.com:" + port +
+                              " --userpass=" + username + ":x " +
+                              " --url stratum+tcp://" + alg + ".usa.nicehash.com:" + port +
+                              " --userpass=" + username + ":x " +
+                              " --url stratum+tcp://" + alg + ".br.nicehash.com:" + port +
+                              " --userpass=" + username + ":x " +
+                              " --url stratum+tcp://" + alg + ".eu.nicehash.com:" + port +
+                              " --userpass=" + username + ":x " +
+                              apiBind + " " +
                                   ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
                                                                 DeviceType.NVIDIA) +
