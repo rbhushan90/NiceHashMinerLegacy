@@ -66,10 +66,29 @@ namespace NiceHashMiner.Miners
         }
 
         private string GetStartCommand(string url, string btcAddress, string worker) {
+/*
+            string alg = url.Split('.')[0];
             var ret = GetDevicesCommandString()
-                + " --server " + url.Split(':')[0]
-                + " --user " + btcAddress + "." + worker + " --pass x --port "
-                + url.Split(':')[1] + " --telemetry=127.0.0.1:" + APIPort;
+            + " --server " + alg + ".hk.nicehash.com"
+            + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+            + " --server " + alg + ".in.nicehash.com"
+            + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+            + " --server " + alg + ".jp.nicehash.com"
+            + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+            + " --server " + alg + ".usa.nicehash.com"
+            + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+            + " --server " + alg + ".br.nicehash.com"
+            + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+            + " --server " + url.Split(':')[0]
+            + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+            + " --telemetry=127.0.0.1:" + APIPort;
+*/
+                     
+                        var ret = GetDevicesCommandString()
+                            + " --server " + url.Split(':')[0]
+                            + " --user " + btcAddress + "." + worker + " --pass x --port "
+                            + url.Split(':')[1] + " --telemetry=127.0.0.1:" + APIPort;
+             
             return ret;
         }
 
