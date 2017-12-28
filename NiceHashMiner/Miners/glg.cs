@@ -66,11 +66,32 @@ namespace NiceHashMiner.Miners
                 return;
             }
             string username = GetUsername(btcAdress, worker);
-            
+            //add failover
+            string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
+            string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
+
             LastCommandLine = " --gpu-platform " + GPUPlatformNumber +
                               " -k " + MiningSetup.MinerName +
                               " --url=" + url +
-                              " --userpass=" + Globals.DemoUser +
+                              " --userpass=" + username +
+                              " -p x " +
+                              " --url stratum+tcp://" + alg + ".hk.nicehash.com:" + port +
+                               " --userpass=" + username +
+                              " -p x " +
+                              " --url stratum+tcp://" + alg + ".in.nicehash.com:" + port +
+                               " --userpass=" + username +
+                              " -p x " +
+                              " --url stratum+tcp://" + alg + ".jp.nicehash.com:" + port +
+                               " --userpass=" + username +
+                              " -p x " +
+                              " --url stratum+tcp://" + alg + ".usa.nicehash.com:" + port +
+                               " --userpass=" + username +
+                              " -p x " +
+                              " --url stratum+tcp://" + alg + ".br.nicehash.com:" + port +
+                               " --userpass=" + username +
+                              " -p x " +
+                              " --url stratum+tcp://" + alg + ".eu.nicehash.com:" + port +
+                               " --userpass=" + username +
                               " -p x " +
                               " --api-listen" +
                               " --api-port=" + APIPort.ToString() +
