@@ -238,6 +238,10 @@ namespace NiceHashMiner.Miners.Parsing {
                 }
                 return MinerType.ccminer;
             }
+            if (MinerBaseType.hsrneoscrypt == minerBaseType)
+            {
+                return MinerType.hsrneoscrypt;
+            }
             if (MinerBaseType.Claymore == minerBaseType) {
                 if (AlgorithmType.CryptoNight == algorithmType) {
                     return MinerType.ClaymoreCryptoNight;

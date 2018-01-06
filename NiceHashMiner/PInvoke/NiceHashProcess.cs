@@ -120,7 +120,7 @@ namespace NiceHashMiner
             CTRL_SHUTDOWN_EVENT
         }
 
-        // A delegate type to be used as the handler routine 
+        // A delegate type to be used as the handler routine
         // for SetConsoleCtrlHandler.
         private delegate bool HandlerRoutine(CtrlTypes CtrlType);
 
@@ -174,7 +174,7 @@ namespace NiceHashMiner
                 sflags | NORMAL_PRIORITY_CLASS,
                 IntPtr.Zero,
                 workDir,
-                ref sInfo, 
+                ref sInfo,
                 out pInfo);
 
             if (!res)

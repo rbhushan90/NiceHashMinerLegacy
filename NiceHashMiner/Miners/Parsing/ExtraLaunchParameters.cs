@@ -20,6 +20,13 @@ namespace NiceHashMiner.Miners.Parsing {
                 },
                 new List<MinerOption>()
             ),
+              new MinerOptionPackage(
+                MinerType.hsrneoscrypt,
+                new List<MinerOption>() {
+                    new MinerOption("Intensity", "-i", "--intensity=", "0", MinerOptionFlagType.MultiParam, ",")
+                },
+                new List<MinerOption>()
+            ),
             new MinerOptionPackage(
                 MinerType.ccminer_CryptoNight,
                 new List<MinerOption>() {
