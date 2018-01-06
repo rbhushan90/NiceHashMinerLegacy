@@ -143,9 +143,45 @@ namespace NiceHashMiner.Devices {
                         // drivers algos issue
                         if (device.DriverDisableAlgos) {
                             //algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType> { AlgorithmType.NeoScrypt, AlgorithmType.Lyra2REv2 });
-                            algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType> { AlgorithmType.Lyra2REv2 });
+                          //  algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType> { AlgorithmType.Lyra2REv2 });
                         }
 
+                        if (algoSettings.ContainsKey(MinerBaseType.mkxminer))
+                        {
+                            var mkxminerAlgos = algoSettings[MinerBaseType.mkxminer];
+                            int Lyra2REv2_Index = mkxminerAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.Lyra2REv2);
+                            
+                            if (Lyra2REv2_Index > -1)
+                            {
+                                if (device.Codename.Contains("gfx804")) //rx550
+                                {
+                                    mkxminerAlgos[Lyra2REv2_Index].ExtraLaunchParameters = "-I 23";
+                                }
+                                if (device.Codename.Contains("Pitcairn")) //r7-370
+                                {
+                                    mkxminerAlgos[Lyra2REv2_Index].ExtraLaunchParameters = "-I 23";
+                                }
+                                if (device.Codename.Contains("Baffin")) //rx460/560
+                                {
+                                    mkxminerAlgos[Lyra2REv2_Index].ExtraLaunchParameters = "-I 23";
+                                }
+
+                                if (device.Codename.Contains("Ellesmere")) //rx570/580
+                                {
+                                    mkxminerAlgos[Lyra2REv2_Index].ExtraLaunchParameters = "-I 23";
+                                }
+
+                                if (device.Codename.Contains("Hawaii"))
+                                {
+                                    mkxminerAlgos[Lyra2REv2_Index].ExtraLaunchParameters = "-I 23";
+                                }
+                                else if (device.Name.Contains("Vega"))
+                                {
+                                    mkxminerAlgos[Lyra2REv2_Index].ExtraLaunchParameters = AmdGpuDevice.DefaultParam + "-I 23";
+                                }
+                            }
+                            
+                        }
                         // disable by default
                         {
                             var minerBases = new List<MinerBaseType>() { MinerBaseType.ethminer, MinerBaseType.OptiminerAMD };
@@ -273,6 +309,11 @@ namespace NiceHashMiner.Devices {
                         }
                     },
 
+                    { MinerBaseType.mkxminer,
+                        new List<Algorithm>() {
+                           new Algorithm(MinerBaseType.mkxminer, AlgorithmType.Lyra2REv2,  "Lyra2REv2") { ExtraLaunchParameters = DefaultParam + "--exitsick --asm" }
+                        }
+                    },
                     { MinerBaseType.Claymore,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.Claymore, AlgorithmType.CryptoNight, "cryptonight"),

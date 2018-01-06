@@ -106,6 +106,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string DSTM = _bin_3rdparty + @"\dstm\zm.exe";
             public const string hsrneoscrypt = _bin_3rdparty + @"\hsrminer_neoscrypt\hsrminer_neoscrypt.exe";
             public const string prospector = _bin_3rdparty + @"\prospector\prospector.exe";
+            public const string mkxminer = _bin_3rdparty + @"\mkxminer\mkxminer.exe";
         }
 
         // NEW START
@@ -166,6 +167,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.ClaymoreCryptoNightMiner_old;
                 case MinerBaseType.hsrneoscrypt:
                     return NVIDIA_GROUPS.hsrneoscrypt_path(algoType, devGroupType);
+                case MinerBaseType.mkxminer:
+                    return Data.mkxminer;
             }
             return Data.NONE;
         }

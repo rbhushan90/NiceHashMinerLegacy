@@ -26,6 +26,7 @@ namespace NiceHashMiner.Enums {
         DSTM,
         Xmrig,
         hsrneoscrypt,
+        mkxminer,
         END
     }
 }

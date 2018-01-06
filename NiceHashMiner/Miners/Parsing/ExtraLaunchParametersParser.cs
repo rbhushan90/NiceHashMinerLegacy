@@ -232,6 +232,10 @@ namespace NiceHashMiner.Miners.Parsing {
             {
                 return MinerType.glg;
             }
+            if (MinerBaseType.mkxminer == minerBaseType)
+            {
+                return MinerType.mkxminer;
+            }
             if (MinerBaseType.ccminer == minerBaseType || MinerBaseType.ccminer_alexis == minerBaseType || MinerBaseType.experimental == minerBaseType) {
                 if (AlgorithmType.CryptoNight == algorithmType) {
                     return MinerType.ccminer_CryptoNight;

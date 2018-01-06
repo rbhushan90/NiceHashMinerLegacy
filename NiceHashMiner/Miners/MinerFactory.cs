@@ -73,6 +73,8 @@ namespace NiceHashMiner.Miners {
                     return new ClaymoreCryptoNightMiner(true);
                 case MinerBaseType.hsrneoscrypt:
                     return new hsrneoscrypt();
+                case MinerBaseType.mkxminer:
+                    return new mkxminer();
             }
             return null;
         }
