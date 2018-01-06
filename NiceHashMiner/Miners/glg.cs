@@ -75,22 +75,22 @@ namespace NiceHashMiner.Miners
                               " --url=" + url +
                               " --userpass=" + username +
                               " -p x " +
-                              " --url stratum+tcp://" + alg + ".hk.nicehash.com:" + port +
+                              " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port +
                                " --userpass=" + username +
                               " -p x " +
-                              " --url stratum+tcp://" + alg + ".in.nicehash.com:" + port +
+                              " --url=stratum+tcp://" + alg + ".in.nicehash.com:" + port +
                                " --userpass=" + username +
                               " -p x " +
-                              " --url stratum+tcp://" + alg + ".jp.nicehash.com:" + port +
+                              " --url=stratum+tcp://" + alg + ".jp.nicehash.com:" + port +
                                " --userpass=" + username +
                               " -p x " +
-                              " --url stratum+tcp://" + alg + ".usa.nicehash.com:" + port +
+                              " --url=stratum+tcp://" + alg + ".usa.nicehash.com:" + port +
                                " --userpass=" + username +
                               " -p x " +
-                              " --url stratum+tcp://" + alg + ".br.nicehash.com:" + port +
+                              " --url=stratum+tcp://" + alg + ".br.nicehash.com:" + port +
                                " --userpass=" + username +
                               " -p x " +
-                              " --url stratum+tcp://" + alg + ".eu.nicehash.com:" + port +
+                              " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port +
                                " --userpass=" + username +
                               " -p x " +
                               " --api-listen" +
