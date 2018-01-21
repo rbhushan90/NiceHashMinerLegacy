@@ -229,9 +229,12 @@ namespace NiceHashMiner.Miners.Grouping
                 if (AlgorithmType.Lbry == algorithmType 
                     || AlgorithmType.X11Gost == algorithmType 
                     || AlgorithmType.Blake2s == algorithmType
-                    || AlgorithmType.Skunk == algorithmType
-                    || AlgorithmType.NeoScrypt == algorithmType) {
+                    || AlgorithmType.Skunk == algorithmType) {
                     return Data.ccminer_tpruvot;
+                }
+                if (AlgorithmType.NeoScrypt == algorithmType)
+                {
+                    return Data.ccminer_klaust;
                 }
                 if (AlgorithmType.Sia == algorithmType
                     || AlgorithmType.Nist5 == algorithmType) {
