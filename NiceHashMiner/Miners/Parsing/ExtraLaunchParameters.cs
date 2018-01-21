@@ -91,6 +91,7 @@ namespace NiceHashMiner.Miners.Parsing {
                     new MinerOption("Memclock" , "", "--memclock", "-1", MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("Powertune", "", "--powertune", "-1", MinerOptionFlagType.MultiParam, ","), 
                     new MinerOption("GPUvoltage", "", "--vddc", "-1", MinerOptionFlagType.MultiParam, ","), // default none
+                    new MinerOption("GPUvoltage", "-I", "--intensity", "-1", MinerOptionFlagType.MultiParam, ","), // default none
                 },
                 // TemperatureOptions
                 new List<MinerOption>() {

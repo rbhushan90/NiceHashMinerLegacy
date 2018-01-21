@@ -122,15 +122,16 @@ namespace NiceHashMiner.Miners
 
             // cd to the cgminer for the process bins
             CommandLine = " /C \"cd /d " + WorkingDirectory + " && mkxminer.exe " +
-                          " -o " + url + "/#xnsub" +
+                          " -o " + url +
                           " -u " + Globals.DemoUser + 
                           " -p x " +
                           ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
                                                                 DeviceType.AMD) +
-                          " --device ";
+                          " -d ";
 
             CommandLine += GetDevicesCommandString();
+            CommandLine += "\"";
 
             return CommandLine;
         }

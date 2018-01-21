@@ -30,9 +30,9 @@ namespace NiceHashMiner.Miners
 
         protected override int GET_MAX_CooldownTimeInMilliseconds() {
             if (this.MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt) {
-                return 60 * 1000 * 11; // wait wait for hashrate string
+                return 60 * 1000 * 12; // wait for hashrate string
             }
-            return 660 * 1000; // 11 minute max
+            return 60 * 1000 * 12; // 11 minute max
         }
 
         public override void Start(string url, string btcAdress, string worker)

@@ -366,9 +366,17 @@ namespace NiceHashMiner
             BenchmarkHandle.StartInfo.FileName = MiningSetup.MinerPath;
 
             // sgminer quickfix
-            if ( this is sgminer | this is glg )  {
+            if (this is sgminer | this is glg) {
                 BenchmarkProcessPath = "cmd / " + BenchmarkHandle.StartInfo.FileName;
                 BenchmarkHandle.StartInfo.FileName = "cmd";
+                Helpers.ConsolePrint(MinerTAG(), "Starting miner: " + BenchmarkProcessPath);
+            }
+            else if (this is mkxminer)
+            {
+                BenchmarkProcessPath = BenchmarkHandle.StartInfo.FileName;
+               // BenchmarkHandle.StartInfo.FileName = "cmd";
+                BenchmarkHandle.StartInfo.WorkingDirectory = WorkingDirectory;
+                Helpers.ConsolePrint(MinerTAG(), "Starting mkxminer: " + "cmd" + CommandLine);
             } else {
                 BenchmarkProcessPath = BenchmarkHandle.StartInfo.FileName;
                 Helpers.ConsolePrint(MinerTAG(), "Using miner: " + BenchmarkHandle.StartInfo.FileName);
@@ -805,11 +813,12 @@ namespace NiceHashMiner
                     _allPidData.Add(_currentPidData);
 
                     Helpers.ConsolePrint(MinerTAG(), "Starting miner " + ProcessTag() + " " + LastCommandLine);
-                    if (!ProcessTag().Contains("hsrminer_neoscrypt")) //temporary disable hsrminer checker
-                    {
+                    
+                    //if (!ProcessTag().Contains("hsrminer_neoscrypt")) //temporary disable hsrminer checker
+                    //{
                         StartCoolDownTimerChecker();
-                    }
-
+                    //}
+                    
                     return P;
                 } else {
                     Helpers.ConsolePrint(MinerTAG(), "NOT STARTED " + ProcessTag() + " " + LastCommandLine);

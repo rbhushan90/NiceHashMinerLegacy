@@ -153,9 +153,10 @@ namespace NiceHashMiner.Devices {
                             
                             if (Lyra2REv2_Index > -1)
                             {
+                                /*
                                 if (device.Codename.Contains("gfx804")) //rx550
                                 {
-                                    mkxminerAlgos[Lyra2REv2_Index].ExtraLaunchParameters = "-I 23";
+                                    mkxminerAlgos[Lyra2REv2_Index].ExtraLaunchParameters = "-I 22";
                                 }
                                 if (device.Codename.Contains("Pitcairn")) //r7-370
                                 {
@@ -179,6 +180,7 @@ namespace NiceHashMiner.Devices {
                                 {
                                     mkxminerAlgos[Lyra2REv2_Index].ExtraLaunchParameters = AmdGpuDevice.DefaultParam + "-I 23";
                                 }
+                                */
                             }
                             
                         }
@@ -311,7 +313,7 @@ namespace NiceHashMiner.Devices {
 
                     { MinerBaseType.mkxminer,
                         new List<Algorithm>() {
-                           new Algorithm(MinerBaseType.mkxminer, AlgorithmType.Lyra2REv2,  "Lyra2REv2") { ExtraLaunchParameters = DefaultParam + "--exitsick --asm" }
+                           new Algorithm(MinerBaseType.mkxminer, AlgorithmType.Lyra2REv2,  "Lyra2REv2") { ExtraLaunchParameters = "--exitsick --asm" }
                         }
                     },
                     { MinerBaseType.Claymore,
