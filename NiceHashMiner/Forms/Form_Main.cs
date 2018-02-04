@@ -55,7 +55,7 @@ namespace NiceHashMiner
         int flowLayoutPanelRatesIndex = 0;
 
         const string _betaAlphaPostfixString = "";
-        const string ForkString = " Fork Fix 3";
+        const string ForkString = " Fork Fix 4";
 
         private bool _isDeviceDetectionInitialized = false;
 
@@ -90,7 +90,8 @@ namespace NiceHashMiner
 
             R = new Random((int)DateTime.Now.Ticks);
 
-            Text += " v" + Application.ProductVersion + _betaAlphaPostfixString + ForkString;
+            //Text += " v" + Application.ProductVersion + _betaAlphaPostfixString + ForkString;
+            Text += ForkString;
 
             label_NotProfitable.Visible = false;
 
