@@ -116,7 +116,7 @@ namespace NiceHashMiner.Configs.Data {
             SwitchProfitabilityThreshold = 0.05; // percent
             MinIdleSeconds = 60;
             DisplayCurrency = "USD";
-            ApiBindPortPoolStart = 4000;
+            ApiBindPortPoolStart = 4002;
             MinimumProfit = 0;
             EthminerDagGenerationType = DagGenerationType.SingleKeep;
             DownloadInit = false;
@@ -165,6 +165,11 @@ namespace NiceHashMiner.Configs.Data {
             if (this.ApiBindPortPoolStart > (65535 - 2000)) {
                 this.ApiBindPortPoolStart = 5100;
             }
+
+            if (this.ApiBindPortPoolStart <= 4001)  //fix to hsrminer
+                {
+                    this.ApiBindPortPoolStart = 4002;
+                }
             if (this.BenchmarkTimeLimits == null) {
                 this.BenchmarkTimeLimits = new BenchmarkTimeLimitsConfig();
             }

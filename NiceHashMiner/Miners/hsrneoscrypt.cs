@@ -43,7 +43,8 @@ namespace NiceHashMiner.Miners
             }
             string username = GetUsername(btcAdress, worker);
 
-            IsAPIReadException = MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt;
+            //IsAPIReadException = MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt;
+            IsAPIReadException = false;
 
             /*
             string algo = "";
@@ -206,16 +207,15 @@ namespace NiceHashMiner.Miners
                     var algo = miningPair.Device.GetAlgorithm(MinerBaseType.hsrneoscrypt, AlgorithmType.NeoScrypt, AlgorithmType.NONE);
                     if (algo != null) {
                         totalSpeed += algo.BenchmarkSpeed;
-                        Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " Could not read data from hsrminer. Used benchmark hashrate");
                     }
                 }
 
-                hsrData.Speed = totalSpeed;
-                return hsrData;
+               // hsrData.Speed = totalSpeed;
+               // return hsrData;
             }
 
-            //  return await GetSummaryCPU_hsrneoscryptAsync();
-            return hsrData;
+              return await GetSummaryCPU_hsrneoscryptAsync();
+            //return hsrData;
         }
     }
 }

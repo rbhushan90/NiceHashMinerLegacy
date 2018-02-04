@@ -183,15 +183,31 @@ namespace NiceHashMiner
                 var path = MiningSetup.MinerPath;
                 var reservedPorts = MinersSettingsManager.GetPortsListFor(minerBase, path, algoType);
                 APIPort = -1; // not set
+                
                 foreach (var reservedPort in reservedPorts) {
                     Thread.Sleep(1000);
                     if (MinersApiPortsManager.IsPortAvaliable(reservedPort)) {
-                        APIPort = reservedPort;
-                        break;
+                        if (minerBase.Equals("hsrneoscrypt"))
+                        {
+                            APIPort = 4001;
+                        }
+                        else
+                        {
+                            APIPort = reservedPort;
+                        }
+                       break;
                     }
                 }
+
                 if (APIPort == -1) {
-                    APIPort = MinersApiPortsManager.GetAvaliablePort();
+                    if (minerBase.ToString().Equals("hsrneoscrypt"))
+                    {
+                        APIPort = 4001;
+                    }
+                    else
+                    {
+                        APIPort = MinersApiPortsManager.GetAvaliablePort();
+                    }
                 }
             }
         }
@@ -814,10 +830,10 @@ namespace NiceHashMiner
 
                     Helpers.ConsolePrint(MinerTAG(), "Starting miner " + ProcessTag() + " " + LastCommandLine);
                     
-                    //if (!ProcessTag().Contains("hsrminer_neoscrypt")) //temporary disable hsrminer checker
-                    //{
+                    if (!ProcessTag().Contains("hsrminer_neoscrypt")) //temporary disable hsrminer checker
+                    {
                         StartCoolDownTimerChecker();
-                    //}
+                    }
                     
                     return P;
                 } else {
