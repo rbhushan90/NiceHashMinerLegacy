@@ -93,7 +93,7 @@ namespace NiceHashMiner.Miners
 */
 
             LastCommandLine = " --url=" + url +
-                                  " --user=" + btcAdress +
+                                  " --user=" + username +
                           " -p x " +
                                   ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
