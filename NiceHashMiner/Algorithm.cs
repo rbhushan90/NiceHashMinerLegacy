@@ -49,7 +49,7 @@ namespace NiceHashMiner {
             ExtraLaunchParameters = "";
             LessThreads = 0;
             Enabled = !(NiceHashID == AlgorithmType.Nist5 || (NiceHashID == AlgorithmType.NeoScrypt && minerBaseType == MinerBaseType.sgminer));
-            Enabled = !(NiceHashID == AlgorithmType.Equihash) || (NiceHashID == AlgorithmType.CryptoNight) || (NiceHashID == AlgorithmType.NeoScrypt) || (NiceHashID == AlgorithmType.Keccak) && minerBaseType == MinerBaseType.GatelessGate;
+            Enabled = !(NiceHashID == AlgorithmType.Equihash) || (NiceHashID == AlgorithmType.CryptoNight) || (NiceHashID == AlgorithmType.NeoScrypt) || (NiceHashID == AlgorithmType.Keccak) && minerBaseType == MinerBaseType.GatelessGate || (NiceHashID == AlgorithmType.Lyra2REv2) && minerBaseType == MinerBaseType.GatelessGate;
             Enabled = !(NiceHashID == AlgorithmType.Lyra2REv2) && minerBaseType == MinerBaseType.mkxminer;
             BenchmarkStatus = "";
         }

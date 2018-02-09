@@ -303,7 +303,7 @@ namespace NiceHashMiner.Miners.Grouping
             public static string glg_path(AlgorithmType type)
             {
                 // AlgorithmType.Pascal == type || AlgorithmType.DaggerHashimoto == type || AlgorithmType.Decred == type || AlgorithmType.Lbry == type || AlgorithmType.X11Gost == type || AlgorithmType.DaggerHashimoto == type
-                if (AlgorithmType.CryptoNight == type || AlgorithmType.Equihash == type || AlgorithmType.NeoScrypt == type || AlgorithmType.Keccak == type)
+                if (AlgorithmType.CryptoNight == type || AlgorithmType.Equihash == type || AlgorithmType.NeoScrypt == type || AlgorithmType.Keccak == type || AlgorithmType.Lyra2REv2 == type)
                 {
                     return Data.glg;
                 }
