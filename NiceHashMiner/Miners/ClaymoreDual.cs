@@ -34,6 +34,10 @@ namespace NiceHashMiner.Miners {
                     return "pasc";
                 case AlgorithmType.Sia:
                     return "sc";
+                case AlgorithmType.Blake2s:
+                    return "b2s";
+                case AlgorithmType.Keccak:
+                    return "kc";
             }
             return "";
         }
@@ -76,6 +80,16 @@ namespace NiceHashMiner.Miners {
                             dual = AlgorithmType.Pascal;
                             coinP = " -dcoin pasc ";
                         }
+                        if (pair.CurrentExtraLaunchParameters.Contains("Blake2s"))
+                        {
+                            dual = AlgorithmType.Blake2s;
+                            coinP = " -dcoin blake2s ";
+                        }
+                        if (pair.CurrentExtraLaunchParameters.Contains("Keccak"))
+                        {
+                            dual = AlgorithmType.Keccak;
+                            coinP = " -dcoin keccak ";
+                        }
                         if (dual != AlgorithmType.NONE)  {
                             string urlSecond = Globals.GetLocationURL(dual, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
                             dualModeParams = String.Format(" {0} -dpool {1} -dwal {2}", coinP, urlSecond, username);
@@ -85,6 +99,8 @@ namespace NiceHashMiner.Miners {
                         if (dual == AlgorithmType.Lbry) { poolport = "3356"; }
                         if (dual == AlgorithmType.Pascal) { poolport = "3358"; }
                         if (dual == AlgorithmType.Sia) { poolport = "3360"; }
+                        if (dual == AlgorithmType.Blake2s) { poolport = "3361"; }
+                        if (dual == AlgorithmType.Keccak) { poolport = "3338"; }
                         alg = dual;
                     }
                 }
@@ -95,6 +111,8 @@ namespace NiceHashMiner.Miners {
                 if (SecondaryAlgorithmType == AlgorithmType.Lbry) { poolport = "3356"; }
                 if (SecondaryAlgorithmType == AlgorithmType.Pascal) { poolport = "3358"; }
                 if (SecondaryAlgorithmType == AlgorithmType.Sia) { poolport = "3360"; }
+                if (SecondaryAlgorithmType == AlgorithmType.Blake2s) { poolport = "3361"; }
+                if (SecondaryAlgorithmType == AlgorithmType.Keccak) { poolport = "3338"; }
                 alg = SecondaryAlgorithmType;
             }
 
@@ -124,11 +142,32 @@ namespace NiceHashMiner.Miners {
             w.WriteAsync(epools);
             w.Flush();
             w.Close();
+            string addParam;
+            if (SecondaryAlgorithmType == AlgorithmType.Blake2s)
+            {
+                addParam = " "
+                    + GetDevicesCommandString()
+                    + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5 -dcri 60", url, username, APIPort)
+                    + dualModeParams;
+            }
+            else if (SecondaryAlgorithmType == AlgorithmType.Keccak)
+            {
+                addParam = " "
+                                    + GetDevicesCommandString()
+                                    + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5 -dcri 7", url, username, APIPort)
+                                    + dualModeParams;
+            }
+            else
+            {
+                addParam = " "
+                                    + GetDevicesCommandString()
+                                    + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5", url, username, APIPort)
+                                    + dualModeParams;
+            }
+            //  if (DeviceType.NVIDIA == DeviceType && SecondaryAlgorithmType == AlgorithmType.Keccak)
+           
 
-            return " "
-                + GetDevicesCommandString()
-                + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5", url, username, APIPort)
-                + dualModeParams;
+            return addParam;
         }
 
         public override void Start(string url, string btcAdress, string worker) {

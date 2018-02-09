@@ -348,6 +348,7 @@ namespace NiceHashMiner.Miners.Parsing {
                 // reset setMiningPairs
                 setMiningPairs = cdevs_mappings;
             }
+
             // sgminer exception handle intensity types
             if (MinerType.sgminer == minerType) {
                 // rawIntensity overrides xintensity, xintensity overrides intensity
