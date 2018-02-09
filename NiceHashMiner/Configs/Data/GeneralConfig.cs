@@ -8,6 +8,7 @@ namespace NiceHashMiner.Configs.Data {
     public class GeneralConfig {
 
         public Version ConfigFileVersion;
+        public int ForkFixVersion;
         public LanguageType Language = LanguageType.En;
         public string DisplayCurrency = "USD";
 
@@ -85,6 +86,7 @@ namespace NiceHashMiner.Configs.Data {
         // methods
         public void SetDefaults() {
             ConfigFileVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            ForkFixVersion = 4;
             Language = LanguageType.En;
             ForceCPUExtension = CPUExtensionType.Automatic;
             BitcoinAddress = "";

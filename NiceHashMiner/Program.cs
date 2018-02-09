@@ -61,6 +61,20 @@ namespace NiceHashMiner
                     Helpers.AllocConsole();
                 }
 
+                //**
+                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 4)
+                {
+                    Helpers.ConsolePrint("NICEHASH", "Old version");
+                    if (File.Exists("internals\\MinerOptionPackage_glg.json"))
+                        File.Delete("internals\\MinerOptionPackage_glg.json");
+                    ConfigManager.GeneralConfig.ForkFixVersion = 4;
+                }
+                else
+                {
+                    Helpers.ConsolePrint("NICEHASH", "Actual version");
+                }
+                //**
+
                 // init active display currency after config load
                 ExchangeRateAPI.ActiveDisplayCurrency = ConfigManager.GeneralConfig.DisplayCurrency;
 
