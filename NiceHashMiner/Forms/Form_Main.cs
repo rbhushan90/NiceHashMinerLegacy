@@ -724,8 +724,8 @@ namespace NiceHashMiner
 
             if (ret < 0 || (ret == 0 && _betaAlphaPostfixString != ""))
             {
-                SetVersionLabel(String.Format(International.GetText("Form_Main_new_version_released"), ver));
-                VisitURLNew = Links.VisitURLNew + ver;
+             //   SetVersionLabel(String.Format(International.GetText("Form_Main_new_version_released"), ver));
+             //   VisitURLNew = Links.VisitURLNew + ver;
             }
         }
 
