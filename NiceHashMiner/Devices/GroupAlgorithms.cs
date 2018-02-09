@@ -310,12 +310,13 @@ namespace NiceHashMiner.Devices {
                             new Algorithm(MinerBaseType.GatelessGate, AlgorithmType.Keccak, "keccak") { ExtraLaunchParameters = DefaultParam + "--intensity 12 --gpu-threads 2" }
                         }
                     },
-
+/*
                     { MinerBaseType.mkxminer,
                         new List<Algorithm>() {
                            new Algorithm(MinerBaseType.mkxminer, AlgorithmType.Lyra2REv2,  "Lyra2REv2") { ExtraLaunchParameters = "--exitsick --asm" }
                         }
                     },
+*/
                     { MinerBaseType.Claymore,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.Claymore, AlgorithmType.CryptoNight, "cryptonight"),

@@ -401,7 +401,7 @@ namespace NiceHashMiner
                     BenchmarkHandle.StartInfo.EnvironmentVariables[envName] = envValue;
                 }
             }
-
+         //   BenchmarkHandle.StartInfo.WorkingDirectory = WorkingDirectory;
             BenchmarkHandle.StartInfo.Arguments = (string)CommandLine;
             BenchmarkHandle.StartInfo.UseShellExecute = false;
             BenchmarkHandle.StartInfo.RedirectStandardError = true;

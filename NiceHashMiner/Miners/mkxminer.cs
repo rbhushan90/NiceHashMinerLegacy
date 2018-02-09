@@ -125,6 +125,7 @@ namespace NiceHashMiner.Miners
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
 
             // cd to the cgminer for the process bins
+
             CommandLine = " /C \"cd /d " + WorkingDirectory + " && mkxminer.exe " +
                           " --url " + url + "/#xnsub" +
                           " --user " + Globals.DemoUser + 
@@ -135,9 +136,21 @@ namespace NiceHashMiner.Miners
                           " --device ";
 
             CommandLine += GetDevicesCommandString();
-            CommandLine += " >benchmark.txt";
+  //          CommandLine += " >benchmark.txt";
             //    CommandLine += " && del dump.txt\"";
 
+/*
+            CommandLine =           " --url " + url + "/#xnsub" +
+                                    " --user " + Globals.DemoUser +
+                                    " -p x " +
+                                    ExtraLaunchParametersParser.ParseForMiningSetup(
+                                                                          MiningSetup,
+                                                                          DeviceType.AMD) +
+                                    " --device ";
+
+            CommandLine += GetDevicesCommandString();
+*/
+            // CommandLine += " >benchmark.txt";
             return CommandLine;
         }
 
