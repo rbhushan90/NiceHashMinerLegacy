@@ -370,6 +370,7 @@ namespace NiceHashMiner
             string CommandLine = BenchmarkCreateCommandLine(BenchmarkAlgorithm, time);
 
             Thread BenchmarkThread = new Thread(BenchmarkThreadRoutine);
+
             BenchmarkThread.Start(CommandLine);
         }
 
@@ -382,18 +383,12 @@ namespace NiceHashMiner
             BenchmarkHandle.StartInfo.FileName = MiningSetup.MinerPath;
 
             // sgminer quickfix
-            if (this is sgminer | this is glg) {
+            if (this is sgminer | this is glg | this is mkxminer) {
                 BenchmarkProcessPath = "cmd / " + BenchmarkHandle.StartInfo.FileName;
                 BenchmarkHandle.StartInfo.FileName = "cmd";
                 Helpers.ConsolePrint(MinerTAG(), "Starting miner: " + BenchmarkProcessPath);
             }
-            else if (this is mkxminer)
-            {
-                BenchmarkProcessPath = BenchmarkHandle.StartInfo.FileName;
-               // BenchmarkHandle.StartInfo.FileName = "cmd";
-                BenchmarkHandle.StartInfo.WorkingDirectory = WorkingDirectory;
-                Helpers.ConsolePrint(MinerTAG(), "Starting mkxminer: " + "cmd" + CommandLine);
-            } else {
+            else {
                 BenchmarkProcessPath = BenchmarkHandle.StartInfo.FileName;
                 Helpers.ConsolePrint(MinerTAG(), "Using miner: " + BenchmarkHandle.StartInfo.FileName);
                 BenchmarkHandle.StartInfo.WorkingDirectory = WorkingDirectory;
@@ -415,7 +410,6 @@ namespace NiceHashMiner
             BenchmarkHandle.OutputDataReceived += BenchmarkOutputErrorDataReceived;
             BenchmarkHandle.ErrorDataReceived += BenchmarkOutputErrorDataReceived;
             BenchmarkHandle.Exited += BenchmarkHandle_Exited;
-
             if (!BenchmarkHandle.Start()) return null;
 
             _currentPidData = new MinerPID_Data();
@@ -830,10 +824,10 @@ namespace NiceHashMiner
 
                     Helpers.ConsolePrint(MinerTAG(), "Starting miner " + ProcessTag() + " " + LastCommandLine);
                     
-                    if (!ProcessTag().Contains("hsrminer_neoscrypt")) //temporary disable hsrminer checker
-                    {
+//                    if (!ProcessTag().Contains("hsrminer_neoscrypt")) //temporary disable hsrminer checker
+//                    {
                         StartCoolDownTimerChecker();
-                    }
+//                    }
                     
                     return P;
                 } else {

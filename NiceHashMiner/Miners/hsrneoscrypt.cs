@@ -44,7 +44,7 @@ namespace NiceHashMiner.Miners
             string username = GetUsername(btcAdress, worker);
 
             //IsAPIReadException = MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt;
-            IsAPIReadException = false;
+            IsAPIReadException = false; //** in miner 
 
             /*
             string algo = "";
@@ -186,18 +186,18 @@ namespace NiceHashMiner.Miners
             if (IsAPIReadException) {
                 // check if running
                 if (ProcessHandle == null) {
-                    //_currentMinerReadStatus = MinerAPIReadStatus.RESTART;
+                    _currentMinerReadStatus = MinerAPIReadStatus.RESTART;
                     Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " Could not read data from hsrminer Proccess is null");
                     return null;
                 }
                 try {
                     var runningProcess = Process.GetProcessById(ProcessHandle.Id);
                 } catch (ArgumentException ex) {
-                    //_currentMinerReadStatus = MinerAPIReadStatus.RESTART;
+                    _currentMinerReadStatus = MinerAPIReadStatus.RESTART;
                     Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " Could not read data from hsrminer reason: " + ex.Message);
                     return null; // will restart outside
                 } catch (InvalidOperationException ex) {
-                    //_currentMinerReadStatus = MinerAPIReadStatus.RESTART;
+                    _currentMinerReadStatus = MinerAPIReadStatus.RESTART;
                     Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " Could not read data from hsrminer reason: " + ex.Message);
                     return null; // will restart outside
                 }

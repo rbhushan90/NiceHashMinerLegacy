@@ -28,13 +28,17 @@ namespace NiceHashMiner.Miners
         {
             GPUPlatformNumber = ComputeDeviceManager.Avaliable.AMDOpenCLPlatformNum;
             IsKillAllUsedMinerProcs = true;
+            IsNeverHideMiningWindow = true;
+
         }
 
         // use ONLY for exiting a benchmark
         public void Killmkxminer() {
+            /*
             foreach (Process process in Process.GetProcessesByName("mkxminer")) {
                 try { process.Kill(); } catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
             }
+            */
         }
 
         public override void EndBenchmarkProcces() {
@@ -75,22 +79,22 @@ namespace NiceHashMiner.Miners
                               " --url=" + url +
                               " --userpass=" + username +
                               " -p x " +
-                              " --url stratum+tcp://" + alg + ".hk.nicehash.com:" + port +
+                              " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port +
                                " --userpass=" + username +
                               " -p x " +
-                              " --url stratum+tcp://" + alg + ".in.nicehash.com:" + port +
+                              " --url=stratum+tcp://" + alg + ".in.nicehash.com:" + port +
                                " --userpass=" + username +
                               " -p x " +
-                              " --url stratum+tcp://" + alg + ".jp.nicehash.com:" + port +
+                              " --url=stratum+tcp://" + alg + ".jp.nicehash.com:" + port +
                                " --userpass=" + username +
                               " -p x " +
-                              " --url stratum+tcp://" + alg + ".usa.nicehash.com:" + port +
+                              " --url=stratum+tcp://" + alg + ".usa.nicehash.com:" + port +
                                " --userpass=" + username +
                               " -p x " +
-                              " --url stratum+tcp://" + alg + ".br.nicehash.com:" + port +
+                              " --url=stratum+tcp://" + alg + ".br.nicehash.com:" + port +
                                " --userpass=" + username +
                               " -p x " +
-                              " --url stratum+tcp://" + alg + ".eu.nicehash.com:" + port +
+                              " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port +
                                " --userpass=" + username +
                               " -p x " +
                               " --api-listen" +
@@ -122,16 +126,17 @@ namespace NiceHashMiner.Miners
 
             // cd to the cgminer for the process bins
             CommandLine = " /C \"cd /d " + WorkingDirectory + " && mkxminer.exe " +
-                          " -o " + url +
-                          " -u " + Globals.DemoUser + 
+                          " --url " + url + "/#xnsub" +
+                          " --user " + Globals.DemoUser + 
                           " -p x " +
                           ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
                                                                 DeviceType.AMD) +
-                          " -d ";
+                          " --device ";
 
             CommandLine += GetDevicesCommandString();
-            CommandLine += "\"";
+            CommandLine += " >benchmark.txt";
+            //    CommandLine += " && del dump.txt\"";
 
             return CommandLine;
         }
@@ -144,27 +149,26 @@ namespace NiceHashMiner.Miners
             {
                 return true;
             }
-            if (outdata.Contains("> ") && outdata.Contains("H/s | Temp") ) {
-                int i = outdata.IndexOf("> ");
-                int k = outdata.IndexOf("H/s");
-                Helpers.ConsolePrint("BENCHMARK2", outdata.Substring(i + 3, k - i));
-                /*
-                 if (outdata.Contains("h/s"))
-                 {
-                     hashSpeed = outdata.Substring(i + 3, k - i);
-                     kspeed = 1;
-                 }
-                 if (outdata.Contains("Kh/s"))
-                 {
-                     hashSpeed = outdata.Substring(i + 6, k - i - 7);
-                     kspeed = 1000;
-                 }
-                 if (outdata.Contains("Mh/s"))
-                 {
-                     hashSpeed = outdata.Substring(i + 6, k - i - 7);
-                     kspeed = 1000000;
-                 }
-                 */
+            if (outdata.Contains("(avg)") && outdata.Contains("h/s") && BenchmarkAlgorithm.NiceHashID != AlgorithmType.DaggerHashimoto) {
+                int i = outdata.IndexOf("(avg):");
+                int k = outdata.IndexOf("h/s");
+
+                if (outdata.Contains("h/s"))
+                {
+                    hashSpeed = outdata.Substring(i + 6, k - i - 6);
+                    kspeed = 1;
+                }
+                if (outdata.Contains("Kh/s"))
+                {
+                    hashSpeed = outdata.Substring(i + 6, k - i - 7);
+                    kspeed = 1000;
+                }
+                if (outdata.Contains("Mh/s"))
+                {
+                    hashSpeed = outdata.Substring(i + 6, k - i - 7);
+                    kspeed = 1000000;
+                }
+
                 double speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
                 Helpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashSpeed);
                 BenchmarkAlgorithm.BenchmarkSpeed = speed*kspeed;
@@ -178,19 +182,18 @@ namespace NiceHashMiner.Miners
             AlgorithmType NHDataIndex = BenchmarkAlgorithm.NiceHashID;
 
             if (Globals.NiceHashData == null) {
-                Helpers.ConsolePrint("BENCHMARK", "Skipping gatelessgate benchmark because there is no internet " +
-                    "connection. Gatelessgate needs internet connection to do benchmarking.");
+                Helpers.ConsolePrint("BENCHMARK", "Skipping mkxminer benchmark because there is no internet " +
+                    "connection. mkxminer needs internet connection to do benchmarking.");
 
                 throw new Exception("No internet connection");
             }
 
             if (Globals.NiceHashData[NHDataIndex].paying == 0) {
-                Helpers.ConsolePrint("BENCHMARK", "Skipping gatelessgate benchmark because there is no work on Nicehash.com " +
+                Helpers.ConsolePrint("BENCHMARK", "Skipping mkxminer benchmark because there is no work on Nicehash.com " +
                     "[algo: " + BenchmarkAlgorithm.AlgorithmName + "(" + NHDataIndex + ")]");
 
                 throw new Exception("No work can be used for benchmarking");
             }
-
             _benchmarkTimer.Reset();
             _benchmarkTimer.Start();
             // call base, read only outpus
@@ -218,6 +221,7 @@ namespace NiceHashMiner.Miners
                 Helpers.ConsolePrint("mkxminer_GetFinalBenchmarkString", International.GetText("mkxminer_precise_try"));
                 return International.GetText("mkxminer_precise_try");
             }
+
             return base.GetFinalBenchmarkString();
         }
 
@@ -260,7 +264,7 @@ namespace NiceHashMiner.Miners
                             throw new Exception("Termined by user request");
                         }
                         if (BenchmarkSignalHanged) {
-                            throw new Exception("gatelessgate is not responding");
+                            throw new Exception("mkxminer is not responding");
                         }
                         if (BenchmarkSignalFinnished) {
                             break;
@@ -289,6 +293,8 @@ namespace NiceHashMiner.Miners
                 _currentMinerReadStatus = MinerAPIReadStatus.NONE;
                 return null;
             }
+            //// sgminer debug log
+            //Helpers.ConsolePrint("sgminer-DEBUG_resp", resp);
 
             try {
                 // Checks if all the GPUs are Alive first
