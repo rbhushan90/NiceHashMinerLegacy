@@ -67,6 +67,8 @@ namespace NiceHashMiner
                     Helpers.ConsolePrint("NICEHASH", "Old version");
                     if (File.Exists("internals\\MinerOptionPackage_glg.json"))
                         File.Delete("internals\\MinerOptionPackage_glg.json");
+
+                    File.Delete("bin\\ccminer_klaust\\ccminer.exe");
                     ConfigManager.GeneralConfig.ForkFixVersion = 4;
                 }
                 else

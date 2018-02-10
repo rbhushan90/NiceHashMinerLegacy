@@ -20,7 +20,7 @@ namespace NiceHashMiner.Miners {
         // eth-only: 1%
         // eth-dual-mine: 2%
         protected override double DevFee() {
-            return IsDual() ? 2.0 : 1.0;
+            return IsDual() ? 1.5 : 1.0;
         }
 
         // the short form the miner uses for secondary algo in cmd line and log
