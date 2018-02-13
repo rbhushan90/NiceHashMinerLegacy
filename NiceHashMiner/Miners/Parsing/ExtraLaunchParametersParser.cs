@@ -218,10 +218,15 @@ namespace NiceHashMiner.Miners.Parsing {
                 deviceType, showLog);
         }
 
-        private static MinerType GetMinerType(DeviceType deviceType, MinerBaseType minerBaseType, AlgorithmType algorithmType) {    
+        private static MinerType GetMinerType(DeviceType deviceType, MinerBaseType minerBaseType, AlgorithmType algorithmType, AlgorithmType secondaryAlgorithmType) {
             //if (MinerBaseType.cpuminer == minerBaseType) {
             //    return MinerType.cpuminer_opt;
             //}
+            Helpers.ConsolePrint("WORK!!!!2", secondaryAlgorithmType.ToString());
+            if (algorithmType.Equals(AlgorithmType.DaggerBlake2s))
+            {
+                Helpers.ConsolePrint("NICEHASH", "WORK!!!!!!!!");
+            }
             if (MinerBaseType.OptiminerAMD == minerBaseType) {
                 return MinerType.OptiminerZcash;
             }
@@ -254,6 +259,13 @@ namespace NiceHashMiner.Miners.Parsing {
                     return MinerType.ClaymoreZcash;
                 }
                 if (AlgorithmType.DaggerHashimoto == algorithmType) {
+                    switch (secondaryAlgorithmType)
+                    {
+                        case AlgorithmType.Blake2s:
+                            return MinerType.ClaymoreDualBlake2s;
+                        case AlgorithmType.Keccak:
+                            return MinerType.ClaymoreDualKeccak;
+                    }
                     return MinerType.ClaymoreDual;
                 }
             }
@@ -311,15 +323,17 @@ namespace NiceHashMiner.Miners.Parsing {
 
             MinerBaseType minerBaseType = MinerBaseType.NONE;
             AlgorithmType algorithmType = AlgorithmType.NONE;
+            AlgorithmType secondaryAlgorithmType = AlgorithmType.NONE;
             if (MiningPairs.Count > 0) {
                 var algo = MiningPairs[0].Algorithm;
                 if (algo != null) {
                     algorithmType = algo.NiceHashID;
+                    secondaryAlgorithmType = algo.SecondaryNiceHashID;
                     minerBaseType = algo.MinerBaseType;
                 }
             }
 
-            MinerType minerType = GetMinerType(deviceType, minerBaseType, algorithmType);
+            MinerType minerType = GetMinerType(deviceType, minerBaseType, algorithmType, secondaryAlgorithmType);
 
             MinerOptionPackage minerOptionPackage = ExtraLaunchParameters.GetMinerOptionPackageForMinerType(minerType);
 

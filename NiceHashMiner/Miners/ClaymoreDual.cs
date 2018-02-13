@@ -56,6 +56,7 @@ namespace NiceHashMiner.Miners {
             string dualModeParams = "";
             AlgorithmType alg = dual;
             string poolport = "3354";
+          //  Helpers.ConsolePrint("NICEHASH-extra!!", this.MiningSetup.MiningPairs[0].CurrentExtraLaunchParameters);
             if (!IsDual())
             {  // leave convenience param for non-dual entry
                 foreach (var pair in MiningSetup.MiningPairs)
@@ -143,14 +144,23 @@ namespace NiceHashMiner.Miners {
             w.Flush();
             w.Close();
             string addParam;
-            if (SecondaryAlgorithmType == AlgorithmType.Blake2s)
+            bool needdcri = true;
+            foreach (var pair in MiningSetup.MiningPairs)
+            {
+                if (pair.CurrentExtraLaunchParameters.Contains("-dcri"))
+                {
+                    needdcri = false;
+                }
+            }
+            
+            if (SecondaryAlgorithmType == AlgorithmType.Blake2s && needdcri)
             {
                 addParam = " "
                     + GetDevicesCommandString()
                     + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5 -dcri 60", url, username, APIPort)
                     + dualModeParams;
             }
-            else if (SecondaryAlgorithmType == AlgorithmType.Keccak)
+            else if (SecondaryAlgorithmType == AlgorithmType.Keccak && needdcri)
             {
                 addParam = " "
                                     + GetDevicesCommandString()
@@ -159,7 +169,8 @@ namespace NiceHashMiner.Miners {
             }
             else
             {
-                addParam = " "
+            
+            addParam = " "
                                     + GetDevicesCommandString()
                                     + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5", url, username, APIPort)
                                     + dualModeParams;

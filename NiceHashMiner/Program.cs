@@ -68,12 +68,20 @@ namespace NiceHashMiner
                     if (File.Exists("internals\\MinerOptionPackage_glg.json"))
                         File.Delete("internals\\MinerOptionPackage_glg.json");
 
+                    if (File.Exists("internals\\MinerOptionPackage_ClaymoreDual.json"))
+                        File.Delete("internals\\MinerOptionPackage_ClaymoreDual.json");
+
                     File.Delete("bin\\ccminer_klaust\\ccminer.exe");
                     ConfigManager.GeneralConfig.ForkFixVersion = 4;
                 }
-                else
+
+                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 4.1)
                 {
-                    Helpers.ConsolePrint("NICEHASH", "Actual version");
+                    Helpers.ConsolePrint("NICEHASH", "Old version");
+                    if (File.Exists("internals\\MinerOptionPackage_ClaymoreDual.json"))
+                        File.Delete("internals\\MinerOptionPackage_ClaymoreDual.json");
+
+                    ConfigManager.GeneralConfig.ForkFixVersion = 4.1;
                 }
                 //**
 

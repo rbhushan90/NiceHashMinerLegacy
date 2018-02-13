@@ -8,7 +8,7 @@ namespace NiceHashMiner.Configs.Data {
     public class GeneralConfig {
 
         public Version ConfigFileVersion;
-        public int ForkFixVersion;
+        public double ForkFixVersion;
         public LanguageType Language = LanguageType.En;
         public string DisplayCurrency = "USD";
 
