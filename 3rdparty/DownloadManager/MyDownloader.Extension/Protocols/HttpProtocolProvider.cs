@@ -6,6 +6,8 @@ using System.Net;
 using MyDownloader.Core;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Authentication; 
+
 
 namespace MyDownloader.Extension.Protocols
 {
@@ -14,6 +16,7 @@ namespace MyDownloader.Extension.Protocols
         static HttpProtocolProvider()
         {
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(certificateCallBack);
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)SslProtocols.Tls12;
         }
 
         static bool certificateCallBack(
