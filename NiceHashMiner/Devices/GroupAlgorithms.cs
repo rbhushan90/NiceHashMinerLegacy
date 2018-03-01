@@ -201,13 +201,18 @@ namespace NiceHashMiner.Devices {
                                     }
                                 }
                             }
-                            //if (algoSettings.ContainsKey(MinerBaseType.Claymore)) {
-                            //    foreach (var algo in algoSettings[MinerBaseType.Claymore]) {
-                            //        if (algo.NiceHashID == AlgorithmType.CryptoNight) {
-                            //            algo.Enabled = false;
-                            //        }
-                            //    }
-                            //}
+                            
+                            if (algoSettings.ContainsKey(MinerBaseType.Claymore)) {
+                                foreach (var algo in algoSettings[MinerBaseType.Claymore]) {
+                                    if (device.Codename.Contains("gfx804"))
+                                    {
+                                        if (algo.NiceHashID == AlgorithmType.NeoScrypt)
+                                        {
+                                            algo.Enabled = false;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     } // END AMD case
 
@@ -321,6 +326,7 @@ namespace NiceHashMiner.Devices {
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.Claymore, AlgorithmType.CryptoNight, "cryptonight"),
                             new Algorithm(MinerBaseType.Claymore, AlgorithmType.Equihash, "equihash"),
+                            new Algorithm(MinerBaseType.Claymore, AlgorithmType.NeoScrypt, "neoscrypt"){ ExtraLaunchParameters = AmdGpuDevice.DefaultParam + "-powlim 50" },
                             new Algorithm(MinerBaseType.Claymore, AlgorithmType.DaggerHashimoto, ""),
                             new Algorithm(MinerBaseType.Claymore, AlgorithmType.DaggerHashimoto, "", AlgorithmType.Decred),
                             new Algorithm(MinerBaseType.Claymore, AlgorithmType.DaggerHashimoto, "", AlgorithmType.Lbry),

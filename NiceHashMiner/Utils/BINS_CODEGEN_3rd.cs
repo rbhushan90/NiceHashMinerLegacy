@@ -33,6 +33,8 @@ namespace NiceHashMiner.Utils {
 
 @"\claymore_zcash\ZecMiner64.exe",
 
+@"\claymore_neoscrypt\NeoScryptMiner.exe",
+
 @"\claymore_zcash\Remote manager\EthMan.exe",
 
 @"\claymore_zcash\Remote manager\libeay32.dll",

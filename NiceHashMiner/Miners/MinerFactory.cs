@@ -20,6 +20,8 @@ namespace NiceHashMiner.Miners {
         private static Miner CreateClaymore(AlgorithmType algorithmType, AlgorithmType secondaryAlgorithmType) {
             if (AlgorithmType.Equihash == algorithmType) {
                 return new ClaymoreZcashMiner();
+            } else if (AlgorithmType.NeoScrypt == algorithmType) {
+                return new ClaymoreNeoscryptMiner();
             } else if (AlgorithmType.CryptoNight == algorithmType) {
                 return new ClaymoreCryptoNightMiner();
             } else if (AlgorithmType.DaggerHashimoto == algorithmType) {

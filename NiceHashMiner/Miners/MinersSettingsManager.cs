@@ -122,6 +122,7 @@ namespace NiceHashMiner.Miners {
                         MinerPaths.Data.glg,
                         MinerPaths.Data.ClaymoreCryptoNightMiner,
                         MinerPaths.Data.ClaymoreZcashMiner,
+                        MinerPaths.Data.ClaymoreNeoscryptMiner,
                         MinerPaths.Data.OptiminerZcashMiner
                     };
                     foreach (var minerPath in minerPaths) {

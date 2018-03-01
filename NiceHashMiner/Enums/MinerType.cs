@@ -18,6 +18,7 @@ namespace NiceHashMiner.Enums {
         eqm_CPU,
         eqm_CUDA,
         ClaymoreZcash,
+        ClaymoreNeoscrypt,
         ClaymoreCryptoNight,
         OptiminerZcash,
         excavator,

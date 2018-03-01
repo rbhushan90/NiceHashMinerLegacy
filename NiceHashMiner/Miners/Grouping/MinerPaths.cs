@@ -98,6 +98,7 @@ namespace NiceHashMiner.Miners.Grouping
             // root binary folder
             private const string _bin_3rdparty = @"bin_3rdparty";
             public const string ClaymoreZcashMiner = _bin_3rdparty + @"\claymore_zcash\ZecMiner64.exe";
+            public const string ClaymoreNeoscryptMiner = _bin_3rdparty + @"\claymore_neoscrypt\NeoScryptMiner.exe";
             public const string ClaymoreCryptoNightMiner = _bin_3rdparty + @"\claymore_cryptonight\NsGpuCNMiner.exe";
             public const string ClaymoreCryptoNightMiner_old = _bin_3rdparty + @"\claymore_cryptonight_old\NsGpuCNMiner.exe";
             public const string OptiminerZcashMiner = _bin_3rdparty + @"\optiminer_zcash_win\Optiminer.exe";
@@ -187,7 +188,7 @@ namespace NiceHashMiner.Miners.Grouping
 
         public static bool IsValidMinerPath(string minerPath) {
             // TODO make a list of valid miner paths and check that instead
-            return minerPath != null && Data.NONE != minerPath && minerPath != ""; 
+            return minerPath != null && Data.NONE != minerPath && minerPath != "";
         }
 
         /**
@@ -219,15 +220,15 @@ namespace NiceHashMiner.Miners.Grouping
                 if (AlgorithmType.Decred == algorithmType) {
                     return Data.ccminer_decred;
                 }
-                if (AlgorithmType.Lyra2RE == algorithmType 
+                if (AlgorithmType.Lyra2RE == algorithmType
                     || AlgorithmType.Lyra2REv2 == algorithmType) {
                     return Data.ccminer_nanashi;
                 }
                 if (AlgorithmType.CryptoNight == algorithmType) {
                     return Data.ccminer_cryptonight;
                 }
-                if (AlgorithmType.Lbry == algorithmType 
-                    || AlgorithmType.X11Gost == algorithmType 
+                if (AlgorithmType.Lbry == algorithmType
+                    || AlgorithmType.X11Gost == algorithmType
                     || AlgorithmType.Blake2s == algorithmType
                     || AlgorithmType.Skunk == algorithmType) {
                     return Data.ccminer_tpruvot;
@@ -307,12 +308,14 @@ namespace NiceHashMiner.Miners.Grouping
                 {
                     return Data.glg;
                 }
-                return Data.NONE; 
+                return Data.NONE;
             }
 
             public static string ClaymorePath(AlgorithmType type) {
                 if(AlgorithmType.Equihash == type) {
                     return Data.ClaymoreZcashMiner;
+                } else if (AlgorithmType.NeoScrypt == type) {
+                    return Data.ClaymoreNeoscryptMiner;
                 } else if(AlgorithmType.CryptoNight == type) {
                     return Data.ClaymoreCryptoNightMiner;
                 } else if (AlgorithmType.DaggerHashimoto == type) {

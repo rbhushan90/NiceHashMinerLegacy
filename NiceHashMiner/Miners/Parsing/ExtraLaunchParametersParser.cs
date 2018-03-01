@@ -12,7 +12,7 @@ namespace NiceHashMiner.Miners.Parsing {
     static class ExtraLaunchParametersParser {
         private static readonly string TAG = "ExtraLaunchParametersParser";
         private static readonly string MinerOptionType_NONE = "MinerOptionType_NONE";
-        
+
 
         private static bool _showLog = true;
 
@@ -34,7 +34,7 @@ namespace NiceHashMiner.Miners.Parsing {
                     return threads;
                 } catch { }
             }
-            return 1; // default 
+            return 1; // default
         }
 
         private static bool prevHasIgnoreParam = false;
@@ -222,10 +222,10 @@ namespace NiceHashMiner.Miners.Parsing {
             //if (MinerBaseType.cpuminer == minerBaseType) {
             //    return MinerType.cpuminer_opt;
             //}
-            Helpers.ConsolePrint("WORK!!!!2", secondaryAlgorithmType.ToString());
+//            Helpers.ConsolePrint("WORK!!!!2", secondaryAlgorithmType.ToString());
             if (algorithmType.Equals(AlgorithmType.DaggerBlake2s))
             {
-                Helpers.ConsolePrint("NICEHASH", "WORK!!!!!!!!");
+//                Helpers.ConsolePrint("NICEHASH", "WORK!!!!!!!!");
             }
             if (MinerBaseType.OptiminerAMD == minerBaseType) {
                 return MinerType.OptiminerZcash;
@@ -255,8 +255,12 @@ namespace NiceHashMiner.Miners.Parsing {
                 if (AlgorithmType.CryptoNight == algorithmType) {
                     return MinerType.ClaymoreCryptoNight;
                 }
-                if (AlgorithmType.Equihash == algorithmType) {
+                if (AlgorithmType.Equihash == algorithmType)
+                {
                     return MinerType.ClaymoreZcash;
+                }
+                if (AlgorithmType.NeoScrypt == algorithmType) {
+                    return MinerType.ClaymoreNeoscrypt;
                 }
                 if (AlgorithmType.DaggerHashimoto == algorithmType) {
                     switch (secondaryAlgorithmType)
@@ -458,12 +462,12 @@ namespace NiceHashMiner.Miners.Parsing {
                 ret = general;
             } else {
                 LogParser("AMD parsing temperature control parameters");
-                // temp = Parse(setMiningPairs, minerOptionPackage.TemperatureOptions, true, minerOptionPackage.GeneralOptions);            
+                // temp = Parse(setMiningPairs, minerOptionPackage.TemperatureOptions, true, minerOptionPackage.GeneralOptions);
                 string temp = Parse(setMiningPairs, minerOptionPackage.TemperatureOptions, false, minerOptionPackage.GeneralOptions);
 
                 ret = general + "  " + temp;
             }
-        
+
             return ret;
         }
 
@@ -495,7 +499,7 @@ namespace NiceHashMiner.Miners.Parsing {
                 if (i > -1 && strings.Length < i) {
                     int numTr = cDev.Threads;
                     if (Int32.TryParse(strings[i], out numTr)) {
-                        if (numTr <= cDev.Threads) return numTr; 
+                        if (numTr <= cDev.Threads) return numTr;
                     }
                 }
             }
