@@ -55,7 +55,7 @@ namespace NiceHashMiner
         int flowLayoutPanelRatesIndex = 0;
 
         const string _betaAlphaPostfixString = "";
-        const string ForkString = " Fork Fix 4.2";
+        const string ForkString = " Fork Fix 5";
 
         private bool _isDeviceDetectionInitialized = false;
 

@@ -87,7 +87,7 @@ namespace NiceHashMiner.Miners
                         var ret = GetDevicesCommandString()
                             + " --server " + url.Split(':')[0]
                             + " --user " + btcAddress + "." + worker + " --pass x --port "
-                            + url.Split(':')[1] + " --telemetry=127.0.0.1:" + APIPort;
+                            + url.Split(':')[1] + " --telemetry=127.0.0.1:" + APIPort + " --time --color";
              
             return ret;
         }
@@ -243,7 +243,7 @@ namespace NiceHashMiner.Miners
         }
 
         protected override bool BenchmarkParseLine(string outdata) {
-            Helpers.ConsolePrint("BENCHMARK", outdata);
+          //  Helpers.ConsolePrint("BENCHMARK", outdata);
             return false;
         }
 
@@ -257,9 +257,9 @@ namespace NiceHashMiner.Miners
                 int speedStart = outdata.IndexOf(LOOK_FOR_START);
                 string speed = outdata.Substring(speedStart, outdata.Length - speedStart);
                 speed = speed.Replace(LOOK_FOR_START, "");
-                Helpers.ConsolePrint(MinerTAG(), speed);
+             //   Helpers.ConsolePrint(MinerTAG(), speed);
                 speed = speed.Substring(0, speed.IndexOf(LOOK_FOR_END));
-                Helpers.ConsolePrint(MinerTAG(), speed);
+             //   Helpers.ConsolePrint(MinerTAG(), speed);
 
                 if (speed.Contains("k")) {
                     mult = 1000;
@@ -290,7 +290,7 @@ namespace NiceHashMiner.Miners
                 int bytesRead = await nwStream.ReadAsync(bytesToRead, 0, client.ReceiveBufferSize);
                 string respStr = Encoding.ASCII.GetString(bytesToRead, 0, bytesRead);
                 resp = JsonConvert.DeserializeObject(respStr);
-                Helpers.ConsolePrint(MinerTAG(), "MINER RESPONCE:"+ respStr);
+             //   Helpers.ConsolePrint(MinerTAG(), "MINER RESPONCE:"+ respStr);
                 client.Close();
             } catch (Exception ex) {
                 Helpers.ConsolePrint(MinerTAG(), ex.Message);
