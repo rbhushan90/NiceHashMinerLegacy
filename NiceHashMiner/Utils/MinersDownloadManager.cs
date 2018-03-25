@@ -15,12 +15,12 @@ using NiceHashMiner.Devices;
 namespace NiceHashMiner.Utils {
     public static class MinersDownloadManager {
         public static DownloadSetup StandardDlSetup = new DownloadSetup(
-             "https://github.com/angelbbs/NiceHashMinerLegacy/releases/download/Fork_Fix_4/bin_ff4.zip",
+             "https://github.com/angelbbs/NiceHashMinerLegacy/releases/download/Fork_Fix_5/bin_ff5.zip",
             "bins.zip",
             "bin");
 
         public static DownloadSetup ThirdPartyDlSetup = new DownloadSetup(
-            "https://github.com/angelbbs/NiceHashMinerLegacy/releases/download/Fork_Fix_4/bin_3rdparty_ff4.zip",
+            "https://github.com/angelbbs/NiceHashMinerLegacy/releases/download/Fork_Fix_5/bin_3rdparty_ff5.zip",
             "bins_3rdparty.zip",
             "bin_3rdparty");
     }

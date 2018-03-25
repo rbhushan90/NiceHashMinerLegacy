@@ -39,6 +39,7 @@ namespace NiceHashMiner {
             { AlgorithmType.DaggerHashimoto ,               MHs },
             { AlgorithmType.Decred ,                        GHs },
             { AlgorithmType.CryptoNight ,                   kHs },
+            { AlgorithmType.CryptoNightV7 ,                 kHs },
             { AlgorithmType.Lbry ,                          GHs },
             { AlgorithmType.Equihash ,                      1 }, // Sols /s
             { AlgorithmType.Pascal ,                        GHs }, 

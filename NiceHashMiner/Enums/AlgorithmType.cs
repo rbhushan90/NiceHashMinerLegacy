@@ -76,6 +76,7 @@ namespace NiceHashMiner.Enums
         DaggerHashimoto = 20,
         Decred = 21,
         CryptoNight = 22,
+        CryptoNightV7 = 30,
         Lbry = 23,
         Equihash = 24,
         Pascal = 25,

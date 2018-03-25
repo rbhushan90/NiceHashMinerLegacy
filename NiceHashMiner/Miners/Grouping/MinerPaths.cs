@@ -92,6 +92,8 @@ namespace NiceHashMiner.Miners.Grouping
             public const string XmrStackCPUMiner = _bin + @"\xmr-stak-cpu\xmr-stak-cpu.exe";
             public const string XmrStakAMD = _bin + @"\xmr-stak-amd\xmr-stak-amd.exe";
             public const string Xmrig = _bin + @"\xmrig\xmrig.exe";
+            public const string XmrigAMD = _bin + @"\xmrig-amd\xmrig-amd.exe";
+            public const string XmrigNVIDIA = _bin + @"\xmrig-nvidia\xmrig-nvidia.exe";
 
             public const string NONE = "";
 
@@ -162,6 +164,10 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.prospector;
                 case MinerBaseType.Xmrig:
                     return Data.Xmrig;
+                case MinerBaseType.XmrigAMD:
+                    return Data.XmrigAMD;
+                case MinerBaseType.XmrigNVIDIA:
+                    return Data.XmrigNVIDIA;
                 case MinerBaseType.XmrStakAMD:
                     return Data.XmrStakAMD;
                 case MinerBaseType.Claymore_old:
@@ -206,6 +212,14 @@ namespace NiceHashMiner.Miners.Grouping
 
         ////// private stuff from here on
         static class NVIDIA_GROUPS {
+            public static string XmrigNVIDIA(AlgorithmType algorithmType)
+            {
+                if (AlgorithmType.CryptoNightV7 == algorithmType)
+                {
+                    return Data.XmrigNVIDIA;
+                }
+                return Data.XmrigNVIDIA;
+            }
             public static string ccminer_sm21_or_sm3x(AlgorithmType algorithmType) {
                 if (AlgorithmType.Decred == algorithmType) {
                     return Data.ccminer_decred;
@@ -295,6 +309,14 @@ namespace NiceHashMiner.Miners.Grouping
         }
 
         static class AMD_GROUP {
+            public static string XmrigAMD(AlgorithmType algorithmType)
+            {
+                if (AlgorithmType.CryptoNightV7 == algorithmType)
+                {
+                    return Data.XmrigAMD;
+                }
+                return Data.XmrigAMD;
+            }
             public static string sgminer_path(AlgorithmType type) {
                 if (AlgorithmType.CryptoNight == type || AlgorithmType.DaggerHashimoto == type) {
                     return Data.sgminer_gm;

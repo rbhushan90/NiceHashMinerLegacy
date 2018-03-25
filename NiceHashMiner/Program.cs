@@ -71,7 +71,8 @@ namespace NiceHashMiner
                     if (File.Exists("internals\\MinerOptionPackage_ClaymoreDual.json"))
                         File.Delete("internals\\MinerOptionPackage_ClaymoreDual.json");
 
-                    File.Delete("bin\\ccminer_klaust\\ccminer.exe");
+                    if (File.Exists("bin\\ccminer_klaust\\ccminer.exe"))
+                        File.Delete("bin\\ccminer_klaust\\ccminer.exe");
                     ConfigManager.GeneralConfig.ForkFixVersion = 4;
                 }
 
@@ -86,7 +87,8 @@ namespace NiceHashMiner
                 if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 5)
                 {
                     Helpers.ConsolePrint("NICEHASH", "Old version");
-                    File.Delete("bin\\xmrig\\xmrig.exe");
+                    if (File.Exists("bin\\xmrig\\xmrig.exe"))
+                        File.Delete("bin\\xmrig\\xmrig.exe");
 
                     ConfigManager.GeneralConfig.ForkFixVersion = 5;
                 }

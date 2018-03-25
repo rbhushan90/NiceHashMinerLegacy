@@ -473,9 +473,12 @@ namespace NiceHashMiner
                 isSMAUpdated = false;
                 //                if (Globals.NiceHashData != null)
                 //                    {
-                await MinersManager.SwichMostProfitableGroupUpMethod(Globals.NiceHashData);
-                //                }
-            }
+                try
+                {
+                    await MinersManager.SwichMostProfitableGroupUpMethod(Globals.NiceHashData);
+                }  catch (Exception ex) { Helpers.ConsolePrint("ERROR", ex.Message); }
+            //                }
+        }
         }
 
         async private void MinerStatsCheck_Tick(object sender, EventArgs e)

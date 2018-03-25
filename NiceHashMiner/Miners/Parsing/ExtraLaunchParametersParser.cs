@@ -318,6 +318,14 @@ namespace NiceHashMiner.Miners.Parsing {
             if (MinerBaseType.Xmrig == minerBaseType) {
                 return MinerType.Xmrig;
             }
+            if (MinerBaseType.XmrigAMD == minerBaseType)
+            {
+                return MinerType.XmrigAMD;
+            }
+            if (MinerBaseType.XmrigNVIDIA == minerBaseType)
+            {
+                return MinerType.XmrigNVIDIA;
+            }
 
             return MinerType.NONE;
         }

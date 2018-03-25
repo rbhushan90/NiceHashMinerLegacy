@@ -26,6 +26,8 @@ namespace NiceHashMiner.Enums {
         DSTM,
         Prospector,
         Xmrig,
+        XmrigAMD,
+        XmrigNVIDIA,
         XmrStakAMD,
         Claymore_old,
         hsrneoscrypt,

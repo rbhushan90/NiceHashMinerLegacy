@@ -467,6 +467,33 @@ namespace NiceHashMiner.Miners.Parsing {
                     new MinerOption("Xmrig_safe", "--safe", null, MinerOptionFlagType.Uni, " ")
                 },
                 new List<MinerOption>(){ }
+             ),
+            new MinerOptionPackage(
+                MinerType.XmrigAMD,
+                new List<MinerOption>() {
+                    new MinerOption("Xmrig_fee", "--donate-level=", "0", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("Xmrig_variant", "--variant", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("Xmrig_keepalive", "--keepalive", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("Xmrig_affinity", "--opencl-affinity=", null, MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("Xmrig-intensity", "--opencl-launch=", null, MinerOptionFlagType.MultiParam, ","), 
+                    new MinerOption("Xmrig_nocolor", "--no-color", null, MinerOptionFlagType.Uni, " ")
+                },
+                new List<MinerOption>(){ }
+             ),
+            new MinerOptionPackage(
+                MinerType.XmrigNVIDIA,
+                new List<MinerOption>() {
+                    new MinerOption("Xmrig_fee", "--donate-level=", "0", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("Xmrig_variant", "--variant", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("Xmrig_keepalive", "--keepalive", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("Xmrig_affinity", "--cuda-affinity", null, MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("Xmrig-intensity", "--cuda-launch=", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("Xmrig-max-threads", "--cuda-max-threads=", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("Xmrig-bfactor", "--cuda-bfactor=", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("Xmrig-bsleep", "--cuda-bsleep=", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("Xmrig_nocolor", "--no-color", null, MinerOptionFlagType.Uni, " ")
+                },
+                new List<MinerOption>(){ }
              )
         };
 

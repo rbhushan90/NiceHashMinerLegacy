@@ -135,7 +135,11 @@ namespace NiceHashMiner.Utils {
 
 @"\xmr-stak-cpu\xmr-stak-cpu.exe",
 
-@"\xmrig\xmrig.exe"
+@"\xmrig\xmrig.exe",
+
+@"\xmrig-amd\xmrig-amd.exe",
+
+@"\xmrig-nvidia\xmrig-nvidia.exe"
 };
     #endregion //CODE_GEN STUFF // listFiles.py
     }

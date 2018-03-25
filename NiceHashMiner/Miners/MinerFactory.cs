@@ -69,6 +69,10 @@ namespace NiceHashMiner.Miners {
                     return new Prospector();
                 case MinerBaseType.Xmrig:
                     return new Xmrig();
+                case MinerBaseType.XmrigAMD:
+                    return new XmrigAMD();
+                case MinerBaseType.XmrigNVIDIA:
+                    return new XmrigNVIDIA();
                 case MinerBaseType.XmrStakAMD:
                     return new XmrStakAMD();
                 case MinerBaseType.Claymore_old:

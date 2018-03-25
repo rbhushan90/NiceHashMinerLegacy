@@ -83,6 +83,44 @@ namespace NiceHashMiner.Devices {
                                 }
                             }
                         }
+                        if (algoSettings.ContainsKey(MinerBaseType.XmrigAMD))
+                        {
+                            var XmrigAMDAlgos = algoSettings[MinerBaseType.XmrigAMD];
+                            int xmrigCryptoNight_Index = XmrigAMDAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.CryptoNightV7);
+
+                            //--opencl-launch=
+                            XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = "--opencl-launch=896";
+                            if (xmrigCryptoNight_Index > -1)
+                            {
+                                if (device.Codename.Contains("gfx804")) //rx550
+                                {
+                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = "--opencl-launch=448";
+                                }
+                                if (device.Codename.Contains("Pitcairn")) //r7-370
+                                {
+                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = "--opencl-launch=416";
+                                }
+                                if (device.Codename.Contains("Baffin")) //rx460/560
+                                {
+                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = "--opencl-launch=448";
+                                }
+
+                                if (device.Codename.Contains("Ellesmere")) //rx570/580
+                                {
+                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = "--opencl-launch=832";
+                                }
+
+                                if (device.Codename.Contains("Hawaii"))
+                                {
+                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = "--opencl-launch=640";
+                                }
+                                else if (device.Name.Contains("Vega"))
+                                {
+                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = AmdGpuDevice.DefaultParam + "--opencl-launch=1850";
+                                }
+                            }
+                            
+                        }
 
                         // Ellesmere, Polaris
                         // Ellesmere sgminer workaround, keep this until sgminer is fixed to work with Ellesmere
@@ -276,7 +314,8 @@ namespace NiceHashMiner.Devices {
                     },
                     { MinerBaseType.Xmrig,
                         new List<Algorithm>() {
-                            new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNight, "")
+                            new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNight, ""),
+                            new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV7, "")
                         }
                     }
                 };
@@ -313,6 +352,11 @@ namespace NiceHashMiner.Devices {
                           //  new Algorithm(MinerBaseType.glg, AlgorithmType.Pascal, "pascal") { ExtraLaunchParameters = DefaultParam + "--intensity 21 -w 64 -g 2" },
                           //  new Algorithm(MinerBaseType.glg, AlgorithmType.X11Gost, "sibcoin-mod") { ExtraLaunchParameters = DefaultParam + "--intensity 16 -w 64 -g 2" },
                             new Algorithm(MinerBaseType.GatelessGate, AlgorithmType.Keccak, "keccak") { ExtraLaunchParameters = DefaultParam + "--intensity 12 --gpu-threads 2" }
+                        }
+                    },
+                    { MinerBaseType.XmrigAMD,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV7, "cryptonightV7") { ExtraLaunchParameters =  AmdGpuDevice.DefaultParam + "--variant" }
                         }
                     },
 /*
@@ -414,6 +458,11 @@ namespace NiceHashMiner.Devices {
                     { MinerBaseType.DSTM,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.DSTM, AlgorithmType.Equihash, "")
+                        }
+                    },
+                    { MinerBaseType.XmrigNVIDIA,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.XmrigNVIDIA, AlgorithmType.CryptoNightV7, "")
                         }
                     },
                     { MinerBaseType.Claymore,
