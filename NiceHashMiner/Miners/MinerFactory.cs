@@ -24,6 +24,8 @@ namespace NiceHashMiner.Miners {
                 return new ClaymoreNeoscryptMiner();
             } else if (AlgorithmType.CryptoNight == algorithmType) {
                 return new ClaymoreCryptoNightMiner();
+            } else if (AlgorithmType.CryptoNightV7 == algorithmType)  {
+                return new ClaymoreCryptoNightMiner();
             } else if (AlgorithmType.DaggerHashimoto == algorithmType) {
                 return new ClaymoreDual(secondaryAlgorithmType);
             }

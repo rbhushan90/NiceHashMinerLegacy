@@ -16,7 +16,7 @@ namespace NiceHashMiner.Miners
     public class XmrigNVIDIA : Miner
     {
         private int _benchmarkTimeWait = 120;
-        private const string _lookForStart = "speed 2.5s/60s/15m";
+        private const string _lookForStart = "speed 10s/60s/15m";
         private const string _lookForEnd = "h/s max";
 
         public XmrigNVIDIA() : base("XmrigNVIDIA") { }
@@ -29,7 +29,7 @@ namespace NiceHashMiner.Miners
         private string GetStartCommand(string url, string btcAdress, string worker)
         {
             var extras = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);
-            return $" -o {url} -u {btcAdress}.{worker}:x --variant --nicehash {extras} --api-port {APIPort} --donate-level=1"
+            return $" -o {url} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {APIPort} --donate-level=1"
                 + $" -o stratum+tcp://cryptonightv7.usa.nicehash.com:3363 -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://cryptonightv7.hk.nicehash.com:3363 -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://cryptonightv7.jp.nicehash.com:3363 -u {btcAdress}.{worker}:x "

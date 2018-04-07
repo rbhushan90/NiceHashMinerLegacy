@@ -255,6 +255,10 @@ namespace NiceHashMiner.Miners.Parsing {
                 if (AlgorithmType.CryptoNight == algorithmType) {
                     return MinerType.ClaymoreCryptoNight;
                 }
+                if (AlgorithmType.CryptoNightV7 == algorithmType)
+                {
+                    return MinerType.ClaymoreCryptoNight;
+                }
                 if (AlgorithmType.Equihash == algorithmType)
                 {
                     return MinerType.ClaymoreZcash;

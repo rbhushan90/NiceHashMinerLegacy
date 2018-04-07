@@ -44,21 +44,38 @@ namespace NiceHashMiner.Miners {
 
         public override void Start(string url, string btcAdress, string worker) {
             string username = GetUsername(btcAdress, worker);
+            String epools;
             if (isOld) {
                 LastCommandLine = " " + GetDevicesCommandString() + " -mport -" + APIPort + " -o " + url + " -u " +
                                   username + " -p x -dbg -1 -ftime 10 -retrydelay 5";
             } else {
-                LastCommandLine = " " + GetDevicesCommandString() + " -mport -" + APIPort + " -xpool " + url +
-                                  " -xwal " + username + " -xpsw x -dbg -1 -ftime 10 -retrydelay 5";
+                if (url.Contains("cryptonightv7"))
+                {
+                    LastCommandLine = " " + GetDevicesCommandString() + " -mport -" + APIPort + " -xpool " + url +
+                                  " -xwal " + username + " -xpsw x -dbg -1 -ftime 10 -retrydelay 5 -pow7 1";
+                } else
+                {
+                    LastCommandLine = " " + GetDevicesCommandString() + " -mport -" + APIPort + " -xpool " + url +
+                                 " -xwal " + username + " -xpsw x -dbg -1 -ftime 10 -retrydelay 5";
+                }
             }
-
-            String epools = String.Format("POOL: stratum+ssl://cryptonight.usa.nicehash.com:33353, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
-               + String.Format("POOL: stratum+ssl://cryptonight.hk.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
-               + String.Format("POOL: stratum+ssl://cryptonight.jp.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
-               + String.Format("POOL: stratum+ssl://cryptonight.in.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
-               + String.Format("POOL: stratum+ssl://cryptonight.br.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
-               + String.Format("POOL: stratum+ssl://cryptonight.eu.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n";
-
+            if (url.Contains("cryptonightv7")) //-pow7 1
+            {
+                epools = String.Format("POOL: stratum+ssl://cryptonightv7.usa.nicehash.com:33353, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+               + String.Format("POOL: stratum+ssl://cryptonightv7.hk.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+               + String.Format("POOL: stratum+ssl://cryptonightv7.jp.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+               + String.Format("POOL: stratum+ssl://cryptonightv7.in.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+               + String.Format("POOL: stratum+ssl://cryptonightv7.br.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+               + String.Format("POOL: stratum+ssl://cryptonightv7.eu.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n";
+            } else
+            {
+                epools = String.Format("POOL: stratum+ssl://cryptonight.usa.nicehash.com:33353, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+                              + String.Format("POOL: stratum+ssl://cryptonight.hk.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+                              + String.Format("POOL: stratum+ssl://cryptonight.jp.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+                              + String.Format("POOL: stratum+ssl://cryptonight.in.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+                              + String.Format("POOL: stratum+ssl://cryptonight.br.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n"
+                              + String.Format("POOL: stratum+ssl://cryptonight.eu.nicehash.com:33355, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, APIPort) + "\n";
+            }
             FileStream fs = new FileStream("bin_3rdparty\\claymore_cryptonight\\epools.txt", FileMode.Create, FileAccess.Write);
             StreamWriter w = new StreamWriter(fs);
             w.WriteAsync(epools);

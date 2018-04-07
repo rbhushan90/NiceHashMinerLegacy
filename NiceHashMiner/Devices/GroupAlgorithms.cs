@@ -89,34 +89,34 @@ namespace NiceHashMiner.Devices {
                             int xmrigCryptoNight_Index = XmrigAMDAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.CryptoNightV7);
 
                             //--opencl-launch=
-                            XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = "--opencl-launch=896";
+                            XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = AmdGpuDevice.DefaultParam + "--opencl-launch=1024";
                             if (xmrigCryptoNight_Index > -1)
                             {
                                 if (device.Codename.Contains("gfx804")) //rx550
                                 {
-                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = "--opencl-launch=448";
+                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = AmdGpuDevice.DefaultParam + "--opencl-launch=1432";
                                 }
                                 if (device.Codename.Contains("Pitcairn")) //r7-370
                                 {
-                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = "--opencl-launch=416";
+                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = AmdGpuDevice.DefaultParam + "--opencl-launch=1400";
                                 }
                                 if (device.Codename.Contains("Baffin")) //rx460/560
                                 {
-                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = "--opencl-launch=448";
+                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = AmdGpuDevice.DefaultParam + "--opencl-launch=1920";
                                 }
 
                                 if (device.Codename.Contains("Ellesmere")) //rx570/580
                                 {
-                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = "--opencl-launch=832";
+                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = AmdGpuDevice.DefaultParam + "--opencl-launch=1920";
                                 }
 
                                 if (device.Codename.Contains("Hawaii"))
                                 {
-                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = "--opencl-launch=640";
+                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = AmdGpuDevice.DefaultParam + "--opencl-launch=1024";
                                 }
                                 else if (device.Name.Contains("Vega"))
                                 {
-                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = AmdGpuDevice.DefaultParam + "--opencl-launch=1850";
+                                    XmrigAMDAlgos[xmrigCryptoNight_Index].ExtraLaunchParameters = AmdGpuDevice.DefaultParam + "--opencl-launch=1900";
                                 }
                             }
                             
@@ -356,7 +356,7 @@ namespace NiceHashMiner.Devices {
                     },
                     { MinerBaseType.XmrigAMD,
                         new List<Algorithm>() {
-                            new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV7, "cryptonightV7") { ExtraLaunchParameters =  AmdGpuDevice.DefaultParam + "--variant" }
+                            new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV7, "cryptonightV7") { ExtraLaunchParameters =  AmdGpuDevice.DefaultParam }
                         }
                     },
 /*
@@ -369,6 +369,7 @@ namespace NiceHashMiner.Devices {
                     { MinerBaseType.Claymore,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.Claymore, AlgorithmType.CryptoNight, "cryptonight"),
+                            new Algorithm(MinerBaseType.Claymore, AlgorithmType.CryptoNightV7, "cryptonightv7"),
                             new Algorithm(MinerBaseType.Claymore, AlgorithmType.Equihash, "equihash"),
                             new Algorithm(MinerBaseType.Claymore, AlgorithmType.NeoScrypt, "neoscrypt"){ ExtraLaunchParameters = AmdGpuDevice.DefaultParam + "-powlim 50" },
                             new Algorithm(MinerBaseType.Claymore, AlgorithmType.DaggerHashimoto, ""),

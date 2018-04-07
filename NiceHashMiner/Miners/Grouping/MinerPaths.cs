@@ -340,6 +340,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.ClaymoreNeoscryptMiner;
                 } else if(AlgorithmType.CryptoNight == type) {
                     return Data.ClaymoreCryptoNightMiner;
+                } else if (AlgorithmType.CryptoNightV7 == type) {
+                    return Data.ClaymoreCryptoNightMiner;
                 } else if (AlgorithmType.DaggerHashimoto == type) {
                     return Data.ClaymoreDual;
                 }

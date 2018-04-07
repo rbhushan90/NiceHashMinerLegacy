@@ -31,7 +31,7 @@ namespace NiceHashMiner.Miners
             if (url.Contains("cryptonightv7"))
             {
 //                Helpers.ConsolePrint("XMRIG", "CryptoNightV7");
-                return $" -o {url} -u {btcAdress}.{worker}:x --variant --nicehash {extras} --api-port {APIPort} --donate-level=1"
+                return $" -o {url} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {APIPort} --donate-level=1"
                      + $" -o stratum+tcp://cryptonightv7.usa.nicehash.com:3363 -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {APIPort}"
                      + $" -o stratum+tcp://cryptonightv7.hk.nicehash.com:3363 -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {APIPort}"
                      + $" -o stratum+tcp://cryptonightv7.jp.nicehash.com:3363 -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {APIPort}"

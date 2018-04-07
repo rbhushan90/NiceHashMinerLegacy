@@ -226,6 +226,7 @@ namespace NiceHashMiner.Miners.Parsing {
                     new MinerOption("ClaymoreCryptoNight_wd"     , "-wd", "-wd", "1", MinerOptionFlagType.SingleParam, ","),
                     //new MinerOption(ClaymoreCryptoNight_r      , , , , MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("ClaymoreCryptoNight_nofee"  , "-nofee", "-nofee", "0", MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("ClaymoreCryptoNight_V7"  , "-pow7", "-pow7", "0", MinerOptionFlagType.SingleParam, ","),
                     new MinerOption("ClaymoreCryptoNight_li"     , "-li", "-li", "0", MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("ClaymoreCryptoNight_h"     , "-h", "-h", "0", MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("ClaymoreCryptoNight_allpools", "-allpools", "0", MinerOptionFlagType.SingleParam),
@@ -472,7 +473,7 @@ namespace NiceHashMiner.Miners.Parsing {
                 MinerType.XmrigAMD,
                 new List<MinerOption>() {
                     new MinerOption("Xmrig_fee", "--donate-level=", "0", MinerOptionFlagType.SingleParam, " "),
-                    new MinerOption("Xmrig_variant", "--variant", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("Xmrig_variant", "--variant=", null, MinerOptionFlagType.Uni, " "),
                     new MinerOption("Xmrig_keepalive", "--keepalive", null, MinerOptionFlagType.Uni, " "),
                     new MinerOption("Xmrig_affinity", "--opencl-affinity=", null, MinerOptionFlagType.SingleParam, ","),
                     new MinerOption("Xmrig-intensity", "--opencl-launch=", null, MinerOptionFlagType.MultiParam, ","), 
@@ -484,7 +485,7 @@ namespace NiceHashMiner.Miners.Parsing {
                 MinerType.XmrigNVIDIA,
                 new List<MinerOption>() {
                     new MinerOption("Xmrig_fee", "--donate-level=", "0", MinerOptionFlagType.SingleParam, " "),
-                    new MinerOption("Xmrig_variant", "--variant", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("Xmrig_variant", "--variant=", null, MinerOptionFlagType.Uni, " "),
                     new MinerOption("Xmrig_keepalive", "--keepalive", null, MinerOptionFlagType.Uni, " "),
                     new MinerOption("Xmrig_affinity", "--cuda-affinity", null, MinerOptionFlagType.SingleParam, ","),
                     new MinerOption("Xmrig-intensity", "--cuda-launch=", null, MinerOptionFlagType.MultiParam, ","),
