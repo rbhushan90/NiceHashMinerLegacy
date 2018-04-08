@@ -237,6 +237,10 @@ namespace NiceHashMiner.Miners.Parsing {
             {
                 return MinerType.glg;
             }
+            if (MinerBaseType.CastXMR == minerBaseType)
+            {
+                return MinerType.CastXMR;
+            }
             if (MinerBaseType.mkxminer == minerBaseType)
             {
                 return MinerType.mkxminer;

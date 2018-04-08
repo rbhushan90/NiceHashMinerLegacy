@@ -107,6 +107,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string ClaymoreDual = _bin_3rdparty + @"\claymore_dual\EthDcrMiner64.exe";
             public const string EWBF = _bin_3rdparty + @"\ewbf\miner.exe";
             public const string DSTM = _bin_3rdparty + @"\dstm\zm.exe";
+            public const string CastXMR = _bin_3rdparty + @"\castxmr\cast_xmr-vega.exe";
             public const string hsrneoscrypt = _bin_3rdparty + @"\hsrminer_neoscrypt\hsrminer_neoscrypt.exe";
             public const string prospector = _bin_3rdparty + @"\prospector\prospector.exe";
             public const string mkxminer = _bin_3rdparty + @"\mkxminer\mkxminer.exe";
@@ -140,6 +141,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return AMD_GROUP.sgminer_path(algoType);
                 case MinerBaseType.GatelessGate:
                     return AMD_GROUP.glg_path(algoType);
+                case MinerBaseType.CastXMR:
+                    return Data.CastXMR;
                 case MinerBaseType.nheqminer:
                     return Data.nheqminer;
                 case MinerBaseType.ethminer:
@@ -316,6 +319,14 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.XmrigAMD;
                 }
                 return Data.XmrigAMD;
+            }
+            public static string CastXMR(AlgorithmType algorithmType)
+            {
+                if (AlgorithmType.CryptoNightV7 == algorithmType || AlgorithmType.CryptoNight == algorithmType)
+                {
+                    return Data.CastXMR;
+                }
+                return Data.CastXMR;
             }
             public static string sgminer_path(AlgorithmType type) {
                 if (AlgorithmType.CryptoNight == type || AlgorithmType.DaggerHashimoto == type) {

@@ -121,6 +121,7 @@ namespace NiceHashMiner.Miners {
                         MinerPaths.Data.sgminer_gm,
                         MinerPaths.Data.glg,
                         MinerPaths.Data.XmrigAMD,
+                        MinerPaths.Data.CastXMR,
                         MinerPaths.Data.ClaymoreCryptoNightMiner,
                         MinerPaths.Data.ClaymoreZcashMiner,
                         MinerPaths.Data.ClaymoreNeoscryptMiner,

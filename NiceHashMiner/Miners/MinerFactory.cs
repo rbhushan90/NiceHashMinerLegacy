@@ -47,6 +47,8 @@ namespace NiceHashMiner.Miners {
                     return new sgminer();
                 case MinerBaseType.GatelessGate:
                     return new glg();
+                case MinerBaseType.CastXMR:
+                    return new CastXMR();
                 case MinerBaseType.nheqminer:
                     return new nheqminer();
                 case MinerBaseType.ethminer:

@@ -106,6 +106,7 @@
     <Compile Include="Enums\TimeUnitType.cs" />
     <Compile Include="IFTTT.cs" />
     <Compile Include="ExchangeRateAPI.cs" />
+    <Compile Include="Miners\castxmr.cs" />
     <Compile Include="Miners\ClaymoreDual.cs" />
     <Compile Include="Miners\ClaymoreNeoscryptMiner.cs" />
     <Compile Include="Miners\dstm.cs" />

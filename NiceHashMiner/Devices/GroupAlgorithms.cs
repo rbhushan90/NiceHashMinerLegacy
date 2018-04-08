@@ -359,6 +359,14 @@ namespace NiceHashMiner.Devices {
                             new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV7, "cryptonightV7") { ExtraLaunchParameters =  AmdGpuDevice.DefaultParam }
                         }
                     },
+                    /*
+                    { MinerBaseType.CastXMR,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightV7, "cryptonightV7") { ExtraLaunchParameters =  AmdGpuDevice.DefaultParam },
+                            new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNight, "cryptonight") { ExtraLaunchParameters =  AmdGpuDevice.DefaultParam }
+                        }
+                    },
+                    */
 /*
                     { MinerBaseType.mkxminer,
                         new List<Algorithm>() {

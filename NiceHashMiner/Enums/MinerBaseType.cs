@@ -29,6 +29,7 @@ namespace NiceHashMiner.Enums {
         XmrigAMD,
         XmrigNVIDIA,
         XmrStakAMD,
+        CastXMR,
         Claymore_old,
         hsrneoscrypt,
         mkxminer,

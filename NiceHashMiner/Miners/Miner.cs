@@ -1086,6 +1086,51 @@ namespace NiceHashMiner
             return ad;
         }
 
+        protected async Task<APIData> GetSummaryGPU_CastXMRAsync()
+        {
+            string resp;
+            // TODO aname
+            string aname = null;
+            APIData ad = new APIData(MiningSetup.CurrentAlgorithmType);
+
+            //string DataToSend = GetHttpRequestNHMAgentStrin("total_hash_rate_avg");
+            string dataToSend = GetHttpRequestNHMAgentStrin("");
+
+            resp = await GetAPIDataAsync(APIPort, "GET / HTTP/1.1\r\r");
+            Helpers.ConsolePrint(MinerTAG(), "CASTXMR api!!: " + resp);
+            if (resp == null)
+            {
+                Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " total_hash_rate_avg is null");
+                _currentMinerReadStatus = MinerAPIReadStatus.NONE;
+                return null;
+            }
+
+            try
+            {
+                string[] resps = resp.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < resps.Length; i++)
+                {
+                    string[] optval = resps[i].Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (optval.Length != 2) continue;
+                    if (optval[0] == "ALGO")
+                        aname = optval[1];
+                    else if (optval[0] == "KHS")
+                        ad.Speed = double.Parse(optval[1], CultureInfo.InvariantCulture) * 1000; // HPS
+                }
+            }
+            catch
+            {
+                Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " Could not read data from API bind port");
+                _currentMinerReadStatus = MinerAPIReadStatus.NONE;
+                return null;
+            }
+
+            _currentMinerReadStatus = MinerAPIReadStatus.GOT_READ;
+            // check if speed zero
+            if (ad.Speed == 0) _currentMinerReadStatus = MinerAPIReadStatus.READ_SPEED_ZERO;
+
+            return ad;
+        }
         #region Cooldown/retry logic
         /// <summary>
         /// decrement time for half current half time, if less then min ammend

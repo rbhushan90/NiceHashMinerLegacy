@@ -92,6 +92,14 @@ namespace NiceHashMiner
 
                     ConfigManager.GeneralConfig.ForkFixVersion = 5;
                 }
+                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 6)
+                {
+                    Helpers.ConsolePrint("NICEHASH", "Old version");
+                    if (File.Exists("bin\\xmrig\\xmrig.exe"))
+                        File.Delete("bin\\xmrig\\xmrig.exe");
+
+                    ConfigManager.GeneralConfig.ForkFixVersion = 6;
+                }
                 //**
 
                 // init active display currency after config load

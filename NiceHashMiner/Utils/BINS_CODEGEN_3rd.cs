@@ -53,6 +53,8 @@ namespace NiceHashMiner.Utils {
 
 @"\dstm\zm.exe",
 
+@"\castxmr\cast_xmr-vega.exe",
+
 @"\hsrminer_neoscrypt\hsrminer_neoscrypt.exe",
 
 @"\optiminer_zcash_win\Optiminer.exe",
