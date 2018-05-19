@@ -45,7 +45,7 @@ namespace NiceHashMiner.Miners.Parsing
                 }
                 catch { }
             }
-            return 1; // default 
+            return 1; // default
         }
 
         private static bool _prevHasIgnoreParam = false;
@@ -132,37 +132,37 @@ namespace NiceHashMiner.Miners.Parsing
                             if (param.Equals(option.ShortName) || param.Equals(option.LongName))
                             {
                                 isIngored = false;
-                                if (ignoreDcri && option.Type.Equals("ClaymoreDual_dcri")) 
+                                if (ignoreDcri && option.Type.Equals("ClaymoreDual_dcri"))
                                 {
                                     Helpers.ConsolePrint("CDTUNING", "Disabling dcri extra launch param");
                                     ignoringNextOption = true;
-                                } 
-                                else 
+                                }
+                                else
                                 {
                                     if (option.FlagType == MinerOptionFlagType.Uni) {
                                         isOptionExist[option.Type] = true;
                                         cdevOptions[pair.Device.Uuid][option.Type] = "notNull"; // if Uni param is null it is not present
-                                    } 
-                                    else 
-                                    { 
+                                    }
+                                    else
+                                    {
                                         // Sinlge and Multi param
                                         currentFlag = option.Type;
                                     }
                                 }
                             }
                         }
-                        if (isIngored) 
+                        if (isIngored)
                         {
-                            if (ignoringNextOption) 
+                            if (ignoringNextOption)
                             {
                                 // This is a paramater for an ignored option, silently ignore it
                                 ignoringNextOption = false;
-                            } else 
+                            } else
                             {
                                 IgnorePrintLog(param, ignoreParam, ignoreLogOpions);
                             }
                         }
-                    } 
+                    }
                     else if (currentFlag != MinerOptionTypeNone) {
                         isOptionExist[currentFlag] = true;
                         cdevOptions[pair.Device.Uuid][currentFlag] = param;
@@ -348,8 +348,8 @@ namespace NiceHashMiner.Miners.Parsing
                     return MinerType.EWBF;
                 case MinerBaseType.Xmrig:
                     return MinerType.Xmrig;
-                case MinerBaseType.dtsm:
-                    return MinerType.dtsm;
+                case MinerBaseType.dstm:
+                    return MinerType.dstm;
             }
 
             return MinerType.NONE;
@@ -471,7 +471,7 @@ namespace NiceHashMiner.Miners.Parsing
             else
             {
                 LogParser("AMD parsing temperature control parameters");
-                // temp = Parse(setMiningPairs, minerOptionPackage.TemperatureOptions, true, minerOptionPackage.GeneralOptions);            
+                // temp = Parse(setMiningPairs, minerOptionPackage.TemperatureOptions, true, minerOptionPackage.GeneralOptions);
                 var temp = Parse(setMiningPairs, minerOptionPackage.TemperatureOptions, false, minerOptionPackage.GeneralOptions, ignoreDcri);
 
                 ret = general + "  " + temp;

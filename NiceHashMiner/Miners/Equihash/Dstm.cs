@@ -14,12 +14,12 @@ namespace NiceHashMiner.Miners
     public class Dstm : Miner
     {
         private const double DevFee = 2.0;
-        private const string LookForStart = "sol/s   ";
-        private const string LookForEnd = "avg";
+        private const string LookForStart = "avg: ";
+        private const string LookForEnd = "i/s:";
 
         private int _benchmarkTime = 120;
 
-        public Dstm() : base("dtsm")
+        public Dstm() : base("dstm")
         {
             ConectionType = NhmConectionType.NONE;
         }
@@ -43,9 +43,35 @@ namespace NiceHashMiner.Miners
                    $"--server {server} " +
                    $"--port {port} " +
                    $"--user {btcAddress}.{worker} " +
-                   $"--telemetry=127.0.0.1:{ApiPort} " +
-                   " --time --color";
+                   $"--telemetry=127.0.0.1:{ApiPort} ";
         }
+/*
+                        string alg = url.Split('.')[0];
+                        var ret = GetDevicesCommandString()
+                        + " --server " + alg + ".hk.nicehash.com"
+                        + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                        + " --server " + alg + ".in.nicehash.com"
+                        + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                        + " --server " + alg + ".jp.nicehash.com"
+                        + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                        + " --server " + alg + ".usa.nicehash.com"
+                        + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                        + " --server " + alg + ".br.nicehash.com"
+                        + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                        + " --server " + url.Split(':')[0]
+                        + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                        + " --telemetry=127.0.0.1:" + ApiPort + " --time --color";
+
+
+            var ret = GetDevicesCommandString()
+                + " --server " + url.Split(':')[0]
+                + " --user " + btcAddress + "." + worker + " --pass x --port "
+                + url.Split(':')[1] + " --telemetry=127.0.0.1:" + ApiPort + " --time --color";
+
+            return ret;
+
+        }
+*/
 
         private string GetDeviceCommand()
         {
@@ -65,9 +91,9 @@ namespace NiceHashMiner.Miners
         {
             var url = GetServiceUrl(algorithm.NiceHashID);
 
-            _benchmarkTime = Math.Max(time, 120);
+            _benchmarkTime = Math.Max(time*3, 120);
 
-            return GetStartCommand(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim()) +
+            return GetStartCommand(url, Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim()) +
                    $" --logfile={GetLogFileName()}";
         }
 
@@ -80,10 +106,12 @@ namespace NiceHashMiner.Miners
         {
             var benchSum = 0d;
             var benchCount = 0;
+            Helpers.ConsolePrint(MinerTag(), "DSTM: " + lines);
             foreach (var line in lines)
             {
                 BenchLines.Add(line);
                 var lowered = line.ToLower();
+
                 var start = lowered.IndexOf(LookForStart, StringComparison.Ordinal);
                 if (start <= -1) continue;
                 lowered = lowered.Substring(start, lowered.Length - start);
@@ -96,6 +124,7 @@ namespace NiceHashMiner.Miners
                     benchCount++;
                 }
             }
+
             BenchmarkAlgorithm.BenchmarkSpeed = (benchSum / Math.Max(1, benchCount)) * (1 - DevFee * 0.01);
         }
 
@@ -123,11 +152,11 @@ namespace NiceHashMiner.Miners
             });
 
             var response = await GetApiDataAsync(ApiPort, request);
-            DtsmResponse resp = null;
+            DstmResponse resp = null;
 
             try
             {
-                resp = JsonConvert.DeserializeObject<DtsmResponse>(response);
+                resp = JsonConvert.DeserializeObject<DstmResponse>(response);
             }
             catch (Exception e)
             {
@@ -155,12 +184,12 @@ namespace NiceHashMiner.Miners
         #region JSON Models
 #pragma warning disable
 
-        public class DtsmResponse
+        public class DstmResponse
         {
-            public List<DtsmGpuResult> result { get; set; }
+            public List<DstmGpuResult> result { get; set; }
         }
 
-        public class DtsmGpuResult
+        public class DstmGpuResult
         {
             public double sol_ps { get; set; } = 0;
         }

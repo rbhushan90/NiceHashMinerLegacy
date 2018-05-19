@@ -340,7 +340,7 @@ namespace NiceHashMiner.Devices
                 MinerBaseType.OptiminerAMD,
                 MinerBaseType.EWBF,
                 MinerBaseType.Prospector,
-                MinerBaseType.dtsm
+                MinerBaseType.dstm
             };
 
             return AlgorithmSettings.FindAll(a => thirdPartyMiners.IndexOf(a.MinerBaseType) == -1);

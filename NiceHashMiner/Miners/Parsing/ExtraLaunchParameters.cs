@@ -92,7 +92,7 @@ namespace NiceHashMiner.Miners.Parsing
                 {
                     new MinerOption("Threads", "-t", "--threads=", "-1", MinerOptionFlagType.MultiParam, ","), // default none
                     new MinerOption("CpuAffinity", "", "--cpu-affinity", "-1", MinerOptionFlagType.MultiParam, ","), // default none
-                    new MinerOption("CpuPriority", "", "--cpu-priority", "-1", MinerOptionFlagType.MultiParam, ",") // default 
+                    new MinerOption("CpuPriority", "", "--cpu-priority", "-1", MinerOptionFlagType.MultiParam, ",") // default
                 },
                 new List<MinerOption>()
             ),
@@ -295,12 +295,12 @@ namespace NiceHashMiner.Miners.Parsing
                 new List<MinerOption>()
             ),
             new MinerOptionPackage(
-                MinerType.dtsm,
+                MinerType.dstm,
                 new List<MinerOption>
                 {
-                    new MinerOption("dtsm_time", "--time", null, MinerOptionFlagType.Uni),
-                    new MinerOption("dtsm_noreconnect", "--noreconnect", null, MinerOptionFlagType.Uni),
-                    new MinerOption("dtsm_temp-target", "--temp-target", null, MinerOptionFlagType.SingleParam)
+                    new MinerOption("dstm_time", "--time", null, MinerOptionFlagType.Uni),
+                    new MinerOption("dstm_noreconnect", "--noreconnect", null, MinerOptionFlagType.Uni),
+                    new MinerOption("dstm_temp-target", "--temp-target", null, MinerOptionFlagType.SingleParam)
                 },
                 new List<MinerOption>())
         };

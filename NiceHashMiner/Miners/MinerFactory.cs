@@ -72,8 +72,8 @@ namespace NiceHashMiner.Miners
                     return new Prospector();
                 case MinerBaseType.Xmrig:
                     return new Xmrig();
-                case MinerBaseType.dtsm:
-                    return new Dtsm();
+                case MinerBaseType.dstm:
+                    return new Dstm();
             }
 
             return null;

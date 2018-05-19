@@ -23,7 +23,7 @@
         Xmrig,
         XmrStakAMD,
         Claymore_old,
-        dtsm,
+        dstm,
         END
     }
 }

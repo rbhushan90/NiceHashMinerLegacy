@@ -332,7 +332,7 @@ namespace NiceHashMiner.Devices
                                 new Algorithm(MinerBaseType.Prospector, AlgorithmType.Sia, "sia")
                             }
                         },
-                        { 
+                        {
                             MinerBaseType.XmrStak,
                             new List<Algorithm> {
                                 //new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNight, ""),
@@ -418,13 +418,13 @@ namespace NiceHashMiner.Devices
                             }
                         },
                         {
-                            MinerBaseType.dtsm,
+                            MinerBaseType.dstm,
                             new List<Algorithm>
                             {
-                                new Algorithm(MinerBaseType.dtsm, AlgorithmType.Equihash, "")
+                                new Algorithm(MinerBaseType.dstm, AlgorithmType.Equihash, "")
                             }
                         },
-                        { 
+                        {
                             MinerBaseType.XmrStak,
                             new List<Algorithm> {
                                 //new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNight, ""),
@@ -454,7 +454,7 @@ namespace NiceHashMiner.Devices
                             {
                                 MinerBaseType.eqm,
                                 MinerBaseType.EWBF,
-                                MinerBaseType.dtsm
+                                MinerBaseType.dstm
                             });
                             break;
                     }
