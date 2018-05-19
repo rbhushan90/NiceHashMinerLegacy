@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NiceHashMiner.Enums
+﻿namespace NiceHashMiner.Enums
 {
     /// <summary>
     /// AlgorithmType enum should/must mirror the values from https://www.nicehash.com/?p=api
     /// Some algorithms are not used anymore on the client, rename them with _UNUSED postfix so we can catch compile time errors if they are used.
     /// </summary>
-    public enum AlgorithmType : int
+    public enum AlgorithmType
     {
         // dual algos for grouping
-        DaggerBlake2s = -8,
-        DaggerKeccak = -7,
+        DaggerKeccak = -8,
+        DaggerBlake2s = -7,
         DaggerSia = -6,
         DaggerDecred = -5,
         DaggerLbry = -4,
@@ -76,14 +72,14 @@ namespace NiceHashMiner.Enums
         DaggerHashimoto = 20,
         Decred = 21,
         CryptoNight = 22,
-        CryptoNightV7 = 30,
         Lbry = 23,
         Equihash = 24,
         Pascal = 25,
         X11Gost = 26,
         Sia = 27,
         Blake2s = 28,
-        Skunk = 29
+        Skunk = 29,
+        CryptoNightV7 = 30
         #endregion // NiceHashAPI
     }
 }

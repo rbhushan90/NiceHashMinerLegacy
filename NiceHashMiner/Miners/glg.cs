@@ -15,6 +15,8 @@ using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
 using System.Threading;
 using System.Threading.Tasks;
+using NiceHashMiner.Algorithms;
+using NiceHashMiner.Switching;
 
 namespace NiceHashMiner.Miners
 {
@@ -26,7 +28,7 @@ namespace NiceHashMiner.Miners
         public glg()
             : base("glg_AMD")
         {
-            GPUPlatformNumber = ComputeDeviceManager.Avaliable.AMDOpenCLPlatformNum;
+            GPUPlatformNumber = ComputeDeviceManager.Avaliable.AmdOpenCLPlatformNum;
             IsKillAllUsedMinerProcs = true;
         }
 
@@ -51,7 +53,7 @@ namespace NiceHashMiner.Miners
             }
         }
 
-        protected override int GET_MAX_CooldownTimeInMilliseconds() {
+        protected override int GetMaxCooldownTimeInMilliseconds() {
             return 90 * 1000; // 1.5 minute max, whole waiting time 75seconds
         }
 
@@ -62,7 +64,7 @@ namespace NiceHashMiner.Miners
         public override void Start(string url, string btcAdress, string worker)
         {
             if (!IsInit) {
-                Helpers.ConsolePrint(MinerTAG(), "MiningSetup is not initialized exiting Start()");
+                Helpers.ConsolePrint(MinerTag(), "MiningSetup is not initialized exiting Start()");
                 return;
             }
             string username = GetUsername(btcAdress, worker);
@@ -94,7 +96,7 @@ namespace NiceHashMiner.Miners
                                " --userpass=" + username +
                               " -p x " +
                               " --api-listen" +
-                              " --api-port=" + APIPort.ToString() +
+                              " --api-port=" + ApiPort.ToString() +
                               " " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
@@ -112,7 +114,7 @@ namespace NiceHashMiner.Miners
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
             string CommandLine;
 
-            string url = Globals.GetLocationURL(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
+            string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
 
             // demo for benchmark
             string username = Globals.DemoUser;
@@ -130,7 +132,7 @@ namespace NiceHashMiner.Miners
                           " --sched-stop " + DateTime.Now.AddSeconds(time).ToString("HH:mm") +
                           " -T --log 10 --log-file dump.txt" +
                           " --api-listen" +
-                          " --api-port=" + APIPort.ToString() +
+                          " --api-port=" + ApiPort.ToString() +
                           " " +
                           ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
@@ -182,18 +184,19 @@ namespace NiceHashMiner.Miners
 
         protected override void BenchmarkThreadRoutineStartSettup() {
             // sgminer extra settings
-            AlgorithmType NHDataIndex = BenchmarkAlgorithm.NiceHashID;
+            AlgorithmType nhDataIndex = BenchmarkAlgorithm.NiceHashID;
 
-            if (Globals.NiceHashData == null) {
+            if (!NHSmaData.HasData) {
                 Helpers.ConsolePrint("BENCHMARK", "Skipping gatelessgate benchmark because there is no internet " +
                     "connection. Gatelessgate needs internet connection to do benchmarking.");
 
                 throw new Exception("No internet connection");
             }
 
-            if (Globals.NiceHashData[NHDataIndex].paying == 0) {
+            NHSmaData.TryGetPaying(nhDataIndex, out var paying);
+            if (paying == 0) {
                 Helpers.ConsolePrint("BENCHMARK", "Skipping gatelessgate benchmark because there is no work on Nicehash.com " +
-                    "[algo: " + BenchmarkAlgorithm.AlgorithmName + "(" + NHDataIndex + ")]");
+                    "[algo: " + BenchmarkAlgorithm.AlgorithmName + "(" + nhDataIndex + ")]");
 
                 throw new Exception("No work can be used for benchmarking");
             }
@@ -206,7 +209,7 @@ namespace NiceHashMiner.Miners
 
         protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata) {
             if (_benchmarkTimer.Elapsed.TotalSeconds >= BenchmarkTimeInSeconds) {
-                string resp = GetAPIDataAsync(APIPort, "quit").Result.TrimEnd(new char[] { (char)0 });
+                string resp = GetApiDataAsync(ApiPort, "quit").Result.TrimEnd(new char[] { (char)0 });
                 Helpers.ConsolePrint("BENCHMARK", "gatelessgate Response: " + resp);
             }
             if (_benchmarkTimer.Elapsed.TotalSeconds >= BenchmarkTimeInSeconds + 2) {
@@ -287,13 +290,13 @@ namespace NiceHashMiner.Miners
         #endregion // Decoupled benchmarking routines
 
         // TODO _currentMinerReadStatus
-        public override async Task<APIData> GetSummaryAsync() {
+        public override async Task<ApiData> GetSummaryAsync() {
             string resp;
-            APIData ad = new APIData(MiningSetup.CurrentAlgorithmType);
+            ApiData ad = new ApiData(MiningSetup.CurrentAlgorithmType);
 
-            resp = await GetAPIDataAsync(APIPort, "summary");
+            resp = await GetApiDataAsync(ApiPort, "summary");
             if (resp == null) {
-                _currentMinerReadStatus = MinerAPIReadStatus.NONE;
+                CurrentMinerReadStatus = MinerApiReadStatus.NONE;
                 return null;
             }
             //// sgminer debug log
@@ -301,9 +304,9 @@ namespace NiceHashMiner.Miners
 
             try {
                 // Checks if all the GPUs are Alive first
-                string resp2 = await GetAPIDataAsync(APIPort, "devs");
+                string resp2 = await GetApiDataAsync(ApiPort, "devs");
                 if (resp2 == null) {
-                    _currentMinerReadStatus = MinerAPIReadStatus.NONE;
+                    CurrentMinerReadStatus = MinerApiReadStatus.NONE;
                     return null;
                 }
                 //// sgminer debug log
@@ -313,8 +316,8 @@ namespace NiceHashMiner.Miners
 
                 for (int i = 1; i < checkGPUStatus.Length - 1; i++) {
                     if (checkGPUStatus[i].Contains("Enabled=Y") && !checkGPUStatus[i].Contains("Status=Alive")) {
-                        Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " GPU " + i + ": Sick/Dead/NoStart/Initialising/Disabled/Rejecting/Unknown");
-                        _currentMinerReadStatus = MinerAPIReadStatus.WAIT;
+                        Helpers.ConsolePrint(MinerTag(), ProcessTag() + " GPU " + i + ": Sick/Dead/NoStart/Initialising/Disabled/Rejecting/Unknown");
+                        CurrentMinerReadStatus = MinerApiReadStatus.WAIT;
                         return null;
                     }
                 }
@@ -332,9 +335,9 @@ namespace NiceHashMiner.Miners
                     ad.Speed = Double.Parse(speed[1]) * 1000;
 
                     if (total_mh <= PreviousTotalMH) {
-                        Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " gatelessgate might be stuck as no new hashes are being produced");
-                        Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " Prev Total MH: " + PreviousTotalMH + " .. Current Total MH: " + total_mh);
-                        _currentMinerReadStatus = MinerAPIReadStatus.NONE;
+                        Helpers.ConsolePrint(MinerTag(), ProcessTag() + " gatelessgate might be stuck as no new hashes are being produced");
+                        Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Prev Total MH: " + PreviousTotalMH + " .. Current Total MH: " + total_mh);
+                        CurrentMinerReadStatus = MinerApiReadStatus.NONE;
                         return null;
                     }
 
@@ -343,13 +346,13 @@ namespace NiceHashMiner.Miners
                     ad.Speed = 0;
                 }
             } catch {
-                _currentMinerReadStatus = MinerAPIReadStatus.NONE;
+                CurrentMinerReadStatus = MinerApiReadStatus.NONE;
                 return null;
             }
 
-            _currentMinerReadStatus = MinerAPIReadStatus.GOT_READ;
+            CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
             // check if speed zero
-            if (ad.Speed == 0) _currentMinerReadStatus = MinerAPIReadStatus.READ_SPEED_ZERO;
+            if (ad.Speed == 0) CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
 
             return ad;
         }

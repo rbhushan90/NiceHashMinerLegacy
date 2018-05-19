@@ -13,6 +13,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using NiceHashMiner.Algorithms;
 
 namespace NiceHashMiner.Miners
 {
@@ -54,7 +55,7 @@ namespace NiceHashMiner.Miners
         const double DevFee = 2.0;
 
         public DSTM() : base("dstm") {
-            ConectionType = NHMConectionType.NONE;
+            ConectionType = NhmConectionType.NONE;
             IsNeverHideMiningWindow = true;
         }
 
@@ -87,7 +88,7 @@ namespace NiceHashMiner.Miners
                         var ret = GetDevicesCommandString()
                             + " --server " + url.Split(':')[0]
                             + " --user " + btcAddress + "." + worker + " --pass x --port "
-                            + url.Split(':')[1] + " --telemetry=127.0.0.1:" + APIPort + " --time --color";
+                            + url.Split(':')[1] + " --telemetry=127.0.0.1:" + ApiPort + " --time --color";
              
             return ret;
         }
@@ -114,7 +115,7 @@ namespace NiceHashMiner.Miners
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
             CleanAllOldLogs();
 
-            string server = Globals.GetLocationURL(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
+            string server = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
             string ret = " --logfile=benchmark_log.txt" + GetStartCommand(server, Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim());
             benchmarkTimeWait = Math.Max(time * 3, 120);  // dstm takes a long time to get started
             return ret;
@@ -130,7 +131,7 @@ namespace NiceHashMiner.Miners
 
             try {
                 Helpers.ConsolePrint("BENCHMARK", "Benchmark starts");
-                Helpers.ConsolePrint(MinerTAG(), "Benchmark should end in : " + benchmarkTimeWait + " seconds");
+                Helpers.ConsolePrint(MinerTag(), "Benchmark should end in : " + benchmarkTimeWait + " seconds");
                 BenchmarkHandle = BenchmarkStartProcess((string)CommandLine);
                 BenchmarkHandle.WaitForExit(benchmarkTimeWait + 2);
                 Stopwatch _benchmarkTimer = new Stopwatch();
@@ -191,22 +192,22 @@ namespace NiceHashMiner.Miners
                             try {
                                 lines = File.ReadAllLines(WorkingDirectory + latestLogFile);
                                 read = true;
-                                Helpers.ConsolePrint(MinerTAG(), "Successfully read log after " + iteration.ToString() + " iterations");
+                                Helpers.ConsolePrint(MinerTag(), "Successfully read log after " + iteration.ToString() + " iterations");
                             } catch (Exception ex) {
-                                Helpers.ConsolePrint(MinerTAG(), ex.Message);
+                                Helpers.ConsolePrint(MinerTag(), ex.Message);
                                 Thread.Sleep(1000);
                             }
                             iteration++;
                         } else {
                             read = true;  // Give up after 10s
-                            Helpers.ConsolePrint(MinerTAG(), "Gave up on iteration " + iteration.ToString());
+                            Helpers.ConsolePrint(MinerTag(), "Gave up on iteration " + iteration.ToString());
                         }
                     }
 
-                    var addBenchLines = bench_lines.Count == 0;
+                    var addBenchLines = BenchLines.Count == 0;
                     foreach (var line in lines) {
                         if (line != null) {
-                            bench_lines.Add(line);
+                            BenchLines.Add(line);
                             string lineLowered = line.ToLower();
                             if (lineLowered.Contains(LOOK_FOR_START)) {
                                 benchmark_sum += getNumber(lineLowered);
@@ -276,14 +277,14 @@ namespace NiceHashMiner.Miners
             return 0;
         }
 
-        public override async Task<APIData> GetSummaryAsync() {
-            _currentMinerReadStatus = MinerAPIReadStatus.NONE;
-            APIData ad = new APIData(MiningSetup.CurrentAlgorithmType);
+        public override async Task<ApiData> GetSummaryAsync() {
+            CurrentMinerReadStatus = MinerApiReadStatus.NONE;
+            ApiData ad = new ApiData(MiningSetup.CurrentAlgorithmType);
             TcpClient client = null;
             dynamic resp = null;
             try {
                 byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes("{\"id\":0,\"jsonrpc\":\"2.0\",\"method\":\"sol_ps\"}n");
-                client = new TcpClient("127.0.0.1", APIPort);
+                client = new TcpClient("127.0.0.1", ApiPort);
                 NetworkStream nwStream = client.GetStream();
                 await nwStream.WriteAsync(bytesToSend, 0, bytesToSend.Length);
                 byte[] bytesToRead = new byte[client.ReceiveBufferSize];
@@ -293,7 +294,7 @@ namespace NiceHashMiner.Miners
              //   Helpers.ConsolePrint(MinerTAG(), "MINER RESPONCE:"+ respStr);
                 client.Close();
             } catch (Exception ex) {
-                Helpers.ConsolePrint(MinerTAG(), ex.Message);
+                Helpers.ConsolePrint(MinerTag(), ex.Message);
             }
            // double speeds = 0;
             uint tmpSpeed = 0;
@@ -304,10 +305,10 @@ namespace NiceHashMiner.Miners
                     tmpSpeed = result.sol_ps;
                     ad.Speed += tmpSpeed;
                 }
-              //  ad.Speed = speeds;
-                _currentMinerReadStatus = MinerAPIReadStatus.GOT_READ;
+                //  ad.Speed = speeds;
+                CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
                 if (ad.Speed == 0) {
-                    _currentMinerReadStatus = MinerAPIReadStatus.READ_SPEED_ZERO;
+                    CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
                 }
             }
 
@@ -318,7 +319,7 @@ namespace NiceHashMiner.Miners
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
         }
 
-        protected override int GET_MAX_CooldownTimeInMilliseconds() {
+        protected override int GetMaxCooldownTimeInMilliseconds() {
             return 60 * 1000 * 5; // 5 minute max, whole waiting time 75seconds
         }
     }

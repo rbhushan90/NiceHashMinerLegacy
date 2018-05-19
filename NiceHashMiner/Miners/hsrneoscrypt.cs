@@ -14,6 +14,7 @@ using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
 using System.Threading.Tasks;
 using System.Threading;
+using NiceHashMiner.Algorithms;
 
 namespace NiceHashMiner.Miners
 {
@@ -28,7 +29,7 @@ namespace NiceHashMiner.Miners
             }
         }
 
-        protected override int GET_MAX_CooldownTimeInMilliseconds() {
+        protected override int GetMaxCooldownTimeInMilliseconds() {
             if (this.MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt) {
                 return 60 * 1000 * 12; // wait for hashrate string
             }
@@ -38,13 +39,13 @@ namespace NiceHashMiner.Miners
         public override void Start(string url, string btcAdress, string worker)
         {
             if (!IsInit) {
-                Helpers.ConsolePrint(MinerTAG(), "MiningSetup is not initialized exiting Start()");
+                Helpers.ConsolePrint(MinerTag(), "MiningSetup is not initialized exiting Start()");
                 return;
             }
             string username = GetUsername(btcAdress, worker);
 
             //IsAPIReadException = MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt;
-            IsAPIReadException = false; //** in miner 
+            IsApiReadException = false; //** in miner 
 
             /*
             string algo = "";
@@ -112,7 +113,7 @@ namespace NiceHashMiner.Miners
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
 
-            string url = Globals.GetLocationURL(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
+            string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
 
             string username = Globals.DemoUser;
 
@@ -128,14 +129,14 @@ namespace NiceHashMiner.Miners
                                   " --devices ";
             CommandLine += GetDevicesCommandString();
 
-            Helpers.ConsolePrint(MinerTAG(), CommandLine);
+            Helpers.ConsolePrint(MinerTag(), CommandLine);
 
             return CommandLine;
         }
 
         protected override bool BenchmarkParseLine(string outdata) {
 
-            Helpers.ConsolePrint(MinerTAG(), outdata);
+            Helpers.ConsolePrint(MinerTag(), outdata);
             if (benchmarkException)
             {
 
@@ -179,26 +180,26 @@ namespace NiceHashMiner.Miners
 
         #endregion // Decoupled benchmarking routines
 
-        public override async Task<APIData> GetSummaryAsync() {
+        public override async Task<ApiData> GetSummaryAsync() {
             // CryptoNight does not have api bind port
-            APIData hsrData = new APIData(MiningSetup.CurrentAlgorithmType);
+            ApiData hsrData = new ApiData(MiningSetup.CurrentAlgorithmType);
             hsrData.Speed = 0;
-            if (IsAPIReadException) {
+            if (IsApiReadException) {
                 // check if running
                 if (ProcessHandle == null) {
-                    _currentMinerReadStatus = MinerAPIReadStatus.RESTART;
-                    Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " Could not read data from hsrminer Proccess is null");
+                    CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
+                    Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from hsrminer Proccess is null");
                     return null;
                 }
                 try {
                     var runningProcess = Process.GetProcessById(ProcessHandle.Id);
                 } catch (ArgumentException ex) {
-                    _currentMinerReadStatus = MinerAPIReadStatus.RESTART;
-                    Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " Could not read data from hsrminer reason: " + ex.Message);
+                    CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
+                    Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from hsrminer reason: " + ex.Message);
                     return null; // will restart outside
                 } catch (InvalidOperationException ex) {
-                    _currentMinerReadStatus = MinerAPIReadStatus.RESTART;
-                    Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " Could not read data from hsrminer reason: " + ex.Message);
+                    CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
+                    Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from hsrminer reason: " + ex.Message);
                     return null; // will restart outside
                 }
 
@@ -214,7 +215,7 @@ namespace NiceHashMiner.Miners
                // return hsrData;
             }
 
-              return await GetSummaryCPU_hsrneoscryptAsync();
+              return await GetSummaryAsync();
             //return hsrData;
         }
     }

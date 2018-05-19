@@ -14,6 +14,8 @@ using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
 using System.Threading.Tasks;
 using System.Threading;
+using NiceHashMiner.Algorithms;
+using NiceHashMiner.Switching;
 
 namespace NiceHashMiner.Miners
 {
@@ -30,7 +32,7 @@ namespace NiceHashMiner.Miners
             }
         }
 
-        protected override int GET_MAX_CooldownTimeInMilliseconds() {
+        protected override int GetMaxCooldownTimeInMilliseconds() {
             if (this.MiningSetup.MinerPath == MinerPaths.Data.CastXMR) {
                 return 60 * 1000 * 12; // wait for hashrate string
             }
@@ -40,13 +42,13 @@ namespace NiceHashMiner.Miners
         public override void Start(string url, string btcAdress, string worker)
         {
             if (!IsInit) {
-                Helpers.ConsolePrint(MinerTAG(), "MiningSetup is not initialized exiting Start()");
+                Helpers.ConsolePrint(MinerTag(), "MiningSetup is not initialized exiting Start()");
                 return;
             }
             string username = GetUsername(btcAdress, worker);
 
             //IsAPIReadException = MiningSetup.MinerPath == MinerPaths.Data.CastXMR;
-            IsAPIReadException = false; //** in miner 
+            IsApiReadException = false; //** in miner 
 
 
             //add failover
@@ -89,7 +91,7 @@ namespace NiceHashMiner.Miners
                           " --gpu " +
                           GetDevicesCommandString() +
                                           " --remoteaccess" +
-                              " --remoteport=" + APIPort.ToString();
+                              " --remoteport=" + ApiPort.ToString();
             ProcessHandle = _Start();
         }
 
@@ -104,11 +106,12 @@ namespace NiceHashMiner.Miners
 
             string CommandLine;
 
-            string name = Globals.NiceHashData[algorithm.NiceHashID].name;
-            int port = Globals.NiceHashData[algorithm.NiceHashID].port;
-            string url = name + "." + Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation] +
-                    ".nicehash.com:" +
-                    port;
+            //   string name = Globals.NiceHashData[algorithm.NiceHashID].name;
+            //   int port = Globals.NiceHashData[algorithm.NiceHashID].port;
+            string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
+            //string url = name + "." + Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation] +
+            //        ".nicehash.com:" +
+             //       port;
 
             // demo for benchmark
             string username = Globals.DemoUser;
@@ -126,7 +129,7 @@ namespace NiceHashMiner.Miners
                           " --gpu " +
                           GetDevicesCommandString() +
                                           " --remoteaccess" +
-                              " --remoteport=" + APIPort.ToString();
+                              " --remoteport=" + ApiPort.ToString();
 
             //  CommandLine += GetDevicesCommandString();
 
@@ -138,7 +141,7 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata) {
 
-            Helpers.ConsolePrint(MinerTAG(), outdata);
+            Helpers.ConsolePrint(MinerTag(), outdata);
             if (benchmarkException)
             {
                 if (outdata.Contains("Hash Rate Avg: "))
@@ -156,7 +159,7 @@ namespace NiceHashMiner.Miners
                     //       int i = outdata.IndexOf("Benchmark:");
                     //       int k = outdata.IndexOf("/s");
                     string hashspeed = outdata.Substring(st + 15, end - st - 15);
-                    Helpers.ConsolePrint(MinerTAG(), hashspeed);
+                    Helpers.ConsolePrint(MinerTag(), hashspeed);
                     /*
                     int b = hashspeed.IndexOf(" ");
                        if (hashspeed.Contains("k"))
@@ -192,29 +195,29 @@ namespace NiceHashMiner.Miners
 
         #endregion // Decoupled benchmarking routines
 
-        public override async Task<APIData> GetSummaryAsync() {
+        public override async Task<ApiData> GetSummaryAsync() {
             // CryptoNight does not have api bind port
-            APIData hsrData = new APIData(MiningSetup.CurrentAlgorithmType);
+            ApiData hsrData = new ApiData(MiningSetup.CurrentAlgorithmType);
             Helpers.ConsolePrint("API...........", hsrData.ToString());
             //string resp2 = await GetAPIDataAsync(APIPort, "GET / HTTP/1.1\r\n");
             //Helpers.ConsolePrint(MinerTAG(), "CASTXMR api!!2: " + resp2);
             hsrData.Speed = 0;
-            if (IsAPIReadException) {
+            if (IsApiReadException) {
                 // check if running
                 if (ProcessHandle == null) {
-                    _currentMinerReadStatus = MinerAPIReadStatus.RESTART;
-                    Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " Could not read data from castxmr Proccess is null");
+                    CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
+                    Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from castxmr Proccess is null");
                     return null;
                 }
                 try {
                     var runningProcess = Process.GetProcessById(ProcessHandle.Id);
                 } catch (ArgumentException ex) {
-                    _currentMinerReadStatus = MinerAPIReadStatus.RESTART;
-                    Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " Could not read data from castxmr reason: " + ex.Message);
+                    CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
+                    Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from castxmr reason: " + ex.Message);
                     return null; // will restart outside
                 } catch (InvalidOperationException ex) {
-                    _currentMinerReadStatus = MinerAPIReadStatus.RESTART;
-                    Helpers.ConsolePrint(MinerTAG(), ProcessTag() + " Could not read data from castxmr reason: " + ex.Message);
+                    CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
+                    Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from castxmr reason: " + ex.Message);
                     return null; // will restart outside
                 }
 
@@ -230,7 +233,7 @@ namespace NiceHashMiner.Miners
                // return hsrData;
             }
 
-              return await GetSummaryGPU_CastXMRAsync();
+              return await GetSummaryAsync();
             //return hsrData;
         }
     }

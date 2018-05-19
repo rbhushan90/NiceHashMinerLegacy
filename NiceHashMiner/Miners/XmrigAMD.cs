@@ -11,6 +11,7 @@ using NiceHashMiner.Configs;
 using NiceHashMiner.Enums;
 using NiceHashMiner.Miners.Parsing;
 using NiceHashMiner.Devices;
+using NiceHashMiner.Algorithms;
 
 namespace NiceHashMiner.Miners
 {
@@ -22,7 +23,7 @@ namespace NiceHashMiner.Miners
         private const string _lookForEnd = "h/s max";
 
         public XmrigAMD() : base("XmrigAMD") {
-            GPUPlatformNumber = ComputeDeviceManager.Avaliable.AMDOpenCLPlatformNum;
+            GPUPlatformNumber = ComputeDeviceManager.Avaliable.AmdOpenCLPlatformNum;
         }
 
         public override void Start(string url, string btcAdress, string worker) {
@@ -32,7 +33,7 @@ namespace NiceHashMiner.Miners
 
         private string GetStartCommand(string url, string btcAdress, string worker) {
             var extras = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD);
-            return $" -o {url} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {APIPort} --donate-level=1"
+            return $" -o {url} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
                 + $" -o stratum+tcp://cryptonightv7.usa.nicehash.com:3363 -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://cryptonightv7.hk.nicehash.com:3363 -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://cryptonightv7.jp.nicehash.com:3363 -u {btcAdress}.{worker}:x "
@@ -44,12 +45,12 @@ namespace NiceHashMiner.Miners
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
         }
 
-        protected override int GET_MAX_CooldownTimeInMilliseconds() {
+        protected override int GetMaxCooldownTimeInMilliseconds() {
             return 60 * 1000 * 5;  // 5 min
         }
 
-        public override async Task<APIData> GetSummaryAsync() {
-            return await GetSummaryCPUAsync();
+        public override async Task<ApiData> GetSummaryAsync() {
+            return await GetSummaryAsync();
         }
 
         protected override bool IsApiEof(byte third, byte second, byte last) {
@@ -59,7 +60,7 @@ namespace NiceHashMiner.Miners
         #region Benchmark
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
-            var server = Globals.GetLocationURL(algorithm.NiceHashID,
+            var server = Globals.GetLocationUrl(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], 
                 ConectionType);
          //   _benchmarkTimeWait = time;
@@ -79,7 +80,7 @@ namespace NiceHashMiner.Miners
             var twoSecCount = 0;
             var sixtySecCount = 0;
             foreach (var line in lines) {
-                bench_lines.Add(line);
+                BenchLines.Add(line);
                 var lineLowered = line.ToLower();
                 if (lineLowered.Contains(_lookForStart)) {
                     var speeds = Regex.Match(lineLowered, $"{_lookForStart} (.+?) {_lookForEnd}").Groups[1].Value.Split();
@@ -109,7 +110,7 @@ namespace NiceHashMiner.Miners
         }
 
         protected override bool BenchmarkParseLine(string outdata) {
-            Helpers.ConsolePrint(MinerTAG(), outdata);
+            Helpers.ConsolePrint(MinerTag(), outdata);
             return false;
         }
 

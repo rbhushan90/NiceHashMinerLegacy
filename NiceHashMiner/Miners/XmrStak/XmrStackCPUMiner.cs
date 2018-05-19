@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace NiceHashMiner.Miners {
 
-    public class XmrStackCPUMinerConfig : XmrStakConfig
+    public class XmrStakCPUMinerConfig : XmrStakConfig
     {
-        public XmrStackCPUMinerConfig(int numberOfthreads, string poolAddr, string wallet, int port)
+        public XmrStakCPUMinerConfig(int numberOfthreads, string poolAddr, string wallet, int port)
             : base(poolAddr, wallet, port) {
             cpu_thread_num = numberOfthreads;
         }
@@ -37,8 +37,8 @@ namespace NiceHashMiner.Miners {
                 }
             }
         }
-        /* 
-         * Number of threads. You can configure them below. Cryptonight uses 2MB of memory, so the optimal setting 
+        /*
+         * Number of threads. You can configure them below. Cryptonight uses 2MB of memory, so the optimal setting
          * here is the size of your L3 cache divided by 2. Intel mid-to-high end desktop processors have 2MB of L3
          * cache per physical core. Low end cpus can have 1.5 or 1 MB while Xeons can have 2, 2.5 or 3MB per core.
          */
@@ -46,22 +46,22 @@ namespace NiceHashMiner.Miners {
 
         /*
          * Thread configuration for each thread. Make sure it matches the number above.
-         * low_power_mode - This mode will double the cache usage, and double the single thread performance. It will 
-         *                  consume much less power (as less cores are working), but will max out at around 80-85% of 
+         * low_power_mode - This mode will double the cache usage, and double the single thread performance. It will
+         *                  consume much less power (as less cores are working), but will max out at around 80-85% of
          *                  the maximum performance.
          *
          * no_prefetch -    This mode meant for large pages only. It will generate an error if running on slow memory
          *                  Some sytems can gain up to extra 5% here, but sometimes it will have no difference or make
          *                  things slower.
          *
-         * affine_to_cpu -  This can be either false (no affinity), or the CPU core number. Note that on hyperthreading 
-         *                  systems it is better to assign threads to physical cores. On Windows this usually means selecting 
-         *                  even or odd numbered cpu numbers. For Linux it will be usually the lower CPU numbers, so for a 4 
+         * affine_to_cpu -  This can be either false (no affinity), or the CPU core number. Note that on hyperthreading
+         *                  systems it is better to assign threads to physical cores. On Windows this usually means selecting
+         *                  even or odd numbered cpu numbers. For Linux it will be usually the lower CPU numbers, so for a 4
          *                  physical core CPU you should select cpu numbers 0-3.
          *
          */
         public List<JObject> cpu_threads_conf;
-        //"cpu_threads_conf" : [ 
+        //"cpu_threads_conf" : [
         //    { "low_power_mode" : false, "no_prefetch" : false, "affine_to_cpu" : 0 },
         //    { "low_power_mode" : false, "no_prefetch" : false, "affine_to_cpu" : 1 },
         //],
@@ -94,9 +94,9 @@ namespace NiceHashMiner.Miners {
          * and "* hard memlock 262144". You can also do it Windows-style and simply run-as-root, but this is NOT
          * recommended for security reasons.
          *
-         * Memory locking means that the kernel can't swap out the page to disk - something that is unlikey to happen on a 
-         * command line system that isn't starved of memory. I haven't observed any difference on a CLI Linux system between 
-         * locked and unlocked memory. If that is your setup see option "no_mlck". 
+         * Memory locking means that the kernel can't swap out the page to disk - something that is unlikey to happen on a
+         * command line system that isn't starved of memory. I haven't observed any difference on a CLI Linux system between
+         * locked and unlocked memory. If that is your setup see option "no_mlck".
          */
 
         /*
@@ -115,23 +115,23 @@ namespace NiceHashMiner.Miners {
          *                  if a block isn't found within 30 minutes then you might run into nonce collisions. Number
          *                  of threads in this mode is hard-limited to 32.
          */
-        public readonly bool nicehash_nonce = true; // 
+        public readonly bool nicehash_nonce = true; //
 
         /*
          * Manual hardware AES override
          *
-         * Some VMs don't report AES capability correctly. You can set this value to true to enforce hardware AES or 
+         * Some VMs don't report AES capability correctly. You can set this value to true to enforce hardware AES or
          * to false to force disable AES or null to let the miner decide if AES is used.
-         * 
+         *
          * WARNING: setting this to true on a CPU that doesn't support hardware AES will crash the miner.
          */
         public readonly bool? aes_override = null;
     }
 
-    public class XmrStackCPUMiner : XmrStak
+    public class XmrStakCPUMiner : XmrStak
     {
-        public XmrStackCPUMiner()
-            : base("XmrStackCPUMiner") {
+        public XmrStakCPUMiner()
+            : base("XmrStakCPUMiner") {
             this.ConectionType = NHMConectionType.NONE;
             IsNeverHideMiningWindow = true;
         }
@@ -148,7 +148,7 @@ namespace NiceHashMiner.Miners {
                     if (IsHyperThreadingEnabled) {
                         numTr /= 2;
                     }
-                    var config = new XmrStackCPUMinerConfig(numTr, pool, wallet, this.APIPort);
+                    var config = new XmrStakCPUMinerConfig(numTr, pool, wallet, this.APIPort);
                     var no_prefetch = ExtraLaunchParametersParser.GetNoPrefetch(MiningSetup.MiningPairs[0]);
                     //config.Inti_cpu_threads_conf(false, false, true, ComputeDeviceManager.Avaliable.IsHyperThreadingEnabled);
                     config.Inti_cpu_threads_conf(false, no_prefetch, false, IsHyperThreadingEnabled);
