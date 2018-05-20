@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Configs;
+using System.IO;
 
 namespace NiceHashMiner.Miners
 {
@@ -34,17 +35,77 @@ namespace NiceHashMiner.Miners
             ProcessHandle = _Start();
         }
 
+        private string GetStartBenchmarkCommand(string url, string btcAddress, string worker)
+        {
+            var urls = url.Split(':');
+            var server = urls.Length > 0 ? urls[0] : "";
+            var port = urls.Length > 1 ? urls[1] : "";
+
+            return $" {GetDeviceCommand()} " +
+                   $"--server {server} " +
+                   $"--port {port} " +
+                   $"--user {btcAddress}.{worker} " +
+                   $"--telemetry=127.0.0.1:{ApiPort} ";
+
+        }
         private string GetStartCommand(string url, string btcAddress, string worker)
         {
             var urls = url.Split(':');
             var server = urls.Length > 0 ? urls[0] : "";
             var port = urls.Length > 1 ? urls[1] : "";
-            return $" {GetDeviceCommand()} " +
-                   $"--server {server} " +
-                   $"--port {port} " +
-                   $"--user {btcAddress}.{worker} " +
-                   $"--telemetry=127.0.0.1:{ApiPort} " +
-                   " --time --color";
+
+            var config_body = "[GLOBAL]\r\n" +
+                                 $"dev=" + string.Join(",", MiningSetup.MiningPairs.Select(p => p.Device.ID)) + "\r\n" +
+                                 "time=1\r\n" +
+                                 "color=1\r\n" +
+                                 $"telemetry=127.0.0.1:{ApiPort}\r\n" +
+                                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA).Replace("--", "") + "\r\n" +
+                                 "\r\n" +
+                                 "[POOL]\r\n" +
+                                 "server=ssl://equihash.eu.nicehash.com\r\n" +
+                                 "port=33357\r\n" +
+                                 $"user={btcAddress}.{worker}\r\n" +
+                                 "pass=x\r\n" +
+                                 "\r\n" +
+                                 "[POOL]\r\n" +
+                                 "server=ssl://equihash.hk.nicehash.com\r\n" +
+                                 "port=33357\r\n" +
+                                 $"user={btcAddress}.{worker}\r\n" +
+                                 "pass=x\r\n" +
+                                 "\r\n" +
+                                 "[POOL]\r\n" +
+                                 "server=ssl://equihash.in.nicehash.com\r\n" +
+                                 "port=33357\r\n" +
+                                 $"user={btcAddress}.{worker}\r\n" +
+                                 "pass=x\r\n" +
+                                 "\r\n" +
+                                 "[POOL]\r\n" +
+                                 "server=ssl://equihash.jp.nicehash.com\r\n" +
+                                 "port=33357\r\n" +
+                                 $"user={btcAddress}.{worker}\r\n" +
+                                 "pass=x\r\n" +
+                                 "\r\n" +
+                                 "[POOL]\r\n" +
+                                 "server=ssl://equihash.usa.nicehash.com\r\n" +
+                                 "port=33357\r\n" +
+                                 $"user={btcAddress}.{worker}\r\n" +
+                                 "pass=x\r\n" +
+                                 "\r\n" +
+                                 "[POOL]\r\n" +
+                                 "server=ssl://equihash.br.nicehash.com\r\n" +
+                                 "port=33357\r\n" +
+                                 $"user={btcAddress}.{worker}\r\n" +
+                                 "pass=x\r\n" +
+                                 "\r\n";
+
+            FileStream fs_dstm = new FileStream("bin_3rdparty\\dstm\\nicehash.cfg", FileMode.Create, FileAccess.Write);
+            StreamWriter w = new StreamWriter(fs_dstm);
+            w.Write(config_body);
+            w.Flush();
+            w.Close();
+
+            return "--cfg-file=nicehash.cfg";
+
         }
 
         private string GetDeviceCommand()
@@ -67,7 +128,7 @@ namespace NiceHashMiner.Miners
 
             _benchmarkTime = Math.Max(time, 120);
 
-            return GetStartCommand(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim()) +
+            return GetStartBenchmarkCommand(url, Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim()) +
                    $" --logfile={GetLogFileName()}";
         }
 

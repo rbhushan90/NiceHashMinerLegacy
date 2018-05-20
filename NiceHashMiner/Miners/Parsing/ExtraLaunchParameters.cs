@@ -300,7 +300,9 @@ namespace NiceHashMiner.Miners.Parsing
                 {
                     new MinerOption("dstm_time", "--time", null, MinerOptionFlagType.Uni),
                     new MinerOption("dstm_noreconnect", "--noreconnect", null, MinerOptionFlagType.Uni),
-                    new MinerOption("dstm_temp-target", "--temp-target", null, MinerOptionFlagType.SingleParam)
+                    new MinerOption("dstm_temp-target", "--temp-target", null, MinerOptionFlagType.SingleParam),
+                    new MinerOption("dstm_intensity", "intensity=", null, MinerOptionFlagType.SingleParam)
+                  //  new MinerOption("dstm_intensity", "--intensity=", "--intensity=", "0", MinerOptionFlagType.MultiParam, ",")
                 },
                 new List<MinerOption>())
         };
