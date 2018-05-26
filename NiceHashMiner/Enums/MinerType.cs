@@ -16,6 +16,7 @@
         eqm_CUDA,
         ClaymoreZcash,
         ClaymoreCryptoNight,
+        ClaymoreNeoscrypt,
         OptiminerZcash,
         excavator,
         ClaymoreDual,

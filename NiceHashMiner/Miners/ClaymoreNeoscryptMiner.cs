@@ -14,21 +14,13 @@ using NiceHashMiner.Algorithms;
 namespace NiceHashMiner.Miners {
     public class ClaymoreNeoscryptMiner : ClaymoreBaseMiner
     {
-
-        private bool isOld;
-
-        const string _LOOK_FOR_START = "NS - Total Speed:";
-        const string _LOOK_FOR_START_OLD = "hashrate =";
         public ClaymoreNeoscryptMiner()
-            : base("ClaymoreNeoscryptMiner", _LOOK_FOR_START) {
+            : base("ClaymoreNeoscryptMiner") {
+            LookForStart = "ns - total speed:";
         }
 
-        protected override double DevFee() {
-            return 5.0;
-        }
-        
+       /*
         protected override string GetDevicesCommandString() {
-            if (!isOld) return base.GetDevicesCommandString();
 
             string extraParams = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD);
             string deviceStringCommand = "";
@@ -41,7 +33,7 @@ namespace NiceHashMiner.Miners {
 
             return deviceStringCommand + extraParams;
         }
-
+*/
         public override void Start(string url, string btcAdress, string worker) {
             string username = GetUsername(btcAdress, worker);
             url = Globals.GetLocationUrl(AlgorithmType.NeoScrypt, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
@@ -67,7 +59,7 @@ namespace NiceHashMiner.Miners {
         // benchmark stuff
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
-            BenchmarkTimeWait = time; // Takes longer as of v10
+            BenchmarkTimeWait = time; 
 
             // network workaround
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
@@ -75,10 +67,13 @@ namespace NiceHashMiner.Miners {
             string username = Globals.DemoUser;
             if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
+            /*
             string ret;
                 ret = " " + GetDevicesCommandString() + " -mport -" + ApiPort + " -pool " + url + " -wal " +
                              username + " -psw x";
             return ret;
+            */
+            return $" {GetDevicesCommandString()} -mport -{ApiPort} -pool {url} -wal {username} -psw x -logfile {GetLogFileName()}";
         }
 
     }

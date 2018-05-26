@@ -305,6 +305,8 @@ namespace NiceHashMiner.Miners.Parsing
                             return MinerType.ClaymoreZcash;
                         case AlgorithmType.DaggerHashimoto:
                             return MinerType.ClaymoreDual;
+                        case AlgorithmType.NeoScrypt:
+                            return MinerType.ClaymoreNeoscrypt;
                     }
                     break;
                 case MinerBaseType.Claymore_old:

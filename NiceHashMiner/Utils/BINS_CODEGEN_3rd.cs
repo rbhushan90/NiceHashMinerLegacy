@@ -32,6 +32,7 @@ namespace NiceHashMiner.Utils
             @"/dstm/pthreadVC2.dll",
             @"/dstm/zm.exe",
             @"/ewbf/miner.exe",
+            @"/claymore_neoscrypt/NeoScryptMiner.exe",
             @"/optiminer_zcash_win/Optiminer.exe",
             @"/optiminer_zcash_win/bin/asm.bin",
             @"/optiminer_zcash_win/bin/base.bin",

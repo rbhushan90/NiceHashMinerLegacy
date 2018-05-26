@@ -21,7 +21,7 @@ namespace NiceHashMiner.Devices
                 {
                     var sgminerAlgos = algoSettings[MinerBaseType.sgminer];
                     var lyra2REv2Index = sgminerAlgos.FindIndex(el => el.NiceHashID == AlgorithmType.Lyra2REv2);
-                    var neoScryptIndex = sgminerAlgos.FindIndex(el => el.NiceHashID == AlgorithmType.NeoScrypt);
+                    //var neoScryptIndex = sgminerAlgos.FindIndex(el => el.NiceHashID == AlgorithmType.NeoScrypt);
                     var cryptoNightIndex = sgminerAlgos.FindIndex(el => el.NiceHashID == AlgorithmType.CryptoNight);
 
                     // Check for optimized version
@@ -31,6 +31,7 @@ namespace NiceHashMiner.Devices
                             AmdGpuDevice.DefaultParam +
                             "--nfactor 10 --xintensity 64 --thread-concurrency 0 --worksize 64 --gpu-threads 2";
                     }
+                    /*
                     if (!device.Codename.Contains("Tahiti") && neoScryptIndex > -1)
                     {
                         sgminerAlgos[neoScryptIndex].ExtraLaunchParameters =
@@ -40,6 +41,7 @@ namespace NiceHashMiner.Devices
                             "The GPU detected (" + device.Codename +
                             ") is not Tahiti. Changing default gpu-threads to 2.");
                     }
+                    */
                     if (cryptoNightIndex > -1)
                     {
                         if (device.Codename.Contains("Hawaii"))
@@ -126,7 +128,7 @@ namespace NiceHashMiner.Devices
                 {
                     algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
                     {
-                        AlgorithmType.NeoScrypt,
+                       // AlgorithmType.NeoScrypt,
                         AlgorithmType.Lyra2REv2
                     });
                 }
@@ -263,12 +265,14 @@ namespace NiceHashMiner.Devices
                             MinerBaseType.sgminer,
                             new List<Algorithm>
                             {
+                                /*
                                 new Algorithm(MinerBaseType.sgminer, AlgorithmType.NeoScrypt, "neoscrypt")
                                 {
                                     ExtraLaunchParameters =
                                         defaultParam +
                                         "--nfactor 10 --xintensity    2 --thread-concurrency 8192 --worksize  64 --gpu-threads 4"
                                 },
+                                */
                                 //new Algorithm(MinerBaseType.sgminer, AlgorithmType.Lyra2REv2,  "Lyra2REv2") { ExtraLaunchParameters = DefaultParam + "--nfactor 10 --xintensity  160 --thread-concurrency    0 --worksize  64 --gpu-threads 1" },
                                 new Algorithm(MinerBaseType.sgminer, AlgorithmType.DaggerHashimoto, "ethash")
                                 {
@@ -309,6 +313,7 @@ namespace NiceHashMiner.Devices
                                 new Algorithm(MinerBaseType.Claymore, AlgorithmType.CryptoNightV7, ""),
                                 new Algorithm(MinerBaseType.Claymore, AlgorithmType.Equihash, "equihash"),
                                 new Algorithm(MinerBaseType.Claymore, AlgorithmType.DaggerHashimoto, ""),
+                                new Algorithm(MinerBaseType.Claymore, AlgorithmType.NeoScrypt, "neoscrypt"),
                                 new DualAlgorithm(MinerBaseType.Claymore, AlgorithmType.DaggerHashimoto, AlgorithmType.Decred),
                                 new DualAlgorithm(MinerBaseType.Claymore, AlgorithmType.DaggerHashimoto, AlgorithmType.Lbry),
                                 new DualAlgorithm(MinerBaseType.Claymore, AlgorithmType.DaggerHashimoto, AlgorithmType.Pascal),

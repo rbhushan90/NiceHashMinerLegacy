@@ -127,7 +127,10 @@ namespace NiceHashMiner.Miners
 
                         ad.SecondarySpeed += tmpSpeed;
                     }
-
+                    if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.NeoScrypt))
+                    {
+                        ApiReadMult = 1000;
+                    }
                     ad.Speed *= ApiReadMult;
                     ad.SecondarySpeed *= ApiReadMult;
                     CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
@@ -257,6 +260,7 @@ namespace NiceHashMiner.Miners
                 {
                     BenchLines.Add(line);
                     var lineLowered = line.ToLower();
+                    BenchmarkParseLine(lineLowered);
                     if (lineLowered.Contains(LookForStart))
                     {
                         var got = GetNumber(lineLowered);
