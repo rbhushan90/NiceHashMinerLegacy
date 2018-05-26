@@ -18,7 +18,7 @@ namespace NiceHashMiner.Miners
         private const string LookForStart = "sol/s   ";
         private const string LookForEnd = "avg";
 
-        private int _benchmarkTime = 120;
+        private int _benchmarkTime = 150;
 
         public Dstm() : base("dtsm")
         {
@@ -53,7 +53,8 @@ namespace NiceHashMiner.Miners
             var urls = url.Split(':');
             var server = urls.Length > 0 ? urls[0] : "";
             var port = urls.Length > 1 ? urls[1] : "";
-
+            string alg = url.Split('.')[0];
+            /*
             var config_body = "[GLOBAL]\r\n" +
                                  $"dev=" + string.Join(",", MiningSetup.MiningPairs.Select(p => p.Device.ID)) + "\r\n" +
                                  "time=1\r\n" +
@@ -103,8 +104,18 @@ namespace NiceHashMiner.Miners
             w.Write(config_body);
             w.Flush();
             w.Close();
+            */
+            var ret = GetDeviceCommand()
++ " --server " + url.Split(':')[0] + " --port " + url.Split(':')[1] + " --user " + btcAddress + "." + worker + " --pass x " +
+ " --pool " + alg + ".hk.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --pool " + alg + ".in.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --pool " + alg + ".jp.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --pool " + alg + ".usa.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --pool " + alg + ".br.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --telemetry=127.0.0.1:" + ApiPort;
 
-            return "--cfg-file=nicehash.cfg";
+
+            return ret;
 
         }
 
