@@ -299,6 +299,8 @@ namespace NiceHashMiner.Miners.Parsing
                     {
                         case AlgorithmType.CryptoNight:
                             return MinerType.ClaymoreCryptoNight;
+                        case AlgorithmType.CryptoNightV7:
+                            return MinerType.ClaymoreCryptoNight;
                         case AlgorithmType.Equihash:
                             return MinerType.ClaymoreZcash;
                         case AlgorithmType.DaggerHashimoto:
