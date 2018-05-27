@@ -831,7 +831,7 @@ namespace NiceHashMiner
 
             if (ret < 0 || (ret == 0 && BetaAlphaPostfixString != ""))
             {
-                SetVersionLabel(string.Format(International.GetText("Form_Main_new_version_released"), ver));
+                SetVersionLabel(string.Format(International.GetText("Form_Main_new_version_released").Replace("v{0}", "{0}"), ver));
                 _visitUrlNew = Links.VisitUrlNew + ver;
             }
         }
