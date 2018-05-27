@@ -5,7 +5,7 @@
         public const string VisitUrl = "https://www.nicehash.com";
 
         // add version
-        public const string VisitUrlNew = "https://github.com/NiceHash/NiceHashMinerLegacy/releases/tag/";
+        public const string VisitUrlNew = "https://github.com/angelbbs/NiceHashMinerLegacy/releases/tag/";
 
         // add btc adress as parameter
         public const string CheckStats = "https://www.nicehash.com/index.jsp?p=miners&addr=";

@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebSocketSharp;
@@ -55,7 +56,13 @@ namespace NiceHashMiner.Stats
 
         public static double Balance { get; private set; }
         public static string Version { get; private set; }
-        public static bool IsAlive => _socket?.IsAlive ?? false;
+
+        class github_version
+        { 
+            public string tag_name; 
+            public string target_commitish; 
+        }
+    public static bool IsAlive => _socket?.IsAlive ?? false;
 
         // Event handlers for socket
         public static event EventHandler OnBalanceUpdate;
@@ -143,12 +150,12 @@ namespace NiceHashMiner.Stats
                         case "balance":
                             SetBalance(message.value.Value);
                             break;
-                        case "versions":
-                            SetVersion(message.legacy.Value);
-                            break;
-                        case "burn":
-                            OnVersionBurn?.Invoke(null, new SocketEventArgs(message.message.Value));
-                            break;
+                        //case "versions":
+                        //    SetVersion(message.legacy.Value);
+                        //    break;
+                        //case "burn":
+                        //    OnVersionBurn?.Invoke(null, new SocketEventArgs(message.message.Value));
+                        //    break;
                         case "exchange_rates":
                             SetExchangeRates(message.data.Value);
                             break;
@@ -262,6 +269,7 @@ namespace NiceHashMiner.Stats
             Helpers.ConsolePrint("SMA", "Trying LoadSMA");
             try
             {
+                /*
                 if (System.IO.File.Exists("configs\\versions.dat"))
                 {
                     FileStream fs1 = new FileStream("configs\\versions.dat", FileMode.Open, FileAccess.Read);
@@ -284,6 +292,7 @@ namespace NiceHashMiner.Stats
                     //                    JArray verdata = (JArray.Parse(defversion));
                     //                    SetVersion(verdata.legacy.Value);
                 }
+                */
                 //******
                 if (!GetSmaAPI())
                 {
@@ -350,11 +359,62 @@ namespace NiceHashMiner.Stats
             }
         }
 
+        public static string GetVersion(string worker)
+        {
+            string url = "https://api.github.com/repos/angelbbs/nicehashminerlegacy/releases";
+            string r1 = GetGitHubAPIData(url);
+            //Helpers.ConsolePrint("GITHUB!", r1);
+            //string r1 = GetNiceHashApiData(url, "");
+            if (r1 == null) return null;
+            github_version[] nhjson;
+            try
+            {
+                nhjson = JsonConvert.DeserializeObject<github_version[]>(r1, Globals.JsonSettings);
+                var latest = Array.Find(nhjson, (n) => n.target_commitish == "master");
+                return latest.tag_name;
+            }
+            catch
+            { }
+            return "";
+        }
+
+        public static string GetGitHubAPIData(string URL)
+        {
+            string ResponseFromServer;
+            try
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                HttpWebRequest WR = (HttpWebRequest)WebRequest.Create(URL);
+                WR.UserAgent = "NiceHashMinerLegacy/" + Application.ProductVersion;
+                WR.Timeout = 30 * 1000;
+                WR.Credentials = CredentialCache.DefaultCredentials;
+                //idHTTP1.IOHandler:= IdSSLIOHandlerSocket1;
+               // ServicePointManager.SecurityProtocol = (SecurityProtocolType)SslProtocols.Tls12;
+                WebResponse Response = WR.GetResponse();
+                Stream SS = Response.GetResponseStream();
+                SS.ReadTimeout = 20 * 1000;
+                StreamReader Reader = new StreamReader(SS);
+                ResponseFromServer = Reader.ReadToEnd();
+                if (ResponseFromServer.Length == 0 || (ResponseFromServer[0] != '{' && ResponseFromServer[0] != '['))
+                    throw new Exception("Not JSON!");
+                Reader.Close();
+                Response.Close();
+            }
+            catch (Exception ex)
+            {
+                Helpers.ConsolePrint("GITHUB", ex.Message);
+                return null;
+            }
+            return ResponseFromServer;
+        }
 
         private static void SocketOnOnConnectionEstablished(object sender, EventArgs e)
         {
             DeviceStatus_Tick(null); // Send device to populate rig stats
             LoadSMA(); //for first run
+            string ghv = GetVersion("");
+            Helpers.ConsolePrint("GITHUB", ghv);
+            SetVersion(ghv);
             OnConnectionEstablished?.Invoke(null, EventArgs.Empty);
         }
 

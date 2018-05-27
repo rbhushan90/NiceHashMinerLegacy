@@ -825,9 +825,8 @@ namespace NiceHashMiner
         {
             var ver = NiceHashStats.Version;
             if (ver == null) return;
-
-            var programVersion = new Version(Application.ProductVersion);
-            var onlineVersion = new Version(ver);
+            var programVersion = "Fork_Fix_"+ConfigManager.GeneralConfig.ForkFixVersion.ToString();
+            var onlineVersion = ver.ToString();
             var ret = programVersion.CompareTo(onlineVersion);
 
             if (ret < 0 || (ret == 0 && BetaAlphaPostfixString != ""))
