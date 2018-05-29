@@ -322,6 +322,20 @@ namespace NiceHashMiner.Miners.Parsing
                 },
                 new List<MinerOption>()
             ),
+             new MinerOptionPackage(
+                MinerType.CastXMR,
+                new List<MinerOption>() {
+                    // SingleParam
+                    new MinerOption("OpenCLPlatform", "-O", "--opencl", "0", MinerOptionFlagType.SingleParam, ""),
+                    new MinerOption("ForceCompute", "--forcecompute", "--forcecompute", "", MinerOptionFlagType.Uni, ""), // default none
+                    new MinerOption("FastJobSwitch", "--fastjobswitch", "--fastjobswitch", "", MinerOptionFlagType.Uni, ""), // default none
+                    new MinerOption("Maxmem", "--maxmem", "--maxmem", "", MinerOptionFlagType.Uni, ""), // default none
+                    new MinerOption("Log", "--log", "--log", "", MinerOptionFlagType.Uni, ""), // default none
+                    new MinerOption("Intensity", "--intensity", "--intensity", "0", MinerOptionFlagType.MultiParam, " "), //maybe not work
+                    new MinerOption("RateWatchdog", "--ratewatchdog", "--ratewatchdog", "", MinerOptionFlagType.Uni, ""), // default none
+                },
+                new List<MinerOption>()
+            ),
             new MinerOptionPackage(
                 MinerType.dstm,
                 new List<MinerOption>

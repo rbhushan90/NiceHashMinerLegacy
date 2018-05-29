@@ -23,6 +23,7 @@
         EWBF,
         Xmrig,
         dstm,
+        CastXMR,
         END
     }
 }

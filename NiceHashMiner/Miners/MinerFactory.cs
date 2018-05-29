@@ -76,6 +76,8 @@ namespace NiceHashMiner.Miners
                     return new Xmrig();
                 case MinerBaseType.dstm:
                     return new Dstm();
+                case MinerBaseType.CastXMR:
+                    return new CastXMR();
             }
 
             return null;

@@ -286,6 +286,8 @@ namespace NiceHashMiner.Miners.Parsing
                     return MinerType.OptiminerZcash;
                 case MinerBaseType.sgminer:
                     return MinerType.sgminer;
+                case MinerBaseType.CastXMR:
+                    return MinerType.CastXMR;
                 case MinerBaseType.ccminer:
                 case MinerBaseType.ccminer_alexis:
                 case MinerBaseType.experimental:

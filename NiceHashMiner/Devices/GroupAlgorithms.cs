@@ -306,6 +306,11 @@ namespace NiceHashMiner.Devices
                                 }
                             }
                         },
+                    { MinerBaseType.CastXMR,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightV7, "cryptonightV7") { }
+                        }
+                    },
                         {
                             MinerBaseType.Claymore,
                             new List<Algorithm>

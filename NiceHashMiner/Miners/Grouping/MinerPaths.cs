@@ -113,6 +113,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string Ewbf = Bin3rdParty + @"\ewbf\miner.exe";
             public const string Prospector = Bin3rdParty + @"\prospector\prospector.exe";
             public const string Dstm = Bin3rdParty + @"\dstm\zm.exe";
+            public const string CastXMR = Bin3rdParty + @"\castxmr\cast_xmr-vega.exe";
         }
 
         // NEW START
@@ -170,6 +171,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.Xmrig;
                 case MinerBaseType.dstm:
                     return Data.Dstm;
+                case MinerBaseType.CastXMR:
+                    return Data.CastXMR;
             }
             return Data.None;
         }
@@ -315,6 +318,15 @@ namespace NiceHashMiner.Miners.Grouping
                 }
                 return Data.None; // should not happen
             }
+            public static string CastXMR(AlgorithmType algorithmType)
+            {
+                if (AlgorithmType.CryptoNightV7 == algorithmType || AlgorithmType.CryptoNight == algorithmType)
+                {
+                    return Data.CastXMR;
+                }
+                return Data.CastXMR;
+            }
+
         }
 
         // unstable miners, NVIDIA for now
