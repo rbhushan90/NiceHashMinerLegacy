@@ -67,6 +67,36 @@ namespace NiceHashMiner.Stats
             }
         }
 
+        public void StartConnectionold()
+        {
+            NHSmaData.InitializeIfNeeded();
+            _connectionAttempted = true;
+            try
+            {
+                if (_webSocket == null)
+                {
+                    _webSocket = new WebSocket(Links.NhmSocketAddress_old, true);
+                }
+                else
+                {
+                    _webSocket.Close();
+                }
+                _webSocket.OnOpen += ConnectCallback;
+                _webSocket.OnMessage += ReceiveCallback;
+                _webSocket.OnError += ErrorCallback;
+                _webSocket.OnClose += CloseCallback;
+                _webSocket.Log.Level = LogLevel.Debug;
+                _webSocket.Log.Output = (data, s) => Helpers.ConsolePrint("SOCKET_OLD", data.ToString());
+                _webSocket.EnableRedirection = true;
+                _webSocket.Connect();
+                _connectionEstablished = true;
+            }
+            catch (Exception e)
+            {
+                Helpers.ConsolePrint("SOCKET_OLD", e.ToString());
+            }
+        }
+
         private void ConnectCallback(object sender, EventArgs e)
         {
             try
@@ -189,9 +219,9 @@ namespace NiceHashMiner.Stats
                     if (e.Message == "A series of reconnecting has failed.")
                     {
                         // Need to recreate websocket
-                        Helpers.ConsolePrint("SOCKET", "Recreating socket");
+                        Helpers.ConsolePrint("SOCKET", "Try old method");
                         _webSocket = null;
-                        StartConnection();
+                        StartConnectionold();
                         break;
                     }
                 }

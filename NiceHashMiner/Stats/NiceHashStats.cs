@@ -75,6 +75,7 @@ namespace NiceHashMiner.Stats
         public static event EventHandler OnExchangeUpdate;
 
         private static NiceHashSocket _socket;
+        private static NiceHashSocket _socketold;
 
         private static System.Threading.Timer _deviceUpdateTimer;
 
