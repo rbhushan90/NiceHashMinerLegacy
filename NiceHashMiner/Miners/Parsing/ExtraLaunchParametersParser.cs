@@ -296,6 +296,9 @@ namespace NiceHashMiner.Miners.Parsing
                         return MinerType.ccminer_CryptoNight;
                     }
                     return MinerType.ccminer;
+                case MinerBaseType.hsrneoscrypt:
+                    return MinerType.hsrneoscrypt;
+
                 case MinerBaseType.Claymore:
                     switch (algorithmType)
                     {

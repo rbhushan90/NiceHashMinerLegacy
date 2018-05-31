@@ -25,6 +25,7 @@
         Claymore_old,
         dstm,
         CastXMR,
+        hsrneoscrypt,
         END
     }
 }

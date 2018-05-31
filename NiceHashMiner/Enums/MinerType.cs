@@ -24,6 +24,7 @@
         Xmrig,
         dstm,
         CastXMR,
+        hsrneoscrypt,
         END
     }
 }

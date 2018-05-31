@@ -78,6 +78,8 @@ namespace NiceHashMiner.Miners
                     return new Dstm();
                 case MinerBaseType.CastXMR:
                     return new CastXMR();
+                case MinerBaseType.hsrneoscrypt:
+                    return new hsrneoscrypt();
             }
 
             return null;

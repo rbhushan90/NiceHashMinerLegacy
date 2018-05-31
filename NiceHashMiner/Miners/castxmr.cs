@@ -177,7 +177,7 @@ namespace NiceHashMiner.Miners
             }
             catch (Exception ex)
             {
-                Helpers.ConsolePrint("API", ex.Message);
+                //Helpers.ConsolePrint("API", ex.Message);
                 return null;
             }
 

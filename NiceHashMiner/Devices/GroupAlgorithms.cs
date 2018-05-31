@@ -385,6 +385,11 @@ namespace NiceHashMiner.Devices
                                 new Algorithm(MinerBaseType.ccminer_alexis, AlgorithmType.Keccak, "keccak")
                             }
                         },
+                        { MinerBaseType.hsrneoscrypt,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.hsrneoscrypt, AlgorithmType.NeoScrypt, "Neoscrypt"),
+                        }
+                    },
                         {
                             MinerBaseType.ethminer,
                             new List<Algorithm>

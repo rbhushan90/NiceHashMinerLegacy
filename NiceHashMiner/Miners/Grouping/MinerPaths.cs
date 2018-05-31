@@ -114,6 +114,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string Prospector = Bin3rdParty + @"\prospector\prospector.exe";
             public const string Dstm = Bin3rdParty + @"\dstm\zm.exe";
             public const string CastXMR = Bin3rdParty + @"\castxmr\cast_xmr-vega.exe";
+            public const string hsrneoscrypt = Bin3rdParty + @"\hsrminer_neoscrypt\hsrminer_neoscrypt.exe";
         }
 
         // NEW START
@@ -173,6 +174,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.Dstm;
                 case MinerBaseType.CastXMR:
                     return Data.CastXMR;
+                case MinerBaseType.hsrneoscrypt:
+                    return NvidiaGroups.hsrneoscrypt_path(algoType, devGroupType);
             }
             return Data.None;
         }
@@ -259,6 +262,27 @@ namespace NiceHashMiner.Miners.Grouping
 
                 return Data.CcminerSp;
             }
+            public static string hsrneoscrypt_path(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
+            {
+                // sm21 and sm3x have same settings
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_2_1 || nvidiaGroup == DeviceGroupType.NVIDIA_3_x)
+                {
+                    return Data.hsrneoscrypt;
+                }
+                // CN exception
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_6_x && algorithmType == AlgorithmType.CryptoNight)
+                {
+                    return Data.hsrneoscrypt;
+                }
+                // sm5x and sm6x have same settings otherwise
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_5_x || nvidiaGroup == DeviceGroupType.NVIDIA_6_x)
+                {
+                    return Data.hsrneoscrypt; ;
+                }
+                // TODO wrong case?
+                return Data.None; // should not happen
+            }
+
 
             public static string Ccminer_path(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
             {

@@ -857,6 +857,7 @@ namespace NiceHashMiner.Utils
             @"/claymore_cryptonight/Data1i1.bin",
             @"/claymore_cryptonight/NsGpuCNMiner.exe",
             @"/castxmr/cast_xmr-vega.exe",
+            @"/hsrminer_neoscrypt/hsrminer_neoscrypt.exe",
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py

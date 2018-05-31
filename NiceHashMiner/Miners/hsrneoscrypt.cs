@@ -1,71 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Globalization;
-using System.Net;
-using System.Net.Sockets;
-using System.Windows.Forms;
-using System.Diagnostics;
-using System.IO;
-using NiceHashMiner.Configs;
-using NiceHashMiner.Enums;
-using NiceHashMiner.Devices;
+﻿using NiceHashMiner.Enums;
 using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
+using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Threading;
 using NiceHashMiner.Algorithms;
+using NiceHashMiner.Configs;
+using System.Threading;
 
 namespace NiceHashMiner.Miners
 {
     public class hsrneoscrypt : Miner
     {
-        private int benchmarkTimeWait = 11 * 60;
-        public hsrneoscrypt() : base("hsrneoscrypt_NVIDIA") { }
+        public hsrneoscrypt() : base("hsrneoscrypt_NVIDIA")
+        { }
 
-        bool benchmarkException {
-            get {
-                return MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt;
-            }
-        }
+        bool benchmarkException => MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt
+                                           || MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt;
 
-        protected override int GetMaxCooldownTimeInMilliseconds() {
-            if (this.MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt) {
-                return 60 * 1000 * 12; // wait for hashrate string
-            }
-            return 60 * 1000 * 12; // 11 minute max
+        protected override int GetMaxCooldownTimeInMilliseconds()
+        {
+            return 60 * 1000 * 10; 
         }
 
         public override void Start(string url, string btcAdress, string worker)
         {
-            if (!IsInit) {
+            if (!IsInit)
+            {
                 Helpers.ConsolePrint(MinerTag(), "MiningSetup is not initialized exiting Start()");
                 return;
             }
             string username = GetUsername(btcAdress, worker);
 
             //IsAPIReadException = MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt;
-            IsApiReadException = false; //** in miner 
+            IsApiReadException = false; //** in miner
 
-            /*
-            string algo = "";
-            string apiBind = "";
-            if (!IsAPIReadException) {
-                algo = "--algo=" + MiningSetup.MinerName;
-                apiBind = " --api-bind=" + APIPort.ToString();
-            }
-            */
-            /*
-            LastCommandLine = algo +
-                                  " --url=" + url +
-                                  " --userpass=" + username + ":x " +
-                                  apiBind + " " +
-                                  ExtraLaunchParametersParser.ParseForMiningSetup(
-                                                                MiningSetup,
-                                                                DeviceType.NVIDIA) +
-                                  " --devices ";
-*/
-            //add failover
             string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
             /*
@@ -102,25 +73,23 @@ namespace NiceHashMiner.Miners
                                   " --devices ";
             LastCommandLine += GetDevicesCommandString();
             ProcessHandle = _Start();
+
+
         }
 
-        protected override void _Stop(MinerStopType willswitch) {
+        protected override void _Stop(MinerStopType willswitch)
+        {
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
         }
 
-        // new decoupled benchmarking routines
         #region Decoupled benchmarking routines
 
-        protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
+        protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
+        {
 
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
 
-            string username = Globals.DemoUser;
-
-            if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
-                username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
-
-            string CommandLine =  " --url=" + url +
+            string CommandLine = " --url=" + url +
                                   " --user=" + Globals.DemoUser +
                           " -p x " +
                                   ExtraLaunchParametersParser.ParseForMiningSetup(
@@ -134,7 +103,8 @@ namespace NiceHashMiner.Miners
             return CommandLine;
         }
 
-        protected override bool BenchmarkParseLine(string outdata) {
+        protected override bool BenchmarkParseLine(string outdata)
+        {
 
             Helpers.ConsolePrint(MinerTag(), outdata);
             if (benchmarkException)
@@ -144,28 +114,7 @@ namespace NiceHashMiner.Miners
                 {
                     int st = outdata.IndexOf("speed is ");
                     int end = outdata.IndexOf("kH/s");
-                    //      int len = outdata.Length - speedLength - st;
-
-                    //          string parse = outdata.Substring(st, len-1).Trim();
-                    //          double tmp = 0;
-                    //          Double.TryParse(parse, NumberStyles.Any, CultureInfo.InvariantCulture, out tmp);
-
-                    // save speed
-                    //       int i = outdata.IndexOf("Benchmark:");
-                    //       int k = outdata.IndexOf("/s");
                     string hashspeed = outdata.Substring(st + 9, end - st - 9);
-                    /*
-                    int b = hashspeed.IndexOf(" ");
-                       if (hashspeed.Contains("k"))
-                           tmp *= 1000;
-                       else if (hashspeed.Contains("m"))
-                           tmp *= 1000000;
-                       else if (hashspeed.Contains("g"))
-                           tmp *= 1000000000;
-
-                   }
-                   */
-
                     double speed = Double.Parse(hashspeed, CultureInfo.InvariantCulture);
                     BenchmarkAlgorithm.BenchmarkSpeed = speed * 1000;
                     BenchmarkSignalFinnished = true;
@@ -174,49 +123,114 @@ namespace NiceHashMiner.Miners
             return false;
         }
 
-        protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata) {
+        protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata)
+        {
             CheckOutdata(outdata);
         }
 
+        protected override void BenchmarkThreadRoutine(object CommandLine)
+        {
+            BenchmarkSignalQuit = false;
+            BenchmarkSignalHanged = false;
+            BenchmarkSignalFinnished = false;
+            BenchmarkException = null;
+
+            Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
+
+            try
+            {
+                Helpers.ConsolePrint("BENCHMARK", "Benchmark starts");
+                BenchmarkHandle = BenchmarkStartProcess((string)CommandLine);
+
+                BenchmarkThreadRoutineStartSettup();
+                BenchmarkTimeInSeconds = 600;
+                BenchmarkProcessStatus = BenchmarkProcessStatus.Running;
+                var exited = BenchmarkHandle.WaitForExit((BenchmarkTimeoutInSeconds(BenchmarkTimeInSeconds) + 20) * 1000);
+                if (BenchmarkSignalTimedout && !TimeoutStandard)
+                {
+                    throw new Exception("Benchmark timedout");
+                }
+
+                if (BenchmarkException != null)
+                {
+                    throw BenchmarkException;
+                }
+
+                if (BenchmarkSignalQuit)
+                {
+                    throw new Exception("Termined by user request");
+                }
+
+                if (BenchmarkSignalHanged || !exited)
+                {
+                    throw new Exception("Miner is not responding");
+                }
+
+                if (BenchmarkSignalFinnished)
+                {
+                    //break;
+                }
+            }
+            catch (Exception ex)
+            {
+                BenchmarkThreadRoutineCatch(ex);
+            }
+            finally
+            {
+                BenchmarkThreadRoutineFinish();
+            }
+        }
+
+
+
         #endregion // Decoupled benchmarking routines
 
-        public override async Task<ApiData> GetSummaryAsync() {
-            // CryptoNight does not have api bind port
+        public override async Task<ApiData> GetSummaryAsync()
+        {
             ApiData hsrData = new ApiData(MiningSetup.CurrentAlgorithmType);
             hsrData.Speed = 0;
-            if (IsApiReadException) {
-                // check if running
-                if (ProcessHandle == null) {
+            if (IsApiReadException)
+            {
+                if (ProcessHandle == null)
+                {
                     CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
                     Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from hsrminer Proccess is null");
                     return null;
                 }
-                try {
+                try
+                {
                     var runningProcess = Process.GetProcessById(ProcessHandle.Id);
-                } catch (ArgumentException ex) {
+                }
+                catch (ArgumentException ex)
+                {
                     CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
                     Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from hsrminer reason: " + ex.Message);
-                    return null; // will restart outside
-                } catch (InvalidOperationException ex) {
+                    return null; 
+                }
+                catch (InvalidOperationException ex)
+                {
                     CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
                     Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from hsrminer reason: " + ex.Message);
-                    return null; // will restart outside
+                    return null; 
                 }
 
                 var totalSpeed = 0.0d;
-                foreach (var miningPair in MiningSetup.MiningPairs) {
+                foreach (var miningPair in MiningSetup.MiningPairs)
+                {
                     var algo = miningPair.Device.GetAlgorithm(MinerBaseType.hsrneoscrypt, AlgorithmType.NeoScrypt, AlgorithmType.NONE);
-                    if (algo != null) {
+                    if (algo != null)
+                    {
                         totalSpeed += algo.BenchmarkSpeed;
                     }
                 }
 
-               // hsrData.Speed = totalSpeed;
-               // return hsrData;
             }
 
-              return await GetSummaryAsync();
-            //return hsrData;
+            return await GetSummaryCPU_hsrneoscryptAsync();
+
         }
     }
+
 }
+    
+

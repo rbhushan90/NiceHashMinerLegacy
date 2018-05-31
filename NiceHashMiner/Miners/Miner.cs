@@ -198,17 +198,29 @@ namespace NiceHashMiner
                 {
                     if (MinersApiPortsManager.IsPortAvaliable(reservedPort))
                     {
-                        ApiPort = reservedPort;
+                        if (minerBase.Equals("hsrneoscrypt"))
+                        {
+                            ApiPort = 4001;
+                        }
+                        else
+                        {
+                            ApiPort = reservedPort;
+                        }
                         break;
                     }
                 }
-
-                if (ApiPort == -1)
+                if (minerBase.ToString().Equals("hsrneoscrypt"))
+                {
+                    ApiPort = 4001;
+                }
+                else
                 {
                     ApiPort = MinersApiPortsManager.GetAvaliablePort();
                 }
+
             }
         }
+
 
         public virtual void InitMiningSetup(MiningSetup miningSetup)
         {
@@ -361,6 +373,91 @@ namespace NiceHashMiner
         }
 
         #region BENCHMARK DE-COUPLED Decoupled benchmarking routines
+        protected double BenchmarkParseLine_cpu_hsrneoscrypt_extra(string outdata)
+        {
+            // parse line
+            if (outdata.Contains("Benchmark: ") && outdata.Contains("/s"))
+            {
+                int i = outdata.IndexOf("Benchmark:");
+                int k = outdata.IndexOf("/s");
+                string hashspeed = outdata.Substring(i + 11, k - i - 9);
+                Helpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashspeed);
+
+                // save speed
+                int b = hashspeed.IndexOf(" ");
+                if (b < 0)
+                {
+                    int stub;
+                    for (int _i = hashspeed.Length - 1; _i >= 0; --_i)
+                    {
+                        if (Int32.TryParse(hashspeed[_i].ToString(), out stub))
+                        {
+                            b = _i;
+                            break;
+                        }
+                    }
+                }
+                if (b >= 0)
+                {
+                    string speedStr = hashspeed.Substring(0, b);
+                    double spd = Helpers.ParseDouble(speedStr);
+                    if (hashspeed.Contains("kH/s"))
+                        spd *= 1000;
+                    else if (hashspeed.Contains("MH/s"))
+                        spd *= 1000000;
+                    else if (hashspeed.Contains("GH/s"))
+                        spd *= 1000000000;
+
+                    return spd;
+                }
+            }
+            return 0.0d;
+        }
+
+        protected async Task<ApiData> GetSummaryCPU_hsrneoscryptAsync()
+        {
+            string resp;
+            // TODO aname
+            string aname = null;
+            ApiData ad = new ApiData(MiningSetup.CurrentAlgorithmType);
+
+            string DataToSend = GetHttpRequestNhmAgentStrin("summary");
+
+            resp = await GetApiDataAsync(ApiPort, DataToSend);
+            if (resp == null)
+            {
+                Helpers.ConsolePrint(MinerTag(), ProcessTag() + " summary is null");
+                CurrentMinerReadStatus = MinerApiReadStatus.NONE;
+                return null;
+            }
+
+            try
+            {
+                string[] resps = resp.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < resps.Length; i++)
+                {
+                    string[] optval = resps[i].Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (optval.Length != 2) continue;
+                    if (optval[0] == "ALGO")
+                        aname = optval[1];
+                    else if (optval[0] == "KHS")
+                        ad.Speed = double.Parse(optval[1], CultureInfo.InvariantCulture) * 1000; // HPS
+                }
+            }
+            catch
+            {
+                Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from API bind port");
+                CurrentMinerReadStatus = MinerApiReadStatus.NONE;
+                return null;
+            }
+
+            CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
+            // check if speed zero
+            if (ad.Speed == 0) CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
+
+            return ad;
+        }
+
 
         public int BenchmarkTimeoutInSeconds(int timeInSeconds)
         {
