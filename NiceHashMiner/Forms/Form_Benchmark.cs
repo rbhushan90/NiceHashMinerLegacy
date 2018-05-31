@@ -476,14 +476,14 @@ namespace NiceHashMiner.Forms
                     var result = MessageBox.Show(
                         International.GetText("FormBenchmark_Benchmark_Finish_Fail_MsgBox_Msg"),
                         International.GetText("FormBenchmark_Benchmark_Finish_MsgBox_Title"),
-                        MessageBoxButtons.RetryCancel);
-
+                        MessageBoxButtons.OK);
+                    /*
                     if (result == DialogResult.Retry)
                     {
                         StartButonClick();
                         return;
                     }
-
+                    */
                     // get unbenchmarked from criteria and disable
                     CalcBenchmarkDevicesAlgorithmQueue();
                     foreach (var deviceAlgoQueue in _benchmarkDevicesAlgorithmQueue)
