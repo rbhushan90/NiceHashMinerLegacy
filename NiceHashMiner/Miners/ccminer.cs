@@ -17,13 +17,18 @@ namespace NiceHashMiner.Miners
         public Ccminer() : base("ccminer_NVIDIA")
         { }
 
-        private int _cryptonightTotalCount = 0;
+        private int TotalCount = 0;
 
-        private double _cryptonightTotal = 0;
-        private const int CryptonightTotalDelim = 2;
+        private double Total = 0;
+        private const int TotalDelim = 2;
 
         private bool _benchmarkException => MiningSetup.MinerPath == MinerPaths.Data.CcminerCryptonight
-                                           || MiningSetup.MinerPath == MinerPaths.Data.CcminerKlausT;
+                                           || MiningSetup.MinerPath == MinerPaths.Data.CcminerKlausT
+            || MiningSetup.MinerPath == MinerPaths.Data.CcminerTPruvot
+            || MiningSetup.MinerPath == MinerPaths.Data.CcminerX11Gost
+            || MiningSetup.MinerPath == MinerPaths.Data.CcminerDecred
+            || MiningSetup.MinerPath == MinerPaths.Data.CcminerNanashi
+            || MiningSetup.MinerPath == MinerPaths.Data.CcminerSp;
 
         protected override int GetMaxCooldownTimeInMilliseconds()
         {
@@ -109,9 +114,17 @@ namespace NiceHashMiner.Miners
 
             commandLine += GetDevicesCommandString();
 
+            TotalCount = 15;
+            if (MiningSetup.MinerPath == MinerPaths.Data.CcminerX11Gost || MiningSetup.MinerPath == MinerPaths.Data.CcminerNanashi)
+            {
+                TotalCount = 3;
+            }
 
-            _cryptonightTotalCount = BenchmarkTimeInSeconds / CryptonightTotalDelim;
-            _cryptonightTotal = 0.0d;
+            if (MiningSetup.MinerPath == MinerPaths.Data.CcminerTPruvot || MiningSetup.MinerPath == MinerPaths.Data.CcminerKlausT)
+            {
+                TotalCount = 5;
+            }
+            Total = 0.0d;
 
             return commandLine;
         }
@@ -123,7 +136,7 @@ namespace NiceHashMiner.Miners
 
             if (_benchmarkException)
             {
-                if (outdata.Contains("GPU") && outdata.Contains("/s"))
+                if ( outdata.Contains("GPU") && outdata.Contains("/s") )
                 {
                    
                     var st = outdata.IndexOf(", ");
@@ -140,13 +153,15 @@ namespace NiceHashMiner.Miners
                     else if (outdata.Contains("GH/s"))
                         tmp *= 1000000000;
 
-                    speed += tmp;
+ 
+                        speed += tmp;
+
                     count++;
-                    _cryptonightTotalCount--;
+                    TotalCount--;
                 }
-                if (_cryptonightTotalCount <= 0)
+                if (TotalCount <= 0)
                 {
-                    var spd = _cryptonightTotal / count;
+                    var spd = Total / count;
                     BenchmarkAlgorithm.BenchmarkSpeed = speed;
                     BenchmarkSignalFinnished = true;
                 }
@@ -225,7 +240,6 @@ namespace NiceHashMiner.Miners
 
         public override async Task<ApiData> GetSummaryAsync()
         {
-            // CryptoNight does not have api bind port
             if (!IsApiReadException) return await GetSummaryCpuCcminerAsync();
             // check if running
             if (ProcessHandle == null)
