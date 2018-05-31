@@ -1,7 +1,7 @@
 ﻿using NiceHashMiner.Configs.ConfigJsonFile;
-using NiceHashMiner.Enums;
 using System;
 using System.Collections.Generic;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners.Parsing
 {
@@ -215,6 +215,34 @@ namespace NiceHashMiner.Miners.Parsing
                     new MinerOption("ClaymoreCryptoNight_fanmax", "-fanmax", "-fanmax", "100", MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("ClaymoreCryptoNight_fanmin", "-fanmin", "-fanmin", "0", MinerOptionFlagType.MultiParam, ","),
                 }
+                ),
+            new MinerOptionPackage(
+                MinerType.ClaymoreCryptoNight,
+                new List<MinerOption>
+                {
+                    new MinerOption("ClaymoreCryptoNight_a", "-a", "-a", "0", MinerOptionFlagType.MultiParam),
+                    new MinerOption("ClaymoreCryptoNight_wd", "-wd", "-wd", "1", MinerOptionFlagType.SingleParam, ","),
+                    //new MinerOption(ClaymoreCryptoNight_r      , , , , MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("ClaymoreCryptoNight_nofee", "-nofee", "-nofee", "0", MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("ClaymoreCryptoNight_V7"  , "-pow7", "-pow7", "0", MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("ClaymoreCryptoNight_li", "-li", "-li", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("ClaymoreCryptoNight_h", "-h", "-h", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("ClaymoreCryptoNight_allpools", "-allpools", "0", MinerOptionFlagType.SingleParam),
+                    new MinerOption("ClaymoreCryptoNight_cclock", "-cclock", "-cclock", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("ClaymoreCryptoNight_mclock", "-mclock", "-mclock", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("ClaymoreCryptoNight_powlim", "-powlim", "-powlim", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("ClaymoreCryptoNight_cvddc", "-cvddc", "-cvddc", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("ClaymoreCryptoNight_mvddc", "-mvddc", "-mvddc", "0", MinerOptionFlagType.MultiParam, ","),
+                },
+               new List<MinerOption>
+                {
+                    // temperature stuff
+                    //MinerOptionFlagType.MultiParam might not work corectly due to ADL indexing so use single param to apply to all
+                    new MinerOption("ClaymoreCryptoNight_tt", "-tt", "-tt", "1", MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("ClaymoreCryptoNight_tstop", "-tstop", "-tstop", "0", MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("ClaymoreCryptoNight_fanmax", "-fanmax", "-fanmax", "100", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("ClaymoreCryptoNight_fanmin", "-fanmin", "-fanmin", "0", MinerOptionFlagType.MultiParam, ","),
+                }
             ),
             new MinerOptionPackage(
                 MinerType.OptiminerZcash,
@@ -332,18 +360,18 @@ namespace NiceHashMiner.Miners.Parsing
             ),
              new MinerOptionPackage(
                 MinerType.CastXMR,
-                new List<MinerOption>() {
-                    // SingleParam
+                new List<MinerOption>
+                {
                     new MinerOption("OpenCLPlatform", "-O", "--opencl", "0", MinerOptionFlagType.SingleParam, ""),
                     new MinerOption("ForceCompute", "--forcecompute", "--forcecompute", "", MinerOptionFlagType.Uni, ""), // default none
                     new MinerOption("FastJobSwitch", "--fastjobswitch", "--fastjobswitch", "", MinerOptionFlagType.Uni, ""), // default none
                     new MinerOption("Maxmem", "--maxmem", "--maxmem", "", MinerOptionFlagType.Uni, ""), // default none
                     new MinerOption("Log", "--log", "--log", "", MinerOptionFlagType.Uni, ""), // default none
                     new MinerOption("Intensity", "--intensity", "--intensity", "0", MinerOptionFlagType.MultiParam, " "), //maybe not work
-                    new MinerOption("RateWatchdog", "--ratewatchdog", "--ratewatchdog", "", MinerOptionFlagType.Uni, ""), // default none
+                    new MinerOption("RateWatchdog", "--ratewatchdog", "--ratewatchdog", "", MinerOptionFlagType.Uni, "") // default none
                 },
                 new List<MinerOption>()
-            ),
+                 ),
             new MinerOptionPackage(
                 MinerType.dstm,
                 new List<MinerOption>
@@ -352,7 +380,6 @@ namespace NiceHashMiner.Miners.Parsing
                     new MinerOption("dstm_noreconnect", "--noreconnect", null, MinerOptionFlagType.Uni),
                     new MinerOption("dstm_temp-target", "--temp-target", null, MinerOptionFlagType.SingleParam),
                     new MinerOption("dstm_intensity", "--intensity=", null, MinerOptionFlagType.SingleParam)
-                  //  new MinerOption("dstm_intensity", "--intensity=", "--intensity=", "0", MinerOptionFlagType.MultiParam, ",")
                 },
                 new List<MinerOption>())
         };

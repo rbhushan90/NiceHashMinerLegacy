@@ -1,5 +1,4 @@
-﻿using NiceHashMiner.Enums;
-using NiceHashMiner.Miners.Grouping;
+﻿using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
 using System;
 using System.Diagnostics;
@@ -9,6 +8,7 @@ using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Configs;
 using System.Threading;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners
 {

@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Miners.Parsing;
 using System;
 using System.Collections.Generic;
@@ -8,16 +7,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Configs;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners
 {
     public class Dstm : Miner
     {
         private const double DevFee = 2.0;
-        private const string LookForStart = "avg: ";
-        private const string LookForEnd = "i/s:";
+        private const string LookForStart = "sol/s   ";
+        private const string LookForEnd = "avg";
 
-        private int _benchmarkTime = 120;
+
+        private int _benchmarkTime = 150;
 
         public Dstm() : base("dstm")
         {
@@ -39,39 +40,29 @@ namespace NiceHashMiner.Miners
             var urls = url.Split(':');
             var server = urls.Length > 0 ? urls[0] : "";
             var port = urls.Length > 1 ? urls[1] : "";
+            string alg = url.Split('.')[0];
+
+            /*
             return $" {GetDeviceCommand()} " +
                    $"--server {server} " +
                    $"--port {port} " +
                    $"--user {btcAddress}.{worker} " +
                    $"--telemetry=127.0.0.1:{ApiPort} ";
-        }
-/*
-                        string alg = url.Split('.')[0];
-                        var ret = GetDevicesCommandString()
-                        + " --server " + alg + ".hk.nicehash.com"
-                        + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                        + " --server " + alg + ".in.nicehash.com"
-                        + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                        + " --server " + alg + ".jp.nicehash.com"
-                        + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                        + " --server " + alg + ".usa.nicehash.com"
-                        + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                        + " --server " + alg + ".br.nicehash.com"
-                        + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                        + " --server " + url.Split(':')[0]
-                        + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                        + " --telemetry=127.0.0.1:" + ApiPort + " --time --color";
+                   */
+            var ret = GetDeviceCommand()
 
++ " --server " + url.Split(':')[0] + " --port " + url.Split(':')[1] + " --user " + btcAddress + "." + worker + " --pass x " +
+" --pool " + alg + ".hk.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --pool " + alg + ".in.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --pool " + alg + ".jp.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --pool " + alg + ".usa.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --pool " + alg + ".br.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --telemetry=127.0.0.1:" + ApiPort;
 
-            var ret = GetDevicesCommandString()
-                + " --server " + url.Split(':')[0]
-                + " --user " + btcAddress + "." + worker + " --pass x --port "
-                + url.Split(':')[1] + " --telemetry=127.0.0.1:" + ApiPort + " --time --color";
 
             return ret;
 
         }
-*/
 
         private string GetDeviceCommand()
         {
@@ -91,7 +82,7 @@ namespace NiceHashMiner.Miners
         {
             var url = GetServiceUrl(algorithm.NiceHashID);
 
-            _benchmarkTime = Math.Max(time*3, 120);
+            _benchmarkTime = Math.Max(time, 60);
 
             return GetStartCommand(url, Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim()) +
                    $" --logfile={GetLogFileName()}";
@@ -106,7 +97,7 @@ namespace NiceHashMiner.Miners
         {
             var benchSum = 0d;
             var benchCount = 0;
-            Helpers.ConsolePrint(MinerTag(), "DSTM: " + lines);
+
             foreach (var line in lines)
             {
                 BenchLines.Add(line);

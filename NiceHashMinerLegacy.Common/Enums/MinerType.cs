@@ -1,4 +1,4 @@
-﻿namespace NiceHashMiner.Enums
+﻿namespace NiceHashMinerLegacy.Common.Enums
 {
     public enum MinerType
     {
@@ -16,7 +16,6 @@
         eqm_CUDA,
         ClaymoreZcash,
         ClaymoreCryptoNight,
-        ClaymoreNeoscrypt,
         OptiminerZcash,
         excavator,
         ClaymoreDual,
@@ -25,6 +24,7 @@
         dstm,
         CastXMR,
         hsrneoscrypt,
+        ClaymoreNeoscrypt,
         END
     }
 }

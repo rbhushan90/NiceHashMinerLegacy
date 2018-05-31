@@ -1,10 +1,11 @@
 ﻿using NiceHashMiner.Configs.ConfigJsonFile;
 using NiceHashMiner.Devices;
-using NiceHashMiner.Enums;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NiceHashMiner.Algorithms;
+using NiceHashMiner.Devices.Algorithms;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners.Grouping
 {
@@ -99,6 +100,9 @@ namespace NiceHashMiner.Miners.Grouping
             public const string XmrStakAmd = Bin + @"\xmr-stak-amd\xmr-stak-amd.exe";
             public const string XmrStak = Bin + @"\xmr-stak\xmr-stak.exe";
             public const string Xmrig = Bin + @"\xmrig\xmrig.exe";
+            public const string XmrStakHeavy = Bin + @"\xmr-stak_heavy\xmr-stak.exe";
+
+            public const string CpuMiner = Bin + @"\cpuminer_opt\cpuminer.exe";
 
             public const string None = "";
 
@@ -142,6 +146,10 @@ namespace NiceHashMiner.Miners.Grouping
                     Helpers.ConsolePrint("PATHS", $"Path {path.Path} not found, using defaults");
                 }
             }
+            // Temp workaround
+            if (minerBaseType == MinerBaseType.XmrStak && algoType == AlgorithmType.CryptoNightHeavy)
+                return Data.XmrStakHeavy;
+
             switch (minerBaseType)
             {
                 case MinerBaseType.ccminer:
@@ -172,6 +180,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.Xmrig;
                 case MinerBaseType.dstm:
                     return Data.Dstm;
+                case MinerBaseType.cpuminer:
+                    return Data.CpuMiner;
                 case MinerBaseType.CastXMR:
                     return Data.CastXMR;
                 case MinerBaseType.hsrneoscrypt:
@@ -253,6 +263,7 @@ namespace NiceHashMiner.Miners.Grouping
                     case AlgorithmType.Blake2s:
                     case AlgorithmType.Skunk:
                     case AlgorithmType.Keccak:
+                    case AlgorithmType.Lyra2z:
                         return Data.CcminerTPruvot;
                     case AlgorithmType.Sia:
                     case AlgorithmType.Nist5:
@@ -262,6 +273,7 @@ namespace NiceHashMiner.Miners.Grouping
 
                 return Data.CcminerSp;
             }
+
             public static string hsrneoscrypt_path(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
             {
                 // sm21 and sm3x have same settings
@@ -350,7 +362,6 @@ namespace NiceHashMiner.Miners.Grouping
                 }
                 return Data.CastXMR;
             }
-
         }
 
         // unstable miners, NVIDIA for now

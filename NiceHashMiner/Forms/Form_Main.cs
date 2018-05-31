@@ -1,6 +1,5 @@
 ﻿using NiceHashMiner.Configs;
 using NiceHashMiner.Devices;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Forms;
 using NiceHashMiner.Forms.Components;
 using NiceHashMiner.Interfaces;
@@ -16,6 +15,7 @@ using System.Threading;
 using System.Windows.Forms;
 using NiceHashMiner.Stats;
 using NiceHashMiner.Switching;
+using NiceHashMinerLegacy.Common.Enums;
 using SystemTimer = System.Timers.Timer;
 using Timer = System.Windows.Forms.Timer;
 
@@ -193,7 +193,7 @@ namespace NiceHashMiner
 
             if (_isDeviceDetectionInitialized)
             {
-                devicesListViewEnableControl1.ResetComputeDevices(ComputeDeviceManager.Avaliable.AllAvaliableDevices);
+                devicesListViewEnableControl1.ResetComputeDevices(ComputeDeviceManager.Available.Devices);
             }
         }
 
@@ -277,7 +277,7 @@ namespace NiceHashMiner
                 }
             }
 
-            // Query Avaliable ComputeDevices
+            // Query Available ComputeDevices
             ComputeDeviceManager.Query.QueryDevices(_loadingScreen);
             _isDeviceDetectionInitialized = true;
 
@@ -287,7 +287,7 @@ namespace NiceHashMiner
             _loadingScreen.IncreaseLoadCounterAndMessage(International.GetText("Form_Main_loadtext_SaveConfig"));
 
             // All devices settup should be initialized in AllDevices
-            devicesListViewEnableControl1.ResetComputeDevices(ComputeDeviceManager.Avaliable.AllAvaliableDevices);
+            devicesListViewEnableControl1.ResetComputeDevices(ComputeDeviceManager.Available.Devices);
             // set properties after
             devicesListViewEnableControl1.SaveToGeneralConfig = true;
 
@@ -543,7 +543,7 @@ namespace NiceHashMiner
         {
             flowLayoutPanelRates.Controls.Clear();
             // add for every cdev a
-            foreach (var cdev in ComputeDeviceManager.Avaliable.AllAvaliableDevices)
+            foreach (var cdev in ComputeDeviceManager.Available.Devices)
             {
                 if (cdev.Enabled)
                 {
@@ -826,12 +826,12 @@ namespace NiceHashMiner
             var ver = NiceHashStats.Version;
             if (ver == null) return;
             var programVersion = "Fork_Fix_"+ConfigManager.GeneralConfig.ForkFixVersion.ToString();
-            var onlineVersion = ver.ToString();
+            var onlineVersion = new Version(ver);
             var ret = programVersion.CompareTo(onlineVersion);
 
             if (ret < 0 || (ret == 0 && BetaAlphaPostfixString != ""))
             {
-                SetVersionLabel(string.Format(International.GetText("Form_Main_new_version_released").Replace("v{0}", "{0}"), ver));
+                SetVersionLabel(string.Format(International.GetText("Form_Main_new_version_released"), ver));
                 _visitUrlNew = Links.VisitUrlNew + ver;
             }
         }
@@ -1116,7 +1116,7 @@ namespace NiceHashMiner
 
             // Check if there are unbenchmakred algorithms
             var isBenchInit = true;
-            foreach (var cdev in ComputeDeviceManager.Avaliable.AllAvaliableDevices)
+            foreach (var cdev in ComputeDeviceManager.Available.Devices)
             {
                 if (cdev.Enabled)
                 {
@@ -1149,7 +1149,7 @@ namespace NiceHashMiner
                 else if (result == DialogResult.No)
                 {
                     // check devices without benchmarks
-                    foreach (var cdev in ComputeDeviceManager.Avaliable.AllAvaliableDevices)
+                    foreach (var cdev in ComputeDeviceManager.Available.Devices)
                     {
                         if (cdev.Enabled)
                         {

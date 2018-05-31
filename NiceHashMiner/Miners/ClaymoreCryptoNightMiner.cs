@@ -1,5 +1,4 @@
 ﻿using NiceHashMiner.Configs;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
 using System;

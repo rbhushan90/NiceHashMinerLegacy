@@ -1,12 +1,13 @@
 ﻿using NiceHashMiner.Configs;
 using NiceHashMiner.Configs.Data;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Miners.Grouping;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using NiceHashMiner.Algorithms;
+using NiceHashMiner.Devices.Algorithms;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Devices
 {

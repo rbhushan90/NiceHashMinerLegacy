@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NiceHashMiner.Configs;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Interfaces;
 using NiceHashMiner.Miners;
 using NiceHashMiner.Miners.Grouping;
@@ -18,6 +17,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using NiceHashMiner.Algorithms;
+using NiceHashMinerLegacy.Common.Enums;
 using Timer = System.Timers.Timer;
 
 namespace NiceHashMiner
@@ -42,7 +42,7 @@ namespace NiceHashMiner
         }
     }
 
-    // 
+    //
     public class MinerPidData
     {
         public string MinerBinPath;
@@ -83,10 +83,10 @@ namespace NiceHashMiner
 
         protected string LastCommandLine { get; set; }
 
-        // TODO check this 
+        // TODO check this
         protected double PreviousTotalMH;
 
-        // the defaults will be 
+        // the defaults will be
         protected string WorkingDirectory { get; private set; }
 
         protected string MinerExeName { get; private set; }
@@ -162,7 +162,7 @@ namespace NiceHashMiner
                                       !ConfigManager.GeneralConfig.HideMiningWindows;
             IsKillAllUsedMinerProcs = false;
             _maxCooldownTimeInMilliseconds = GetMaxCooldownTimeInMilliseconds();
-            // 
+            //
             Helpers.ConsolePrint(MinerTag(), "NEW MINER CREATED");
         }
 
@@ -458,7 +458,6 @@ namespace NiceHashMiner
             return ad;
         }
 
-
         public int BenchmarkTimeoutInSeconds(int timeInSeconds)
         {
             if (TimeoutStandard) return timeInSeconds;
@@ -486,7 +485,7 @@ namespace NiceHashMiner
             BenchmarkComunicator = benchmarkComunicator;
             BenchmarkTimeInSeconds = time;
             BenchmarkSignalFinnished = true;
-            // check and kill 
+            // check and kill
             BenchmarkHandle = null;
             OnBenchmarkCompleteCalled = false;
             _benchmarkTimeOutStopWatch = null;
@@ -796,7 +795,7 @@ namespace NiceHashMiner
             BenchmarkSignalHanged = false;
             BenchmarkSignalFinnished = false;
             BenchmarkException = null;
-            
+
             Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
 
             try
@@ -859,7 +858,7 @@ namespace NiceHashMiner
             BenchmarkSignalHanged = false;
             BenchmarkSignalFinnished = false;
             BenchmarkException = null;
-            
+
             Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
 
             try
@@ -979,7 +978,7 @@ namespace NiceHashMiner
             var idStr = string.Join(",", ids);
 
             if (!IsMultiType) return idStr;
-            
+
             // Miners that use multiple dev types need to also discriminate based on that
             var types = MiningSetup.MiningPairs.Select(x => (int) x.Device.DeviceType);
             return $"{string.Join(",", types)}-{idStr}";

@@ -1,5 +1,4 @@
 ﻿using NiceHashMiner.Configs;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
 using System;
@@ -10,6 +9,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using NiceHashMiner.Algorithms;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners {
     public class ClaymoreNeoscryptMiner : ClaymoreBaseMiner

@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
-using NiceHashMiner.Enums;
 using System.Collections.Generic;
 using NiceHashMiner.Switching;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner
 {
@@ -34,8 +34,8 @@ namespace NiceHashMiner
             var name = sma.Name;
             var nPort = sma.Port;
             var sslPort = 30000 + nPort;
-            
-            // NHMConectionType.NONE 
+
+            // NHMConectionType.NONE
             var prefix = "";
             var port = nPort;
             switch (conectionType)

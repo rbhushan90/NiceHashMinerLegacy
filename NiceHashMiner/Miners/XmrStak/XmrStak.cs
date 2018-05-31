@@ -9,9 +9,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Configs;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Miners.Parsing;
 using NiceHashMiner.Miners.XmrStak.Configs;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners.XmrStak
 {
@@ -19,6 +19,7 @@ namespace NiceHashMiner.Miners.XmrStak
     {
         private const string ConfigName = "config_nh.txt";
         private const string DefConfigName = "config.txt";
+        private const string DefPoolName = "pools.txt";
 
         private int _benchmarkCount;
         private double _benchmarkSum;
@@ -78,9 +79,11 @@ namespace NiceHashMiner.Miners.XmrStak
         {
             var configs = new Dictionary<DeviceType, string>();
             var types = new List<DeviceType>();
+            var isHeavy = false;
             foreach (var pair in MiningSetup.MiningPairs)
             {
                 if (!types.Contains(pair.Device.DeviceType)) types.Add(pair.Device.DeviceType);
+                if (pair.Algorithm.NiceHashID == AlgorithmType.CryptoNightHeavy) isHeavy = true;
             }
 
             var configName = bench ? GetBenchConfigName() : ConfigName;
@@ -94,8 +97,9 @@ namespace NiceHashMiner.Miners.XmrStak
             WriteJsonFile(config, configName, DefConfigName);
 
             var pools = new XmrStakConfigPool();
-            pools.SetupPools(url, GetUsername(btcAddress, worker));
+            pools.SetupPools(url, GetUsername(btcAddress, worker), isHeavy);
             WriteJsonFile(pools, GetPoolConfigName());
+            WriteJsonFile(pools, DefPoolName);
 
             foreach (var type in types)
             {
@@ -247,16 +251,13 @@ namespace NiceHashMiner.Miners.XmrStak
                 file = "{" + file + "}";
                 json = JsonConvert.DeserializeObject<T>(file);
             }
+            catch (FileNotFoundException)
+            {
+                Helpers.ConsolePrint(MinerTag(), $"Config file {filename} not found, attempting to generate");
+            }
             catch (Exception e)
             {
-                if (e is FileNotFoundException)
-                {
-                    Helpers.ConsolePrint(MinerTag(), $"Config file {filename} not found, attempting to generate");
-                }
-                else
-                {
-                    Helpers.ConsolePrint(MinerTag(), e.ToString());
-                }
+                Helpers.ConsolePrint(MinerTag(), e.ToString());
             }
 
             if (json == null)

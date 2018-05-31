@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using NiceHashMiner.Configs;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Devices;
 using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
@@ -18,6 +17,7 @@ using NiceHashMiner.Algorithms;
 using NiceHashMiner.Switching;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners
 {

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NiceHashMiner.Devices;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Miners;
 using NiceHashMiner.Switching;
 using System;
@@ -10,9 +9,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Security.Authentication;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NiceHashMinerLegacy.Common.Enums;
 using WebSocketSharp;
 
 namespace NiceHashMiner.Stats
@@ -58,9 +57,9 @@ namespace NiceHashMiner.Stats
         public static string Version { get; private set; }
 
         class github_version
-        { 
-            public string tag_name; 
-            public string target_commitish; 
+        {
+            public string tag_name;
+            public string target_commitish;
         }
     public static bool IsAlive => _socket?.IsAlive ?? false;
 
@@ -527,7 +526,7 @@ namespace NiceHashMiner.Stats
 
         private static void DeviceStatus_Tick(object state)
         {
-            var devices = ComputeDeviceManager.Avaliable.AllAvaliableDevices;
+            var devices = ComputeDeviceManager.Available.Devices;
             var deviceList = new List<JArray>();
             var activeIDs = MinersManager.GetActiveMinersIndexes();
             foreach (var device in devices)

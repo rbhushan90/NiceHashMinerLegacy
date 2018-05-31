@@ -18,7 +18,7 @@ namespace NiceHashMiner.Stats
             public string version;
             public int protocol = 1;
         }
-        
+
 #pragma warning restore 649, IDE1006
         #endregion
 
@@ -29,7 +29,7 @@ namespace NiceHashMiner.Stats
         private bool _connectionEstablished;
         private readonly Random _random = new Random();
         private readonly string _address;
-        
+
         public event EventHandler OnConnectionEstablished;
         public event EventHandler<MessageEventArgs> OnDataReceived;
         public event EventHandler OnConnectionLost;

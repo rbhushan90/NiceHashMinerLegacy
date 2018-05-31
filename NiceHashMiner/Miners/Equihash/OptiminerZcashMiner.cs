@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using NiceHashMiner.Devices;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
 using System;
@@ -9,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners.Equihash
 {
@@ -70,7 +70,7 @@ namespace NiceHashMiner.Miners.Equihash
         protected override string GetDevicesCommandString()
         {
             var extraParams = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD);
-            var deviceStringCommand = " -c " + ComputeDeviceManager.Avaliable.AmdOpenCLPlatformNum;
+            var deviceStringCommand = " -c " + ComputeDeviceManager.Available.AmdOpenCLPlatformNum;
             deviceStringCommand += " ";
             var ids = MiningSetup.MiningPairs.Select(mPair => "-d " + mPair.Device.ID.ToString()).ToList();
             deviceStringCommand += string.Join(" ", ids);

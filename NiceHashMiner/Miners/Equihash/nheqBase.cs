@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using NiceHashMiner.Devices;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Miners.Grouping;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners
 {
@@ -47,7 +47,7 @@ namespace NiceHashMiner.Miners
         protected NhEqBase(string minerDeviceName)
             : base(minerDeviceName)
         {
-            AmdOclPlatform = ComputeDeviceManager.Avaliable.AmdOpenCLPlatformNum;
+            AmdOclPlatform = ComputeDeviceManager.Available.AmdOpenCLPlatformNum;
         }
 
         public override void InitMiningSetup(MiningSetup miningSetup)

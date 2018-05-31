@@ -1,5 +1,4 @@
 ﻿using NiceHashMiner.Devices;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -41,7 +40,7 @@ namespace NiceHashMiner.Miners
         public static bool StartInitialize(IMainFormRatesComunication mainFormRatesComunication,
             string miningLocation, string worker, string btcAdress)
         {
-            _curMiningSession = new MiningSession(ComputeDeviceManager.Avaliable.AllAvaliableDevices,
+            _curMiningSession = new MiningSession(ComputeDeviceManager.Available.Devices,
                 mainFormRatesComunication, miningLocation, worker, btcAdress);
 
             return _curMiningSession.IsMiningEnabled;

@@ -1,11 +1,11 @@
 ﻿using NiceHashMiner.Algorithms;
 using NiceHashMiner.Devices;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Miners.Equihash;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners
 {
-    public class MinerFactory
+    public static class MinerFactory
     {
         private static Miner CreateEthminer(DeviceType deviceType)
         {
@@ -76,6 +76,8 @@ namespace NiceHashMiner.Miners
                     return new Xmrig();
                 case MinerBaseType.dstm:
                     return new Dstm();
+                case MinerBaseType.cpuminer:
+                    return new CpuMiner();
                 case MinerBaseType.CastXMR:
                     return new CastXMR();
                 case MinerBaseType.hsrneoscrypt:

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using NiceHashMiner.Devices;
-using NiceHashMiner.Enums;
 using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
 using System;
@@ -11,12 +10,13 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Miners
 {
     public abstract class ClaymoreBaseMiner : Miner
     {
-        protected int BenchmarkTimeWait = 2 * 45; // Ok... this was all wrong 
+        protected int BenchmarkTimeWait = 2 * 45; // Ok... this was all wrong
         private int _benchmarkReadCount;
         private double _benchmarkSum;
         private int _secondaryBenchmarkReadCount;
@@ -162,7 +162,7 @@ namespace NiceHashMiner.Miners
             return " -di ";
         }
 
-        // This method now overridden in ClaymoreCryptoNightMiner 
+        // This method now overridden in ClaymoreCryptoNightMiner
         // Following logic for ClaymoreDual and ClaymoreZcash
         protected override string GetDevicesCommandString()
         {
