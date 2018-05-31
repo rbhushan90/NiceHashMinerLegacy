@@ -133,6 +133,20 @@ namespace NiceHashMiner.Devices.Algorithms
                     });
                 }
 
+                // disable another gpu 
+                Helpers.ConsolePrint("GPU device", "Name: "+device.Name);
+                if (algoSettings.ContainsKey(MinerBaseType.CastXMR) && (!device.Name.Contains("470")
+                    && !device.Name.Contains("480") && !device.Name.Contains("570") && !device.Name.Contains("580") &&
+                        !device.Name.Contains("Vega"))
+                )
+                {
+                    algoSettings = FilterMinerBaseTypes(algoSettings, new List<MinerBaseType>
+                    {
+                        MinerBaseType.CastXMR
+                    });
+                }
+
+                
                 // disable by default
                 {
                     var minerBases = new List<MinerBaseType>
