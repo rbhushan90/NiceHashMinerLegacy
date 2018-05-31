@@ -613,7 +613,7 @@ namespace NiceHashMiner
 
         protected void CheckOutdata(string outdata)
         {
-            //Helpers.ConsolePrint("BENCHMARK" + benchmarkLogPath, outdata);
+//            Helpers.ConsolePrint("BENCHMARK" , outdata);
             BenchLines.Add(outdata);
             // ccminer, cpuminer
             if (outdata.Contains("Cuda error"))
@@ -636,6 +636,7 @@ namespace NiceHashMiner
                 BenchmarkException = new Exception("Xmr-Stak erred, check its logs");
 
             // lastly parse data
+            Helpers.ConsolePrint("BENCHMARK", outdata);
             if (BenchmarkParseLine(outdata))
             {
                 BenchmarkSignalFinnished = true;

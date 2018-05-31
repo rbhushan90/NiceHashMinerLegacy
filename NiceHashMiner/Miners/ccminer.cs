@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMiner.Configs;
+using System.Threading;
 
 namespace NiceHashMiner.Miners
 {
@@ -15,7 +17,6 @@ namespace NiceHashMiner.Miners
         public Ccminer() : base("ccminer_NVIDIA")
         { }
 
-        // cryptonight benchmark exception
         private int _cryptonightTotalCount = 0;
 
         private double _cryptonightTotal = 0;
@@ -28,9 +29,9 @@ namespace NiceHashMiner.Miners
         {
             if (MiningSetup.MinerPath == MinerPaths.Data.CcminerX11Gost)
             {
-                return 60 * 1000 * 3; // wait a little longer
+                return 60 * 1000 * 5; 
             }
-            return 60 * 1000; // 1 minute max, whole waiting time 75seconds
+            return 60 * 1000 * 8; 
         }
 
         public override void Start(string url, string btcAdress, string worker)
@@ -46,16 +47,32 @@ namespace NiceHashMiner.Miners
 
             var algo = "";
             var apiBind = "";
+            string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
+            string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
             if (!IsApiReadException)
             {
                 algo = "--algo=" + MiningSetup.MinerName;
                 apiBind = " --api-bind=" + ApiPort;
             }
 
-            LastCommandLine = $"{algo} --url={url} --userpass={username}:x {apiBind} " +
-                              $"--devices {GetDevicesCommandString()} " +
-                              $"{ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA)} ";
+            LastCommandLine = algo +
+                " --url=" + url + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".jp.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".br.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " --userpass=" + username + ":x" +
+                " --userpass=" + username + ":x" + apiBind +
+                " --devices " + GetDevicesCommandString() + " " +
+                ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
 
+
+            /*
+                        LastCommandLine = $"{algo} --url={url} --userpass={username}:x {apiBind} " +
+                                          $"--devices {GetDevicesCommandString()} " +
+                                          $"{ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA)} ";
+            */
             ProcessHandle = _Start();
         }
 
@@ -70,9 +87,20 @@ namespace NiceHashMiner.Miners
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
-            var timeLimit = (_benchmarkException) ? "" : " --time-limit " + time;
+            string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
+            string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
+            string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
+            var username = GetUsername(Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim());
+
+            var timeLimit = (_benchmarkException) ? "" : " --time-limit 300";
             var commandLine = " --algo=" + algorithm.MinerName +
-                              " --benchmark" +
+                             " --url=" + url + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".jp.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".br.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " --userpass=" + username + ":x" +
                               timeLimit + " " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
@@ -81,7 +109,7 @@ namespace NiceHashMiner.Miners
 
             commandLine += GetDevicesCommandString();
 
-            // cryptonight exception helper variables
+
             _cryptonightTotalCount = BenchmarkTimeInSeconds / CryptonightTotalDelim;
             _cryptonightTotal = 0.0d;
 
@@ -90,62 +118,108 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata)
         {
-            // cryptonight exception
+            int count = 0;
+            double speed = 0;
+
             if (_benchmarkException)
             {
-                var speedLength = (BenchmarkAlgorithm.NiceHashID == AlgorithmType.CryptoNight) ? 6 : 8;
-                if (outdata.Contains("Total: "))
+                if (outdata.Contains("GPU") && outdata.Contains("/s"))
                 {
-                    var st = outdata.IndexOf("Total:") + 7;
-                    var len = outdata.Length - speedLength - st;
+                   
+                    var st = outdata.IndexOf(", ");
+                    var e = outdata.IndexOf("/s");
 
-                    var parse = outdata.Substring(st, len).Trim();
-                    double.TryParse(parse, NumberStyles.Any, CultureInfo.InvariantCulture, out var tmp);
-
+                    var parse = outdata.Substring(st+2, e - st -5).Trim();
+                    double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                     // save speed
-                    var i = outdata.IndexOf("Benchmark:");
-                    var k = outdata.IndexOf("/s");
-                    var hashspeed = outdata.Substring(i + 11, k - i - 9);
-                    var b = hashspeed.IndexOf(" ");
-                    if (hashspeed.Contains("kH/s"))
+
+                    if (outdata.Contains("kH/s"))
                         tmp *= 1000;
-                    else if (hashspeed.Contains("MH/s"))
+                    else if (outdata.Contains("MH/s"))
                         tmp *= 1000000;
-                    else if (hashspeed.Contains("GH/s"))
+                    else if (outdata.Contains("GH/s"))
                         tmp *= 1000000000;
 
-                    _cryptonightTotal += tmp;
+                    speed += tmp;
+                    count++;
                     _cryptonightTotalCount--;
                 }
                 if (_cryptonightTotalCount <= 0)
                 {
-                    var spd = _cryptonightTotal / ((double) BenchmarkTimeInSeconds / CryptonightTotalDelim);
-                    BenchmarkAlgorithm.BenchmarkSpeed = spd;
+                    var spd = _cryptonightTotal / count;
+                    BenchmarkAlgorithm.BenchmarkSpeed = speed;
                     BenchmarkSignalFinnished = true;
                 }
 
                 return false;
             }
 
-            var lastSpeed = BenchmarkParseLine_cpu_ccminer_extra(outdata);
-            if (lastSpeed > 0.0d)
+            if (speed > 0.0d)
             {
-                BenchmarkAlgorithm.BenchmarkSpeed = lastSpeed;
+                BenchmarkAlgorithm.BenchmarkSpeed = speed;
                 return true;
             }
 
-            if (double.TryParse(outdata, out lastSpeed))
-            {
-                BenchmarkAlgorithm.BenchmarkSpeed = lastSpeed;
-                return true;
-            }
             return false;
         }
 
-        protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata)
+               protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata)
         {
             CheckOutdata(outdata);
         }
+        protected override void BenchmarkThreadRoutine(object CommandLine)
+        {
+            BenchmarkSignalQuit = false;
+            BenchmarkSignalHanged = false;
+            BenchmarkSignalFinnished = false;
+            BenchmarkException = null;
+
+            Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
+
+            try
+            {
+                Helpers.ConsolePrint("BENCHMARK", "Benchmark starts");
+                BenchmarkHandle = BenchmarkStartProcess((string)CommandLine);
+
+                BenchmarkThreadRoutineStartSettup();
+                BenchmarkTimeInSeconds = 300;
+                BenchmarkProcessStatus = BenchmarkProcessStatus.Running;
+                var exited = BenchmarkHandle.WaitForExit((BenchmarkTimeoutInSeconds(BenchmarkTimeInSeconds) + 20) * 1000);
+                if (BenchmarkSignalTimedout && !TimeoutStandard)
+                {
+                    throw new Exception("Benchmark timedout");
+                }
+
+                if (BenchmarkException != null)
+                {
+                    throw BenchmarkException;
+                }
+
+                if (BenchmarkSignalQuit)
+                {
+                    throw new Exception("Termined by user request");
+                }
+
+                if (BenchmarkSignalHanged || !exited)
+                {
+                    throw new Exception("Miner is not responding");
+                }
+
+                if (BenchmarkSignalFinnished)
+                {
+                    //break;
+                }
+            }
+            catch (Exception ex)
+            {
+                BenchmarkThreadRoutineCatch(ex);
+            }
+            finally
+            {
+                BenchmarkThreadRoutineFinish();
+            }
+        }
+
 
         #endregion // Decoupled benchmarking routines
 
