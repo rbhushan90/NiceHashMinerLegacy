@@ -130,6 +130,7 @@
             this.algorithmsListView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.algorithmsListView1.BackColor = System.Drawing.SystemColors.Control;
             this.algorithmsListView1.BenchmarkCalculation = null;
             this.algorithmsListView1.ComunicationInterface = null;
             this.algorithmsListView1.IsInBenchmark = false;
@@ -138,6 +139,7 @@
             this.algorithmsListView1.Name = "algorithmsListView1";
             this.algorithmsListView1.Size = new System.Drawing.Size(580, 155);
             this.algorithmsListView1.TabIndex = 109;
+            this.algorithmsListView1.Load += new System.EventHandler(this.algorithmsListView1_Load);
             // 
             // benchmarkOptions1
             // 

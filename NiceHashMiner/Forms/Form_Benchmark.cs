@@ -279,7 +279,8 @@ namespace NiceHashMiner.Forms
         {
             ++_dotCount;
             if (_dotCount > 3) _dotCount = 1;
-            return new string('.', _dotCount);
+            string ret = new string('.', _dotCount);
+            return ret + Algorithm.BenchmarkStringAdd;
         }
 
         private void InitLocale()
@@ -579,5 +580,10 @@ namespace NiceHashMiner.Forms
         }
 
         #endregion // Benchmark progress GUI stuff
+
+        private void algorithmsListView1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

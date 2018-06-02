@@ -11,7 +11,7 @@ namespace NiceHashMiner
         public static string[] MiningLocation = {"eu", "usa", "hk", "jp", "in", "br"};
 
         public static readonly string DemoUser = "3LysVG8rv8gzcYVAqkqLUzjSJSrE6pATJB";
-
+        
         // change this if TOS changes
         public static int CurrentTosVer = 3;
 

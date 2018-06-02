@@ -152,6 +152,7 @@ namespace NiceHashMiner.Miners
 
             if (benchmarkException)
             {
+                Algorithm.BenchmarkStringAdd = " " + (benchmarkStep*3).ToString() + "%";
                 if (outdata.Contains("RPM | "))
                 {
                     benchmarkStep++;
@@ -160,8 +161,7 @@ namespace NiceHashMiner.Miners
                     hashspeed = outdata.Substring(st + 6, end - st - 6);
                     speed = speed + Double.Parse(hashspeed, CultureInfo.InvariantCulture);
                     //if (outdata.Contains("Hash Rate Avg: ")) //не находит шару за 5 минут на 570...
-
-                    if (benchmarkStep >=30)
+                    if (benchmarkStep >=33)
                     {
                         BenchmarkAlgorithm.BenchmarkSpeed = (speed / benchmarkStep);
                         BenchmarkSignalFinnished = true;
