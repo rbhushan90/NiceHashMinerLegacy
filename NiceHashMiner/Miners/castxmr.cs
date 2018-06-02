@@ -24,6 +24,9 @@ namespace NiceHashMiner.Miners
     public class CastXMR : Miner
     {
         private int benchmarkStep = 0;
+        private int st = 0;
+        private double speed = 0.0d;
+        private string hashspeed = "";
         public CastXMR() : base("CastXMR") { }
 
         bool benchmarkException {
@@ -31,13 +34,15 @@ namespace NiceHashMiner.Miners
                 return MiningSetup.MinerPath == MinerPaths.Data.CastXMR;
             }
         }
-
+        
         protected override int GetMaxCooldownTimeInMilliseconds() {
             if (this.MiningSetup.MinerPath == MinerPaths.Data.CastXMR) {
                 return 60 * 1000 * 12; // wait for hashrate string
             }
+            _maxCooldownTimeInMilliseconds = 60 * 1000 * 12;
             return 60 * 1000 * 12;
         }
+        
 
         public override void Start(string url, string btcAdress, string worker)
         {
@@ -88,8 +93,17 @@ namespace NiceHashMiner.Miners
                           " --gpu " +
                           GetDevicesCommandString() +
                                           " --remoteaccess" +
-                              " --remoteport=" + ApiPort.ToString();
-                              
+                              " --remoteport=" + ApiPort.ToString() + "  --forcecompute ";
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
+            {
+                LastCommandLine = LastCommandLine + " --algo=1";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
+            {
+                LastCommandLine = LastCommandLine + " --algo=2";
+            }
+
+
             ProcessHandle = _Start();
         }
 
@@ -119,29 +133,39 @@ namespace NiceHashMiner.Miners
                           " --gpu " +
                           GetDevicesCommandString() +
                                           " --remoteaccess" +
-                              " --remoteport=" + ApiPort.ToString();
+                              " --remoteport=" + ApiPort.ToString() + "  --forcecompute ";
+
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
+            {
+                LastCommandLine = LastCommandLine + " --algo=1";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
+            {
+                LastCommandLine = LastCommandLine + " --algo=2";
+            }
             return CommandLine;
 
         }
 
         protected override bool BenchmarkParseLine(string outdata) {
-
             Helpers.ConsolePrint(MinerTag(), outdata);
+
             if (benchmarkException)
             {
-                if (outdata.Contains("Hash Rate Avg: "))
+                if (outdata.Contains("RPM | "))
                 {
                     benchmarkStep++;
-                    int st = outdata.IndexOf("Hash Rate Avg: ");
                     int end = outdata.IndexOf("H/s");
+                    st = outdata.IndexOf("RPM | ");
+                    hashspeed = outdata.Substring(st + 6, end - st - 6);
+                    speed = speed + Double.Parse(hashspeed, CultureInfo.InvariantCulture);
+                    //if (outdata.Contains("Hash Rate Avg: ")) //не находит шару за 5 минут на 570...
 
-                    string hashspeed = outdata.Substring(st + 15, end - st - 15);
-                    Helpers.ConsolePrint(MinerTag(), hashspeed);
-
-                    double speed = Double.Parse(hashspeed, CultureInfo.InvariantCulture);
-
-                    BenchmarkAlgorithm.BenchmarkSpeed = speed;
-                    BenchmarkSignalFinnished = true;
+                    if (benchmarkStep >=30)
+                    {
+                        BenchmarkAlgorithm.BenchmarkSpeed = (speed / benchmarkStep);
+                        BenchmarkSignalFinnished = true;
+                    }
                 }
 
             }

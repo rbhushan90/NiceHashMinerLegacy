@@ -116,7 +116,8 @@ namespace NiceHashMiner.Devices.Algorithms
             },
                     { MinerBaseType.CastXMR,
                         new List<Algorithm>() {
-                            new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightV7, "cryptonightV7") { }
+                            new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightV7, "cryptonightV7") { },
+                            new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightHeavy, "cryptonightHeavy") { }
                         }
                     },
             {

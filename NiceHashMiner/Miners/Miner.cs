@@ -122,7 +122,7 @@ namespace NiceHashMiner
         //private const int _MIN_CooldownTimeInMilliseconds = 1000; // TESTING
 
         //private const int _MAX_CooldownTimeInMilliseconds = 60 * 1000; // 1 minute max, whole waiting time 75seconds
-        private readonly int _maxCooldownTimeInMilliseconds; // = GetMaxCooldownTimeInMilliseconds();
+        public int _maxCooldownTimeInMilliseconds; // = GetMaxCooldownTimeInMilliseconds();
 
         protected abstract int GetMaxCooldownTimeInMilliseconds();
         private Timer _cooldownCheckTimer;
