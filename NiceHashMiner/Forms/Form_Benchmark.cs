@@ -40,6 +40,7 @@ namespace NiceHashMiner.Forms
         private bool _hasFailedAlgorithms;
         private List<BenchmarkHandler> _runningBenchmarkThreads = new List<BenchmarkHandler>();
         private Dictionary<ComputeDevice, Algorithm> _statusCheckAlgos;
+        public static string BenchmarkStringAdd = "";
 
         private readonly bool ExitWhenFinished;
 
@@ -280,7 +281,7 @@ namespace NiceHashMiner.Forms
             ++_dotCount;
             if (_dotCount > 3) _dotCount = 1;
             string ret = new string('.', _dotCount);
-            return ret + Algorithm.BenchmarkStringAdd;
+            return ret + BenchmarkStringAdd;
         }
 
         private void InitLocale()

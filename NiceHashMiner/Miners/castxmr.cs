@@ -152,7 +152,9 @@ namespace NiceHashMiner.Miners
 
             if (benchmarkException)
             {
-                Algorithm.BenchmarkStringAdd = " " + (benchmarkStep*3).ToString() + "%";
+                NiceHashMiner.Forms.Form_Benchmark.BenchmarkStringAdd = " " + (benchmarkStep*3).ToString() + "%"; 
+                //переменная для процентов не должна быть одна, иначе хуйня получается
+                
                 if (outdata.Contains("RPM | "))
                 {
                     benchmarkStep++;

@@ -171,7 +171,6 @@ namespace NiceHashMiner.Algorithms
             IsBenchmarkPending = true;
         }
 
-        public static string BenchmarkStringAdd = "";
         private bool IsPendingString()
         {
             return BenchmarkStatus == International.GetText("Algorithm_Waiting_Benchmark")

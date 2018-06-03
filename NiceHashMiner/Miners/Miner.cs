@@ -51,7 +51,7 @@ namespace NiceHashMiner
 
     public abstract class Miner
     {
-        // MinerIDCount used to identify miners creation
+         // MinerIDCount used to identify miners creation
         protected static long MinerIDCount { get; private set; }
 
 
