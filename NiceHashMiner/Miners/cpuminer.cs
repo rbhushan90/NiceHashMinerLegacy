@@ -63,11 +63,42 @@ namespace NiceHashMiner.Miners
         // new decoupled benchmarking routines
 
         #region Decoupled benchmarking routines
+        [System.Runtime.InteropServices.DllImport("Kernel32")]
+        static extern bool IsProcessorFeaturePresent(ProcessorFeature processorFeature);
+        enum ProcessorFeature : uint
+        {
+            PF_FLOATING_POINT_PRECISION_ERRATA = 0,
+            PF_FLOATING_POINT_EMULATED = 1,
+            PF_COMPARE_EXCHANGE_DOUBLE = 2,
+            PF_MMX_INSTRUCTIONS_AVAILABLE = 3,
+            PF_PPC_MOVEMEM_64BIT_OK = 4,
+            PF_ALPHA_BYTE_INSTRUCTIONS = 5,
+            PF_XMMI_INSTRUCTIONS_AVAILABLE = 6,
+            PF_3DNOW_INSTRUCTIONS_AVAILABLE = 7,
+            PF_RDTSC_INSTRUCTION_AVAILABLE = 8,
+            PF_PAE_ENABLED = 9,
+            PF_XMMI64_INSTRUCTIONS_AVAILABLE = 10,
+            PF_SSE_DAZ_MODE_AVAILABLE = 11,
+            PF_NX_ENABLED = 12,
+            PF_SSE3_INSTRUCTIONS_AVAILABLE = 13,
+            PF_COMPARE_EXCHANGE128 = 14,
+            PF_COMPARE64_EXCHANGE128 = 15,
+            PF_CHANNELS_ENABLED = 16,
+            PF_XSAVE_ENABLED = 17,
+            PF_SECOND_LEVEL_ADDRESS_TRANSLATION = 20,
+            PF_VIRT_FIRMWARE_ENABLED = 21,
+        }
+
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
-            
-                Helpers.ConsolePrint("CPU........", System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
+            foreach (ProcessorFeature feature in System.Enum.GetValues(typeof(ProcessorFeature)))
+            {
+                //System.Console.WriteLine(feature.ToString() + "\t: " + IsProcessorFeaturePresent(feature));
+                Helpers.ConsolePrint("CPU........", feature.ToString() + "\t: " + IsProcessorFeaturePresent(feature));
+            }
+
+            Helpers.ConsolePrint("CPU........", System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
             return "--algo=" + algorithm.MinerName +
                    " --benchmark" +
                    ExtraLaunchParametersParser.ParseForMiningSetup(

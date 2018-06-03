@@ -132,11 +132,16 @@ namespace NiceHashMiner.Miners
             w.Close();
             string addParam;
             bool needdcri = true;
+            var dcri = "-dcri 7";
             foreach (var pair in MiningSetup.MiningPairs)
             {
                 if (pair.CurrentExtraLaunchParameters.Contains("-dcri"))
                 {
                     needdcri = false;
+                }
+                if (pair.Device.DeviceType == DeviceType.NVIDIA)
+                {
+                    dcri = "-dcri 25";
                 }
             }
 
@@ -144,14 +149,14 @@ namespace NiceHashMiner.Miners
             {
                 addParam = " "
                     + GetDevicesCommandString()
-                    + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5 -dcri 60", url, username, ApiPort)
+                    + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5 " +dcri+" ", url, username, ApiPort)
                     + dualModeParams;
             }
             else if (SecondaryAlgorithmType == AlgorithmType.Keccak && needdcri)
             {
                 addParam = " "
                                     + GetDevicesCommandString()
-                                    + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5 -dcri 7", url, username, ApiPort)
+                                    + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5 " +dcri+ " ", url, username, ApiPort)
                                     + dualModeParams;
             }
             else
