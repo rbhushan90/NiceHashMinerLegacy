@@ -281,7 +281,8 @@ namespace NiceHashMiner.Forms
             ++_dotCount;
             if (_dotCount > 3) _dotCount = 1;
             string ret = new string('.', _dotCount);
-            return ret + BenchmarkStringAdd;
+            // return ret + BenchmarkStringAdd;
+            return ret;
         }
 
         private void InitLocale()

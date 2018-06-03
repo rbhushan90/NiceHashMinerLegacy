@@ -43,7 +43,6 @@ namespace NiceHashMiner.Algorithms
         #endregion
 
         #region Mining settings
-
         /// <summary>
         /// Hashrate in H/s set by benchmark or user
         /// </summary>

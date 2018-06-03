@@ -94,7 +94,7 @@ namespace NiceHashMiner.Miners
                           GetDevicesCommandString() +
                                           " --remoteaccess" +
                               " --remoteport=" + ApiPort.ToString() + "  --forcecompute ";
-            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV7))
             {
                 LastCommandLine = LastCommandLine + " --algo=1";
             }
@@ -117,7 +117,16 @@ namespace NiceHashMiner.Miners
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
 
             string CommandLine;
-            string url = Globals.GetLocationUrl(AlgorithmType.CryptoNightV7, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP).Replace("stratum+tcp://","");
+            string url = "";
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV7))
+            {
+                url = Globals.GetLocationUrl(AlgorithmType.CryptoNightV7, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP).Replace("stratum+tcp://", "");
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
+            {
+                url = Globals.GetLocationUrl(AlgorithmType.CryptoNightHeavy, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP).Replace("stratum+tcp://", "");
+            }
+            
 
             string username = Globals.DemoUser;
 
@@ -135,13 +144,13 @@ namespace NiceHashMiner.Miners
                                           " --remoteaccess" +
                               " --remoteport=" + ApiPort.ToString() + "  --forcecompute ";
 
-            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV7))
             {
-                LastCommandLine = LastCommandLine + " --algo=1";
+                CommandLine = CommandLine + " --algo=1";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
-                LastCommandLine = LastCommandLine + " --algo=2";
+                CommandLine = CommandLine + " --algo=2";
             }
             return CommandLine;
 
@@ -152,9 +161,8 @@ namespace NiceHashMiner.Miners
 
             if (benchmarkException)
             {
-                NiceHashMiner.Forms.Form_Benchmark.BenchmarkStringAdd = " " + (benchmarkStep*3).ToString() + "%"; 
-                //переменная для процентов не должна быть одна, иначе хуйня получается
-                
+                //NiceHashMiner.Forms.Form_Benchmark.BenchmarkStringAdd = " " + (benchmarkStep*3).ToString() + "%"; 
+
                 if (outdata.Contains("RPM | "))
                 {
                     benchmarkStep++;

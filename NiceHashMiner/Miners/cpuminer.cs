@@ -66,6 +66,8 @@ namespace NiceHashMiner.Miners
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
+            
+                Helpers.ConsolePrint("CPU........", System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
             return "--algo=" + algorithm.MinerName +
                    " --benchmark" +
                    ExtraLaunchParametersParser.ParseForMiningSetup(

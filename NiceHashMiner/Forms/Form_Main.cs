@@ -826,12 +826,11 @@ namespace NiceHashMiner
             var ver = NiceHashStats.Version;
             if (ver == null) return;
             var programVersion = "Fork_Fix_"+ConfigManager.GeneralConfig.ForkFixVersion.ToString();
-            var onlineVersion = new Version(ver);
-            var ret = programVersion.CompareTo(onlineVersion);
-
+            Helpers.ConsolePrint("Program version: ", programVersion);
+            var ret = programVersion.CompareTo(ver);
             if (ret < 0 || (ret == 0 && BetaAlphaPostfixString != ""))
             {
-                SetVersionLabel(string.Format(International.GetText("Form_Main_new_version_released"), ver));
+                SetVersionLabel(string.Format(International.GetText("Form_Main_new_version_released").Replace("v{0}", "{0}"), ver));
                 _visitUrlNew = Links.VisitUrlNew + ver;
             }
         }
