@@ -53,6 +53,7 @@ namespace NiceHashMiner
     {
          // MinerIDCount used to identify miners creation
         protected static long MinerIDCount { get; private set; }
+     //   public static string BenchmarkStringAdd { get; set; }
 
 
         public NhmConectionType ConectionType { get; protected set; }

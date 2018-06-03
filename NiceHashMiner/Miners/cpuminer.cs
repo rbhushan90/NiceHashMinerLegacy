@@ -94,11 +94,9 @@ namespace NiceHashMiner.Miners
         {
             foreach (ProcessorFeature feature in System.Enum.GetValues(typeof(ProcessorFeature)))
             {
-                //System.Console.WriteLine(feature.ToString() + "\t: " + IsProcessorFeaturePresent(feature));
-                Helpers.ConsolePrint("CPU........", feature.ToString() + "\t: " + IsProcessorFeaturePresent(feature));
+                Helpers.ConsolePrint("CPU features", feature.ToString() + "\t: " + IsProcessorFeaturePresent(feature));
             }
 
-            Helpers.ConsolePrint("CPU........", System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
             return "--algo=" + algorithm.MinerName +
                    " --benchmark" +
                    ExtraLaunchParametersParser.ParseForMiningSetup(

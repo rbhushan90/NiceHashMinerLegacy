@@ -162,7 +162,7 @@ namespace NiceHashMiner.Miners
             if (benchmarkException)
             {
                 //NiceHashMiner.Forms.Form_Benchmark.BenchmarkStringAdd = " " + (benchmarkStep*3).ToString() + "%"; 
-
+                //NiceHashMiner.Miner.BenchmarkStringAdd = " " + (benchmarkStep * 3).ToString() + "%";
                 if (outdata.Contains("RPM | "))
                 {
                     benchmarkStep++;
