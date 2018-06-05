@@ -72,6 +72,8 @@ namespace NiceHashMiner.Forms
             _benchmarkingTimer.Tick += BenchmarkingTimer_Tick;
             _benchmarkingTimer.Interval = 1000; // 1s
 
+
+            //Dictionary<string, string> benchNamesUUIDs = new Dictionary<string, string>();
             //// name, UUID
             //Dictionary<string, string> benchNamesUUIDs = new Dictionary<string, string>();
             //// initialize benchmark settings for same cards to only copy settings
@@ -272,7 +274,9 @@ namespace NiceHashMiner.Forms
         {
             if (InBenchmark)
                 foreach (var key in _statusCheckAlgos.Keys)
+                {
                     algorithmsListView1.SetSpeedStatus(key, _statusCheckAlgos[key], GetDotsWaitString());
+                }
         }
 
         private string GetDotsWaitString()
@@ -280,8 +284,8 @@ namespace NiceHashMiner.Forms
             ++_dotCount;
             if (_dotCount > 3) _dotCount = 1;
             string ret = new string('.', _dotCount);
-            //return ret + NiceHashMiner.Miner.BenchmarkStringAdd;
-            return ret;
+            return ret + NiceHashMiner.Miner.BenchmarkStringAdd;
+            //return ret;
         }
 
         private void InitLocale()

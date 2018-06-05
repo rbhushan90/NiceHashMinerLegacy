@@ -53,8 +53,6 @@ namespace NiceHashMiner
     {
          // MinerIDCount used to identify miners creation
         protected static long MinerIDCount { get; private set; }
-     //   public static string BenchmarkStringAdd { get; set; }
-
 
         public NhmConectionType ConectionType { get; protected set; }
 
@@ -140,6 +138,7 @@ namespace NiceHashMiner
         protected const string HttpHeaderDelimiter = "\r\n\r\n";
 
         protected bool IsMultiType;
+        public static string BenchmarkStringAdd;
 
         protected Miner(string minerDeviceName)
         {

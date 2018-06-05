@@ -3,11 +3,18 @@ using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Miners.Parsing;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMiner.Configs;
+using System.Globalization;
+using System;
+using NiceHashMiner.Devices;
 
 namespace NiceHashMiner.Miners
 {
     public class CpuMiner : Miner
     {
+        int benchmarkStep = 0;
+        double speed;
+        double cpuThreads = 0;
         public CpuMiner()
             : base("cpuminer_CPU")
         {
@@ -20,7 +27,7 @@ namespace NiceHashMiner.Miners
 
         public override void Start(string url, string btcAdress, string worker)
         {
-            if (!IsInit)
+                if (!IsInit)
             {
                 Helpers.ConsolePrint(MinerTag(), "MiningSetup is not initialized exiting Start()");
                 return;
@@ -92,17 +99,33 @@ namespace NiceHashMiner.Miners
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
+            string username = Globals.DemoUser;
+            string url = Globals.GetLocationUrl(AlgorithmType.Lyra2z, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
+            if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
+                username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
+
             foreach (ProcessorFeature feature in System.Enum.GetValues(typeof(ProcessorFeature)))
             {
                 Helpers.ConsolePrint("CPU features", feature.ToString() + "\t: " + IsProcessorFeaturePresent(feature));
             }
 
+            LastCommandLine = "--algo=" + algorithm.MinerName +
+                             " --url=" + url +
+                             " --userpass=" + username + ":x " +
+                             ExtraLaunchParametersParser.ParseForMiningSetup(
+                                 MiningSetup,
+                                 DeviceType.CPU) +
+                             " --time-limit 300";
+
+            /*
             return "--algo=" + algorithm.MinerName +
                    " --benchmark" +
                    ExtraLaunchParametersParser.ParseForMiningSetup(
                        MiningSetup,
                        DeviceType.CPU) +
                    " --time-limit " + time;
+                   */
+            return LastCommandLine;
         }
 
         protected override Process BenchmarkStartProcess(string CommandLine)
@@ -118,11 +141,74 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata)
         {
-            if (!double.TryParse(outdata, out var lastSpeed)) return false;
+            
+            string hashspeed;
+            Helpers.ConsolePrint(MinerTag(), outdata);
+            //Array DeviceIndex = [""];
+            foreach (var cDev in ComputeDeviceManager.Available.Devices)
+            {
+                // var plainDevName = cDev.Name;
+                Helpers.ConsolePrint("DEVICES:", cDev.Index.ToString());
+            }
+
+            /*
+                         var devices = ComputeDeviceManager.Avaliable.AllAvaliableDevices;
+            var deviceList = new List<JArray>();
+            var activeIDs = MinersManager.GetActiveMinersIndexes();
+            foreach (var device in devices)
+            {
+                try
+                {
+                    var array = new JArray
+                    {
+                        device.Index,
+                        device.Name
+                    };
+                    var status = Convert.ToInt32(activeIDs.Contains(device.Index)) + ((int) device.DeviceType + 1) * 2;
+                    array.Add(status);
+                    array.Add((uint) device.Load);
+                    array.Add((uint) device.Temp);
+                    array.Add(device.FanSpeed);
+
+                    deviceList.Add(array);
+                }
+                catch (Exception e) { Helpers.ConsolePrint("SOCKET", e.ToString()); }
+            }
+
+            */
+            //NiceHashMiner.Forms.Form_Benchmark.BenchmarkStringAdd = " " + (benchmarkStep*3).ToString() + "%"; 
+            NiceHashMiner.Miner.BenchmarkStringAdd = " " + (benchmarkStep * 3).ToString() + "%";
+
+            if (outdata.Contains("miner threads started,"))
+            {
+                int thr = outdata.IndexOf("miner threads started,");
+                string cTheads = outdata.Substring(thr-3, thr-21).Trim();
+                cpuThreads = Double.Parse(cTheads, CultureInfo.InvariantCulture);
+                Helpers.ConsolePrint("CPU threads:", cpuThreads.ToString());
+            }
+            if (outdata.Contains(" kH, "))
+            {
+                benchmarkStep++;
+                int st = outdata.IndexOf(" kH, ");
+                int end = outdata.IndexOf("H/s");
+                hashspeed = outdata.Substring(st + 4, end - st - 7);
+                speed = speed + Double.Parse(hashspeed.Trim(), CultureInfo.InvariantCulture);
+
+                if (benchmarkStep >=  5 * cpuThreads || outdata.Contains("Accepted"))
+                    {
+                    BenchmarkAlgorithm.BenchmarkSpeed = (speed / (benchmarkStep/cpuThreads));
+                        BenchmarkSignalFinnished = true;
+                    return true;
+                    }
+                }
+
+
+            /*           if (!double.TryParse(outdata, out var lastSpeed)) return false;
 
             BenchmarkAlgorithm.BenchmarkSpeed = lastSpeed;
             return true;
-
+            */
+            return false;
         }
 
         protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata)

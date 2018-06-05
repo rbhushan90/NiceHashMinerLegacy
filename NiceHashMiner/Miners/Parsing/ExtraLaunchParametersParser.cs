@@ -277,9 +277,9 @@ namespace NiceHashMiner.Miners.Parsing
 
         private static MinerType GetMinerType(DeviceType deviceType, MinerBaseType minerBaseType, AlgorithmType algorithmType)
         {
-            //if (MinerBaseType.cpuminer == minerBaseType) {
-            //    return MinerType.cpuminer_opt;
-            //}
+            if (MinerBaseType.cpuminer == minerBaseType) {
+                return MinerType.cpuminer_opt;
+            }
             switch (minerBaseType)
             {
                 case MinerBaseType.OptiminerAMD:
@@ -391,7 +391,7 @@ namespace NiceHashMiner.Miners.Parsing
             // CPU exception
             if (deviceType == DeviceType.CPU && minerType != MinerType.Xmrig)
             {
-                CheckAndSetCpuPairs(setMiningPairs);
+               // CheckAndSetCpuPairs(setMiningPairs);
             }
             // ethminer exception
             if (MinerType.ethminer_OCL == minerType || MinerType.ethminer_CUDA == minerType)
