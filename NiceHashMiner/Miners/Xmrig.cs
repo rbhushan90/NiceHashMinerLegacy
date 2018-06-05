@@ -9,7 +9,7 @@ namespace NiceHashMiner.Miners
 {
     public class Xmrig : Miner
     {
-        private int _benchmarkTimeWait = 120;
+        private int benchmarkTimeWait = 120;
         private const string LookForStart = "speed 2.5s/60s/15m";
         private const string LookForEnd = "h/s max";
 
@@ -21,11 +21,23 @@ namespace NiceHashMiner.Miners
             LastCommandLine = GetStartCommand(url, btcAdress, worker);
             ProcessHandle = _Start();
         }
-
+        /*
         private string GetStartCommand(string url, string btcAdress, string worker)
         {
             var extras = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.CPU);
             return $" -o {url} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort}";
+        }
+        */
+        private string GetStartCommand(string url, string btcAdress, string worker)
+        {
+            var extras = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.CPU);
+            return $" -o {url} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 --nicehash"
+                + $" -o stratum+tcp://cryptonightv7.usa.nicehash.com:3363 -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://cryptonightv7.hk.nicehash.com:3363 -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://cryptonightv7.jp.nicehash.com:3363 -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://cryptonightv7.in.nicehash.com:3363 -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://cryptonightv7.br.nicehash.com:3363 -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://cryptonightv7.eu.nicehash.com:3363 -u {btcAdress}.{worker}:x ";
         }
 
         protected override void _Stop(MinerStopType willswitch)
@@ -55,14 +67,14 @@ namespace NiceHashMiner.Miners
             var server = Globals.GetLocationUrl(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
                 ConectionType);
-            _benchmarkTimeWait = time;
-            return GetStartCommand(server, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim())
-                + $" -l {GetLogFileName()} --print-time=2";
+            //_benchmarkTimeWait = time;
+            return GetStartCommand(server, Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim())
+                + $" -l {GetLogFileName()} --print-time=2 --nicehash";
         }
 
         protected override void BenchmarkThreadRoutine(object commandLine)
         {
-            BenchmarkThreadRoutineAlternate(commandLine, _benchmarkTimeWait);
+            BenchmarkThreadRoutineAlternate(commandLine, benchmarkTimeWait);
         }
 
         protected override void ProcessBenchLinesAlternate(string[] lines)
@@ -73,7 +85,6 @@ namespace NiceHashMiner.Miners
             var sixtySecTotal = 0d;
             var twoSecCount = 0;
             var sixtySecCount = 0;
-
             foreach (var line in lines)
             {
                 BenchLines.Add(line);

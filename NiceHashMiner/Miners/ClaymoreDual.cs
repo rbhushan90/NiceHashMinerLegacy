@@ -141,7 +141,7 @@ namespace NiceHashMiner.Miners
                 }
                 if (pair.Device.DeviceType == DeviceType.NVIDIA)
                 {
-                    dcri = "-dcri 25";
+                    dcri = "-dcri 20";
                 }
             }
 
