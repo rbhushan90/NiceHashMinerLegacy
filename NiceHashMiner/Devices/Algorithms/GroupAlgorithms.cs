@@ -129,7 +129,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
                     {
                        // AlgorithmType.NeoScrypt,
-                        AlgorithmType.Lyra2REv2
+                       // AlgorithmType.Lyra2REv2
                     });
                 }
 

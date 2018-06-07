@@ -138,7 +138,7 @@ namespace NiceHashMiner
         protected const string HttpHeaderDelimiter = "\r\n\r\n";
 
         protected bool IsMultiType;
-        public static string BenchmarkStringAdd;
+        public static string BenchmarkStringAdd = "";
 
         protected Miner(string minerDeviceName)
         {
