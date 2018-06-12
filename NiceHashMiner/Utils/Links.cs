@@ -11,7 +11,7 @@
         public const string CheckStats = "https://www.nicehash.com/index.jsp?p=miners&addr=";
 
         // help and faq
-        public const string NhmHelp = "https://github.com/nicehash/NiceHashMinerLegacy/";
+        public const string NhmHelp = "https://github.com/angelbbs/NiceHashMinerLegacy/";
         public const string NhmNoDevHelp = "https://github.com/nicehash/NiceHashMinerLegacy/wiki/Troubleshooting#nosupportdev";
 
         // faq
