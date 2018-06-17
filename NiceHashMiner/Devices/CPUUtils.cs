@@ -60,7 +60,7 @@ namespace NiceHashMiner.Devices
         /// <returns></returns>
         public static bool IsCpuMiningCapable()
         {
-            return HasExtensionSupport(CpuExtensionType.AES);
+            return HasExtensionSupport(CpuExtensionType.SSE2);
         }
     }
 }
