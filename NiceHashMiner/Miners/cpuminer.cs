@@ -196,7 +196,7 @@ namespace NiceHashMiner.Miners
 
                 if (benchmarkStep >=  5 * cpuThreads || outdata.Contains("Accepted"))
                     {
-                    BenchmarkAlgorithm.BenchmarkSpeed = (speed / (benchmarkStep/cpuThreads));
+                    BenchmarkAlgorithm.BenchmarkSpeed = (speed / (benchmarkStep/cpuThreads))*1000;
                         BenchmarkSignalFinnished = true;
                     return true;
                     }
