@@ -26,6 +26,7 @@ namespace NiceHashMiner.Utils
             @"/nheqminer_v0.4b/nheqminer.exe",
             @"/sgminer-5-6-0-general/sgminer.exe",
             @"/sgminer-gm/sgminer.exe",
+            @"/sgminer-kl/sgminer.exe",
             @"/xmr-stak/xmrstak_cuda_backend.dll",
             @"/xmr-stak/xmrstak_opencl_backend.dll",
             @"/xmr-stak/libeay32.dll",

@@ -75,10 +75,15 @@ namespace NiceHashMiner.Miners
                 return;
             }
             var username = GetUsername(btcAdress, worker);
+            var donate = "";
+            if (MiningSetup.MinerName.Equals("X16R"))
+            {
+                donate = " --donate 0 ";
+            }
 
             LastCommandLine = " --gpu-platform " + _gpuPlatformNumber +
                               " -k " + MiningSetup.MinerName +
-                              " --url=" + url +
+                              " --url=" + url + "/#xnsub" +
                               " --userpass=" + username +
                               " -p x " +
                               " --api-listen" +
@@ -89,7 +94,7 @@ namespace NiceHashMiner.Miners
                                   DeviceType.AMD) +
                               " --device ";
 
-            LastCommandLine += GetDevicesCommandString();
+            LastCommandLine += GetDevicesCommandString() + donate;
 
             ProcessHandle = _Start();
         }
@@ -113,11 +118,11 @@ namespace NiceHashMiner.Miners
             var commandLine = " /C \"cd /d " + WorkingDirectory + " && sgminer.exe " +
                               " --gpu-platform " + _gpuPlatformNumber +
                               " -k " + algorithm.MinerName +
-                              " --url=" + url +
+                              " --url=" + url + "/#xnsub" +
                               " --userpass=" + username +
                               " -p x " +
                               " --sched-stop " + DateTime.Now.AddSeconds(time).ToString("HH:mm") +
-                              " -T --log 10 --log-file dump.txt" +
+                              " -T --log 10 --log-file " + GetLogFileName()+ " --gpu-threads 2" +
                               " " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
@@ -126,7 +131,7 @@ namespace NiceHashMiner.Miners
 
             commandLine += GetDevicesCommandString();
 
-            commandLine += " && del dump.txt\"";
+            commandLine += " && del " + GetLogFileName()+ "\"";
 
             return commandLine;
         }
@@ -134,11 +139,10 @@ namespace NiceHashMiner.Miners
         protected override bool BenchmarkParseLine(string outdata)
         {
             if (outdata.Contains("Average hashrate:") && outdata.Contains("/s") &&
-                BenchmarkAlgorithm.NiceHashID != AlgorithmType.DaggerHashimoto)
+                BenchmarkAlgorithm.NiceHashID != AlgorithmType.DaggerHashimoto )
             {
                 var i = outdata.IndexOf(": ");
                 var k = outdata.IndexOf("/s");
-
                 // save speed
                 var hashSpeed = outdata.Substring(i + 2, k - i + 2);
                 Helpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashSpeed);
@@ -155,11 +159,10 @@ namespace NiceHashMiner.Miners
                 return true;
             }
             if (outdata.Contains($"GPU{MiningSetup.MiningPairs[0].Device.ID}") && outdata.Contains("s):") &&
-                BenchmarkAlgorithm.NiceHashID == AlgorithmType.DaggerHashimoto)
+                (BenchmarkAlgorithm.NiceHashID == AlgorithmType.DaggerHashimoto || BenchmarkAlgorithm.NiceHashID == AlgorithmType.X16R))
             {
                 var i = outdata.IndexOf("s):");
                 var k = outdata.IndexOf("(avg)");
-
                 // save speed
                 var hashSpeed = outdata.Substring(i + 3, k - i + 3).Trim();
                 hashSpeed = hashSpeed.Replace("(avg):", "");
@@ -282,7 +285,10 @@ namespace NiceHashMiner.Miners
 
                 var exited = BenchmarkHandle.WaitForExit((BenchmarkTimeoutInSeconds(BenchmarkTimeInSeconds) + 20) * 1000);
 
-                if (!exited) KillSgminer();
+                if (!exited)
+                {
+                    KillSgminer();
+                }
 
                 if (BenchmarkSignalTimedout)
                 {

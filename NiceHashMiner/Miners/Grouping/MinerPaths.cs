@@ -92,6 +92,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string Sgminer560General = Bin + @"\sgminer-5-6-0-general\sgminer.exe";
 
             public const string SgminerGm = Bin + @"\sgminer-gm\sgminer.exe";
+            public const string SgminerAm = Bin + @"\sgminer-kl\sgminer.exe";
 
             public const string NhEqMiner = Bin + @"\nheqminer_v0.4b\NhEqMiner.exe";
             public const string Excavator = Bin + @"\excavator\excavator.exe";
@@ -332,6 +333,10 @@ namespace NiceHashMiner.Miners.Grouping
         {
             public static string SgminerPath(AlgorithmType type)
             {
+                if (AlgorithmType.X16R == type)
+                {
+                    return Data.SgminerAm;
+                }
                 if (AlgorithmType.CryptoNight == type || AlgorithmType.DaggerHashimoto == type)
                 {
                     return Data.SgminerGm;

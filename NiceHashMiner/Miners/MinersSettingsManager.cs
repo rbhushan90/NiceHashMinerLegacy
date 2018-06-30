@@ -150,6 +150,7 @@ namespace NiceHashMiner.Miners
                     {
                         MinerPaths.Data.Sgminer560General,
                         MinerPaths.Data.SgminerGm,
+                        MinerPaths.Data.SgminerAm,
                         MinerPaths.Data.ClaymoreCryptoNightMiner,
                         MinerPaths.Data.ClaymoreZcashMiner,
                         MinerPaths.Data.OptiminerZcashMiner,
