@@ -381,7 +381,7 @@ namespace NiceHashMiner
                 int i = outdata.IndexOf("Benchmark:");
                 int k = outdata.IndexOf("/s");
                 string hashspeed = outdata.Substring(i + 11, k - i - 9);
-                Helpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashspeed);
+                Helpers.ConsolePrint("BENCHMARK-NS", "Final Speed: " + hashspeed);
 
                 // save speed
                 int b = hashspeed.IndexOf(" ");
@@ -613,7 +613,7 @@ namespace NiceHashMiner
 
         protected void CheckOutdata(string outdata)
         {
-//            Helpers.ConsolePrint("BENCHMARK" , outdata);
+//            Helpers.ConsolePrint("BENCHMARK_CheckOutData" , outdata);
             BenchLines.Add(outdata);
             // ccminer, cpuminer
             if (outdata.Contains("Cuda error"))
@@ -636,7 +636,7 @@ namespace NiceHashMiner
                 BenchmarkException = new Exception("Xmr-Stak erred, check its logs");
 
             // lastly parse data
-            Helpers.ConsolePrint("BENCHMARK", outdata);
+            Helpers.ConsolePrint("BENCHMARK_CheckOutData", outdata);
             if (BenchmarkParseLine(outdata))
             {
                 BenchmarkSignalFinnished = true;
@@ -656,7 +656,7 @@ namespace NiceHashMiner
                 var i = outdata.IndexOf("Benchmark:");
                 var k = outdata.IndexOf("/s");
                 var hashspeed = outdata.Substring(i + 11, k - i - 9);
-                Helpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashspeed);
+                Helpers.ConsolePrint("BENCHMARK-CC", "Final Speed: " + hashspeed);
 
                 // save speed
                 var b = hashspeed.IndexOf(" ");
@@ -697,7 +697,7 @@ namespace NiceHashMiner
                 BenchmarkProcessStatus = BenchmarkProcessStatus.Killing;
                 try
                 {
-                    Helpers.ConsolePrint("BENCHMARK",
+                    Helpers.ConsolePrint("BENCHMARK-end",
                         $"Trying to kill benchmark process {BenchmarkProcessPath} algorithm {BenchmarkAlgorithm.AlgorithmName}");
                     BenchmarkHandle.Kill();
                     BenchmarkHandle.Close();
@@ -707,7 +707,7 @@ namespace NiceHashMiner
                 finally
                 {
                     BenchmarkProcessStatus = BenchmarkProcessStatus.DoneKilling;
-                    Helpers.ConsolePrint("BENCHMARK",
+                    Helpers.ConsolePrint("BENCHMARK-end",
                         $"Benchmark process {BenchmarkProcessPath} algorithm {BenchmarkAlgorithm.AlgorithmName} KILLED");
                     //BenchmarkHandle = null;
                 }
@@ -767,19 +767,19 @@ namespace NiceHashMiner
                 if (!dualAlg.TuningEnabled)
                 {
                     // Tuning will report speed
-                    Helpers.ConsolePrint("BENCHMARK",
+                    Helpers.ConsolePrint("BENCHMARK-finish",
                         "Final Speed: " + Helpers.FormatDualSpeedOutput(dualAlg.BenchmarkSpeed,
                             dualAlg.SecondaryBenchmarkSpeed, dualAlg.DualNiceHashID));
                 }
             }
             else
             {
-                Helpers.ConsolePrint("BENCHMARK",
+                Helpers.ConsolePrint("BENCHMARK-finish",
                     "Final Speed: " + Helpers.FormatDualSpeedOutput(BenchmarkAlgorithm.BenchmarkSpeed, 0,
                         BenchmarkAlgorithm.NiceHashID));
             }
 
-            Helpers.ConsolePrint("BENCHMARK", "Benchmark ends");
+            Helpers.ConsolePrint("BENCHMARK-finish", "Benchmark ends");
             if (BenchmarkComunicator != null && !OnBenchmarkCompleteCalled)
             {
                 OnBenchmarkCompleteCalled = true;
@@ -801,7 +801,7 @@ namespace NiceHashMiner
 
             try
             {
-                Helpers.ConsolePrint("BENCHMARK", "Benchmark starts");
+                Helpers.ConsolePrint("BENCHMARK-routine", "Benchmark starts");
                 BenchmarkHandle = BenchmarkStartProcess((string) commandLine);
 
                 BenchmarkThreadRoutineStartSettup();
@@ -864,7 +864,7 @@ namespace NiceHashMiner
 
             try
             {
-                Helpers.ConsolePrint("BENCHMARK", "Benchmark starts");
+                Helpers.ConsolePrint("BENCHMARK-routineAlt", "Benchmark starts");
                 Helpers.ConsolePrint(MinerTag(), "Benchmark should end in : " + benchmarkTimeWait + " seconds");
                 BenchmarkHandle = BenchmarkStartProcess((string) commandLine);
                 BenchmarkHandle.WaitForExit(benchmarkTimeWait + 2);

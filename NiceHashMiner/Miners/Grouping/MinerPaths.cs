@@ -92,7 +92,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string Sgminer560General = Bin + @"\sgminer-5-6-0-general\sgminer.exe";
 
             public const string SgminerGm = Bin + @"\sgminer-gm\sgminer.exe";
-            public const string SgminerAm = Bin + @"\sgminer-kl\sgminer.exe";
+            public const string SgminerKl = Bin + @"\sgminer-kl\sgminer.exe";
 
             public const string NhEqMiner = Bin + @"\nheqminer_v0.4b\NhEqMiner.exe";
             public const string Excavator = Bin + @"\excavator\excavator.exe";
@@ -120,6 +120,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string Dstm = Bin3rdParty + @"\dstm\zm.exe";
             public const string CastXMR = Bin3rdParty + @"\castxmr\cast_xmr-vega.exe";
             public const string hsrneoscrypt = Bin3rdParty + @"\hsrminer_neoscrypt\hsrminer_neoscrypt.exe";
+            public const string CryptoDredge = Bin3rdParty + @"\CryptoDredge\CryptoDredge.exe";
         }
 
         // NEW START
@@ -187,6 +188,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.CastXMR;
                 case MinerBaseType.hsrneoscrypt:
                     return NvidiaGroups.hsrneoscrypt_path(algoType, devGroupType);
+                case MinerBaseType.CryptoDredge:
+                    return NvidiaGroups.CryptoDredge(algoType, devGroupType);
             }
             return Data.None;
         }
@@ -296,6 +299,22 @@ namespace NiceHashMiner.Miners.Grouping
                 return Data.None; // should not happen
             }
 
+            public static string CryptoDredge(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
+            {
+                // sm21 and sm3x have same settings
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_2_1 || nvidiaGroup == DeviceGroupType.NVIDIA_3_x)
+                {
+                    return Data.CryptoDredge;
+                }
+                // sm5x and sm6x have same settings otherwise
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_5_x || nvidiaGroup == DeviceGroupType.NVIDIA_6_x)
+                {
+                    return Data.CryptoDredge; ;
+                }
+                // TODO wrong case?
+                return Data.None; // should not happen
+            }
+
 
             public static string Ccminer_path(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
             {
@@ -335,7 +354,7 @@ namespace NiceHashMiner.Miners.Grouping
             {
                 if (AlgorithmType.X16R == type)
                 {
-                    return Data.SgminerAm;
+                    return Data.SgminerKl;
                 }
                 if (AlgorithmType.CryptoNight == type || AlgorithmType.DaggerHashimoto == type)
                 {

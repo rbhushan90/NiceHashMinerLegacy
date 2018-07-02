@@ -298,6 +298,8 @@ namespace NiceHashMiner.Miners.Parsing
                     return MinerType.ccminer;
                 case MinerBaseType.hsrneoscrypt:
                     return MinerType.hsrneoscrypt;
+                case MinerBaseType.CryptoDredge:
+                    return MinerType.CryptoDredge;
 
                 case MinerBaseType.Claymore:
                     switch (algorithmType)

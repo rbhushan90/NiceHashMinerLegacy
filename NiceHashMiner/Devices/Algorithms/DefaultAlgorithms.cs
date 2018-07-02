@@ -185,6 +185,11 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.hsrneoscrypt, AlgorithmType.NeoScrypt, "Neoscrypt"),
                         }
                     },
+                        { MinerBaseType.CryptoDredge,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Lyra2REv2, "Lyra2REv2"),
+                        }
+                    },
             {
                 MinerBaseType.ethminer,
                 new List<Algorithm>

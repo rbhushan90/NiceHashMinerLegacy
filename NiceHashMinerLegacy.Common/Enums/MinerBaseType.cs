@@ -26,6 +26,7 @@
         dstm,
         CastXMR,
         hsrneoscrypt,
+        CryptoDredge,
         END
     }
 }
