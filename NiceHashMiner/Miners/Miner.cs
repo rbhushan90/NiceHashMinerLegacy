@@ -1298,7 +1298,6 @@ namespace NiceHashMiner
             var ad = new ApiData(MiningSetup.CurrentAlgorithmType);
 
             var dataToSend = GetHttpRequestNhmAgentStrin("summary");
-
             var resp = await GetApiDataAsync(ApiPort, dataToSend);
             if (resp == null)
             {

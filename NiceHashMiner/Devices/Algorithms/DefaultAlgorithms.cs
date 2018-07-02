@@ -190,6 +190,11 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Lyra2REv2, "Lyra2REv2"),
                         }
                     },
+                        { MinerBaseType.ZEnemy,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.ZEnemy, AlgorithmType.X16R, "X16R"),
+                        }
+                    },
             {
                 MinerBaseType.ethminer,
                 new List<Algorithm>

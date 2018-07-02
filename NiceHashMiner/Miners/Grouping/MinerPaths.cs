@@ -121,6 +121,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string CastXMR = Bin3rdParty + @"\castxmr\cast_xmr-vega.exe";
             public const string hsrneoscrypt = Bin3rdParty + @"\hsrminer_neoscrypt\hsrminer_neoscrypt.exe";
             public const string CryptoDredge = Bin3rdParty + @"\CryptoDredge\CryptoDredge.exe";
+            public const string ZEnemy = Bin3rdParty + @"\Z-Enemy\z-enemy.exe";
         }
 
         // NEW START
@@ -190,6 +191,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return NvidiaGroups.hsrneoscrypt_path(algoType, devGroupType);
                 case MinerBaseType.CryptoDredge:
                     return NvidiaGroups.CryptoDredge(algoType, devGroupType);
+                case MinerBaseType.ZEnemy:
+                    return NvidiaGroups.ZEnemy(algoType, devGroupType);
             }
             return Data.None;
         }
@@ -310,6 +313,22 @@ namespace NiceHashMiner.Miners.Grouping
                 if (nvidiaGroup == DeviceGroupType.NVIDIA_5_x || nvidiaGroup == DeviceGroupType.NVIDIA_6_x)
                 {
                     return Data.CryptoDredge; ;
+                }
+                // TODO wrong case?
+                return Data.None; // should not happen
+            }
+
+            public static string ZEnemy(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
+            {
+                // sm21 and sm3x have same settings
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_2_1 || nvidiaGroup == DeviceGroupType.NVIDIA_3_x)
+                {
+                    return Data.ZEnemy;
+                }
+                // sm5x and sm6x have same settings otherwise
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_5_x || nvidiaGroup == DeviceGroupType.NVIDIA_6_x)
+                {
+                    return Data.ZEnemy; ;
                 }
                 // TODO wrong case?
                 return Data.None; // should not happen

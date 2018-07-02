@@ -27,6 +27,7 @@
         CastXMR,
         hsrneoscrypt,
         CryptoDredge,
+        ZEnemy,
         END
     }
 }

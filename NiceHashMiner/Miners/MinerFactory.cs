@@ -84,6 +84,8 @@ namespace NiceHashMiner.Miners
                     return new hsrneoscrypt();
                 case MinerBaseType.CryptoDredge:
                     return new CryptoDredge();
+                case MinerBaseType.ZEnemy:
+                    return new ZEnemy();
             }
 
             return null;

@@ -26,6 +26,7 @@
         hsrneoscrypt,
         ClaymoreNeoscrypt,
         CryptoDredge,
+        ZEnemy,
         END
     }
 }
