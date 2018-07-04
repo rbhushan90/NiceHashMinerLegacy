@@ -124,6 +124,11 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightHeavy, "cryptonightHeavy") { }
                         }
                     },
+                    { MinerBaseType.lyclMiner,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.lyclMiner, AlgorithmType.Lyra2REv2, "Lyra2REv2") { }
+                        }
+                    },
             {
                 MinerBaseType.Claymore,
                 new List<Algorithm>

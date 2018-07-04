@@ -28,6 +28,7 @@
         hsrneoscrypt,
         CryptoDredge,
         ZEnemy,
+        lyclMiner,
         END
     }
 }

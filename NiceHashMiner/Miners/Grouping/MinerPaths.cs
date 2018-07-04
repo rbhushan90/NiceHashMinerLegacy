@@ -104,6 +104,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string XmrStakHeavy = Bin + @"\xmr-stak_heavy\xmr-stak.exe";
 
             public const string CpuMiner = Bin + @"\cpuminer_opt\cpuminer.exe";
+            public const string lyclMiner = Bin + @"\lyclMiner\lyclMiner.exe";
 
             public const string None = "";
 
@@ -187,6 +188,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.CpuMiner;
                 case MinerBaseType.CastXMR:
                     return Data.CastXMR;
+                case MinerBaseType.lyclMiner:
+                    return Data.lyclMiner;
                 case MinerBaseType.hsrneoscrypt:
                     return NvidiaGroups.hsrneoscrypt_path(algoType, devGroupType);
                 case MinerBaseType.CryptoDredge:
@@ -404,6 +407,14 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.CastXMR;
                 }
                 return Data.CastXMR;
+            }
+            public static string lyclMiner(AlgorithmType algorithmType)
+            {
+                if (AlgorithmType.Lyra2REv2 == algorithmType )
+                {
+                    return Data.lyclMiner;
+                }
+                return Data.lyclMiner;
             }
         }
 

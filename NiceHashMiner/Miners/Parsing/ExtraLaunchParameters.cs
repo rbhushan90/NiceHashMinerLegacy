@@ -385,6 +385,14 @@ namespace NiceHashMiner.Miners.Parsing
                 },
                 new List<MinerOption>()
                  ),
+             new MinerOptionPackage(
+                MinerType.lyclMiner,
+                new List<MinerOption>
+                {
+                    new MinerOption("Worksize", "worksize=", "worksize=", "1048576", MinerOptionFlagType.MultiParam, ","),
+                },
+                new List<MinerOption>()
+                 ),
             new MinerOptionPackage(
                 MinerType.dstm,
                 new List<MinerOption>

@@ -86,6 +86,8 @@ namespace NiceHashMiner.Miners
                     return new CryptoDredge();
                 case MinerBaseType.ZEnemy:
                     return new ZEnemy();
+                case MinerBaseType.lyclMiner:
+                    return new lyclMiner();
             }
 
             return null;

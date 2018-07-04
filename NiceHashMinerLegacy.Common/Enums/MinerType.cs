@@ -27,6 +27,7 @@
         ClaymoreNeoscrypt,
         CryptoDredge,
         ZEnemy,
+        lyclMiner,
         END
     }
 }
