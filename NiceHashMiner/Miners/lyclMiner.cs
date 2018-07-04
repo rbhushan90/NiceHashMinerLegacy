@@ -150,13 +150,13 @@ namespace NiceHashMiner.Miners
             if (File.Exists("bin\\lyclMiner\\lyclMiner.conf" + configfilename))
                 File.Delete("bin\\lyclMiner\\lyclMiner.conf" + configfilename);
 
-            Thread.Sleep(500);
+            Thread.Sleep(250);
             benchmarkconfigHandle.StartInfo.Arguments = " -gr lyclMiner.conf" + configfilename;
             benchmarkconfigHandle.StartInfo.UseShellExecute = false;
             benchmarkconfigHandle.StartInfo.RedirectStandardError = true;
             benchmarkconfigHandle.StartInfo.RedirectStandardOutput = false;
             benchmarkconfigHandle.StartInfo.CreateNoWindow = true;
-            
+            Thread.Sleep(250);
             benchmarkconfigHandle.Start();
             try
             {

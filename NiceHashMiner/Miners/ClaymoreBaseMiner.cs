@@ -260,7 +260,7 @@ namespace NiceHashMiner.Miners
                 {
                     BenchLines.Add(line);
                     var lineLowered = line.ToLower();
-                   // BenchmarkParseLine(lineLowered);
+                    BenchmarkParseLine(lineLowered);
                     if (lineLowered.Contains(LookForStart))
                     {
                         var got = GetNumber(lineLowered);
