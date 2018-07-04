@@ -39,11 +39,11 @@ namespace NiceHashMiner.Algorithms
         /// <summary>
         /// Lower bound for intensity tuning
         /// </summary>
-        public int TuningStart = 25;
+        public int TuningStart = 5;
         /// <summary>
         /// Upper bound for intensity tuning
         /// </summary>
-        public int TuningEnd = 200;
+        public int TuningEnd = 180;
         /// <summary>
         /// Interval for intensity tuning
         /// </summary>
@@ -127,7 +127,7 @@ namespace NiceHashMiner.Algorithms
         #endregion
 
         #region Mining settings
-        
+
         /// <summary>
         /// Primary hashrate in H/s set by benchmark or user
         /// <para>If tuning is enabled, returns the hashrate from the most profitable intensity</para>
@@ -181,13 +181,13 @@ namespace NiceHashMiner.Algorithms
             }
             set => _secondaryBenchmarkSpeed = value;
         }
-        
+
         /// <summary>
         /// Gets the secondary averaged speed for this algorithm in H/s
         /// <para>When multiple devices of the same model are used, this will be set to their averaged hashrate</para>
         /// </summary>
         public double SecondaryAveragedSpeed { get; set; }
-        
+
         /// <summary>
         /// Indicates whether this algorithm requires a benchmark
         /// </summary>
@@ -212,7 +212,7 @@ namespace NiceHashMiner.Algorithms
         }
 
         #endregion
-        
+
         #region Power Switching
 
         /// <summary>
@@ -324,7 +324,7 @@ namespace NiceHashMiner.Algorithms
         {
             base.UpdateCurProfit(profits);
             profits.TryGetValue(SecondaryNiceHashID, out var secPaying);
-            
+
             SecondaryCurNhmSmaDataVal = secPaying;
 
             IntensityUpToDate = false;
@@ -415,13 +415,13 @@ namespace NiceHashMiner.Algorithms
         public double ProfitForIntensity(int intensity)
         {
             var profit = 0d;
-            if (NHSmaData.TryGetPaying(NiceHashID, out var paying) && 
+            if (NHSmaData.TryGetPaying(NiceHashID, out var paying) &&
                 IntensitySpeeds.TryGetValue(intensity, out var speed))
             {
                 profit += speed * paying * Mult;
             }
-            
-            if (NHSmaData.TryGetPaying(SecondaryNiceHashID, out var secPaying) && 
+
+            if (NHSmaData.TryGetPaying(SecondaryNiceHashID, out var secPaying) &&
                 SecondaryIntensitySpeeds.TryGetValue(intensity, out var secSpeed))
             {
                 profit += secSpeed * secPaying * Mult;

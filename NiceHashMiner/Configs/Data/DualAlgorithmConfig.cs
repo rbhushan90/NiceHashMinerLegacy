@@ -11,7 +11,7 @@ namespace NiceHashMiner.Configs.Data
         public Dictionary<int, double> IntensitySpeeds = new Dictionary<int, double>();
         public Dictionary<int, double> SecondaryIntensitySpeeds = new Dictionary<int, double>();
         public bool TuningEnabled = true;
-        public int TuningStart = 25;
+        public int TuningStart = 5;
         public int TuningEnd = 250;
         public int TuningInterval = 25;
         public Dictionary<int, double> IntensityPowers = new Dictionary<int, double>();
@@ -21,7 +21,7 @@ namespace NiceHashMiner.Configs.Data
         {
             if (TuningStart < 0 || TuningStart > TuningEnd)
             {
-                TuningStart = 25;
+                TuningStart = 5;
             }
 
             if (TuningInterval < 1)
