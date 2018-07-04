@@ -34,6 +34,7 @@ namespace NiceHashMiner.Utils
             @"/xmr-stak/xmr-stak.exe",
             @"/xmrig/xmrig.exe",
             @"/xmr-stak_heavy/xmr-stak.exe",
+            @"/lyclMiner/lyclMiner.exe",
             @"/cpuminer_opt/cpuminer.exe"
         };
 
