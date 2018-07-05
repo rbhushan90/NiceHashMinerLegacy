@@ -162,6 +162,7 @@ namespace NiceHashMiner.Miners
            
             string addParam;
             bool needdcri = true;
+            bool isNvidia = false;
             var dcri = "-dcri 7";
             foreach (var pair in MiningSetup.MiningPairs)
             {
@@ -171,21 +172,40 @@ namespace NiceHashMiner.Miners
                 }
                 if (pair.Device.DeviceType == DeviceType.NVIDIA)
                 {
-                    dcri = "-dcri 20";
+                    isNvidia = true;
+                } else
+                {
+                    isNvidia = false;
                 }
             }
 
+
+
             if (SecondaryAlgorithmType == AlgorithmType.Blake2s && needdcri)
             {
-                dcri = "-dcri 30";
+                if (isNvidia)
+                {
+                    dcri = "-dcri 40";
+                }
+                else
+                {
+                    dcri = "-dcri 30";
+                }
                 addParam = " "
                     + GetDevicesCommandString()
-                    + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5 " +dcri+" ", url, username, ApiPort)
+                    + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5 " + dcri + " ", url, username, ApiPort)
                     + dualModeParams;
             }
-            else if (SecondaryAlgorithmType == AlgorithmType.Keccak && needdcri)
+            else if (SecondaryAlgorithmType == AlgorithmType.Keccak && needdcri )
             {
-                dcri = "-dcri 7";
+                if (isNvidia)
+                {
+                    dcri = "-dcri 20";
+                } else
+                {
+                    dcri = "-dcri 7";
+                }
+
                 addParam = " "
                                     + GetDevicesCommandString()
                                     + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5 " +dcri+ " ", url, username, ApiPort)
