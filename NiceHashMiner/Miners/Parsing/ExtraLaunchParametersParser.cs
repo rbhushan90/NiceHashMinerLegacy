@@ -90,6 +90,17 @@ namespace NiceHashMiner.Miners.Parsing
             var cdevOptions = new Dictionary<string, Dictionary<string, string>>();
             var isOptionDefaults = new Dictionary<string, bool>();
             var isOptionExist = new Dictionary<string, bool>();
+
+               foreach (var pair in miningPairs)
+               {
+                if (pair.CurrentExtraLaunchParameters.StartsWith("%"))
+                {
+                    Helpers.ConsolePrint("ExtraLaunchParametersParser DISABLED! ", pair.CurrentExtraLaunchParameters);
+                    return pair.CurrentExtraLaunchParameters.Substring(1);
+                }
+            }
+
+
             // init devs options, and defaults
             foreach (var pair in miningPairs)
             {
