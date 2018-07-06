@@ -128,6 +128,15 @@ namespace NiceHashMiner
 
                     ConfigManager.GeneralConfig.ForkFixVersion = 7;
                 }
+
+                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 8)
+                {
+                    Helpers.ConsolePrint("NICEHASH", "Old version");
+                    if (Directory.Exists("internals"))
+                        Directory.Delete("internals", true);
+
+                    ConfigManager.GeneralConfig.ForkFixVersion = 8;
+                }
                 //**
 
                 // init active display currency after config load
