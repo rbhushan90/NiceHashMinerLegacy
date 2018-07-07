@@ -58,48 +58,33 @@ namespace NiceHashMiner.Miners
             var dual = AlgorithmType.NONE;
             string poolport = "3354";
             var dualModeParams = "";
-            if (!IsDual())
-            {
-            String dpools = "POOL: stratum+tcp://" + dual.ToString().ToLower() + ".usa.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
-            + "POOL: stratum+tcp://" + dual.ToString().ToLower() + ".hk.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
-            + "POOL: stratum+tcp://" + dual.ToString().ToLower() + ".jp.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
-            + "POOL: stratum+tcp://" + dual.ToString().ToLower() + ".in.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
-            + "POOL: stratum+tcp://" + dual.ToString().ToLower() + ".br.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
-            + "POOL: stratum+tcp://" + dual.ToString().ToLower() + ".eu.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n";
-                try
-                {
-                    FileStream fs1 = new FileStream("bin_3rdparty\\claymore_dual\\dpools.txt", FileMode.Create, FileAccess.Write);
-                    StreamWriter w1 = new StreamWriter(fs1);
-                    w1.WriteAsync(dpools);
-                    w1.Flush();
-                    w1.Close();
-                    Thread.Sleep(200);
-                }
-                catch (Exception e)
-                {
-                    Helpers.ConsolePrint("GetStartCommand", e.ToString());
-                }
+            if (File.Exists("bin_3rdparty\\claymore_dual\\epools.txt"))
+                File.Delete("bin_3rdparty\\claymore_dual\\epools.txt");
+            if (File.Exists("bin_3rdparty\\claymore_dual\\dpools.txt"))
+                File.Delete("bin_3rdparty\\claymore_dual\\dpools.txt");
 
-                
-            }
+            Thread.Sleep(200);
+
             String epools = String.Format("POOL: daggerhashimoto.usa.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-                + String.Format("POOL: daggerhashimoto.hk.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-                + String.Format("POOL: daggerhashimoto.jp.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-                + String.Format("POOL: daggerhashimoto.in.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-                + String.Format("POOL: daggerhashimoto.br.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-                + String.Format("POOL: daggerhashimoto.eu.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n";
+               + String.Format("POOL: daggerhashimoto.hk.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.jp.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.in.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.br.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.eu.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n";
             try
             {
-            FileStream fs = new FileStream("bin_3rdparty\\claymore_dual\\epools.txt", FileMode.Create, FileAccess.Write);
-            StreamWriter w = new StreamWriter(fs);
-            w.WriteAsync(epools);
-            w.Flush();
-            w.Close();
+                FileStream fs = new FileStream("bin_3rdparty\\claymore_dual\\epools.txt", FileMode.Create, FileAccess.Write);
+                StreamWriter w = new StreamWriter(fs);
+                w.WriteAsync(epools);
+                w.Flush();
+                w.Close();
             }
             catch (Exception e)
             {
                 Helpers.ConsolePrint("GetStartCommand", e.ToString());
             }
+
+           
             Thread.Sleep(200);
             if (!IsDual())
             {
@@ -142,24 +127,37 @@ namespace NiceHashMiner.Miners
                         break;
                     }
                 }
+                
+            }
+            else //dual
+            {
+                String dpools = "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".usa.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".hk.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".jp.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".in.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".br.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".eu.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n";
                 try
-                { 
-                if (File.Exists("bin_3rdparty\\claymore_dual\\dpools.txt" ))
-                    File.Delete("bin_3rdparty\\claymore_dual\\dpools.txt" );
-            }
-            catch (Exception e)
-            {
-                Helpers.ConsolePrint("GetStartCommand", e.ToString());
-            }
-        }
-            else
-            {
+                {
+                    FileStream fs1 = new FileStream("bin_3rdparty\\claymore_dual\\dpools.txt", FileMode.Create, FileAccess.Write);
+                    StreamWriter w1 = new StreamWriter(fs1);
+                    w1.WriteAsync(dpools);
+                    w1.Flush();
+                    w1.Close();
+                    Thread.Sleep(200);
+                }
+                catch (Exception e)
+                {
+                    Helpers.ConsolePrint("GetStartCommand", e.ToString());
+                }
+
                 var urlSecond = Globals.GetLocationUrl(SecondaryAlgorithmType,
                     Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
                 dualModeParams = $" -dcoin {SecondaryShortName()} -dpool {urlSecond} -dwal {username} -dpsw x";
             }
 
-           
+
+            
             string addParam;
             bool needdcri = true;
             bool isNvidia = false;
