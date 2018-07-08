@@ -255,6 +255,9 @@ namespace NiceHashMiner.Miners
                 if (ad.Speed == 0)
                 {
                     CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
+                } else
+                {
+                    CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
                 }
 
                 // some clayomre miners have this issue reporting negative speeds in that case restart miner

@@ -221,6 +221,7 @@ namespace NiceHashMiner.Miners
                     if (algo != null)
                     {
                         totalSpeed += algo.BenchmarkSpeed;
+                        CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
                     }
                 }
 
