@@ -35,6 +35,13 @@ namespace NiceHashMiner.Miners.Parsing
                 new MinerOptionPackage(
                 MinerType.CryptoDredge,
                 new List<MinerOption>() {
+                    new MinerOption("Intensity", "-i", "--intensity=", "6", MinerOptionFlagType.MultiParam, ",")
+                },
+                new List<MinerOption>()
+            ),
+                new MinerOptionPackage(
+                MinerType.trex,
+                new List<MinerOption>() {
                     new MinerOption("Intensity", "-i", "--intensity=", "0", MinerOptionFlagType.MultiParam, ",")
                 },
                 new List<MinerOption>()

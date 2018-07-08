@@ -88,6 +88,8 @@ namespace NiceHashMiner.Miners
                     return new ZEnemy();
                 case MinerBaseType.lyclMiner:
                     return new lyclMiner();
+                case MinerBaseType.trex:
+                    return new trex();
             }
 
             return null;

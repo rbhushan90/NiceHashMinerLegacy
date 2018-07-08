@@ -504,56 +504,7 @@ namespace NiceHashMiner
             _benchmarkLogPath =
                 $"{Logger.LogPath}Log_{MiningSetup.MiningPairs[0].Device.Uuid}_{MiningSetup.MiningPairs[0].Algorithm.AlgorithmStringID}";
 
-            /*
-            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv2) & this is lyclMiner)
-            {
-                Helpers.ConsolePrint("lyclMiner", "Start config generating");
-                var benchmarkconfigHandle = new Process
-                {
-                    StartInfo =
-                {
-                    FileName = MiningSetup.MinerPath
-                }
-                };
-
-
-                // sgminer quickfix
-                if (this is Sgminer)
-                {
-                    BenchmarkProcessPath = "cmd / " + benchmarkconfigHandle.StartInfo.FileName;
-                    benchmarkconfigHandle.StartInfo.FileName = "cmd";
-                }
-                else
-                {
-                    BenchmarkProcessPath = benchmarkconfigHandle.StartInfo.FileName;
-                    Helpers.ConsolePrint(MinerTag(), "Using miner: " + benchmarkconfigHandle.StartInfo.FileName);
-                    benchmarkconfigHandle.StartInfo.WorkingDirectory = WorkingDirectory;
-                }
-
-                // set sys variables
-                if (MinersSettingsManager.MinerSystemVariables.ContainsKey(Path))
-                {
-                    foreach (var kvp in MinersSettingsManager.MinerSystemVariables[Path])
-                    {
-                        var envName = kvp.Key;
-                        var envValue = kvp.Value;
-                        benchmarkconfigHandle.StartInfo.EnvironmentVariables[envName] = envValue;
-                    }
-                }
-
-                benchmarkconfigHandle.StartInfo.Arguments = " -g lyclMiner.conf";
-                benchmarkconfigHandle.StartInfo.UseShellExecute = false;
-                benchmarkconfigHandle.StartInfo.RedirectStandardError = true;
-                benchmarkconfigHandle.StartInfo.RedirectStandardOutput = false;
-                benchmarkconfigHandle.StartInfo.CreateNoWindow = true;
-                //benchmarkHandle.OutputDataReceived += BenchmarkOutputErrorDataReceived;
-                //benchmarkHandle.ErrorDataReceived += BenchmarkOutputErrorDataReceived;
-                //benchmarkHandle.Exited += BenchmarkHandle_Exited;
-
-                if (!benchmarkconfigHandle.Start()) return;
-                Thread.Sleep(1000);
-            }
-            */
+            
             var commandLine = BenchmarkCreateCommandLine(BenchmarkAlgorithm, time);
 
             var benchmarkThread = new Thread(BenchmarkThreadRoutine);

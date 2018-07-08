@@ -315,6 +315,9 @@ namespace NiceHashMiner.Miners.Parsing
                     return MinerType.ZEnemy;
                 case MinerBaseType.lyclMiner:
                     return MinerType.lyclMiner;
+                case MinerBaseType.trex:
+                    return MinerType.trex;
+
 
                 case MinerBaseType.Claymore:
                     switch (algorithmType)

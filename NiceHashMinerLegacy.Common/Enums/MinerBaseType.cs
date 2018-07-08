@@ -29,6 +29,7 @@
         CryptoDredge,
         ZEnemy,
         lyclMiner,
+        trex,
         END
     }
 }
