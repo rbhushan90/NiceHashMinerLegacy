@@ -58,21 +58,17 @@ namespace NiceHashMiner.Miners
             StreamReader w = new StreamReader(fs);
             conf = w.ReadToEnd();
             w.Close();
-
             string[] ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.IDByBus.ToString()).ToArray();
 
             Thread.Sleep(100);
-
             url = Globals.GetLocationUrl(AlgorithmType.Lyra2REv2, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
             conf = conf.Replace("stratum+tcp://example.com:port", url);
             conf = conf.Replace("user", username);
-
             string newconf = "";
             string[] textArray = conf.Split('\n');
             string[] worksize = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD).Replace("worksize=","").Split(',');
 
             Array.Reverse(worksize);
-           
             int k = 0;
             for (int i = 1; i < textArray.Length; i++)
             {
@@ -93,22 +89,22 @@ namespace NiceHashMiner.Miners
                         newconf = newconf + str + "\n";
                     } else
                     {
+                        /*
                         int st2 = str.IndexOf("WorkSize = ");
                         int end2 = str.IndexOf(">");
                         string work = str.Substring(st2 + 12, end2 - st2 - 12 -1 );
                         str = str.Replace(work, worksize[k].Trim());
+                        */
                         newconf = newconf + str + "\n";
                         k++;
                     }
                 }
             }
-
             FileStream fs2 = new FileStream("bin\\lyclMiner\\lyclMinerNHML.conf", FileMode.Create, FileAccess.ReadWrite);
             StreamWriter w2 = new StreamWriter(fs2);
             w2.Write(newconf);
             w2.Flush();
             w2.Close();
-            
             LastCommandLine = " lyclMinerNHML.conf";
             
             ProcessHandle = _Start();
@@ -136,7 +132,6 @@ namespace NiceHashMiner.Miners
                 Helpers.ConsolePrint(MinerTag(), "Using miner: " + benchmarkconfigHandle.StartInfo.FileName);
                 benchmarkconfigHandle.StartInfo.WorkingDirectory = WorkingDirectory;
             }
-
             if (MinersSettingsManager.MinerSystemVariables.ContainsKey(Path))
             {
                 foreach (var kvp in MinersSettingsManager.MinerSystemVariables[Path])
@@ -146,7 +141,6 @@ namespace NiceHashMiner.Miners
                     benchmarkconfigHandle.StartInfo.EnvironmentVariables[envName] = envValue;
                 }
             }
-
             if (File.Exists("bin\\lyclMiner\\lyclMiner.conf" + configfilename))
                 File.Delete("bin\\lyclMiner\\lyclMiner.conf" + configfilename);
 
@@ -168,7 +162,6 @@ namespace NiceHashMiner.Miners
                 }
             }
             catch { }
-
             Thread.Sleep(50);
         }
         protected override string GetDevicesCommandString()
