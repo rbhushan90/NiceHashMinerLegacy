@@ -70,10 +70,10 @@ namespace NiceHashMiner.Miners
 
             Array.Reverse(worksize);
             int k = 0;
-            for (int i = 1; i < textArray.Length; i++)
+            for (int i = 0; i < textArray.Length; i++)
             {
                 string str = textArray[i].ToString();
-                if (!str.Contains("DeviceIndex"))
+                if (!str.Contains("DeviceIndex = "))
                 {
                     newconf = newconf + str + "\n";
                 }
@@ -89,12 +89,12 @@ namespace NiceHashMiner.Miners
                         newconf = newconf + str + "\n";
                     } else
                     {
-                        /*
+                        
                         int st2 = str.IndexOf("WorkSize = ");
                         int end2 = str.IndexOf(">");
                         string work = str.Substring(st2 + 12, end2 - st2 - 12 -1 );
                         str = str.Replace(work, worksize[k].Trim());
-                        */
+                        
                         newconf = newconf + str + "\n";
                         k++;
                     }
@@ -143,7 +143,14 @@ namespace NiceHashMiner.Miners
             }
             if (File.Exists("bin\\lyclMiner\\lyclMiner.conf" + configfilename))
                 File.Delete("bin\\lyclMiner\\lyclMiner.conf" + configfilename);
-
+            /*
+            int nskip = 5;
+            while (nskip > 0 | File.Exists("bin\\lyclMiner\\lyclMiner.conf" + configfilename))
+                {
+                Thread.Sleep(1000);
+                nskip--;
+                }
+            */
             Thread.Sleep(250);
             benchmarkconfigHandle.StartInfo.Arguments = " -gr lyclMiner.conf" + configfilename;
             benchmarkconfigHandle.StartInfo.UseShellExecute = false;
