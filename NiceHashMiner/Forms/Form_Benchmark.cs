@@ -47,6 +47,7 @@ namespace NiceHashMiner.Forms
 
         public bool InBenchmark { get; private set; }
 
+        public string benchmarkfail = "";
         public Form_Benchmark(BenchmarkPerformanceType benchmarkPerformanceType = BenchmarkPerformanceType.Standard,
             bool autostart = false)
         {
@@ -479,10 +480,17 @@ namespace NiceHashMiner.Forms
                 }
                 else if (StartMining == false)
                 {
-                    var result = MessageBox.Show(
-                        International.GetText("FormBenchmark_Benchmark_Finish_Fail_MsgBox_Msg"),
-                        International.GetText("FormBenchmark_Benchmark_Finish_MsgBox_Title"),
-                        MessageBoxButtons.OK);
+                    if (NiceHashMiner.Miners.lyclMiner.InBenchmark == "Stratum error")
+                    {
+                        MessageBox.Show("One of stratum server maybe down. Try to change location!", "Benchmark error", MessageBoxButtons.OK);
+                    }
+                    else
+                    {
+                        var result = MessageBox.Show(
+                            International.GetText("FormBenchmark_Benchmark_Finish_Fail_MsgBox_Msg"),
+                            International.GetText("FormBenchmark_Benchmark_Finish_MsgBox_Title"),
+                            MessageBoxButtons.OK);
+                    }
                     /*
                     if (result == DialogResult.Retry)
                     {

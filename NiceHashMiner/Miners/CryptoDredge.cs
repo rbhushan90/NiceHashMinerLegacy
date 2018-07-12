@@ -64,6 +64,7 @@ namespace NiceHashMiner.Miners
                 " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+                " -o " + url + " -u " + username + " -p x " +
                 apiBind + 
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
@@ -88,13 +89,14 @@ namespace NiceHashMiner.Miners
             var username = GetUsername(Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim());
 
             var commandLine = " --algo " + algorithm.MinerName +
-                             " -o" + url + " -u " + username + " -p x " +
+                             " -o " + url + " -u " + username + " -p x " +
                 " -o stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://" + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://" + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+                " -o " + url + " -u " + username + " -p x " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) +

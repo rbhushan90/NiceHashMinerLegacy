@@ -55,6 +55,7 @@ namespace NiceHashMiner.Miners
                 " --url=stratum+tcp://" + alg + ".br.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
                 " --url=stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " --userpass=" + username + ":x" +
+                " --url=" + url + " --userpass=" + username + ":x" +
                 " --userpass=" + username + ":x" + apiBind +
                 " --devices " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
@@ -88,6 +89,7 @@ namespace NiceHashMiner.Miners
                 " --url=stratum+tcp://" + alg + ".br.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
                 " --url=stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " --userpass=" + username + ":x" +
+                " --url=" + url + " --userpass=" + username + ":x" +
                               timeLimit + " " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,

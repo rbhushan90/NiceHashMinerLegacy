@@ -139,6 +139,7 @@ namespace NiceHashMiner
 
         protected bool IsMultiType;
         public static string BenchmarkStringAdd = "";
+        public static string InBenchmark = "";
 
         protected Miner(string minerDeviceName)
         {

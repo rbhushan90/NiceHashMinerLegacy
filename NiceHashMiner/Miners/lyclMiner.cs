@@ -39,18 +39,22 @@ namespace NiceHashMiner.Miners
         protected override int GetMaxCooldownTimeInMilliseconds() {
             return 60 * 1000 * 12;
         }
-        
+
 
         public override void Start(string url, string btcAdress, string worker)
         {
-            if (!IsInit) {
+            if (!IsInit)
+            {
                 Helpers.ConsolePrint(MinerTag(), "MiningSetup is not initialized exiting Start()");
                 return;
             }
             string username = GetUsername(btcAdress, worker);
 
             IsApiReadException = true; //** in miner 
-                                       
+
+            if (File.Exists("bin\\lyclMiner\\lyclMinerNHML.conf"))
+                File.Delete("bin\\lyclMiner\\lyclMinerNHML.conf");
+
             GenerateConfig("");
             Thread.Sleep(100);
             var conf = "";
@@ -66,48 +70,61 @@ namespace NiceHashMiner.Miners
             conf = conf.Replace("user", username);
             string newconf = "";
             string[] textArray = conf.Split('\n');
-            string[] worksize = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD).Replace("worksize=","").Split(',');
-
+            string[] worksize = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD).Replace("worksize=", "").Split(',');
+            
             Array.Reverse(worksize);
-            int k = 0;
-            for (int i = 0; i < textArray.Length; i++)
+            int k = 1;
+
+            for (int i = 0; i < textArray.Length; i++) 
             {
                 string str = textArray[i].ToString();
-                if (!str.Contains("DeviceIndex = "))
+                
+                if (!str.Contains("DeviceIndex = ") )
+                    {
+                        newconf = newconf + str + "\n";
+                    }
+                    
+                if (str.Contains("DeviceIndex = ") & str.Contains("BinaryFormat ="))
                 {
-                    newconf = newconf + str + "\n";
-                }
-                if (str.Contains("DeviceIndex = "))
-                {
+                    Helpers.ConsolePrint("lyclminer3", "");
                     int st1 = str.IndexOf("DeviceIndex = ");
                     int end1 = str.IndexOf("BinaryFormat");
-                    string dev = str.Substring(st1 + 15, end1 - st1 -17);
+                    string dev = str.Substring(st1 + 15, end1 - st1 - 17);
 
-                    if (Array.IndexOf(ids, dev) < 0)
-                    {
-                        str = str.Replace("DeviceIndex = \"", "DeviceIndex = \"-255 ");
-                        newconf = newconf + str + "\n";
-                    } else
-                    {
-                        
-                        int st2 = str.IndexOf("WorkSize = ");
-                        int end2 = str.IndexOf(">");
-                        string work = str.Substring(st2 + 12, end2 - st2 - 12 -1 );
-                        str = str.Replace(work, worksize[k].Trim());
-                        
+                        if (Array.IndexOf(ids, dev) < 0)
+                        {
+                            str = str.Replace("DeviceIndex = \"", "DeviceIndex = \"-255 ");
+                        }
+
+                        if (str.Contains("WorkSize ="))
+                        {
+                            int st2 = str.IndexOf("WorkSize = ");
+                            int end2 = str.IndexOf(">");
+                            string work = str.Substring(st2 + 12, end2 - st2 - 12 - 1);
+                            if (k < worksize.Length)
+                            {
+                                str = str.Replace(work, worksize[k].Trim());
+                            }
                         newconf = newconf + str + "\n";
                         k++;
-                    }
+                        }
+                   
                 }
             }
-            FileStream fs2 = new FileStream("bin\\lyclMiner\\lyclMinerNHML.conf", FileMode.Create, FileAccess.ReadWrite);
-            StreamWriter w2 = new StreamWriter(fs2);
-            w2.Write(newconf);
-            w2.Flush();
-            w2.Close();
-            LastCommandLine = " lyclMinerNHML.conf";
+
+                FileStream fs2 = new FileStream("bin\\lyclMiner\\lyclMinerNHML.conf", FileMode.Create, FileAccess.ReadWrite);
+                StreamWriter w2 = new StreamWriter(fs2);
+                w2.Write(newconf);
+                //Thread.Sleep(1000);
+
+                w2.Flush();
+                //Thread.Sleep(1000);
+
+                w2.Close();
+                LastCommandLine = " lyclMinerNHML.conf";
+                Thread.Sleep(100);
+                ProcessHandle = _Start();
             
-            ProcessHandle = _Start();
         }
 
         protected override void _Stop(MinerStopType willswitch) {
@@ -141,34 +158,31 @@ namespace NiceHashMiner.Miners
                     benchmarkconfigHandle.StartInfo.EnvironmentVariables[envName] = envValue;
                 }
             }
-            if (File.Exists("bin\\lyclMiner\\lyclMiner.conf" + configfilename))
-                File.Delete("bin\\lyclMiner\\lyclMiner.conf" + configfilename);
-            /*
-            int nskip = 5;
-            while (nskip > 0 | File.Exists("bin\\lyclMiner\\lyclMiner.conf" + configfilename))
-                {
-                Thread.Sleep(1000);
-                nskip--;
-                }
-            */
-            Thread.Sleep(250);
-            benchmarkconfigHandle.StartInfo.Arguments = " -gr lyclMiner.conf" + configfilename;
+            if (File.Exists("bin\\lyclMiner\\forbench" + configfilename))
+                File.Delete("bin\\lyclMiner\\forbench" + configfilename);
+
+            Thread.Sleep(500);
+
+            benchmarkconfigHandle.StartInfo.Arguments = " -gr forbench" + configfilename;
             benchmarkconfigHandle.StartInfo.UseShellExecute = false;
             benchmarkconfigHandle.StartInfo.RedirectStandardError = true;
-            benchmarkconfigHandle.StartInfo.RedirectStandardOutput = false;
+            benchmarkconfigHandle.StartInfo.RedirectStandardOutput = true;
             benchmarkconfigHandle.StartInfo.CreateNoWindow = true;
             Thread.Sleep(250);
+            Helpers.ConsolePrint(MinerTag(), "Start bench: " + benchmarkconfigHandle.StartInfo.FileName + benchmarkconfigHandle.StartInfo.Arguments);
             benchmarkconfigHandle.Start();
+            
             try
             {
-                if (!benchmarkconfigHandle.WaitForExit(2 * 1000))
+                if (!benchmarkconfigHandle.WaitForExit(10 * 1000))
                 {
                     benchmarkconfigHandle.Kill(); 
-                    benchmarkconfigHandle.WaitForExit(2 * 1000);
+                    benchmarkconfigHandle.WaitForExit(5 * 1000);
                     benchmarkconfigHandle.Close();
                 }
             }
             catch { }
+            
             Thread.Sleep(50);
         }
         protected override string GetDevicesCommandString()
@@ -197,7 +211,7 @@ namespace NiceHashMiner.Miners
             Helpers.ConsolePrint("lyclMiner", "Start benchmark after config is generated");
 
             var conf = "";            
-            FileStream fs = new FileStream("bin\\lyclMiner\\lyclMiner.conf"+ configfilename, FileMode.OpenOrCreate, FileAccess.Read);
+            FileStream fs = new FileStream("bin\\lyclMiner\\forbench" + configfilename, FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader w = new StreamReader(fs);
             conf = w.ReadToEnd();
             w.Close();
@@ -205,41 +219,55 @@ namespace NiceHashMiner.Miners
             Thread.Sleep(500);
             var url = Globals.GetLocationUrl(AlgorithmType.Lyra2REv2, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
             var username = Globals.DemoUser;
+            string[] ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.IDByBus.ToString()).ToArray();
             conf = conf.Replace("stratum+tcp://example.com:port", url);
             conf = conf.Replace("user", username);
-            
-            string worksizebench = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD).Replace("worksize=", "").Trim();
+           
             string newconf = "";
             string[] textArray = conf.Split('\n');
+            string[] worksize = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD).Replace("worksize=", "").Split(',');
 
-            for (int i = 1; i < textArray.Length; i++)
+            Array.Reverse(worksize);
+            int k = 1;
+
+            for (int i = 0; i < textArray.Length; i++)
             {
                 string str = textArray[i].ToString();
-                if (!str.Contains("DeviceIndex"))
+
+                if (!str.Contains("DeviceIndex = "))
                 {
                     newconf = newconf + str + "\n";
                 }
 
-                if (str.Contains("DeviceIndex") & !str.Contains("DeviceIndex = \"" + GetDevicesCommandString()+ "\""))
+                if (str.Contains("DeviceIndex = ") & str.Contains("BinaryFormat ="))
                 {
-                    str = str.Replace("DeviceIndex = \"", "DeviceIndex = \"-255 ");
-                    newconf = newconf + str + "\n";
-                }
+                    Helpers.ConsolePrint("lyclminer3", "");
+                    int st1 = str.IndexOf("DeviceIndex = ");
+                    int end1 = str.IndexOf("BinaryFormat");
+                    string dev = str.Substring(st1 + 15, end1 - st1 - 17);
 
-                if (str.Contains("DeviceIndex") & str.Contains("DeviceIndex = \"" + GetDevicesCommandString() + "\""))
-                {
-                    if (worksizebench.Length != 0)
+                    if (Array.IndexOf(ids, dev) < 0)
+                    {
+                        str = str.Replace("DeviceIndex = \"", "DeviceIndex = \"-255 ");
+                    }
+
+                    if (str.Contains("WorkSize ="))
                     {
                         int st2 = str.IndexOf("WorkSize = ");
                         int end2 = str.IndexOf(">");
                         string work = str.Substring(st2 + 12, end2 - st2 - 12 - 1);
-                        str = str.Replace(work, worksizebench.Trim());
+                        if (k < worksize.Length)
+                        {
+                            str = str.Replace(work, worksize[k].Trim());
+                        }
+                        newconf = newconf + str + "\n";
+                        k++;
                     }
-                    newconf = newconf + str + "\n";
+
                 }
             }
 
-                Helpers.ConsolePrint("lyclMiner.confNEW:", newconf);
+            Helpers.ConsolePrint("lyclMiner.confNEW:", newconf);
             FileStream fs2 = new FileStream("bin\\lyclMiner\\"+ configfilename, FileMode.Create, FileAccess.ReadWrite);
             StreamWriter w2 = new StreamWriter(fs2);
             w2.Write(newconf);
@@ -275,7 +303,11 @@ namespace NiceHashMiner.Miners
                     BenchmarkSignalFinnished = true;
                     return true;
                 }
-
+                if (outdata.Contains("stratum_recv_line failed"))
+                {
+                    BenchmarkException = new Exception("Unknown error");
+                    InBenchmark = "Stratum error";
+                }
             }
             return false;
         }
@@ -328,14 +360,14 @@ namespace NiceHashMiner.Miners
                 }
             }
 
-            var zenemyData = new ApiData(MiningSetup.CurrentAlgorithmType)
+            var lyclminerData = new ApiData(MiningSetup.CurrentAlgorithmType)
             {
                 Speed = totalSpeed
             };
             CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
             // check if speed zero
-            if (zenemyData.Speed == 0) CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
-            return zenemyData;
+            if (lyclminerData.Speed == 0) CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
+            return lyclminerData;
         }
     }
 }

@@ -600,7 +600,7 @@ namespace NiceHashMiner
         public void AddRateInfo(string groupName, string deviceStringInfo, ApiData iApiData, double paying,
             bool isApiGetException)
         {
-            var apiGetExceptionString = isApiGetException ? "**" : "";
+            var apiGetExceptionString = isApiGetException ? " **" : "";
 
             var speedString =
                 Helpers.FormatDualSpeedOutput(iApiData.Speed, iApiData.SecondarySpeed, iApiData.AlgorithmID) +
