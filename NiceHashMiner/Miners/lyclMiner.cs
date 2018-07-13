@@ -73,7 +73,14 @@ namespace NiceHashMiner.Miners
             string[] worksize = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD).Replace("worksize=", "").Split(',');
             
             Array.Reverse(worksize);
-            int k = 1;
+            /*
+            Helpers.ConsolePrint(MinerTag(), "worksize count: "+worksize.Length.ToString());
+            for (int i=0; i < worksize.Length; i++)
+            {
+                Helpers.ConsolePrint(MinerTag(), "worksize data: " + worksize[i].ToString());
+            }
+            */
+            int k = 0;
 
             for (int i = 0; i < textArray.Length; i++) 
             {

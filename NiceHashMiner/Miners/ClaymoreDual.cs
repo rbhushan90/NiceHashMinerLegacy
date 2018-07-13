@@ -84,8 +84,20 @@ namespace NiceHashMiner.Miners
                 Helpers.ConsolePrint("GetStartCommand", e.ToString());
             }
 
-           
-            Thread.Sleep(200);
+            bool istuned = false;
+
+            foreach (var mPair in MiningSetup.MiningPairs)
+            {
+                if (mPair.Algorithm is DualAlgorithm algo && algo.TuningEnabled)
+                {
+                   // var intensity = algo.MostProfitableIntensity;
+                   // if (intensity < 0) intensity = defaultIntensity;
+                    istuned = true;
+                }
+            }
+
+
+                Thread.Sleep(200);
             if (!IsDual())
             {
                 // leave convenience param for non-dual entry
@@ -168,6 +180,22 @@ namespace NiceHashMiner.Miners
                 {
                     needdcri = false;
                 }
+
+
+                if (pair.Algorithm is DualAlgorithm algo && algo.TuningEnabled && pair.CurrentExtraLaunchParameters.Contains("-dcri"))
+                {
+                    if (btcAdress == Globals.DemoUser)
+                    {
+                        algo.TuningEnabled = true;
+                        Helpers.ConsolePrint("Tuning ENABLE ", "");
+                    }
+                    else
+                    {
+                        algo.TuningEnabled = false;
+                        Helpers.ConsolePrint("Tuning DISABLE ", "");
+                    }
+                }
+
                 if (pair.Device.DeviceType == DeviceType.NVIDIA)
                 {
                     isNvidia = true;
@@ -179,7 +207,8 @@ namespace NiceHashMiner.Miners
 
 
 
-            if (SecondaryAlgorithmType == AlgorithmType.Blake2s && needdcri)
+
+            if (SecondaryAlgorithmType == AlgorithmType.Blake2s & needdcri & !istuned)
             {
                 if (isNvidia)
                 {
@@ -194,7 +223,7 @@ namespace NiceHashMiner.Miners
                     + String.Format("  -epool {0} -ewal {1} -mport 127.0.0.1:{2} -esm 3 -epsw x -allpools 1 -ftime 10 -retrydelay 5 " + dcri + " ", url, username, ApiPort)
                     + dualModeParams;
             }
-            else if (SecondaryAlgorithmType == AlgorithmType.Keccak && needdcri )
+            else if (SecondaryAlgorithmType == AlgorithmType.Keccak & needdcri & !istuned)
             {
                 if (isNvidia)
                 {
