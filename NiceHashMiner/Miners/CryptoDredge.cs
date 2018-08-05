@@ -74,6 +74,8 @@ namespace NiceHashMiner.Miners
 
         protected override void _Stop(MinerStopType willswitch)
         {
+            try { ProcessHandle.SendCtrlC((uint)Process.GetCurrentProcess().Id); } catch { }
+            Thread.Sleep(100);
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
         }
 
