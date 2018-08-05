@@ -58,7 +58,8 @@ namespace NiceHashMiner.Miners
             GenerateConfig("");
             Thread.Sleep(100);
             var conf = "";
-            FileStream fs = new FileStream("bin\\lyclMiner\\lyclMiner.conf", FileMode.OpenOrCreate, FileAccess.Read);
+
+            FileStream fs = new FileStream("bin\\lyclMiner\\forbench.", FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader w = new StreamReader(fs);
             conf = w.ReadToEnd();
             w.Close();
@@ -73,13 +74,10 @@ namespace NiceHashMiner.Miners
             string[] worksize = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD).Replace("worksize=", "").Split(',');
             
             Array.Reverse(worksize);
-            /*
-            Helpers.ConsolePrint(MinerTag(), "worksize count: "+worksize.Length.ToString());
-            for (int i=0; i < worksize.Length; i++)
-            {
-                Helpers.ConsolePrint(MinerTag(), "worksize data: " + worksize[i].ToString());
-            }
-            */
+
+            Helpers.ConsolePrint(MinerTag(), ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD));
+
+           
             int k = 0;
 
             for (int i = 0; i < textArray.Length; i++) 
@@ -108,12 +106,14 @@ namespace NiceHashMiner.Miners
                             int st2 = str.IndexOf("WorkSize = ");
                             int end2 = str.IndexOf(">");
                             string work = str.Substring(st2 + 12, end2 - st2 - 12 - 1);
-                            if (k < worksize.Length)
-                            {
-                                str = str.Replace(work, worksize[k].Trim());
-                            }
-                        newconf = newconf + str + "\n";
-                        k++;
+
+                        if (k < worksize.Length && Array.IndexOf(ids, dev) >= 0 && worksize[k].Length != 0) //костыль
+                        {
+                            str = str.Replace(work, worksize[k].Trim());
+                            k++;
+                        }
+                         newconf = newconf + str + "\n";
+                        
                         }
                    
                 }
