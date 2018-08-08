@@ -72,6 +72,8 @@ namespace NiceHashMiner.Miners
                                                                 DeviceType.NVIDIA) +
                                   " --devices ";
             LastCommandLine += GetDevicesCommandString();
+
+            RunCMDBeforeMining("NVIDIA");
             ProcessHandle = _Start();
 
 

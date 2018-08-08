@@ -278,6 +278,7 @@ namespace NiceHashMiner.Miners
 
         public override void Start(string url, string btcAdress, string worker)
         {
+            var strdual = "";
             // Update to most profitable intensity
             foreach (var mPair in MiningSetup.MiningPairs)
             {
@@ -290,6 +291,28 @@ namespace NiceHashMiner.Miners
             }
 
             LastCommandLine = GetStartCommand(url, btcAdress, worker) + " -dbg -1";
+
+            if (IsDual())
+            {
+                strdual = "DUAL";
+            }
+
+                foreach (var pair in MiningSetup.MiningPairs)
+            {
+                if (pair.Device.DeviceType == DeviceType.NVIDIA)
+                {
+                    RunCMDBeforeMining("NVIDIA" + " " + strdual);
+                }
+                else if (pair.Device.DeviceType == DeviceType.AMD)
+                {
+                    RunCMDBeforeMining("AMD" + " " + strdual);
+                }
+                else if (pair.Device.DeviceType == DeviceType.CPU)
+                {
+                    RunCMDBeforeMining("CPU");
+                }
+            }
+
             ProcessHandle = _Start();
         }
 

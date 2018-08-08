@@ -130,7 +130,9 @@ namespace NiceHashMiner.Miners
                 w2.Close();
                 LastCommandLine = " lyclMinerNHML.conf";
                 Thread.Sleep(100);
-                ProcessHandle = _Start();
+
+            RunCMDBeforeMining("AMD");
+            ProcessHandle = _Start();
             
         }
 
@@ -141,7 +143,7 @@ namespace NiceHashMiner.Miners
         // new decoupled benchmarking routines
         #region Decoupled benchmarking routines
 
-            protected void GenerateConfig(string configfilename)
+        protected void GenerateConfig(string configfilename)
         {
             var benchmarkconfigHandle = new Process
             {

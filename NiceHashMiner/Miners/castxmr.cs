@@ -103,7 +103,7 @@ namespace NiceHashMiner.Miners
                 LastCommandLine = LastCommandLine + " --algo=2";
             }
 
-
+            RunCMDBeforeMining("AMD");
             ProcessHandle = _Start();
         }
 

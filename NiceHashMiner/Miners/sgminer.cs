@@ -96,6 +96,7 @@ namespace NiceHashMiner.Miners
 
             LastCommandLine += GetDevicesCommandString() + donate;
 
+            RunCMDBeforeMining("AMD");
             ProcessHandle = _Start();
         }
 

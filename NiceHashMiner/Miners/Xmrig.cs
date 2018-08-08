@@ -12,13 +12,29 @@ namespace NiceHashMiner.Miners
         private int benchmarkTimeWait = 120;
         private const string LookForStart = "speed 2.5s/60s/15m";
         private const string LookForEnd = "h/s max";
-
+        private System.Diagnostics.Process CMDconfigHandle;
         public Xmrig() : base("Xmrig")
         { }
 
         public override void Start(string url, string btcAdress, string worker)
         {
             LastCommandLine = GetStartCommand(url, btcAdress, worker);
+            foreach (var pair in MiningSetup.MiningPairs)
+            {
+                if (pair.Device.DeviceType == DeviceType.NVIDIA)
+                {
+                    RunCMDBeforeMining("NVIDIA");
+                }
+                else if (pair.Device.DeviceType == DeviceType.AMD)
+                {
+                    RunCMDBeforeMining("AMD");
+                } else if (pair.Device.DeviceType == DeviceType.CPU)
+                {
+                    RunCMDBeforeMining("CPU");
+                }
+            }
+
+           
             ProcessHandle = _Start();
         }
         /*
@@ -42,6 +58,7 @@ namespace NiceHashMiner.Miners
 
         protected override void _Stop(MinerStopType willswitch)
         {
+            Helpers.ConsolePrint("XMRIG", "_Stop");
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
         }
 
