@@ -193,6 +193,10 @@ namespace NiceHashMiner.Devices.Algorithms
                         { MinerBaseType.CryptoDredge,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Lyra2REv2, "Lyra2REv2"),
+                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Lyra2z, "Lyra2z"),
+                           // new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Blake2s, "Blake2s"),
+                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.NeoScrypt, "NeoScrypt"),
+                           // new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Skunk, "Skunk"),
                         }
                     },
                         { MinerBaseType.trex,

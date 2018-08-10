@@ -77,6 +77,14 @@ namespace NiceHashMiner.Miners
         {
             try { ProcessHandle.SendCtrlC((uint)Process.GetCurrentProcess().Id); } catch { }
             Thread.Sleep(100);
+            foreach (var process in Process.GetProcessesByName("CryptoDredge.exe"))
+            {
+                try { process.Kill();
+                    Thread.Sleep(100);
+                }
+                catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
+            }
+
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
         }
 
@@ -128,16 +136,60 @@ namespace NiceHashMiner.Miners
                     var parse = outdata.Substring(st + 4, e - st - 6).Trim();
                     double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                     // save speed
+                    Helpers.ConsolePrint("BENCHMARK!", BenchmarkAlgorithm.AlgorithmName);
+                    if (BenchmarkAlgorithm.AlgorithmName == "Lyra2REv2") //Avr 27,57Mh/s
+                    {
+                        Helpers.ConsolePrint("BENCHMARK", "Lyra2REv2 benchmark ends");
+                        if (outdata.ToUpper().Contains("KH/S"))
+                            tmp *= 1000;
+                        else if (outdata.ToUpper().Contains("MH/S"))
+                            tmp *= 10000;
+                        else if (outdata.ToUpper().Contains("GH/S"))
+                            tmp *= 10000000000;
+                    }
+                    else if (BenchmarkAlgorithm.AlgorithmName == "Lyra2z")
+                    {
+                        Helpers.ConsolePrint("BENCHMARK", "Lyra2z benchmark ends");
+                        if (outdata.ToUpper().Contains("KH/S"))
+                            tmp *= 1000;
+                        else if (outdata.ToUpper().Contains("MH/S"))
+                            tmp *= 10000;
+                        else if (outdata.ToUpper().Contains("GH/S"))
+                            tmp *= 10000000000;
+                    }
+                    else if (BenchmarkAlgorithm.AlgorithmName == "NeoScrypt") //Avr 772,0Kh/s
+                    {
+                        Helpers.ConsolePrint("BENCHMARK", "Neoscrypt benchmark ends");
+                        if (outdata.ToUpper().Contains("KH/S"))
+                            tmp *= 100;
+                        else if (outdata.ToUpper().Contains("MH/S"))
+                            tmp *= 10000;
+                        else if (outdata.ToUpper().Contains("GH/S"))
+                            tmp *= 100000000;
+                    }
+                    /*
+                    else if (BenchmarkAlgorithm.AlgorithmName == "Blake2s") //(Avr 2393MH/s
+                    {
+                        if (outdata.Contains("KH/s"))
+                            tmp *= 1000;
+                        else if (outdata.Contains("MH/s"))
+                            tmp *= 1000000;
+                        else if (outdata.Contains("GH/s"))
+                            tmp *= 10000000000;
+                    }
+                    else if (BenchmarkAlgorithm.AlgorithmName == "Skunk") //Avr 17,44MH/s
+                    {
+                        if (outdata.Contains("KH/s"))
+                            tmp *= 1000;
+                        else if (outdata.Contains("MH/s"))
+                            tmp *= 10000;
+                        else if (outdata.Contains("GH/s"))
+                            tmp *= 10000000000;
+                    }
+                    */
 
-                    if (outdata.Contains("kH/s"))
-                        tmp *= 10;
-                    else if (outdata.Contains("Mh/s"))
-                        tmp *= 10000;
-                    else if (outdata.Contains("GH/s"))
-                        tmp *= 10000000;
 
-
-                    speed += tmp;
+                        speed += tmp;
                     count++;
                     TotalCount--;
                 }
