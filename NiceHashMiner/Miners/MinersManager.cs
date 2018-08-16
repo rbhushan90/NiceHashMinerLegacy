@@ -36,6 +36,10 @@ namespace NiceHashMiner.Miners
         {
             return _curMiningSession?.GetTotalRate() ?? 0;
         }
+        public static double GetTotalPowerRate()
+        {
+            return _curMiningSession?.GetTotalPowerRate() ?? 0;
+        }
 
         public static bool StartInitialize(IMainFormRatesComunication mainFormRatesComunication,
             string miningLocation, string worker, string btcAdress)

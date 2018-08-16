@@ -75,17 +75,21 @@ namespace NiceHashMiner.Miners
 
         protected override void _Stop(MinerStopType willswitch)
         {
-            try { ProcessHandle.SendCtrlC((uint)Process.GetCurrentProcess().Id); } catch { }
-            Thread.Sleep(100);
+            
+            Thread.Sleep(200);
             foreach (var process in Process.GetProcessesByName("CryptoDredge.exe"))
             {
-                try { process.Kill();
-                    Thread.Sleep(100);
+                try {
+                    process.Kill();
+                    Thread.Sleep(200);
+                    process.Kill();
                 }
                 catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
             }
 
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
+            Thread.Sleep(200);
+            try { ProcessHandle.SendCtrlC((uint)Process.GetCurrentProcess().Id); } catch { }
         }
 
         // new decoupled benchmarking routines

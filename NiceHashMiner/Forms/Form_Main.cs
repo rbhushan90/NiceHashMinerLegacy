@@ -127,7 +127,7 @@ namespace NiceHashMiner
             linkLabelCheckStats.Text = International.GetText("Form_Main_check_stats");
             linkLabelChooseBTCWallet.Text = International.GetText("Form_Main_choose_bitcoin_wallet");
 
-            toolStripStatusLabelGlobalRateText.Text = International.GetText("Form_Main_global_rate") + ":";
+            toolStripStatusLabelGlobalRateText.Text = International.GetText("Form_Main_global_rate").Substring(0, 2) + ":";
             toolStripStatusLabelBTCDayText.Text =
                 "BTC/" + International.GetText(ConfigManager.GeneralConfig.TimeUnit.ToString());
             toolStripStatusLabelBalanceText.Text = (ExchangeRateApi.ActiveDisplayCurrency + "/") +
@@ -609,7 +609,7 @@ namespace NiceHashMiner
             var rateCurrencyString = ExchangeRateApi
                                          .ConvertToActiveCurrency(paying * ExchangeRateApi.GetUsdExchangeRate() * _factorTimeUnit)
                                          .ToString("F2", CultureInfo.InvariantCulture)
-                                     + $" {ExchangeRateApi.ActiveDisplayCurrency}/" +
+                                     + $"{ExchangeRateApi.ActiveDisplayCurrency}/" +
                                      International.GetText(ConfigManager.GeneralConfig.TimeUnit.ToString());
 
             try
@@ -689,28 +689,49 @@ namespace NiceHashMiner
         private void UpdateGlobalRate()
         {
             var totalRate = MinersManager.GetTotalRate();
+            var totalPowerRate = MinersManager.GetTotalPowerRate();
+            var powerString = "";
+
+
+            //groupMiners.CurrentRate -= ExchangeRateApi.GetKwhPriceInBtc() * powerUsage * 24 / 1000;
+
 
             if (ConfigManager.GeneralConfig.AutoScaleBTCValues && totalRate < 0.1)
             {
-                toolStripStatusLabelBTCDayText.Text =
+                if (totalPowerRate != 0)
+                {
+                    powerString = "(-" + (totalPowerRate * 1000 * _factorTimeUnit).ToString("F5", CultureInfo.InvariantCulture)+") ";
+                }
+                toolStripStatusLabelBTCDayText.Text = powerString + " " +
                     "mBTC/" + International.GetText(ConfigManager.GeneralConfig.TimeUnit.ToString());
                 toolStripStatusLabelGlobalRateValue.Text =
-                    (totalRate * 1000 * _factorTimeUnit).ToString("F5", CultureInfo.InvariantCulture);
+                    ((totalRate + totalPowerRate) * 1000 * _factorTimeUnit).ToString("F5", CultureInfo.InvariantCulture);
             }
             else
             {
-                toolStripStatusLabelBTCDayText.Text =
+                if (totalPowerRate != 0)
+                {
+                    powerString = "(-" + (totalPowerRate * _factorTimeUnit).ToString("F5", CultureInfo.InvariantCulture) + ") ";
+                }
+                toolStripStatusLabelBTCDayText.Text = powerString + " " +
                     "BTC/" + International.GetText(ConfigManager.GeneralConfig.TimeUnit.ToString());
                 toolStripStatusLabelGlobalRateValue.Text =
-                    (totalRate * _factorTimeUnit).ToString("F6", CultureInfo.InvariantCulture);
+                    ((totalRate + totalPowerRate) * _factorTimeUnit).ToString("F5", CultureInfo.InvariantCulture);
             }
-
+            if (totalPowerRate != 0)
+            {
+                powerString = "(-" + ExchangeRateApi.ConvertToActiveCurrency((totalPowerRate * _factorTimeUnit * ExchangeRateApi.GetUsdExchangeRate()))
+                .ToString("F2", CultureInfo.InvariantCulture) + ") ";
+            } else
+            {
+                powerString = "";
+            }
             toolStripStatusLabelBTCDayValue.Text = ExchangeRateApi
-                .ConvertToActiveCurrency((totalRate * _factorTimeUnit * ExchangeRateApi.GetUsdExchangeRate()))
+                .ConvertToActiveCurrency(((totalRate + totalPowerRate) * _factorTimeUnit * ExchangeRateApi.GetUsdExchangeRate()))
                 .ToString("F2", CultureInfo.InvariantCulture);
-            toolStripStatusLabelBalanceText.Text = (ExchangeRateApi.ActiveDisplayCurrency + "/") +
+            toolStripStatusLabelBalanceText.Text = powerString + (ExchangeRateApi.ActiveDisplayCurrency + "/") +
                                                    International.GetText(
-                                                       ConfigManager.GeneralConfig.TimeUnit.ToString()) + "     " +
+                                                       ConfigManager.GeneralConfig.TimeUnit.ToString()) + "   " +
                                                    International.GetText("Form_Main_balance") + ":";
         }
 

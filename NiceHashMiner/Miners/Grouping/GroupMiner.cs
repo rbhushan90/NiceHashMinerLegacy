@@ -16,6 +16,7 @@ namespace NiceHashMiner.Miners.Grouping
         public DeviceType DeviceType { get; }
 
         public double CurrentRate { get; set; }
+        public double PowerRate { get; set; }
         public string Key { get; }
         public List<int> DevIndexes { get; }
 
@@ -28,6 +29,7 @@ namespace NiceHashMiner.Miners.Grouping
             DualAlgorithmType = AlgorithmType.NONE;
             DevicesInfoString = "N/A";
             CurrentRate = 0;
+            PowerRate = 0;
             Key = key;
             if (miningPairs.Count > 0)
             {
@@ -69,12 +71,14 @@ namespace NiceHashMiner.Miners.Grouping
                 System.Threading.Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
             }
             CurrentRate = 0;
+            PowerRate = 0;
         }
 
         public void End()
         {
             Miner?.End();
             CurrentRate = 0;
+            PowerRate = 0;
         }
 
         public void Start(string miningLocation, string btcAdress, string worker)
