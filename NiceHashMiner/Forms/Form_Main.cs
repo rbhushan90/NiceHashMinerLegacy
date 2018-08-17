@@ -597,7 +597,7 @@ namespace NiceHashMiner
             Size = new Size(Size.Width, _mainFormHeight + groupBox1Height);
         }
 
-        public void AddRateInfo(string groupName, string deviceStringInfo, ApiData iApiData, double paying,
+        public void AddRateInfo(string groupName, string deviceStringInfo, ApiData iApiData, double paying, double power,
             bool isApiGetException)
         {
             var apiGetExceptionString = isApiGetException ? " **" : "";
@@ -605,9 +605,13 @@ namespace NiceHashMiner
             var speedString =
                 Helpers.FormatDualSpeedOutput(iApiData.Speed, iApiData.SecondarySpeed, iApiData.AlgorithmID) +
                 iApiData.AlgorithmName + apiGetExceptionString;
-            var rateBtcString = FormatPayingOutput(paying);
+            var rateBtcString = FormatPayingOutput(paying, power);
+            if (ConfigManager.GeneralConfig.DecreasePowerCost)
+            {
+                power = 0;
+            }
             var rateCurrencyString = ExchangeRateApi
-                                         .ConvertToActiveCurrency(paying * ExchangeRateApi.GetUsdExchangeRate() * _factorTimeUnit)
+                                         .ConvertToActiveCurrency( ( paying + power ) * ExchangeRateApi.GetUsdExchangeRate() * _factorTimeUnit)
                                          .ToString("F2", CultureInfo.InvariantCulture)
                                      + $"{ExchangeRateApi.ActiveDisplayCurrency}/" +
                                      International.GetText(ConfigManager.GeneralConfig.TimeUnit.ToString());
@@ -992,21 +996,26 @@ namespace NiceHashMiner
             StopMining();
         }
 
-        private string FormatPayingOutput(double paying)
+        private string FormatPayingOutput(double paying, double power)
         {
             string ret;
+            if (ConfigManager.GeneralConfig.DecreasePowerCost)
+            {
+                power = 0;
+            }
 
             if (ConfigManager.GeneralConfig.AutoScaleBTCValues && paying < 0.1)
-                ret = (paying * 1000 * _factorTimeUnit).ToString("F5", CultureInfo.InvariantCulture) + " mBTC/" +
+                ret = ( (paying + power) * 1000 * _factorTimeUnit).ToString("F5", CultureInfo.InvariantCulture) + 
+                    " mBTC/" +
                       International.GetText(ConfigManager.GeneralConfig.TimeUnit.ToString());
             else
-                ret = (paying * _factorTimeUnit).ToString("F6", CultureInfo.InvariantCulture) + " BTC/" +
+                ret = ( (paying + power) * _factorTimeUnit).ToString("F6", CultureInfo.InvariantCulture) + 
+                    " BTC/" +
                       International.GetText(ConfigManager.GeneralConfig.TimeUnit.ToString());
 
             return ret;
         }
-
-
+                
         private void ButtonLogo_Click(object sender, EventArgs e)
         {
             Process.Start(Links.VisitUrl);

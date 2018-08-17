@@ -636,7 +636,7 @@ namespace NiceHashMiner.Miners
                     currentProfit += groupMiners.CurrentRate;
                     // Update GUI
                     _mainFormRatesComunication.AddRateInfo(m.MinerTag(), groupMiners.DevicesInfoString, ad,
-                        groupMiners.CurrentRate,
+                        groupMiners.CurrentRate, groupMiners.PowerRate,
                         m.IsApiReadException);
                 }
             }
