@@ -155,6 +155,7 @@ namespace NiceHashMiner.Miners
                         MinerPaths.Data.ClaymoreZcashMiner,
                         MinerPaths.Data.OptiminerZcashMiner,
                         MinerPaths.Data.CastXMR,
+                        MinerPaths.Data.XmrigAMD,
                         MinerPaths.Data.lyclMiner,
                         MinerPaths.Data.ClaymoreNeoscryptMiner
                     };

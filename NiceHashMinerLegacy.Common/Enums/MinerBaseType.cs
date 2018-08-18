@@ -21,6 +21,7 @@
         EWBF,
         Prospector,
         Xmrig,
+        XmrigAMD,
         XmrStakAMD,
         Claymore_old,
         dstm,

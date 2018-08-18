@@ -264,6 +264,18 @@ namespace NiceHashMiner.Miners.Parsing
                     new MinerOption("ClaymoreCryptoNight_fanmin", "-fanmin", "-fanmin", "0", MinerOptionFlagType.MultiParam, ","),
                 }
             ),
+                new MinerOptionPackage(
+                MinerType.XmrigAMD,
+                new List<MinerOption>() {
+                    new MinerOption("Xmrig_fee", "--donate-level=", "0", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("Xmrig_variant", "--variant=", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("Xmrig_keepalive", "--keepalive", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("Xmrig_affinity", "--opencl-affinity=", null, MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("Xmrig-intensity", "--opencl-launch=", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("Xmrig_nocolor", "--no-color", null, MinerOptionFlagType.Uni, " ")
+                },
+                new List<MinerOption>(){ }
+             ),
             new MinerOptionPackage(
                 MinerType.OptiminerZcash,
                 new List<MinerOption>

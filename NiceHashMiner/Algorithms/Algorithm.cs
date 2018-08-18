@@ -119,6 +119,7 @@ namespace NiceHashMiner.Algorithms
             LessThreads = 0;
             Enabled = !(NiceHashID == AlgorithmType.Nist5 ||
                         (NiceHashID == AlgorithmType.NeoScrypt && minerBaseType == MinerBaseType.sgminer));
+            Enabled = !(NiceHashID == AlgorithmType.CryptoNightV7) && minerBaseType == MinerBaseType.XmrigAMD;
             BenchmarkStatus = "";
         }
 

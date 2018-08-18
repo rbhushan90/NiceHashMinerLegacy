@@ -33,6 +33,7 @@ namespace NiceHashMiner.Utils
             @"/xmr-stak/ssleay32.dll",
             @"/xmr-stak/xmr-stak.exe",
             @"/xmrig/xmrig.exe",
+            @"/xmrig-amd/xmrig-amd.exe",
             @"/xmr-stak_heavy/xmr-stak.exe",
             @"/lyclMiner/lyclMiner.exe",
             @"/cpuminer_opt/cpuminer.exe"

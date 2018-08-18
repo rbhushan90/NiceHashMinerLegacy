@@ -102,6 +102,7 @@ namespace NiceHashMiner.Miners
             string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
             var username = GetUsername(Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim());
+            var apiBind = " --api-bind 127.0.0.1:" + ApiPort;
 
             var commandLine = " --algo " + algorithm.MinerName +
                              " -o " + url + " -u " + username + " -p x " +
@@ -112,6 +113,7 @@ namespace NiceHashMiner.Miners
                 " -o stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
                 " -o " + url + " -u " + username + " -p x " +
+                apiBind +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) +
