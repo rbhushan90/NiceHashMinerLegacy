@@ -62,8 +62,6 @@ namespace NiceHashMiner.Miners
             " -o " + url + " -u " + username + " -p x " +
             " -d " + GetDevicesCommandString() + " " +
             ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-
-            RunCMDBeforeMining("NVIDIA");
             ProcessHandle = _Start();
         }
 

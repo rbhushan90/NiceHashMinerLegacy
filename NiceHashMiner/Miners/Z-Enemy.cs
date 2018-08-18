@@ -59,8 +59,6 @@ namespace NiceHashMiner.Miners
                 " --userpass=" + username + ":x" + apiBind +
                 " --devices " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-
-            RunCMDBeforeMining("NVIDIA");
             ProcessHandle = _Start();
         }
 

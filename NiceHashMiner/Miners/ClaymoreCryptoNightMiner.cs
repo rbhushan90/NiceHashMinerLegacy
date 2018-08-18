@@ -44,8 +44,6 @@ namespace NiceHashMiner.Miners
             w.WriteAsync(epools);
             w.Flush();
             w.Close();
-
-            RunCMDBeforeMining("AMD");
             ProcessHandle = _Start();
         }
 

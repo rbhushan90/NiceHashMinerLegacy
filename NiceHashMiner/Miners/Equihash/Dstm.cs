@@ -32,8 +32,6 @@ namespace NiceHashMiner.Miners
         public override void Start(string url, string btcAdress, string worker)
         {
             LastCommandLine = GetStartCommand(url, btcAdress, worker);
-
-            RunCMDBeforeMining("NVIDIA");
             ProcessHandle = _Start();
         }
 

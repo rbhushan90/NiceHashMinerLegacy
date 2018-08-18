@@ -130,8 +130,6 @@ namespace NiceHashMiner.Miners
                 w2.Close();
                 LastCommandLine = " lyclMinerNHML.conf";
                 Thread.Sleep(100);
-
-            RunCMDBeforeMining("AMD");
             ProcessHandle = _Start();
             
         }

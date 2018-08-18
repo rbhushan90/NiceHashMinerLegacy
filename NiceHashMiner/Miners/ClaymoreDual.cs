@@ -291,28 +291,28 @@ namespace NiceHashMiner.Miners
             }
 
             LastCommandLine = GetStartCommand(url, btcAdress, worker) + " -dbg -1";
-
+            /*
             if (IsDual())
             {
                 strdual = "DUAL";
             }
 
-                foreach (var pair in MiningSetup.MiningPairs)
+            foreach (var pair in MiningSetup.MiningPairs)
             {
                 if (pair.Device.DeviceType == DeviceType.NVIDIA)
                 {
-                    RunCMDBeforeMining("NVIDIA" + " " + strdual);
+                    RunCMDBeforeMining("NVIDIA" + " " + strdual, true);
                 }
                 else if (pair.Device.DeviceType == DeviceType.AMD)
                 {
-                    RunCMDBeforeMining("AMD" + " " + strdual);
+                    RunCMDBeforeMining("AMD" + " " + strdual, true);
                 }
                 else if (pair.Device.DeviceType == DeviceType.CPU)
                 {
-                    RunCMDBeforeMining("CPU");
+                    RunCMDBeforeMining("CPU", true);
                 }
             }
-
+*/
             ProcessHandle = _Start();
         }
 

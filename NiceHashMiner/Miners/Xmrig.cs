@@ -23,14 +23,14 @@ namespace NiceHashMiner.Miners
             {
                 if (pair.Device.DeviceType == DeviceType.NVIDIA)
                 {
-                    RunCMDBeforeMining("NVIDIA");
+                   // RunCMDBeforeMining("NVIDIA");
                 }
                 else if (pair.Device.DeviceType == DeviceType.AMD)
                 {
-                    RunCMDBeforeMining("AMD");
+                   // RunCMDBeforeMining("AMD");
                 } else if (pair.Device.DeviceType == DeviceType.CPU)
                 {
-                    RunCMDBeforeMining("CPU");
+                   // RunCMDBeforeMining("CPU");
                 }
             }
 
