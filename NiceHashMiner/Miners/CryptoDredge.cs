@@ -137,7 +137,7 @@ namespace NiceHashMiner.Miners
                     var st = outdata.IndexOf("Avr ");
                     var e = outdata.IndexOf("/s)");
 
-                    var parse = outdata.Substring(st + 4, e - st - 6).Trim();
+                    var parse = outdata.Substring(st + 4, e - st - 6).Trim().Replace(",",".");
                     double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                     // save speed
                     Helpers.ConsolePrint("BENCHMARK!", BenchmarkAlgorithm.AlgorithmName);
@@ -161,13 +161,13 @@ namespace NiceHashMiner.Miners
                         else if (outdata.ToUpper().Contains("GH/S"))
                             tmp *= 10000000000;
                     }
-                    else if (BenchmarkAlgorithm.AlgorithmName == "NeoScrypt") //Avr 772,0Kh/s
+                    else if (BenchmarkAlgorithm.AlgorithmName == "NeoScrypt") //Avr 774,9KH/s (Avr 1241KH/s
                     {
-                        Helpers.ConsolePrint("BENCHMARK", "Neoscrypt benchmark ends");
+                        Helpers.ConsolePrint("BENCHMARK", "Neoscrypt benchmark ends: "+tmp.ToString());
                         if (outdata.ToUpper().Contains("KH/S"))
-                            tmp *= 100;
+                            tmp *= 1000;
                         else if (outdata.ToUpper().Contains("MH/S"))
-                            tmp *= 10000;
+                            tmp *= 100000;
                         else if (outdata.ToUpper().Contains("GH/S"))
                             tmp *= 100000000;
                     }

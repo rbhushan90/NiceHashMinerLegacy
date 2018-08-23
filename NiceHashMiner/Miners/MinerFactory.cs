@@ -92,6 +92,8 @@ namespace NiceHashMiner.Miners
                     return new lyclMiner();
                 case MinerBaseType.trex:
                     return new trex();
+                case MinerBaseType.mkxminer:
+                    return new mkxminer();
             }
 
             return null;

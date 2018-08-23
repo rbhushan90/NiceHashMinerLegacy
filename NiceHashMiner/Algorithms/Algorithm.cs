@@ -88,7 +88,7 @@ namespace NiceHashMiner.Algorithms
         /// Current SMA profitability for this algorithm type in BTC/GH/Day
         /// </summary>
         public double CurNhmSmaDataVal { get; private set; }
-        
+
         /// <summary>
         /// Power consumption of this algorithm, in Watts
         /// </summary>
@@ -97,14 +97,14 @@ namespace NiceHashMiner.Algorithms
         #endregion
 
         #region Dual stubs
-        
+
         // Useful placeholders for finding/sorting
         public virtual AlgorithmType SecondaryNiceHashID => AlgorithmType.NONE;
         public virtual AlgorithmType DualNiceHashID => NiceHashID;
 
         #endregion
 
-        public Algorithm(MinerBaseType minerBaseType, AlgorithmType niceHashID, string minerName) 
+        public Algorithm(MinerBaseType minerBaseType, AlgorithmType niceHashID, string minerName)
         {
             NiceHashID = niceHashID;
 
@@ -114,12 +114,13 @@ namespace NiceHashMiner.Algorithms
 
             MinerBaseType = minerBaseType;
             MinerName = minerName;
-            
+
             ExtraLaunchParameters = "";
             LessThreads = 0;
             Enabled = !(NiceHashID == AlgorithmType.Nist5 ||
                         (NiceHashID == AlgorithmType.NeoScrypt && minerBaseType == MinerBaseType.sgminer));
             Enabled = !(NiceHashID == AlgorithmType.CryptoNightV7) && minerBaseType == MinerBaseType.XmrigAMD;
+            Enabled = !(NiceHashID == AlgorithmType.Lyra2REv2) && minerBaseType == MinerBaseType.mkxminer;
             BenchmarkStatus = "";
         }
 
@@ -212,7 +213,7 @@ namespace NiceHashMiner.Algorithms
         }
 
         #endregion
-        
+
         #region Profitability methods
 
         public virtual void UpdateCurProfit(Dictionary<AlgorithmType, double> profits)

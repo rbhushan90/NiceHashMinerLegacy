@@ -317,6 +317,8 @@ namespace NiceHashMiner.Miners.Parsing
                     return MinerType.lyclMiner;
                 case MinerBaseType.trex:
                     return MinerType.trex;
+                case MinerBaseType.mkxminer:
+                     return MinerType.mkxminer;
 
 
                 case MinerBaseType.Claymore:

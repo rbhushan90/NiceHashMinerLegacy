@@ -30,6 +30,7 @@
         ZEnemy,
         lyclMiner,
         trex,
+        mkxminer,
         END
     }
 }

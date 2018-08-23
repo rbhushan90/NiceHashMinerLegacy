@@ -148,6 +148,8 @@ namespace NiceHashMiner
     "rem Set NOVISIBLE on TRUE to hide command window\n" +
     "SET NOVISIBLE=FALSE\n" +
     "\n" +
+    "cd..\n" +
+    "cd..\n" +
     "if \"%1\" EQU \"AMD\" goto amd\n" +
     "if \"%1\" EQU \"NVIDIA\" goto nvidia\n" +
     "if \"%1\" EQU \"CPU\" goto end\n" +

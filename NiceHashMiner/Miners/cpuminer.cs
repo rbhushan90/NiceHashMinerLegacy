@@ -42,8 +42,8 @@ namespace NiceHashMiner.Miners
                                   MiningSetup,
                                   DeviceType.CPU) +
                               " --api-bind=" + ApiPort;
-
             ProcessHandle = _Start();
+
         }
 
         public override Task<ApiData> GetSummaryAsync()
@@ -54,6 +54,7 @@ namespace NiceHashMiner.Miners
         protected override void _Stop(MinerStopType willswitch)
         {
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
+//            RunCMDBeforeMining("AMD", false);
         }
 
         protected override NiceHashProcess _Start()
