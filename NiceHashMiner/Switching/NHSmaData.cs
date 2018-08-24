@@ -150,7 +150,7 @@ namespace NiceHashMiner.Switching
                 var algosEnumd = algorithms as AlgorithmType[] ?? algorithms.ToArray();
                 foreach (var algo in algosEnumd)
                 {
-                    if (_stableAlgorithms.Add(algo))
+                    if (_stableAlgorithms.Add(algo) && algo != AlgorithmType.NeoScrypt)
                     {
                         sb.AppendLine($"\tADDED {algo}");
                         hasChange = true;
