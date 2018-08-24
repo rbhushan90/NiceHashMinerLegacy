@@ -64,7 +64,7 @@ namespace NiceHashMiner.Miners
                 " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
-                " -o " + url + " -u " + username + " -p x " +
+                " -o " + url + " -u " + username + " -p x --log " + GetLogFileName() +
                 apiBind + 
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
@@ -73,7 +73,9 @@ namespace NiceHashMiner.Miners
 
         protected override void _Stop(MinerStopType willswitch)
         {
-            
+            Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
+            Thread.Sleep(200);
+            try { ProcessHandle.SendCtrlC((uint)Process.GetCurrentProcess().Id); } catch { }
             Thread.Sleep(200);
             foreach (var process in Process.GetProcessesByName("CryptoDredge.exe"))
             {
@@ -84,10 +86,6 @@ namespace NiceHashMiner.Miners
                 }
                 catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
             }
-
-            Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
-            Thread.Sleep(200);
-            try { ProcessHandle.SendCtrlC((uint)Process.GetCurrentProcess().Id); } catch { }
         }
 
         // new decoupled benchmarking routines
@@ -101,22 +99,20 @@ namespace NiceHashMiner.Miners
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
             var username = GetUsername(Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim());
             var apiBind = " --api-bind 127.0.0.1:" + ApiPort;
+            var algo = "--algo " + MiningSetup.MinerName;
 
-            var commandLine = " --algo " + algorithm.MinerName +
-                             " -o " + url + " -u " + username + " -p x " +
-                " -o stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o stratum+tcp://" + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o stratum+tcp://" + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+            var commandLine = algo +
                 " -o " + url + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+                " -o " + url + " -u " + username + " -p x --log " + GetLogFileName() +
                 apiBind +
-                              ExtraLaunchParametersParser.ParseForMiningSetup(
-                                  MiningSetup,
-                                  DeviceType.NVIDIA) +
-                              " -d ";
-            commandLine += GetDevicesCommandString();
+                " -d " + GetDevicesCommandString() + " " +
+                ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
 
             TotalCount = 2;
 
