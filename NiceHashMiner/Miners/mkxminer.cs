@@ -90,6 +90,7 @@ namespace NiceHashMiner.Miners
             LastCommandLine += GetDevicesCommandString();
 
             // ProcessHandle = _Start();
+            /*
             var mkxminerHandle = new Process
             {
                 StartInfo =
@@ -97,18 +98,23 @@ namespace NiceHashMiner.Miners
                     FileName = MiningSetup.MinerPath
                 }
             };
-           // mkxminerHandle.StartInfo.FileName = "start /w wscript.exe mkxminer.vbs";
-            Type scriptType = Type.GetTypeFromCLSID(Guid.Parse("0E59F1D5-1FBE-11D0-8FF2-00A0D10038BC"));
-            dynamic obj = Activator.CreateInstance(scriptType, false);
-            obj.Language = "vbscript";
-            string vbscript = "msgbox(\"test\")";
-            obj.Eval(vbscript);
-
+            */
+            // mkxminerHandle.StartInfo.FileName = "start /w wscript.exe mkxminer.vbs";
+            //Process.Start("cscript.exe", " bin_3rdparty\\mkxminer\\mkxminer.vbs --exitsick --asm " + LastCommandLine);
+            Process.Start("powershell.exe", " -Command &bin_3rdparty\\mkxminer\\mkxminer.exe --exitsick --asm " + LastCommandLine);
+            
+            /*
+             Type scriptType = Type.GetTypeFromCLSID(Guid.Parse("0E59F1D5-1FBE-11D0-8FF2-00A0D10038BC"));
+             dynamic obj = Activator.CreateInstance(scriptType, false);
+             obj.Language = "vbscript";
+             string vbscript = "msgbox(\"test\")";
+             obj.Eval(vbscript);
+             */
 
             //BenchmarkProcessPath = CMDconfigHandle.StartInfo.WorkingDirectory;
-            Helpers.ConsolePrint(MinerTag(), "Using CMD: " + mkxminerHandle.StartInfo.FileName);
+            Helpers.ConsolePrint(MinerTag(), "Using CMD: bin_3rdparty\\mkxminer\\mkxminer.vbs --exitsick --asm " + LastCommandLine);
             //CMDconfigHandle.StartInfo.WorkingDirectory = WorkingDirectory;
-
+            /*
             if (MinersSettingsManager.MinerSystemVariables.ContainsKey(Path))
             {
                 foreach (var kvp in MinersSettingsManager.MinerSystemVariables[Path])
@@ -118,7 +124,7 @@ namespace NiceHashMiner.Miners
                     mkxminerHandle.StartInfo.EnvironmentVariables[envName] = envValue;
                 }
             }
-
+            */
             Thread.Sleep(200);
             /*
             mkxminerHandle.StartInfo.Arguments = LastCommandLine;
