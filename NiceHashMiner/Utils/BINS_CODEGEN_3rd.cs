@@ -858,7 +858,7 @@ namespace NiceHashMiner.Utils
             @"/castxmr/cast_xmr-vega.exe",
             @"/hsrminer_neoscrypt/hsrminer_neoscrypt.exe",
             @"/CryptoDredge/CryptoDredge.exe",
-            @"/t-rex/t-rex.exe",
+            @"/phoenix/PhoenixMiner.exe",
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py

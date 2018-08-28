@@ -32,6 +32,7 @@
         lyclMiner,
         trex,
         mkxminer,
+        Phoenix,
         END
     }
 }

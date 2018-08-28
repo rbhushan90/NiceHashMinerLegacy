@@ -44,6 +44,13 @@ namespace NiceHashMiner.Devices.Algorithms
                     new DualAlgorithm(MinerBaseType.Claymore, AlgorithmType.DaggerHashimoto, AlgorithmType.Keccak)
                 }
             },
+            {
+                MinerBaseType.Phoenix,
+                new List<Algorithm>
+                {
+                    new Algorithm(MinerBaseType.Phoenix, AlgorithmType.DaggerHashimoto, "")
+                }
+            },
         };
 
         #endregion

@@ -107,6 +107,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string CpuMiner = Bin + @"\cpuminer_opt\cpuminer.exe";
             public const string lyclMiner = Bin + @"\lyclMiner\lyclMiner.exe";
             public const string mkxminer = Bin3rdParty + @"\mkxminer\mkxminer.cmd";
+            public const string Phoenix = Bin3rdParty + @"\Phoenix\PhoenixMiner.exe";
 
             public const string None = "";
 
@@ -205,6 +206,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return NvidiaGroups.trex(algoType, devGroupType);
                 case MinerBaseType.mkxminer:
                     return Data.mkxminer;
+                case MinerBaseType.Phoenix:
+                    return Data.Phoenix;
             }
             return Data.None;
         }

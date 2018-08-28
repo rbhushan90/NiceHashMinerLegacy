@@ -94,6 +94,8 @@ namespace NiceHashMiner.Miners
                     return new trex();
                 case MinerBaseType.mkxminer:
                     return new mkxminer();
+                case MinerBaseType.Phoenix:
+                    return new Phoenix();
             }
 
             return null;
