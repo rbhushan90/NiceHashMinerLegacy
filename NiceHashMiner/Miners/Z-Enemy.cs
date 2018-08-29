@@ -121,11 +121,11 @@ namespace NiceHashMiner.Miners
                     // save speed
 
                     if (outdata.Contains("kH/s"))
-                        tmp *= 1000;
+                        tmp *= 1000 * 0.9; //-10%
                     else if (outdata.Contains("MH/s"))
-                        tmp *= 1000000;
+                        tmp *= 1000000 * 0.9;
                     else if (outdata.Contains("GH/s"))
-                        tmp *= 1000000000;
+                        tmp *= 1000000000 * 0.9;
 
  
                         speed += tmp;

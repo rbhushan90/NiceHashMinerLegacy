@@ -49,8 +49,9 @@ namespace NiceHashMiner.Miners
             return 60 * 1000 * 5;  // 5 min
         }
 
-        public override async Task<ApiData> GetSummaryAsync() {
-            return await GetSummaryAsync();
+        public override async Task<ApiData> GetSummaryAsync()
+        {
+            return await GetSummaryCpuAsync();
         }
 
         protected override bool IsApiEof(byte third, byte second, byte last) {

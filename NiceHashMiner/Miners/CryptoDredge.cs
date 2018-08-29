@@ -143,7 +143,7 @@ namespace NiceHashMiner.Miners
                         if (outdata.ToUpper().Contains("KH/S"))
                             tmp *= 1000;
                         else if (outdata.ToUpper().Contains("MH/S"))
-                            tmp *= 10000;
+                            tmp *= 1000000;
                         else if (outdata.ToUpper().Contains("GH/S"))
                             tmp *= 10000000000;
                     }
@@ -153,7 +153,7 @@ namespace NiceHashMiner.Miners
                         if (outdata.ToUpper().Contains("KH/S"))
                             tmp *= 1000;
                         else if (outdata.ToUpper().Contains("MH/S"))
-                            tmp *= 10000;
+                            tmp *= 1000000;
                         else if (outdata.ToUpper().Contains("GH/S"))
                             tmp *= 10000000000;
                     }
@@ -163,7 +163,7 @@ namespace NiceHashMiner.Miners
                         if (outdata.ToUpper().Contains("KH/S"))
                             tmp *= 1000;
                         else if (outdata.ToUpper().Contains("MH/S"))
-                            tmp *= 100000;
+                            tmp *= 1000000;
                         else if (outdata.ToUpper().Contains("GH/S"))
                             tmp *= 100000000;
                     }
