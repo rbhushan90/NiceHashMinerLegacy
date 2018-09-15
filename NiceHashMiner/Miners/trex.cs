@@ -35,30 +35,30 @@ namespace NiceHashMiner.Miners
             }
             var username = GetUsername(btcAdress, worker);
 
-            //IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.trex;
+            IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.trex;
 
             var algo = "";
             var apiBind = "";
             string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
             algo = "-a " + MiningSetup.MinerName.ToLower();
-            //apiBind = " --api-bind 127.0.0.1:" + ApiPort;
+            apiBind = " -b 127.0.0.1:" + ApiPort;
+            IsApiReadException = false;
 
-            IsApiReadException = true; //no api
-                                       /*
-                                       LastCommandLine = algo +
-                                           " -o " + url + " -u " + username + " -p x " +
-                                           " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                                           " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                                           " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                                           " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                                           " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                                           " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
-                                           apiBind +
-                                           " -d " + GetDevicesCommandString() + " " +
-                                           ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                                           */
-            LastCommandLine = algo +
+            /*
+ LastCommandLine = algo +
+     " -o " + url + " -u " + username + " -p x " +
+     " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+     apiBind +
+     " -d " + GetDevicesCommandString() + " " +
+     ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
+     */
+            LastCommandLine = algo + apiBind +
             " -o " + url + " -u " + username + " -p x " +
             " -d " + GetDevicesCommandString() + " " +
             ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
@@ -80,6 +80,7 @@ namespace NiceHashMiner.Miners
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
+            string configfilename = GetLogFileName();
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
             string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
@@ -97,7 +98,7 @@ namespace NiceHashMiner.Miners
                  */
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
-                                  DeviceType.NVIDIA) +
+                                  DeviceType.NVIDIA) + " -l "+ GetLogFileName()+
                               " -d ";
             commandLine += GetDevicesCommandString();
 
@@ -117,7 +118,7 @@ namespace NiceHashMiner.Miners
             {
                 try
                 {
-                    var latestLogFile = "t-rex.log";
+                    var latestLogFile = GetLogFileName();
                     var dirInfo = new DirectoryInfo(WorkingDirectory);
                     if (File.Exists(WorkingDirectory + latestLogFile))
                     {
@@ -194,7 +195,7 @@ namespace NiceHashMiner.Miners
             {
                 BenchmarkAlgorithm.BenchmarkSpeed = 0;
 
-                var latestLogFile = "t-rex.log";
+                var latestLogFile = GetLogFileName();
                 var dirInfo = new DirectoryInfo(WorkingDirectory);
 
                 // read file log
@@ -238,14 +239,14 @@ namespace NiceHashMiner.Miners
                             {
 
                                 var st = line.IndexOf("- ");
-                                var e = line.IndexOf("H/s");
+                                var e = line.ToLower().IndexOf("h/s");
                                 var parse = line.Substring(st+2, e - st - 4).Trim();
                                 double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                                 // save speed
 
-                                if (line.Contains("kH/s"))
+                                if (line.ToLower().Contains("kh/s"))
                                     tmp *= 1000;
-                                else if (line.Contains("Mh/s"))
+                                else if (line.ToLower().Contains("mh/s"))
                                     tmp *= 1000000;
 
                                 BenchmarkAlgorithm.BenchmarkSpeed = tmp;
@@ -275,31 +276,62 @@ namespace NiceHashMiner.Miners
         }
 
 
-     
+
         public override async Task<ApiData> GetSummaryAsync()
         {
             CurrentMinerReadStatus = MinerApiReadStatus.NONE;
-            var totalSpeed = 0.0d;
-            foreach (var miningPair in MiningSetup.MiningPairs)
+            var ad = new ApiData(MiningSetup.CurrentAlgorithmType, MiningSetup.CurrentSecondaryAlgorithmType);
+            string resp = null;
+            try
             {
-                var algo = miningPair.Device.GetAlgorithm(MinerBaseType.trex, AlgorithmType.Lyra2z, AlgorithmType.NONE);
-                if (algo != null)
+                var bytesToSend = Encoding.ASCII.GetBytes("summary\r\n");
+                var client = new TcpClient("127.0.0.1", ApiPort);
+                var nwStream = client.GetStream();
+                await nwStream.WriteAsync(bytesToSend, 0, bytesToSend.Length);
+                var bytesToRead = new byte[client.ReceiveBufferSize];
+                var bytesRead = await nwStream.ReadAsync(bytesToRead, 0, client.ReceiveBufferSize);
+                var respStr = Encoding.ASCII.GetString(bytesToRead, 0, bytesRead);
+
+                client.Close();
+                resp = respStr;
+                //Helpers.ConsolePrint(MinerTag(), "API: " + respStr);
+            }
+            catch (Exception ex)
+            {
+                Helpers.ConsolePrint(MinerTag(), "GetSummary exception: " + ex.Message);
+            }
+
+            if (resp != null)
+            {
+                var st = resp.IndexOf(";KHS=");
+                var e = resp.IndexOf(";SOLV=");
+                var parse = resp.Substring(st + 5, e - st - 5).Trim();
+                double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                ad.Speed = tmp * 1000;
+
+
+
+
+                if (ad.Speed == 0)
                 {
-                    totalSpeed += algo.BenchmarkSpeed;
+                    CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
+                }
+                else
+                {
+                    CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
+                }
+
+                // some clayomre miners have this issue reporting negative speeds in that case restart miner
+                if (ad.Speed < 0)
+                {
+                    Helpers.ConsolePrint(MinerTag(), "Reporting negative speeds will restart...");
+                    Restart();
                 }
             }
 
-            var trexData = new ApiData(MiningSetup.CurrentAlgorithmType)
-            {
-                Speed = totalSpeed
-            };
-            CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
-            // check if speed zero
-            if (trexData.Speed == 0) CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
-            return trexData;
-
-
+            return ad;
         }
+
 
 
         protected override void _Stop(MinerStopType willswitch)

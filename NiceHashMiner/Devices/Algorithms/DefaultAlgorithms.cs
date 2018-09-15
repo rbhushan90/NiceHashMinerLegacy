@@ -234,13 +234,15 @@ namespace NiceHashMiner.Devices.Algorithms
                            // new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Skunk, "Skunk"),
                         }
                     },
-                        /*
+                        
                         { MinerBaseType.trex,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.trex, AlgorithmType.Lyra2z, "Lyra2z"),
+                            new Algorithm(MinerBaseType.trex, AlgorithmType.Skunk, "Skunk"),
+                            new Algorithm(MinerBaseType.trex, AlgorithmType.X16R, "X16R"),
                         }
                     },
-                    */
+                    
                         { MinerBaseType.ZEnemy,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.ZEnemy, AlgorithmType.X16R, "X16R"),
