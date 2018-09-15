@@ -137,9 +137,9 @@ namespace NiceHashMiner.Miners
                     double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                     // save speed
                     Helpers.ConsolePrint("BENCHMARK!", BenchmarkAlgorithm.AlgorithmName);
-                    if (BenchmarkAlgorithm.AlgorithmName == "Lyra2REv2") //Avr 27,57Mh/s
+//                    if (BenchmarkAlgorithm.AlgorithmName == "Lyra2REv2") //Avr 27,57Mh/s
                     {
-                        Helpers.ConsolePrint("BENCHMARK", "Lyra2REv2 benchmark ends");
+//                        Helpers.ConsolePrint("BENCHMARK", "Lyra2REv2 benchmark ends");
                         if (outdata.ToUpper().Contains("KH/S"))
                             tmp *= 1000;
                         else if (outdata.ToUpper().Contains("MH/S"))
@@ -147,6 +147,7 @@ namespace NiceHashMiner.Miners
                         else if (outdata.ToUpper().Contains("GH/S"))
                             tmp *= 10000000000;
                     }
+                    /*
                     else if (BenchmarkAlgorithm.AlgorithmName == "Lyra2z")
                     {
                         Helpers.ConsolePrint("BENCHMARK", "Lyra2z benchmark ends");
@@ -167,6 +168,7 @@ namespace NiceHashMiner.Miners
                         else if (outdata.ToUpper().Contains("GH/S"))
                             tmp *= 100000000;
                     }
+                    */
                     /*
                     else if (BenchmarkAlgorithm.AlgorithmName == "Blake2s") //(Avr 2393MH/s
                     {
@@ -271,7 +273,6 @@ namespace NiceHashMiner.Miners
             }
         }
 
-
         #endregion // Decoupled benchmarking routines
 
         public override async Task<ApiData> GetSummaryAsync()
@@ -305,9 +306,6 @@ namespace NiceHashMiner.Miners
                     var parse = resp.Substring(st + 5, e - st - 5).Trim();
                     double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                 ad.Speed = tmp*1000;
-                  
-                    
-                
 
                 if (ad.Speed == 0)
                 {

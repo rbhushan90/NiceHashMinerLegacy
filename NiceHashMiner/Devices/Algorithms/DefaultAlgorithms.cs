@@ -160,6 +160,13 @@ namespace NiceHashMiner.Devices.Algorithms
                         }
                     },
                     */
+                    /*
+                    { MinerBaseType.mkxminer,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.mkxminer, AlgorithmType.Lyra2z, "Lyra2z"),
+                        }
+                    },
+                    */
             {
                 MinerBaseType.Claymore,
                 new List<Algorithm>
@@ -232,6 +239,8 @@ namespace NiceHashMiner.Devices.Algorithms
                            // new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Blake2s, "Blake2s"),
                             new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.NeoScrypt, "NeoScrypt"),
                            // new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Skunk, "Skunk"),
+                           new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightHeavy, "CryptoNightHeavy"),
+                           new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightV7, "CryptoNightV7"),
                         }
                     },
                         

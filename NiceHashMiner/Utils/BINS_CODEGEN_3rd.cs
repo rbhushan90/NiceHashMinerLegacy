@@ -46,6 +46,7 @@ namespace NiceHashMiner.Utils
             @"/CryptoDredge/CryptoDredge.exe",
             @"/Z-ENEMY/z-enemy.exe",
             @"/phoenix/PhoenixMiner.exe",
+            @"/t-rex/t-rex.exe",
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py

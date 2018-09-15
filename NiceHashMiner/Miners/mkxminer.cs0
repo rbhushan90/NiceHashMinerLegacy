@@ -96,7 +96,7 @@ namespace NiceHashMiner.Miners
                 StartInfo =
                 {
                     //FileName = MiningSetup.MinerPath
-                    FileName = "cmd /C \"cd /d bin_3rdparty/mkxminer && mkxminer.exe "
+                    FileName = "cmd //C cd //d bin_3rdparty//mkxminer && mkxminer.exe"
                 }
             };
             
@@ -129,7 +129,7 @@ namespace NiceHashMiner.Miners
             Thread.Sleep(200);
             
             mkxminerHandle.StartInfo.Arguments = LastCommandLine;
-            mkxminerHandle.StartInfo.UseShellExecute = true;
+            mkxminerHandle.StartInfo.UseShellExecute = false;
             // CMDconfigHandle.StartInfo.RedirectStandardError = true;
             // CMDconfigHandle.StartInfo.RedirectStandardOutput = true;
             mkxminerHandle.StartInfo.CreateNoWindow = false;
