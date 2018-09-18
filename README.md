@@ -1,4 +1,4 @@
-# NiceHash Miner Legacy
+# NiceHash Miner Legacy Fork Fix
 
 - [Introduction](#introduction)
 - [What are the benefits?](#benefits)
