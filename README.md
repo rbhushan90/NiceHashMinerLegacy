@@ -59,7 +59,7 @@ All you have to do is download, extract and run the miner (no installation neede
 <i>**Note**: .NET Framework 2.0 or higher and Microsoft Visual C++ Redistributable 2013 is required. No additional installations should be needed if you use Windows 7 or later. However, if you encounter any issues when starting application (application would fail to start or errors/warnings about missing DLL files are displayed) you should download and install <a href="https://www.microsoft.com/en-us/download/details.aspx?id=30653" target="_blank">Microsoft **.NET Framework 2.0**</a> and <a href="https://www.microsoft.com/en-us/download/details.aspx?id=40784" target="_blank">Microsoft **Visual C++ Redistributable 2013 (vcredist_x64.exe)**</a> (after installation a reboot might be required).</i>
 
 Detailed instructions:
-- Download binaries from here: https://github.com/nicehash/NiceHashMinerLegacy/releases
+- Download binaries from here: https://github.com/angelbbs/NiceHashMinerLegacy/releases
 - Extract zip archive
 - Run NiceHashMinerLegacy.exe
 - After first run, start benchmark test, otherwise Multi-Algorithm mining will not work properly; for AMD GPUs we suggest you to run **Precise benchmark**
@@ -167,7 +167,7 @@ Google Chrome is blocking the download of the application
 > Google Chrome falsely flags NiceHash Miner Legacy as a potentially unwanted program and thus prevents you from saving the program archive on your computer. This is an issue with Google Chrome and not with NiceHash Miner Legacy. Use another browser such as Firefox or Edge to download the file instead. Also, read 'My anti-virus is blocking the application' below.
 
 My anti-virus is blocking the application
-> Some anti-virus software might block NiceHash Miner Legacy as well as supporting back-end programs (cpuminer, ccminer, sgminer) due to false-positive matches. All software, included into NiceHash Miner Legacy has been verified and checked by our team and is absolutely virus/trojan free. Our service is well established and trusted among users, therefore you can fully trust software releases that are downloaded from our GitHub repository: https://github.com/nicehash/NiceHashMinerLegacy/releases. However, make sure you **never download and run any files from other unknown sources**! If you downloaded the software package from our GitHub repository you can simply resolve the issues with false-positives by adding the files sgminer.exe, ccminer_sp.exe, ccminer_tpruvot.exe, cpuminer_x64_AVX.exe, cpuminer_x64_AVX2.exe and cpuminer_x64_SSE2.exe to anti-virus exception list.
+> Some anti-virus software might block NiceHash Miner Legacy as well as supporting back-end programs (cpuminer, ccminer, sgminer) due to false-positive matches. All software, included into NiceHash Miner Legacy has been verified and checked by our team and is absolutely virus/trojan free. Our service is well established and trusted among users, therefore you can fully trust software releases that are downloaded from our GitHub repository: https://github.com/angelbbs/NiceHashMinerLegacy/releases. If you downloaded the software package from our GitHub repository you can simply resolve the issues with false-positives by adding the files sgminer.exe, ccminer_sp.exe, ccminer_tpruvot.exe, cpuminer_x64_AVX.exe, cpuminer_x64_AVX2.exe and cpuminer_x64_SSE2.exe to anti-virus exception list.
 
 I'm getting "Enqueueing kernel" errors on AMD GPUs
 > If you have very low amount of system memory (RAM), especially if lower than 4 GB, than you might encounter this kind of errors:
@@ -187,7 +187,7 @@ Benchmarks on particular algorithms keep getting terminated on AMD GPUs
 
 # <a name="bugs"></a> How to report bugs and issues?
 
-To report bugs and issues please use the GitHub issue reporting tool: https://github.com/nicehash/NiceHashMinerLegacy/issues. Any bugs and issues reports are very much appreciated since it helps us to improve NiceHash Miner Legacy. Thank you.
+To report bugs and issues please use the GitHub issue reporting tool: https://github.com/angelbbs/NiceHashMinerLegacy/issues. Any bugs and issues reports are very much appreciated since it helps us to improve NiceHash Miner Legacy. Thank you.
 
 # <a name="references"></a> References
 
