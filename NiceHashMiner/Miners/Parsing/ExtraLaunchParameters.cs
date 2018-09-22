@@ -124,8 +124,8 @@ namespace NiceHashMiner.Miners.Parsing
                     new MinerOption("GPUclock" , "", "--engine", "-1", MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("Memclock" , "", "--memclock", "-1", MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("Powertune", "", "--powertune", "-1", MinerOptionFlagType.MultiParam, ","),
-                    new MinerOption("GPUvoltage", "", "--vddc", "-1", MinerOptionFlagType.MultiParam, ","), // default none
-                    new MinerOption("GPUvoltage", "-I", "--intensity", "-1", MinerOptionFlagType.MultiParam, ","), // default none
+                    new MinerOption("GPUvoltage", "--vddc", "--vddc", "-1", MinerOptionFlagType.MultiParam, ","), // default none
+                    new MinerOption("GPUIntensity", "-I", "--intensity", "-1", MinerOptionFlagType.MultiParam, ",") // default none
                 },
                 // TemperatureOptions
                 new List<MinerOption>() {

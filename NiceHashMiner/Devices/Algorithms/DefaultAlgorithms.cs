@@ -160,13 +160,13 @@ namespace NiceHashMiner.Devices.Algorithms
                         }
                     },
                     */
-                    /*
+                    
                     { MinerBaseType.mkxminer,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.mkxminer, AlgorithmType.Lyra2z, "Lyra2z"),
                         }
                     },
-                    */
+                    
             {
                 MinerBaseType.Claymore,
                 new List<Algorithm>

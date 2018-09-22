@@ -95,6 +95,44 @@ namespace NiceHashMiner.Devices.Algorithms
 
                 }
 
+                if (algoSettings.ContainsKey(MinerBaseType.mkxminer))
+                {
+                    var mkxminerAlgos = algoSettings[MinerBaseType.mkxminer];
+                    int mkxminer_Index = mkxminerAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.Lyra2z);
+
+                    //--opencl-launch=
+                    //mkxminerAlgos[mkxminer_Index].ExtraLaunchParameters = " ";
+                    if (mkxminer_Index > -1)
+                    {
+                        if (device.Codename.Contains("gfx804")) //rx550
+                        {
+                            mkxminerAlgos[mkxminer_Index].ExtraLaunchParameters = " -I 21";
+                        }
+                        if (device.Codename.Contains("Pitcairn")) //r7-370
+                        {
+                            mkxminerAlgos[mkxminer_Index].ExtraLaunchParameters = " -I 21";
+                        }
+                        if (device.Codename.Contains("Baffin")) //rx460/560
+                        {
+                            mkxminerAlgos[mkxminer_Index].ExtraLaunchParameters = " -I 22";
+                        }
+
+                        if (device.Codename.Contains("Ellesmere")) //rx570/580
+                        {
+                            mkxminerAlgos[mkxminer_Index].ExtraLaunchParameters = " -I 23";
+                        }
+
+                        if (device.Codename.Contains("Hawaii"))
+                        {
+                            mkxminerAlgos[mkxminer_Index].ExtraLaunchParameters = " -I 22"; ;
+                        }
+                        else if (device.Name.Contains("Vega"))
+                        {
+                            mkxminerAlgos[mkxminer_Index].ExtraLaunchParameters = " -I 24";
+                        }
+                    }
+
+                }
 
                 // Ellesmere, Polaris
                 // Ellesmere sgminer workaround, keep this until sgminer is fixed to work with Ellesmere
