@@ -107,7 +107,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string CpuMiner = Bin + @"\cpuminer_opt\cpuminer.exe";
             public const string lyclMiner = Bin + @"\lyclMiner\lyclMiner.exe";
             public const string mkxminer = Bin3rdParty + @"\mkxminer\mkxminer.exe";
-            public const string Phoenix = Bin3rdParty + @"\Phoenix\PhoenixMiner.cmd";
+            public const string Phoenix = Bin3rdParty + @"\Phoenix\PhoenixMiner.exe";
 
             public const string None = "";
 

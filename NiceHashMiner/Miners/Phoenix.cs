@@ -41,6 +41,7 @@ namespace NiceHashMiner.Miners
 
         private string GetStartCommand(string url, string btcAdress, string worker)
         {
+            Helpers.ConsolePrint("!!!!", "GetStartCommand 1");
             var username = GetUsername(btcAdress, worker);
             var platform = "";
             foreach (var pair in MiningSetup.MiningPairs)
@@ -85,6 +86,8 @@ namespace NiceHashMiner.Miners
             return " -gpus " + GetDevicesCommandString() + platform + "-retrydelay 10"
                    + $" -pool {url} -wal {username} -cdmport  127.0.0.1:{ApiPort} -proto 4 -pass x ";
 
+            Helpers.ConsolePrint("!!!!", "GetStartCommand 2");
+
         }
 
         protected override string GetDevicesCommandString()
@@ -97,10 +100,12 @@ namespace NiceHashMiner.Miners
 
         public override void Start(string url, string btcAdress, string worker)
         {
-            LastCommandLine = GetStartCommand(url, btcAdress, worker) + " -logfile log.txt$";
+            Helpers.ConsolePrint("!!!!", "GetStartCommand 3");
+            LastCommandLine = GetStartCommand(url, btcAdress, worker) + " -logfile " + GetLogFileName();
             IsApiReadException = false;
-
+            Helpers.ConsolePrint("!!!!", "GetStartCommand 4: " + LastCommandLine);
             ProcessHandle = _Start();
+            Helpers.ConsolePrint("!!!!", "GetStartCommand 5");
 
         }
 
