@@ -127,6 +127,7 @@
     <Compile Include="Miners\lyclMiner.cs" />
     <Compile Include="Miners\mkxminer.cs" />
     <Compile Include="Miners\Phoenix.cs" />
+    <Compile Include="Miners\teamredminer.cs" />
     <Compile Include="Miners\trex.cs" />
     <Compile Include="Miners\XmrigAMD.cs" />
     <Compile Include="Miners\XmrStak\Configs\XmrStakConfigCpu.cs" />

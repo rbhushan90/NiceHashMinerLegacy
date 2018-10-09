@@ -107,6 +107,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string CpuMiner = Bin + @"\cpuminer_opt\cpuminer.exe";
             public const string lyclMiner = Bin + @"\lyclMiner\lyclMiner.exe";
             public const string mkxminer = Bin3rdParty + @"\mkxminer\mkxminer.exe";
+            public const string teamredminer = Bin3rdParty + @"\teamredminer\teamredminer.exe";
             public const string Phoenix = Bin3rdParty + @"\Phoenix\PhoenixMiner.exe";
 
             public const string None = "";
@@ -206,6 +207,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return NvidiaGroups.trex(algoType, devGroupType);
                 case MinerBaseType.mkxminer:
                     return Data.mkxminer;
+                case MinerBaseType.teamredminer:
+                    return Data.teamredminer;
                 case MinerBaseType.Phoenix:
                     return Data.Phoenix;
             }
@@ -450,6 +453,14 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.mkxminer;
                 }
                 return Data.mkxminer;
+            }
+            public static string teamredminer(AlgorithmType algorithmType)
+            {
+                if (AlgorithmType.Lyra2z == algorithmType )
+                {
+                    return Data.teamredminer;
+                }
+                return Data.teamredminer;
             }
         }
 

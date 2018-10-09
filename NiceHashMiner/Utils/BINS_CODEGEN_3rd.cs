@@ -47,6 +47,7 @@ namespace NiceHashMiner.Utils
             @"/Z-ENEMY/z-enemy.exe",
             @"/phoenix/PhoenixMiner.exe",
             @"/t-rex/t-rex.exe",
+            @"/teamredminer/teamredminer.exe",
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py

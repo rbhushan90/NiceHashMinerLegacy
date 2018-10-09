@@ -138,6 +138,16 @@ namespace NiceHashMiner.Miners.Parsing
                 }
             ),
             new MinerOptionPackage(
+                MinerType.teamredminer,
+                new List<MinerOption>() {
+                    // SingleParam
+                    new MinerOption("Platform", "", "--platform", null, MinerOptionFlagType.SingleParam, "")
+                },
+                // TemperatureOptions
+                new List<MinerOption>() {
+                }
+            ),
+            new MinerOptionPackage(
                 MinerType.cpuminer_opt,
                 new List<MinerOption>
                 {

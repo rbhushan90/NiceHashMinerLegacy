@@ -31,6 +31,7 @@
         lyclMiner,
         trex,
         mkxminer,
+        teamredminer,
         Phoenix,
         END
     }
