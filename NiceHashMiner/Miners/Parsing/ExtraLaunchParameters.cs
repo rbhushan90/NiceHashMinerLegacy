@@ -141,7 +141,7 @@ namespace NiceHashMiner.Miners.Parsing
                 MinerType.teamredminer,
                 new List<MinerOption>() {
                     // SingleParam
-                    new MinerOption("Platform", "", "--platform", null, MinerOptionFlagType.SingleParam, "")
+                    new MinerOption("Platform", "", "--platform=", null, MinerOptionFlagType.SingleParam, "")
                 },
                 // TemperatureOptions
                 new List<MinerOption>() {

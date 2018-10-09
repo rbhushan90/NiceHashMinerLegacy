@@ -46,7 +46,7 @@ namespace NiceHashMiner
         private int _flowLayoutPanelRatesIndex = 0;
 
         private const string BetaAlphaPostfixString = "";
-        const string ForkString = " Fork Fix 9.1";
+        const string ForkString = " Fork Fix 9.2";
 
         private bool _isDeviceDetectionInitialized = false;
 
@@ -1005,17 +1005,17 @@ namespace NiceHashMiner
             }
 
             if (ConfigManager.GeneralConfig.AutoScaleBTCValues && paying < 0.1)
-                ret = ( (paying + power) * 1000 * _factorTimeUnit).ToString("F5", CultureInfo.InvariantCulture) + 
+                ret = ( (paying + power) * 1000 * _factorTimeUnit).ToString("F5", CultureInfo.InvariantCulture) +
                     " mBTC/" +
                       International.GetText(ConfigManager.GeneralConfig.TimeUnit.ToString());
             else
-                ret = ( (paying + power) * _factorTimeUnit).ToString("F6", CultureInfo.InvariantCulture) + 
+                ret = ( (paying + power) * _factorTimeUnit).ToString("F6", CultureInfo.InvariantCulture) +
                     " BTC/" +
                       International.GetText(ConfigManager.GeneralConfig.TimeUnit.ToString());
 
             return ret;
         }
-                
+
         private void ButtonLogo_Click(object sender, EventArgs e)
         {
             Process.Start(Links.VisitUrl);
