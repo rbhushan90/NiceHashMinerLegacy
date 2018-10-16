@@ -64,7 +64,8 @@ namespace NiceHashMiner.Devices.Algorithms
                 new List<Algorithm>
                 {
                     //new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNight, ""),
-                    new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV7, "")
+                    new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV7, ""),
+                    new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV8, "")
                 }
             },
             {
@@ -150,7 +151,8 @@ namespace NiceHashMiner.Devices.Algorithms
                     },
                     { MinerBaseType.XmrigAMD,
                         new List<Algorithm>() {
-                            new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV7, "CryptoNightV7") { }
+                            new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV7, "CryptoNightV7") { },
+                            new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV8, "CryptoNightV8") { }
                         }
                     },
                     /*
@@ -248,7 +250,7 @@ namespace NiceHashMiner.Devices.Algorithms
                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightV7, "CryptoNightV7"),
                         }
                     },
-                        
+
                         { MinerBaseType.trex,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.trex, AlgorithmType.Lyra2z, "Lyra2z"),
@@ -256,7 +258,7 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.trex, AlgorithmType.X16R, "X16R"),
                         }
                     },
-                    
+
                         { MinerBaseType.ZEnemy,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.ZEnemy, AlgorithmType.X16R, "X16R"),
