@@ -86,7 +86,7 @@ namespace NiceHashMiner.Miners
             
             LastCommandLine =
                               " --pool " + url +
-                              " --user " + username + "--password x " +
+                              " --user " + username + " --password x " +
                                   ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
                                                                 DeviceType.AMD) +
@@ -133,7 +133,7 @@ namespace NiceHashMiner.Miners
 
             CommandLine = " --pool " + url +
                           " --user " + Globals.DemoUser +
-                          " -password x " +
+                          " --password x " +
                           ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
                                                                 DeviceType.AMD) +

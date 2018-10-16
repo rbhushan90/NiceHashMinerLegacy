@@ -10,7 +10,7 @@ namespace NiceHashMiner.Miners
     public class Xmrig : Miner
     {
         private int benchmarkTimeWait = 300;
-        private const string LookForStart = "speed 2.5s/60s/15m";
+        private const string LookForStart = "speed 10s/60s/15m";
         private const string LookForEnd = "h/s max";
         private System.Diagnostics.Process CMDconfigHandle;
         public Xmrig() : base("Xmrig")
