@@ -98,6 +98,10 @@ namespace NiceHashMiner.Miners
             {
                 LastCommandLine = LastCommandLine + " --algo=1";
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
+            {
+                LastCommandLine = LastCommandLine + " --algo=10";
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
                 LastCommandLine = LastCommandLine + " --algo=2";
@@ -119,12 +123,14 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV7))
             {
                 url = Globals.GetLocationUrl(AlgorithmType.CryptoNightV7, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP).Replace("stratum+tcp://", "");
-            }
-            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
+            } else if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
                 url = Globals.GetLocationUrl(AlgorithmType.CryptoNightHeavy, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP).Replace("stratum+tcp://", "");
+            } else if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
+            {
+                url = Globals.GetLocationUrl(AlgorithmType.CryptoNightV8, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP).Replace("stratum+tcp://", "");
             }
-            
+
 
             string username = Globals.DemoUser;
 
@@ -132,7 +138,7 @@ namespace NiceHashMiner.Miners
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
 
             CommandLine = " --pool " + url +
-                          " --user " + Globals.DemoUser +
+                          " --user " + username +
                           " --password x " +
                           ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
@@ -145,6 +151,10 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV7))
             {
                 CommandLine = CommandLine + " --algo=1";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
+            {
+                CommandLine = CommandLine + " --algo=10";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {

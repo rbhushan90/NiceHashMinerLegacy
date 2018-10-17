@@ -432,7 +432,7 @@ namespace NiceHashMiner.Miners.Grouping
             }
             public static string CastXMR(AlgorithmType algorithmType)
             {
-                if (AlgorithmType.CryptoNightV7 == algorithmType || AlgorithmType.CryptoNightHeavy == algorithmType )
+                if (AlgorithmType.CryptoNightV7 == algorithmType || AlgorithmType.CryptoNightHeavy == algorithmType || AlgorithmType.CryptoNightV8 == algorithmType )
                 {
                     return Data.CastXMR;
                 }

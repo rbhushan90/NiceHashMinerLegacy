@@ -20,7 +20,9 @@ namespace NiceHashMiner.Devices.Algorithms
                 new List<Algorithm>
                 {
                     new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNightV7, ""),
-                    new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNightHeavy, "")
+                    new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNightHeavy, ""),
+                    new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNightV8, ""),
+
                 }
             }
         };
@@ -141,6 +143,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     { MinerBaseType.CastXMR,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightV7, "cryptonightV7") { },
+                            new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightV8, "cryptonightV8") { },
                             new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightHeavy, "cryptonightHeavy") { }
                         }
                     },

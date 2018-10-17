@@ -201,11 +201,11 @@ namespace NiceHashMiner.Miners.XmrStak
         {
             var url = Globals.GetLocationUrl(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
-            var configs = PrepareConfigFiles(url, Globals.GetBitcoinUser(),
+            var configs = PrepareConfigFiles(url, Globals.DemoUser,
                 ConfigManager.GeneralConfig.WorkerName.Trim(), true);
             _benchmarkCount = 0;
             _benchmarkSum = 0;
-            BenchmarkTimeInSeconds = Math.Max(time, 60);
+            BenchmarkTimeInSeconds = Math.Max(time, 120);
             CleanOldLogs();
             return CreateLaunchCommand(GetBenchConfigName(), configs);
         }
