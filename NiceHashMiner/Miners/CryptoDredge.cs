@@ -54,8 +54,11 @@ namespace NiceHashMiner.Miners
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
             algo = "--algo " + MiningSetup.MinerName;
             apiBind = " --api-bind 127.0.0.1:" + ApiPort;
-
-            IsApiReadException = false;
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
+            {
+                algo = "--algo cnv8";
+            }
+                IsApiReadException = false;
             LastCommandLine = algo +
                 " -o " + url + " -u " + username + " -p x " +
                 " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
@@ -100,6 +103,10 @@ namespace NiceHashMiner.Miners
             var username = GetUsername(Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim());
             var apiBind = " --api-bind 127.0.0.1:" + ApiPort;
             var algo = "--algo " + MiningSetup.MinerName;
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
+            {
+                algo = "--algo cnv8";
+            }
 
             var commandLine = algo +
                 " -o " + url + " -u " + username + " -p x " +

@@ -63,8 +63,8 @@ namespace NiceHashMiner.Devices.Algorithms
                     int xmrigCryptoNightV8_Index = XmrigAMDAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.CryptoNightV8);
 
                     //--opencl-launch=
-                    XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters =" --opencl-launch=1024";
-                    XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1024";
+                    XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters =" --opencl-launch=640";
+                    XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=640";
                     if (xmrigCryptoNightV7_Index > -1)
                     {
                         if (device.Codename.Contains("gfx804")) //rx550
@@ -74,19 +74,19 @@ namespace NiceHashMiner.Devices.Algorithms
                         }
                         if (device.Codename.Contains("Pitcairn")) //r7-370
                         {
-                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=1400";
-                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1400";
+                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=1024";
+                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1024";
                         }
                         if (device.Codename.Contains("Baffin")) //rx460/560
                         {
-                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=1920";
-                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1920";
+                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=1024";
+                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1024";
                         }
 
                         if (device.Codename.Contains("Ellesmere")) //rx570/580
                         {
-                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=1920";
-                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1920";
+                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=1024";
+                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1024";
                         }
 
                         if (device.Codename.Contains("Hawaii"))

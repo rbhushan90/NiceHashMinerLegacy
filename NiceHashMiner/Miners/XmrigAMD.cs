@@ -35,16 +35,18 @@ namespace NiceHashMiner.Miners
             var extras = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD);
             var algo = "cryptonightv7";
             var port = "3363";
+            var variant = " --variant 1 ";
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
                 algo = "cryptonightv8";
                 port = "3367";
+                variant = " --variant 2 ";
             }
-            return $" -o {url} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
-                + $" -o stratum+tcp://{ algo}.usa.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{ algo}.hk.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{ algo}.jp.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{ algo}.in.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+            return $" -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
+                + $" -o stratum+tcp://{ algo}.usa.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{ algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{ algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{ algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart()+ " --opencl-platform=" + GPUPlatformNumber; ; 
         }
 

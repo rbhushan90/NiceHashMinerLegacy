@@ -251,6 +251,7 @@ namespace NiceHashMiner.Devices.Algorithms
                            // new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Skunk, "Skunk"),
                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightHeavy, "CryptoNightHeavy"),
                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightV7, "CryptoNightV7"),
+                           new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightV8, "CryptoNightV8"),
                         }
                     },
 
