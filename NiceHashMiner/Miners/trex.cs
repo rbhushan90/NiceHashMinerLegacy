@@ -45,10 +45,10 @@ namespace NiceHashMiner.Miners
             apiBind = " -b 127.0.0.1:" + ApiPort;
             IsApiReadException = false;
 
-            /*
+            
  LastCommandLine = algo +
      " -o " + url + " -u " + username + " -p x " +
-     " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o " + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
      " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
      " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
      " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
@@ -57,11 +57,13 @@ namespace NiceHashMiner.Miners
      apiBind +
      " -d " + GetDevicesCommandString() + " " +
      ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-     */
+     
+     /*
             LastCommandLine = algo + apiBind +
             " -o " + url + " -u " + username + " -p x " +
             " -d " + GetDevicesCommandString() + " " +
             ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
+*/
             ProcessHandle = _Start();
         }
 
@@ -88,14 +90,12 @@ namespace NiceHashMiner.Miners
 
             var commandLine = " -a " + algorithm.MinerName.ToLower() +
                              " -o " + url + " -u " + username + " -p x " +
-                              /*
-                 " -o stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
-                 */
+                 " -o " + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) + " -l "+ GetLogFileName()+
