@@ -20,8 +20,6 @@ namespace NiceHashMiner.Utils
             @"/sgminer-kl/sgminer.exe",
             @"/xmr-stak/xmrstak_cuda_backend.dll",
             @"/xmr-stak/xmrstak_opencl_backend.dll",
-            @"/xmr-stak/libeay32.dll",
-            @"/xmr-stak/ssleay32.dll",
             @"/xmr-stak/xmr-stak.exe",
             @"/xmrig/xmrig.exe",
             @"/xmrig-amd/xmrig-amd.exe",

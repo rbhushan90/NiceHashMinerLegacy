@@ -49,13 +49,17 @@ namespace NiceHashMiner.Miners
             var extras = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.CPU);
             var algo = "cryptonightv7";
             var port = "3363";
+            var variant = " --variant 1 ";
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
                 algo = "cryptonightv8";
                 port = "3367";
+                variant = " --variant 2 ";
+                return $" -o stratum+tcp://xmr-eu.dwarfpool.com:8005 {variant} -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1 "
+                + $" -o stratum+tcp://" + algo + ".eu.nicehash.com:" + port + " -u {btcAdress}.{worker}:x ";
             }
 
-                return $" -o {url} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 --nicehash"
+                return $" -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 "
                 + $" -o stratum+tcp://" + algo +".usa.nicehash.com:" + port + " -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://" + algo + ".hk.nicehash.com:" + port + " -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://" + algo + ".jp.nicehash.com:" + port + " -u {btcAdress}.{worker}:x "
