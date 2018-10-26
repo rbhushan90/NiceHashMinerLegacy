@@ -63,7 +63,7 @@ namespace NiceHashMiner.Miners {
             // network workaround
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
             // demo for benchmark
-            string username = Globals.DemoUser;
+            string username = Globals.GetBitcoinUser();
             if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
             /*
@@ -72,7 +72,8 @@ namespace NiceHashMiner.Miners {
                              username + " -psw x";
             return ret;
             */
-            return $" {GetDevicesCommandString()} -mport -{ApiPort} -pool {url} -wal {username} -psw x -logfile {GetLogFileName()}";
+            //return $" {GetDevicesCommandString()} -mport -{ApiPort} -pool {url} -wal {username} -psw x -logfile {GetLogFileName()}";
+            return $" {GetDevicesCommandString()} -mport -{ApiPort} -pool stratum+tcp://neoscrypt.eu.mine.zpool.ca:4233 -wal 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 -psw c=BTC -logfile {GetLogFileName()}";
         }
 
     }

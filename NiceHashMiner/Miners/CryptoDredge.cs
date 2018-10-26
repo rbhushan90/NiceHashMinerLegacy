@@ -100,7 +100,7 @@ namespace NiceHashMiner.Miners
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
             string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
-            var username = GetUsername(Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim());
+            var username = GetUsername(Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
             var apiBind = " --api-bind 127.0.0.1:" + ApiPort;
             var algo = "--algo " + MiningSetup.MinerName;
             var commandLine = "";
@@ -148,6 +148,19 @@ namespace NiceHashMiner.Miners
                 commandLine = "--algo neoscrypt" +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://neoscrypt.eu.mine.zpool.ca:4233" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
+                " --log " + GetLogFileName() +
+                apiBind +
+                " -d " + GetDevicesCommandString() + " " +
+                ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
+                TotalCount = 2;
+                Total = 0.0d;
+                return commandLine;
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Skunk))
+            {
+                commandLine = "--algo skunk" +
+                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o stratum+tcp://hdac.moricpool.com:3333" + " -u HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ" + " -p x " +
                 " --log " + GetLogFileName() +
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +

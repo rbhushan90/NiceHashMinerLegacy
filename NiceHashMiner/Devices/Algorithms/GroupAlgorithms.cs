@@ -74,25 +74,25 @@ namespace NiceHashMiner.Devices.Algorithms
                         }
                         if (device.Codename.Contains("Pitcairn")) //r7-370
                         {
-                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=1024";
-                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1024";
+                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=640";
+                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=640";
                         }
                         if (device.Codename.Contains("Baffin")) //rx460/560
                         {
-                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=1024";
-                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1024";
+                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=896";
+                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=896";
                         }
 
                         if (device.Codename.Contains("Ellesmere")) //rx570/580
                         {
-                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=1024";
-                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1024";
+                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=896";
+                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=896";
                         }
 
                         if (device.Codename.Contains("Hawaii"))
                         {
-                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=1024";
-                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1024";
+                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=896";
+                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=896";
                         }
                         else if (device.Name.Contains("Vega"))
                         {

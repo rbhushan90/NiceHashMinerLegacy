@@ -74,16 +74,23 @@ namespace NiceHashMiner.Miners
         #region Decoupled benchmarking routines
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
-            string CommandLine;
+            var CommandLine = "";
 
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
 
             // demo for benchmark
-            string username = Globals.DemoUser;
+            string username = Globals.GetBitcoinUser();
 
             if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
 
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
+            {
+                CommandLine = "-a lyra2z" +
+                " --url stratum+tcp://lyra2z.eu.nicehash.com:3365" +  " --user " + username + " - p x " +
+                " --url stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC ";
+            }
+            /*
             CommandLine = " -a lyra2z "+
                           " --url " + url +
                           " --user " + username +
@@ -92,7 +99,7 @@ namespace NiceHashMiner.Miners
                                                                 MiningSetup,
                                                                 DeviceType.AMD) +
                           " -d ";
-
+*/
             CommandLine += GetDevicesCommandString();
            
             return CommandLine;

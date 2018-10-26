@@ -41,6 +41,26 @@ namespace NiceHashMiner.Miners
                 algo = "cryptonightv8";
                 port = "3367";
                 variant = " --variant 2 ";
+            }
+            return $" -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
+                + $" -o stratum+tcp://{ algo}.usa.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{ algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{ algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{ algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + " --opencl-devices=" + GetDevicesCommandString().TrimStart()+ " --opencl-platform=" + GPUPlatformNumber; 
+        }
+
+        private string GetStartBenchmarkCommand(string url, string btcAdress, string worker)
+        {
+            var extras = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD);
+            var algo = "cryptonightv7";
+            var port = "3363";
+            var variant = " --variant 1 ";
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
+            {
+                algo = "cryptonightv8";
+                port = "3367";
+                variant = " --variant 2 ";
 
                 return $" -o stratum+tcp://xmr-eu.dwarfpool.com:8005 {variant} -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1"
                + $" -o stratum+tcp://{ algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
@@ -51,7 +71,7 @@ namespace NiceHashMiner.Miners
                 + $" -o stratum+tcp://{ algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://{ algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://{ algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + " --opencl-devices=" + GetDevicesCommandString().TrimStart()+ " --opencl-platform=" + GPUPlatformNumber; 
+                + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
         }
 
         protected override void _Stop(MinerStopType willswitch) {
@@ -78,7 +98,7 @@ namespace NiceHashMiner.Miners
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], 
                 ConectionType);
          //   _benchmarkTimeWait = time;
-            return GetStartCommand(server, Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim())
+            return GetStartBenchmarkCommand(server, Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim())
                 + " -l "+ GetLogFileName()+ " --print-time=2";
         }
 

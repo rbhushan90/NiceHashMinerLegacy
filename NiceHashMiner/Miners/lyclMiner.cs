@@ -227,9 +227,11 @@ namespace NiceHashMiner.Miners
             var url = Globals.GetLocationUrl(AlgorithmType.Lyra2REv2, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
             var username = Globals.DemoUser;
             string[] ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.IDByBus.ToString()).ToArray();
-            conf = conf.Replace("stratum+tcp://example.com:port", url);
-            conf = conf.Replace("user", username);
-           
+            conf = conf.Replace("stratum+tcp://example.com:port", "stratum+tcp://lyra2v2.eu.mine.zpool.ca:4533");
+            conf = conf.Replace("user", "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2");
+            conf = conf.Replace("Password = \"x\"", "Password = \"c=BTC\"");
+            
+
             string newconf = "";
             string[] textArray = conf.Split('\n');
             string[] worksize = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD).Replace("worksize=", "").Split(',');

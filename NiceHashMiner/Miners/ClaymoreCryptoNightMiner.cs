@@ -58,7 +58,7 @@ namespace NiceHashMiner.Miners
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
                 ConectionType);
             // demo for benchmark
-            var username = Globals.DemoUser;
+            var username = Globals.GetBitcoinUser();
             if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
 

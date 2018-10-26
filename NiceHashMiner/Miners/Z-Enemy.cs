@@ -76,11 +76,14 @@ namespace NiceHashMiner.Miners
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
             string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
-            var username = GetUsername(Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim());
+            var username = GetUsername(Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
+            var commandLine = "";
 
             var timeLimit = (_benchmarkException) ? "" : " --time-limit 300";
-            var commandLine = " --algo=" + algorithm.MinerName +
-                             " --url=" + url + " --userpass=" + username + ":x" +
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16R))
+            {
+                commandLine = " --algo=" + algorithm.MinerName +
+                " --url=" + url + " --userpass=" + username + ":x" +
                 " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
                 " --url=stratum+tcp://" + alg + ".jp.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
                 " --url=stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
@@ -88,15 +91,17 @@ namespace NiceHashMiner.Miners
                 " --url=stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " --userpass=" + username + ":x" +
                 " --url=" + url + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://x16r.eu.mine.zpool.ca:3636" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2:c=BTC " +
                               timeLimit + " " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) +
                               " --devices ";
+            }
 
             commandLine += GetDevicesCommandString();
 
-            TotalCount = 3;
+            TotalCount = 1;
 
             Total = 0.0d;
 
@@ -110,7 +115,7 @@ namespace NiceHashMiner.Miners
 
             if (_benchmarkException)
             {
-                if ( outdata.Contains("GPU") && outdata.Contains("/s") )
+                if ( outdata.Contains("GPU") && outdata.Contains("/s")) //GPU#4: ASUS GTX 1060 3GB, 10.56MH/s
                 {
                    
                     var st = outdata.IndexOf(", ");
