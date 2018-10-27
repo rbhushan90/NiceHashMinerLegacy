@@ -79,8 +79,9 @@ namespace NiceHashMiner.Miners
                    $"--telemetry=127.0.0.1:{ApiPort} ";
                    */
             var ret = GetDeviceCommand()+
-          " --server equihash.eu.mine.zpool.ca --port 2142" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 --pass c=BTC " +
-" --pool " + url.Split(':')[0] + "," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x " +
+//          " --server equihash.eu.mine.zpool.ca --port 2142" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 --pass c=BTC " + //protocol version 040c0000 not supported
+" --server " + url.Split(':')[0] + " --port " + url.Split(':')[1] + " --user " + btcAddress + "." + worker + " --pass x " +
+//" --pool " + url.Split(':')[0] + "," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x " +
 " --pool " + alg + ".hk.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
 " --pool " + alg + ".in.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
 " --pool " + alg + ".jp.nicehash.com," + url.Split(':')[1] + "," + btcAddress + "." + worker + ",x" +
@@ -113,7 +114,7 @@ namespace NiceHashMiner.Miners
 
             _benchmarkTime = Math.Max(time, 60);
 
-            return GetStartCommand(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim()) +
+            return GetBenchmarkStartCommand(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim()) +
                    $" --logfile={GetLogFileName()}";
         }
 

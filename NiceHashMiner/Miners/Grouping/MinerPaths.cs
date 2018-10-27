@@ -126,6 +126,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string CastXMR = Bin3rdParty + @"\castxmr\cast_xmr-vega.exe";
             public const string hsrneoscrypt = Bin3rdParty + @"\hsrminer_neoscrypt\hsrminer_neoscrypt.exe";
             public const string CryptoDredge = Bin3rdParty + @"\CryptoDredge\CryptoDredge.exe";
+            public const string CryptoDredgeV8 = Bin3rdParty + @"\CryptoDredgeV8\CryptoDredge.exe";
             public const string ZEnemy = Bin3rdParty + @"\Z-Enemy\z-enemy.exe";
             public const string trex = Bin3rdParty + @"\t-rex\t-rex.exe";
         }
@@ -158,6 +159,9 @@ namespace NiceHashMiner.Miners.Grouping
             // Temp workaround
             if (minerBaseType == MinerBaseType.XmrStak && algoType == AlgorithmType.CryptoNightHeavy)
                 return Data.XmrStakHeavy;
+            if (minerBaseType == MinerBaseType.CryptoDredge && algoType == AlgorithmType.CryptoNightV8)
+                // return NvidiaGroups.CryptoDredgeV8(algoType, devGroupType);
+                return Data.CryptoDredgeV8;
 
             switch (minerBaseType)
             {
