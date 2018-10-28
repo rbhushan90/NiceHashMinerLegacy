@@ -71,14 +71,14 @@ namespace NiceHashMiner.Miners.Grouping
             /// <summary>
             /// ccminers
             /// </summary>
-            public const string CcminerDecred = Bin + @"\ccminer_decred\ccminer.exe";
+//            public const string CcminerDecred = Bin + @"\ccminer_decred\ccminer.exe";
 
             public const string CcminerNanashi = Bin + @"\ccminer_nanashi\ccminer.exe";
             public const string CcminerNeoscrypt = Bin + @"\ccminer_neoscrypt\ccminer.exe";
             public const string CcminerSp = Bin + @"\ccminer_sp\ccminer.exe";
             public const string CcminerTPruvot = Bin + @"\ccminer_tpruvot\ccminer.exe";
             public const string CcminerCryptonight = Bin + @"\ccminer_cryptonight\ccminer.exe";
-            public const string CcminerX11Gost = Bin + @"\ccminer_x11gost\ccminer.exe";
+//            public const string CcminerX11Gost = Bin + @"\ccminer_x11gost\ccminer.exe";
             public const string CcminerKlausT = Bin + @"\ccminer_klaust\ccminer.exe";
 
             /// <summary>
@@ -91,7 +91,7 @@ namespace NiceHashMiner.Miners.Grouping
             /// </summary>
             public const string Sgminer560General = Bin + @"\sgminer-5-6-0-general\sgminer.exe";
 
-            public const string SgminerGm = Bin + @"\sgminer-gm\sgminer.exe";
+//            public const string SgminerGm = Bin + @"\sgminer-gm\sgminer.exe";
             public const string SgminerKl = Bin + @"\sgminer-kl\sgminer.exe";
 
             public const string NhEqMiner = Bin + @"\nheqminer_v0.4b\NhEqMiner.exe";
@@ -262,20 +262,8 @@ namespace NiceHashMiner.Miners.Grouping
         ////// private stuff from here on
         private static class NvidiaGroups
         {
-            private static string CcminerSM21(AlgorithmType algorithmType)
-            {
-                return AlgorithmType.CryptoNight == algorithmType ? Data.CcminerCryptonight : Data.CcminerDecred;
-            }
             private static string CcminerSM3X(AlgorithmType algorithmType)
             {
-                if (AlgorithmType.Decred == algorithmType)
-                {
-                    return Data.CcminerDecred;
-                }
-                if (AlgorithmType.CryptoNight == algorithmType)
-                {
-                    return Data.CcminerCryptonight;
-                }
                 return Data.CcminerTPruvot;
             }
 
@@ -283,15 +271,10 @@ namespace NiceHashMiner.Miners.Grouping
             {
                 switch (algorithmType)
                 {
-                    case AlgorithmType.Decred:
-                        return Data.CcminerDecred;
                     case AlgorithmType.Lyra2RE:
                     case AlgorithmType.Lyra2REv2:
                         return Data.CcminerNanashi;
-                    case AlgorithmType.CryptoNight:
-                        return Data.CcminerCryptonight;
                     case AlgorithmType.Lbry:
-                    case AlgorithmType.X11Gost:
                     case AlgorithmType.Blake2s:
                     case AlgorithmType.Skunk:
                     case AlgorithmType.Keccak:
@@ -380,8 +363,6 @@ namespace NiceHashMiner.Miners.Grouping
                 switch (nvidiaGroup)
                 {
                     // sm21 and sm3x no longer have same settings since tpruvot dropped 21 support
-                    case DeviceGroupType.NVIDIA_2_1:
-                        return CcminerSM21(algorithmType);
                     case DeviceGroupType.NVIDIA_3_x:
                         return CcminerSM3X(algorithmType);
                     // CN exception
@@ -399,9 +380,6 @@ namespace NiceHashMiner.Miners.Grouping
             public static string CcminerUnstablePath(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
             {
                 // sm5x and sm6x have same settings
-                if ((nvidiaGroup == DeviceGroupType.NVIDIA_5_x || nvidiaGroup == DeviceGroupType.NVIDIA_6_x) &&
-                    (AlgorithmType.X11Gost == algorithmType || AlgorithmType.Nist5 == algorithmType || AlgorithmType.Keccak == algorithmType))
-                    return Data.CcminerX11Gost;
                 // TODO wrong case?
                 return Data.None; // should not happen
             }
@@ -415,11 +393,7 @@ namespace NiceHashMiner.Miners.Grouping
                 {
                     return Data.SgminerKl;
                 }
-                if (AlgorithmType.CryptoNight == type || AlgorithmType.DaggerHashimoto == type)
-                {
-                    return Data.SgminerGm;
-                }
-                return Data.Sgminer560General;
+                return Data.SgminerKl;
             }
 
             public static string ClaymorePath(AlgorithmType type)

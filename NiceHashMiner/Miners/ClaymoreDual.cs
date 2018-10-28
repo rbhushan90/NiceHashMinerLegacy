@@ -117,7 +117,6 @@ namespace NiceHashMiner.Miners
                 }
             }
 
-
                 Thread.Sleep(200);
             if (!IsDual())
             {
@@ -160,7 +159,6 @@ namespace NiceHashMiner.Miners
                         break;
                     }
                 }
-                
             }
             else //dual
             {
@@ -189,8 +187,6 @@ namespace NiceHashMiner.Miners
                 dualModeParams = $" -dcoin {SecondaryShortName()} -dpool {urlSecond} -dwal {username} -dpsw x -dpoolsfile "+dpoolsFile;
             }
 
-
-            
             string addParam;
             bool needdcri = true;
             bool isNvidia = false;
@@ -201,7 +197,6 @@ namespace NiceHashMiner.Miners
                 {
                     needdcri = false;
                 }
-
 
                 if (pair.Algorithm is DualAlgorithm algo && algo.TuningEnabled && pair.CurrentExtraLaunchParameters.Contains("-dcri"))
                 {
@@ -225,9 +220,6 @@ namespace NiceHashMiner.Miners
                     isNvidia = false;
                 }
             }
-
-
-
 
             if (SecondaryAlgorithmType == AlgorithmType.Blake2s & needdcri & !istuned)
             {
@@ -268,12 +260,246 @@ namespace NiceHashMiner.Miners
                                     + dualModeParams;
             }
             return addParam + " -epoolsfile "+epoolsFile;
-/*
-            return " "
-                   + GetDevicesCommandString()
-                   + $"  -epool {url} -ewal {username} -mport 127.0.0.1:-{ApiPort} -esm 3 -epsw x -allpools 1"
-                   + dualModeParams;
-*/
+        }
+
+        private string GetStartBenchmarkCommand(string url, string btcAdress, string worker)
+        {
+            var username = GetUsername(btcAdress, worker);
+            // AlgorithmType alg = AlgorithmType.Lbry;
+            var dual = AlgorithmType.NONE;
+            string poolport = "3354";
+            var dualModeParams = "";
+            string epoolsFile = "";
+            string dpoolsFile = "";
+            var urlSecond = "";
+            var esm = "";
+
+            foreach (var pair in MiningSetup.MiningPairs)
+            {
+                if (pair.Device.DeviceType == DeviceType.NVIDIA)
+                {
+                    epoolsFile = "epoolsNV" + GetLogFileName().Replace("_log", "");
+                    dpoolsFile = "dpoolsNV" + GetLogFileName().Replace("_log", "");
+                }
+                else
+                {
+                    epoolsFile = "epoolsAMD" + GetLogFileName().Replace("_log", "");
+                    dpoolsFile = "dpoolsAMD" + GetLogFileName().Replace("_log", "");
+                }
+            }
+
+            if (File.Exists("bin_3rdparty\\claymore_dual\\epools.txt"))
+                File.Delete("bin_3rdparty\\claymore_dual\\epools.txt");
+            if (File.Exists("bin_3rdparty\\claymore_dual\\dpools.txt"))
+                File.Delete("bin_3rdparty\\claymore_dual\\dpools.txt");
+
+            if (File.Exists("bin_3rdparty\\claymore_dual\\" + epoolsFile))
+                File.Delete("bin_3rdparty\\claymore_dual\\" + epoolsFile);
+            if (File.Exists("bin_3rdparty\\claymore_dual\\" + dpoolsFile))
+                File.Delete("bin_3rdparty\\claymore_dual\\" + dpoolsFile);
+
+            Thread.Sleep(200);
+
+            String epools = String.Format("POOL: daggerhashimoto.usa.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.hk.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.jp.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.in.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.br.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.eu.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n";
+            try
+            {
+                FileStream fs = new FileStream("bin_3rdparty\\claymore_dual\\" + epoolsFile, FileMode.Create, FileAccess.Write);
+                StreamWriter w = new StreamWriter(fs);
+                w.WriteAsync(epools);
+                w.Flush();
+                w.Close();
+            }
+            catch (Exception e)
+            {
+                Helpers.ConsolePrint("GetStartCommand", e.ToString());
+            }
+
+            bool istuned = false;
+
+            foreach (var mPair in MiningSetup.MiningPairs)
+            {
+                if (mPair.Algorithm is DualAlgorithm algo && algo.TuningEnabled)
+                {
+                    // var intensity = algo.MostProfitableIntensity;
+                    // if (intensity < 0) intensity = defaultIntensity;
+                    istuned = true;
+                }
+            }
+
+            Thread.Sleep(200);
+            if (!IsDual())
+            {
+                // leave convenience param for non-dual entry
+                foreach (var pair in MiningSetup.MiningPairs)
+                {
+                    if (!pair.CurrentExtraLaunchParameters.Contains("-dual=")) continue;
+                    dual = AlgorithmType.NONE;
+                    var coinP = "";
+
+                    if (dual != AlgorithmType.NONE)
+                    {
+                        urlSecond = Globals.GetLocationUrl(dual,
+                            Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
+                            ConectionType);
+                        dualModeParams = $" {coinP} -dpool {urlSecond} -dwal {username}";
+                        break;
+                    }
+                }
+            }
+            else //dual
+            {
+                String dpools = "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".eu.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x, ESM: 3, ALLPOOLS: 1", username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".hk.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x, ESM: 3, ALLPOOLS: 1", username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".jp.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x, ESM: 3, ALLPOOLS: 1", username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".in.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x, ESM: 3, ALLPOOLS: 1", username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".br.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x, ESM: 3, ALLPOOLS: 1", username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".usa.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x, ESM: 3, ALLPOOLS: 1", username) + "\n";
+                try
+                {
+                    FileStream fs1 = new FileStream("bin_3rdparty\\claymore_dual\\" + dpoolsFile, FileMode.Create, FileAccess.Write);
+                    StreamWriter w1 = new StreamWriter(fs1);
+                    w1.WriteAsync(dpools);
+                    w1.Flush();
+                    w1.Close();
+                    Thread.Sleep(200);
+                }
+                catch (Exception e)
+                {
+                    Helpers.ConsolePrint("GetStartCommand", e.ToString());
+                }
+
+                if (SecondaryAlgorithmType == AlgorithmType.Decred)
+                {
+                    urlSecond = "stratum+tcp://decred.eu.mine.zpool.ca:5744";
+                    username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
+                }
+                if (SecondaryAlgorithmType == AlgorithmType.Lbry)
+                {
+                    urlSecond = "stratum+tcp://lbry.eu.mine.zpool.ca:3334";
+                    username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
+                }
+
+                if (SecondaryAlgorithmType == AlgorithmType.Blake2s)
+                {
+                    urlSecond = "stratum+tcp://blake2s.eu.mine.zpool.ca:5766";
+                    username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
+                }
+                if (SecondaryAlgorithmType == AlgorithmType.Keccak)
+                {
+                    urlSecond = "stratum+tcp://keccak.eu.mine.zpool.ca:5133";
+                    username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
+                }
+                /*
+                if (SecondaryAlgorithmType == AlgorithmType.Pascal)
+                {
+                    urlSecond = "stratum+tcp://pascal.eu.nicehash.com:" + poolport;
+                    username = Globals.GetBitcoinUser();
+                    esm = "-esm 3";
+                }
+                if (SecondaryAlgorithmType == AlgorithmType.Sia)
+                {
+                    urlSecond = "stratum+tcp://sia.eu.nicehash.com:" + poolport;
+                    username = Globals.GetBitcoinUser();
+                    esm = "-esm 3";
+                }
+                */
+
+
+
+                 urlSecond = Globals.GetLocationUrl(SecondaryAlgorithmType,
+                    Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
+                dualModeParams = $" -dcoin {SecondaryShortName()} -dpool {urlSecond} -dwal {username} -dpsw x {esm} -dpoolsfile " + dpoolsFile;
+                //dualModeParams = $" -dcoin {SecondaryShortName()} -dpoolsfile " + dpoolsFile;
+            }
+
+            string addParam;
+            bool needdcri = true;
+            bool isNvidia = false;
+            var dcri = "-dcri 7";
+            foreach (var pair in MiningSetup.MiningPairs)
+            {
+                if (pair.CurrentExtraLaunchParameters.Contains("-dcri"))
+                {
+                    needdcri = false;
+                }
+
+                if (pair.Algorithm is DualAlgorithm algo && algo.TuningEnabled && pair.CurrentExtraLaunchParameters.Contains("-dcri"))
+                {
+                    if (btcAdress == Globals.DemoUser)
+                    {
+                        algo.TuningEnabled = true;
+                        Helpers.ConsolePrint("Tuning ENABLE ", "");
+                    }
+                    else
+                    {
+                        algo.TuningEnabled = false;
+                        Helpers.ConsolePrint("Tuning DISABLE ", "");
+                    }
+                }
+
+                if (pair.Device.DeviceType == DeviceType.NVIDIA)
+                {
+                    isNvidia = true;
+                }
+                else
+                {
+                    isNvidia = false;
+                }
+            }
+
+            if (SecondaryAlgorithmType == AlgorithmType.Blake2s & needdcri & !istuned)
+            {
+                if (isNvidia)
+                {
+                    dcri = "-dcri 40";
+                }
+                else
+                {
+                    dcri = "-dcri 30";
+                }
+                addParam = " "
+                    + GetDevicesCommandString()
+                    + String.Format("  -epool stratum+tcp://eth-eu.dwarfpool.com:8008 -ewal 0x9290e50e7ccf1bdc90da8248a2bbacc5063aeee1/{0} -mport 127.0.0.1:-{1} -epsw x -allpools 1 -ftime 10 -retrydelay 5 " + dcri + " ", worker, ApiPort)
+                    + dualModeParams;
+            }
+            else if (SecondaryAlgorithmType == AlgorithmType.Keccak & needdcri & !istuned)
+            {
+                if (isNvidia)
+                {
+                    dcri = "-dcri 20";
+                }
+                else
+                {
+                    dcri = "-dcri 7";
+                }
+
+                addParam = " "
+                                    + GetDevicesCommandString()
+                                    + String.Format("  -epool stratum+tcp://eth-eu.dwarfpool.com:8008 -ewal 9290e50e7ccf1bdc90da8248a2bbacc5063aeee1/{0} -mport 127.0.0.1:-{1} -epsw x -allpools 1 -ftime 10 -retrydelay 5 " + dcri + " ", worker, ApiPort)
+                                    + dualModeParams;
+            }
+            else if (SecondaryAlgorithmType == AlgorithmType.Pascal || SecondaryAlgorithmType == AlgorithmType.Sia)
+            {
+
+                addParam = " "
+                                        + GetDevicesCommandString()
+                                        + String.Format("  -epool daggerhashimoto.usa.nicehash.com:3353 -ewal {0}/{1} -mport 127.0.0.1:-{2} -epsw x -esm 3 -allpools 1 -ftime 10 -retrydelay 5", username, worker, ApiPort)
+                                        + dualModeParams;
+            }
+            else
+            {
+
+                addParam = " "
+                                        + GetDevicesCommandString()
+                                        + String.Format("  -epool stratum+tcp://eth-eu.dwarfpool.com:8008 -ewal 9290e50e7ccf1bdc90da8248a2bbacc5063aeee1/{0} -mport 127.0.0.1:-{1} -epsw x -allpools 1 -ftime 10 -retrydelay 5", worker, ApiPort)
+                                        + dualModeParams;
+            }
+            return addParam + " -epoolsfile " + epoolsFile;
         }
 
         public override void Start(string url, string btcAdress, string worker)
@@ -331,17 +557,8 @@ namespace NiceHashMiner.Miners
             // network stub
             var url = GetServiceUrl(algorithm.NiceHashID);
             // demo for benchmark
-            var ret = GetStartCommand(url, Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim())
+            var ret = GetStartBenchmarkCommand(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim())
                          + " -logfile " + GetLogFileName();
-            // local benhcmark
-            /*
-            if (!IsDual())
-            {
-                BenchmarkTimeWait = time;
-                return ret + "  -benchmark 1"; // benchmark 1 does not output secondary speeds
-            }
-            */
-            // dual seems to stop mining after this time if redirect output is true
             BenchmarkTimeWait = Math.Max(60, Math.Min(120, time * 3));
             return ret;
         }

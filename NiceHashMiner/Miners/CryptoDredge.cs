@@ -185,6 +185,8 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
+                if (File.Exists("bin_3rdparty\\CryptoDredgeV8\\"+ GetLogFileName()))
+                    File.Delete("bin_3rdparty\\CryptoDredgeV8\\" + GetLogFileName());
                 algo = "--algo cnv8";
                 commandLine = algo +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
@@ -197,7 +199,8 @@ namespace NiceHashMiner.Miners
                 Total = 0.0d;
                 return commandLine;
             }
-
+            if (File.Exists("bin_3rdparty\\CryptoDredge\\" + GetLogFileName()))
+                File.Delete("bin_3rdparty\\CryptoDredge\\" + GetLogFileName());
             commandLine = algo +
                 " -o " + url + " -u " + username + " -p x " +
                 " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
@@ -218,13 +221,13 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata)
         {
+            Helpers.ConsolePrint("BENCHMARK1:", outdata);
 
-
-            if (_benchmarkException)
+            if (true)
             {
                 if (outdata.Contains("GPU") && outdata.Contains("/s"))
                 {
-
+                    Helpers.ConsolePrint("BENCHMARK2:", outdata);
                     var st = outdata.IndexOf("Avr ");
                     var e = outdata.IndexOf("/s)");
 
@@ -286,7 +289,7 @@ namespace NiceHashMiner.Miners
                     */
 
 
-                        speed += tmp;
+                    speed += tmp;
                     count++;
                     TotalCount--;
                 }

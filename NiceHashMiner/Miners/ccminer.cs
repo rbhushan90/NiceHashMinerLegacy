@@ -25,17 +25,11 @@ namespace NiceHashMiner.Miners
         private bool _benchmarkException => MiningSetup.MinerPath == MinerPaths.Data.CcminerCryptonight
                                            || MiningSetup.MinerPath == MinerPaths.Data.CcminerKlausT
             || MiningSetup.MinerPath == MinerPaths.Data.CcminerTPruvot
-            || MiningSetup.MinerPath == MinerPaths.Data.CcminerX11Gost
-            || MiningSetup.MinerPath == MinerPaths.Data.CcminerDecred
             || MiningSetup.MinerPath == MinerPaths.Data.CcminerNanashi
             || MiningSetup.MinerPath == MinerPaths.Data.CcminerSp;
 
         protected override int GetMaxCooldownTimeInMilliseconds()
         {
-            if (MiningSetup.MinerPath == MinerPaths.Data.CcminerX11Gost)
-            {
-                return 60 * 1000 * 5; 
-            }
             return 60 * 1000 * 8; 
         }
 
@@ -146,7 +140,7 @@ namespace NiceHashMiner.Miners
             commandLine += GetDevicesCommandString();
 
             TotalCount = 15;
-            if (MiningSetup.MinerPath == MinerPaths.Data.CcminerX11Gost || MiningSetup.MinerPath == MinerPaths.Data.CcminerNanashi)
+            if (MiningSetup.MinerPath == MinerPaths.Data.CcminerNanashi)
             {
                 TotalCount = 3;
             }

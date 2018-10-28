@@ -302,10 +302,12 @@ namespace NiceHashMiner.Miners.Parsing
                 case MinerBaseType.ccminer:
                 case MinerBaseType.ccminer_alexis:
                 case MinerBaseType.experimental:
+/*
                     if (AlgorithmType.CryptoNight == algorithmType)
                     {
                         return MinerType.ccminer_CryptoNight;
                     }
+*/
                     return MinerType.ccminer;
                 case MinerBaseType.hsrneoscrypt:
                     return MinerType.hsrneoscrypt;

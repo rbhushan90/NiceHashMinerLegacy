@@ -149,7 +149,6 @@ namespace NiceHashMiner.Miners
                     var minerPaths = new List<string>()
                     {
                         MinerPaths.Data.Sgminer560General,
-                        MinerPaths.Data.SgminerGm,
                         MinerPaths.Data.SgminerKl,
                         MinerPaths.Data.ClaymoreCryptoNightMiner,
                         MinerPaths.Data.ClaymoreZcashMiner,

