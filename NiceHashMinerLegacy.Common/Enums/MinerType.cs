@@ -22,6 +22,7 @@
         EWBF,
         Xmrig,
         XmrigAMD,
+        SRBMiner,
         dstm,
         CastXMR,
         hsrneoscrypt,

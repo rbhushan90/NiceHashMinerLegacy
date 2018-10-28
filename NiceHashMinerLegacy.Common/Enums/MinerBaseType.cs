@@ -22,6 +22,7 @@
         Prospector,
         Xmrig,
         XmrigAMD,
+        SRBMiner,
         XmrStakAMD,
         Claymore_old,
         dstm,

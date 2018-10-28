@@ -121,6 +121,8 @@ namespace NiceHashMiner.Algorithms
                         (NiceHashID == AlgorithmType.NeoScrypt && minerBaseType == MinerBaseType.sgminer));
             Enabled = !(NiceHashID == AlgorithmType.CryptoNightV7) && minerBaseType == MinerBaseType.XmrigAMD;
             Enabled = !(NiceHashID == AlgorithmType.CryptoNightV8) && minerBaseType == MinerBaseType.XmrigAMD;
+            Enabled = !(NiceHashID == AlgorithmType.CryptoNightV8) && minerBaseType == MinerBaseType.SRBMiner;
+            Enabled = !(NiceHashID == AlgorithmType.CryptoNightHeavy) && minerBaseType == MinerBaseType.SRBMiner;
             Enabled = !(NiceHashID == AlgorithmType.Lyra2REv2) && minerBaseType == MinerBaseType.mkxminer;
             BenchmarkStatus = "";
         }

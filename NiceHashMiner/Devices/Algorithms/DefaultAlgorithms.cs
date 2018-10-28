@@ -158,6 +158,18 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV8, "CryptoNightV8") { }
                         }
                     },
+                    { MinerBaseType.SRBMiner,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.SRBMiner, AlgorithmType.CryptoNightV8, "CryptoNightV8")
+                            {
+                                ExtraLaunchParameters = "--cgpuintensity 0 --cgputhreads 2 "
+                            },
+                            new Algorithm(MinerBaseType.SRBMiner, AlgorithmType.CryptoNightHeavy, "CryptoNightHeavy")
+                            {
+                                ExtraLaunchParameters = "--cgpuintensity 0 --cgputhreads 2 "
+                            }
+                        }
+                    },
                     /*
                     { MinerBaseType.mkxminer,
                         new List<Algorithm>() {

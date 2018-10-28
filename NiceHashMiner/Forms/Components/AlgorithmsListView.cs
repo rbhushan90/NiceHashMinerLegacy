@@ -421,5 +421,10 @@ namespace NiceHashMiner.Forms.Components
                 }
             }
         }
+
+        private void listViewAlgorithms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

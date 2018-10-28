@@ -129,6 +129,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string CryptoDredgeV8 = Bin3rdParty + @"\CryptoDredgeV8\CryptoDredge.exe";
             public const string ZEnemy = Bin3rdParty + @"\Z-Enemy\z-enemy.exe";
             public const string trex = Bin3rdParty + @"\t-rex\t-rex.exe";
+            public const string SRBMiner = Bin3rdParty + @"\SRBMiner\SRBMiner-CN.exe";
         }
 
         // NEW START
@@ -193,6 +194,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.Xmrig;
                 case MinerBaseType.XmrigAMD:
                     return Data.XmrigAMD;
+                case MinerBaseType.SRBMiner:
+                    return Data.SRBMiner;
                 case MinerBaseType.dstm:
                     return Data.Dstm;
                 case MinerBaseType.cpuminer:

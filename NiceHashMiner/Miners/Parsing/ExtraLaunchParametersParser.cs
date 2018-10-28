@@ -386,6 +386,8 @@ namespace NiceHashMiner.Miners.Parsing
                     return MinerType.Xmrig;
                 case MinerBaseType.XmrigAMD:
                     return MinerType.XmrigAMD;
+                case MinerBaseType.SRBMiner:
+                    return MinerType.SRBMiner;
                 case MinerBaseType.dstm:
                     return MinerType.dstm;
             }

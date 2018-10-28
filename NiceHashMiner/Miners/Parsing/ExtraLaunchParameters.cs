@@ -297,7 +297,7 @@ namespace NiceHashMiner.Miners.Parsing
                     new MinerOption("ClaymoreCryptoNight_fanmin", "-fanmin", "-fanmin", "0", MinerOptionFlagType.MultiParam, ","),
                 }
             ),
-                new MinerOptionPackage(
+            new MinerOptionPackage(
                 MinerType.XmrigAMD,
                 new List<MinerOption>() {
                     new MinerOption("Xmrig_fee", "--donate-level=", "0", MinerOptionFlagType.SingleParam, " "),
@@ -306,6 +306,19 @@ namespace NiceHashMiner.Miners.Parsing
                     new MinerOption("Xmrig_affinity", "--opencl-affinity=", null, MinerOptionFlagType.SingleParam, ","),
                     new MinerOption("Xmrig-intensity", "--opencl-launch=", null, MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("Xmrig_nocolor", "--no-color", null, MinerOptionFlagType.Uni, " ")
+                },
+                new List<MinerOption>(){ }
+             ),
+                new MinerOptionPackage(
+                MinerType.SRBMiner,
+                new List<MinerOption>() {
+                    new MinerOption("SRBMiner-tls", "--ctls", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("SRBMiner-intensity", "--cgpuintensity", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("SRBMiner-threads", "--cgputhreads", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("SRBMiner-worksize", "--cgpuworksize", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("SRBMiner-targettemperature", "--cgputargettemperature", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("SRBMiner-cgputargetfanspeed", "--cgputargetfanspeed", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("SRBMiner-cgpuadltype", "--cgpuadltype", null, MinerOptionFlagType.MultiParam, ",")
                 },
                 new List<MinerOption>(){ }
              ),

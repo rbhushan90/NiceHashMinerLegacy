@@ -1055,5 +1055,15 @@ namespace NiceHashMiner.Forms
 
             textBox_IFTTTKey.Enabled = checkBox_UseIFTTT.Checked;
         }
+
+        private void algorithmsListView1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBoxAlgorithmSettings_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
