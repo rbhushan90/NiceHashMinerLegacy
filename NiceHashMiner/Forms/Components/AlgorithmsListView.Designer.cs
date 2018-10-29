@@ -54,23 +54,24 @@
             this.listViewAlgorithms.TabIndex = 11;
             this.listViewAlgorithms.UseCompatibleStateImageBehavior = false;
             this.listViewAlgorithms.View = System.Windows.Forms.View.Details;
+            this.listViewAlgorithms.SelectedIndexChanged += new System.EventHandler(this.listViewAlgorithms_SelectedIndexChanged);
             this.listViewAlgorithms.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListViewAlgorithms_MouseClick);
             // 
             // columnHeader0
             // 
             this.columnHeader0.Text = "Enabled";
-            this.columnHeader0.Width = 63;
+            this.columnHeader0.Width = 32;
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "Algorithm";
-            this.columnHeader1.Width = 117;
+            this.columnHeader1.Width = 160;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Speed";
             this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader2.Width = 120;
+            this.columnHeader2.Width = 110;
             // 
             // columnHeader3
             // 

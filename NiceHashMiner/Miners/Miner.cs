@@ -639,7 +639,7 @@ namespace NiceHashMiner
 
 
             // sgminer quickfix
-            if (this is Sgminer)
+            if (this is Sgminer | this is mkxminer)
             {
                 BenchmarkProcessPath = "cmd / " + benchmarkHandle.StartInfo.FileName;
                 benchmarkHandle.StartInfo.FileName = "cmd";
@@ -1620,7 +1620,7 @@ namespace NiceHashMiner
 
             Thread.Sleep(200);
 
-            CMDconfigHandle.StartInfo.Arguments = strPlatform + " " + strDual;
+            CMDconfigHandle.StartInfo.Arguments = " " + strPlatform + " " + strDual;
             CMDconfigHandle.StartInfo.UseShellExecute = false;
             // CMDconfigHandle.StartInfo.RedirectStandardError = true;
             // CMDconfigHandle.StartInfo.RedirectStandardOutput = true;

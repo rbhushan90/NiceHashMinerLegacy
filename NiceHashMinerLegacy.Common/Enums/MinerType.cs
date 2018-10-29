@@ -22,6 +22,7 @@
         EWBF,
         Xmrig,
         XmrigAMD,
+        SRBMiner,
         dstm,
         CastXMR,
         hsrneoscrypt,
@@ -31,6 +32,7 @@
         lyclMiner,
         trex,
         mkxminer,
+        teamredminer,
         Phoenix,
         END
     }

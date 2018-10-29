@@ -19,7 +19,7 @@ namespace NiceHashMiner.Miners
 {
     public class trex : Miner
     {
-        private int _benchmarkTimeWait = 180;
+        private int _benchmarkTimeWait = 240;
 
         private const int TotalDelim = 2;
         public trex() : base("trex_NVIDIA")
@@ -45,10 +45,10 @@ namespace NiceHashMiner.Miners
             apiBind = " -b 127.0.0.1:" + ApiPort;
             IsApiReadException = false;
 
-            /*
+            
  LastCommandLine = algo +
      " -o " + url + " -u " + username + " -p x " +
-     " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o " + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
      " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
      " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
      " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
@@ -57,11 +57,13 @@ namespace NiceHashMiner.Miners
      apiBind +
      " -d " + GetDevicesCommandString() + " " +
      ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-     */
+     
+     /*
             LastCommandLine = algo + apiBind +
             " -o " + url + " -u " + username + " -p x " +
             " -d " + GetDevicesCommandString() + " " +
             ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
+*/
             ProcessHandle = _Start();
         }
 
@@ -84,23 +86,63 @@ namespace NiceHashMiner.Miners
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
             string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
-            var username = GetUsername(Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim());
+            var username = GetUsername(Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
+            var commandLine = "";
 
-            var commandLine = " -a " + algorithm.MinerName.ToLower() +
-                             " -o " + url + " -u " + username + " -p x " +
-                              /*
-                 " -o stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
-                 */
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
+            {
+                commandLine = "--algo lyra2z" +
+                 " -o stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
+                 " -o " + url + " -u " + username + " -p x " +
+                 " -o " + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
-                                  DeviceType.NVIDIA) + " -l "+ GetLogFileName()+
+                                  DeviceType.NVIDIA) + " -l " + GetLogFileName() +
                               " -d ";
-            commandLine += GetDevicesCommandString();
+                commandLine += GetDevicesCommandString();
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Skunk))
+            {
+                commandLine = "--algo skunk" +
+                 //" -o stratum+tcp://marspool.org:8433" + " -u HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ" + " -p x " +
+                // " -o stratum+tcp://hdac.moricpool.com:3333" + " -u HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ" + " -p x " +
+                 " -o " + url + " -u " + username + " -p x " +
+                 " -o " + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+                              ExtraLaunchParametersParser.ParseForMiningSetup(
+                                  MiningSetup,
+                                  DeviceType.NVIDIA) + " -l " + GetLogFileName() +
+                              " -d ";
+                commandLine += GetDevicesCommandString();
+                _benchmarkTimeWait = 240;
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16R))
+            {
+                commandLine = "--algo x16r" +
+                 " -o stratum+tcp://x16r.eu.mine.zpool.ca:3636" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
+                 " -o " + url + " -u " + username + " -p x " +
+                 " -o " + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+                              ExtraLaunchParametersParser.ParseForMiningSetup(
+                                  MiningSetup,
+                                  DeviceType.NVIDIA) + " -l " + GetLogFileName() +
+                              " -d ";
+                commandLine += GetDevicesCommandString();
+                _benchmarkTimeWait = 240;
+            }
 
             return commandLine;
         }

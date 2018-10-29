@@ -70,6 +70,7 @@ namespace NiceHashMiner.Miners.XmrStak.Configs
         public bool strided_index = true;
         public int mem_chunk = 2;
         public bool comp_mode = true;
+        public int unroll = 8;
 
         public XmrStakAmdItem(int index, bool affine)
             : base(index, affine)
@@ -96,6 +97,7 @@ namespace NiceHashMiner.Miners.XmrStak.Configs
         public int bfactor = 8;
         public int bsleep = 100;
         public int sync_mode = 3;
+        public int mem_mode = 1;
 
         public XmrStakNvidiaItem(int index, bool affine)
             : base(index, affine)

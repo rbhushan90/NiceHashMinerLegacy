@@ -86,7 +86,7 @@ namespace NiceHashMiner.Miners
             
             LastCommandLine =
                               " --pool " + url +
-                              " --user " + username + "--password x " +
+                              " --user " + username + " --password x " +
                                   ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
                                                                 DeviceType.AMD) +
@@ -97,6 +97,10 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV7))
             {
                 LastCommandLine = LastCommandLine + " --algo=1";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
+            {
+                LastCommandLine = LastCommandLine + " --algo=10";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
@@ -115,25 +119,28 @@ namespace NiceHashMiner.Miners
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
 
             string CommandLine;
+            
             string url = "";
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV7))
             {
                 url = Globals.GetLocationUrl(AlgorithmType.CryptoNightV7, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP).Replace("stratum+tcp://", "");
-            }
-            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
+            } else if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
                 url = Globals.GetLocationUrl(AlgorithmType.CryptoNightHeavy, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP).Replace("stratum+tcp://", "");
+            } else if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
+            {
+                url = Globals.GetLocationUrl(AlgorithmType.CryptoNightV8, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP).Replace("stratum+tcp://", "");
             }
-            
 
-            string username = Globals.DemoUser;
+
+            string username = Globals.GetBitcoinUser();
 
             if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
 
             CommandLine = " --pool " + url +
-                          " --user " + Globals.DemoUser +
-                          " -password x " +
+                          " --user " + username +
+                          " --password x " +
                           ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
                                                                 DeviceType.AMD) +
@@ -146,8 +153,34 @@ namespace NiceHashMiner.Miners
             {
                 CommandLine = CommandLine + " --algo=1";
             }
+
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
+            {
+                CommandLine = " --pool xmr-eu.dwarfpool.com:8005 --user 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX." + ConfigManager.GeneralConfig.WorkerName.Trim() +
+                          " --password x " +
+                          ExtraLaunchParametersParser.ParseForMiningSetup(
+                                                                MiningSetup,
+                                                                DeviceType.AMD) +
+                          " --gpu " +
+                          GetDevicesCommandString() +
+                                          " --remoteaccess" +
+                              " --remoteport=" + ApiPort.ToString() + " --forcecompute ";
+
+                CommandLine = CommandLine + " --algo=10";
+            }
+
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
+                CommandLine = " --pool loki.miner.rocks:5555 --user L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi" +
+                          " --password w="+ ConfigManager.GeneralConfig.WorkerName.Trim() +
+                          ExtraLaunchParametersParser.ParseForMiningSetup(
+                                                                MiningSetup,
+                                                                DeviceType.AMD) +
+                          " --gpu " +
+                          GetDevicesCommandString() +
+                                          " --remoteaccess" +
+                              " --remoteport=" + ApiPort.ToString() + " --forcecompute ";
+
                 CommandLine = CommandLine + " --algo=2";
             }
             return CommandLine;

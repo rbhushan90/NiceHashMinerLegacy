@@ -171,6 +171,52 @@ namespace NiceHashMiner
 
                     ConfigManager.GeneralConfig.ForkFixVersion = 9.1;
                 }
+
+                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 9.2)
+                {
+                    Helpers.ConsolePrint("NICEHASH", "Old version");
+                    if (Directory.Exists("internals"))
+                        Directory.Delete("internals", true);
+
+                    if (File.Exists("bin\\xmrig\\xmrig.exe"))
+                        File.Delete("bin\\xmrig\\xmrig.exe");
+
+                    if (File.Exists("bin_3rdparty\\t-rex\\t-rex.exe"))
+                        File.Delete("bin_3rdparty\\t-rex\\t-rex.exe");
+
+                    ConfigManager.GeneralConfig.ForkFixVersion = 9.2;
+                }
+
+                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 9.3)
+                {
+                    Helpers.ConsolePrint("NICEHASH", "Old version");
+                    if (Directory.Exists("internals"))
+                        Directory.Delete("internals", true);
+
+                    if (File.Exists("bin\\xmrig\\xmrig.exe"))
+                        File.Delete("bin\\xmrig\\xmrig.exe");
+
+                    if (File.Exists("bin_3rdparty\\t-rex\\t-rex.exe"))
+                        File.Delete("bin_3rdparty\\t-rex\\t-rex.exe");
+
+                    ConfigManager.GeneralConfig.ForkFixVersion = 9.3;
+                }
+
+                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 10)
+                {
+                    Helpers.ConsolePrint("NICEHASH", "Old version");
+                    if (Directory.Exists("internals"))
+                        Directory.Delete("internals", true);
+
+                    if (File.Exists("bin\\xmrig\\xmrig.exe"))
+                        File.Delete("bin\\xmrig\\xmrig.exe");
+
+                    if (File.Exists("bin_3rdparty\\t-rex\\t-rex.exe"))
+                        File.Delete("bin_3rdparty\\t-rex\\t-rex.exe");
+
+                    ConfigManager.GeneralConfig.ForkFixVersion = 10;
+                }
+
                 //**
 
                 // init active display currency after config load

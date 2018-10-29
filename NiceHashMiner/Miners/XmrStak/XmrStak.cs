@@ -201,11 +201,25 @@ namespace NiceHashMiner.Miners.XmrStak
         {
             var url = Globals.GetLocationUrl(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
-            var configs = PrepareConfigFiles(url, Globals.GetBitcoinUser(),
+            var user = Globals.GetBitcoinUser();
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
+            {
+                url = "xmr-eu.dwarfpool.com:8005";
+                user = "42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX";
+            }
+            var configs = PrepareConfigFiles(url, user,
                 ConfigManager.GeneralConfig.WorkerName.Trim(), true);
+
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
+            {
+                url = "loki.miner.rocks:5555";
+                user = "L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi";
+                configs = PrepareConfigFiles(url, user,"", true);
+            }
+
             _benchmarkCount = 0;
             _benchmarkSum = 0;
-            BenchmarkTimeInSeconds = Math.Max(time, 60);
+            BenchmarkTimeInSeconds = Math.Max(time, 120);
             CleanOldLogs();
             return CreateLaunchCommand(GetBenchConfigName(), configs);
         }
