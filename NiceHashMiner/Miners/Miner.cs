@@ -154,6 +154,7 @@ namespace NiceHashMiner
     "rem ****************************************************************************************\r\n" +
     "SET NOVISIBLE=FALSE\r\n" +
     "\r\n" +
+    "echo Current algo: %3\r\n" +
     "rem ****************************************************************************************\r\n" +
     "rem * Все команды в разделах приведены только для примера\r\n" +
     "rem * All commands in sections are given for example only\r\n" +
@@ -1533,8 +1534,9 @@ namespace NiceHashMiner
             };
 
             var strPlatform = "";
-            var strDual = "";
-            
+            var strDual = "SINGLE";
+            var strAlgo = AlgorithmNiceHashNames.GetName(MiningSetup.CurrentAlgorithmType);
+
             foreach (var pair in MiningSetup.MiningPairs)
             {
                 if (pair.Algorithm.DualNiceHashID == AlgorithmType.DaggerBlake2s ||
@@ -1620,7 +1622,7 @@ namespace NiceHashMiner
 
             Thread.Sleep(200);
 
-            CMDconfigHandle.StartInfo.Arguments = " " + strPlatform + " " + strDual;
+            CMDconfigHandle.StartInfo.Arguments = " " + strPlatform + " " + strDual + " " + strAlgo;
             CMDconfigHandle.StartInfo.UseShellExecute = false;
             // CMDconfigHandle.StartInfo.RedirectStandardError = true;
             // CMDconfigHandle.StartInfo.RedirectStandardOutput = true;
