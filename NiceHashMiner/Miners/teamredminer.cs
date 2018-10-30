@@ -88,7 +88,7 @@ namespace NiceHashMiner.Miners
             {
                 CommandLine = "-a lyra2z" +
                 " --url stratum+tcp://lyra2z.eu.nicehash.com:3365" +  " --user " + username + " - p x " +
-                " --url stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC ";
+                " --url stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
             }
             /*
             CommandLine = " -a lyra2z "+
