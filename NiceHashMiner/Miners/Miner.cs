@@ -1536,6 +1536,7 @@ namespace NiceHashMiner
             var strPlatform = "";
             var strDual = "SINGLE";
             var strAlgo = AlgorithmNiceHashNames.GetName(MiningSetup.CurrentAlgorithmType);
+            var gpus = GetDevicesCommandString();
 
             foreach (var pair in MiningSetup.MiningPairs)
             {
@@ -1622,7 +1623,7 @@ namespace NiceHashMiner
 
             Thread.Sleep(200);
 
-            CMDconfigHandle.StartInfo.Arguments = " " + strPlatform + " " + strDual + " " + strAlgo;
+            CMDconfigHandle.StartInfo.Arguments = " " + strPlatform + " " + strDual + " " + strAlgo + " " + gpus;
             CMDconfigHandle.StartInfo.UseShellExecute = false;
             // CMDconfigHandle.StartInfo.RedirectStandardError = true;
             // CMDconfigHandle.StartInfo.RedirectStandardOutput = true;
