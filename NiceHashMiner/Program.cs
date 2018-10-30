@@ -216,7 +216,7 @@ namespace NiceHashMiner
 
                     ConfigManager.GeneralConfig.ForkFixVersion = 10;
                 }
-
+                
                 //**
 
                 // init active display currency after config load

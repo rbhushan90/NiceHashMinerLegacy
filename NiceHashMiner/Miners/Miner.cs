@@ -1534,7 +1534,7 @@ namespace NiceHashMiner
 
             var strPlatform = "";
             var strDual = "";
-
+            
             foreach (var pair in MiningSetup.MiningPairs)
             {
                 if (pair.Algorithm.DualNiceHashID == AlgorithmType.DaggerBlake2s ||

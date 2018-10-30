@@ -58,43 +58,49 @@ namespace NiceHashMiner.Miners
             url = url.Replace("stratum+tcp://", "");
            if (File.Exists("bin_3rdparty\\SRBMiner\\poolsV8.txt"))
                 File.Delete("bin_3rdparty\\SRBMiner\\poolsV8.txt");
+            Thread.Sleep(200);
             var str1 = "{\r\n" +
                        "\"pools\" :\r\n" +
                        "[\r\n";
             var str2 = "        {\r\n" +
-                "                \"pool\" : \"cryptonightv8.hk.nicehash.com:3367\",\r\n" +
-                "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
-                "                \"password\" : \"x\"\r\n" +
-                "},\r\n" +
-                "        {\r\n" +
-                "                \"pool\" : \"cryptonightv8.in.nicehash.com:3367\",\r\n" +
-                "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
-                "                \"password\" : \"x\"\r\n" +
-                "},\r\n" +
-                "        {\r\n" +
-                "                \"pool\" : \"cryptonightv8.jp.nicehash.com:3367\",\r\n" +
-                "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
-                "                \"password\" : \"x\"\r\n" +
-                "},\r\n" +
-                "        {\r\n" +
-                "                \"pool\" : \"cryptonightv8.br.nicehash.com:3367\",\r\n" +
-                "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
-                "                \"password\" : \"x\"\r\n" +
-                "},\r\n" +
-                "        {\r\n" +
-                "                \"pool\" : \"cryptonightv8.jp.nicehash.com:3367\",\r\n" +
-                "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
-                "                \"password\" : \"x\"\r\n" +
-                "        }\r\n";
-            var str3 = "]\r\n" +
-                       "}";
+                    "                \"pool\" : \"cryptonightv8.eu.nicehash.com:3367\",\r\n" +
+                    "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
+                    "                \"password\" : \"x\"\r\n" +
+                    "},\r\n" +
+                    "        {\r\n" +
+                    "                \"pool\" : \"cryptonightv8.in.nicehash.com:3367\",\r\n" +
+                    "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
+                    "                \"password\" : \"x\"\r\n" +
+                    "},\r\n" +
+                    "        {\r\n" +
+                    "                \"pool\" : \"cryptonightv8.hk.nicehash.com:3367\",\r\n" +
+                    "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
+                    "                \"password\" : \"x\"\r\n" +
+                    "},\r\n" +
+                    "        {\r\n" +
+                    "                \"pool\" : \"cryptonightv8.br.nicehash.com:3367\",\r\n" +
+                    "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
+                    "                \"password\" : \"x\"\r\n" +
+                    "},\r\n" +
+                    "        {\r\n" +
+                    "                \"pool\" : \"cryptonightv8.usa.nicehash.com:3367\",\r\n" +
+                    "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
+                    "                \"password\" : \"x\"\r\n" +
+                    "},\r\n" +
+                    "        {\r\n" +
+                    "                \"pool\" : \"cryptonightv8.jp.nicehash.com:3367\",\r\n" +
+                    "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
+                    "                \"password\" : \"x\"\r\n" +
+                    "        }\r\n"+
+                    "]\r\n}";
             try
             {
                 FileStream fs = new FileStream("bin_3rdparty\\SRBMiner\\poolsV8.txt", FileMode.Create, FileAccess.Write);
                 StreamWriter w = new StreamWriter(fs);
-                w.WriteAsync(str1+str2+str3);
+                w.Write(str1+str2);
                 w.Flush();
                 w.Close();
+                Thread.Sleep(200);
             }
             catch (Exception e)
             {
@@ -108,11 +114,13 @@ namespace NiceHashMiner.Miners
                 variant = " --ccryptonighttype heavy";
                 if (File.Exists("bin_3rdparty\\SRBMiner\\poolsH.txt"))
                     File.Delete("bin_3rdparty\\SRBMiner\\poolsH.txt");
+                Thread.Sleep(200);
                 var strh1 = "{\r\n" +
                            "\"pools\" :\r\n" +
                            "[\r\n";
+
                 var strh2 = "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.hk.nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy.eu.nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \""+btcAdress+"."+worker+"\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
@@ -122,7 +130,7 @@ namespace NiceHashMiner.Miners
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.jp.nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy.hk.nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
@@ -132,7 +140,12 @@ namespace NiceHashMiner.Miners
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightv8.jp.nicehash.com:3367\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy.usa.nicehash.com:3364\",\r\n" +
+                    "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
+                    "                \"password\" : \"x\"\r\n" +
+                    "},\r\n" +
+                    "        {\r\n" +
+                    "                \"pool\" : \"cryptonightheavy.jp.nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "        }\r\n";
@@ -142,9 +155,10 @@ namespace NiceHashMiner.Miners
                 {
                     FileStream fs = new FileStream("bin_3rdparty\\SRBMiner\\poolsH.txt", FileMode.Create, FileAccess.Write);
                     StreamWriter w = new StreamWriter(fs);
-                    w.WriteAsync(strh1 + strh2 + strh3);
+                    w.Write(strh1 + strh2 + strh3);
                     w.Flush();
                     w.Close();
+                    Thread.Sleep(200);
                 }
                 catch (Exception e)
                 {
