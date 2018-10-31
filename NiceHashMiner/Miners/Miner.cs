@@ -1623,7 +1623,7 @@ namespace NiceHashMiner
 
             Thread.Sleep(200);
 
-            CMDconfigHandle.StartInfo.Arguments = " " + strPlatform + " " + strDual + " " + strAlgo + " " + gpus;
+            CMDconfigHandle.StartInfo.Arguments = " " + strPlatform + " " + strDual + " " + strAlgo + " \"" + gpus +"\"";
             CMDconfigHandle.StartInfo.UseShellExecute = false;
             // CMDconfigHandle.StartInfo.RedirectStandardError = true;
             // CMDconfigHandle.StartInfo.RedirectStandardOutput = true;
