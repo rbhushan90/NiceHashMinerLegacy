@@ -43,7 +43,7 @@ namespace NiceHashMiner.Miners.Parsing
                 MinerType.trex,
                 new List<MinerOption>() {
                     new MinerOption("Intensity", "-i", "--intensity", "0", MinerOptionFlagType.MultiParam, ","),
-                    new MinerOption("LogPath", "-l", "--log-path", "-1", MinerOptionFlagType.Uni)
+                    new MinerOption("LogPath", "-l", "--log-path", "-1", MinerOptionFlagType.SingleParam)
                 },
                 new List<MinerOption>()
             ),
