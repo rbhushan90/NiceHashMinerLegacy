@@ -441,6 +441,10 @@ namespace NiceHashMiner.Miners.Grouping
                 {
                     return Data.teamredminer;
                 }
+                if (AlgorithmType.CryptoNightV8 == algorithmType)
+                {
+                    return Data.teamredminer;
+                }
                 return Data.teamredminer;
             }
         }

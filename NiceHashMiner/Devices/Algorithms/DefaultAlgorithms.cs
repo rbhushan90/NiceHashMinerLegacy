@@ -187,6 +187,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     { MinerBaseType.teamredminer,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.teamredminer, AlgorithmType.Lyra2z, "Lyra2z"),
+                            new Algorithm(MinerBaseType.teamredminer, AlgorithmType.CryptoNightV8, "CryptoNightV8"),
                         }
                     },
             {
