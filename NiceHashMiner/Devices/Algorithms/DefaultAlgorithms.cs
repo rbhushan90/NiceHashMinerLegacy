@@ -279,6 +279,7 @@ namespace NiceHashMiner.Devices.Algorithms
                         { MinerBaseType.ZEnemy,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.ZEnemy, AlgorithmType.X16R, "X16R"),
+                            new Algorithm(MinerBaseType.ZEnemy, AlgorithmType.Skunk, "Skunk"),
                         }
                     },
         /*
