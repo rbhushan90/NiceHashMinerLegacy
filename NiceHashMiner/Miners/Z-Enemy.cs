@@ -96,7 +96,7 @@ namespace NiceHashMiner.Miners
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) +
-                              " --devices ";
+                              " --no-color --devices ";
             }
 
             commandLine += GetDevicesCommandString();
@@ -116,20 +116,24 @@ namespace NiceHashMiner.Miners
             if (_benchmarkException)
             {
                 if ( outdata.Contains("GPU") && outdata.Contains("/s")) //GPU#4: ASUS GTX 1060 3GB, 10.56MH/s
+                //GPU#4: ASUS GTX 1060 3GB - 14.80MH/s [T:42C, F:54%, P:111W, E:0.13MH/W]
+                //GPU#4: ASUS GTX 1060 3GB - 8765.76kH/s [T:41C, F:54%, P:111W, E:0.079MH/W]
                 {
-                   
-                    var st = outdata.IndexOf(", ");
-                    var e = outdata.IndexOf("/s");
 
-                    var parse = outdata.Substring(st+2, e - st -5).Trim();
+                    var st = outdata.IndexOf("- ");
+                    var e = outdata.IndexOf("/s [");
+                    Helpers.ConsolePrint("!!!st:", st.ToString());
+                    Helpers.ConsolePrint("!!!e:", e.ToString());
+                    var parse = outdata.Substring(st+2, e - st -4).Trim();
+                    Helpers.ConsolePrint("!!!parse:", parse.ToString());
                     double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                     // save speed
 
-                    if (outdata.Contains("kH/s"))
+                    if (outdata.ToUpper().Contains("KH/S"))
                         tmp *= 1000 * 0.9; //-10%
-                    else if (outdata.Contains("MH/s"))
+                    else if (outdata.ToUpper().Contains("MH/S"))
                         tmp *= 1000000 * 0.9;
-                    else if (outdata.Contains("GH/s"))
+                    else if (outdata.ToUpper().Contains("GH/S"))
                         tmp *= 1000000000 * 0.9;
 
  
