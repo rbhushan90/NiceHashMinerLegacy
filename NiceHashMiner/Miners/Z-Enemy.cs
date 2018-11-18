@@ -9,6 +9,7 @@ using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMiner.Configs;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace NiceHashMiner.Miners
 {
@@ -130,7 +131,9 @@ namespace NiceHashMiner.Miners
         protected override bool BenchmarkParseLine(string outdata)
         {
             int count = 0;
-            
+            double tmp = 0;
+
+
             if (_benchmarkException)
             {
                 if ( outdata.Contains("GPU") && outdata.Contains("/s")) //GPU#4: ASUS GTX 1060 3GB, 10.56MH/s
@@ -141,8 +144,17 @@ namespace NiceHashMiner.Miners
 
                     var st = outdata.IndexOf("- ");
                     var e = outdata.IndexOf("/s [");
-                    var parse = outdata.Substring(st+2, e - st -4).Trim();
-                    double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                    try
+                    {
+                        var parse = outdata.Substring(st + 2, e - st - 4).Trim();
+                        tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                    } catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
                     // save speed
 
                     if (outdata.ToUpper().Contains("KH/S"))

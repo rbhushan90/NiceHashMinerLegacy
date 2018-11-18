@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common.Enums;
+using System.Windows.Forms;
 
 namespace NiceHashMiner.Miners
 {
@@ -138,6 +139,7 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata)
         {
+            double speed = 0;
             if (outdata.Contains("Average hashrate:") && outdata.Contains("/s") &&
                 BenchmarkAlgorithm.NiceHashID != AlgorithmType.DaggerHashimoto )
             {
@@ -148,8 +150,17 @@ namespace NiceHashMiner.Miners
                 Helpers.ConsolePrint("BENCHMARK", "Final Speed: " + hashSpeed);
 
                 hashSpeed = hashSpeed.Substring(0, hashSpeed.IndexOf(" "));
-                var speed = double.Parse(hashSpeed, CultureInfo.InvariantCulture);
-
+                try
+                {
+                    speed = double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                }
+                catch
+                {
+                    MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    BenchmarkSignalFinnished = true;
+                    return false;
+                }
                 if (outdata.Contains("Kilohash"))
                     speed *= 1000;
                 else if (outdata.Contains("Megahash"))
@@ -181,7 +192,17 @@ namespace NiceHashMiner.Miners
                 }
 
                 hashSpeed = hashSpeed.Substring(0, hashSpeed.IndexOf(" "));
-                var speed = double.Parse(hashSpeed, CultureInfo.InvariantCulture) * mult;
+                try
+                {
+                    speed = double.Parse(hashSpeed, CultureInfo.InvariantCulture) * mult;
+                }
+                catch
+                {
+                    MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    BenchmarkSignalFinnished = true;
+                    return false;
+                }
 
                 BenchmarkAlgorithm.BenchmarkSpeed = speed;
 

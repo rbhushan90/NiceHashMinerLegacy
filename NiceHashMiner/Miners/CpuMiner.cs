@@ -7,6 +7,7 @@ using NiceHashMiner.Configs;
 using System.Globalization;
 using System;
 using NiceHashMiner.Devices;
+using System.Windows.Forms;
 
 namespace NiceHashMiner.Miners
 {
@@ -183,7 +184,17 @@ namespace NiceHashMiner.Miners
             {
                 int thr = outdata.IndexOf("miner threads started,");
                 string cTheads = outdata.Substring(thr-3, thr-21).Trim();
-                cpuThreads = Double.Parse(cTheads, CultureInfo.InvariantCulture);
+                try
+                {
+                    cpuThreads = Double.Parse(cTheads, CultureInfo.InvariantCulture);
+                }
+                catch
+                {
+                    MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    BenchmarkSignalFinnished = true;
+                    return false;
+                }
                 Helpers.ConsolePrint("CPU threads:", cpuThreads.ToString());
             }
             if (outdata.Contains(" kH, "))
@@ -192,8 +203,17 @@ namespace NiceHashMiner.Miners
                 int st = outdata.IndexOf(" kH, ");
                 int end = outdata.IndexOf("H/s");
                 hashspeed = outdata.Substring(st + 4, end - st - 7);
-                speed = speed + Double.Parse(hashspeed.Trim(), CultureInfo.InvariantCulture);
-
+                try
+                {
+                    speed = speed + Double.Parse(hashspeed.Trim(), CultureInfo.InvariantCulture);
+                }
+                catch
+                {
+                    MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    BenchmarkSignalFinnished = true;
+                    return false;
+                }
                 if (benchmarkStep >=  5 * cpuThreads || outdata.Contains("Accepted"))
                     {
                     BenchmarkAlgorithm.BenchmarkSpeed = (speed / (benchmarkStep/cpuThreads))*1000;

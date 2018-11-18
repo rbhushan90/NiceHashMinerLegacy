@@ -132,6 +132,7 @@ namespace NiceHashMiner.Miners
         protected override bool BenchmarkParseLine(string outdata) {
             string hashSpeed = "";
             int kspeed = 1;
+            double speed = 0;
             //GPU 0 - cnv8: 893.9 h/s, avg 885.2 h/s, pool 1.363kh/s a:2 r:0 hw:0
             //GPU 0 - cnv8: 2.022kh/s, avg 2.024kh/s, pool 1.863kh/s a:2017 r:69 hw:40
             if (outdata.Contains("- cnv8: "))
@@ -155,7 +156,17 @@ namespace NiceHashMiner.Miners
                 count++;
                 if (count >= 3) 
                 {
-                    double speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                    try
+                    {
+                        speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
                     BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
                     //Killteamredminer();
                     BenchmarkSignalFinnished = true;
@@ -187,7 +198,18 @@ namespace NiceHashMiner.Miners
                 count++;
                 if (count >= 3)
                 {
-                    double speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                    try
+                    {
+                        speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
+
                     BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
                     //Killteamredminer();
                     BenchmarkSignalFinnished = true;

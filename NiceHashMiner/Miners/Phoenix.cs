@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Text;
 using System.Net.Sockets;
+using System.Windows.Forms;
 
 namespace NiceHashMiner.Miners
 {
@@ -175,8 +176,18 @@ namespace NiceHashMiner.Miners
                     var st = outdata.IndexOf("Eth speed: ");
                     var e = outdata.IndexOf("/s, shares");
                     var parse = outdata.Substring(st + 11, e - st - 14).Trim().Replace(",", ".");
-                     speed = Double.Parse(parse, CultureInfo.InvariantCulture);
- 
+                    try
+                    {
+                        speed = Double.Parse(parse, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
+
                     if (outdata.ToUpper().Contains("KH/S"))
                         speed *= 1000;
                     else if (outdata.ToUpper().Contains("MH/S"))

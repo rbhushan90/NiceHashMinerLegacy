@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
+using System.Windows.Forms;
 
 namespace NiceHashMiner.Miners
 {
@@ -141,16 +142,26 @@ namespace NiceHashMiner.Miners
                 var lineLowered = line.ToLower();
                 if (!lineLowered.Contains(LookForStart)) continue;
                 var speeds = Regex.Match(lineLowered, $"{LookForStart} (.+?) {LookForEnd}").Groups[1].Value.Split();
+
+                try { 
                 if (double.TryParse(speeds[1], out var sixtySecSpeed))
-                {
+                    {
                     sixtySecTotal += sixtySecSpeed;
                     ++sixtySecCount;
-                }
+                    }
                 else if (double.TryParse(speeds[0], out var twoSecSpeed))
-                {
+                    {
                     // Store 2.5s data in case 60s is never reached
                     twoSecTotal += twoSecSpeed;
                     ++twoSecCount;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    BenchmarkSignalFinnished = true;
+                    return;
                 }
             }
 

@@ -200,7 +200,17 @@ namespace NiceHashMiner.Miners
                     int end = outdata.IndexOf("H/s");
                     st = outdata.IndexOf("RPM | ");
                     hashspeed = outdata.Substring(st + 6, end - st - 6);
-                    speed = speed + Double.Parse(hashspeed, CultureInfo.InvariantCulture);
+                    try
+                    {
+                        speed = speed + Double.Parse(hashspeed, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
                     //if (outdata.Contains("Hash Rate Avg: ")) //не находит шару за 5 минут на 570...
                     if (benchmarkStep >=33)
                     {

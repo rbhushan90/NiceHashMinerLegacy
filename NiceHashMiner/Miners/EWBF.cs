@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
+using System.Windows.Forms;
 
 namespace NiceHashMiner.Miners
 {
@@ -311,6 +312,8 @@ namespace NiceHashMiner.Miners
             {
                 Helpers.ConsolePrint("GetNumber",
                     ex.Message + " | args => " + outdata + " | " + lookForEnd + " | " + lookForStart);
+                MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return 0;

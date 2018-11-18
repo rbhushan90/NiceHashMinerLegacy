@@ -9,6 +9,7 @@ using NiceHashMiner.Algorithms;
 using NiceHashMiner.Configs;
 using System.Threading;
 using NiceHashMinerLegacy.Common.Enums;
+using System.Windows.Forms;
 
 namespace NiceHashMiner.Miners
 {
@@ -104,7 +105,7 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata)
         {
-
+            double speed = 0;
             Helpers.ConsolePrint(MinerTag(), outdata);
             if (benchmarkException)
             {
@@ -114,7 +115,17 @@ namespace NiceHashMiner.Miners
                     int st = outdata.IndexOf("speed is ");
                     int end = outdata.IndexOf("kH/s");
                     string hashspeed = outdata.Substring(st + 9, end - st - 9);
-                    double speed = Double.Parse(hashspeed, CultureInfo.InvariantCulture);
+                    try
+                    {
+                        speed = Double.Parse(hashspeed, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
                     BenchmarkAlgorithm.BenchmarkSpeed = speed * 1000;
                     BenchmarkSignalFinnished = true;
                 }
