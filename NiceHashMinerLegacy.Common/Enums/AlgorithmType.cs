@@ -84,7 +84,9 @@
         CryptoNightHeavy = 31,
         Lyra2z = 32,
         X16R = 33,
-        CryptoNightV8 = 34
+        CryptoNightV8 = 34,
+        sha256asicboost = 35,
+        ZHash = 36
         #endregion // NiceHashAPI
     }
 }
