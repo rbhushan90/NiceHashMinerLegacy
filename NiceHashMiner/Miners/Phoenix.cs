@@ -119,7 +119,7 @@ namespace NiceHashMiner.Miners
         {
             var deviceStringCommand = " ";
             var ids = MiningSetup.MiningPairs.Select(mPair => (mPair.Device.IDByBus + 1).ToString()).ToList();
-            deviceStringCommand += string.Join("", ids);
+            deviceStringCommand += string.Join(",", ids);
             return deviceStringCommand;
         }
 
