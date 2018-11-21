@@ -44,10 +44,10 @@ namespace NiceHashMiner.Miners
                 variant = " --variant 2 ";
             }
             return $" -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
-                + $" -o stratum+tcp://{ algo}.usa.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{ algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{ algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{ algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{algo}.usa.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart()+ " --opencl-platform=" + GPUPlatformNumber; 
         }
 
@@ -64,14 +64,14 @@ namespace NiceHashMiner.Miners
                 variant = " --variant 2 ";
 
                 return $" -o stratum+tcp://xmr-eu.dwarfpool.com:8005 {variant} -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1"
-               + $" -o stratum+tcp://{ algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
                + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
             }
             return $" -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
-                + $" -o stratum+tcp://{ algo}.usa.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{ algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{ algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{ algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{algo}.usa.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
         }
 
