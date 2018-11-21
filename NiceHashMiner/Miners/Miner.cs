@@ -627,6 +627,7 @@ namespace NiceHashMiner
 
         protected virtual Process BenchmarkStartProcess(string commandLine)
         {
+            RunCMDBeforeOrAfterMining(true);
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             Helpers.ConsolePrint(MinerTag(), "Starting benchmark: " + commandLine);
 
@@ -858,7 +859,7 @@ namespace NiceHashMiner
         protected void BenchmarkThreadRoutineFinish()
         {
             var status = BenchmarkProcessStatus.Finished;
-
+            RunCMDBeforeOrAfterMining(false);
             if (!BenchmarkAlgorithm.BenchmarkNeeded)
             {
                 status = BenchmarkProcessStatus.Success;
