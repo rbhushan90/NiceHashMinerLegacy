@@ -84,7 +84,8 @@ namespace NiceHashMiner.Miners
 
 
             return " -gpus " + GetDevicesCommandString() + platform + "-retrydelay 10"
-                   + $" -pool {url} -wal {username} -cdmport  127.0.0.1:{ApiPort} -proto 4 -pass x ";
+                   + $" -pool {url} -wal {username} -cdmport  127.0.0.1:{ApiPort} -proto 4 -pass x " +
+                   ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD);
 
         }
 
@@ -111,7 +112,8 @@ namespace NiceHashMiner.Miners
             Thread.Sleep(200);
 
             return " -gpus " + GetDevicesCommandString() + platform + "-retrydelay 10"
-                   + $" -pool {url} -wal {username2} -cdmport  127.0.0.1:{ApiPort} -pass x ";
+                   + $" -pool {url} -wal {username2} -cdmport  127.0.0.1:{ApiPort} -pass x " +
+                   ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD); 
 
         }
 

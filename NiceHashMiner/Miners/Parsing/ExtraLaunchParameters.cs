@@ -411,18 +411,18 @@ namespace NiceHashMiner.Miners.Parsing
                 MinerType.Phoenix,
                 new List<MinerOption>
                 {
-                    new MinerOption("Phoenix_stales", "-stales", "-stales", "1", MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("Phoenix_stales", "-stales", "-stales", "0", MinerOptionFlagType.SingleParam, ","),
                     new MinerOption("Phoenix_ftimeout", "-ftimeout", "-ftimeout", "", MinerOptionFlagType.SingleParam, ","),
                     new MinerOption("Phoenix_AMD", "-amd", "-amd", "", MinerOptionFlagType.SingleParam, ","),
                     new MinerOption("Phoenix_NVIDIA", "-nvidia", "-nvidia", "", MinerOptionFlagType.SingleParam, ","),
                     new MinerOption("Phoenix_acm", "-acm", "-acm", "", MinerOptionFlagType.SingleParam, ","),
-                    new MinerOption("Phoenix_mi", "-mi", "-mi", "12", MinerOptionFlagType.MultiParam, ","),
-                    new MinerOption("Phoenix_gt", "-gt", "-gt", "15", MinerOptionFlagType.MultiParam, ","),
-                    new MinerOption("Phoenix_clKernel", "-clKernel", "-clKernel", "1", MinerOptionFlagType.SingleParam, ","),
-                    new MinerOption("Phoenix_clNew", "-clNew", "-clNew", "1", MinerOptionFlagType.SingleParam, ","),
-                    new MinerOption("Phoenix_clf", "-clf", "-clf", "1", MinerOptionFlagType.SingleParam, ","),
-                    new MinerOption("Phoenix_nvNew", "-nvNew", "-nvNew", "1", MinerOptionFlagType.SingleParam, ","),
-                    new MinerOption("Phoenix_nvf", "-nvf", "-nvf", "1", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("Phoenix_mi", "-mi", "-mi", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("Phoenix_gt", "-gt", "-gt", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("Phoenix_clKernel", "-clKernel", "-clKernel", "0", MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("Phoenix_clNew", "-clNew", "-clNew", "0", MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("Phoenix_clf", "-clf", "-clf", "0", MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("Phoenix_nvNew", "-nvNew", "-nvNew", "0", MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("Phoenix_nvf", "-nvf", "-nvf", "0", MinerOptionFlagType.MultiParam, ","),
                 },
                 new List<MinerOption>
                 {
