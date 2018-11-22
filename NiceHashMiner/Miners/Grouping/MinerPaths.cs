@@ -130,6 +130,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string ZEnemy = Bin3rdParty + @"\Z-Enemy\z-enemy.exe";
             public const string trex = Bin3rdParty + @"\t-rex\t-rex.exe";
             public const string SRBMiner = Bin3rdParty + @"\SRBMiner\SRBMiner-CN.exe";
+            public const string GMiner = Bin3rdParty + @"\gminer\miner.exe";
         }
 
         // NEW START
@@ -218,6 +219,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.teamredminer;
                 case MinerBaseType.Phoenix:
                     return Data.Phoenix;
+                case MinerBaseType.GMiner:
+                    return Data.GMiner;
             }
             return Data.None;
         }

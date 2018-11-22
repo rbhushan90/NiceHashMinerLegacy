@@ -81,7 +81,7 @@ namespace NiceHashMiner.Miners
         private string GetStartCommand(string url, string btcAddress, string worker)
         {
             var ret = GetDevicesCommandString()
-                      + " --server " + url.Split(':')[0]
+                      + " --pec --pers BgoldPoW --algo 144_5 --server " + url.Split(':')[0]
                       + " --user " + btcAddress + "." + worker + " --pass x --port "
                       + url.Split(':')[1] + " --api 127.0.0.1:" + ApiPort;
             if (!ret.Contains("--fee"))
@@ -119,8 +119,10 @@ namespace NiceHashMiner.Miners
 
             var server = Globals.GetLocationUrl(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
-            var ret = $" --log 2 --logfile {GetLogFileName()} " + GetStartCommand(server, Globals.GetBitcoinUser(),
-                          ConfigManager.GeneralConfig.WorkerName.Trim());
+            //miner --pers BgoldPoW --algo 144_5 --log 2 --logfile 4_log.txt --server europe.equihash-hub.miningpoolhub.com --user angelbbs.ForkBench --pass x --port 20595 --server europ2e.equihash-hub.miningpoolhub.com --user angelbbs.ForkBench --pass x --port 20595
+            var ret = " --logfile " + GetLogFileName() + " --pec --pers BgoldPoW --algo 144_5 --log 2 --server europe.equihash-hub.miningpoolhub.com --user angelbbs.FBench11 --pass x --port 20595 "+ GetDevicesCommandString();
+            //var ret = $" --logfile {GetLogFileName()} " + GetStartCommand(server, Globals.GetBitcoinUser(),
+            //              ConfigManager.GeneralConfig.WorkerName.Trim());
             _benchmarkTimeWait = Math.Max(time * 3, 90); // EWBF takes a long time to get started
             return ret;
         }
@@ -306,7 +308,16 @@ namespace NiceHashMiner.Miners
 
                 //Helpers.ConsolePrint("speed", speed);
                 speed = speed.Trim();
-                return double.Parse(speed, CultureInfo.InvariantCulture) * mult * (1.0 - DevFee * 0.01);
+                try
+                {
+                    return double.Parse(speed, CultureInfo.InvariantCulture) * mult;
+                }
+                catch
+                {
+                    MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    BenchmarkSignalFinnished = true;
+                }
             }
             catch (Exception ex)
             {

@@ -123,6 +123,7 @@
     <Compile Include="Miners\ClaymoreNeoscryptMiner.cs" />
     <Compile Include="Miners\CryptoDredge.cs" />
     <Compile Include="Miners\Equihash\Dstm.cs" />
+    <Compile Include="Miners\GMiner.cs" />
     <Compile Include="Miners\hsrneoscrypt.cs" />
     <Compile Include="Miners\lyclMiner.cs" />
     <Compile Include="Miners\mkxminer.cs" />

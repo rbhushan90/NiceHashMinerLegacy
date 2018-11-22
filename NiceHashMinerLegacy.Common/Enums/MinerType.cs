@@ -34,6 +34,7 @@
         mkxminer,
         teamredminer,
         Phoenix,
+        GMiner,
         END
     }
 }

@@ -325,6 +325,8 @@ namespace NiceHashMiner.Miners.Parsing
                      return MinerType.Phoenix;
                 case MinerBaseType.teamredminer:
                      return MinerType.teamredminer;
+                case MinerBaseType.GMiner:
+                     return MinerType.GMiner;
 
 
 

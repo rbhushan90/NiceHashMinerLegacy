@@ -349,7 +349,8 @@ namespace NiceHashMiner.Devices
                 MinerBaseType.ZEnemy,
                 MinerBaseType.CastXMR,
                 MinerBaseType.SRBMiner,
-                MinerBaseType.teamredminer
+                MinerBaseType.teamredminer,
+                MinerBaseType.GMiner
             };
 
             return AlgorithmSettings.FindAll(a => thirdPartyMiners.IndexOf(a.MinerBaseType) == -1);

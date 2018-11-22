@@ -262,6 +262,7 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Blake2s, "Blake2s"),
                             new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.NeoScrypt, "NeoScrypt"),
                             new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Skunk, "Skunk"),
+                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.X16R, "X16R"),
                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightHeavy, "CryptoNightHeavy"),
                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightV7, "CryptoNightV7"),
                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightV8, "CryptoNightV8"),
@@ -300,15 +301,21 @@ namespace NiceHashMiner.Devices.Algorithms
                 }
             },
             */
-            /*
+            
             {
                 MinerBaseType.EWBF,
                 new List<Algorithm>
                 {
-                    new Algorithm(MinerBaseType.EWBF, AlgorithmType.Equihash, "")
+                    new Algorithm(MinerBaseType.EWBF, AlgorithmType.ZHash, "")
                 }
             },
-            */
+            {
+                MinerBaseType.GMiner,
+                new List<Algorithm>
+                {
+                    new Algorithm(MinerBaseType.GMiner, AlgorithmType.ZHash, "")
+                }
+            },
             {
                 MinerBaseType.dstm,
                 new List<Algorithm>

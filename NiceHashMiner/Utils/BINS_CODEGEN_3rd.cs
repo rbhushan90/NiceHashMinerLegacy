@@ -49,6 +49,7 @@ namespace NiceHashMiner.Utils
             @"/t-rex/t-rex.exe",
             @"/teamredminer/teamredminer.exe",
             @"/SRBMiner/SRBMiner-CN.exe",
+            @"/gminer/miner.exe",
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py

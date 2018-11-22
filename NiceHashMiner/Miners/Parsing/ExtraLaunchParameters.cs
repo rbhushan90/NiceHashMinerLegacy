@@ -452,6 +452,17 @@ namespace NiceHashMiner.Miners.Parsing
                 new List<MinerOption>()
             ),
             new MinerOptionPackage(
+                MinerType.GMiner,
+                new List<MinerOption>
+                {
+                    // parameters differ according to algorithm
+                    new MinerOption("GMiner_logfile", "-l", "--logfile", "0", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("GMiner_templimit", "-t", "--templimit", "0", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("GMiner_tempunits", "-w", "--watchdog", "C", MinerOptionFlagType.SingleParam, " "),
+                },
+                new List<MinerOption>()
+            ),
+            new MinerOptionPackage(
                 MinerType.Xmrig,
                 new List<MinerOption>
                 {
