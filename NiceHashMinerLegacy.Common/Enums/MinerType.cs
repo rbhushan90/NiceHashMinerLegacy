@@ -35,6 +35,7 @@
         teamredminer,
         Phoenix,
         GMiner,
+        lolMiner,
         END
     }
 }

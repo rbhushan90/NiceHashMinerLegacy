@@ -190,6 +190,11 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.teamredminer, AlgorithmType.CryptoNightV8, "CryptoNightV8"),
                         }
                     },
+                    { MinerBaseType.lolMiner,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.lolMiner, AlgorithmType.ZHash, "ZHash"),
+                        }
+                    },
             {
                 MinerBaseType.Claymore,
                 new List<Algorithm>

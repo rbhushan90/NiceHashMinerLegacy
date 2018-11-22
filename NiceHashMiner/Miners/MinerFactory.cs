@@ -102,6 +102,8 @@ namespace NiceHashMiner.Miners
                     return new Phoenix();
                 case MinerBaseType.GMiner:
                     return new GMiner();
+                case MinerBaseType.lolMiner:
+                    return new lolMiner();
             }
 
             return null;

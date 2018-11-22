@@ -109,6 +109,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string mkxminer = Bin3rdParty + @"\mkxminer\mkxminer.exe";
             public const string teamredminer = Bin3rdParty + @"\teamredminer\teamredminer.exe";
             public const string Phoenix = Bin3rdParty + @"\Phoenix\PhoenixMiner.exe";
+            public const string lolMiner = Bin3rdParty + @"\lolMiner\lolMiner.exe";
 
             public const string None = "";
 
@@ -221,6 +222,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.Phoenix;
                 case MinerBaseType.GMiner:
                     return Data.GMiner;
+                case MinerBaseType.lolMiner:
+                    return Data.lolMiner;
             }
             return Data.None;
         }
@@ -449,6 +452,14 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.teamredminer;
                 }
                 return Data.teamredminer;
+            }
+            public static string lolMiner(AlgorithmType algorithmType)
+            {
+                if (AlgorithmType.ZHash == algorithmType )
+                {
+                    return Data.lolMiner;
+                }
+                return Data.lolMiner;
             }
         }
 
