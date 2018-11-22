@@ -383,6 +383,7 @@ namespace NiceHashMiner.Miners
         {
             CurrentMinerReadStatus = MinerApiReadStatus.NONE;
             var ad = new ApiData(MiningSetup.CurrentAlgorithmType, MiningSetup.CurrentSecondaryAlgorithmType);
+            double tmp = 0;
 
             string resp = null;
             try
@@ -408,7 +409,16 @@ namespace NiceHashMiner.Miners
                     var st = resp.IndexOf(";KHS=");
                     var e = resp.IndexOf(";SOLV=");
                     var parse = resp.Substring(st + 5, e - st - 5).Trim();
-                    double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                try
+                {
+                    tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                }
+                catch
+                {
+                    MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    BenchmarkSignalFinnished = true;
+                }
                 ad.Speed = tmp*1000;
 
                 if (ad.Speed == 0)
