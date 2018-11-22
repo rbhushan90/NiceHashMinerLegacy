@@ -1206,9 +1206,9 @@ namespace NiceHashMiner
             textBoxBTCAddress.Enabled = false;
             textBoxWorkerName.Enabled = false;
             comboBoxLocation.Enabled = false;
-            buttonBenchmark.Enabled = false;
+            //buttonBenchmark.Enabled = false;
             buttonStartMining.Enabled = false;
-            buttonSettings.Enabled = false;
+            //buttonSettings.Enabled = false;
             devicesListViewEnableControl1.IsMining = true;
             buttonStopMining.Enabled = true;
 
