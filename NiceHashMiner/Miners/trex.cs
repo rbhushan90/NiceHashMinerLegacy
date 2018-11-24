@@ -88,7 +88,8 @@ namespace NiceHashMiner.Miners
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
             var username = GetUsername(Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
             var commandLine = "";
-
+            if (File.Exists("bin_3rdparty\\t-rex\\" + GetLogFileName()))
+                File.Delete("bin_3rdparty\\t-rex\\" + GetLogFileName());
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
             {
                 commandLine = "--algo lyra2z" +
@@ -109,7 +110,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Skunk))
             {
                 commandLine = "--algo skunk" +
-                 //" -o stratum+tcp://marspool.org:8433" + " -u HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ" + " -p x " +
+                 " -o stratum+tcp://skunk.eu.mine.zpool.ca:8433" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
                 // " -o stratum+tcp://hdac.moricpool.com:3333" + " -u HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ" + " -p x " +
                  " -o " + url + " -u " + username + " -p x " +
                  " -o " + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +

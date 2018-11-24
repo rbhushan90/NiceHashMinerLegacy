@@ -177,6 +177,7 @@ namespace NiceHashMiner.Miners
             //GPU 0 - lyra2z: 2.530Mh/s, avg 2.582Mh/s, pool 2.859Mh/s a:5 r:0 hw:0
             //GPU 0 - lyra2z: 596.0kh/s, avg 607.3kh/s, pool 571.6kh/s a:1 r:0 hw:0
             //[2018-11-10 17:02:42] GPU 0 - lyra2z: 2.282Mh/s, avg 2.331Mh/s, pool 571.6kh/s a:1 r:0 hw:0
+
             if (outdata.Contains("- lyra2z: ") )
             {
                 int i = outdata.IndexOf("lyra2z: ");
