@@ -168,10 +168,9 @@ namespace NiceHashMiner.Miners
                    
                     var st = outdata.IndexOf(", ");
                     var e = outdata.IndexOf("/s");
-
-                    var parse = outdata.Substring(st+2, e - st -5).Trim();
                     try
                     {
+                        var parse = outdata.Substring(st+2, e - st -5).Trim();
                         tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                     }
                     catch
