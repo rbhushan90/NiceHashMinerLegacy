@@ -186,8 +186,10 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
+                /*
                 if (File.Exists("bin_3rdparty\\CryptoDredgeV8\\"+ GetLogFileName()))
                     File.Delete("bin_3rdparty\\CryptoDredgeV8\\" + GetLogFileName());
+                    */
                 algo = "--algo cnv8";
                 commandLine = algo +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
