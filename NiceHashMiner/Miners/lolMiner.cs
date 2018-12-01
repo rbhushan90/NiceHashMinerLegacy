@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common.Enums;
+using Newtonsoft.Json;
 
 namespace NiceHashMiner.Miners
 {
@@ -61,6 +62,7 @@ namespace NiceHashMiner.Miners
 
             //var algo = "";
             url = url.Replace("stratum+tcp://", "");
+            url = url.Substring(0, url.IndexOf(":"));
             var apiBind = " --apiport " + ApiPort;
 
            LastCommandLine = "--coin AUTO144_5 --overwritePersonal BgoldPoW --pool " + url +
@@ -90,8 +92,7 @@ namespace NiceHashMiner.Miners
 
             if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
-            //start lolMiner.exe --coin AUTO144_5 --overwritePersonal BgoldPoW--pool europe.equihash-hub.miningpoolhub.com
-            //--port 20595 --user angelbbs.lol--pass x --devices 0,2,5 amd
+
             CommandLine = "--coin AUTO144_5 --overwritePersonal BgoldPoW" +
                 " --pool europe.equihash-hub.miningpoolhub.com --port 20595 --user angelbbs.lol --pass x"+
                 " --devices ";
@@ -146,82 +147,67 @@ namespace NiceHashMiner.Miners
 
         #endregion // Decoupled benchmarking routines
 
+        public class lolResponse
+        {
+            public List<lolGpuResult> result { get; set; }
+        }
+
+        public class lolGpuResult
+        {
+            public double sol_ps { get; set; } = 0;
+        }
         // TODO _currentMinerReadStatus
         public override async Task<ApiData> GetSummaryAsync()
         {
+            Helpers.ConsolePrint("try API...........", "");
             var ad = new ApiData(MiningSetup.CurrentAlgorithmType);
+            string ResponseFromlolMiner;
+            double total = 0;
+            try
+            {
+                HttpWebRequest WR = (HttpWebRequest)WebRequest.Create("http://127.0.0.1:" + ApiPort.ToString() + "/summary");
+                WR.UserAgent = "GET / HTTP/1.1\r\n\r\n";
+                WR.Timeout = 30 * 1000;
+                WR.Credentials = CredentialCache.DefaultCredentials;
+                WebResponse Response = WR.GetResponse();
+                Stream SS = Response.GetResponseStream();
+                SS.ReadTimeout = 20 * 1000;
+                StreamReader Reader = new StreamReader(SS);
+                ResponseFromlolMiner = await Reader.ReadToEndAsync();
+                Helpers.ConsolePrint("API...........", ResponseFromlolMiner);
+                //if (ResponseFromlolMiner.Length == 0 || (ResponseFromlolMiner[0] != '{' && ResponseFromlolMiner[0] != '['))
+                //    throw new Exception("Not JSON!");
+                Reader.Close();
+                Response.Close();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
 
-            var resp = await GetApiDataAsync(ApiPort, "summary");
-            
-            //Helpers.ConsolePrint("trm-DEBUG_resp", resp.Trim());
-
-            if (resp == null)
+            if (ResponseFromlolMiner == null)
             {
                 CurrentMinerReadStatus = MinerApiReadStatus.NONE;
                 return null;
             }
-
-            try
+            dynamic resp = JsonConvert.DeserializeObject(ResponseFromlolMiner);
+            if (resp != null)
             {
-                // Checks if all the GPUs are Alive first
-                var resp2 = await GetApiDataAsync(ApiPort, "devs");
-                if (resp2 == null)
+                double totals = resp.Session.Performance_Summary;
+                ad.Speed = totals;
+                if (ad.Speed == 0)
                 {
-                    CurrentMinerReadStatus = MinerApiReadStatus.NONE;
-                    return null;
-                }
-
-                var checkGpuStatus = resp2.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
-
-                /*
-                for (var i = 1; i < checkGpuStatus.Length - 1; i++)
-                {
-                    if (checkGpuStatus[i].Contains("Enabled=Y") && !checkGpuStatus[i].Contains("Status=Alive"))
-                    {
-                        Helpers.ConsolePrint(MinerTag(),
-                            ProcessTag() + " GPU " + i + ": Sick/Dead/NoStart/Initialising/Disabled/Rejecting/Unknown");
-                        CurrentMinerReadStatus = MinerApiReadStatus.WAIT;
-                        return null;
-                    }
-                }
-                */
-                var resps = resp.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
-
-                if (resps[1].Contains("SUMMARY"))
-                {
-                    var data = resps[1].Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    // Get miner's current total speed
-                    var speed = data[4].Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
-                    // Get miner's current total MH
-                    var totalMH = double.Parse(data[18].Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries)[1],
-                        new CultureInfo("en-US"));
-
-                    ad.Speed = double.Parse(speed[1]) * 1000;
-
-                    if (totalMH <= PreviousTotalMH)
-                    {
-                        Helpers.ConsolePrint(MinerTag(), ProcessTag() + " lolMiner might be stuck as no new hashes are being produced");
-                        Helpers.ConsolePrint(MinerTag(),
-                            ProcessTag() + " Prev Total MH: " + PreviousTotalMH + " .. Current Total MH: " + totalMH);
-                        CurrentMinerReadStatus = MinerApiReadStatus.NONE;
-                        return null;
-                    }
-
-                    PreviousTotalMH = totalMH;
+                    CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
                 }
                 else
                 {
-                    ad.Speed = 0;
+                    CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
                 }
             }
-            catch
-            {
-                CurrentMinerReadStatus = MinerApiReadStatus.NONE;
-                return null;
-            }
 
-            CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
+            Thread.Sleep(100);
+
+            //CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
             // check if speed zero
             if (ad.Speed == 0) CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
 
