@@ -92,7 +92,7 @@ namespace NiceHashMiner.Miners.XmrStak.Configs
 
     public class XmrStakNvidiaItem : XmrStakGpuItem
     {
-        public int threads = 24;
+        public int threads = 12;
         public int blocks = 60;
         public int bfactor = 8;
         public int bsleep = 100;
