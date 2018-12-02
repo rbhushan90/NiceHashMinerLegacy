@@ -36,11 +36,11 @@ namespace NiceHashMiner.Miners
         }
 
         public void Killmkxminer() {
-            /*
-             foreach (Process process in Process.GetProcessesByName("mkxminer")) {
-                 try { process.Kill(); } catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
-             }
-            */
+            
+            // foreach (Process process in Process.GetProcessesByName("mkxminer")) {
+            //     try { process.Kill(); } catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
+            // }
+            
             if (ProcessHandle != null)
             {
                 try { ProcessHandle.Kill(); }
@@ -55,28 +55,75 @@ namespace NiceHashMiner.Miners
 
         }
 
-
-        public override void EndBenchmarkProcces() {
-            if (BenchmarkProcessStatus != BenchmarkProcessStatus.Killing && BenchmarkProcessStatus != BenchmarkProcessStatus.DoneKilling) {
+        private static void KillProcessAndChildren(int pid)
+        {
+            // Cannot close 'system idle process'.
+            if (pid == 0)
+            {
+                return;
+            }
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher
+                    ("Select * From Win32_Process Where ParentProcessID=" + pid);
+            ManagementObjectCollection moc = searcher.Get();
+            foreach (ManagementObject mo in moc)
+            {
+                KillProcessAndChildren(Convert.ToInt32(mo["ProcessID"]));
+            }
+            try
+            {
+                Process proc = Process.GetProcessById(pid);
+                proc.Kill();
+            }
+            catch (ArgumentException)
+            {
+                // Process already exited.
+            }
+        }
+        public override void EndBenchmarkProcces()
+        {
+            if (BenchmarkProcessStatus != BenchmarkProcessStatus.Killing && BenchmarkProcessStatus != BenchmarkProcessStatus.DoneKilling)
+            {
                 BenchmarkProcessStatus = BenchmarkProcessStatus.Killing;
-                try {
-                    Helpers.ConsolePrint("BENCHMARK", String.Format("Trying to kill benchmark process {0} algorithm {1}", BenchmarkProcessPath, BenchmarkAlgorithm.AlgorithmName));
+                try
+                {
+                    Helpers.ConsolePrint("BENCHMARK",
+                        $"Trying to kill benchmark process {BenchmarkProcessPath} algorithm {BenchmarkAlgorithm.AlgorithmName}");
+
+                    int k = ProcessTag().IndexOf("pid(");
+                    int i = ProcessTag().IndexOf(")|bin");
+                    var cpid  = ProcessTag().Substring(k+4, i-k-4).Trim();
+
+                    int pid = int.Parse(cpid, CultureInfo.InvariantCulture);
+
+//                    ManagementObject mo = new ManagementObject("win32_process.handle='" + cpid + "'");
+//                    mo.Get();
+//                    int parentId = Convert.ToInt32(mo["ParentProcessId"]);
+
+                    KillProcessAndChildren(pid);
+                    BenchmarkHandle.Kill();
+                    BenchmarkHandle.Close();
                     Killmkxminer();
-                } catch { } finally {
+                }
+                catch { }
+                finally
+                {
                     BenchmarkProcessStatus = BenchmarkProcessStatus.DoneKilling;
-                    Helpers.ConsolePrint("BENCHMARK", String.Format("Benchmark process {0} algorithm {1} KILLED", BenchmarkProcessPath, BenchmarkAlgorithm.AlgorithmName));
+                    Helpers.ConsolePrint("BENCHMARK",
+                        $"Benchmark process {BenchmarkProcessPath} algorithm {BenchmarkAlgorithm.AlgorithmName} KILLED");
                     //BenchmarkHandle = null;
                 }
             }
         }
 
-        protected override int GetMaxCooldownTimeInMilliseconds() {
+
+
+protected override int GetMaxCooldownTimeInMilliseconds() {
             return 240; 
         }
 
         protected override void _Stop(MinerStopType willswitch) {
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
-            Killmkxminer();
+            //Killmkxminer();
         }
 
         public override void Start(string url, string btcAdress, string worker)
@@ -122,9 +169,9 @@ namespace NiceHashMiner.Miners
             // cd to the cgminer for the process bins
 
             CommandLine = " /C \"cd /d bin_3rdparty/mkxminer && mkxminer.exe " + " --algorithm lyra2z "+
-                          " --url " + url + 
-                          " --user " + username +
-                          " -p x " +
+                          " --url stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" +
+                          " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" +
+                          " -p c=BTC " +
                           ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
                                                                 DeviceType.AMD) +
@@ -153,6 +200,7 @@ namespace NiceHashMiner.Miners
         protected override bool BenchmarkParseLine(string outdata) {
             string hashSpeed = "";
             int kspeed = 1;
+            double speed;
             //> 0.32MH/s | Temp(C): 53 | Fan: - | HW: 0 | Rej: 0.0%
             // > Off Off 0.00MH/s Off Off
             //Accepted diff 2 share 111ce87a GPU#0 in 117ms
@@ -175,8 +223,17 @@ namespace NiceHashMiner.Miners
                 {
                     kspeed = 1000000;
                 }
-                
-                double speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                try
+                {
+                    speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                }
+                catch
+                {
+                    MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    BenchmarkSignalFinnished = true;
+                    return false;
+                }
                 BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
                 return false;
             }
@@ -186,8 +243,11 @@ namespace NiceHashMiner.Miners
                 count++;
             }
 
-            if (outdata.Contains("Accepted") & BenchmarkAlgorithm.BenchmarkSpeed != 0 & count >= 3 )
+            if (outdata.Contains("Accepted") & BenchmarkAlgorithm.BenchmarkSpeed != 0 & count >= 15 ) //need more time
             {
+                Helpers.ConsolePrint("BENCHMARK", "BenchmarkAlgorithm.BenchmarkSpeed ="+ BenchmarkAlgorithm.BenchmarkSpeed.ToString());
+               // BenchmarkSignalHanged = true;
+               // BenchmarkSignalFinnished = true;
                 return true;
             }
 
@@ -221,7 +281,8 @@ namespace NiceHashMiner.Miners
 
 
         }
-
+        //майнер не закрывается после бенчмарка
+        //проверить время, за которое проходит бенчмарк и получает ли максимальный хешрейт
         protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata)
         {
             //  _benchmarkTimer.Stop();
@@ -229,13 +290,14 @@ namespace NiceHashMiner.Miners
             // Killmkxminer();
             // BenchmarkSignalHanged = true;
 
-            if (_benchmarkTimer.Elapsed.TotalSeconds >= 300)
+            if (_benchmarkTimer.Elapsed.TotalSeconds >= 420)
             {
                 Helpers.ConsolePrint("mkxminer benchmark timer end", "");
                 _benchmarkTimer.Stop();
                 // this is safe in a benchmark
-                Killmkxminer();
+                //Killmkxminer();
                 BenchmarkSignalHanged = true;
+                BenchmarkSignalFinnished = true;
             }
             if (!BenchmarkSignalFinnished && outdata != null)
             {
@@ -282,6 +344,7 @@ namespace NiceHashMiner.Miners
                         || BenchmarkSignalHanged
                         || BenchmarkSignalTimedout
                         || BenchmarkException != null) {
+                        Helpers.ConsolePrint(MinerTag(), ProcessTag() + " BenchmarkSignalQuit: ");
                         EndBenchmarkProcces();
                         // this is safe in a benchmark
                         Killmkxminer();
