@@ -46,7 +46,7 @@ namespace NiceHashMiner
         private int _flowLayoutPanelRatesIndex = 0;
 
         private const string BetaAlphaPostfixString = "";
-        const string ForkString = " Fork Fix 10";
+        const string ForkString = " Fork Fix 11";
 
         private bool _isDeviceDetectionInitialized = false;
 
