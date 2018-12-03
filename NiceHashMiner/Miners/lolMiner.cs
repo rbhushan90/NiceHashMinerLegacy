@@ -97,6 +97,7 @@ namespace NiceHashMiner.Miners
                 " --pool europe.equihash-hub.miningpoolhub.com --port 20595 --user angelbbs.lol --pass x"+
                 " --devices ";
 
+            //issue 33 https://github.com/angelbbs/NiceHashMinerLegacy/issues/33
             CommandLine += GetDevicesCommandString(); //amd карты перечисляются первыми
            
             return CommandLine;
