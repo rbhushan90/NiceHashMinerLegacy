@@ -18,6 +18,7 @@ using NiceHashMiner.Algorithms;
 using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common.Enums;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace NiceHashMiner.Miners
 {
@@ -95,15 +96,25 @@ namespace NiceHashMiner.Miners
 
             CommandLine = "--coin AUTO144_5 --overwritePersonal BgoldPoW" +
                 " --pool europe.equihash-hub.miningpoolhub.com --port 20595 --user angelbbs.lol --pass x"+
+                                              ExtraLaunchParametersParser.ParseForMiningSetup(
+                                                                MiningSetup,
+                                                                DeviceType.AMD) +
                 " --devices ";
 
-            //issue 33 https://github.com/angelbbs/NiceHashMinerLegacy/issues/33
             CommandLine += GetDevicesCommandString(); //amd карты перечисляются первыми
            
             return CommandLine;
 
         }
+        protected override string GetDevicesCommandString()
+        {
+            var deviceStringCommand = " ";
 
+            var ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.ID.ToString()).ToList();
+            deviceStringCommand += string.Join(",", ids);
+
+            return deviceStringCommand;
+        }
         protected override bool BenchmarkParseLine(string outdata) {
             string hashSpeed = "";
 

@@ -16,6 +16,7 @@ using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
 using System.Windows.Forms;
 using System.Net;
+using System.Management;
 
 namespace NiceHashMiner.Miners
 {
@@ -89,32 +90,44 @@ namespace NiceHashMiner.Miners
         protected override void _Stop(MinerStopType willswitch)
         {
             Helpers.ConsolePrint("GMINER Stop", "");
-           // Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
+            Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
             Thread.Sleep(200);
-            try { ProcessHandle.SendCtrlC((uint)Process.GetCurrentProcess().Id); } catch { }
+            KillGminer();
             //KillMinerBase("miner.exe");
             
         }
         private string GetStartCommand(string url, string btcAddress, string worker)
         {
             var ret = GetDevicesCommandString()
-                      + " --pec --pers BgoldPoW --algo 144_5 --server " + url.Split(':')[0]
+                      + " --pec --pers auto --algo 144_5 --server " + url.Split(':')[0]
                       + " --user " + btcAddress + "." + worker + " --pass x --port "
                       + url.Split(':')[1] + " --api " + ApiPort;
             return ret;
         }
-
         protected override string GetDevicesCommandString()
         {
-            var deviceStringCommand = MiningSetup.MiningPairs.Aggregate(" --devices ",
-                (current, nvidiaPair) => current + (nvidiaPair.Device.ID + " "));
+            var deviceStringCommand = " --devices ";
 
+            var ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.IDByBus.ToString()).ToList();
+            deviceStringCommand += string.Join(" ", ids);
             deviceStringCommand +=
                 " " + ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);
 
             return deviceStringCommand;
         }
 
+        /*
+        protected override string GetDevicesCommandString()
+        {
+            var deviceStringCommand = MiningSetup.MiningPairs.Aggregate(" --devices ",
+                (current, nvidiaPair) => current + (nvidiaPair.Device.IDByBus + " "));
+
+            deviceStringCommand +=
+                " " + ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);
+
+            return deviceStringCommand;
+        }
+        */
         // benchmark stuff
         protected void KillMinerBase(string exeName)
         {
@@ -124,7 +137,78 @@ namespace NiceHashMiner.Miners
                 catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
             }
         }
+        private static void KillProcessAndChildren(int pid)
+        {
+            // Cannot close 'system idle process'.
+            if (pid == 0)
+            {
+                return;
+            }
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher
+                    ("Select * From Win32_Process Where ParentProcessID=" + pid);
+            ManagementObjectCollection moc = searcher.Get();
+            foreach (ManagementObject mo in moc)
+            {
+                KillProcessAndChildren(Convert.ToInt32(mo["ProcessID"]));
+            }
+            try
+            {
+                Process proc = Process.GetProcessById(pid);
+                proc.Kill();
+            }
+            catch (ArgumentException)
+            {
+                // Process already exited.
+            }
+        }
+        public override void EndBenchmarkProcces()
+        {
+            if (BenchmarkProcessStatus != BenchmarkProcessStatus.Killing && BenchmarkProcessStatus != BenchmarkProcessStatus.DoneKilling)
+            {
+                BenchmarkProcessStatus = BenchmarkProcessStatus.Killing;
+                try
+                {
+                    Helpers.ConsolePrint("BENCHMARK",
+                        $"Trying to kill benchmark process {BenchmarkProcessPath} algorithm {BenchmarkAlgorithm.AlgorithmName}");
 
+                    int k = ProcessTag().IndexOf("pid(");
+                    int i = ProcessTag().IndexOf(")|bin");
+                    var cpid = ProcessTag().Substring(k + 4, i - k - 4).Trim();
+
+                    int pid = int.Parse(cpid, CultureInfo.InvariantCulture);
+
+                    KillProcessAndChildren(pid);
+                    BenchmarkHandle.Kill();
+                    BenchmarkHandle.Close();
+                }
+                catch { }
+                finally
+                {
+                    BenchmarkProcessStatus = BenchmarkProcessStatus.DoneKilling;
+                    Helpers.ConsolePrint("BENCHMARK",
+                        $"Benchmark process {BenchmarkProcessPath} algorithm {BenchmarkAlgorithm.AlgorithmName} KILLED");
+                    //BenchmarkHandle = null;
+                }
+            }
+        }
+        public void KillGminer()
+        {
+            if (ProcessHandle != null)
+            {
+                try { ProcessHandle.Kill(); }
+                catch { }
+
+                try { ProcessHandle.SendCtrlC((uint)Process.GetCurrentProcess().Id); } catch { }
+                ProcessHandle.Close();
+                ProcessHandle = null;
+
+                if (IsKillAllUsedMinerProcs) KillAllUsedMinerProcesses();
+            }
+            KillMinerBase("miner");
+            //foreach (Process process in Process.GetProcessesByName("miner")) { //kill ewbf to
+            //     try { process.Kill(); } catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
+            //}
+        }
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
             CleanOldLogs();
@@ -177,6 +261,7 @@ namespace NiceHashMiner.Miners
                     {
                         var imageName = MinerExeName.Replace(".exe", "");
                         // maybe will have to KILL process
+                        EndBenchmarkProcces();
                         KillMinerBase(imageName);
                         if (BenchmarkSignalTimedout)
                         {
@@ -371,7 +456,7 @@ namespace NiceHashMiner.Miners
 
         public override async Task<ApiData> GetSummaryAsync()
         {
-            Helpers.ConsolePrint("try API...........", "");
+            //Helpers.ConsolePrint("try API...........", "");
             var ad = new ApiData(MiningSetup.CurrentAlgorithmType);
             string ResponseFromGMiner;
             double total = 0;
@@ -386,7 +471,7 @@ namespace NiceHashMiner.Miners
                 SS.ReadTimeout = 20 * 1000;
                 StreamReader Reader = new StreamReader(SS);
                 ResponseFromGMiner = await Reader.ReadToEndAsync();
-                Helpers.ConsolePrint("API...........", ResponseFromGMiner);
+                //Helpers.ConsolePrint("API...........", ResponseFromGMiner);
                 if (ResponseFromGMiner.Length == 0 || (ResponseFromGMiner[0] != '{' && ResponseFromGMiner[0] != '['))
                     throw new Exception("Not JSON!");
                 Reader.Close();
