@@ -133,9 +133,8 @@ namespace NiceHashMiner.Miners
             string hashSpeed = "";
             int kspeed = 1;
             double speed = 0;
-            //GPU 0 - cnv8: 893.9 h/s, avg 885.2 h/s, pool 1.363kh/s a:2 r:0 hw:0
-            //GPU 0 - cnv8: 2.022kh/s, avg 2.024kh/s, pool 1.863kh/s a:2017 r:69 hw:40
-            if (outdata.Contains("- cnv8: "))
+
+            if (outdata.Contains("cnv8: "))
             {
                 int i = outdata.IndexOf("cnv8: ");
                 int k = outdata.IndexOf("h/s, avg");
@@ -145,11 +144,11 @@ namespace NiceHashMiner.Miners
                 {
                     kspeed = 1;
                 }
-                if (outdata.Substring(0,45).ToUpper().Contains("KH/S"))
+                if (outdata.Substring(0,65).ToUpper().Contains("KH/S"))
                 {
                     kspeed = 1000;
                 }
-                if (outdata.Substring(0, 45).ToUpper().Contains("MH/S"))
+                if (outdata.Substring(0, 65).ToUpper().Contains("MH/S"))
                 {
                     kspeed = 1000000;
                 }
@@ -174,11 +173,8 @@ namespace NiceHashMiner.Miners
                     return true;
                 }
             }
-            //GPU 0 - lyra2z: 2.530Mh/s, avg 2.582Mh/s, pool 2.859Mh/s a:5 r:0 hw:0
-            //GPU 0 - lyra2z: 596.0kh/s, avg 607.3kh/s, pool 571.6kh/s a:1 r:0 hw:0
-            //[2018-11-10 17:02:42] GPU 0 - lyra2z: 2.282Mh/s, avg 2.331Mh/s, pool 571.6kh/s a:1 r:0 hw:0
-
-            if (outdata.Contains("- lyra2z: ") )
+            //GPU 0 [56C, fan 35%] lyra2z: 1.410Mh/s, avg 1.437Mh/s, pool   0.0 h/s a:0 r:0 hw:0
+            if (outdata.Contains("lyra2z: ") )
             {
                 int i = outdata.IndexOf("lyra2z: ");
                 int k = outdata.IndexOf("h/s, avg");
@@ -188,11 +184,11 @@ namespace NiceHashMiner.Miners
                 {
                     kspeed = 1;
                 }
-                if (outdata.Substring(0, 50).ToUpper().Contains("KH/S"))
+                if (outdata.Substring(0, 65).ToUpper().Contains("KH/S"))
                 {
                     kspeed = 1000;
                 }
-                if (outdata.Substring(0, 50).ToUpper().Contains("MH/S"))
+                if (outdata.Substring(0, 65).ToUpper().Contains("MH/S"))
                 {
                     kspeed = 1000000;
                 }
