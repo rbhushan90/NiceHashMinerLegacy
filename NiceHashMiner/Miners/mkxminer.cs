@@ -62,6 +62,7 @@ namespace NiceHashMiner.Miners
             {
                 return;
             }
+            Process proc;
             ManagementObjectSearcher searcher = new ManagementObjectSearcher
                     ("Select * From Win32_Process Where ParentProcessID=" + pid);
             ManagementObjectCollection moc = searcher.Get();
@@ -71,8 +72,17 @@ namespace NiceHashMiner.Miners
             }
             try
             {
-                Process proc = Process.GetProcessById(pid);
+                proc = Process.GetProcessById(pid);
                 proc.Kill();
+                /*
+                Thread.Sleep(200);
+                if (proc != null)
+                {
+                    foreach (Process process in Process.GetProcessesByName("mkxminer")) {
+                         try { process.Kill(); } catch (Exception e) { Helpers.ConsolePrint("mkxminer-kill", e.ToString()); }
+                    }
+                }
+                */
             }
             catch (ArgumentException)
             {
