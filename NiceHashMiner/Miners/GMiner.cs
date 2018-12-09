@@ -100,8 +100,18 @@ namespace NiceHashMiner.Miners
         {
             var ret = GetDevicesCommandString()
                       + " --pec --pers auto --algo 144_5 --server " + url.Split(':')[0]
-                      + " --user " + btcAddress + "." + worker + " --pass x --port "
-                      + url.Split(':')[1] + " --api " + ApiPort;
+                      + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                      + " --server zhash.hk.nicehash.com"
+                      + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                      + " --server zhash.in.nicehash.com"
+                      + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                      + " --server zhash.usa.nicehash.com"
+                      + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                      + " --server zhash.jp.nicehash.com"
+                      + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                      + " --server zhash.br.nicehash.com"
+                      + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                      + " --api " + ApiPort;
             return ret;
         }
         protected override string GetDevicesCommandString()
