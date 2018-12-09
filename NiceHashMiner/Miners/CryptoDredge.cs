@@ -224,101 +224,75 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata)
         {
-            double tmp = 0;
-            if (true)
-            {
-                if (outdata.Contains("GPU") && outdata.Contains("/s"))
-                {
+          try
+          {
+                double tmp = 0;
+                    if (outdata.Contains("GPU") && outdata.ToUpper().Contains("GH/S)"))
+                    {
+                        var st = outdata.IndexOf("Avr ");
+                        var e = outdata.ToUpper().IndexOf("GH/S)");
+                        var parse = outdata.Substring(st + 4, e - st - 4).Trim().Replace(",",".");
+                        tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                        tmp *= 10000000000;
+
+                        speed += tmp;
+                        count++;
+                        TotalCount--;
+                        goto norm;    
+                    } else if (outdata.Contains("GPU") && outdata.ToUpper().Contains("MH/S)"))
+                    {
                     var st = outdata.IndexOf("Avr ");
-                    var e = outdata.IndexOf("/s)");
-                try { 
-                    var parse = outdata.Substring(st + 4, e - st - 6).Trim().Replace(",",".");
-                    tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
-                } catch
-                {
-                    MessageBox.Show("Unsupported miner version " + MiningSetup.MinerPath,
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    BenchmarkSignalFinnished = true;
-                    return false;
-                }
-                // save speed
+                        var e = outdata.ToUpper().IndexOf("MH/S)");
+                        var parse = outdata.Substring(st + 4, e - st - 4).Trim().Replace(",", ".");
+                        tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                        tmp *= 1000000;
 
-                //                    if (BenchmarkAlgorithm.AlgorithmName == "Lyra2REv2") //Avr 27,57Mh/s
-                {
-//                        Helpers.ConsolePrint("BENCHMARK", "Lyra2REv2 benchmark ends");
-                        if (outdata.ToUpper().Contains("KH/S"))
-                            tmp *= 1000;
-                        else if (outdata.ToUpper().Contains("MH/S"))
-                            tmp *= 1000000;
-                        else if (outdata.ToUpper().Contains("GH/S"))
-                            tmp *= 10000000000;
-                    }
-                    /*
-                    else if (BenchmarkAlgorithm.AlgorithmName == "Lyra2z")
+                        speed += tmp;
+                        count++;
+                        TotalCount--;
+                        goto norm;
+                    } else if (outdata.Contains("GPU") && outdata.ToUpper().Contains("KH/S)"))
                     {
-                        Helpers.ConsolePrint("BENCHMARK", "Lyra2z benchmark ends");
-                        if (outdata.ToUpper().Contains("KH/S"))
-                            tmp *= 1000;
-                        else if (outdata.ToUpper().Contains("MH/S"))
-                            tmp *= 1000000;
-                        else if (outdata.ToUpper().Contains("GH/S"))
-                            tmp *= 10000000000;
-                    }
-                    else if (BenchmarkAlgorithm.AlgorithmName == "NeoScrypt") //Avr 774,9KH/s (Avr 1241KH/s
-                    {
-                        Helpers.ConsolePrint("BENCHMARK", "Neoscrypt benchmark ends: "+tmp.ToString());
-                        if (outdata.ToUpper().Contains("KH/S"))
-                            tmp *= 1000;
-                        else if (outdata.ToUpper().Contains("MH/S"))
-                            tmp *= 1000000;
-                        else if (outdata.ToUpper().Contains("GH/S"))
-                            tmp *= 100000000;
-                    }
-                    */
-                    /*
-                    else if (BenchmarkAlgorithm.AlgorithmName == "Blake2s") //(Avr 2393MH/s
-                    {
-                        if (outdata.Contains("KH/s"))
-                            tmp *= 1000;
-                        else if (outdata.Contains("MH/s"))
-                            tmp *= 1000000;
-                        else if (outdata.Contains("GH/s"))
-                            tmp *= 10000000000;
-                    }
-                    else if (BenchmarkAlgorithm.AlgorithmName == "Skunk") //Avr 17,44MH/s
-                    {
-                        if (outdata.Contains("KH/s"))
-                            tmp *= 1000;
-                        else if (outdata.Contains("MH/s"))
-                            tmp *= 10000;
-                        else if (outdata.Contains("GH/s"))
-                            tmp *= 10000000000;
-                    }
-                    */
+                    var st = outdata.IndexOf("Avr ");
+                        var e = outdata.ToUpper().IndexOf("KH/S)");
+                        var parse = outdata.Substring(st + 4, e - st - 4).Trim().Replace(",", ".");
+                        tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                        tmp *= 1000;
 
+                        speed += tmp;
+                        count++;
+                        TotalCount--;
+                        goto norm;
+                    }
+                    else if (outdata.Contains("GPU") && outdata.ToUpper().Contains("H/S)"))
+                    {
+                    var st = outdata.IndexOf("Avr ");
+                        var e = outdata.ToUpper().IndexOf("H/S)");
+                        var parse = outdata.Substring(st + 4, e - st - 4).Trim().Replace(",", ".");
+                        tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
 
-                    speed += tmp;
-                    count++;
-                    TotalCount--;
-                }
-                if (TotalCount <= 0)
-                {
+                        speed += tmp;
+                        count++;
+                        TotalCount--;
+                        goto norm;
+                    }
+norm:
+                    if (TotalCount <= 0 && speed > 0.0d)
+                    {
                     BenchmarkAlgorithm.BenchmarkSpeed = speed / count;
                     BenchmarkSignalFinnished = true;
                     return true;
-                }
+                    }
 
                 return false;
-            }
-
-            if (speed > 0.0d)
-            {
-                BenchmarkAlgorithm.BenchmarkSpeed = speed / count;
-
-                return true;
-            }
-
-            return false;
+          }
+          catch
+          {
+                MessageBox.Show("Unsupported miner version " + MiningSetup.MinerPath,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                BenchmarkSignalFinnished = true;
+                return false;
+          }
         }
 
         protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata)
@@ -431,7 +405,6 @@ namespace NiceHashMiner.Miners
                     CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
                 }
 
-                // some clayomre miners have this issue reporting negative speeds in that case restart miner
                 if (ad.Speed < 0)
                 {
                     Helpers.ConsolePrint(MinerTag(), "Reporting negative speeds will restart...");
