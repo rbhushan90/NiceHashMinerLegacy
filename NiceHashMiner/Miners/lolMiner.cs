@@ -66,10 +66,10 @@ namespace NiceHashMiner.Miners
             url = url.Substring(0, url.IndexOf(":"));
             var apiBind = " --apiport " + ApiPort;
 
-           LastCommandLine = "--coin AUTO144_5 --overwritePersonal BgoldPoW --pool " + url +
-                              " --port " + port+  
-                              " --user " + username +
-                              " -p x " + apiBind +
+           LastCommandLine = "--coin AUTO144_5 --pool " + url + ";zhash.hk.nicehash.com;zhash.jp.nicehash.com;zhash.usa.nicehash.com;zhash.in.nicehash.com;zhash.br.nicehash.com" +
+                              " --port " + port+";"+port +";"+ port+";"+ port+";"+ port+";"+ port+";"+
+                              " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" +
+                              " -p x;x;x;x;x;x " + apiBind +
                               " " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
@@ -106,11 +106,105 @@ namespace NiceHashMiner.Miners
             return CommandLine;
 
         }
+        /*
+        protected override string GetDevicesCommandString0()
+        {
+            // First by device type (AMD then NV), then by bus ID index
+            var sortedMinerPairs = MiningSetup.MiningPairs
+                .OrderByDescending(pair => pair.Device.DeviceType)
+                .ThenBy(pair => pair.Device.IDByBus)
+                .ToList();
+            var extraParams = ExtraLaunchParametersParser.ParseForMiningPairs(sortedMinerPairs, DeviceType.AMD);
+
+            var ids = new List<string>();
+            var intensities = new List<string>();
+
+            var amdDeviceCount = ComputeDeviceManager.Query.AmdDevices.Count;
+            Helpers.ConsolePrint("ClaymoreIndexing", $"Found {amdDeviceCount} AMD devices");
+
+            foreach (var mPair in sortedMinerPairs)
+            {
+                var id = mPair.Device.IDByBus;
+                if (id < 0)
+                {
+                    // should never happen
+                    Helpers.ConsolePrint("ClaymoreIndexing", "ID by Bus too low: " + id + " skipping device");
+                    continue;
+                }
+
+                if (mPair.Device.DeviceType == DeviceType.NVIDIA)
+                {
+                    Helpers.ConsolePrint("ClaymoreIndexing", "NVIDIA device increasing index by " + amdDeviceCount);
+                    id += amdDeviceCount;
+                }
+
+                if (id > 9)
+                {
+                    // New >10 GPU support in CD9.8
+                    if (id < 36)
+                    {
+                        // CD supports 0-9 and a-z indexes, so 36 GPUs
+                        var idchar = (char)(id + 87); // 10 = 97(a), 11 - 98(b), etc
+                        ids.Add(idchar.ToString());
+                    }
+                    else
+                    {
+                        Helpers.ConsolePrint("ClaymoreIndexing", "ID " + id + " too high, ignoring");
+                    }
+                }
+                else
+                {
+                    ids.Add(id.ToString());
+                }
+
+                if (mPair.Algorithm is DualAlgorithm algo && algo.TuningEnabled)
+                {
+                    intensities.Add(algo.CurrentIntensity.ToString());
+                }
+            }
+
+            var deviceStringCommand = DeviceCommand(amdDeviceCount) + string.Join("", ids);
+            var intensityStringCommand = "";
+            if (intensities.Count > 0)
+            {
+                intensityStringCommand = " -dcri " + string.Join(",", intensities);
+            }
+
+            return deviceStringCommand + intensityStringCommand + extraParams;
+        }
+*/
         protected override string GetDevicesCommandString()
         {
             var deviceStringCommand = " ";
+            var ids = new List<string>();
+            var amdDeviceCount = ComputeDeviceManager.Query.AmdDevices.Count;
+            var allDeviceCount = ComputeDeviceManager.Query.GpuCount;
+            Helpers.ConsolePrint("lolMinerIndexing", $"Found {allDeviceCount} Total GPU devices");
+            Helpers.ConsolePrint("lolMinerIndexing", $"Found {amdDeviceCount} AMD devices");
+            //   var ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.ID.ToString()).ToList();
+            var sortedMinerPairs = MiningSetup.MiningPairs.OrderBy(pair => pair.Device.DeviceType).ToList();
+            foreach (var mPair in sortedMinerPairs)
+            {
+                var id = mPair.Device.ID;
+                if (id < 0)
+                {
+                    Helpers.ConsolePrint("lolMinerIndexing", "ID too low: " + id + " skipping device");
+                    continue;
+                }
 
-            var ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.ID.ToString()).ToList();
+                if (mPair.Device.DeviceType == DeviceType.NVIDIA)
+                {
+                    Helpers.ConsolePrint("lolMinerIndexing", "NVIDIA found. Increasing index");
+                    id ++;
+                }
+                Helpers.ConsolePrint("lolMinerIndexing", "ID: " + id );
+                {
+                    ids.Add(id.ToString());
+                }
+
+            }
+
+
             deviceStringCommand += string.Join(",", ids);
 
             return deviceStringCommand;
@@ -171,7 +265,7 @@ namespace NiceHashMiner.Miners
         // TODO _currentMinerReadStatus
         public override async Task<ApiData> GetSummaryAsync()
         {
-            Helpers.ConsolePrint("try API...........", "");
+            //Helpers.ConsolePrint("try API...........", "");
             var ad = new ApiData(MiningSetup.CurrentAlgorithmType);
             string ResponseFromlolMiner;
             double total = 0;
@@ -186,7 +280,7 @@ namespace NiceHashMiner.Miners
                 SS.ReadTimeout = 20 * 1000;
                 StreamReader Reader = new StreamReader(SS);
                 ResponseFromlolMiner = await Reader.ReadToEndAsync();
-                Helpers.ConsolePrint("API...........", ResponseFromlolMiner);
+                //Helpers.ConsolePrint("API...........", ResponseFromlolMiner);
                 //if (ResponseFromlolMiner.Length == 0 || (ResponseFromlolMiner[0] != '{' && ResponseFromlolMiner[0] != '['))
                 //    throw new Exception("Not JSON!");
                 Reader.Close();
