@@ -23,7 +23,7 @@ namespace NiceHashMiner.Miners
     public class GMiner : Miner
     {
 //#pragma warning disable IDE1006
-        
+
         private class Devices
         {
             public uint gpu_id { get; set; }
@@ -50,7 +50,7 @@ namespace NiceHashMiner.Miners
             public uint electricity { get; set; }
             public Devices[] devices { get; set; }
         }
-        
+
 //#pragma warning restore IDE1006
 
         private int _benchmarkTimeWait = 2 * 45;
@@ -93,8 +93,8 @@ namespace NiceHashMiner.Miners
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
             Thread.Sleep(200);
             KillGminer();
-            //KillMinerBase("miner.exe");
-            
+            //KillMinerBase("miner");
+
         }
         private string GetStartCommand(string url, string btcAddress, string worker)
         {

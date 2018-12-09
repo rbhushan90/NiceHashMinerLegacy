@@ -113,7 +113,7 @@ namespace NiceHashMiner.Miners
 
             return " -gpus " + GetDevicesCommandString() + platform + "-retrydelay 10"
                    + $" -pool {url} -wal {username2} -cdmport  127.0.0.1:{ApiPort} -pass x " +
-                   ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD); 
+                   ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD);
 
         }
 
@@ -137,7 +137,7 @@ namespace NiceHashMiner.Miners
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
             Thread.Sleep(500);
 
-            foreach (var process in Process.GetProcessesByName("PhoenixMiner.exe"))
+            foreach (var process in Process.GetProcessesByName("PhoenixMiner"))
             {
                 try {
                     process.Kill();
@@ -276,11 +276,11 @@ namespace NiceHashMiner.Miners
         {
             // CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
             CurrentMinerReadStatus = MinerApiReadStatus.WAIT;
-            
+
             var ad = new ApiData(MiningSetup.CurrentAlgorithmType);
-            
-            
-            
+
+
+
             try
             {
                 HttpWebRequest WR = (HttpWebRequest)WebRequest.Create("http://127.0.0.1:" + ApiPort.ToString());
@@ -300,7 +300,7 @@ namespace NiceHashMiner.Miners
                 //Helpers.ConsolePrint("API", ex.Message);
                 return null;
             }
-            
+
             if (ResponseFromPhoenix.Contains("Eth speed:"))
             {
                 var st = ResponseFromPhoenix.LastIndexOf("Eth speed: ");
@@ -328,11 +328,11 @@ namespace NiceHashMiner.Miners
                     dSpeed *= 1000000;
                 else if (ResponseFromPhoenix.ToUpper().Contains("GH/S"))
                     dSpeed *= 10000000000;
-                
+
                 ad.Speed = dSpeed;
-                
+
             }
-            
+
             if (ad.Speed == 0)
             {
                 CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
@@ -341,7 +341,7 @@ namespace NiceHashMiner.Miners
             {
                 CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
             }
-            
+
             //Thread.Sleep(1000);
             return ad;
 

@@ -81,7 +81,7 @@ namespace NiceHashMiner.Miners
             Thread.Sleep(200);
             try { ProcessHandle.SendCtrlC((uint)Process.GetCurrentProcess().Id); } catch { }
             Thread.Sleep(200);
-            foreach (var process in Process.GetProcessesByName("CryptoDredge.exe"))
+            foreach (var process in Process.GetProcessesByName("CryptoDredge"))
             {
                 try {
                     process.Kill();
