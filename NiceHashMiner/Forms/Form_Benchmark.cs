@@ -14,6 +14,8 @@ using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Properties;
 using NiceHashMinerLegacy.Common.Enums;
 using Timer = System.Windows.Forms.Timer;
+using System.Diagnostics;
+using System.IO;
 
 namespace NiceHashMiner.Forms
 {
@@ -459,6 +461,66 @@ namespace NiceHashMiner.Forms
             _benchmarkingTimer.Start();
         }
 
+        private Process RunCMDAfterBenchmark()
+        {
+            bool CreateNoWindow = false;
+            var CMDconfigHandle = new Process
+           
+            {
+                StartInfo =
+                {
+                    FileName = "AfterBenchmark.cmd"
+                }
+            };
+
+            CMDconfigHandle.StartInfo.FileName = "AfterBenchmark.cmd";
+
+            if (!File.Exists(CMDconfigHandle.StartInfo.FileName))
+            {
+                return null;
+            }
+
+            var cmd = "";
+            FileStream fs = new FileStream(CMDconfigHandle.StartInfo.FileName, FileMode.Open, FileAccess.Read);
+            StreamReader w = new StreamReader(fs);
+            cmd = w.ReadToEnd();
+            w.Close();
+
+            if (cmd.ToUpper().Trim().Contains("SET NOVISIBLE=TRUE"))
+            {
+                CreateNoWindow = true;
+            }
+            if (cmd.ToUpper().Trim().Contains("SET RUN=FALSE"))
+            {
+                return null;
+            }
+
+            Thread.Sleep(200);
+
+            CMDconfigHandle.StartInfo.Arguments = "";
+            CMDconfigHandle.StartInfo.UseShellExecute = false;
+            CMDconfigHandle.StartInfo.CreateNoWindow = CreateNoWindow;
+            Thread.Sleep(250);
+            Helpers.ConsolePrint("RunCMDAfterBenchmark", "Start CMD: " + CMDconfigHandle.StartInfo.FileName + CMDconfigHandle.StartInfo.Arguments);
+            CMDconfigHandle.Start();
+
+            try
+            {
+                if (!CMDconfigHandle.WaitForExit(10 * 1000))
+                {
+                    CMDconfigHandle.Kill();
+                    CMDconfigHandle.WaitForExit(5 * 1000);
+                    CMDconfigHandle.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Helpers.ConsolePrint("KillCMDAfterBenchmark", e.ToString());
+            }
+
+            Thread.Sleep(50);
+            return CMDconfigHandle;
+        }
         private void EndBenchmark()
         {
             Invoke((MethodInvoker) delegate
@@ -470,6 +532,7 @@ namespace NiceHashMiner.Forms
                 //CopyBenchmarks();
 
                 BenchmarkStoppedGuiSettings();
+                RunCMDAfterBenchmark();
                 // check if all ok
                 if (!_hasFailedAlgorithms && StartMining == false)
                 {

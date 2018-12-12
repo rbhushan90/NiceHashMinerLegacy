@@ -305,9 +305,9 @@ namespace NiceHashMiner.Miners
             {
                 var st = ResponseFromPhoenix.LastIndexOf("Eth speed: ");
                 var e = ResponseFromPhoenix.LastIndexOf("/s, shares");
-                Helpers.ConsolePrint("API st:", st.ToString());
-                Helpers.ConsolePrint("API e:", e.ToString());
-                Helpers.ConsolePrint("API:", ResponseFromPhoenix.Substring(st + 11, e - st - 14));
+//                Helpers.ConsolePrint("API st:", st.ToString());
+//                Helpers.ConsolePrint("API e:", e.ToString());
+//                Helpers.ConsolePrint("API:", ResponseFromPhoenix.Substring(st + 11, e - st - 14));
                 cSpeed = ResponseFromPhoenix.Substring(st + 11, e - st - 14);
 
                 try
