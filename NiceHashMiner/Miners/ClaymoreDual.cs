@@ -48,7 +48,7 @@ namespace NiceHashMiner.Miners
 
         protected override int GetMaxCooldownTimeInMilliseconds()
         {
-            return 90 * 1000; // 1.5 minute max, whole waiting time 75seconds
+            return 120 * 1000; 
         }
 
         private string GetStartCommand(string url, string btcAdress, string worker)
@@ -373,47 +373,55 @@ namespace NiceHashMiner.Miners
                     Helpers.ConsolePrint("GetStartCommand", e.ToString());
                 }
 
+                 urlSecond = Globals.GetLocationUrl(SecondaryAlgorithmType,
+                    Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
+                username = Globals.GetBitcoinUser();
+                var dpsw = "";
                 if (SecondaryAlgorithmType == AlgorithmType.Decred)
                 {
                     urlSecond = "stratum+tcp://decred.eu.mine.zpool.ca:5744";
                     username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
+                    dpsw = "c=BTC";
                 }
                 if (SecondaryAlgorithmType == AlgorithmType.Lbry)
                 {
                     urlSecond = "stratum+tcp://lbry.eu.mine.zpool.ca:3334";
                     username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
+                    dpsw = "c=BTC";
                 }
 
                 if (SecondaryAlgorithmType == AlgorithmType.Blake2s)
                 {
                     urlSecond = "stratum+tcp://blake2s.eu.mine.zpool.ca:5766";
                     username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
+                    dpsw = "c=BTC";
                 }
                 if (SecondaryAlgorithmType == AlgorithmType.Keccak)
                 {
                     urlSecond = "stratum+tcp://keccak.eu.mine.zpool.ca:5133";
                     username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
+                    dpsw = "c=BTC";
                 }
-                /*
+                
                 if (SecondaryAlgorithmType == AlgorithmType.Pascal)
                 {
                     urlSecond = "stratum+tcp://pascal.eu.nicehash.com:" + poolport;
                     username = Globals.GetBitcoinUser();
-                    esm = "-esm 3";
+                    dpsw = "x";
+                    //esm = "-esm 3";
                 }
                 if (SecondaryAlgorithmType == AlgorithmType.Sia)
                 {
                     urlSecond = "stratum+tcp://sia.eu.nicehash.com:" + poolport;
                     username = Globals.GetBitcoinUser();
-                    esm = "-esm 3";
+                    dpsw = "x";
+                    //esm = "-esm 3";
                 }
-                */
+                
 
-
-
-                 urlSecond = Globals.GetLocationUrl(SecondaryAlgorithmType,
-                    Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
-                dualModeParams = $" -dcoin {SecondaryShortName()} -dpool {urlSecond} -dwal {username} -dpsw x {esm} -dpoolsfile " + dpoolsFile;
+                // urlSecond = Globals.GetLocationUrl(SecondaryAlgorithmType,
+                //    Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
+                dualModeParams = $" -dcoin {SecondaryShortName()} -dpool {urlSecond} -dwal {username} -dpsw {dpsw} {esm} -dpoolsfile " + dpoolsFile;
                 //dualModeParams = $" -dcoin {SecondaryShortName()} -dpoolsfile " + dpoolsFile;
             }
 
@@ -559,7 +567,8 @@ namespace NiceHashMiner.Miners
             // demo for benchmark
             var ret = GetStartBenchmarkCommand(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim())
                          + " -logfile " + GetLogFileName();
-            BenchmarkTimeWait = Math.Max(60, Math.Min(120, time * 3));
+            //BenchmarkTimeWait = Math.Max(60, Math.Min(120, time * 3));
+            BenchmarkTimeWait = 120;
             return ret;
         }
     }
