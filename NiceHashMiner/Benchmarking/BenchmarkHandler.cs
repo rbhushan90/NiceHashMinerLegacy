@@ -155,6 +155,7 @@ namespace NiceHashMiner.Benchmarking
 
         private void NextBenchmark()
         {
+            ConfigManager.CommitBenchmarks();
             ++_benchmarkCurrentIndex;
             if (_benchmarkCurrentIndex > 0) _benchmarkForm.StepUpBenchmarkStepProgress();
             if (_benchmarkCurrentIndex >= _benchmarkAlgorithmsCount)
