@@ -51,7 +51,6 @@ namespace NiceHashMiner.Utils
             @"/SRBMiner/SRBMiner-CN.exe",
             @"/gminer/miner.exe",
             @"/lolMiner/lolMiner.exe",
-            @"/mkxminer/mkxminer.exe",
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py

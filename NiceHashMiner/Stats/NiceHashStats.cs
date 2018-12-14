@@ -572,12 +572,12 @@ namespace NiceHashMiner.Stats
                 if (worker.Length > 64) worker = worker.Substring(0, 64);
                 wr.Headers.Add("NiceHash-Worker-ID", worker);
                 wr.Headers.Add("NHM-Active-Miners-Group", activeMinersGroup);
-                wr.Timeout = 30 * 1000;
+                wr.Timeout = 10 * 1000;
                 var response = wr.GetResponse();
                 var ss = response.GetResponseStream();
                 if (ss != null)
                 {
-                    ss.ReadTimeout = 20 * 1000;
+                    ss.ReadTimeout = 8 * 1000;
                     var reader = new StreamReader(ss);
                     responseFromServer = reader.ReadToEnd();
                     if (responseFromServer.Length == 0 || responseFromServer[0] != '{')

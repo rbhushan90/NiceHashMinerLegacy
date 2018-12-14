@@ -231,8 +231,20 @@ namespace NiceHashMiner
 
                     ConfigManager.GeneralConfig.ForkFixVersion = 11;
                 }
-                //**
 
+                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 11.1)
+                {
+                    Helpers.ConsolePrint("NICEHASH", "Old version");
+                    if (Directory.Exists("internals"))
+                        Directory.Delete("internals", true);
+
+                    if (File.Exists("bin_3rdparty\\t-rex\\t-rex.exe"))
+                        File.Delete("bin_3rdparty\\t-rex\\t-rex.exe");
+
+                    ConfigManager.GeneralConfig.ForkFixVersion = 11.1;
+                }
+                //**
+                Thread.Sleep(500);
                 // init active display currency after config load
                 ExchangeRateApi.ActiveDisplayCurrency = ConfigManager.GeneralConfig.DisplayCurrency;
 
