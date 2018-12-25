@@ -1537,7 +1537,9 @@ namespace NiceHashMiner
             var strPlatform = "";
             var strDual = "SINGLE";
             var strAlgo = AlgorithmNiceHashNames.GetName(MiningSetup.CurrentAlgorithmType);
-            var gpus = GetDevicesCommandString().Trim();
+            //var gpus = GetDevicesCommandString().Trim();
+            var gpus = "";
+            gpus += string.Join(",", MiningSetup.MiningPairs.Select(mPair => mPair.Device.ID.ToString()).ToList());
 
             foreach (var pair in MiningSetup.MiningPairs)
             {
