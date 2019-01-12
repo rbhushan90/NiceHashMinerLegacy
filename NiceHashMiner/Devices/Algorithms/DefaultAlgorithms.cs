@@ -19,7 +19,7 @@ namespace NiceHashMiner.Devices.Algorithms
                 MinerBaseType.XmrStak,
                 new List<Algorithm>
                 {
-                    new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNightV7, ""),
+                //    new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNightV7, ""),
                     new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNightHeavy, ""),
                     new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNightV8, ""),
 
@@ -66,7 +66,7 @@ namespace NiceHashMiner.Devices.Algorithms
                 new List<Algorithm>
                 {
                     //new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNight, ""),
-                    new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV7, ""),
+                    //new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV7, ""),
                     new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV8, "")
                 }
             },
@@ -142,7 +142,7 @@ namespace NiceHashMiner.Devices.Algorithms
             },
                     { MinerBaseType.CastXMR,
                         new List<Algorithm>() {
-                            new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightV7, "cryptonightV7") { },
+                            //new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightV7, "cryptonightV7") { },
                             new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightV8, "cryptonightV8") { },
                             new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightHeavy, "cryptonightHeavy") { }
                         }
@@ -154,7 +154,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     },
                     { MinerBaseType.XmrigAMD,
                         new List<Algorithm>() {
-                            new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV7, "CryptoNightV7") { },
+                           // new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV7, "CryptoNightV7") { },
                             new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV8, "CryptoNightV8") { }
                         }
                     },
@@ -199,7 +199,7 @@ namespace NiceHashMiner.Devices.Algorithms
                 MinerBaseType.Claymore,
                 new List<Algorithm>
                 {
-                    new Algorithm(MinerBaseType.Claymore, AlgorithmType.CryptoNightV7, ""),
+                    //new Algorithm(MinerBaseType.Claymore, AlgorithmType.CryptoNightV7, ""),
                     new Algorithm(MinerBaseType.Claymore, AlgorithmType.NeoScrypt, "neoscrypt"),
                     new Algorithm(MinerBaseType.Claymore, AlgorithmType.Equihash, "equihash")
                 }
@@ -262,14 +262,14 @@ namespace NiceHashMiner.Devices.Algorithms
                     },
                         { MinerBaseType.CryptoDredge,
                         new List<Algorithm>() {
-                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Lyra2REv2, "Lyra2REv2"),
+                        //    new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Lyra2REv2, "Lyra2REv2"),
                             new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Lyra2z, "Lyra2z"),
-                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Blake2s, "Blake2s"),
+                        //    new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Blake2s, "Blake2s"),
                             new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.NeoScrypt, "NeoScrypt"),
                             new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Skunk, "Skunk"),
                             new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.X16R, "X16R"),
                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightHeavy, "CryptoNightHeavy"),
-                           new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightV7, "CryptoNightV7"),
+                        //   new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightV7, "CryptoNightV7"),
                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightV8, "CryptoNightV8"),
                         }
                     },
