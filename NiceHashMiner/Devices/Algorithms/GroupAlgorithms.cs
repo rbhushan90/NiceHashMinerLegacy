@@ -20,17 +20,19 @@ namespace NiceHashMiner.Devices.Algorithms
                 if (algoSettings.ContainsKey(MinerBaseType.sgminer))
                 {
                     var sgminerAlgos = algoSettings[MinerBaseType.sgminer];
-                    var lyra2REv2Index = sgminerAlgos.FindIndex(el => el.NiceHashID == AlgorithmType.Lyra2REv2);
+                    //var lyra2REv2Index = sgminerAlgos.FindIndex(el => el.NiceHashID == AlgorithmType.Lyra2REv2);
                     //var neoScryptIndex = sgminerAlgos.FindIndex(el => el.NiceHashID == AlgorithmType.NeoScrypt);
-                    var cryptoNightIndex = sgminerAlgos.FindIndex(el => el.NiceHashID == AlgorithmType.CryptoNight);
+                    //var cryptoNightIndex = sgminerAlgos.FindIndex(el => el.NiceHashID == AlgorithmType.CryptoNight);
 
                     // Check for optimized version
+                    /*
                     if (lyra2REv2Index > -1)
                     {
                         sgminerAlgos[lyra2REv2Index].ExtraLaunchParameters =
                             AmdGpuDevice.DefaultParam +
                             "--nfactor 10 --xintensity 64 --thread-concurrency 0 --worksize 64 --gpu-threads 2";
                     }
+                    */
                     /*
                     if (!device.Codename.Contains("Tahiti") && neoScryptIndex > -1)
                     {
@@ -42,6 +44,7 @@ namespace NiceHashMiner.Devices.Algorithms
                             ") is not Tahiti. Changing default gpu-threads to 2.");
                     }
                     */
+                    /*
                     if (cryptoNightIndex > -1)
                     {
                         if (device.Codename.Contains("Hawaii"))
@@ -54,17 +57,19 @@ namespace NiceHashMiner.Devices.Algorithms
                                 AmdGpuDevice.DefaultParam + " --rawintensity 1850 -w 8 -g 2";
                         }
                     }
+                    */
                 }
 
                 if (algoSettings.ContainsKey(MinerBaseType.XmrigAMD))
                 {
                     var XmrigAMDAlgos = algoSettings[MinerBaseType.XmrigAMD];
-                    int xmrigCryptoNightV7_Index = XmrigAMDAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.CryptoNightV7);
+                    //int xmrigCryptoNightV7_Index = XmrigAMDAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.CryptoNightV7);
                     int xmrigCryptoNightV8_Index = XmrigAMDAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.CryptoNightV8);
 
                     //--opencl-launch=
-                    XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters =" --opencl-launch=640";
+                    //XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters =" --opencl-launch=640";
                     XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=640";
+                    /*
                     if (xmrigCryptoNightV7_Index > -1)
                     {
                         if (device.Codename.Contains("gfx804")) //rx550
@@ -100,9 +105,10 @@ namespace NiceHashMiner.Devices.Algorithms
                             XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1920";
                         }
                     }
+                    */
 
                 }
-
+                /*
                 if (algoSettings.ContainsKey(MinerBaseType.mkxminer))
                 {
                     var mkxminerAlgos = algoSettings[MinerBaseType.mkxminer];
@@ -141,7 +147,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     }
 
                 }
-
+                */
                 // Ellesmere, Polaris
                 // Ellesmere sgminer workaround, keep this until sgminer is fixed to work with Ellesmere
                 if (device.Codename.Contains("Ellesmere") || device.InfSection.ToLower().Contains("polaris"))
@@ -159,6 +165,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     }
                 }
                 // non sgminer optimizations
+                /*
                 if (algoSettings.ContainsKey(MinerBaseType.Claymore_old) &&
                     algoSettings.ContainsKey(MinerBaseType.Claymore))
                 {
@@ -208,7 +215,7 @@ namespace NiceHashMiner.Devices.Algorithms
                         }
                     }
                 }
-
+                */
                 // drivers algos issue
                 if (device.DriverDisableAlgos)
                 {
@@ -301,6 +308,7 @@ namespace NiceHashMiner.Devices.Algorithms
             //    }
             //}
             // NhEqMiner exceptions scope
+            /*
             {
                 const MinerBaseType minerBaseKey = MinerBaseType.nheqminer;
                 if (algoSettings.ContainsKey(minerBaseKey) && device.Name.Contains("GTX")
@@ -314,6 +322,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     });
                 }
             }
+            */
             return algoSettings;
         }
 
@@ -364,13 +373,13 @@ namespace NiceHashMiner.Devices.Algorithms
                             toRemoveAlgoTypes.AddRange(new[]
                             {
                                 AlgorithmType.NeoScrypt,
-                                AlgorithmType.Lyra2RE,
-                                AlgorithmType.Lyra2REv2,
-                                AlgorithmType.CryptoNightV7
+                                //AlgorithmType.Lyra2RE,
+                                //AlgorithmType.Lyra2REv2,
+                                //AlgorithmType.CryptoNightV7
                             });
                             toRemoveMinerTypes.AddRange(new[]
                             {
-                                MinerBaseType.eqm,
+                                //MinerBaseType.eqm,
                                 MinerBaseType.EWBF,
                                 MinerBaseType.dstm
                             });
@@ -382,8 +391,8 @@ namespace NiceHashMiner.Devices.Algorithms
                         {
                             AlgorithmType.DaggerHashimoto,
                             //AlgorithmType.CryptoNight,
-                            AlgorithmType.Pascal,
-                            AlgorithmType.X11Gost
+                            //AlgorithmType.Pascal,
+                            //AlgorithmType.X11Gost
                         });
                         toRemoveMinerTypes.AddRange(new[]
                         {
