@@ -73,7 +73,7 @@ namespace NiceHashMiner.Miners.Grouping
             /// </summary>
 //            public const string CcminerDecred = Bin + @"\ccminer_decred\ccminer.exe";
 
-            public const string CcminerNanashi = Bin + @"\ccminer_nanashi\ccminer.exe";
+            public const string CcminerNanashi = Bin + @"\ccminer_nanashi\ccminer.exe"; //deprecated
             public const string CcminerNeoscrypt = Bin + @"\ccminer_neoscrypt\ccminer.exe";
             public const string CcminerSp = Bin + @"\ccminer_sp\ccminer.exe";
             public const string CcminerTPruvot = Bin + @"\ccminer_tpruvot\ccminer.exe";

@@ -147,11 +147,13 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.CastXMR, AlgorithmType.CryptoNightHeavy, "cryptonightHeavy") { }
                         }
                     },
+                    /*
                     { MinerBaseType.lyclMiner,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.lyclMiner, AlgorithmType.Lyra2REv2, "Lyra2REv2") { }
                         }
                     },
+                    */
                     { MinerBaseType.XmrigAMD,
                         new List<Algorithm>() {
                            // new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV7, "CryptoNightV7") { },
@@ -234,7 +236,7 @@ namespace NiceHashMiner.Devices.Algorithms
                 new List<Algorithm>
                 {
                     new Algorithm(MinerBaseType.ccminer, AlgorithmType.NeoScrypt, "neoscrypt"),
-                    new Algorithm(MinerBaseType.ccminer, AlgorithmType.Lyra2REv2, "lyra2v2"),
+                    //new Algorithm(MinerBaseType.ccminer, AlgorithmType.Lyra2REv2, "lyra2v2"),
                     //new Algorithm(MinerBaseType.ccminer, AlgorithmType.Decred, "decred"),
                     //new Algorithm(MinerBaseType.ccminer, AlgorithmType.Lbry, "lbry"),
                     //new Algorithm(MinerBaseType.ccminer, AlgorithmType.X11Gost, "sib"),
