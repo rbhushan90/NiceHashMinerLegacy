@@ -321,6 +321,9 @@ namespace NiceHashMiner.Devices.Algorithms
                 new List<Algorithm>
                 {
                     new Algorithm(MinerBaseType.GMiner, AlgorithmType.ZHash, "")
+                    {
+                                //ExtraLaunchParameters = "--pec 1 "
+                    }
                 }
             },
             {

@@ -468,7 +468,10 @@ namespace NiceHashMiner.Miners.Parsing
                     // parameters differ according to algorithm
                     new MinerOption("GMiner_logfile", "-l", "--logfile", "0", MinerOptionFlagType.SingleParam, " "),
                     new MinerOption("GMiner_templimit", "-t", "--templimit", "0", MinerOptionFlagType.SingleParam, " "),
-                    new MinerOption("GMiner_tempunits", "-w", "--watchdog", "C", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("GMiner_watchdog", "-w", "--watchdog", "0", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("GMiner_color", "-c", "--color", "1", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("GMiner_pec", "--pec", "--pec", "1", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("GMiner_electricity_cost", "--electricity_cost", "--electricity_cost", "0", MinerOptionFlagType.SingleParam, " "),
                 },
                 new List<MinerOption>()
             ),

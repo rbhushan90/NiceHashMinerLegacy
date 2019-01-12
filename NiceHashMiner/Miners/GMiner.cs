@@ -99,7 +99,7 @@ namespace NiceHashMiner.Miners
         private string GetStartCommand(string url, string btcAddress, string worker)
         {
             var ret = GetDevicesCommandString()
-                      + " --pec --pers auto --algo 144_5 --server " + url.Split(':')[0]
+                      + " --pers auto --algo 144_5 --server " + url.Split(':')[0]
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
                       + " --server zhash.hk.nicehash.com"
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
@@ -225,9 +225,13 @@ namespace NiceHashMiner.Miners
 
             var server = Globals.GetLocationUrl(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
-            //var ret = $" --logfile {GetLogFileName()} " + GetStartCommand(server, Globals.GetBitcoinUser(),
-            //              ConfigManager.GeneralConfig.WorkerName.Trim());
-            var ret = " --logfile " + GetLogFileName() + " --color 0 --pec --pers BgoldPoW --algo 144_5 --server europe.equihash-hub.miningpoolhub.com --user angelbbs.FBench11 --pass x --port 20595 " + GetDevicesCommandString();
+            var btcAddress = Globals.GetBitcoinUser();
+            var worker = ConfigManager.GeneralConfig.WorkerName.Trim();
+            var ret = " --logfile " + GetLogFileName() + " --color 0 --pec --pers BgoldPoW --algo 144_5" +
+                " --server europe.equihash-hub.miningpoolhub.com --user angelbbs.FBench11 --pass x --port 20595 " +
+                " --server zhash.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
+                " --server zhash.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
+                GetDevicesCommandString();
             _benchmarkTimeWait = Math.Max(time * 3, 90); //
             return ret;
         }
