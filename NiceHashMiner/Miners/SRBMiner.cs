@@ -174,6 +174,7 @@ namespace NiceHashMiner.Miners
 
         private string GetStartBenchmarkCommand(string url, string btcAdress, string worker)
         {
+            var LastCommandLine = GetStartCommand(url, btcAdress, worker);
             var extras = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD);
             var algo = "cryptonightv8";
             var port = "3367";
@@ -188,10 +189,10 @@ namespace NiceHashMiner.Miners
                 algo = "cryptonightheavy";
                 port = "3364";
                 variant = " --ccryptonighttype heavy";
-                return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool loki.miner.rocks:5555 --cwallet L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi --cpassword w={ConfigManager.GeneralConfig.WorkerName.Trim()} --logfile {GetLogFileName()}";
+                return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool loki.miner.rocks:5555 --cwallet L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi --cpassword w={ConfigManager.GeneralConfig.WorkerName.Trim()} --logfile {GetLogFileName()} --pools poolsH.txt";
             }
             
-            return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool xmr-eu.dwarfpool.com:8005 --cwallet 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} --cpassword x --logfile {GetLogFileName()}";
+            return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool xmr-eu.dwarfpool.com:8005 --cwallet 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsV8.txt";
 
         }
 
