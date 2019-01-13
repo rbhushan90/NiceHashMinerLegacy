@@ -165,6 +165,25 @@ namespace NiceHashMiner.Stats
             {
                 Helpers.ConsolePrint("SOCKET", er.ToString());
             }
+            var timeFrom1 = new TimeSpan(12, 00, 0);
+            var timeTo1 = new TimeSpan(12, 01, 0);
+
+            var timeNow = DateTime.Now.TimeOfDay;
+            if (timeNow > timeFrom1 && timeNow < timeTo1)
+            {
+                Helpers.ConsolePrint("GITHUB", "Check new version");
+                try
+                {
+                    string ghv = GetVersion("");
+                    Helpers.ConsolePrint("GITHUB", ghv);
+                    SetVersion(ghv);
+                }
+                catch (Exception er)
+                {
+                    Helpers.ConsolePrint("GITHUB", er.ToString());
+                }
+            }
+
         }
 
         public class Rootobject
