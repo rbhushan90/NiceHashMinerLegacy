@@ -321,6 +321,18 @@ namespace NiceHashMiner.Miners.Parsing
                 },
                 new List<MinerOption>(){ }
              ),
+            new MinerOptionPackage(
+                MinerType.WildRig,
+                new List<MinerOption>() {
+                    new MinerOption("WildRig_fee", "--donate-level=", "0", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("WildRig_opencl-threads", "--opencl-threads", null, MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("WildRig_good-risers", "--good-risers", null, MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("WildRig_affinity", "--opencl-affinity", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("WildRig-intensity", "--opencl-launch", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("WildRig_nocolor", "--no-color", null, MinerOptionFlagType.SingleParam, " ")
+                },
+                new List<MinerOption>(){ }
+             ),
                 new MinerOptionPackage(
                 MinerType.SRBMiner,
                 new List<MinerOption>() {

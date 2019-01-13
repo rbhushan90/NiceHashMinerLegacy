@@ -392,6 +392,8 @@ namespace NiceHashMiner.Miners.Parsing
                     return MinerType.Xmrig;
                 case MinerBaseType.XmrigAMD:
                     return MinerType.XmrigAMD;
+                case MinerBaseType.WildRig:
+                    return MinerType.WildRig;
                 case MinerBaseType.SRBMiner:
                     return MinerType.SRBMiner;
                 case MinerBaseType.dstm:

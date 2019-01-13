@@ -104,6 +104,8 @@ namespace NiceHashMiner.Miners
                     return new GMiner();
                 case MinerBaseType.lolMiner:
                     return new lolMiner();
+                case MinerBaseType.WildRig:
+                    return new WildRig();
             }
 
             return null;

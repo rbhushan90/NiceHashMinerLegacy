@@ -36,6 +36,7 @@
         Phoenix,
         GMiner,
         lolMiner,
+        WildRig,
         END
     }
 }

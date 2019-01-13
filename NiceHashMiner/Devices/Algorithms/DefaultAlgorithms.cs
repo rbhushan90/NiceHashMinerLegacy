@@ -197,6 +197,18 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.lolMiner, AlgorithmType.ZHash, "ZHash"),
                         }
                     },
+                    { MinerBaseType.WildRig,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.WildRig, AlgorithmType.Skunk, "Skunk")
+                            {
+                                ExtraLaunchParameters = "--opencl-threads 3 --opencl-launch 20x0 "
+                            },
+                            new Algorithm(MinerBaseType.WildRig, AlgorithmType.X16R, "X16R")
+                            {
+                                ExtraLaunchParameters = "--opencl-threads 2 --opencl-launch 18x0 "
+                            }
+                        }
+                    },
             {
                 MinerBaseType.Claymore,
                 new List<Algorithm>
