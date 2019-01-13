@@ -91,7 +91,7 @@ namespace NiceHashMiner.Miners
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
             string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
-            var username = GetUsername(Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim());
+            var username = GetUsername(Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
             var commandLine = "";
             var timeLimit = (_benchmarkException) ? "" : " --time-limit 300";
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.NeoScrypt))

@@ -35,7 +35,7 @@ namespace NiceHashMiner.Miners
                 }
             }
 
-           
+
             ProcessHandle = _Start();
         }
         /*
@@ -119,7 +119,7 @@ namespace NiceHashMiner.Miners
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
                 ConectionType);
             //_benchmarkTimeWait = time;
-            return GetStartBenchmarkCommand(server, Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim())
+            return GetStartBenchmarkCommand(server, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim())
                 + $" -l {GetLogFileName()} --print-time=2 --nicehash";
         }
 
@@ -143,7 +143,7 @@ namespace NiceHashMiner.Miners
                 if (!lineLowered.Contains(LookForStart)) continue;
                 var speeds = Regex.Match(lineLowered, $"{LookForStart} (.+?) {LookForEnd}").Groups[1].Value.Split();
 
-                try { 
+                try {
                 if (double.TryParse(speeds[1], out var sixtySecSpeed))
                     {
                     sixtySecTotal += sixtySecSpeed;

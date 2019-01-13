@@ -35,7 +35,7 @@ namespace NiceHashMiner.Miners
                 return MiningSetup.MinerPath == MinerPaths.Data.lyclMiner;
             }
         }
-        
+
         protected override int GetMaxCooldownTimeInMilliseconds() {
             return 60 * 1000 * 12;
         }
@@ -50,7 +50,7 @@ namespace NiceHashMiner.Miners
             }
             string username = GetUsername(btcAdress, worker);
 
-            IsApiReadException = true; //** in miner 
+            IsApiReadException = true; //** in miner
 
             if (File.Exists("bin\\lyclMiner\\lyclMinerNHML.conf"))
                 File.Delete("bin\\lyclMiner\\lyclMinerNHML.conf");
@@ -72,23 +72,23 @@ namespace NiceHashMiner.Miners
             string newconf = "";
             string[] textArray = conf.Split('\n');
             string[] worksize = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD).Replace("worksize=", "").Split(',');
-            
+
             Array.Reverse(worksize);
 
             Helpers.ConsolePrint(MinerTag(), ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD));
 
-           
+
             int k = 0;
 
-            for (int i = 0; i < textArray.Length; i++) 
+            for (int i = 0; i < textArray.Length; i++)
             {
                 string str = textArray[i].ToString();
-                
+
                 if (!str.Contains("DeviceIndex = ") )
                     {
                         newconf = newconf + str + "\n";
                     }
-                    
+
                 if (str.Contains("DeviceIndex = ") & str.Contains("BinaryFormat ="))
                 {
                     Helpers.ConsolePrint("lyclminer3", "");
@@ -113,9 +113,9 @@ namespace NiceHashMiner.Miners
                             k++;
                         }
                          newconf = newconf + str + "\n";
-                        
+
                         }
-                   
+
                 }
             }
 
@@ -131,7 +131,7 @@ namespace NiceHashMiner.Miners
                 LastCommandLine = " lyclMinerNHML.conf";
                 Thread.Sleep(100);
             ProcessHandle = _Start();
-            
+
         }
 
         protected override void _Stop(MinerStopType willswitch) {
@@ -178,18 +178,18 @@ namespace NiceHashMiner.Miners
             Thread.Sleep(250);
             Helpers.ConsolePrint(MinerTag(), "Start bench: " + benchmarkconfigHandle.StartInfo.FileName + benchmarkconfigHandle.StartInfo.Arguments);
             benchmarkconfigHandle.Start();
-            
+
             try
             {
                 if (!benchmarkconfigHandle.WaitForExit(10 * 1000))
                 {
-                    benchmarkconfigHandle.Kill(); 
+                    benchmarkconfigHandle.Kill();
                     benchmarkconfigHandle.WaitForExit(5 * 1000);
                     benchmarkconfigHandle.Close();
                 }
             }
             catch { }
-            
+
             Thread.Sleep(50);
         }
         protected override string GetDevicesCommandString()
@@ -217,20 +217,20 @@ namespace NiceHashMiner.Miners
 
             Helpers.ConsolePrint("lyclMiner", "Start benchmark after config is generated");
 
-            var conf = "";            
+            var conf = "";
             FileStream fs = new FileStream("bin\\lyclMiner\\forbench" + configfilename, FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader w = new StreamReader(fs);
             conf = w.ReadToEnd();
             w.Close();
-           
+
             Thread.Sleep(500);
             var url = Globals.GetLocationUrl(AlgorithmType.Lyra2REv2, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
-            var username = Globals.DemoUser;
+            var username = Globals.GetBitcoinUser();
             string[] ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.IDByBus.ToString()).ToArray();
             conf = conf.Replace("stratum+tcp://example.com:port", "stratum+tcp://lyra2v2.eu.mine.zpool.ca:4533");
             conf = conf.Replace("user", "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2");
             conf = conf.Replace("Password = \"x\"", "Password = \"c=BTC\"");
-            
+
 
             string newconf = "";
             string[] textArray = conf.Split('\n');
@@ -294,7 +294,7 @@ namespace NiceHashMiner.Miners
             {
                 if (outdata.Contains("Accepted"))
                 {
-                  
+
                     int end = outdata.IndexOf("H/s");
                     if (outdata.Contains("MH,")) st = outdata.IndexOf("MH,");
                     if (outdata.Contains("kH,")) st = outdata.IndexOf("kH,");

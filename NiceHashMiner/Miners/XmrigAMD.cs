@@ -48,7 +48,7 @@ namespace NiceHashMiner.Miners
                 + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + " --opencl-devices=" + GetDevicesCommandString().TrimStart()+ " --opencl-platform=" + GPUPlatformNumber; 
+                + " --opencl-devices=" + GetDevicesCommandString().TrimStart()+ " --opencl-platform=" + GPUPlatformNumber;
         }
 
         private string GetStartBenchmarkCommand(string url, string btcAdress, string worker)
@@ -95,10 +95,10 @@ namespace NiceHashMiner.Miners
         #region Benchmark
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
             var server = Globals.GetLocationUrl(algorithm.NiceHashID,
-                Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], 
+                Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
                 ConectionType);
          //   _benchmarkTimeWait = time;
-            return GetStartBenchmarkCommand(server, Globals.DemoUser, ConfigManager.GeneralConfig.WorkerName.Trim())
+            return GetStartBenchmarkCommand(server, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim())
                 + " -l "+ GetLogFileName()+ " --print-time=2";
         }
 
@@ -119,7 +119,7 @@ namespace NiceHashMiner.Miners
                 if (lineLowered.Contains(_lookForStart.ToLower())) {
                     var speeds = Regex.Match(lineLowered, $"{_lookForStart.ToLower()} (.+?) {_lookForEnd.ToLower()}").Groups[1].Value.Split();
 
-                    try { 
+                    try {
                     if (double.TryParse(speeds[1], out var sixtySecSpeed)) {
                         sixtySecTotal += sixtySecSpeed;
                         ++sixtySecCount;

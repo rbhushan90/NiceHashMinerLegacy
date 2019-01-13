@@ -36,11 +36,11 @@ namespace NiceHashMiner.Miners
         }
 
         public void Killmkxminer() {
-            
+
             // foreach (Process process in Process.GetProcessesByName("mkxminer")) {
             //     try { process.Kill(); } catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
             // }
-            
+
             if (ProcessHandle != null)
             {
                 try { ProcessHandle.Kill(); }
@@ -128,7 +128,7 @@ namespace NiceHashMiner.Miners
 
 
 protected override int GetMaxCooldownTimeInMilliseconds() {
-            return 240; 
+            return 240;
         }
 
         protected override void _Stop(MinerStopType willswitch) {
@@ -171,7 +171,7 @@ protected override int GetMaxCooldownTimeInMilliseconds() {
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
 
             // demo for benchmark
-            string username = Globals.DemoUser + "."+ ConfigManager.GeneralConfig.WorkerName.Trim();
+            string username = Globals.GetBitcoinUser() + "."+ ConfigManager.GeneralConfig.WorkerName.Trim();
 
             if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
@@ -193,7 +193,7 @@ protected override int GetMaxCooldownTimeInMilliseconds() {
 
             /*
                         CommandLine =           " --url " + url + "/#xnsub" +
-                                                " --user " + Globals.DemoUser +
+                                                " --user " + Globals.GetBitcoinUser() +
                                                 " -p x " +
                                                 ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                                       MiningSetup,
@@ -348,7 +348,7 @@ protected override int GetMaxCooldownTimeInMilliseconds() {
                     BenchmarkOutputErrorDataReceivedImpl(outdata);
                     // terminate process situations
 
-                    
+
                     if (BenchmarkSignalQuit
                         || BenchmarkSignalFinnished
                         || BenchmarkSignalHanged
@@ -374,7 +374,7 @@ protected override int GetMaxCooldownTimeInMilliseconds() {
                             break;
                         }
                     } else {
-                    
+
                         // wait a second reduce CPU load
                         Thread.Sleep(1000);
                     }
