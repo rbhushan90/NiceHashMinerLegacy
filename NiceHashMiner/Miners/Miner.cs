@@ -19,6 +19,7 @@ using System.Windows.Forms;
 using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
 using Timer = System.Timers.Timer;
+using System.Net.NetworkInformation;
 
 namespace NiceHashMiner
 {
@@ -1110,13 +1111,61 @@ namespace NiceHashMiner
         { }
 
         protected abstract bool BenchmarkParseLine(string outdata);
+        static int PingServers()
+        {
+            Ping ping = new Ping();
+            int serverId = 0;
+            int bestServerId = 0;
+            long bestReplyTime = 1000;
 
+
+            var myServers = new List<string>();
+            myServers.Add("speedtest.eu.nicehash.com"); //0
+            myServers.Add("speedtest.usa.nicehash.com");
+            myServers.Add("speedtest.hk.nicehash.com");
+            myServers.Add("speedtest.jp.nicehash.com");
+            myServers.Add("speedtest.br.nicehash.com");
+            Helpers.ConsolePrint("PingServers", " start ping");
+            foreach (var server in myServers)
+            {
+                try
+                {
+                    var pingReply = ping.Send(server, 1000);
+                    if (pingReply.Status != IPStatus.TimedOut)
+                    {
+                        var pingReplyTime = pingReply.RoundtripTime;
+                        Helpers.ConsolePrint("PingServers", server + " id:" + serverId.ToString() + " ping: " + pingReplyTime.ToString());
+                        if (pingReplyTime < bestReplyTime)
+                        {
+                            bestServerId = serverId;
+                            bestReplyTime = pingReplyTime;
+                        }
+                    }
+                    else
+                    {
+                        Helpers.ConsolePrint("PingServers", server + " out of range");
+                    }
+                }
+
+                catch (PingException)
+                {
+                    Helpers.ConsolePrint("PingServers", server + " offline");
+                }
+                serverId++;
+            }
+            Helpers.ConsolePrint("PingServers", "BestServerId: " + bestServerId.ToString());
+            return bestServerId;
+        }
         protected string GetServiceUrl(AlgorithmType algo)
         {
             return Globals.GetLocationUrl(algo, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
                 ConectionType);
         }
-
+        protected string GetServiceAutoUrl(AlgorithmType algo) //надо посмотреть Start( url...
+        {
+            return Globals.GetLocationUrl(algo, Globals.MiningLocation[PingServers()],
+                ConectionType);
+        }
         protected bool IsActiveProcess(int pid)
         {
             try

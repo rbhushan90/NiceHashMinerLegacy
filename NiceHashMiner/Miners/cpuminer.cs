@@ -101,7 +101,7 @@ namespace NiceHashMiner.Miners
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
-            string username = Globals.DemoUser;
+            string username = Globals.GetBitcoinUser();
             string url = Globals.GetLocationUrl(AlgorithmType.Lyra2z, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
             if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
@@ -142,7 +142,7 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata)
         {
-            
+
             string hashspeed;
             Helpers.ConsolePrint(MinerTag(), outdata);
             //Array DeviceIndex = [""];
@@ -177,7 +177,7 @@ namespace NiceHashMiner.Miners
             }
 
             */
-            //NiceHashMiner.Forms.Form_Benchmark.BenchmarkStringAdd = " " + (benchmarkStep*3).ToString() + "%"; 
+            //NiceHashMiner.Forms.Form_Benchmark.BenchmarkStringAdd = " " + (benchmarkStep*3).ToString() + "%";
             NiceHashMiner.Miner.BenchmarkStringAdd = " " + (benchmarkStep * 3).ToString() + "%";
 
             if (outdata.Contains("miner threads started,"))
