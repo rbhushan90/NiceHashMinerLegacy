@@ -104,11 +104,13 @@
             "China - Hong Kong",
             "Japan - Tokyo",
             "India - Chennai",
-            "Brazil - Sao Paulo"});
+            "Brazil - Sao Paulo",
+            "Auto"});
             this.comboBoxLocation.Location = new System.Drawing.Point(113, 12);
             this.comboBoxLocation.Name = "comboBoxLocation";
             this.comboBoxLocation.Size = new System.Drawing.Size(121, 21);
             this.comboBoxLocation.TabIndex = 0;
+            this.comboBoxLocation.SelectedIndexChanged += new System.EventHandler(this.comboBoxLocation_SelectedIndexChanged);
             this.comboBoxLocation.Leave += new System.EventHandler(this.TextBoxCheckBoxMain_Leave);
             // 
             // labelBitcoinAddress

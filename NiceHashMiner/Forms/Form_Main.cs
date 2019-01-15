@@ -119,7 +119,15 @@ namespace NiceHashMiner
             {
                 var i = 0;
                 foreach (var loc in Globals.MiningLocation)
-                    comboBoxLocation.Items[i++] = International.GetText("LocationName_" + loc);
+                {
+                    if (i != 6)
+                    {
+                        comboBoxLocation.Items[i++] = International.GetText("LocationName_" + loc);
+                    } else
+                    {
+                        comboBoxLocation.Items[i++] = "Auto";
+                    }
+                }
             }
             labelBitcoinAddress.Text = International.GetText("BitcoinAddress") + ":";
             labelWorkerName.Text = International.GetText("WorkerName") + ":";
@@ -150,10 +158,11 @@ namespace NiceHashMiner
         private void InitMainConfigGuiData()
         {
             if (ConfigManager.GeneralConfig.ServiceLocation >= 0 &&
-                ConfigManager.GeneralConfig.ServiceLocation < Globals.MiningLocation.Length)
+                //ConfigManager.GeneralConfig.ServiceLocation < Globals.MiningLocation.Length)
+                ConfigManager.GeneralConfig.ServiceLocation < 6)
                 comboBoxLocation.SelectedIndex = ConfigManager.GeneralConfig.ServiceLocation;
             else
-                comboBoxLocation.SelectedIndex = 0;
+                comboBoxLocation.SelectedIndex = 6;
 
             textBoxBTCAddress.Text = ConfigManager.GeneralConfig.BitcoinAddress;
             textBoxWorkerName.Text = ConfigManager.GeneralConfig.WorkerName;
@@ -1165,6 +1174,7 @@ namespace NiceHashMiner
                     }
                 }
             }
+
             // Check if the user has run benchmark first
             if (!isBenchInit)
             {
@@ -1222,9 +1232,17 @@ namespace NiceHashMiner
             InitFlowPanelStart();
             ClearRatesAll();
 
+            bool isMining;
             var btcAdress = _demoMode ? Globals.DemoUser : textBoxBTCAddress.Text.Trim();
-            var isMining = MinersManager.StartInitialize(this, Globals.MiningLocation[comboBoxLocation.SelectedIndex],
-                textBoxWorkerName.Text.Trim(), btcAdress);
+            if (comboBoxLocation.SelectedIndex < 6)
+            {
+                isMining = MinersManager.StartInitialize(this, Globals.MiningLocation[comboBoxLocation.SelectedIndex],
+                    textBoxWorkerName.Text.Trim(), btcAdress);
+            } else
+            {
+                isMining = MinersManager.StartInitialize(this, Globals.MiningLocation[Miner.PingServers()],
+                    textBoxWorkerName.Text.Trim(), btcAdress);
+            }
 
             if (!_demoMode) ConfigManager.GeneralConfigFileCommit();
 
@@ -1272,6 +1290,11 @@ namespace NiceHashMiner
             }
 
             UpdateGlobalRate();
+        }
+
+        private void comboBoxLocation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1111,7 +1111,7 @@ namespace NiceHashMiner
         { }
 
         protected abstract bool BenchmarkParseLine(string outdata);
-        static int PingServers()
+        public static int PingServers()
         {
             Ping ping = new Ping();
             int serverId = 0;
@@ -1124,6 +1124,7 @@ namespace NiceHashMiner
             myServers.Add("speedtest.usa.nicehash.com");
             myServers.Add("speedtest.hk.nicehash.com");
             myServers.Add("speedtest.jp.nicehash.com");
+            myServers.Add("speedtest.in.nicehash.com");
             myServers.Add("speedtest.br.nicehash.com");
             Helpers.ConsolePrint("PingServers", " start ping");
             foreach (var server in myServers)
@@ -1159,11 +1160,6 @@ namespace NiceHashMiner
         protected string GetServiceUrl(AlgorithmType algo)
         {
             return Globals.GetLocationUrl(algo, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
-                ConectionType);
-        }
-        protected string GetServiceAutoUrl(AlgorithmType algo) //надо посмотреть Start( url...
-        {
-            return Globals.GetLocationUrl(algo, Globals.MiningLocation[PingServers()],
                 ConectionType);
         }
         protected bool IsActiveProcess(int pid)

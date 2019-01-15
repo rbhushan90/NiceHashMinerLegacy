@@ -1041,7 +1041,8 @@
             "China - Hong Kong",
             "Japan - Tokyo",
             "India - Chennai",
-            "Brazil - Sao Paulo"});
+            "Brazil - Sao Paulo",
+            "Auto"});
             this.comboBox_ServiceLocation.Location = new System.Drawing.Point(160, 80);
             this.comboBox_ServiceLocation.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBox_ServiceLocation.Name = "comboBox_ServiceLocation";
@@ -1198,7 +1199,7 @@
             this.tabPageAdvanced.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPageAdvanced.Name = "tabPageAdvanced";
             this.tabPageAdvanced.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tabPageAdvanced.Size = new System.Drawing.Size(605, 414);
+            this.tabPageAdvanced.Size = new System.Drawing.Size(604, 414);
             this.tabPageAdvanced.TabIndex = 2;
             this.tabPageAdvanced.Text = "Advanced";
             this.tabPageAdvanced.UseVisualStyleBackColor = true;
