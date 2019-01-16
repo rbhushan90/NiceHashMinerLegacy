@@ -42,6 +42,8 @@ namespace NiceHashMiner.Utils
             @"/SRBMiner/SRBMiner-CN.exe",
             @"/gminer/miner.exe",
             @"/lolMiner/lolMiner.exe",
+            @"/WildRig/wildrig.exe",
+            @"/Fork_Fix_11.2.txt",
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py

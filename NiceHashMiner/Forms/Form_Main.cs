@@ -46,7 +46,7 @@ namespace NiceHashMiner
         private int _flowLayoutPanelRatesIndex = 0;
 
         private const string BetaAlphaPostfixString = "";
-        const string ForkString = " Fork Fix 11.1";
+        const string ForkString = " Fork Fix 11.2";
 
         private bool _isDeviceDetectionInitialized = false;
 
@@ -1293,6 +1293,11 @@ namespace NiceHashMiner
         }
 
         private void comboBoxLocation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
         }

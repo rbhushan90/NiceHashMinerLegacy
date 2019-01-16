@@ -156,7 +156,7 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
-                CommandLine = " --pool xmr-eu.dwarfpool.com:8005 --user 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX." + ConfigManager.GeneralConfig.WorkerName.Trim() +
+                CommandLine = " --pool xmr-usa.dwarfpool.com:8005 --user 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX." + ConfigManager.GeneralConfig.WorkerName.Trim() +
                           " --password x " +
                           ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
@@ -212,7 +212,7 @@ namespace NiceHashMiner.Miners
                         return false;
                     }
                     //if (outdata.Contains("Hash Rate Avg: ")) //не находит шару за 5 минут на 570...
-                    if (benchmarkStep >=33)
+                    if (benchmarkStep >=20)
                     {
                         BenchmarkAlgorithm.BenchmarkSpeed = (speed / benchmarkStep);
                         BenchmarkSignalFinnished = true;

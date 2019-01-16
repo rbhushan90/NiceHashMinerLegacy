@@ -1118,7 +1118,6 @@ namespace NiceHashMiner
             int bestServerId = 0;
             long bestReplyTime = 1000;
 
-
             var myServers = new List<string>();
             myServers.Add("speedtest.eu.nicehash.com"); //0
             myServers.Add("speedtest.usa.nicehash.com");

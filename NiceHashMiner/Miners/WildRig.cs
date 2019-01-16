@@ -31,6 +31,15 @@ namespace NiceHashMiner.Miners
             LastCommandLine = GetStartCommand(url, btcAdress, worker);
             ProcessHandle = _Start();
         }
+        protected override string GetDevicesCommandString()
+        {
+            var deviceStringCommand = " ";
+
+            var ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.IDByBus.ToString()).ToList();
+            deviceStringCommand += string.Join(",", ids);
+
+            return deviceStringCommand;
+        }
 
         private string GetStartCommand(string url, string btcAdress, string worker) {
             var extras = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD);
@@ -65,7 +74,7 @@ namespace NiceHashMiner.Miners
                 port = "3362";
                 return $" -a {algo} -o stratum+tcp://skunk.eu.mine.zpool.ca:8433 -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 -p c=BTC {extras} --api-port {ApiPort} "
                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-               + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
+               + " --multiple-instance --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16R))
             {
@@ -73,7 +82,7 @@ namespace NiceHashMiner.Miners
                 port = "3366";
                 return $" -a {algo} -o stratum+tcp://x16r.eu.mine.zpool.ca:3636 -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 -p c=BTC {extras} --api-port {ApiPort} "
                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-               + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber + " --benchmark";
+               + " --multiple-instance --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber + " --benchmark";
             }
             return "oops... strange algo";
         }
