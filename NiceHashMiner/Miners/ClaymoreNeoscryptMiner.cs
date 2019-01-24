@@ -36,10 +36,10 @@ namespace NiceHashMiner.Miners {
 */
         public override void Start(string url, string btcAdress, string worker) {
             string username = GetUsername(btcAdress, worker);
-            url = Globals.GetLocationUrl(AlgorithmType.NeoScrypt, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
-                LastCommandLine = " " + GetDevicesCommandString() + " -mport -" + ApiPort + " -pool " + url +
+            //url = Globals.GetLocationUrl(AlgorithmType.NeoScrypt, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
+            url = url.Replace("stratum+ssl", "stratum+tcp").Replace("33341", "3341");
+            LastCommandLine = " " + GetDevicesCommandString() + " -mport -" + ApiPort + " -pool " + url +
                                   " -wal " + username + " -psw x -dbg -1 -ftime 10 -retrydelay 5";
-
             String epools = String.Format("POOL: stratum+tcp://neoscrypt.usa.nicehash.com:3341, WALLET: {1}, PSW: x", url, username, ApiPort) + "\n"
                + String.Format("POOL: stratum+tcp://neoscrypt.hk.nicehash.com:3341, WALLET: {1}, PSW: x", url, username, ApiPort) + "\n"
                + String.Format("POOL: stratum+tcp://neoscrypt.jp.nicehash.com:3341, WALLET: {1}, PSW: x", url, username, ApiPort) + "\n"

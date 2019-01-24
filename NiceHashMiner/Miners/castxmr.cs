@@ -56,9 +56,9 @@ namespace NiceHashMiner.Miners
 
             string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
-
-            url = alg + "." + Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation] +
-                    ".nicehash.com:" + port;
+            url = url.Replace("stratum+tcp://", "");
+            //url = alg + "." + Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation] +
+            //        ".nicehash.com:" + port;
                         /* WTF? No failover?
                         LastCommandLine = 
                                           " --pool " + url +
