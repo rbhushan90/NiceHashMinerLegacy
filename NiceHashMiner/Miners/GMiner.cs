@@ -98,18 +98,31 @@ namespace NiceHashMiner.Miners
         }
         private string GetStartCommand(string url, string btcAddress, string worker)
         {
+            var algo ="";
+            var algoName = "";
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
+                    {
+                        algo = "144_5";
+                        algoName = "zhash";
+                    }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Equihash1505)
+                    {
+                        algo = "150_5";
+                        algoName = "equihash1505";
+                    }
+
             var ret = GetDevicesCommandString()
-                      + " --pers auto --algo 144_5 --server " + url.Split(':')[0]
+                      + " --pers auto --algo " + algo + " --server " + url.Split(':')[0]
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                      + " --server zhash.hk.nicehash.com"
+                      + " --server " + algoName + ".hk.nicehash.com"
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                      + " --server zhash.in.nicehash.com"
+                      + " --server " + algoName + ".in.nicehash.com"
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                      + " --server zhash.usa.nicehash.com"
+                      + " --server " + algoName + ".usa.nicehash.com"
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                      + " --server zhash.jp.nicehash.com"
+                      + " --server " + algoName + ".jp.nicehash.com"
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                      + " --server zhash.br.nicehash.com"
+                      + " --server " + algoName + ".br.nicehash.com"
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
                       + " --api " + ApiPort;
             return ret;
@@ -222,17 +235,30 @@ namespace NiceHashMiner.Miners
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
             CleanOldLogs();
-
+            var ret = "";
             var server = Globals.GetLocationUrl(algorithm.NiceHashID,
-                Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
+               Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
             var btcAddress = Globals.GetBitcoinUser();
             var worker = ConfigManager.GeneralConfig.WorkerName.Trim();
-            var ret = " --logfile " + GetLogFileName() + " --color 0 --pec --pers BgoldPoW --algo 144_5" +
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
+            {
+                ret = " --logfile " + GetLogFileName() + " --color 0 --pec --pers BgoldPoW --algo 144_5" +
                 " --server europe.equihash-hub.miningpoolhub.com --user angelbbs.FBench11 --pass x --port 20595 " +
                 " --server zhash.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
                 " --server zhash.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
                 GetDevicesCommandString();
-            _benchmarkTimeWait = Math.Max(time * 3, 90); //
+            }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Equihash1505)
+            {
+                ret = " --logfile " + GetLogFileName() + " --color 0 --pec --algo 150_5" +
+                " --server beam-eu.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 2222 --ssl 1 " +
+                " --server beam-asia.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 12222 --ssl 1 " +
+                " --server equihash1505.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                " --server equihash1505.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                GetDevicesCommandString();
+            }
+
+           _benchmarkTimeWait = Math.Max(time * 3, 90); //
             return ret;
         }
 

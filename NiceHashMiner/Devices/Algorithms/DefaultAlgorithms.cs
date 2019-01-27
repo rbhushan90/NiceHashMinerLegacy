@@ -320,7 +320,7 @@ namespace NiceHashMiner.Devices.Algorithms
                 }
             },
             */
-            
+
             {
                 MinerBaseType.EWBF,
                 new List<Algorithm>
@@ -333,6 +333,10 @@ namespace NiceHashMiner.Devices.Algorithms
                 new List<Algorithm>
                 {
                     new Algorithm(MinerBaseType.GMiner, AlgorithmType.ZHash, "")
+                    {
+                                //ExtraLaunchParameters = "--pec 1 "
+                    },
+                    new Algorithm(MinerBaseType.GMiner, AlgorithmType.Equihash1505, "")
                     {
                                 //ExtraLaunchParameters = "--pec 1 "
                     }

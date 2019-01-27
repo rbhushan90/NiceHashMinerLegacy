@@ -141,7 +141,7 @@ namespace NiceHashMiner
             return ret;
         }
 
-        public static string FormatDualSpeedOutput(double primarySpeed, double secondarySpeed=0, AlgorithmType algo = AlgorithmType.NONE) 
+        public static string FormatDualSpeedOutput(double primarySpeed, double secondarySpeed=0, AlgorithmType algo = AlgorithmType.NONE)
         {
             string ret;
             if (secondarySpeed > 0)
@@ -152,7 +152,7 @@ namespace NiceHashMiner
             {
                 ret = FormatSpeedOutput(primarySpeed);
             }
-            var unit = (algo == AlgorithmType.Equihash || algo == AlgorithmType.ZHash) ? "Sol/s " : "H/s ";
+            var unit = (algo == AlgorithmType.Equihash || algo == AlgorithmType.ZHash || algo == AlgorithmType.Equihash1505) ? "Sol/s " : "H/s ";
             return ret + unit;
         }
 
@@ -202,7 +202,7 @@ namespace NiceHashMiner
             return true;
         }
 
-        // Checking the version using >= will enable forward compatibility, 
+        // Checking the version using >= will enable forward compatibility,
         // however you should always compile your code on newer versions of
         // the framework to ensure your app works the same.
         private static bool Is45DotVersion(int releaseKey)

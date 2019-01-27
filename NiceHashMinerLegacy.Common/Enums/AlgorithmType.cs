@@ -86,7 +86,8 @@
         X16R = 33,
         CryptoNightV8 = 34,
         sha256asicboost = 35,
-        ZHash = 36
+        ZHash = 36,
+        Equihash1505 = 37
         #endregion // NiceHashAPI
     }
 }
