@@ -336,7 +336,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     {
                                 //ExtraLaunchParameters = "--pec 1 "
                     },
-                    new Algorithm(MinerBaseType.GMiner, AlgorithmType.Equihash1505, "")
+                    new Algorithm(MinerBaseType.GMiner, AlgorithmType.Beam, "")
                     {
                                 //ExtraLaunchParameters = "--pec 1 "
                     }

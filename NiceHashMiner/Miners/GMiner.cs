@@ -105,10 +105,10 @@ namespace NiceHashMiner.Miners
                         algo = "144_5";
                         algoName = "zhash";
                     }
-            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Equihash1505)
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
                     {
                         algo = "150_5";
-                        algoName = "equihash1505";
+                        algoName = "beam";
                     }
 
             var ret = GetDevicesCommandString()
@@ -248,13 +248,13 @@ namespace NiceHashMiner.Miners
                 " --server zhash.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
                 GetDevicesCommandString();
             }
-            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Equihash1505)
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
             {
                 ret = " --logfile " + GetLogFileName() + " --color 0 --pec --algo 150_5" +
                 " --server beam-eu.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 2222 --ssl 1 " +
                 " --server beam-asia.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 12222 --ssl 1 " +
-                " --server equihash1505.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
-                " --server equihash1505.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                " --server beam.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                " --server beam.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
                 GetDevicesCommandString();
             }
 
