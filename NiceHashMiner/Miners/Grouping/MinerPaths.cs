@@ -110,6 +110,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string teamredminer = Bin3rdParty + @"\teamredminer\teamredminer.exe";
             public const string Phoenix = Bin3rdParty + @"\Phoenix\PhoenixMiner.exe";
             public const string lolMiner = Bin3rdParty + @"\lolMiner\lolMiner.exe";
+            public const string lolMinerBEAM = Bin3rdParty + @"\lolMinerBEAM\lolMiner.exe";
 
             public const string None = "";
 
@@ -227,6 +228,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.lolMiner;
                 case MinerBaseType.WildRig:
                     return Data.WildRig;
+                case MinerBaseType.lolMinerBEAM:
+                    return Data.lolMinerBEAM;
             }
             return Data.None;
         }

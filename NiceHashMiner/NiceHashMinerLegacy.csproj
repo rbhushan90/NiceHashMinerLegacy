@@ -126,6 +126,7 @@
     <Compile Include="Miners\GMiner.cs" />
     <Compile Include="Miners\hsrneoscrypt.cs" />
     <Compile Include="Miners\lolMiner.cs" />
+    <Compile Include="Miners\lolMinerBEAM.cs" />
     <Compile Include="Miners\lyclMiner.cs" />
     <Compile Include="Miners\mkxminer.cs" />
     <Compile Include="Miners\Phoenix.cs" />

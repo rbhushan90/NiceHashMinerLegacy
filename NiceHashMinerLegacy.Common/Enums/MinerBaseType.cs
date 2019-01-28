@@ -38,6 +38,7 @@
         GMiner,
         lolMiner,
         WildRig,
+        lolMinerBEAM,
         END
     }
 }

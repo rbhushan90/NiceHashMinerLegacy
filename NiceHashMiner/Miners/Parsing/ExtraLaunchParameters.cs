@@ -160,6 +160,16 @@ namespace NiceHashMiner.Miners.Parsing
                 }
             ),
             new MinerOptionPackage(
+                MinerType.lolMinerBEAM,
+                new List<MinerOption>() {
+                    // SingleParam
+                    new MinerOption("lolMinerBEAM_log", "", "--logs", "0", MinerOptionFlagType.SingleParam, "")
+                },
+                // TemperatureOptions
+                new List<MinerOption>() {
+                }
+            ),
+            new MinerOptionPackage(
                 MinerType.cpuminer_opt,
                 new List<MinerOption>
                 {
