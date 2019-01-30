@@ -346,6 +346,10 @@ namespace NiceHashMiner.Devices.Algorithms
                     new Algorithm(MinerBaseType.GMiner, AlgorithmType.Beam, "")
                     {
                                 //ExtraLaunchParameters = "--pec 1 "
+                    },
+                    new Algorithm(MinerBaseType.GMiner, AlgorithmType.Grin, "")
+                    {
+                                //ExtraLaunchParameters = "--pec 1 "
                     }
                 }
             },

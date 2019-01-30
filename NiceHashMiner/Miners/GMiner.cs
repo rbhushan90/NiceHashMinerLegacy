@@ -110,6 +110,11 @@ namespace NiceHashMiner.Miners
                         algo = "150_5";
                         algoName = "beam";
                     }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Grin)
+            {
+                algo = "grin29";
+                algoName = "grin";
+            }
 
             var ret = GetDevicesCommandString()
                       + " --pers auto --algo " + algo + " --server " + url.Split(':')[0]
@@ -257,8 +262,16 @@ namespace NiceHashMiner.Miners
                 " --server beam.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
                 GetDevicesCommandString();
             }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Grin)
+            {
+                ret = " --logfile " + GetLogFileName() + " --color 0 --pec --algo grin29" +
+                " --server grin.sparkpool.com --user angelbbs@mail.ru/bench_g --pass x --port 6666 --ssl 0" +
+                " --server grin.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                " --server grin.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                GetDevicesCommandString();
+            }
 
-           _benchmarkTimeWait = Math.Max(time * 3, 90); //
+            _benchmarkTimeWait = Math.Max(time * 3, 90); //
             return ret;
         }
 
@@ -418,7 +431,13 @@ namespace NiceHashMiner.Miners
 
         protected double GetNumber(string outdata)
         {
-            return GetNumber(outdata, LookForStart, LookForEnd);
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Grin)
+            {
+                return GetNumber(outdata, LookForStart, "g/s");
+            } else
+            {
+                return GetNumber(outdata, LookForStart, LookForEnd);
+            }
         }
 
         protected double GetNumber(string outdata, string lookForStart, string lookForEnd)
