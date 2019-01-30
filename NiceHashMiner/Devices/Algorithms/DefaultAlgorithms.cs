@@ -197,11 +197,13 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.lolMiner, AlgorithmType.ZHash, "ZHash"),
                         }
                     },
+/*
                     { MinerBaseType.lolMinerBEAM,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.lolMinerBEAM, AlgorithmType.Beam, "Beam"),
                         }
                     },
+*/
                     { MinerBaseType.WildRig,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.WildRig, AlgorithmType.Skunk, "Skunk")

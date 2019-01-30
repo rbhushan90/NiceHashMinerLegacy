@@ -87,7 +87,8 @@
         CryptoNightV8 = 34,
         sha256asicboost = 35,
         ZHash = 36,
-        Beam = 37
+        Beam = 37,
+        Grin = 38
         #endregion // NiceHashAPI
     }
 }
