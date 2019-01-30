@@ -300,6 +300,41 @@ namespace NiceHashMiner.Devices.Algorithms
                 }
             }
 
+            if (algoSettings.ContainsKey(MinerBaseType.Claymore) && (device.Name.Contains("3GB"))
+                )
+            {
+                algoSettings = FilterMinerBaseTypes(algoSettings, new List<MinerBaseType>
+                    {
+                        MinerBaseType.Claymore
+                    });
+            }
+
+            if (algoSettings.ContainsKey(MinerBaseType.Phoenix) && (device.Name.Contains("3GB"))
+                )
+            {
+                algoSettings = FilterMinerBaseTypes(algoSettings, new List<MinerBaseType>
+                    {
+                        MinerBaseType.Phoenix
+                    });
+            }
+
+            if (algoSettings.ContainsKey(MinerBaseType.GMiner) && (device.Name.Contains("3GB"))
+                )
+            {
+                algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
+                    {
+                        AlgorithmType.Grin
+                    });
+            }
+
+            if (algoSettings.ContainsKey(MinerBaseType.GMiner) && (device.Name.Contains("1050"))
+                )
+            {
+                algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
+                    {
+                        AlgorithmType.Grin
+                    });
+            }
             // This is not needed anymore after excavator v1.1.4a
             //if (device.IsSM50() && algoSettings.ContainsKey(MinerBaseType.excavator)) {
             //    int Equihash_index = algoSettings[MinerBaseType.excavator].FindIndex((algo) => algo.NiceHashID == AlgorithmType.Equihash);
