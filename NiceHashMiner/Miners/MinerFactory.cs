@@ -108,6 +108,8 @@ namespace NiceHashMiner.Miners
                     return new WildRig();
                 case MinerBaseType.lolMinerBEAM:
                     return new lolMinerBEAM();
+                case MinerBaseType.Bminer:
+                    return new Bminer();
             }
 
             return null;

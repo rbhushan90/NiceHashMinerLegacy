@@ -258,16 +258,16 @@ namespace NiceHashMiner.Miners
                 ret = " --logfile " + GetLogFileName() + " --color 0 --pec --algo 150_5" +
                 " --server beam-eu.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 2222 --ssl 1 " +
                 " --server beam-asia.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 12222 --ssl 1 " +
-                " --server beam.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
-                " --server beam.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                " --server beam.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3370 --ssl 0" +
+                " --server beam.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3370 --ssl 0" +
                 GetDevicesCommandString();
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Grin)
             {
                 ret = " --logfile " + GetLogFileName() + " --color 0 --pec --algo grin29" +
                 " --server grin.sparkpool.com --user angelbbs@mail.ru/bench_g --pass x --port 6666 --ssl 0" +
-                " --server grin.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
-                " --server grin.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                " --server grin.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3371 --ssl 0" +
+                " --server grin.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3371 --ssl 0" +
                 GetDevicesCommandString();
             }
 

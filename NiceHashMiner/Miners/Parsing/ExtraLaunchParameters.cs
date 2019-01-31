@@ -498,6 +498,18 @@ namespace NiceHashMiner.Miners.Parsing
                 new List<MinerOption>()
             ),
             new MinerOptionPackage(
+                MinerType.Bminer,
+                new List<MinerOption>
+                {
+                    // parameters differ according to algorithm
+                    new MinerOption("Bminer_logfile", "-logfile", "-logfile", "", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("Bminer_max-temperature", "-max-temperature", "-max-temperature", "85", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("Bminer_share-check", "-share-check", "-share-check", "900", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("Bminer_gpucheck", "-gpucheck", "-gpucheck", "90", MinerOptionFlagType.SingleParam, " "),
+                },
+                new List<MinerOption>()
+            ),
+            new MinerOptionPackage(
                 MinerType.Xmrig,
                 new List<MinerOption>
                 {

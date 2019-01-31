@@ -353,6 +353,22 @@ namespace NiceHashMiner.Devices.Algorithms
                     }
                 }
             },
+            /*
+            {
+                MinerBaseType.Bminer,
+                new List<Algorithm>
+                {
+                    new Algorithm(MinerBaseType.Bminer, AlgorithmType.ZHash, "")
+                    {
+                    },
+                    new Algorithm(MinerBaseType.Bminer, AlgorithmType.Beam, "")
+                    {
+                    },
+                    new Algorithm(MinerBaseType.Bminer, AlgorithmType.Grin, "")
+                    {
+                    }
+                }
+            },
             {
                 MinerBaseType.dstm,
                 new List<Algorithm>
@@ -360,6 +376,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     new Algorithm(MinerBaseType.dstm, AlgorithmType.Equihash, "")
                 }
             }
+            */
         }.ConcatDictList(All, Gpu);
 
         #endregion

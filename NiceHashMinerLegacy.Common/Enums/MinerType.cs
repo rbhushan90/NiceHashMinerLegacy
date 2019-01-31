@@ -38,6 +38,7 @@
         lolMiner,
         WildRig,
         lolMinerBEAM,
+        Bminer,
         END
     }
 }

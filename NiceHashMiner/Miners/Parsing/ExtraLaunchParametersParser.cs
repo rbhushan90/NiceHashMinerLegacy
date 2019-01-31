@@ -331,6 +331,8 @@ namespace NiceHashMiner.Miners.Parsing
                      return MinerType.lolMiner;
                 case MinerBaseType.lolMinerBEAM:
                      return MinerType.lolMinerBEAM;
+                case MinerBaseType.Bminer:
+                    return MinerType.Bminer;
 
 
 
