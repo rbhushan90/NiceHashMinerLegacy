@@ -460,6 +460,10 @@ namespace NiceHashMiner.Miners.Grouping
                 {
                     return Data.teamredminer;
                 }
+                if (AlgorithmType.Lyra2REv3 == algorithmType)
+                {
+                    return Data.teamredminer;
+                }
                 return Data.teamredminer;
             }
             public static string lolMiner(AlgorithmType algorithmType)

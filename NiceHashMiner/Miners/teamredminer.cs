@@ -70,8 +70,12 @@ namespace NiceHashMiner.Miners
             {
                 algo = " -a lyra2z";
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
+            {
+                algo = " -a lyra2rev3";
+            }
 
-              LastCommandLine = algo + " -o " + url +
+            LastCommandLine = algo + " -o " + url +
                               " -u " + username +
                               " -p x " + apiBind +
                               " " +
@@ -104,6 +108,12 @@ namespace NiceHashMiner.Miners
                 " --url stratum+tcp://lyra2z.eu.nicehash.com:3365" +  " --user " + username + " - p x " +
                 " --url stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
+            {
+                CommandLine = "-a lyra2rev3" +
+                " --url stratum+tcp://lyra2rev3.eu.nicehash.com:3373" + " --user " + username + " - p x " +
+                " --url stratum+tcp://lyra2v3.eu.mine.zpool.ca:4550" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
+            }
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
@@ -133,7 +143,47 @@ namespace NiceHashMiner.Miners
             string hashSpeed = "";
             int kspeed = 1;
             double speed = 0;
+            //[2019-02-02 23:44:25] GPU 0 [64C, fan 39%] lyra2rev3: 22.58Mh/s, avg 22.93Mh/s,
+            if (outdata.Contains("lyra2rev3: "))
+            {
+                int i = outdata.IndexOf("lyra2rev3: ");
+                int k = outdata.IndexOf("h/s, avg");
+                hashSpeed = outdata.Substring(i + 11, k - i - 12).Trim();
+                Helpers.ConsolePrint(hashSpeed, "");
+                if (outdata.ToUpper().Contains("H/S"))
+                {
+                    kspeed = 1;
+                }
+                if (outdata.Substring(0, 65).ToUpper().Contains("KH/S"))
+                {
+                    kspeed = 1000;
+                }
+                if (outdata.Substring(0, 65).ToUpper().Contains("MH/S"))
+                {
+                    kspeed = 1000000;
+                }
+                count++;
+                if (count >= 3)
+                {
+                    try
+                    {
+                        speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
 
+                    BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
+                    //Killteamredminer();
+                    BenchmarkSignalFinnished = true;
+                    //BenchmarkSignalHanged = true;
+                    return true;
+                }
+            }
             if (outdata.Contains("cnv8: "))
             {
                 int i = outdata.IndexOf("cnv8: ");
