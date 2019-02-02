@@ -88,7 +88,10 @@
         sha256asicboost = 35,
         ZHash = 36,
         Beam = 37,
-        Grin = 38
+        GrinCuckaroo29 = 38,
+        GrinCuckatoo31 = 39,
+        Lyra2REv3 = 40
+
         #endregion // NiceHashAPI
     }
 }

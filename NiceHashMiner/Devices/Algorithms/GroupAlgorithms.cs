@@ -323,16 +323,27 @@ namespace NiceHashMiner.Devices.Algorithms
             {
                 algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
                     {
-                        AlgorithmType.Grin
+                        AlgorithmType.GrinCuckaroo29
                     });
             }
+
 
             if (algoSettings.ContainsKey(MinerBaseType.GMiner) && (device.Name.Contains("1050"))
                 )
             {
                 algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
                     {
-                        AlgorithmType.Grin
+                        AlgorithmType.GrinCuckaroo29
+                    });
+            }
+
+
+            if (algoSettings.ContainsKey(MinerBaseType.Bminer) && (device.Name.Contains("1050"))
+                )
+            {
+                algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
+                    {
+                        AlgorithmType.GrinCuckaroo29
                     });
             }
             if (algoSettings.ContainsKey(MinerBaseType.Bminer) && (device.Name.Contains("1050"))
@@ -340,19 +351,28 @@ namespace NiceHashMiner.Devices.Algorithms
             {
                 algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
                     {
-                        AlgorithmType.Grin
+                        AlgorithmType.GrinCuckatoo31
                     });
             }
+
 
             if (algoSettings.ContainsKey(MinerBaseType.Bminer) && (device.Name.Contains("1060"))
                 )
             {
                 algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
                     {
-                        AlgorithmType.Grin
+                        AlgorithmType.GrinCuckaroo29
                     });
             }
-            // This is not needed anymore after excavator v1.1.4a
+            if (algoSettings.ContainsKey(MinerBaseType.Bminer) && (device.Name.Contains("1060"))
+                )
+            {
+                algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
+                    {
+                        AlgorithmType.GrinCuckatoo31
+                    });
+            }
+           // This is not needed anymore after excavator v1.1.4a
             //if (device.IsSM50() && algoSettings.ContainsKey(MinerBaseType.excavator)) {
             //    int Equihash_index = algoSettings[MinerBaseType.excavator].FindIndex((algo) => algo.NiceHashID == AlgorithmType.Equihash);
             //    if (Equihash_index > -1) {

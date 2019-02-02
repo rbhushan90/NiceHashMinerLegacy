@@ -436,7 +436,7 @@ namespace NiceHashMiner.Miners.Grouping
             }
             public static string lyclMiner(AlgorithmType algorithmType)
             {
-                if (AlgorithmType.Lyra2REv2 == algorithmType )
+                if (AlgorithmType.Lyra2REv3 == algorithmType )
                 {
                     return Data.lyclMiner;
                 }

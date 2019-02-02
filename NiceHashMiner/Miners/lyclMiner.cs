@@ -27,6 +27,7 @@ namespace NiceHashMiner.Miners
         private int st = 0;
         private double speed = 0.0d;
         private string hashspeed = "";
+        int iter = 0;
 
         public lyclMiner() : base("lyclMiner") { }
 
@@ -66,7 +67,7 @@ namespace NiceHashMiner.Miners
             string[] ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.IDByBus.ToString()).ToArray();
 
             Thread.Sleep(100);
-            url = Globals.GetLocationUrl(AlgorithmType.Lyra2REv2, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
+            //url = Globals.GetLocationUrl(AlgorithmType.Lyra2REv3, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
             conf = conf.Replace("stratum+tcp://example.com:port", url);
             conf = conf.Replace("user", username);
             string newconf = "";
@@ -224,10 +225,10 @@ namespace NiceHashMiner.Miners
             w.Close();
 
             Thread.Sleep(500);
-            var url = Globals.GetLocationUrl(AlgorithmType.Lyra2REv2, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
+            var url = Globals.GetLocationUrl(AlgorithmType.Lyra2REv3, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
             var username = Globals.GetBitcoinUser();
             string[] ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.IDByBus.ToString()).ToArray();
-            conf = conf.Replace("stratum+tcp://example.com:port", "stratum+tcp://lyra2v2.eu.mine.zpool.ca:4533");
+            conf = conf.Replace("stratum+tcp://example.com:port", "stratum+tcp://lyra2v3.eu.mine.zpool.ca:4550");
             conf = conf.Replace("user", "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2");
             conf = conf.Replace("Password = \"x\"", "Password = \"c=BTC\"");
 
@@ -294,7 +295,7 @@ namespace NiceHashMiner.Miners
             {
                 if (outdata.Contains("Accepted"))
                 {
-
+                    iter++;
                     int end = outdata.IndexOf("H/s");
                     if (outdata.Contains("MH,")) st = outdata.IndexOf("MH,");
                     if (outdata.Contains("kH,")) st = outdata.IndexOf("kH,");
@@ -309,8 +310,11 @@ namespace NiceHashMiner.Miners
                     {
                         BenchmarkAlgorithm.BenchmarkSpeed = speed * 1000;
                     }
-                    BenchmarkSignalFinnished = true;
-                    return true;
+                    if (iter >= 20)
+                    {
+                        BenchmarkSignalFinnished = true;
+                        return true;
+                    }
                 }
                 if (outdata.Contains("stratum_recv_line failed"))
                 {
@@ -356,13 +360,13 @@ namespace NiceHashMiner.Miners
             /*
             var totalSpeed = MiningSetup.MiningPairs
                 .Select(miningPair =>
-                    miningPair.Device.GetAlgorithm(MinerBaseType.lyclMiner, AlgorithmType.Lyra2REv2, AlgorithmType.NONE))
+                    miningPair.Device.GetAlgorithm(MinerBaseType.lyclMiner, AlgorithmType.Lyra2REv3, AlgorithmType.NONE))
                 .Where(algo => algo != null).Sum(algo => algo.BenchmarkSpeed);
                 */
             var totalSpeed = 0.0d;
             foreach (var miningPair in MiningSetup.MiningPairs)
             {
-                var algo = miningPair.Device.GetAlgorithm(MinerBaseType.lyclMiner, AlgorithmType.Lyra2REv2, AlgorithmType.NONE);
+                var algo = miningPair.Device.GetAlgorithm(MinerBaseType.lyclMiner, AlgorithmType.Lyra2REv3, AlgorithmType.NONE);
                 if (algo != null)
                 {
                     totalSpeed += algo.BenchmarkSpeed;

@@ -89,9 +89,15 @@ namespace NiceHashMiner.Miners
                         algo = "150_5";
                         algoName = "beam";
                     }
-            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Grin)
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
             {
-                algo = "grin29";
+                algo = "cuckaroo29";
+                algoName = "grin";
+            }
+
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
+            {
+                algo = "cuckatoo31";
                 algoName = "grin";
             }
 
@@ -212,7 +218,7 @@ namespace NiceHashMiner.Miners
                 if (IsKillAllUsedMinerProcs) KillAllUsedMinerProcesses();
             }
             KillMinerBase("miner");
-            //foreach (Process process in Process.GetProcessesByName("miner")) { 
+            //foreach (Process process in Process.GetProcessesByName("miner")) {
             //     try { process.Kill(); } catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
             //}
         }
@@ -242,13 +248,22 @@ namespace NiceHashMiner.Miners
                 " -uri beam://" + btcAddress + ":" + worker + "@beam.hk.nicehash.com:3370 " +
                 GetDevicesCommandString();
             }
-            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Grin)
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
             {
                 //START bminer.exe - uri cuckaroo29://angelbbs@mail.ru:Farm1@eu-west-stratum.grinmint.com:3416
-                ret = " -logfile " + GetLogFileName() + " --color 0 --pec --algo grin29" +
+                ret = " -logfile " + GetLogFileName() + " --color 0 --pec --algo cuckaroo29" +
                 " --server grin.sparkpool.com --user angelbbs@mail.ru/bench_g --pass x --port 6666 --ssl 0" +
-                " --server grin.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
-                " --server grin.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                " --server grincuckaroo29.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                " --server grincuckaroo29.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                GetDevicesCommandString();
+            }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
+            {
+                //START bminer.exe - uri cuckaroo29://angelbbs@mail.ru:Farm1@eu-west-stratum.grinmint.com:3416
+                ret = " -logfile " + GetLogFileName() + " --color 0 --pec --algo cuckatoo31" +
+                " --server grin.sparkpool.com --user angelbbs@mail.ru/bench_g --pass x --port 6666 --ssl 0" +
+                " --server grincuckatoo31.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                " --server grincuckatoo31.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
                 GetDevicesCommandString();
             }
 
@@ -412,7 +427,7 @@ namespace NiceHashMiner.Miners
 
         protected double GetNumber(string outdata)
         {
-            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Grin)
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29 || MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
             {
                 return GetNumber(outdata, LookForStart, "g/s");
             } else

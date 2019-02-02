@@ -59,7 +59,11 @@ namespace NiceHashMiner.Miners
             {
                 algo = "--algo cnv8";
             }
-                IsApiReadException = false;
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
+            {
+                algo = "--algo lyra2v3";
+            }
+            IsApiReadException = false;
             LastCommandLine = algo +
                 " -o " + url + " -u " + username + " -p x " +
                 " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
@@ -136,6 +140,19 @@ namespace NiceHashMiner.Miners
                 commandLine = "--algo lyra2v2" +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://lyra2v2.eu.mine.zpool.ca:4533" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
+                " --log " + GetLogFileName() +
+                apiBind +
+                " -d " + GetDevicesCommandString() + " " +
+                ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
+                TotalCount = 2;
+                Total = 0.0d;
+                return commandLine;
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
+            {
+                commandLine = "--algo lyra2v3" +
+                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o stratum+tcp://lyra2v3.eu.mine.zpool.ca:4550" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
                 " --log " + GetLogFileName() +
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
