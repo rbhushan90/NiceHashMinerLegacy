@@ -53,10 +53,11 @@ namespace NiceHashMiner.Miners
 
 //#pragma warning restore IDE1006
 
-        private int _benchmarkTimeWait = 2 * 45;
+        private int _benchmarkTimeWait = 120;
         private int _benchmarkReadCount;
         private double _benchmarkSum;
         private const string LookForStart = "total speed: ";
+        //00:21:56 Total Speed: 4.3 G/s Shares Accepted: 0 Rejected: 0 Power: 133W 0.03
         private const string LookForEnd = "sol/s";
         private const double DevFee = 2.0;
 
@@ -115,7 +116,11 @@ namespace NiceHashMiner.Miners
                 algo = "grin29";
                 algoName = "grincuckaroo29";
             }
-
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
+            {
+                algo = "grin31";
+                algoName = "grincuckatoo31";
+            }
             var ret = GetDevicesCommandString()
                       + " --pers auto --algo " + algo + " --server " + url.Split(':')[0]
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
@@ -270,7 +275,14 @@ namespace NiceHashMiner.Miners
                 " --server grincuckaroo29.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3371 --ssl 0" +
                 GetDevicesCommandString();
             }
-
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
+            {
+                ret = " --logfile " + GetLogFileName() + " --color 0 --pec --algo grin31" +
+                " --server grin.sparkpool.com --user angelbbs@mail.ru/bench_g --pass x --port 6667 --ssl 0" +
+                " --server grincuckatoo31.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3372 --ssl 0" +
+                " --server grincuckatoo31.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3372 --ssl 0" +
+                GetDevicesCommandString();
+            }
             _benchmarkTimeWait = Math.Max(time * 3, 90); //
             return ret;
         }
@@ -350,9 +362,17 @@ namespace NiceHashMiner.Miners
             }
             finally
             {
+                Thread.Sleep(5000);
                 BenchmarkAlgorithm.BenchmarkSpeed = 0;
                 // find latest log file
                 var latestLogFile = "";
+                /*
+                int kit = 10;
+                if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29 || MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
+                {
+                    kit = 1;
+                }
+                */
                 var dirInfo = new DirectoryInfo(WorkingDirectory);
                 foreach (var file in dirInfo.GetFiles(GetLogFileName()))
                 {
@@ -368,7 +388,7 @@ namespace NiceHashMiner.Miners
                     var iteration = 0;
                     while (!read)
                     {
-                        if (iteration < 10)
+                        if (iteration < 1)
                         {
                             try
                             {
@@ -376,7 +396,7 @@ namespace NiceHashMiner.Miners
                                 read = true;
                                 Helpers.ConsolePrint(MinerTag(),
                                     "Successfully read log after " + iteration + " iterations");
-                            }
+                               }
                             catch (Exception ex)
                             {
                                 Helpers.ConsolePrint(MinerTag(), ex.Message);
@@ -399,6 +419,7 @@ namespace NiceHashMiner.Miners
                         {
                             BenchLines.Add(line);
                             var lineLowered = line.ToLower();
+                            //Helpers.ConsolePrint(MinerTag(), lineLowered);
                             if (lineLowered.Contains(LookForStart))
                             {
                                 _benchmarkSum += GetNumber(lineLowered);
@@ -431,7 +452,7 @@ namespace NiceHashMiner.Miners
 
         protected double GetNumber(string outdata)
         {
-            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29 || MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
             {
                 return GetNumber(outdata, LookForStart, "g/s");
             } else

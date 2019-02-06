@@ -326,6 +326,14 @@ namespace NiceHashMiner.Devices.Algorithms
                         AlgorithmType.GrinCuckaroo29
                     });
             }
+            if (algoSettings.ContainsKey(MinerBaseType.GMiner) && (device.Name.Contains("1060"))
+                )
+            {
+                algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
+                    {
+                        AlgorithmType.GrinCuckatoo31
+                    });
+            }
 
 
             if (algoSettings.ContainsKey(MinerBaseType.GMiner) && (device.Name.Contains("1050"))
