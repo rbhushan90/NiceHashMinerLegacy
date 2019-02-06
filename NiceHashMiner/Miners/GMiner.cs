@@ -22,37 +22,6 @@ namespace NiceHashMiner.Miners
 {
     public class GMiner : Miner
     {
-//#pragma warning disable IDE1006
-
-        private class Devices
-        {
-            public uint gpu_id { get; set; }
-            public uint cuda_id { get; set; }
-            public string bus_id { get; set; }
-            public string name { get; set; }
-            public uint speed { get; set; }
-            public int accepted_shares { get; set; }
-            public int rejected_shares { get; set; }
-            public int temperature { get; set; }
-            public int temperature_limit { get; set; }
-            public uint power_usage { get; set; }
-        }
-        //{ "uptime":3,"server":"stratum://zhash.eu.nicehash.com:3369","user": "wallet.Farm2",
-        //"algorithm":"Equihash 144,5 \"BgoldPoW\"","electricity":0.000,
-        //"devices":[{"gpu_id":4,"cuda_id":4,"bus_id":"0000:07:00.0","name":"ASUS GeForce GTX 1060 3GB"
-        //,"speed":38,"accepted_shares":0,"rejected_shares":0,"temperature":14,"temperature_limit":90,"power_usage":93}]}
-        private class JsonApiResponse
-        {
-            public uint uptime { get; set; }
-            public string server { get; set; }
-            public string user { get; set; }
-            public string algorithm { get; set; }
-            public uint electricity { get; set; }
-            public Devices[] devices { get; set; }
-        }
-
-//#pragma warning restore IDE1006
-
         private int _benchmarkTimeWait = 120;
         private int _benchmarkReadCount;
         private double _benchmarkSum;
@@ -149,19 +118,6 @@ namespace NiceHashMiner.Miners
             return deviceStringCommand;
         }
 
-        /*
-        protected override string GetDevicesCommandString()
-        {
-            var deviceStringCommand = MiningSetup.MiningPairs.Aggregate(" --devices ",
-                (current, nvidiaPair) => current + (nvidiaPair.Device.IDByBus + " "));
-
-            deviceStringCommand +=
-                " " + ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);
-
-            return deviceStringCommand;
-        }
-        */
-        // benchmark stuff
         protected void KillMinerBase(string exeName)
         {
             foreach (var process in Process.GetProcessesByName(exeName))
@@ -305,18 +261,11 @@ namespace NiceHashMiner.Miners
                 var benchmarkTimer = new Stopwatch();
                 benchmarkTimer.Reset();
                 benchmarkTimer.Start();
-                //BenchmarkThreadRoutineStartSettup();
-                // wait a little longer then the benchmark routine if exit false throw
-                //var timeoutTime = BenchmarkTimeoutInSeconds(BenchmarkTimeInSeconds);
-                //var exitSucces = BenchmarkHandle.WaitForExit(timeoutTime * 1000);
-                // don't use wait for it breaks everything
+
                 BenchmarkProcessStatus = BenchmarkProcessStatus.Running;
                 var keepRunning = true;
                 while (keepRunning && IsActiveProcess(BenchmarkHandle.Id))
                 {
-                    //string outdata = BenchmarkHandle.StandardOutput.ReadLine();
-                    //BenchmarkOutputErrorDataReceivedImpl(outdata);
-                    // terminate process situations
                     if (benchmarkTimer.Elapsed.TotalSeconds >= (_benchmarkTimeWait + 2)
                         || BenchmarkSignalQuit
                         || BenchmarkSignalFinnished
@@ -366,13 +315,7 @@ namespace NiceHashMiner.Miners
                 BenchmarkAlgorithm.BenchmarkSpeed = 0;
                 // find latest log file
                 var latestLogFile = "";
-                /*
-                int kit = 10;
-                if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29 || MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
-                {
-                    kit = 1;
-                }
-                */
+
                 var dirInfo = new DirectoryInfo(WorkingDirectory);
                 foreach (var file in dirInfo.GetFiles(GetLogFileName()))
                 {
@@ -514,26 +457,30 @@ namespace NiceHashMiner.Miners
             return third == 0x7d && second == 0xa && last == 0x7d;
         }
 
-        public class GMinerResponse
+        //{ "uptime":3,"server":"stratum://zhash.eu.nicehash.com:3369","user": "wallet.Farm2",
+        //"algorithm":"Equihash 144,5 \"BgoldPoW\"","electricity":0.000,
+        //"devices":[{"gpu_id":4,"cuda_id":4,"bus_id":"0000:07:00.0","name":"ASUS GeForce GTX 1060 3GB"
+        //,"speed":38,"accepted_shares":0,"rejected_shares":0,"temperature":14,"temperature_limit":90,"power_usage":93}]}
+        private class JsonApiResponse
         {
-            public List<GMinerGpuResult> devices { get; set; }
+            public class Devices
+            {
+                public int gpu_id { get; set; }
+                public double speed { get; set; }
+            }
+            public Devices[] devices { get; set; }
         }
-
-        public class GMinerGpuResult
+        /*
+        private class JsonApiResponse
         {
-            public double speed { get; set; } = 0;
+            public uint uptime { get; set; }
+            public string server { get; set; }
+            public string user { get; set; }
+            public string algorithm { get; set; }
+            public uint electricity { get; set; }
+            public Devices[] devices { get; set; }
         }
-
-        public class DstmResponse
-        {
-            public List<DstmGpuResult> devices { get; set; }
-        }
-
-        public class DstmGpuResult
-        {
-            public double speed { get; set; } = 0;
-        }
-
+        */
         public override async Task<ApiData> GetSummaryAsync()
         {
             //Helpers.ConsolePrint("try API...........", "");

@@ -152,9 +152,23 @@ namespace NiceHashMiner
             {
                 ret = FormatSpeedOutput(primarySpeed);
             }
-            var unit = (algo == AlgorithmType.Equihash || algo == AlgorithmType.ZHash || algo == AlgorithmType.Beam) ? "Sol/s " : "H/s ";
-            unit = (algo == AlgorithmType.GrinCuckaroo29) ? "G/s " : "H/s ";
-            unit = (algo == AlgorithmType.GrinCuckatoo31) ? "G/s " : "H/s ";
+
+            string unit;
+            switch (algo)
+            {
+                case AlgorithmType.Equihash:
+                case AlgorithmType.ZHash:
+                case AlgorithmType.Beam:
+                    unit = "Sol/s ";
+                    break;
+                case AlgorithmType.GrinCuckaroo29:
+                case AlgorithmType.GrinCuckatoo31:
+                    unit = "G/s ";
+                    break;
+                default:
+                    unit = "H/s ";
+                    break;
+            }
             return ret + unit;
         }
 
