@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NiceHashMinerLegacy.Common.Enums;
 using WebSocketSharp;
+using System.Threading;
 
 namespace NiceHashMiner.Stats
 {
@@ -167,7 +168,6 @@ namespace NiceHashMiner.Stats
             }
             var timeFrom1 = new TimeSpan(12, 00, 0);
             var timeTo1 = new TimeSpan(12, 01, 0);
-
             var timeNow = DateTime.Now.TimeOfDay;
             if (timeNow > timeFrom1 && timeNow < timeTo1)
             {
@@ -183,7 +183,6 @@ namespace NiceHashMiner.Stats
                     Helpers.ConsolePrint("GITHUB", er.ToString());
                 }
             }
-
         }
 
         public class Rootobject
@@ -278,7 +277,6 @@ namespace NiceHashMiner.Stats
                 Helpers.ConsolePrint("NHM_API_info", "GetSmaAPI fatal ERROR");
                 return false;
             }
-
             return false;
 
         }
@@ -405,13 +403,14 @@ namespace NiceHashMiner.Stats
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
                 HttpWebRequest WR = (HttpWebRequest)WebRequest.Create(URL);
                 WR.UserAgent = "NiceHashMinerLegacy/" + Application.ProductVersion;
-                WR.Timeout = 30 * 1000;
+                WR.Timeout = 10 * 1000;
                 WR.Credentials = CredentialCache.DefaultCredentials;
                 //idHTTP1.IOHandler:= IdSSLIOHandlerSocket1;
-               // ServicePointManager.SecurityProtocol = (SecurityProtocolType)SslProtocols.Tls12;
+                // ServicePointManager.SecurityProtocol = (SecurityProtocolType)SslProtocols.Tls12;
+                Thread.Sleep(100);
                 WebResponse Response = WR.GetResponse();
                 Stream SS = Response.GetResponseStream();
-                SS.ReadTimeout = 20 * 1000;
+                SS.ReadTimeout = 5 * 1000;
                 StreamReader Reader = new StreamReader(SS);
                 ResponseFromServer = Reader.ReadToEnd();
                 if (ResponseFromServer.Length == 0 || (ResponseFromServer[0] != '{' && ResponseFromServer[0] != '['))
@@ -430,7 +429,7 @@ namespace NiceHashMiner.Stats
         private static void SocketOnOnConnectionEstablished(object sender, EventArgs e)
         {
             DeviceStatus_Tick(null); // Send device to populate rig stats
-            LoadSMA(); //for first run
+            //LoadSMA(); //for first run
             string ghv = GetVersion("");
             Helpers.ConsolePrint("GITHUB", ghv);
             SetVersion(ghv);
@@ -511,9 +510,8 @@ namespace NiceHashMiner.Stats
                             break;
                         }
                     }
-
                     ExchangeRateApi.UpdateExchangesFiat(exchange.exchanges_fiat);
-
+                    Thread.Sleep(200);
                     OnExchangeUpdate?.Invoke(null, EventArgs.Empty);
                 }
             }
@@ -557,12 +555,12 @@ namespace NiceHashMiner.Stats
                         device.Index,
                         device.Name
                     };
+                    Thread.Sleep(50);
                     var status = Convert.ToInt32(activeIDs.Contains(device.Index)) + ((int) device.DeviceType + 1) * 2;
                     array.Add(status);
                     array.Add((int) Math.Round(device.Load));
                     array.Add((int) Math.Round(device.Temp));
                     array.Add(device.FanSpeed);
-
                     deviceList.Add(array);
                 }
                 catch (Exception e) { Helpers.ConsolePrint("SOCKET", e.ToString()); }
@@ -591,12 +589,12 @@ namespace NiceHashMiner.Stats
                 if (worker.Length > 64) worker = worker.Substring(0, 64);
                 wr.Headers.Add("NiceHash-Worker-ID", worker);
                 wr.Headers.Add("NHM-Active-Miners-Group", activeMinersGroup);
-                wr.Timeout = 10 * 1000;
+                wr.Timeout = 5 * 1000;
                 var response = wr.GetResponse();
                 var ss = response.GetResponseStream();
                 if (ss != null)
                 {
-                    ss.ReadTimeout = 8 * 1000;
+                    ss.ReadTimeout = 3 * 1000;
                     var reader = new StreamReader(ss);
                     responseFromServer = reader.ReadToEnd();
                     if (responseFromServer.Length == 0 || responseFromServer[0] != '{')
@@ -610,7 +608,6 @@ namespace NiceHashMiner.Stats
                 Helpers.ConsolePrint("NICEHASH", ex.Message);
                 return null;
             }
-
             return responseFromServer;
         }
     }
