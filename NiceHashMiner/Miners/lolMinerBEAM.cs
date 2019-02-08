@@ -66,10 +66,10 @@ namespace NiceHashMiner.Miners
             url = url.Substring(0, url.IndexOf(":"));
             var apiBind = " --apiport " + ApiPort;
 
-           LastCommandLine = "--coin beam --pool " + url + ";beam.hk.nicehash.com;beam.jp.nicehash.com;beam.usa.nicehash.com;beam.in.nicehash.com;beam.br.nicehash.com" +
+           LastCommandLine = "--coin BEAM --pool " + url + ";beam.hk.nicehash.com;beam.jp.nicehash.com;beam.usa.nicehash.com;beam.in.nicehash.com;beam.br.nicehash.com" +
                               " --port " + port+";"+port +";"+ port+";"+ port+";"+ port+";"+ port+
                               " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username +
-                              " -p x;x;x;x;x;x " + apiBind +
+                              " -p x;x;x;x;x;x --tls 0;0;0;0;0;0 " + apiBind +
                               " " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
@@ -93,12 +93,12 @@ namespace NiceHashMiner.Miners
 
             if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
-
-            CommandLine = "--coin beam " +
+            string worker = ConfigManager.GeneralConfig.WorkerName.Trim();
+            CommandLine = "--coin BEAM " +
                 " --pool beam-eu.sparkpool.com;beam-asia.sparkpool.com;beam.eu.nicehash.com;beam.hk.nicehash.com" +
                 " --port 2222;12222;3370;3370" +
-                " --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9.lol;2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9.lol;" + username+";"+username+
-                " --pass x;x;x;x" +
+                " --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9."+ worker+ ";2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + ";" + username+";"+username+
+                " --pass x;x;x;x --tls 1;1;0;0 " +
                                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
                                                                 DeviceType.AMD) +
@@ -109,74 +109,8 @@ namespace NiceHashMiner.Miners
             return CommandLine;
 
         }
-        /*
-        protected override string GetDevicesCommandString0()
-        {
-            // First by device type (AMD then NV), then by bus ID index
-            var sortedMinerPairs = MiningSetup.MiningPairs
-                .OrderByDescending(pair => pair.Device.DeviceType)
-                .ThenBy(pair => pair.Device.IDByBus)
-                .ToList();
-            var extraParams = ExtraLaunchParametersParser.ParseForMiningPairs(sortedMinerPairs, DeviceType.AMD);
-
-            var ids = new List<string>();
-            var intensities = new List<string>();
-
-            var amdDeviceCount = ComputeDeviceManager.Query.AmdDevices.Count;
-            Helpers.ConsolePrint("ClaymoreIndexing", $"Found {amdDeviceCount} AMD devices");
-
-            foreach (var mPair in sortedMinerPairs)
-            {
-                var id = mPair.Device.IDByBus;
-                if (id < 0)
-                {
-                    // should never happen
-                    Helpers.ConsolePrint("ClaymoreIndexing", "ID by Bus too low: " + id + " skipping device");
-                    continue;
-                }
-
-                if (mPair.Device.DeviceType == DeviceType.NVIDIA)
-                {
-                    Helpers.ConsolePrint("ClaymoreIndexing", "NVIDIA device increasing index by " + amdDeviceCount);
-                    id += amdDeviceCount;
-                }
-
-                if (id > 9)
-                {
-                    // New >10 GPU support in CD9.8
-                    if (id < 36)
-                    {
-                        // CD supports 0-9 and a-z indexes, so 36 GPUs
-                        var idchar = (char)(id + 87); // 10 = 97(a), 11 - 98(b), etc
-                        ids.Add(idchar.ToString());
-                    }
-                    else
-                    {
-                        Helpers.ConsolePrint("ClaymoreIndexing", "ID " + id + " too high, ignoring");
-                    }
-                }
-                else
-                {
-                    ids.Add(id.ToString());
-                }
-
-                if (mPair.Algorithm is DualAlgorithm algo && algo.TuningEnabled)
-                {
-                    intensities.Add(algo.CurrentIntensity.ToString());
-                }
-            }
-
-            var deviceStringCommand = DeviceCommand(amdDeviceCount) + string.Join("", ids);
-            var intensityStringCommand = "";
-            if (intensities.Count > 0)
-            {
-                intensityStringCommand = " -dcri " + string.Join(",", intensities);
-            }
-
-            return deviceStringCommand + intensityStringCommand + extraParams;
-        }
-*/
-/*
+        
+       
         protected override string GetDevicesCommandString()
         {
             var deviceStringCommand = " ";
@@ -189,7 +123,7 @@ namespace NiceHashMiner.Miners
             var sortedMinerPairs = MiningSetup.MiningPairs.OrderBy(pair => pair.Device.DeviceType).ToList();
             foreach (var mPair in sortedMinerPairs)
             {
-                var id = mPair.Device.ID;
+                var id = mPair.Device.IDByBus;
                 if (id < 0)
                 {
                     Helpers.ConsolePrint("lolMinerBEAMIndexing", "ID too low: " + id + " skipping device");
@@ -213,7 +147,7 @@ namespace NiceHashMiner.Miners
 
             return deviceStringCommand;
         }
-        */
+      
         protected override bool BenchmarkParseLine(string outdata) {
             string hashSpeed = "";
 
