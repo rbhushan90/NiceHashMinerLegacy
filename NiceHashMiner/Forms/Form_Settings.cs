@@ -754,15 +754,15 @@ namespace NiceHashMiner.Forms
         {
             // Value is stored in registry
             var startVal = "";
+            RegistryKey runKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
             try
             {
-                startVal = (string) _rkStartup?.GetValue(Application.ProductName, "");
+                startVal = (string) runKey.GetValue(Application.ProductName);
             }
             catch (Exception e)
             {
                 Helpers.ConsolePrint("REGISTRY", e.ToString());
             }
-
             return startVal == Application.ExecutablePath;
         }
 
