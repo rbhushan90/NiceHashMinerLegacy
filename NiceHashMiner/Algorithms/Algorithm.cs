@@ -104,29 +104,19 @@ namespace NiceHashMiner.Algorithms
 
         #endregion
 
-        public Algorithm(MinerBaseType minerBaseType, AlgorithmType niceHashID, string minerName)
+        public Algorithm(MinerBaseType minerBaseType, AlgorithmType niceHashID, string minerName = "", bool enabled = true)
         {
             NiceHashID = niceHashID;
-
             AlgorithmName = AlgorithmNiceHashNames.GetName(NiceHashID);
             MinerBaseTypeName = Enum.GetName(typeof(MinerBaseType), minerBaseType);
             AlgorithmStringID = MinerBaseTypeName + "_" + AlgorithmName;
-
             MinerBaseType = minerBaseType;
             MinerName = minerName;
-
             ExtraLaunchParameters = "";
             LessThreads = 0;
-            Enabled = !(NiceHashID == AlgorithmType.Nist5 ||
-                        (NiceHashID == AlgorithmType.NeoScrypt && minerBaseType == MinerBaseType.sgminer));
-            Enabled = !(NiceHashID == AlgorithmType.CryptoNightV7) && minerBaseType == MinerBaseType.XmrigAMD;
-            Enabled = !(NiceHashID == AlgorithmType.CryptoNightV8) && minerBaseType == MinerBaseType.XmrigAMD;
-            Enabled = !(NiceHashID == AlgorithmType.CryptoNightV8) && minerBaseType == MinerBaseType.SRBMiner;
-            Enabled = !(NiceHashID == AlgorithmType.CryptoNightHeavy) && minerBaseType == MinerBaseType.SRBMiner;
-            Enabled = !(NiceHashID == AlgorithmType.Lyra2REv2) && minerBaseType == MinerBaseType.mkxminer;
+            Enabled = enabled;
             BenchmarkStatus = "";
         }
-
         #region Benchmark info
 
         public string BenchmarkStatus { get; set; }
