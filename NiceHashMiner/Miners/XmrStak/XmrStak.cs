@@ -12,6 +12,7 @@ using NiceHashMiner.Configs;
 using NiceHashMiner.Miners.Parsing;
 using NiceHashMiner.Miners.XmrStak.Configs;
 using NiceHashMinerLegacy.Common.Enums;
+using System.Management;
 
 namespace NiceHashMiner.Miners.XmrStak
 {
@@ -74,6 +75,68 @@ namespace NiceHashMiner.Miners.XmrStak
             return $"-c {configName} -C {GetPoolConfigName()} {devs} {DisableDevCmd(devConfigs.Keys)}";
         }
 
+        private int IsHyperThreadingEnabled(string MachineName)
+        {
+            try
+            {
+                List<string> Sockets = new List<string>();
+                int PhysicalCPU = 0;
+                int LogicalCPU = 0;
+                int returnValue = 0;
+                //Connection credentials to the remote computer - not needed if the logged in account has access
+                ConnectionOptions oConn = new ConnectionOptions();
+                //connect to remote machine
+                ManagementScope oMs = new ManagementScope(@"\\" + MachineName + @"\root\cimv2", oConn);
+                //query for remote machine
+                ObjectQuery oQuery = new ObjectQuery("Select * from Win32_Processor");
+                //Execute the query 
+                ManagementObjectSearcher oSearcher = new ManagementObjectSearcher(oMs, oQuery);
+                //Get the results
+                ManagementObjectCollection oReturnCollection = oSearcher.Get();
+                //loop through found drives and write out info
+                foreach (ManagementObject mo in oReturnCollection)
+                {
+                    LogicalCPU++;
+                    string SocketDesignation = mo.Properties["SocketDesignation"].Value.ToString();
+                    //We will count the unique SocketDesignations to find
+                    //the number of physical CPUs in the system.
+                    if (!Sockets.Contains(SocketDesignation))
+                    {
+                        Sockets.Add(SocketDesignation);
+                    }
+                }
+                PhysicalCPU = Sockets.Count;
+                //Are there more logical than physical cpus?
+                //If so, obviously we are hyperthreading.
+                if (LogicalCPU > PhysicalCPU)
+                {
+                    returnValue = 1;
+                }
+                return returnValue;
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine(ex.Message);
+                return 0;
+            }
+        }
+        static bool IsHT()
+        {
+            int coreCount = 0;
+            foreach (var item in new System.Management.ManagementObjectSearcher("Select * from Win32_Processor").Get())
+            {
+                coreCount += int.Parse(item["NumberOfCores"].ToString());
+            }
+
+            Helpers.ConsolePrint("CPU logical cores:", Environment.ProcessorCount.ToString());
+            Helpers.ConsolePrint("CPU physical cores:", coreCount.ToString());
+
+            if (Environment.ProcessorCount > coreCount)
+            {
+                return true;
+            }
+            return false;
+        }
         private Dictionary<DeviceType, string> PrepareConfigFiles(string url, string btcAddress,
             string worker, bool bench = false)
         {
@@ -109,7 +172,7 @@ namespace NiceHashMiner.Miners.XmrStak
                     var isHyperThreadingEnabled = cpuPair.CurrentExtraLaunchParameters.Contains("enable_ht=true");
                     var numTr = ExtraLaunchParametersParser.GetThreadsNumber(cpuPair);
                     var no_prefetch = ExtraLaunchParametersParser.GetNoPrefetch(cpuPair);
-                    if (isHyperThreadingEnabled)
+                    if (IsHT())
                     {
                         numTr /= 2;
                     }
