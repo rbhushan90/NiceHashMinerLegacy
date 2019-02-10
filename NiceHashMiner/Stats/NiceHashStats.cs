@@ -525,7 +525,7 @@ namespace NiceHashMiner.Stats
 
         #region Outgoing socket calls
 
-        public static void SetCredentials(string btc, string worker)
+        public static async Task SetCredentials(string btc, string worker)
         {
             var data = new NicehashCredentials
             {
@@ -537,11 +537,15 @@ namespace NiceHashMiner.Stats
                 var sendData = JsonConvert.SerializeObject(data);
 
                 // Send as task since SetCredentials is called from UI threads
-                Task.Factory.StartNew(() => _socket?.SendData(sendData));
+                //Task.Factory.StartNew(() => _socket?.SendData(sendData));
+                if (_socket != null)
+                {
+                    await _socket.SendData(sendData);
+                }
             }
         }
 
-        private static void DeviceStatus_Tick(object state)
+        private static async void DeviceStatus_Tick(object state)
         {
             var devices = ComputeDeviceManager.Available.Devices;
             var deviceList = new List<JArray>();
@@ -572,7 +576,12 @@ namespace NiceHashMiner.Stats
             var sendData = JsonConvert.SerializeObject(data);
             // This function is run every minute and sends data every run which has two auxiliary effects
             // Keeps connection alive and attempts reconnection if internet was dropped
-            _socket?.SendData(sendData);
+            // _socket?.SendData(sendData);
+
+            if (_socket != null)
+            {
+                await _socket.SendData(sendData);
+            }
         }
 
         #endregion
