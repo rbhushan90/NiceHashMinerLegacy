@@ -67,7 +67,8 @@ namespace NiceHashMiner.Devices.Algorithms
                 {
                     //new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNight, ""),
                     //new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV7, ""),
-                    new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV8, "")
+                    new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV8, ""),
+                    new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightHeavy, "")
                 }
             },
             {

@@ -56,15 +56,28 @@ namespace NiceHashMiner.Miners
                 algo = "cryptonightv8";
                 port = "3367";
                 variant = " --variant 2 ";
-            }
-
                 return $" -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 "
-                + $" -o stratum+tcp://{algo}.usa.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x ";
+               + $" -o stratum+tcp://{algo}.usa.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
+            {
+                algo = "cryptonightheavy";
+                port = "3364";
+                variant = "";
+                return $" --algo=cryptonight-heavy -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 "
+               + $" -o stratum+tcp://{algo}.usa.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x ";
+            }
+            return "unsupported algo";
         }
         private string GetStartBenchmarkCommand(string url, string btcAdress, string worker)
         {
@@ -80,14 +93,15 @@ namespace NiceHashMiner.Miners
                 return $" -o stratum+tcp://xmr-eu.dwarfpool.com:8005 {variant} -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1 "
                 + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x ";
             }
-
-            return $" -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 "
-                + $" -o stratum+tcp://{algo}.usa.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
+            {
+                algo = "cryptonightheavy";
+                port = "3364";
+                variant = "";
+                return $" --algo=cryptonight-heavy -o stratum+tcp://loki.miner.rocks:5555 -u L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi -p w={worker} {extras} --api-port {ApiPort} --donate-level=1 "
                 + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x ";
+            }
+            return "unsupported algo";
         }
 
         protected override void _Stop(MinerStopType willswitch)
