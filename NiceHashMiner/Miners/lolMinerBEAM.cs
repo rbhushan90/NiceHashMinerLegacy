@@ -123,7 +123,7 @@ namespace NiceHashMiner.Miners
             var sortedMinerPairs = MiningSetup.MiningPairs.OrderBy(pair => pair.Device.DeviceType).ToList();
             foreach (var mPair in sortedMinerPairs)
             {
-                var id = mPair.Device.IDByBus;
+                var id = mPair.Device.IDByBus + variables.mPairDeviceIDByBus_lolBeam;
                 if (id < 0)
                 {
                     Helpers.ConsolePrint("lolMinerBEAMIndexing", "ID too low: " + id + " skipping device");
