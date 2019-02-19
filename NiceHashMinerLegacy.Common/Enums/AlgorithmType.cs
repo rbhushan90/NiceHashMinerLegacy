@@ -90,7 +90,8 @@
         Beam = 37,
         GrinCuckaroo29 = 38,
         GrinCuckatoo31 = 39,
-        Lyra2REv3 = 40
+        Lyra2REv3 = 40,
+        MTP = 41
 
         #endregion // NiceHashAPI
     }

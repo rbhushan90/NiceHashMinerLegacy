@@ -17,6 +17,7 @@ using NiceHashMinerLegacy.Common.Enums;
 using System.Windows.Forms;
 using System.Net;
 using System.Management;
+using NiceHashMiner.Devices;
 
 namespace NiceHashMiner.Miners
 {
@@ -33,7 +34,7 @@ namespace NiceHashMiner.Miners
         public GMiner() : base("GMiner")
         {
             ConectionType = NhmConectionType.NONE;
-            IsNeverHideMiningWindow = true;
+            //IsNeverHideMiningWindow = true;
         }
 
         public override void Start(string url, string btcAdress, string worker)
@@ -108,12 +109,43 @@ namespace NiceHashMiner.Miners
         }
         protected override string GetDevicesCommandString()
         {
+            /*
             var deviceStringCommand = " --devices ";
 
             var ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.IDByBus.ToString()).ToList();
             deviceStringCommand += string.Join(" ", ids);
             deviceStringCommand +=
                 " " + ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);
+                */
+            var deviceStringCommand = " --devices ";
+            var ids = new List<string>();
+            //   var ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.ID.ToString()).ToList();
+            var sortedMinerPairs = MiningSetup.MiningPairs.OrderBy(pair => pair.Device.DeviceType).ToList();
+            foreach (var mPair in sortedMinerPairs)
+            {
+                var id = mPair.Device.IDByBus + variables.mPairDeviceIDByBus_GMiner;
+                /*
+                if (id < 0)
+                {
+                    Helpers.ConsolePrint("lolMinerBEAMIndexing", "ID too low: " + id + " skipping device");
+                    continue;
+                }
+
+                if (mPair.Device.DeviceType == DeviceType.NVIDIA)
+                {
+                    Helpers.ConsolePrint("lolMinerBEAMIndexing", "NVIDIA found. Increasing index");
+                    id++;
+                }
+                */
+                Helpers.ConsolePrint("GMinerIndexing", "ID: " + id);
+                {
+                    ids.Add(id.ToString());
+                }
+
+            }
+
+            deviceStringCommand += string.Join(" ", ids);
+            deviceStringCommand = deviceStringCommand + ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
 
             return deviceStringCommand;
         }
@@ -226,7 +258,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
             {
                 ret = " --logfile " + GetLogFileName() + " --color 0 --pec --algo grin29" +
-                " --server grin.sparkpool.com --user angelbbs@mail.ru/bench_g --pass x --port 6666 --ssl 0" +
+                " --server grin.sparkpool.com --user angelbbs@mail.ru/" + worker + "--pass x --port 6666 --ssl 0" +
                 " --server grincuckaroo29.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3371 --ssl 0" +
                 " --server grincuckaroo29.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3371 --ssl 0" +
                 GetDevicesCommandString();
@@ -234,7 +266,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
             {
                 ret = " --logfile " + GetLogFileName() + " --color 0 --pec --algo grin31" +
-                " --server grin.sparkpool.com --user angelbbs@mail.ru/bench_g --pass x --port 6667 --ssl 0" +
+                " --server grin.sparkpool.com --user angelbbs@mail.ru/" + worker + " --pass x --port 6667 --ssl 0" +
                 " --server grincuckatoo31.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3372 --ssl 0" +
                 " --server grincuckatoo31.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3372 --ssl 0" +
                 GetDevicesCommandString();
