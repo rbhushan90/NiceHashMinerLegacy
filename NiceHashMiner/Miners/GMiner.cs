@@ -109,17 +109,9 @@ namespace NiceHashMiner.Miners
         }
         protected override string GetDevicesCommandString()
         {
-            /*
-            var deviceStringCommand = " --devices ";
-
-            var ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.IDByBus.ToString()).ToList();
-            deviceStringCommand += string.Join(" ", ids);
-            deviceStringCommand +=
-                " " + ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);
-                */
+            var gminer_var = "";
             var deviceStringCommand = " --devices ";
             var ids = new List<string>();
-            //   var ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.ID.ToString()).ToList();
             var sortedMinerPairs = MiningSetup.MiningPairs.OrderBy(pair => pair.Device.DeviceType).ToList();
             foreach (var mPair in sortedMinerPairs)
             {
@@ -137,7 +129,14 @@ namespace NiceHashMiner.Miners
                     id++;
                 }
                 */
-                Helpers.ConsolePrint("GMinerIndexing", "ID: " + id);
+                if (mPair.Device.DeviceType.Equals(1))
+                {
+                    gminer_var = variables.gminer_var2;
+                } else
+                {
+                    gminer_var = variables.gminer_var1;
+                }
+                    Helpers.ConsolePrint("GMinerIndexing", "ID: " + id);
                 {
                     ids.Add(id.ToString());
                 }
@@ -146,8 +145,8 @@ namespace NiceHashMiner.Miners
 
             deviceStringCommand += string.Join(" ", ids);
             deviceStringCommand = deviceStringCommand + ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-
-            return deviceStringCommand;
+         
+            return gminer_var + deviceStringCommand;
         }
 
         protected void KillMinerBase(string exeName)

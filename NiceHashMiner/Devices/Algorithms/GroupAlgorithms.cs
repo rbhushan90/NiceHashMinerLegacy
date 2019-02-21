@@ -341,6 +341,14 @@ namespace NiceHashMiner.Devices.Algorithms
                         AlgorithmType.MTP
                     });
             }
+            if (algoSettings.ContainsKey(MinerBaseType.TTMiner) && device.GpuRam < 1024 * 1024 * 1024 * 4.4)
+            {
+                algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
+                    {
+                        AlgorithmType.MTP
+                    });
+            }
+
 
             if (algoSettings.ContainsKey(MinerBaseType.ccminer) && device.GpuRam < 1024 * 1024 * 1024 * 4.4)
             {
@@ -358,7 +366,7 @@ namespace NiceHashMiner.Devices.Algorithms
                         AlgorithmType.GrinCuckatoo31
                     });
             }
-            
+
 
             if (algoSettings.ContainsKey(MinerBaseType.GMiner) && (device.Name.Contains("1050"))
                 )

@@ -136,6 +136,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string GMiner = Bin3rdParty + @"\gminer\miner.exe";
             public const string Bminer = Bin3rdParty + @"\bminer\bminer.exe";
             public const string WildRig = Bin3rdParty + @"\WildRig\wildrig.exe";
+            public const string TTMiner = Bin3rdParty + @"\TT-Miner\TT-Miner.exe";
         }
 
         // NEW START
@@ -234,6 +235,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.lolMinerBEAM;
                 case MinerBaseType.Bminer:
                     return Data.Bminer;
+                case MinerBaseType.TTMiner:
+                    return Data.TTMiner;
             }
             return Data.None;
         }
@@ -349,11 +352,28 @@ namespace NiceHashMiner.Miners.Grouping
                 // sm5x and sm6x have same settings otherwise
                 if (nvidiaGroup == DeviceGroupType.NVIDIA_5_x || nvidiaGroup == DeviceGroupType.NVIDIA_6_x)
                 {
-                    return Data.ZEnemy; ;
+                    return Data.ZEnemy;
                 }
                 // TODO wrong case?
                 return Data.None; // should not happen
             }
+
+            public static string TTMiner(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
+            {
+                // sm21 and sm3x have same settings
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_2_1 || nvidiaGroup == DeviceGroupType.NVIDIA_3_x)
+                {
+                    return Data.TTMiner;
+                }
+                // sm5x and sm6x have same settings otherwise
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_5_x || nvidiaGroup == DeviceGroupType.NVIDIA_6_x)
+                {
+                    return Data.TTMiner;
+                }
+                // TODO wrong case?
+                return Data.None; // should not happen
+            }
+
 
             public static string trex(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
             {

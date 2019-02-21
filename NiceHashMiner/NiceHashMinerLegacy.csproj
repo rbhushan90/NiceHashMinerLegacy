@@ -134,6 +134,7 @@
     <Compile Include="Miners\SRBMiner.cs" />
     <Compile Include="Miners\teamredminer.cs" />
     <Compile Include="Miners\trex.cs" />
+    <Compile Include="Miners\TTMiner.cs" />
     <Compile Include="Miners\WildRig.cs" />
     <Compile Include="Miners\XmrigAMD.cs" />
     <Compile Include="Miners\XmrStak\Configs\XmrStakConfigCpu.cs" />

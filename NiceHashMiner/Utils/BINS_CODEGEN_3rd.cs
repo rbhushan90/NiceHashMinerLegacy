@@ -43,6 +43,7 @@ namespace NiceHashMiner.Utils
             @"/gminer/miner.exe",
             @"/lolMiner/lolMiner.exe",
             @"/WildRig/wildrig.exe",
+            @"/TT-Miner/TT-Miner.exe",
             @"/Fork_Fix_13.txt",
         };
 

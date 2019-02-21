@@ -353,7 +353,8 @@ namespace NiceHashMiner.Devices
                 MinerBaseType.GMiner,
                 MinerBaseType.lolMiner,
                 MinerBaseType.lolMinerBEAM,
-                MinerBaseType.Bminer
+                MinerBaseType.Bminer,
+                MinerBaseType.TTMiner
             };
 
             return AlgorithmSettings.FindAll(a => thirdPartyMiners.IndexOf(a.MinerBaseType) == -1);

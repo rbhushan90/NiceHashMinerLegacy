@@ -319,6 +319,12 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.ZEnemy, AlgorithmType.Skunk, "Skunk"),
                         }
                     },
+                        { MinerBaseType.TTMiner,
+                        new List<Algorithm>() {
+                           // new Algorithm(MinerBaseType.TTMiner, AlgorithmType.Lyra2REv3, "Lyra2REv3"),
+                            new Algorithm(MinerBaseType.TTMiner, AlgorithmType.MTP, "MTP"),
+                        }
+                    },
         /*
             {
                 MinerBaseType.ethminer,

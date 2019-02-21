@@ -39,6 +39,7 @@
         WildRig,
         lolMinerBEAM,
         Bminer,
+        TTMiner,
         END
     }
 }

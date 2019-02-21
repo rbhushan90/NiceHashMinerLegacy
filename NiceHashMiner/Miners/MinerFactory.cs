@@ -110,6 +110,8 @@ namespace NiceHashMiner.Miners
                     return new lolMinerBEAM();
                 case MinerBaseType.Bminer:
                     return new Bminer();
+                case MinerBaseType.TTMiner:
+                    return new TTMiner();
             }
 
             return null;
