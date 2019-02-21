@@ -171,6 +171,16 @@ namespace NiceHashMiner.Devices.Algorithms
                             }
                         }
                     },
+            {
+                MinerBaseType.GMiner,
+                new List<Algorithm>
+                {
+                    new Algorithm(MinerBaseType.GMiner, AlgorithmType.Beam, "")
+                    {
+                                //ExtraLaunchParameters = "--pec 1 "
+                    }
+                }
+            },
                     /*
                     { MinerBaseType.mkxminer,
                         new List<Algorithm>() {

@@ -20,6 +20,7 @@ using NiceHashMiner.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
 using Timer = System.Timers.Timer;
 using System.Net.NetworkInformation;
+using System.Management;
 
 namespace NiceHashMiner
 {
@@ -443,7 +444,30 @@ namespace NiceHashMiner
             _isEnded = true;
             Stop(MinerStopType.FORCE_END);
         }
-
+        private static void KillProcessAndChildren(int pid)
+        {
+            // Cannot close 'system idle process'.
+            if (pid == 0)
+            {
+                return;
+            }
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher
+                    ("Select * From Win32_Process Where ParentProcessID=" + pid);
+            ManagementObjectCollection moc = searcher.Get();
+            foreach (ManagementObject mo in moc)
+            {
+                KillProcessAndChildren(Convert.ToInt32(mo["ProcessID"]));
+            }
+            try
+            {
+                Process proc = Process.GetProcessById(pid);
+                proc.Kill();
+            }
+            catch (ArgumentException)
+            {
+                // Process already exited.
+            }
+        }
         protected void Stop_cpu_ccminer_sgminer_nheqminer(MinerStopType willswitch)
         {
             if (IsRunning)
@@ -453,6 +477,12 @@ namespace NiceHashMiner
 
             if (ProcessHandle != null)
             {
+                int k = ProcessTag().IndexOf("pid(");
+                int i = ProcessTag().IndexOf(")|bin");
+                var cpid = ProcessTag().Substring(k + 4, i - k - 4).Trim();
+                int pid = int.Parse(cpid, CultureInfo.InvariantCulture);
+                KillProcessAndChildren(pid);
+
                 try { ProcessHandle.Kill(); }
                 catch { }
 

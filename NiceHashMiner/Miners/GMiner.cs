@@ -27,9 +27,10 @@ namespace NiceHashMiner.Miners
         private int _benchmarkReadCount;
         private double _benchmarkSum;
         private const string LookForStart = "total speed: ";
-        //00:21:56 Total Speed: 4.3 G/s Shares Accepted: 0 Rejected: 0 Power: 133W 0.03
         private const string LookForEnd = "sol/s";
         private const double DevFee = 2.0;
+        string  gminer_var = "";
+
 
         public GMiner() : base("GMiner")
         {
@@ -109,7 +110,6 @@ namespace NiceHashMiner.Miners
         }
         protected override string GetDevicesCommandString()
         {
-            var gminer_var = "";
             var deviceStringCommand = " --devices ";
             var ids = new List<string>();
             var sortedMinerPairs = MiningSetup.MiningPairs.OrderBy(pair => pair.Device.DeviceType).ToList();
@@ -129,12 +129,13 @@ namespace NiceHashMiner.Miners
                     id++;
                 }
                 */
-                if (mPair.Device.DeviceType.Equals(1))
-                {
-                    gminer_var = variables.gminer_var2;
-                } else
+
+                if (mPair.Device.DeviceType == DeviceType.NVIDIA)
                 {
                     gminer_var = variables.gminer_var1;
+                } else
+                {
+                    gminer_var = variables.gminer_var2;
                 }
                     Helpers.ConsolePrint("GMinerIndexing", "ID: " + id);
                 {
@@ -232,12 +233,19 @@ namespace NiceHashMiner.Miners
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
             CleanOldLogs();
+            _benchmarkTimeWait = Math.Max(time * 3, 180); //
             var ret = "";
+            var suff = "1_";
             var server = Globals.GetLocationUrl(algorithm.NiceHashID,
                Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
             var btcAddress = Globals.GetBitcoinUser();
             var worker = ConfigManager.GeneralConfig.WorkerName.Trim();
-            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
+            foreach (var pair in MiningSetup.MiningPairs)
+            {
+                if (pair.Device.DeviceType == DeviceType.NVIDIA) suff = ""; else _benchmarkTimeWait = 180;
+            }
+
+                if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
             {
                 ret = " --logfile " + GetLogFileName() + " --color 0 --pec --pers BgoldPoW --algo 144_5" +
                 " --server europe.equihash-hub.miningpoolhub.com --user angelbbs.FBench11 --pass x --port 20595 " +
@@ -245,9 +253,11 @@ namespace NiceHashMiner.Miners
                 " --server zhash.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
                 GetDevicesCommandString();
             }
+            Helpers.ConsolePrint("BENCHMARK-suff:", suff);
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
             {
-                ret = " --logfile " + GetLogFileName() + " --color 0 --pec --algo 150_5" +
+                //_benchmarkTimeWait = 180; 
+                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo 150_5" +
                 " --server beam-eu.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 2222 --ssl 1 " +
                 " --server beam-asia.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 12222 --ssl 1 " +
                 " --server beam.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3370 --ssl 0" +
@@ -270,7 +280,6 @@ namespace NiceHashMiner.Miners
                 " --server grincuckatoo31.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3372 --ssl 0" +
                 GetDevicesCommandString();
             }
-            _benchmarkTimeWait = Math.Max(time * 3, 90); //
             return ret;
         }
 
@@ -346,9 +355,13 @@ namespace NiceHashMiner.Miners
                 BenchmarkAlgorithm.BenchmarkSpeed = 0;
                 // find latest log file
                 var latestLogFile = "";
-
+                var suff = "1_";
+                foreach (var pair in MiningSetup.MiningPairs)
+                {
+                    if (pair.Device.DeviceType == DeviceType.NVIDIA) suff = "";
+                }
                 var dirInfo = new DirectoryInfo(WorkingDirectory);
-                foreach (var file in dirInfo.GetFiles(GetLogFileName()))
+                foreach (var file in dirInfo.GetFiles(suff + GetLogFileName()))
                 {
                     latestLogFile = file.Name;
                     break;

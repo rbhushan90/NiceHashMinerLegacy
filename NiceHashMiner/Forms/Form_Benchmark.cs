@@ -319,6 +319,7 @@ namespace NiceHashMiner.Forms
             {
                 StopButonClick();
                 BenchmarkStoppedGuiSettings();
+                RunCMDAfterBenchmark();
             }
             else if (StartButonClick())
             {
