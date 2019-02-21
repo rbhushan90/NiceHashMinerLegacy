@@ -23,11 +23,10 @@ namespace NiceHashMiner.Miners
         private double Total = 0;
         private const int TotalDelim = 2;
 
-        private bool _benchmarkException => MiningSetup.MinerPath == MinerPaths.Data.CcminerCryptonight
-                                           || MiningSetup.MinerPath == MinerPaths.Data.CcminerKlausT
+        private bool _benchmarkException => MiningSetup.MinerPath == MinerPaths.Data.CcminerKlausT
             || MiningSetup.MinerPath == MinerPaths.Data.CcminerTPruvot
-            || MiningSetup.MinerPath == MinerPaths.Data.CcminerNanashi
-            || MiningSetup.MinerPath == MinerPaths.Data.CcminerSp;
+            || MiningSetup.MinerPath == MinerPaths.Data.CcminerNeoscrypt
+            || MiningSetup.MinerPath == MinerPaths.Data.CcminerMTP;
 
         protected override int GetMaxCooldownTimeInMilliseconds()
         {
@@ -43,7 +42,8 @@ namespace NiceHashMiner.Miners
             }
             var username = GetUsername(btcAdress, worker);
 
-            IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.CcminerCryptonight;
+            //IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.CcminerMTP;
+            IsApiReadException = false;
 
             var algo = "";
             var apiBind = "";
@@ -89,6 +89,7 @@ namespace NiceHashMiner.Miners
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
+            
             string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
             var username = GetUsername(Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
@@ -97,7 +98,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.NeoScrypt))
             {
                 commandLine = " --algo=" + algorithm.MinerName +
-                    " --url=" + url + " --userpass=" + username + ":x" +
+                    " --url=stratum+tcp://neoscrypt.eu.nicehash.com:3341" + " --userpass=" + username + ":x" +
                     " --url=stratum+tcp://neoscrypt.eu.mine.zpool.ca:4233" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ":c=BTC " +
                              timeLimit + " " +
                              ExtraLaunchParametersParser.ParseForMiningSetup(
@@ -109,7 +110,7 @@ namespace NiceHashMiner.Miners
             {
                 commandLine = " --algo=" + algorithm.MinerName +
                     " --url=stratum+tcp://lyra2v2.eu.mine.zpool.ca:4533" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ":c=BTC " +
-                    " --url=" + url + " --userpass=" + username + ":x" +
+                    " --url=stratum+tcp://lyra2rev2.eu.nicehash.com:3347 --userpass=" + username + ":x" +
                              timeLimit + " " +
                              ExtraLaunchParametersParser.ParseForMiningSetup(
                                  MiningSetup,
@@ -120,7 +121,7 @@ namespace NiceHashMiner.Miners
             {
                 commandLine = " --algo=" + algorithm.MinerName +
                     " --url=stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ":c=BTC " +
-                    " --url=" + url + " --userpass=" + username + ":x" +
+                    " --url=stratum+tcp://lyra2z.eu.nicehash.com:3365 --userpass=" + username + ":x" +
                              timeLimit + " " +
                              ExtraLaunchParametersParser.ParseForMiningSetup(
                                  MiningSetup,
@@ -131,24 +132,38 @@ namespace NiceHashMiner.Miners
             {
                 commandLine = " --algo=" + algorithm.MinerName +
                    " --url=stratum+tcp://hdac.moricpool.com:3333" + " -u HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ" + " -p x " +
-                    " --url=" + url + " --userpass=" + username + ":x" +
+                    " --url=stratum+tcp://skunk.eu.nicehash.com:3362 --userpass=" + username + ":x" +
                              timeLimit + " " +
                              ExtraLaunchParametersParser.ParseForMiningSetup(
                                  MiningSetup,
                                  DeviceType.NVIDIA) +
                              " --devices ";
             }
-            commandLine += GetDevicesCommandString();
-
-            TotalCount = 15;
-            if (MiningSetup.MinerPath == MinerPaths.Data.CcminerNanashi)
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
             {
-                TotalCount = 3;
+                commandLine = " --algo=" + algorithm.MinerName +
+                   //" --url=stratum+tcp://xzc.2miners.com:8080" + " -u aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE." + ConfigManager.GeneralConfig.WorkerName.Trim()+ " -p x " +
+                    " --url=stratum+tcp://mtp.eu.nicehash.com:3374" + " --userpass=" + username + ":x" +
+                    " --url=stratum+tcp://mtp.hk.nicehash.com:3374" + " --userpass=" + username + ":x" +
+                             timeLimit + " " +
+                             ExtraLaunchParametersParser.ParseForMiningSetup(
+                                 MiningSetup,
+                                 DeviceType.NVIDIA) +
+                             " --devices ";
             }
 
+           
+           commandLine += GetDevicesCommandString();
+
+            TotalCount = 15;
+            
             if (MiningSetup.MinerPath == MinerPaths.Data.CcminerTPruvot || MiningSetup.MinerPath == MinerPaths.Data.CcminerKlausT)
             {
                 TotalCount = 5;
+            }
+            if (MiningSetup.MinerPath == MinerPaths.Data.CcminerMTP)
+            {
+                TotalCount = 10;
             }
             Total = 0.0d;
 

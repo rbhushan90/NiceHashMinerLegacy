@@ -267,7 +267,11 @@ namespace NiceHashMiner.Devices.Algorithms
                     //new Algorithm(MinerBaseType.ccminer, AlgorithmType.Sia, "sia"),
                     //new Algorithm(MinerBaseType.ccminer, AlgorithmType.Keccak, "keccak"),
                     new Algorithm(MinerBaseType.ccminer, AlgorithmType.Skunk, "skunk"),
-                    new Algorithm(MinerBaseType.ccminer, AlgorithmType.Lyra2z, "lyra2z")
+                    new Algorithm(MinerBaseType.ccminer, AlgorithmType.Lyra2z, "lyra2z"),
+                    new Algorithm(MinerBaseType.ccminer, AlgorithmType.MTP, "MTP")
+                    {
+                                ExtraLaunchParameters = "-i 20 "
+                    },
                 }
             },
             /*
@@ -297,7 +301,7 @@ namespace NiceHashMiner.Devices.Algorithms
                         //   new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightV7, "CryptoNightV7"),
                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightV8, "CryptoNightV8"),
                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Lyra2REv3, "Lyra2REv3"),
-                           new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.MTP, "MTP"),
+                         //  new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.MTP, "MTP"),
                         }
                     },
 
