@@ -44,7 +44,7 @@ namespace NiceHashMiner.Utils
             @"/lolMiner/lolMiner.exe",
             @"/WildRig/wildrig.exe",
             @"/TT-Miner/TT-Miner.exe",
-            @"/Fork_Fix_13.txt",
+            @"/Fork_Fix_13.1.txt",
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py

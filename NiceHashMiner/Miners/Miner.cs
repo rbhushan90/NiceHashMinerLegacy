@@ -1660,6 +1660,7 @@ namespace NiceHashMiner
                     w.Write(BeforeOrAfterMiningString);
                     w.Flush();
                     w.Close();
+                    Thread.Sleep(1000); //wait for file close
                     return null;
                 }
                 catch (Exception e)

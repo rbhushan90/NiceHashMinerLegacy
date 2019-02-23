@@ -267,7 +267,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
             {
                 ret = " --logfile " + GetLogFileName() + " --color 0 --pec --algo grin29" +
-                " --server grin.sparkpool.com --user angelbbs@mail.ru/" + worker + "--pass x --port 6666 --ssl 0" +
+                " --server grin.sparkpool.com --user angelbbs@mail.ru/" + worker + " --pass x --port 6666 --ssl 0" +
                 " --server grincuckaroo29.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3371 --ssl 0" +
                 " --server grincuckaroo29.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3371 --ssl 0" +
                 GetDevicesCommandString();
