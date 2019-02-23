@@ -130,10 +130,14 @@ namespace NiceHashMiner.Devices
                 var setAlgo = GetAlgorithm(copyFromAlgo);
                 if (setAlgo != null)
                 {
+                    
+                    setAlgo.Enabled = copyFromAlgo.Enabled;
                     setAlgo.BenchmarkSpeed = copyFromAlgo.BenchmarkSpeed;
                     setAlgo.ExtraLaunchParameters = copyFromAlgo.ExtraLaunchParameters;
                     setAlgo.LessThreads = copyFromAlgo.LessThreads;
                     setAlgo.PowerUsage = copyFromAlgo.PowerUsage;
+                    NiceHashMiner.Forms.Form_Settings.ActiveForm.Update();
+
                     if (setAlgo is DualAlgorithm dualSA && copyFromAlgo is DualAlgorithm dualCFA)
                     {
                         dualSA.SecondaryBenchmarkSpeed = dualCFA.SecondaryBenchmarkSpeed;

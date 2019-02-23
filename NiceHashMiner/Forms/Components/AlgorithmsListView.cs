@@ -147,6 +147,7 @@ namespace NiceHashMiner.Forms.Components
                 {
                     var algo = lvi.Tag as Algorithm;
                     lvi.SubItems[SPEED].Text = algo?.BenchmarkSpeedString();
+                    lvi.Checked = algo.Enabled;
                     if (algo is DualAlgorithm dualAlg)
                         lvi.SubItems[SECSPEED].Text = dualAlg.SecondaryBenchmarkSpeedString();
                     _listItemCheckColorSetter.LviSetColor(lvi);

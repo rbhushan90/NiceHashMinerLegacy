@@ -256,6 +256,9 @@ namespace NiceHashMiner.Forms.Components
                         CDevice.BenchmarkCopyUuid = uuid;
                         CDevice.CopyBenchmarkSettingsFrom(copyBenchCDev);
                     }
+
+                    _algorithmsListView.Update();
+                    _algorithmsListView.Refresh();
                     _algorithmsListView?.RepaintStatus(CDevice.Enabled, CDevice.Uuid);
                 }
             }
@@ -287,6 +290,11 @@ namespace NiceHashMiner.Forms.Components
                 listViewDevices.Items[0].Selected = true;
                 listViewDevices.Select();
             }
+        }
+
+        private void listViewDevices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
