@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using NiceHashMinerLegacy.Common.Enums;
 using WebSocketSharp;
 using System.Threading;
+using NiceHashMiner.Configs;
 
 namespace NiceHashMiner.Stats
 {
@@ -135,7 +136,10 @@ namespace NiceHashMiner.Stats
                                 foreach (var algo in message.data)
                                 {
                                     var algoKey = (AlgorithmType)algo[0];
-                                    Helpers.ConsolePrint("SMA-DATA-WS: ", Enum.GetName(typeof(AlgorithmType), algoKey) + " - " + algo[1]);
+                                    if (!ConfigManager.GeneralConfig.NoShowApiInLog)
+                                    {
+                                        Helpers.ConsolePrint("SMA-DATA-WS: ", Enum.GetName(typeof(AlgorithmType), algoKey) + " - " + algo[1]);
+                                    }
                                 }
                                 if (!GetSmaAPI())
                                 {
@@ -220,7 +224,10 @@ namespace NiceHashMiner.Stats
 
                 if (resp != null)
                 {
-                    Helpers.ConsolePrint("NHM_API_info", resp);
+                    if (!ConfigManager.GeneralConfig.NoShowApiInLog)
+                    {
+                        Helpers.ConsolePrint("NHM_API_info", resp);
+                    }
                     dynamic list = JsonConvert.DeserializeObject<Rootobject>(resp);
                     ProfitsSMA profdata = new ProfitsSMA();
 
@@ -232,7 +239,10 @@ namespace NiceHashMiner.Stats
                     {
                         if (!result.algo.ToString().Contains("UNUSED"))
                         {
-                            Helpers.ConsolePrint("SMA-DATA-API: ", Enum.GetName(typeof(AlgorithmType), result.algo) + " - " + result.paying);
+                            if (!ConfigManager.GeneralConfig.NoShowApiInLog)
+                            {
+                                Helpers.ConsolePrint("SMA-DATA-API: ", Enum.GetName(typeof(AlgorithmType), result.algo) + " - " + result.paying);
+                            }
                         }
                         /*
                                var algoKey = (AlgorithmType)result.algo;
@@ -264,7 +274,10 @@ namespace NiceHashMiner.Stats
                     //w.Write(JsonConvert.SerializeObject(message));
                     w.Flush();
                     w.Close();
-                    Helpers.ConsolePrint("NHM_API_info", "GetSmaAPI OK");
+                    if (!ConfigManager.GeneralConfig.NoShowApiInLog)
+                    {
+                        Helpers.ConsolePrint("NHM_API_info", "GetSmaAPI OK");
+                    }
                     return true;
                 }
                 Helpers.ConsolePrint("NHM_API_info", "GetSmaAPI ERROR");
@@ -283,7 +296,10 @@ namespace NiceHashMiner.Stats
 
         private static void LoadSMA()
         {
-            Helpers.ConsolePrint("SMA", "Trying LoadSMA");
+            if (!ConfigManager.GeneralConfig.NoShowApiInLog)
+            {
+                Helpers.ConsolePrint("SMA", "Trying LoadSMA");
+            }
             try
             {
                 /*
