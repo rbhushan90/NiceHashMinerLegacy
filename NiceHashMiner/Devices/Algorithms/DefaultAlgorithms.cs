@@ -165,6 +165,10 @@ namespace NiceHashMiner.Devices.Algorithms
                             {
                                 ExtraLaunchParameters = "--cgpuintensity 0 --cgputhreads 2 "
                             },
+                            new Algorithm(MinerBaseType.SRBMiner, AlgorithmType.CryptoNightR, "CryptoNightR")
+                            {
+                                ExtraLaunchParameters = "--cgpuintensity 0 --cgputhreads 2 "
+                            },
                             new Algorithm(MinerBaseType.SRBMiner, AlgorithmType.CryptoNightHeavy, "CryptoNightHeavy")
                             {
                                 ExtraLaunchParameters = "--cgpuintensity 0 --cgputhreads 2 "

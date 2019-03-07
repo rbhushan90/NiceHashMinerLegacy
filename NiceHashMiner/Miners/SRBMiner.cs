@@ -167,7 +167,65 @@ namespace NiceHashMiner.Miners
                 }
                 return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --cnicehash true --apienable --apiport {ApiPort} --cpool {url} --cwallet {btcAdress}.{worker} --cpassword x --pools poolsH.txt";
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
+            {
+                algo = "cryptonighr";
+                port = "3375";
+                variant = " --ccryptonighttype normalv4";
+                if (File.Exists("bin_3rdparty\\SRBMiner\\poolsR.txt"))
+                    File.Delete("bin_3rdparty\\SRBMiner\\poolsR.txt");
+                Thread.Sleep(200);
+                var strh1 = "{\r\n" +
+                           "\"pools\" :\r\n" +
+                           "[\r\n";
 
+                var strh2 = "        {\r\n" +
+                    "                \"pool\" : \"cryptonightr.eu.nicehash.com:3375\",\r\n" +
+                    "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
+                    "                \"password\" : \"x\"\r\n" +
+                    "},\r\n" +
+                    "        {\r\n" +
+                    "                \"pool\" : \"cryptonightr.in.nicehash.com:3375\",\r\n" +
+                    "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
+                    "                \"password\" : \"x\"\r\n" +
+                    "},\r\n" +
+                    "        {\r\n" +
+                    "                \"pool\" : \"cryptonightr.hk.nicehash.com:3375\",\r\n" +
+                    "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
+                    "                \"password\" : \"x\"\r\n" +
+                    "},\r\n" +
+                    "        {\r\n" +
+                    "                \"pool\" : \"cryptonightr.br.nicehash.com:3375\",\r\n" +
+                    "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
+                    "                \"password\" : \"x\"\r\n" +
+                    "},\r\n" +
+                    "        {\r\n" +
+                    "                \"pool\" : \"cryptonightr.usa.nicehash.com:3375\",\r\n" +
+                    "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
+                    "                \"password\" : \"x\"\r\n" +
+                    "},\r\n" +
+                    "        {\r\n" +
+                    "                \"pool\" : \"cryptonightr.jp.nicehash.com:3375\",\r\n" +
+                    "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
+                    "                \"password\" : \"x\"\r\n" +
+                    "        }\r\n";
+                var strh3 = "]\r\n" +
+                           "}";
+                try
+                {
+                    FileStream fs = new FileStream("bin_3rdparty\\SRBMiner\\poolsR.txt", FileMode.Create, FileAccess.Write);
+                    StreamWriter w = new StreamWriter(fs);
+                    w.Write(strh1 + strh2 + strh3);
+                    w.Flush();
+                    w.Close();
+                    Thread.Sleep(200);
+                }
+                catch (Exception e)
+                {
+                    Helpers.ConsolePrint("poolsR.txt write error:", e.ToString());
+                }
+                return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --cnicehash true --apienable --apiport {ApiPort} --cpool {url} --cwallet {btcAdress}.{worker} --cpassword x --pools poolsR.txt";
+            }
 
             return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --cnicehash true --apienable --apiport {ApiPort} --cpool {url} --cwallet {btcAdress}.{worker} --cpassword x --pools poolsV8.txt";
         }
@@ -191,7 +249,14 @@ namespace NiceHashMiner.Miners
                 variant = " --ccryptonighttype heavy";
                 return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool loki.miner.rocks:5555 --cwallet L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi --cpassword w={ConfigManager.GeneralConfig.WorkerName.Trim()} --logfile {GetLogFileName()} --pools poolsH.txt";
             }
-            
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
+            {
+                algo = "cryptonightr";
+                port = "3375";
+                variant = " --ccryptonighttype normalv4";
+                return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool xmr-eu1.nanopool.org:14444 --cwallet 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsR.txt";
+            }
+
             return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool xmr-eu.dwarfpool.com:8005 --cwallet 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsV8.txt";
 
         }
@@ -269,108 +334,7 @@ namespace NiceHashMiner.Miners
             //   _benchmarkTimeWait = time;
             return GetStartBenchmarkCommand(server, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
         }
-        /*
-        protected override bool BenchmarkParseLine(string outdata)
-        {
-            //[2018-10-27 22:59:44] hashrate: GPU0: 932 H/s[BUS:2]
-            //[2018 - 10 - 27 22:59:44] hashrate: Total: 932 H/s
-                Helpers.ConsolePrint("SRBMiner bench:", outdata);
-            if (_benchmarkException)
-            {
-                if (outdata.Contains("Total:"))
-                {
-                    TotalCount--;
-                }
-
-                if (outdata.Contains("Total: "))
-                {
-                    var st = outdata.IndexOf("Total: ");
-                    var e = outdata.IndexOf("/s");
-                    var parse = outdata.Substring(st + 7, e - st - 10).Trim().Replace(",", ".");
-                    speed = Double.Parse(parse, CultureInfo.InvariantCulture);
-
-                    if (outdata.ToUpper().Contains("KH/S"))
-                        speed *= 1000;
-                    else if (outdata.ToUpper().Contains("MH/S"))
-                        speed *= 1000000;
-                    else if (outdata.ToUpper().Contains("GH/S"))
-                        speed *= 10000000000;
-                }
-
-                if (TotalCount <= 0)
-                {
-                    BenchmarkAlgorithm.BenchmarkSpeed = speed;
-                    BenchmarkSignalFinnished = true;
-                    return true;
-                }
-
-                return false;
-            }
-            return false;
-
-        }
-        */
-
-        /*
-        protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata)
-        {
-            Helpers.ConsolePrint("BENCHMARK-1", "");
-            CheckOutdata(outdata);
-        }
-
-        protected override void BenchmarkThreadRoutine(object CommandLine)
-        {
-            BenchmarkSignalQuit = false;
-            BenchmarkSignalHanged = false;
-            BenchmarkSignalFinnished = false;
-            BenchmarkException = null;
-
-            Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
-
-            try
-            {
-                Helpers.ConsolePrint("BENCHMARK", "Benchmark starts");
-                BenchmarkHandle = BenchmarkStartProcess((string)CommandLine);
-
-                BenchmarkThreadRoutineStartSettup();
-                BenchmarkTimeInSeconds = 300;
-                BenchmarkProcessStatus = BenchmarkProcessStatus.Running;
-                var exited = BenchmarkHandle.WaitForExit((BenchmarkTimeoutInSeconds(BenchmarkTimeInSeconds) + 20) * 1000);
-                if (BenchmarkSignalTimedout && !TimeoutStandard)
-                {
-                    throw new Exception("Benchmark timedout");
-                }
-
-                if (BenchmarkException != null)
-                {
-                    throw BenchmarkException;
-                }
-
-                if (BenchmarkSignalQuit)
-                {
-                    throw new Exception("Termined by user request");
-                }
-
-                if (BenchmarkSignalHanged || !exited)
-                {
-                    throw new Exception("Miner is not responding");
-                }
-
-                if (BenchmarkSignalFinnished)
-                {
-                    //break;
-                }
-            }
-            catch (Exception ex)
-            {
-                BenchmarkThreadRoutineCatch(ex);
-            }
-            finally
-            {
-                BenchmarkThreadRoutineFinish();
-            }
-        }
-        */
+                
         protected override void BenchmarkThreadRoutine(object CommandLine)
         {
             BenchmarkThreadRoutineAlternate(CommandLine, _benchmarkTimeWait);
