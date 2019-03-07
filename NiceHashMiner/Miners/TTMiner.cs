@@ -48,20 +48,33 @@ namespace NiceHashMiner.Miners
             //IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.TTMiner;
             IsApiReadException = false;
 
-            var algo = "";
+            //var algo = "";
             var apiBind = "";
             string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
-            algo = "-a " + MiningSetup.MinerName;
+            //algo = "-a " + MiningSetup.MinerName;
             apiBind = " --api-bind 127.0.0.1:" + ApiPort;
             //apiBind = "";
             url = url.Replace("stratum+tcp://", "");
+            var algo = "MTP";
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
             {
-                algo = "-a LYRA2V3";
+                algo = "LYRA2V3";
+            }
+            if (NiceHashMiner.Devices.ComputeDeviceManager.Query.CUDA_version == "CUDA 10.1")
+            {
+                algo = "MTP-101";
+            }
+            else if (NiceHashMiner.Devices.ComputeDeviceManager.Query.CUDA_version == "CUDA 10.0")
+            {
+                algo = "MTP-100";
+            }
+            else if (NiceHashMiner.Devices.ComputeDeviceManager.Query.CUDA_version == "CUDA 9.2")
+            {
+                algo = "MTP-92";
             }
 
-            LastCommandLine = algo +
+            LastCommandLine = " -a "+algo +
                 " -P " + username + ":x@" + url +
                 " -P " + username + ":x@" + alg + ".hk.nicehash.com:" + port +
                 " -P " + username + ":x@" + alg + ".jp.nicehash.com:" + port +
@@ -92,10 +105,23 @@ namespace NiceHashMiner.Miners
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
             var username = GetUsername(Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
             var commandLine = "";
+            var algo = "MTP";
+            if (NiceHashMiner.Devices.ComputeDeviceManager.Query.CUDA_version == "CUDA 10.1")
+            {
+                algo = "MTP-101";
+            }
+            else if (NiceHashMiner.Devices.ComputeDeviceManager.Query.CUDA_version == "CUDA 10.0")
+            {
+                algo = "MTP-100";
+            }
+            else if (NiceHashMiner.Devices.ComputeDeviceManager.Query.CUDA_version == "CUDA 9.2")
+            {
+                algo = "MTP-92";
+            }
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
             {
-                commandLine = " -a MTP" +
+                commandLine = " -a " + algo +
                 " -P aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE." + ConfigManager.GeneralConfig.WorkerName.Trim() + ":x@xzc.2miners.com:8080" +
                 " -P " + username + ":x@" + alg + ".eu.nicehash.com:" + port +
                 " -P " + username + ":x@" + alg + ".hk.nicehash.com:" + port +
@@ -167,7 +193,8 @@ namespace NiceHashMiner.Miners
                     else if (outdata.ToUpper().Contains("GH/S"))
                         tmp *= 1000000000;
 
-                    speed = Math.Max(speed, tmp);
+                    //speed = Math.Max(speed, tmp);
+                    speed = tmp;
                     count++;
                     TotalCount--;
                 }

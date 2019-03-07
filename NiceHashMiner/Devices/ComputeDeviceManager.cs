@@ -66,11 +66,18 @@ namespace NiceHashMiner.Devices
                 }
             }
 
-            private static readonly NvidiaSmiDriver NvidiaRecomendedDriver = new NvidiaSmiDriver(372, 54); // 372.54;
-            private static readonly NvidiaSmiDriver NvidiaMinDetectionDriver = new NvidiaSmiDriver(362, 61); // 362.61;
+            //private static readonly NvidiaSmiDriver NvidiaRecomendedDriver = new NvidiaSmiDriver(372, 54); // 372.54;
+            private static readonly NvidiaSmiDriver NvidiaRecomendedDriver = new NvidiaSmiDriver(418, 96); 
+            //private static readonly NvidiaSmiDriver NvidiaMinDetectionDriver = new NvidiaSmiDriver(362, 61); // 362.61;
+            private static readonly NvidiaSmiDriver NvidiaMinDetectionDriver = new NvidiaSmiDriver(398, 26); 
             private static NvidiaSmiDriver _currentNvidiaSmiDriver = new NvidiaSmiDriver(-1, -1);
             private static readonly NvidiaSmiDriver InvalidSmiDriver = new NvidiaSmiDriver(-1, -1);
 
+            private static readonly NvidiaSmiDriver NvidiaCuda92Driver = new NvidiaSmiDriver(398,26); 
+            private static readonly NvidiaSmiDriver NvidiaCuda10Driver = new NvidiaSmiDriver(411,31); 
+            private static readonly NvidiaSmiDriver NvidiaCuda101Driver = new NvidiaSmiDriver(418,96);
+
+            public static string CUDA_version;
             // naming purposes
             public static int CpuCount = 0;
 
@@ -259,6 +266,19 @@ namespace NiceHashMiner.Devices
                 }
                 // allerts
                 _currentNvidiaSmiDriver = GetNvidiaSmiDriver();
+                if ( !_currentNvidiaSmiDriver.IsLesserVersionThan(NvidiaCuda101Driver))
+                {
+                    CUDA_version = "CUDA 10.1";
+                }
+                if (_currentNvidiaSmiDriver.IsLesserVersionThan(NvidiaCuda101Driver) && !_currentNvidiaSmiDriver.IsLesserVersionThan(NvidiaCuda10Driver))
+                {
+                    CUDA_version = "CUDA 10.0";
+                }
+                if (_currentNvidiaSmiDriver.IsLesserVersionThan(NvidiaCuda10Driver) && !_currentNvidiaSmiDriver.IsLesserVersionThan(NvidiaCuda92Driver))
+                {
+                    CUDA_version = "CUDA 9.2";
+                }
+                Helpers.ConsolePrint("NVIDIA driver", CUDA_version);
                 // if we have nvidia cards but no CUDA devices tell the user to upgrade driver
                 var isNvidiaErrorShown = false; // to prevent showing twice
                 var showWarning = ConfigManager.GeneralConfig.ShowDriverVersionWarning &&
