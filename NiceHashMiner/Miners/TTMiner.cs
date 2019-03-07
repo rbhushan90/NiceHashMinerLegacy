@@ -46,7 +46,7 @@ namespace NiceHashMiner.Miners
             var username = GetUsername(btcAdress, worker);
 
             //IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.TTMiner;
-            IsApiReadException = true;
+            IsApiReadException = false;
 
             var algo = "";
             var apiBind = "";
@@ -250,97 +250,30 @@ namespace NiceHashMiner.Miners
 
 
         #endregion // Decoupled benchmarking routines
-        
-        public override async Task<ApiData> GetSummaryAsync()
-        {
-            if (!IsApiReadException) return await GetSummaryCpuCcminerAsync();
-            // check if running
-            if (ProcessHandle == null)
-            {
-                CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
-                Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from CryptoNight Proccess is null");
-                return null;
-            }
-            try
-            {
-                Process.GetProcessById(ProcessHandle.Id);
-            }
-            catch (ArgumentException ex)
-            {
-                CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
-                Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from CryptoNight reason: " + ex.Message);
-                return null; // will restart outside
-            }
-            catch (InvalidOperationException ex)
-            {
-                CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
-                Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Could not read data from CryptoNight reason: " + ex.Message);
-                return null; // will restart outside
-            }
+       
+        public List<string> result { get; set; }
+        public int id { get; set; }
+        public object error { get; set; }
 
-            var totalSpeed = MiningSetup.MiningPairs
-                .Select(miningPair =>
-                    miningPair.Device.GetAlgorithm(MinerBaseType.TTMiner, MiningSetup.CurrentAlgorithmType, AlgorithmType.NONE))
-                .Where(algo => algo != null).Sum(algo => algo.BenchmarkSpeed);
-
-            var ttminerData = new ApiData(MiningSetup.CurrentAlgorithmType)
-            {
-                Speed = totalSpeed
-            };
-            CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
-            // check if speed zero
-            if (ttminerData.Speed == 0) CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
-            return ttminerData;
-        }
-        
-        private class JsonApiResponse
-        {
-            public List<string> result { get; set; }
-            public int id { get; set; }
-            public object error { get; set; }
-        }
-        /*
         public override async Task<ApiData> GetSummaryAsync()
         {
             CurrentMinerReadStatus = MinerApiReadStatus.NONE;
             var ad = new ApiData(MiningSetup.CurrentAlgorithmType, MiningSetup.CurrentSecondaryAlgorithmType);
-            var ApiReadMult = 0;
+
             JsonApiResponse resp = null;
-            Helpers.ConsolePrint("try API...........", "");
-            //{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}
-            
-            //{"id":0,"jsonrpc":"2.0","method":"miner_getstat1"}
- //{"id":0,"jsonrpc":"2.0","result":["TT-Miner/2.1.11-beta","3","4003571;13;0","1959526;2044045","0;0;0","off;off","68;52;58;39","mtp.eu.nicehash.com:3374","0;0;0;0"]}
- 
             try
             {
-                //var bytesToSend0 = Encoding.ASCII.GetBytes("\n");
-                //var bytesToSend = Encoding.ASCII.GetBytes("\n{\"id\":0,\"jsonrpc\":\"2.0\",\"method\":\"miner_getstat1\"}\n");
-                byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes("{\n\"id\":0,\n\"jsonrpc\":\"2.0\",\n\"method\":\"miner_getstat1\"\n}\n");
-                Helpers.ConsolePrint("try API2:", bytesToSend.ToString());
-                var client = new TcpClient("127.0.0.1", ApiPort);
-                Helpers.ConsolePrint("try API...........", "3");
-                NetworkStream nwStream = client.GetStream();
-                Helpers.ConsolePrint("try API...........", "4");
-                //Thread.Sleep(1000);
-                //await nwStream.WriteAsync(bytesToSend0, 0, bytesToSend0.Length);
-                //Thread.Sleep(100);
-                await nwStream.WriteAsync(bytesToSend, 0, bytesToSend.Length);
-                //Thread.Sleep(100);
-                //await nwStream.WriteAsync(bytesToSend0, 0, bytesToSend0.Length);
-                
-                Helpers.ConsolePrint("try API...........", "5");
-                var bytesToRead = new byte[client.ReceiveBufferSize];
-                Helpers.ConsolePrint("try API...........", "6");
-
-                var bytesRead = await nwStream.ReadAsync(bytesToRead, 0, client.ReceiveBufferSize);
-                Helpers.ConsolePrint("try API...........", "7");
-                var respStr = Encoding.ASCII.GetString(bytesToRead, 0, bytesRead);
-                Helpers.ConsolePrint("try API...........", "8");
-                resp = JsonConvert.DeserializeObject<JsonApiResponse>(respStr, Globals.JsonSettings);
-                Helpers.ConsolePrint("try API...........", "9");
-                client.Close();
-                Helpers.ConsolePrint("ClaymoreZcashMiner API back:", respStr);
+                var bytesToSend = Encoding.ASCII.GetBytes("{\"id\":0,\"jsonrpc\":\"2.0\",\"method\":\"miner_getstat1\"}\n");
+                using (var client = new TcpClient("127.0.0.1", ApiPort))
+                using (var nwStream = client.GetStream())
+                {
+                    await nwStream.WriteAsync(bytesToSend, 0, bytesToSend.Length);
+                    var bytesToRead = new byte[client.ReceiveBufferSize];
+                    var bytesRead = await nwStream.ReadAsync(bytesToRead, 0, client.ReceiveBufferSize);
+                    var respStr = Encoding.ASCII.GetString(bytesToRead, 0, bytesRead);
+                   // Helpers.ConsolePrint(MinerTag(), "respStr: " + respStr);
+                    resp = JsonConvert.DeserializeObject<JsonApiResponse>(respStr, Globals.JsonSettings);
+                }
             }
             catch (Exception ex)
             {
@@ -349,17 +282,11 @@ namespace NiceHashMiner.Miners
 
             if (resp != null && resp.error == null)
             {
-                //Helpers.ConsolePrint("ClaymoreZcashMiner API back:", "resp != null && resp.error == null");
-                if (resp.result != null && resp.result.Count > 4)
-                {
-                    //Helpers.ConsolePrint("ClaymoreZcashMiner API back:", "resp.result != null && resp.result.Count > 4");
                     var speeds = resp.result[3].Split(';');
-                   // var secondarySpeeds = (IsDual()) ? resp.result[5].Split(';') : new string[0];
                     ad.Speed = 0;
                     ad.SecondarySpeed = 0;
                     foreach (var speed in speeds)
                     {
-                        //Helpers.ConsolePrint("ClaymoreZcashMiner API back:", "foreach (var speed in speeds) {");
                         double tmpSpeed;
                         try
                         {
@@ -369,26 +296,15 @@ namespace NiceHashMiner.Miners
                         {
                             tmpSpeed = 0;
                         }
-
                         ad.Speed += tmpSpeed;
                     }
-
-                    
-                    if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.NeoScrypt))
-                    {
-                        ApiReadMult = 1000;
-                    }
-                    ad.Speed *= ApiReadMult;
-                    ad.SecondarySpeed *= ApiReadMult;
                     CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
-                }
 
                 if (ad.Speed == 0)
                 {
                     CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
                 }
 
-                // some clayomre miners have this issue reporting negative speeds in that case restart miner
                 if (ad.Speed < 0)
                 {
                     Helpers.ConsolePrint(MinerTag(), "Reporting negative speeds will restart...");
@@ -398,6 +314,11 @@ namespace NiceHashMiner.Miners
 
             return ad;
         }
-        */
+        private class JsonApiResponse
+        {
+            public List<string> result { get; set; }
+            public int id { get; set; }
+            public object error { get; set; }
+        }
     }
 }
