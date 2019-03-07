@@ -10,7 +10,7 @@ namespace NiceHashMiner.Miners
 {
     public class Xmrig : Miner
     {
-        private int benchmarkTimeWait = 300;
+        private int benchmarkTimeWait = 180;
         private const string LookForStart = "speed 10s/60s/15m";
         private const string LookForEnd = "h/s max";
         private System.Diagnostics.Process CMDconfigHandle;
@@ -51,6 +51,7 @@ namespace NiceHashMiner.Miners
             var algo = "cryptonightv7";
             var port = "3363";
             var variant = " --variant 1 ";
+            //cn/r cryptonight/r
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
                 algo = "cryptonightv8";
@@ -77,6 +78,19 @@ namespace NiceHashMiner.Miners
                + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} -u {btcAdress}.{worker}:x "
                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x ";
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
+            {
+                algo = "cryptonightr";
+                port = "3375";
+                variant = "";
+                return $" --algo=cryptonight/r -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 "
+               + $" -o stratum+tcp://{algo}.usa.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x ";
+            }
             return "unsupported algo";
         }
         private string GetStartBenchmarkCommand(string url, string btcAdress, string worker)
@@ -90,8 +104,9 @@ namespace NiceHashMiner.Miners
                 algo = "cryptonightv8";
                 port = "3367";
                 variant = " --variant 2 ";
-                return $" -o stratum+tcp://xmr-eu.dwarfpool.com:8005 {variant} -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1 "
-                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x ";
+                //return $" -o stratum+tcp://xmr-eu.dwarfpool.com:8005 {variant} -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1 "
+                return $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} -u {btcAdress}.{worker}:x ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
@@ -99,6 +114,14 @@ namespace NiceHashMiner.Miners
                 port = "3364";
                 variant = "";
                 return $" --algo=cryptonight-heavy -o stratum+tcp://loki.miner.rocks:5555 -u L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi -p w={worker} {extras} --api-port {ApiPort} --donate-level=1 "
+                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
+            {
+                algo = "cryptonightr";
+                port = "3375";
+                variant = "";
+                return $" --algo=cryptonight/r -o stratum+tcp://xmr-eu1.nanopool.org:14444 -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1 "
                 + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x ";
             }
             return "unsupported algo";

@@ -257,7 +257,7 @@ namespace NiceHashMiner.Miners
                 return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool xmr-eu1.nanopool.org:14444 --cwallet 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsR.txt";
             }
 
-            return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool xmr-eu.dwarfpool.com:8005 --cwallet 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsV8.txt";
+            return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool eu.nicehash.com:3367 --cwallet {btcAdress}.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsV8.txt";
 
         }
 

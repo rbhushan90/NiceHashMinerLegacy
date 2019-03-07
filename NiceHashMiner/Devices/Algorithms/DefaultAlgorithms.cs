@@ -68,6 +68,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     //new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNight, ""),
                     //new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV7, ""),
                     new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV8, ""),
+                    new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightR, ""),
                     new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightHeavy, "")
                 }
             },
@@ -156,7 +157,8 @@ namespace NiceHashMiner.Devices.Algorithms
                     { MinerBaseType.XmrigAMD,
                         new List<Algorithm>() {
                            // new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV7, "CryptoNightV7") { },
-                            new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV8, "CryptoNightV8") { }
+                            new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV8, "CryptoNightV8") { },
+                            new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV8, "CryptoNightR") { }
                         }
                     },
                     { MinerBaseType.SRBMiner,
