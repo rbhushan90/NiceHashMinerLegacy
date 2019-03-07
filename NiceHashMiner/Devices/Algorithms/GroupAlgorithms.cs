@@ -65,47 +65,63 @@ namespace NiceHashMiner.Devices.Algorithms
                     var XmrigAMDAlgos = algoSettings[MinerBaseType.XmrigAMD];
                     //int xmrigCryptoNightV7_Index = XmrigAMDAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.CryptoNightV7);
                     int xmrigCryptoNightV8_Index = XmrigAMDAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.CryptoNightV8);
+                    int xmrigCryptoNightHeavy_Index = XmrigAMDAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.CryptoNightHeavy);
+                    int xmrigCryptoNightR_Index = XmrigAMDAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.CryptoNightR);
 
                     //--opencl-launch=
                     //XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters =" --opencl-launch=640";
                     XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=640";
-                    /*
-                    if (xmrigCryptoNightV7_Index > -1)
+                    XmrigAMDAlgos[xmrigCryptoNightHeavy_Index].ExtraLaunchParameters = " --opencl-launch=640";
+                    XmrigAMDAlgos[xmrigCryptoNightR_Index].ExtraLaunchParameters = " --opencl-launch=640";
+                    
+                    if (xmrigCryptoNightR_Index > -1)
                     {
                         if (device.Codename.Contains("gfx804")) //rx550
                         {
-                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=512";
+                            XmrigAMDAlgos[xmrigCryptoNightR_Index].ExtraLaunchParameters = " --opencl-launch=512";
                             XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=512";
+                            XmrigAMDAlgos[xmrigCryptoNightHeavy_Index].ExtraLaunchParameters = " --opencl-launch=512";
                         }
                         if (device.Codename.Contains("Pitcairn")) //r7-370
                         {
-                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=640";
+                            XmrigAMDAlgos[xmrigCryptoNightR_Index].ExtraLaunchParameters = " --opencl-launch=640";
                             XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=640";
+                            XmrigAMDAlgos[xmrigCryptoNightHeavy_Index].ExtraLaunchParameters = " --opencl-launch=640";
                         }
                         if (device.Codename.Contains("Baffin")) //rx460/560
                         {
-                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=896";
+                            XmrigAMDAlgos[xmrigCryptoNightR_Index].ExtraLaunchParameters = " --opencl-launch=896";
                             XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=896";
+                            XmrigAMDAlgos[xmrigCryptoNightHeavy_Index].ExtraLaunchParameters = " --opencl-launch=896";
                         }
 
                         if (device.Codename.Contains("Ellesmere")) //rx570/580
                         {
-                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=896";
+                            XmrigAMDAlgos[xmrigCryptoNightR_Index].ExtraLaunchParameters = " --opencl-launch=896";
                             XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=896";
+                            XmrigAMDAlgos[xmrigCryptoNightHeavy_Index].ExtraLaunchParameters = " --opencl-launch=896";
                         }
 
                         if (device.Codename.Contains("Hawaii"))
                         {
-                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=896";
+                            XmrigAMDAlgos[xmrigCryptoNightR_Index].ExtraLaunchParameters = " --opencl-launch=896";
                             XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=896";
+                            XmrigAMDAlgos[xmrigCryptoNightHeavy_Index].ExtraLaunchParameters = " --opencl-launch=896";
                         }
                         else if (device.Name.Contains("Vega"))
                         {
-                            XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters = " --opencl-launch=1920";
+                            XmrigAMDAlgos[xmrigCryptoNightR_Index].ExtraLaunchParameters = " --opencl-launch=1920";
                             XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1920";
+                            XmrigAMDAlgos[xmrigCryptoNightHeavy_Index].ExtraLaunchParameters = " --opencl-launch=1920";
+                        }
+                        else if (device.Name.Contains("gfx903"))
+                        {
+                            XmrigAMDAlgos[xmrigCryptoNightR_Index].ExtraLaunchParameters = " --opencl-launch=1920";
+                            XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=1920";
+                            XmrigAMDAlgos[xmrigCryptoNightHeavy_Index].ExtraLaunchParameters = " --opencl-launch=1920";
                         }
                     }
-                    */
+                    
 
                 }
                 /*
@@ -302,7 +318,7 @@ namespace NiceHashMiner.Devices.Algorithms
             Helpers.ConsolePrint("GPU MEMORY: ", device.GpuRam.ToString() + " bytes - " + device.Name);
 
             //if (algoSettings.ContainsKey(MinerBaseType.Claymore) && (device.Name.Contains("3GB"))
-            if (algoSettings.ContainsKey(MinerBaseType.Claymore) && device.GpuRam < 1024*1024*1024 * 3.7)
+            if (algoSettings.ContainsKey(MinerBaseType.Claymore) && device.GpuRam < 1024*1024*1024 * 3.7 && !device.Name.Contains("R7 370"))
              {
                 algoSettings = FilterMinerBaseTypes(algoSettings, new List<MinerBaseType>
                     {
@@ -310,7 +326,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     });
             }
 
-            if (algoSettings.ContainsKey(MinerBaseType.Phoenix) && device.GpuRam < 1024 * 1024 * 1024 * 3.7)
+            if (algoSettings.ContainsKey(MinerBaseType.Phoenix) && device.GpuRam < 1024 * 1024 * 1024 * 3.7 && !device.Name.Contains("R7 370"))
             {
                 algoSettings = FilterMinerBaseTypes(algoSettings, new List<MinerBaseType>
                     {
