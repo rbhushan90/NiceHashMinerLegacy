@@ -404,6 +404,8 @@ namespace NiceHashMiner.Miners.Parsing
                     return MinerType.SRBMiner;
                 case MinerBaseType.dstm:
                     return MinerType.dstm;
+                case MinerBaseType.XmrigNVIDIA:
+                     return MinerType.XmrigNVIDIA;
             }
 
             return MinerType.NONE;

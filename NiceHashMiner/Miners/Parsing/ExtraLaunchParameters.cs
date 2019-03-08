@@ -342,6 +342,18 @@ namespace NiceHashMiner.Miners.Parsing
                 new List<MinerOption>(){ }
              ),
             new MinerOptionPackage(
+                MinerType.XmrigNVIDIA,
+                new List<MinerOption>() {
+                    new MinerOption("XmrigN_fee", "--donate-level=", "0", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("XmrigN_variant", "--variant=", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("XmrigN_keepalive", "--keepalive", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("XmrigN_affinity", "--opencl-affinity=", null, MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("XmrigN-intensity", "--opencl-launch=", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("XmrigN_nocolor", "--no-color", null, MinerOptionFlagType.Uni, " ")
+                },
+                new List<MinerOption>(){ }
+             ),
+            new MinerOptionPackage(
                 MinerType.WildRig,
                 new List<MinerOption>() {
                     new MinerOption("WildRig_fee", "--donate-level=", "0", MinerOptionFlagType.SingleParam, " "),

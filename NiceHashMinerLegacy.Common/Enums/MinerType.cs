@@ -40,6 +40,7 @@
         lolMinerBEAM,
         Bminer,
         TTMiner,
+        XmrigNVIDIA,
         END
     }
 }

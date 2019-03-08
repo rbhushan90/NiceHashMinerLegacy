@@ -336,6 +336,11 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.ZEnemy, AlgorithmType.Skunk, "Skunk"),
                         }
                     },
+                    { MinerBaseType.XmrigNVIDIA,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.XmrigNVIDIA, AlgorithmType.CryptoNightR, "CryptoNightR") { }
+                        }
+                    },
                         { MinerBaseType.TTMiner,
                         new List<Algorithm>() {
                            // new Algorithm(MinerBaseType.TTMiner, AlgorithmType.Lyra2REv3, "Lyra2REv3"),

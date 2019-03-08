@@ -16,6 +16,7 @@ namespace NiceHashMiner.Utils
             @"/xmr-stak/xmr-stak.exe",
             @"/xmrig/xmrig.exe",
             @"/xmrig-amd/xmrig-amd.exe",
+            @"/xmrig-nvidia/xmrig-nvidia.exe",
             @"/xmr-stak_heavy/xmr-stak.exe",
             @"/cpuminer_opt/cpuminer.exe",
             @"/Fork_Fix_13.1.txt"

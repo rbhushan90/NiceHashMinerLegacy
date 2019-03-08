@@ -103,6 +103,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string XmrStak = Bin + @"\xmr-stak\xmr-stak.exe";
             public const string Xmrig = Bin + @"\xmrig\xmrig.exe";
             public const string XmrigAMD = Bin + @"\xmrig-amd\xmrig-amd.exe";
+            public const string XmrigNVIDIA = Bin + @"\xmrig-nvidia\xmrig-nvidia.exe";
             public const string XmrStakHeavy = Bin + @"\xmr-stak_heavy\xmr-stak.exe";
 
             public const string CpuMiner = Bin + @"\cpuminer_opt\cpuminer.exe";
@@ -237,6 +238,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.Bminer;
                 case MinerBaseType.TTMiner:
                     return Data.TTMiner;
+                case MinerBaseType.XmrigNVIDIA:
+                    return Data.XmrigNVIDIA;
             }
             return Data.None;
         }

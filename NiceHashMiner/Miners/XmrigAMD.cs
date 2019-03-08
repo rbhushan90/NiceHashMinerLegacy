@@ -43,12 +43,12 @@ namespace NiceHashMiner.Miners
                 port = "3367";
                 variant = " --variant 2 ";
                 return $" -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
-                + $" -o stratum+tcp://{algo}.usa.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{algo}.usa.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
@@ -56,13 +56,13 @@ namespace NiceHashMiner.Miners
                 algo = "cryptonightheavy";
                 port = "3364";
                 variant = " --variant 2 ";
-                return $" -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
-                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                return $" --algo=cryptonight-heavy -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
+                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
@@ -70,14 +70,14 @@ namespace NiceHashMiner.Miners
                 algo = "cryptonightr";
                 port = "3375";
                 variant = " --variant 2 ";
-                return $" -o {url} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
-                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                return $" --algo=cryptonight/r -o {url} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
+                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
             }
-            return $" -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
+            return $" -a {algo} -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
                 + $" -o stratum+tcp://{algo}.usa.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
@@ -97,12 +97,12 @@ namespace NiceHashMiner.Miners
                 port = "3367";
                 variant = " --variant 2 ";
                 return $" -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
-                + $" -o stratum+tcp://{algo}.usa.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{algo}.usa.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
@@ -111,10 +111,10 @@ namespace NiceHashMiner.Miners
                 port = "3364";
                 variant = " --variant 2 ";
                 return $" --algo=cryptonight-heavy -o stratum+tcp://loki.miner.rocks:5555 -u L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi -p w={worker} {extras} --api-port {ApiPort} --donate-level=1 "
-                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
@@ -123,10 +123,10 @@ namespace NiceHashMiner.Miners
                 port = "3375";
                 variant = " --variant 2 ";
                 return $" --algo=cryptonight/r -o stratum+tcp://xmr-eu1.nanopool.org:14444 -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1 "
-                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
+                + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
             }
             return $" -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
