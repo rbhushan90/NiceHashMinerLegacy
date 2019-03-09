@@ -89,6 +89,10 @@ namespace NiceHashMiner.Miners
 
         private string GetStartBenchmarkCommand(string url, string btcAdress, string worker)
         {
+            if (url.Contains("Auto"))
+            {
+                url = url.Replace("Auto", "eu");
+            }
             var extras = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);
             var algo = "cryptonightv7";
             var port = "3363";

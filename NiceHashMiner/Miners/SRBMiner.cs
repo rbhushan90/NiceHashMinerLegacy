@@ -232,6 +232,10 @@ namespace NiceHashMiner.Miners
 
         private string GetStartBenchmarkCommand(string url, string btcAdress, string worker)
         {
+            if (url.Contains("Auto"))
+            {
+                url = url.Replace("Auto", "eu");
+            }
             var LastCommandLine = GetStartCommand(url, btcAdress, worker);
             var extras = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD);
             var algo = "cryptonightv8";
