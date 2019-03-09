@@ -97,7 +97,7 @@ namespace NiceHashMiner.Miners
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
             var CommandLine = "";
-
+            var apiBind = " --api_listen=127.0.0.1:" + ApiPort;
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
 
             // demo for benchmark
@@ -108,20 +108,20 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
             {
-                CommandLine = "-a lyra2z" +
+                CommandLine = "-a lyra2z" + apiBind +
                 " --url stratum+tcp://lyra2z.eu.nicehash.com:3365" +  " --user " + username + " - p x " +
                 " --url stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
             {
-                CommandLine = "-a lyra2rev3" +
+                CommandLine = "-a lyra2rev3" + apiBind +
                 " --url stratum+tcp://lyra2rev3.eu.nicehash.com:3373" + " --user " + username + " - p x " +
                 " --url stratum+tcp://lyra2v3.eu.mine.zpool.ca:4550" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
             }
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
-                CommandLine = "-a cnv8" +
+                CommandLine = "-a cnv8" + apiBind +
                 " --url stratum+tcp://cryptonightv8.eu.nicehash.com:3367" + " --user " + username + " - p x -d ";
             }
 
@@ -149,6 +149,7 @@ namespace NiceHashMiner.Miners
         }
 
         protected override bool BenchmarkParseLine(string outdata) {
+            //бенчмарк брать с api майнера
             string hashSpeed = "";
             int kspeed = 1;
             double speed = 0;
