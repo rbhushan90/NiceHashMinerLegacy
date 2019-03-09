@@ -49,7 +49,7 @@ namespace NiceHashMiner.Miners
                 + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
                 + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
                 + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
-                + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
+                + " --opencl-devices=" + GetDevicesCommandString().TrimStart();
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
@@ -63,7 +63,7 @@ namespace NiceHashMiner.Miners
                 + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
                 + $" -o stratum+tcp://{algo}.br.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
                 + $" -o stratum+tcp://{algo}.eu.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x --nicehash"
-                + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
+                + " --opencl-devices=" + GetDevicesCommandString().TrimStart();
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
             {
@@ -75,14 +75,14 @@ namespace NiceHashMiner.Miners
                 + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
                 + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
                 + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} -u {btcAdress}.{worker}:x --nicehash"
-                + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
+                + " --opencl-devices=" + GetDevicesCommandString().TrimStart();
             }
             return $" -a {algo} -o {url} {variant} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
                 + $" -o stratum+tcp://{algo}.usa.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://{algo}.hk.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://{algo}.jp.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
                 + $" -o stratum+tcp://{algo}.in.nicehash.com:{port} {variant} -u {btcAdress}.{worker}:x "
-                + " --opencl-devices=" + GetDevicesCommandString().TrimStart()+ " --opencl-platform=" + GPUPlatformNumber;
+                + " --opencl-devices=" + GetDevicesCommandString().TrimStart();
         }
 
         private string GetStartBenchmarkCommand(string url, string btcAdress, string worker)

@@ -66,6 +66,10 @@ namespace NiceHashMiner.Miners
             {
                 algo = " -a cnv8";
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
+            {
+                algo = " -a cnr";
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
             {
                 algo = " -a lyra2z";
@@ -118,10 +122,15 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
                 CommandLine = "-a cnv8" +
-                " --url stratum+tcp://cryptonightv8.eu.nicehash.com:3367" + " --user " + username + " - p x " +
-                " --url stratum+tcp://xmr-eu.dwarfpool.com:8005" + " --user 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX" + " -p x -d ";
+                " --url stratum+tcp://cryptonightv8.eu.nicehash.com:3367" + " --user " + username + " - p x -d ";
             }
 
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
+            {
+                CommandLine = "-a cnr" +
+                " -o stratum+tcp://cryptonightr.eu.nicehash.com:3375" + " -u " + username + " - p x " +
+                " -o stratum+tcp://xmr-eu1.nanopool.org:14444" + " -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX" + " -p x -d ";
+            }
             //return $" -o stratum+tcp://xmr-eu.dwarfpool.com:8005 {variant} -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1"
             /*
             CommandLine = " -a lyra2z "+
@@ -143,7 +152,9 @@ namespace NiceHashMiner.Miners
             string hashSpeed = "";
             int kspeed = 1;
             double speed = 0;
+            Helpers.ConsolePrint("TEAMRED:", outdata);
             //[2019-02-02 23:44:25] GPU 0 [64C, fan 39%] lyra2rev3: 22.58Mh/s, avg 22.93Mh/s,
+            //[2019-03-09 11:21:02] GPU 1 [ 0C, fan  0%]       cnr: 3.072kh/s, avg 1.531kh/s, pool 1.579kh/s a:3 r:0 hw:0
             if (outdata.Contains("lyra2rev3: "))
             {
                 int i = outdata.IndexOf("lyra2rev3: ");
@@ -204,6 +215,45 @@ namespace NiceHashMiner.Miners
                 }
                 count++;
                 if (count >= 3) 
+                {
+                    try
+                    {
+                        speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
+                    BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
+                    //Killteamredminer();
+                    BenchmarkSignalFinnished = true;
+                    //BenchmarkSignalHanged = true;
+                    return true;
+                }
+            }
+            if (outdata.Contains("cnr: "))
+            {
+                int i = outdata.IndexOf("cnr: ");
+                int k = outdata.IndexOf("h/s, avg");
+                hashSpeed = outdata.Substring(i + 5, k - i - 6).Trim();
+                Helpers.ConsolePrint(hashSpeed, "");
+                if (outdata.ToUpper().Contains("H/S"))
+                {
+                    kspeed = 1;
+                }
+                if (outdata.Substring(0, 65).ToUpper().Contains("KH/S"))
+                {
+                    kspeed = 1000;
+                }
+                if (outdata.Substring(0, 65).ToUpper().Contains("MH/S"))
+                {
+                    kspeed = 1000000;
+                }
+                count++;
+                if (count >= 3)
                 {
                     try
                     {
