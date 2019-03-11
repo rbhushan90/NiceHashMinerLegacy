@@ -79,7 +79,7 @@ namespace NiceHashMiner.Miners
                 algo = " -a lyra2rev3";
             }
 
-            LastCommandLine = algo + " -o " + url +
+            LastCommandLine = variables.TRMiner_add1 + algo + " -o " + url +
                               " -u " + username +
                               " -p x " + apiBind +
                               " " +
@@ -108,26 +108,26 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
             {
-                CommandLine = "-a lyra2z" + apiBind +
+                CommandLine = variables.TRMiner_add1 + " -a lyra2z" + apiBind +
                 " --url stratum+tcp://lyra2z.eu.nicehash.com:3365" +  " --user " + username + " - p x " +
                 " --url stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
             {
-                CommandLine = "-a lyra2rev3" + apiBind +
+                CommandLine = variables.TRMiner_add1 + " -a lyra2rev3" + apiBind +
                 " --url stratum+tcp://lyra2rev3.eu.nicehash.com:3373" + " --user " + username + " - p x " +
                 " --url stratum+tcp://lyra2v3.eu.mine.zpool.ca:4550" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
             }
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
-                CommandLine = "-a cnv8" + apiBind +
+                CommandLine = variables.TRMiner_add1 + " -a cnv8" + apiBind +
                 " --url stratum+tcp://cryptonightv8.eu.nicehash.com:3367" + " --user " + username + " - p x -d ";
             }
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
             {
-                CommandLine = "-a cnr" +
+                CommandLine = variables.TRMiner_add1 + " -a cnr" +
                 " -o stratum+tcp://cryptonightr.eu.nicehash.com:3375" + " -u " + username + " - p x " +
                 " -o stratum+tcp://xmr-eu1.nanopool.org:14444" + " -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX" + " -p x -d ";
             }
@@ -149,7 +149,6 @@ namespace NiceHashMiner.Miners
         }
 
         protected override bool BenchmarkParseLine(string outdata) {
-            //бенчмарк брать с api майнера
             string hashSpeed = "";
             int kspeed = 1;
             double speed = 0;
