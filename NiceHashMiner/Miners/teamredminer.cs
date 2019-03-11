@@ -152,7 +152,7 @@ namespace NiceHashMiner.Miners
             string hashSpeed = "";
             int kspeed = 1;
             double speed = 0;
-            Helpers.ConsolePrint("TEAMRED:", outdata);
+            //Helpers.ConsolePrint("TEAMRED:", outdata);
             //[2019-02-02 23:44:25] GPU 0 [64C, fan 39%] lyra2rev3: 22.58Mh/s, avg 22.93Mh/s,
             //[2019-03-09 11:21:02] GPU 1 [ 0C, fan  0%]       cnr: 3.072kh/s, avg 1.531kh/s, pool 1.579kh/s a:3 r:0 hw:0
             if (outdata.Contains("lyra2rev3: "))
@@ -239,7 +239,7 @@ namespace NiceHashMiner.Miners
                 int i = outdata.IndexOf("cnr: ");
                 int k = outdata.IndexOf("h/s, avg");
                 hashSpeed = outdata.Substring(i + 5, k - i - 6).Trim();
-                Helpers.ConsolePrint(hashSpeed, "");
+                //Helpers.ConsolePrint(hashSpeed, "");
                 if (outdata.ToUpper().Contains("H/S"))
                 {
                     kspeed = 1;
