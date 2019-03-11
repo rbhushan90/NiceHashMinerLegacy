@@ -235,19 +235,19 @@ namespace NiceHashMiner.Miners
             CleanOldLogs();
             _benchmarkTimeWait = Math.Max(time * 3, 180); //
             var ret = "";
-            var suff = "1_";
+            var suff = "0_";
             var server = Globals.GetLocationUrl(algorithm.NiceHashID,
                Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
             var btcAddress = Globals.GetBitcoinUser();
             var worker = ConfigManager.GeneralConfig.WorkerName.Trim();
             foreach (var pair in MiningSetup.MiningPairs)
             {
-                if (pair.Device.DeviceType == DeviceType.NVIDIA) suff = ""; else _benchmarkTimeWait = 180;
+                if (pair.Device.DeviceType == DeviceType.NVIDIA) suff = "1_"; else _benchmarkTimeWait = 180;
             }
 
-                if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
             {
-                ret = " --logfile " + GetLogFileName() + " --color 0 --pec --pers BgoldPoW --algo 144_5" +
+                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --pers BgoldPoW --algo 144_5" +
                 " --server europe.equihash-hub.miningpoolhub.com --user angelbbs.FBench11 --pass x --port 20595 " +
                 " --server zhash.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
                 " --server zhash.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
@@ -266,7 +266,7 @@ namespace NiceHashMiner.Miners
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
             {
-                ret = " --logfile " + GetLogFileName() + " --color 0 --pec --algo grin29" +
+                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo grin29" +
                 " --server grin.sparkpool.com --user angelbbs@mail.ru/" + worker + " --pass x --port 6666 --ssl 0" +
                 " --server grincuckaroo29.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3371 --ssl 0" +
                 " --server grincuckaroo29.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3371 --ssl 0" +
@@ -274,7 +274,7 @@ namespace NiceHashMiner.Miners
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
             {
-                ret = " --logfile " + GetLogFileName() + " --color 0 --pec --algo grin31" +
+                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo grin31" +
                 " --server grin.sparkpool.com --user angelbbs@mail.ru/" + worker + " --pass x --port 6667 --ssl 0" +
                 " --server grincuckatoo31.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3372 --ssl 0" +
                 " --server grincuckatoo31.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3372 --ssl 0" +
@@ -355,10 +355,10 @@ namespace NiceHashMiner.Miners
                 BenchmarkAlgorithm.BenchmarkSpeed = 0;
                 // find latest log file
                 var latestLogFile = "";
-                var suff = "1_";
+                var suff = "0_";
                 foreach (var pair in MiningSetup.MiningPairs)
                 {
-                    if (pair.Device.DeviceType == DeviceType.NVIDIA) suff = "";
+                    if (pair.Device.DeviceType == DeviceType.NVIDIA) suff = "1_";
                 }
                 var dirInfo = new DirectoryInfo(WorkingDirectory);
                 foreach (var file in dirInfo.GetFiles(suff + GetLogFileName()))
