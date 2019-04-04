@@ -323,6 +323,7 @@ namespace NiceHashMiner.Devices.Algorithms
                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.CryptoNightV8, "CryptoNightV8"),
                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Lyra2REv3, "Lyra2REv3"),
                            new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.MTP, "MTP"),
+                           new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.GrinCuckaroo29, "GrinCuckaroo29"),
                         }
                     },
 

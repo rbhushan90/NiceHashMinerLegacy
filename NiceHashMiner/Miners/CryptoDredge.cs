@@ -63,6 +63,10 @@ namespace NiceHashMiner.Miners
             {
                 algo = "--algo lyra2v3";
             }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
+            {
+                algo = "cuckaroo29";
+            }
             IsApiReadException = false;
             LastCommandLine = algo +
                 " -o " + url + " -u " + username + " -p x " +
@@ -230,6 +234,20 @@ namespace NiceHashMiner.Miners
                 commandLine = algo +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://xzc.2miners.com:8080" + " -u aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE." + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
+                " --log " + GetLogFileName() +
+                apiBind +
+                " -d " + GetDevicesCommandString() + " " +
+                ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
+                TotalCount = 3;
+                Total = 0.0d;
+                return commandLine;
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckaroo29))
+            {
+                algo = "--algo cuckaroo29";
+                commandLine = algo +
+                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o stratum+tcp://grin.sparkpool.com:6666" + " -u angelbbs@mail.ru/" + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
                 " --log " + GetLogFileName() +
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
