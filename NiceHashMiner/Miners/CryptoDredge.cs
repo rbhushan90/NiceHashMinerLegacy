@@ -59,13 +59,18 @@ namespace NiceHashMiner.Miners
             {
                 algo = "--algo cnv8";
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
+            {
+                algo = "--algo cnheavy";
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
             {
                 algo = "--algo lyra2v3";
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
             {
-                algo = "cuckaroo29";
+                algo = "--algo cuckaroo29";
+               // IsApiReadException = true; //0.18.0 api broken
             }
             IsApiReadException = false;
             LastCommandLine = algo +
@@ -196,7 +201,7 @@ namespace NiceHashMiner.Miners
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
-                commandLine = algo +
+                commandLine = "--algo cnheavy" +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://loki.miner.rocks:5555" + " -u L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi"+ " -p w=" + ConfigManager.GeneralConfig.WorkerName.Trim() +
                 " --log " + GetLogFileName() +
@@ -425,7 +430,7 @@ norm:
                 var bytesToRead = new byte[client.ReceiveBufferSize];
                 var bytesRead = await nwStream.ReadAsync(bytesToRead, 0, client.ReceiveBufferSize);
                 var respStr = Encoding.ASCII.GetString(bytesToRead, 0, bytesRead);
-
+                //Helpers.ConsolePrint(MinerTag(), "API: " + respStr);
                 client.Close();
                 resp = respStr;
             }
@@ -450,7 +455,13 @@ norm:
                     BenchmarkSignalFinnished = true;
                 }
                 ad.Speed = tmp*1000;
-
+                /*
+                if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckaroo29))
+                {
+                    ad.Speed = BenchmarkAlgorithm.BenchmarkSpeed;
+                }
+                */
+                
                 if (ad.Speed == 0)
                 {
                     CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
