@@ -19,7 +19,7 @@ namespace NiceHashMiner.Utils
             @"/xmrig-nvidia/xmrig-nvidia.exe",
             @"/xmr-stak_heavy/xmr-stak.exe",
             @"/cpuminer_opt/cpuminer.exe",
-            @"/Fork_Fix_14.0.txt"
+            @"/Fork_Fix_14.1.txt"
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py

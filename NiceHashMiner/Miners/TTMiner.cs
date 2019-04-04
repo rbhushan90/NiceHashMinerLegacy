@@ -28,6 +28,9 @@ namespace NiceHashMiner.Miners
         private double Total = 0;
         private const int TotalDelim = 2;
         private bool fapi = true;
+        private DateTime _started;
+        private bool firstStart = true;
+
 
         private bool _benchmarkException => MiningSetup.MinerPath == MinerPaths.Data.TTMiner;
 
@@ -44,7 +47,7 @@ namespace NiceHashMiner.Miners
                 return;
             }
             var username = GetUsername(btcAdress, worker);
-
+            
             //IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.TTMiner;
             IsApiReadException = false;
 
@@ -86,6 +89,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -devices " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
+            _started = DateTime.Now;
             ProcessHandle = _Start();
         }
 
@@ -286,6 +290,13 @@ namespace NiceHashMiner.Miners
         {
             CurrentMinerReadStatus = MinerApiReadStatus.NONE;
             var ad = new ApiData(MiningSetup.CurrentAlgorithmType, MiningSetup.CurrentSecondaryAlgorithmType);
+            var elapsedSeconds = DateTime.Now.Subtract(_started).Seconds;
+            
+            if (elapsedSeconds < 15 && firstStart)
+            {
+                return ad;
+            }
+            firstStart = false;
 
             JsonApiResponse resp = null;
             try
@@ -332,13 +343,8 @@ namespace NiceHashMiner.Miners
                     CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
                 }
 
-                if (ad.Speed < 0)
-                {
-                    Helpers.ConsolePrint(MinerTag(), "Reporting negative speeds will restart...");
-                    Restart();
-                }
             }
-
+            //Thread.Sleep(200);
             return ad;
         }
         private class JsonApiResponse

@@ -52,6 +52,8 @@ namespace NiceHashMiner.Miners.Parsing
                 MinerType.TTMiner,
                 new List<MinerOption>() {
                     new MinerOption("TTMiner_logpool", "-logpool", "-logpool", null, MinerOptionFlagType.SingleParam, ""),
+                    new MinerOption("TTMiner_Intensity", "-i", "-intensity", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("TTMiner_grid", "-ig", "-gs", "0", MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("TTMiner_nocolor", "-nocolor", "-nocolor", null, MinerOptionFlagType.SingleParam, "")
                 },
                 new List<MinerOption>()
