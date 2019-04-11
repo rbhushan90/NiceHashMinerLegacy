@@ -461,7 +461,7 @@ norm:
                 var bytesToRead = new byte[client.ReceiveBufferSize];
                 var bytesRead = await nwStream.ReadAsync(bytesToRead, 0, client.ReceiveBufferSize);
                 var respStr = Encoding.ASCII.GetString(bytesToRead, 0, bytesRead);
-                Helpers.ConsolePrint(MinerTag(), "API: " + respStr);
+                //Helpers.ConsolePrint(MinerTag(), "API: " + respStr);
                 client.Close();
                 resp = respStr;
             }

@@ -136,7 +136,7 @@ namespace NiceHashMiner.Miners
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) +
-                              " -nocolor -devices ";
+                              " -nocolor -PRHRI 1 -devices ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
             {
@@ -156,7 +156,7 @@ namespace NiceHashMiner.Miners
 
             commandLine += GetDevicesCommandString();
 
-            TotalCount = 14;
+            TotalCount = 10;
 
             Total = 0.0d;
 
@@ -198,7 +198,8 @@ namespace NiceHashMiner.Miners
                         tmp *= 1000000000;
 
                     //speed = Math.Max(speed, tmp);
-                    speed = tmp;
+                    speed = Math.Max(speed, tmp);
+
                     count++;
                     TotalCount--;
                 }
@@ -334,7 +335,7 @@ namespace NiceHashMiner.Miners
                         {
                             tmpSpeed = 0;
                         }
-                        ad.Speed += tmpSpeed;
+                        ad.Speed = tmpSpeed;
                     }
                     CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
 
