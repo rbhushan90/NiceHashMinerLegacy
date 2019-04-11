@@ -55,6 +55,7 @@ namespace NiceHashMiner.Miners
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
             algo = "--algo " + MiningSetup.MinerName;
             apiBind = " --api-bind 127.0.0.1:" + ApiPort;
+            IsApiReadException = false;
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
                 algo = "--algo cnv8";
@@ -70,10 +71,10 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
             {
                 algo = "--algo cuckaroo29";
-               // IsApiReadException = true; //0.18.0 api broken
+                //IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.CryptoDredge;
+                IsApiReadException = true; //0.18.0 api broken
             }
-            IsApiReadException = false;
-            LastCommandLine = algo +
+           LastCommandLine = algo +
                 " -o " + url + " -u " + username + " -p x " +
                 " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
@@ -118,6 +119,10 @@ namespace NiceHashMiner.Miners
             var apiBind = " --api-bind 127.0.0.1:" + ApiPort;
             var algo = "--algo " + MiningSetup.MinerName;
             var commandLine = "";
+
+            if (File.Exists("bin_3rdparty\\CryptoDredge\\" + GetLogFileName()))
+                File.Delete("bin_3rdparty\\CryptoDredge\\" + GetLogFileName());
+
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Blake2s))
             {
                 commandLine = "--algo blake2s" +
@@ -190,7 +195,8 @@ namespace NiceHashMiner.Miners
             {
                 commandLine = "--algo skunk" +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o stratum+tcp://hdac.moricpool.com:3333" + " -u HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ" + " -p x " +
+               // " -o stratum+tcp://hdac.moricpool.com:3333" + " -u HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ" + " -p x " +
+               "-o stratum + tcp://skunk.eu.mine.zpool.ca:8433 -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 -p c=BTC" +
                 " --log " + GetLogFileName() +
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
@@ -203,7 +209,9 @@ namespace NiceHashMiner.Miners
             {
                 commandLine = "--algo cnheavy" +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o stratum+tcp://loki.miner.rocks:5555" + " -u L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi"+ " -p w=" + ConfigManager.GeneralConfig.WorkerName.Trim() +
+                " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                //" -o stratum+tcp://loki.miner.rocks:5555" + " -u L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi"+ " -p w=" + ConfigManager.GeneralConfig.WorkerName.Trim() +
                 " --log " + GetLogFileName() +
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
@@ -222,8 +230,10 @@ namespace NiceHashMiner.Miners
                 algo = "--algo cnv8";
                 commandLine = algo +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o stratum+tcp://xmr-usa.dwarfpool.com:8005" + " -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX." + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
-                " -o stratum+tcp://xmr-eu.dwarfpool.com:8005" + " -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX."+ ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
+                " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+              //  " -o stratum+tcp://xmr-usa.dwarfpool.com:8005" + " -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX." + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
+              //  " -o stratum+tcp://xmr-eu.dwarfpool.com:8005" + " -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX."+ ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
                 " --log " + GetLogFileName() +
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
@@ -261,9 +271,7 @@ namespace NiceHashMiner.Miners
                 Total = 0.0d;
                 return commandLine;
             }
-            if (File.Exists("bin_3rdparty\\CryptoDredge\\" + GetLogFileName()))
-                File.Delete("bin_3rdparty\\CryptoDredge\\" + GetLogFileName());
-            commandLine = algo +
+           commandLine = algo +
                 " -o " + url + " -u " + username + " -p x " +
                 " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
@@ -416,6 +424,29 @@ norm:
 
         public override async Task<ApiData> GetSummaryAsync()
         {
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckaroo29))
+            {
+                var totalSpeed = 0.0d;
+                foreach (var miningPair in MiningSetup.MiningPairs)
+                {
+                    var algo = miningPair.Device.GetAlgorithm(MinerBaseType.CryptoDredge, AlgorithmType.GrinCuckaroo29, AlgorithmType.NONE);
+                    if (algo != null)
+                    {
+                        totalSpeed += algo.BenchmarkSpeed;
+                    }
+                }
+
+                var cdData = new ApiData(MiningSetup.CurrentAlgorithmType)
+                {
+                    Speed = totalSpeed
+                };
+                CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
+                // check if speed zero
+                if (cdData.Speed == 0) CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
+                return cdData;
+            }
+
+
             CurrentMinerReadStatus = MinerApiReadStatus.NONE;
             var ad = new ApiData(MiningSetup.CurrentAlgorithmType, MiningSetup.CurrentSecondaryAlgorithmType);
             double tmp = 0;
@@ -430,7 +461,7 @@ norm:
                 var bytesToRead = new byte[client.ReceiveBufferSize];
                 var bytesRead = await nwStream.ReadAsync(bytesToRead, 0, client.ReceiveBufferSize);
                 var respStr = Encoding.ASCII.GetString(bytesToRead, 0, bytesRead);
-                //Helpers.ConsolePrint(MinerTag(), "API: " + respStr);
+                Helpers.ConsolePrint(MinerTag(), "API: " + respStr);
                 client.Close();
                 resp = respStr;
             }
