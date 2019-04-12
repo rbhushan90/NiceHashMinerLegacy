@@ -310,7 +310,7 @@ namespace NiceHashMiner.Miners
                     var bytesToRead = new byte[client.ReceiveBufferSize];
                     var bytesRead = await nwStream.ReadAsync(bytesToRead, 0, client.ReceiveBufferSize);
                     var respStr = Encoding.ASCII.GetString(bytesToRead, 0, bytesRead);
-                   // Helpers.ConsolePrint(MinerTag(), "respStr: " + respStr);
+                    //Helpers.ConsolePrint(MinerTag(), "respStr: " + respStr);
                     resp = JsonConvert.DeserializeObject<JsonApiResponse>(respStr, Globals.JsonSettings);
                 }
             }
@@ -318,10 +318,15 @@ namespace NiceHashMiner.Miners
             {
                 Helpers.ConsolePrint(MinerTag(), "GetSummary exception: " + ex.Message);
             }
+            //{"id":0,"jsonrpc":"2.0","result":["TT-Miner/2.2.1","0","4235681;1;0","2077789;2157892","0;0;0","off;off","71;79;59;68","mtp.hk.nicehash.com:3374","0;0;0;0"]} 
 
             if (resp != null && resp.error == null)
             {
-                    var speeds = resp.result[3].Split(';');
+                var speed = resp.result[2].ToString().Split(';')[0];
+                double tmpSpeed = double.Parse(speed, CultureInfo.InvariantCulture);
+                ad.Speed = tmpSpeed;
+                /*
+                    var speeds = resp.result[2].Split(';');
                     ad.Speed = 0;
                     ad.SecondarySpeed = 0;
                     foreach (var speed in speeds)
@@ -337,7 +342,8 @@ namespace NiceHashMiner.Miners
                         }
                         ad.Speed = tmpSpeed;
                     }
-                    CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
+                    */
+                CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
 
                 if (ad.Speed == 0)
                 {
