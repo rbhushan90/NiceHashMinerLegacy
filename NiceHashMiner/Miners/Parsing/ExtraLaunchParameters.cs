@@ -47,6 +47,14 @@ namespace NiceHashMiner.Miners.Parsing
                 },
                 new List<MinerOption>()
             ),
+                new MinerOptionPackage(
+                MinerType.NBMiner,
+                new List<MinerOption>() {
+                    new MinerOption("nbminer_intensity", "--cuckoo-intensity", "0", MinerOptionFlagType.SingleParam)
+                },
+                new List<MinerOption>()
+
+            ),
 
                 new MinerOptionPackage(
                 MinerType.TTMiner,

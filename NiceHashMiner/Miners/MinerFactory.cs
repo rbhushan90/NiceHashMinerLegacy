@@ -114,6 +114,8 @@ namespace NiceHashMiner.Miners
                     return new TTMiner();
                 case MinerBaseType.XmrigNVIDIA:
                     return new XmrigNVIDIA();
+                case MinerBaseType.NBMiner:
+                    return new NBMiner();
             }
 
             return null;

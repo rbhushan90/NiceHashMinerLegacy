@@ -130,7 +130,7 @@ namespace NiceHashMiner.Devices
                 var setAlgo = GetAlgorithm(copyFromAlgo);
                 if (setAlgo != null)
                 {
-                    
+
                     setAlgo.Enabled = copyFromAlgo.Enabled;
                     setAlgo.BenchmarkSpeed = copyFromAlgo.BenchmarkSpeed;
                     setAlgo.ExtraLaunchParameters = copyFromAlgo.ExtraLaunchParameters;
@@ -358,7 +358,8 @@ namespace NiceHashMiner.Devices
                 MinerBaseType.lolMiner,
                 MinerBaseType.lolMinerBEAM,
                 MinerBaseType.Bminer,
-                MinerBaseType.TTMiner
+                MinerBaseType.TTMiner,
+                MinerBaseType.NBMiner
             };
 
             return AlgorithmSettings.FindAll(a => thirdPartyMiners.IndexOf(a.MinerBaseType) == -1);

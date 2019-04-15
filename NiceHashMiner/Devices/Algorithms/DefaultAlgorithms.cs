@@ -355,6 +355,13 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.TTMiner, AlgorithmType.MTP, "MTP"),
                         }
                     },
+                         { MinerBaseType.NBMiner,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.NBMiner, AlgorithmType.GrinCuckaroo29, "GrinCuckaroo29"),
+                            new Algorithm(MinerBaseType.NBMiner, AlgorithmType.GrinCuckatoo31, "GrinCuckatoo31"),
+                            new Algorithm(MinerBaseType.NBMiner, AlgorithmType.DaggerHashimoto, "DaggerHashimoto"),
+                        }
+                    },
         /*
             {
                 MinerBaseType.ethminer,

@@ -358,6 +358,30 @@ namespace NiceHashMiner.Devices.Algorithms
                     });
             }
 
+            if (algoSettings.ContainsKey(MinerBaseType.NBMiner) && device.GpuRam < 1024 * 1024 * 1024 * 5.4)
+            {
+                algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
+                    {
+                        AlgorithmType.GrinCuckatoo31
+                    });
+            }
+
+            if (algoSettings.ContainsKey(MinerBaseType.NBMiner) && device.GpuRam < 1024 * 1024 * 1024 * 7.4)
+            {
+                algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
+                    {
+                        AlgorithmType.GrinCuckaroo29
+                    });
+            }
+
+            if (algoSettings.ContainsKey(MinerBaseType.NBMiner) && device.GpuRam < 1024 * 1024 * 1024 * 3.7)
+            {
+                algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
+                    {
+                        AlgorithmType.DaggerHashimoto
+                    });
+            }
+
             if (algoSettings.ContainsKey(MinerBaseType.CryptoDredge) && device.GpuRam < 1024 * 1024 * 1024 * 4.4)
             {
                 algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
