@@ -203,7 +203,7 @@ namespace NiceHashMiner.Miners
 
         public override async Task<ApiData> GetSummaryAsync()
         {
-            //CurrentMinerReadStatus = MinerApiReadStatus.NONE;
+            CurrentMinerReadStatus = MinerApiReadStatus.NONE;
             var ad = new ApiData(MiningSetup.CurrentAlgorithmType);
             string ResponseFromNBMiner;
             double total = 0;
@@ -234,9 +234,11 @@ namespace NiceHashMiner.Miners
             if (resp != null)
             {
                 ad.Speed = resp.TotalHashrate ?? 0;
+                CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
             }
             else
             {
+                CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
                 Helpers.ConsolePrint("NBMiner:", "resp - null");
             }
 
