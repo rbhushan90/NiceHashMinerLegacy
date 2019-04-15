@@ -27,19 +27,12 @@ namespace NiceHashMiner.Miners
                 {
                     public double hashrate { get; set; }
                 }
-
                 public List<DeviceModel> devices { get; set; }
-
                 public double total_hashrate { get; set; }
             }
-
             public MinerModel miner { get; set; }
-
             public double? TotalHashrate => miner?.total_hashrate;
         }
-
-
-
 
         private double _benchHashes;
         private int _benchIters;
@@ -75,13 +68,33 @@ namespace NiceHashMiner.Miners
 
         private string GetStartCommand(string url, string btcAddress, string worker)
         {
+            var cmd = "";
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.DaggerHashimoto))
             {
                 url = url.Replace("stratum", "ethnh");
             }
+
             var user = GetUsername(btcAddress, worker);
             var devs = string.Join(",", MiningSetup.MiningPairs.Select(p => p.Device.IDByBus));
-            var cmd = $"-a {AlgoName} -o {url} -u {user} --api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
+
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.DaggerHashimoto))
+            {
+                cmd = $"-a {AlgoName} -o {url} -u {user} -o1 ethnh+tcp://daggerhashimoto.hk.nicehash.com:3353 -u1 {user} " +
+                    $"-o2 ethnh+tcp://daggerhashimoto.usa.nicehash.com:3353 -u2 {user} " + 
+                    $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckaroo29))
+            {
+                cmd = $"-a {AlgoName} -o {url} -u {user} -o1 stratum+tcp://grincuckaroo29.hk.nicehash.com:3371 -u1 {user} " +
+                    $"-o2 stratum+tcp://grincuckaroo29.usa.nicehash.com:3371 -u2 {user} " +
+                    $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckatoo31))
+            {
+                cmd = $"-a {AlgoName} -o {url} -u {user} -o1 stratum+tcp://grincuckatoo31.hk.nicehash.com:3372 -u1 {user} " +
+                    $"-o2 stratum+tcp://grincuckatoo31.usa.nicehash.com:3372 -u2 {user} " +
+                    $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
+            }
             cmd += ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);
 
             return cmd;
@@ -103,10 +116,32 @@ namespace NiceHashMiner.Miners
             _targetBenchIters = Math.Max(1, (int) Math.Floor(time / 20d));
 
             var url = GetServiceUrl(algorithm.NiceHashID);
-            var btc = Globals.GetBitcoinUser();
+            var user = Globals.GetBitcoinUser();
             var worker = ConfigManager.GeneralConfig.WorkerName.Trim();
+            var cmd = "";
+            var devs = string.Join(",", MiningSetup.MiningPairs.Select(p => p.Device.IDByBus));
 
-            return GetStartCommand(url, btc, worker);
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.DaggerHashimoto))
+            {
+                cmd = $"-a {AlgoName} -o ethproxy+tcp://eth-eu.dwarfpool.com:8008 -u 0x9290e50e7ccf1bdc90da8248a2bbacc5063aeee1.{worker} -o1 ethnh+tcp://daggerhashimoto.hk.nicehash.com:3353 -u1 {user}.{worker} " +
+                    $"-o2 ethnh+tcp://daggerhashimoto.usa.nicehash.com:3353 -u2 {user}.{worker} " +
+                    $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckaroo29))
+            {
+                cmd = $"-a {AlgoName} -o stratum+tcp://grin.sparkpool.com:6666 -u angelbbs@mail.ru.{worker} -o1 stratum+tcp://grincuckaroo29.hk.nicehash.com:3371 -u1 {user}.{worker} " +
+                    $"-o2 stratum+tcp://grincuckaroo29.usa.nicehash.com:3371 -u2 {user}.{worker} " +
+                    $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckatoo31))
+            {
+                cmd = $"-a {AlgoName} -o stratum+tcp://grin.sparkpool.com:6667 -u angelbbs@mail.ru.{worker} -o1 stratum+tcp://grincuckatoo31.hk.nicehash.com:3372 -u1 {user}.{worker} " +
+                    $"-o2 stratum+tcp://grincuckatoo31.usa.nicehash.com:3372 -u2 {user}.{worker} " +
+                    $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
+            }
+            cmd += ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);
+            return cmd; 
+            // return GetStartCommand(url, btc, worker);
         }
 
         protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata)
