@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using NiceHashMiner.Algorithms;
+using NiceHashMiner.Miners.Grouping;
 using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Devices.Algorithms
@@ -349,7 +351,7 @@ namespace NiceHashMiner.Devices.Algorithms
                         AlgorithmType.GrinCuckaroo29
                     });
             }
-
+            
             if (algoSettings.ContainsKey(MinerBaseType.GMiner) && device.GpuRam < 1024 * 1024 * 1024 * 7.4)
             {
                 algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
@@ -357,14 +359,74 @@ namespace NiceHashMiner.Devices.Algorithms
                         AlgorithmType.GrinCuckatoo31
                     });
             }
+            
+            /*
+            if (algoSettings.ContainsKey(MinerBaseType.GMiner))
+            {
+                foreach (var algo in algoSettings[MinerBaseType.GMiner])
+                {
+                    if (algo.NiceHashID == AlgorithmType.GrinCuckatoo31 && device.DeviceType == DeviceType.NVIDIA && device.GpuRam < 1024 * 1024 * 1024 * 7.4)
+                    {
+                        algo.Enabled = false;
+                    }
+                }
+            }
+            */
+            
+            if (algoSettings.ContainsKey(MinerBaseType.NBMiner) && device.DeviceType == DeviceType.NVIDIA && device.GpuRam < 1024 * 1024 * 1024 * 7.4)
+                {
+                   algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
+                   {
+                   AlgorithmType.GrinCuckatoo31
+                   });
+            }
+            
+            /*
+            if (algoSettings.ContainsKey(MinerBaseType.NBMiner))
+            {
+                foreach (var algo in algoSettings[MinerBaseType.NBMiner])
+                {
+                    if (algo.NiceHashID == AlgorithmType.GrinCuckatoo31 && device.DeviceType == DeviceType.NVIDIA && device.GpuRam < 1024 * 1024 * 1024 * 7.4)
+                    {
+                        algo.Enabled = false;
+                    }
+                }
+            }
+            */
+            /*
+            if (algoSettings.ContainsKey(MinerBaseType.NBMiner))
+            {
+                var NBMinerAlgos = algoSettings[MinerBaseType.NBMiner];
+                int g31_Index = NBMinerAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.GrinCuckatoo31);
+                NBMinerAlgos[g31_Index].Enabled = false;
+                //--opencl-launch=
+                //XmrigAMDAlgos[xmrigCryptoNightV7_Index].ExtraLaunchParameters =" --opencl-launch=640";
+                //XmrigAMDAlgos[xmrigCryptoNightV8_Index].ExtraLaunchParameters = " --opencl-launch=640";
 
-            if (algoSettings.ContainsKey(MinerBaseType.NBMiner) && device.GpuRam < 1024 * 1024 * 1024 * 7.4)
+            }
+            */
+
+            if (algoSettings.ContainsKey(MinerBaseType.lolMiner))
+            {
+                foreach (var algo in algoSettings[MinerBaseType.lolMiner])
+                {
+                    if (algo.NiceHashID == AlgorithmType.GrinCuckatoo31 && device.DeviceType == DeviceType.AMD && device.GpuRam > 1024 * 1024 * 1024 * 3.7)
+                    {
+                        algo.Enabled = true;
+                    }
+                }
+            }
+
+            //не работает. предыдущие ограничения на объем памяти карты действуют без учета майнера
+            /*
+            if (algoSettings.ContainsKey(MinerBaseType.lolMiner) && device.DeviceType == DeviceType.AMD && device.GpuRam < 1024 * 1024 * 1024 * 3.4)
             {
                 algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
                     {
                         AlgorithmType.GrinCuckatoo31
                     });
             }
+            */
 
             if (algoSettings.ContainsKey(MinerBaseType.NBMiner) && device.GpuRam < 1024 * 1024 * 1024 * 5.4)
             {

@@ -512,6 +512,10 @@ namespace NiceHashMiner.Miners.Grouping
                 {
                     return Data.lolMiner;
                 }
+                if (AlgorithmType.GrinCuckatoo31 == algorithmType)
+                {
+                    return Data.lolMiner;
+                }
                 return Data.lolMiner;
             }
         }

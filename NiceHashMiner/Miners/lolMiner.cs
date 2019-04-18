@@ -66,8 +66,10 @@ namespace NiceHashMiner.Miners
             url = url.Substring(0, url.IndexOf(":"));
             var apiBind = " --apiport " + ApiPort;
 
-           LastCommandLine = "--coin AUTO144_5 --pool " + url + ";zhash.hk.nicehash.com;zhash.jp.nicehash.com;zhash.usa.nicehash.com;zhash.in.nicehash.com;zhash.br.nicehash.com" +
-                              " --port " + port+";"+port +";"+ port+";"+ port+";"+ port+";"+ port+";"+
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
+            {
+                LastCommandLine = "--coin AUTO144_5 --pool " + url + ";zhash.hk.nicehash.com;zhash.jp.nicehash.com;zhash.usa.nicehash.com;zhash.in.nicehash.com;zhash.br.nicehash.com" +
+                              " --port " + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" +
                               " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" +
                               " -p x;x;x;x;x;x " + apiBind +
                               " " +
@@ -75,6 +77,33 @@ namespace NiceHashMiner.Miners
                                                                 MiningSetup,
                                                                 DeviceType.AMD) +
                               " --devices ";
+            }
+
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
+            {
+                LastCommandLine = "--coin BEAM --pool " + url + ";beam.hk.nicehash.com;beam.jp.nicehash.com;beam.usa.nicehash.com;beam.in.nicehash.com;beam.br.nicehash.com" +
+                             " --port " + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" + port +
+                             " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username +
+                             " -p x;x;x;x;x;x --tls 0;0;0;0;0;0 " + apiBind +
+                             " " +
+                             ExtraLaunchParametersParser.ParseForMiningSetup(
+                                                               MiningSetup,
+                                                               DeviceType.AMD) +
+                             " --devices ";
+            }
+
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
+            {
+                LastCommandLine = "--coin GRIN-AT31 --pool " + url + ";grincuckatoo31.hk.nicehash.com;grincuckatoo31.jp.nicehash.com;grincuckatoo31.usa.nicehash.com;grincuckatoo31.in.nicehash.com;grincuckatoo31.br.nicehash.com" +
+                             " --port " + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" + port +
+                             " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username +
+                             " -p x;x;x;x;x;x --tls 0;0;0;0;0;0 " + apiBind +
+                             " " +
+                             ExtraLaunchParametersParser.ParseForMiningSetup(
+                                                               MiningSetup,
+                                                               DeviceType.AMD) +
+                             " --devices ";
+            }
 
             LastCommandLine += GetDevicesCommandString();//amd карты перечисляются первыми
             ProcessHandle = _Start();
@@ -93,15 +122,41 @@ namespace NiceHashMiner.Miners
 
             if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
+            string worker = ConfigManager.GeneralConfig.WorkerName.Trim();
 
-            CommandLine = "--coin AUTO144_5 --overwritePersonal BgoldPoW" +
-                " --pool europe.equihash-hub.miningpoolhub.com --port 20595 --user angelbbs.lol --pass x"+
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
+            {
+                CommandLine = "--coin BEAM " +
+                " --pool beam-eu.sparkpool.com;beam-asia.sparkpool.com;beam.eu.nicehash.com;beam.hk.nicehash.com" +
+                " --port 2222;12222;3370;3370" +
+                " --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + ";2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + ";" + username + ";" + username +
+                " --pass x;x;x;x --tls 1;1;0;0 " +
                                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,
                                                                 DeviceType.AMD) +
                 " --devices ";
+            }
 
-            CommandLine += GetDevicesCommandString(); //amd карты перечисляются первыми
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
+            {
+                CommandLine = "--coin AUTO144_5 --overwritePersonal BgoldPoW" +
+                " --pool europe.equihash-hub.miningpoolhub.com --port 20595 --user angelbbs.lol --pass x" +
+                                              ExtraLaunchParametersParser.ParseForMiningSetup(
+                                                                MiningSetup,
+                                                                DeviceType.AMD) +
+                " --devices ";
+            }
+
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
+            {
+                CommandLine = "--coin GRIN-AT31 " +
+                " --pool grin.sparkpool.com;grincuckatoo31.usa.nicehash.com --port 6667;3372 --user angelbbs@mail.ru." + worker + ";"+username+ " --pass x;x" +
+                              ExtraLaunchParametersParser.ParseForMiningSetup(
+                                                MiningSetup,
+                                                DeviceType.AMD) +
+                " --devices ";
+            }
+                CommandLine += GetDevicesCommandString(); //amd карты перечисляются первыми
            
             return CommandLine;
 

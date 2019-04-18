@@ -219,6 +219,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     { MinerBaseType.lolMiner,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.lolMiner, AlgorithmType.ZHash, "ZHash"),
+                            new Algorithm(MinerBaseType.lolMiner, AlgorithmType.GrinCuckatoo31, "GrinCuckatoo31"),
                         }
                     },
 
