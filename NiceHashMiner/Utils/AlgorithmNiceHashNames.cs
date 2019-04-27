@@ -10,7 +10,7 @@ namespace NiceHashMiner
     {
         public static string GetName(AlgorithmType type)
         {
-            if ((AlgorithmType.INVALID <= type && type <= AlgorithmType.CryptoNightR) ||
+            if ((AlgorithmType.INVALID <= type && type <= AlgorithmType.CuckooCycle) ||
                 (AlgorithmType.DaggerKeccak <= type && type <= AlgorithmType.DaggerPascal))
             {
                 return Enum.GetName(typeof(AlgorithmType), type);

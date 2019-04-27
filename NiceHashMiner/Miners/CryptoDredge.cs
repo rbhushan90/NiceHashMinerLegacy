@@ -74,7 +74,13 @@ namespace NiceHashMiner.Miners
                 //IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.CryptoDredge;
                 IsApiReadException = true; //0.18.0 api broken
             }
-           LastCommandLine = algo +
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.CuckooCycle)
+            {
+                algo = "--algo aeternity";
+                //IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.CryptoDredge;
+                //IsApiReadException = true; //0.18.0 api broken
+            }
+            LastCommandLine = algo +
                 " -o " + url + " -u " + username + " -p x " +
                 " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
@@ -271,7 +277,21 @@ namespace NiceHashMiner.Miners
                 Total = 0.0d;
                 return commandLine;
             }
-           commandLine = algo +
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CuckooCycle))
+            {
+                algo = "--algo aeternity";
+                commandLine = algo +
+                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o stratum+tcp://ae.f2pool.com:7898" + " -u ak_2f9AMwztStKs5roPmT592wTbUEeTyqRgYVZNrc5TyZfr94m7fM." + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
+                " --log " + GetLogFileName() +
+                apiBind +
+                " -d " + GetDevicesCommandString() + " " +
+                ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
+                TotalCount = 3;
+                Total = 0.0d;
+                return commandLine;
+            }
+            commandLine = algo +
                 " -o " + url + " -u " + username + " -p x " +
                 " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +

@@ -269,12 +269,15 @@ namespace NiceHashMiner.Miners
 
             //Average speed (30s): 25.5 sol/s 
             //GPU 3: Share accepted (45 ms)
-            if (outdata.Contains("Average speed (30s):"))
+            //Average speed (30s): 0.13 g/s 
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
             {
-                int i = outdata.IndexOf("Average speed (30s):");
-                int k = outdata.IndexOf("sol/s");
-                hashSpeed = outdata.Substring(i + 21, k - i - 22).Trim();
-                try
+                if (outdata.Contains("Average speed (30s):"))
+                {
+                    int i = outdata.IndexOf("Average speed (30s):");
+                    int k = outdata.IndexOf("sol/s");
+                    hashSpeed = outdata.Substring(i + 21, k - i - 22).Trim();
+                    try
                     {
                         speed = speed + Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
                     }
@@ -285,9 +288,32 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-                count++;
+                    count++;
+                }
             }
 
+            //Average speed (30s): 0.13 g/s 
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
+            {
+                if (outdata.Contains("Average speed (30s):"))
+                {
+                    int i = outdata.IndexOf("Average speed (30s):");
+                    int k = outdata.IndexOf("g/s");
+                    hashSpeed = outdata.Substring(i + 19, k - i - 20).Trim();
+                    try
+                    {
+                        speed = speed + Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
+                    count++;
+                }
+            }
             if (outdata.Contains("Share accepted") && speed != 0)
             {
                 BenchmarkAlgorithm.BenchmarkSpeed = speed / count;

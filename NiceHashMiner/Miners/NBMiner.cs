@@ -50,6 +50,8 @@ namespace NiceHashMiner.Miners
                         return "cuckaroo";
                     case AlgorithmType.GrinCuckatoo31:
                         return "cuckatoo";
+                    case AlgorithmType.CuckooCycle:
+                        return "cuckoo_ae";
                     case AlgorithmType.DaggerHashimoto:
                         return "ethash";
                     default:
@@ -95,6 +97,12 @@ namespace NiceHashMiner.Miners
                     $"-o2 stratum+tcp://grincuckatoo31.usa.nicehash.com:3372 -u2 {user} " +
                     $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
             }
+            if(MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CuckooCycle))
+            {
+                cmd = $"-a {AlgoName} -o {url} -u {user} -o1 stratum+tcp://cuckoocycle.hk.nicehash.com:3376 -u1 {user} " +
+                    $"-o2 stratum+tcp://cuckoocycle.usa.nicehash.com:3376 -u2 {user} " +
+                    $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
+            }
             cmd += ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);
 
             return cmd;
@@ -137,6 +145,12 @@ namespace NiceHashMiner.Miners
             {
                 cmd = $"-a {AlgoName} -o stratum+tcp://grin.sparkpool.com:6667 -u angelbbs@mail.ru.{worker} -o1 stratum+tcp://grincuckatoo31.hk.nicehash.com:3372 -u1 {user}.{worker} " +
                     $"-o2 stratum+tcp://grincuckatoo31.usa.nicehash.com:3372 -u2 {user}.{worker} " +
+                    $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CuckooCycle))
+            {
+                cmd = $"-a {AlgoName} -o stratum+tcp://ae.f2pool.com:7898 -u ak_2f9AMwztStKs5roPmT592wTbUEeTyqRgYVZNrc5TyZfr94m7fM.{worker} -o1 stratum+tcp://cuckoocycle.hk.nicehash.com:3376 -u1 {user}.{worker} " +
+                    $"-o2 stratum+tcp://cuckoocycle.usa.nicehash.com:3376 -u2 {user}.{worker} " +
                     $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
             }
             cmd += ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);

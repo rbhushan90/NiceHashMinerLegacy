@@ -92,6 +92,11 @@ namespace NiceHashMiner.Miners
                 algo = "grin31";
                 algoName = "grincuckatoo31";
             }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.CuckooCycle)
+            {
+                algo = "aeternity";
+                algoName = "cuckoocycle";
+            }
             var ret = GetDevicesCommandString()
                       + " --pers auto --algo " + algo + " --server " + url.Split(':')[0]
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
@@ -283,6 +288,14 @@ namespace NiceHashMiner.Miners
                 " --server grincuckatoo31.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3372 --ssl 0" +
                 GetDevicesCommandString();
             }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.CuckooCycle)
+            {
+                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo aeternity" +
+                " --server ae.f2pool.com --user ak_2f9AMwztStKs5roPmT592wTbUEeTyqRgYVZNrc5TyZfr94m7fM." + worker + " --pass x --port 7898 --ssl 0" +
+                " --server cuckoocycle.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3376 --ssl 0" +
+                " --server cuckoocycle.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3376 --ssl 0" +
+                GetDevicesCommandString();
+            }
             return ret;
         }
 
@@ -442,7 +455,7 @@ namespace NiceHashMiner.Miners
 
         protected double GetNumber(string outdata)
         {
-            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29 || MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29 || MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31 || MiningSetup.CurrentAlgorithmType == AlgorithmType.CuckooCycle)
             {
                 return GetNumber(outdata, LookForStart, "g/s");
             } else
