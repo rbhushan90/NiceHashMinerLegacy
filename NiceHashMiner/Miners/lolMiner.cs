@@ -105,7 +105,7 @@ namespace NiceHashMiner.Miners
                              " --devices ";
             }
 
-            LastCommandLine += GetDevicesCommandString();//amd карты перечисляются первыми
+            LastCommandLine += GetDevicesCommandString() + " ";//amd карты перечисляются первыми
             ProcessHandle = _Start();
         }
 
