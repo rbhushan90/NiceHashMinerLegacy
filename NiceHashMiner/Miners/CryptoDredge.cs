@@ -202,7 +202,7 @@ namespace NiceHashMiner.Miners
                 commandLine = "--algo skunk" +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                // " -o stratum+tcp://hdac.moricpool.com:3333" + " -u HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ" + " -p x " +
-               "-o stratum + tcp://skunk.eu.mine.zpool.ca:8433 -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 -p c=BTC" +
+               "-o stratum+tcp://skunk.eu.mine.zpool.ca:8433 -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 -p c=BTC" +
                 " --log " + GetLogFileName() +
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
@@ -444,12 +444,34 @@ norm:
 
         public override async Task<ApiData> GetSummaryAsync()
         {
-            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckaroo29))
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckaroo29)) //0.18.0 api broken
             {
                 var totalSpeed = 0.0d;
                 foreach (var miningPair in MiningSetup.MiningPairs)
                 {
                     var algo = miningPair.Device.GetAlgorithm(MinerBaseType.CryptoDredge, AlgorithmType.GrinCuckaroo29, AlgorithmType.NONE);
+                    if (algo != null)
+                    {
+                        totalSpeed += algo.BenchmarkSpeed;
+                    }
+                }
+
+                var cdData = new ApiData(MiningSetup.CurrentAlgorithmType)
+                {
+                    Speed = totalSpeed
+                };
+                CurrentMinerReadStatus = MinerApiReadStatus.GOT_READ;
+                // check if speed zero
+                if (cdData.Speed == 0) CurrentMinerReadStatus = MinerApiReadStatus.READ_SPEED_ZERO;
+                return cdData;
+            }
+
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CuckooCycle)) //0.18.0 api broken
+            {
+                var totalSpeed = 0.0d;
+                foreach (var miningPair in MiningSetup.MiningPairs)
+                {
+                    var algo = miningPair.Device.GetAlgorithm(MinerBaseType.CryptoDredge, AlgorithmType.CuckooCycle, AlgorithmType.NONE);
                     if (algo != null)
                     {
                         totalSpeed += algo.BenchmarkSpeed;

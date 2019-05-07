@@ -63,7 +63,7 @@ namespace NiceHashMiner.Miners
         {
             Helpers.ConsolePrint("GMINER Stop", "");
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
-            Thread.Sleep(200);
+            //Thread.Sleep(200);
             KillGminer();
             //KillMinerBase("miner");
 
@@ -252,6 +252,8 @@ namespace NiceHashMiner.Miners
             {
                 if (pair.Device.DeviceType == DeviceType.NVIDIA) suff = "1_"; else _benchmarkTimeWait = 180;
             }
+            if (File.Exists("bin_3rdparty\\gminer\\"+ suff + GetLogFileName()))
+                File.Delete("bin_3rdparty\\gminer\\"+ suff + GetLogFileName());
 
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
             {
@@ -358,7 +360,7 @@ namespace NiceHashMiner.Miners
                     }
 
                     // wait a second reduce CPU load
-                    Thread.Sleep(1000);
+                    Thread.Sleep(200);
                 }
             }
             catch (Exception ex)
@@ -367,7 +369,7 @@ namespace NiceHashMiner.Miners
             }
             finally
             {
-                Thread.Sleep(5000);
+                Thread.Sleep(1000);
                 BenchmarkAlgorithm.BenchmarkSpeed = 0;
                 // find latest log file
                 var latestLogFile = "";
@@ -403,7 +405,7 @@ namespace NiceHashMiner.Miners
                             catch (Exception ex)
                             {
                                 Helpers.ConsolePrint(MinerTag(), ex.Message);
-                                Thread.Sleep(1000);
+                                Thread.Sleep(200);
                             }
 
                             iteration++;
@@ -593,7 +595,7 @@ namespace NiceHashMiner.Miners
                 Helpers.ConsolePrint("GMiner:", "resp - null");
             }
 
-            Thread.Sleep(1000);
+            Thread.Sleep(200);
             return ad;
         }
     }
