@@ -43,7 +43,7 @@ NiceHash Miner Legacy is an advanced auto-miner that supports the latest algorit
 # <a name="gputuning"></a> GPU tuning
 GPU-tuning is a opensource project developed only for use with NHML Fork Fix. Use as part of other or similar projects is not allowed.
 https://github.com/angelbbs/GPU-Tuning
-<img src="Resources/gputuning.PNG" />
+<img src="Resources/gputuning.png" />
 
 # <a name="requirements"></a> Requirements
 
