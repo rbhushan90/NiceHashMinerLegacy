@@ -19,10 +19,12 @@ namespace NiceHashMiner.Miners
     public class WildRig : Miner
     {
         private readonly int GPUPlatformNumber;
-        private int _benchmarkTimeWait = 300;
-        private const string _lookForStart = "speed 10s/60s/15m";
-        private const string _lookForEnd = "n/a kh/s max";
-
+        private int _benchmarkTimeWait = 120;
+        //private const string _lookForStart = "speed 10s/60s/15m";
+        private const string _lookForStart = "hashrate: 10s: ";
+        //private const string _lookForEnd = "n/a kh/s max";
+        private const string _lookForEnd = "60s:";
+        private int count = 0;
         public WildRig() : base("WildRig") {
             GPUPlatformNumber = ComputeDeviceManager.Available.AmdOpenCLPlatformNum;
         }
@@ -132,8 +134,6 @@ namespace NiceHashMiner.Miners
         }
 
         protected override void ProcessBenchLinesAlternate(string[] lines) {
-            // Xmrig reports 2.5s and 60s averages, so prefer to use 60s values for benchmark
-            // but fall back on 2.5s values if 60s time isn't hit
             var twoSecTotal = 0d;
             var sixtySecTotal = 0d;
             var twoSecCount = 0;
@@ -142,25 +142,43 @@ namespace NiceHashMiner.Miners
                 BenchLines.Add(line);
                 var lineLowered = line.ToLower();
                 if (lineLowered.Contains(_lookForStart.ToLower())) {
+                    /*
                     var speeds = Regex.Match(lineLowered, $"{_lookForStart.ToLower()} (.+?) {_lookForEnd.ToLower()}").Groups[1].Value.Split();
+                    */
+                    var speedStart = lineLowered.IndexOf(_lookForStart);
+                    var speed = lineLowered.Substring(speedStart, lineLowered.Length - speedStart);
+                    speed = speed.Replace(_lookForStart, "");
+                    speed = speed.Substring(0, speed.IndexOf(_lookForEnd));
+                    if (count >= 8) //пропустить первые 8
+                    {
+                        try
+                        {
+                            if (double.TryParse(speed, out var sixtySecSpeed))
+                            {
+                                sixtySecTotal += sixtySecSpeed;
+                                ++sixtySecCount;
+                            }
+                            /*
+                        if (double.TryParse(speeds[1], out var sixtySecSpeed)) {
+                            sixtySecTotal += sixtySecSpeed;
+                            ++sixtySecCount;
+                            } else if (double.TryParse(speeds[0], out var twoSecSpeed)) {
+                            // Store 2.5s data in case 60s is never reached
+                            twoSecTotal += twoSecSpeed;
+                            ++twoSecCount;
+                            }
+                            */
+                        }
 
-                    try { 
-                    if (double.TryParse(speeds[1], out var sixtySecSpeed)) {
-                        sixtySecTotal += sixtySecSpeed;
-                        ++sixtySecCount;
-                        } else if (double.TryParse(speeds[0], out var twoSecSpeed)) {
-                        // Store 2.5s data in case 60s is never reached
-                        twoSecTotal += twoSecSpeed;
-                        ++twoSecCount;
+                        catch
+                        {
+                            MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            BenchmarkSignalFinnished = true;
+                            return;
                         }
                     }
-                    catch
-                    {
-                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        BenchmarkSignalFinnished = true;
-                        return;
-                    }
+                    count++;
                 }
             }
 
