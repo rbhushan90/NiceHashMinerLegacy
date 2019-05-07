@@ -3,6 +3,7 @@
 - [Introduction](#introduction)
 - [What are the benefits?](#benefits)
 - [Features](#features)
+- [GPU tuning](#gputuning)
 - [Requirements](#requirements)
 - [How to get&run it?](#run)
 - [Where is the profit coming from?](#profit)
@@ -38,6 +39,10 @@ NiceHash Miner Legacy is an advanced auto-miner that supports the latest algorit
 - Display current rate and your balance in real time.
 - Auto update notifications.
 - Much more...
+
+# <a name="gputuning"></a> GPU tuning
+GPU-tuning program developed only for use with NHML Fork Fix. Use as part of other or similar projects is not allowed.
+<img src="Resources/gputuning.PNG" />
 
 # <a name="requirements"></a> Requirements
 
