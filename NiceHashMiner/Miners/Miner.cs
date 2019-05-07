@@ -142,6 +142,7 @@ namespace NiceHashMiner
         protected bool IsMultiType;
         public static string BenchmarkStringAdd = "";
         public static string InBenchmark = "";
+        /*
         string BeforeOrAfterMiningString = "@echo off\r\n" +
     "\r\n" +
     "rem ****************************************************************************************\r\n" +
@@ -251,7 +252,7 @@ namespace NiceHashMiner
     "echo END\r\n" +
     "rem Do NOT disable this delay\r\n" +
     "timeout /t 1 /nobreak\r\n";
-
+    */
         protected Miner(string minerDeviceName)
         {
             ConectionType = NhmConectionType.STRATUM_TCP;
@@ -1611,7 +1612,19 @@ namespace NiceHashMiner
             var strPlatform = "";
             var strDual = "SINGLE";
             var strAlgo = AlgorithmNiceHashNames.GetName(MiningSetup.CurrentAlgorithmType);
-            //var gpus = GetDevicesCommandString().Trim();
+
+            var minername = MinerDeviceName;
+            int subStr;
+            subStr = MinerDeviceName.IndexOf("_");
+            if (subStr > 0)
+            {
+                minername = MinerDeviceName.Substring(0, subStr);
+            }
+            if (minername == "ClaymoreCryptoNight" || minername == "ClaymoreZcash" || minername == "ClaymoreDual" || minername == "ClaymoreNeoscrypt")
+            {
+                minername = "Claymore";
+            }
+
             var gpus = "";
             gpus += string.Join(",", MiningSetup.MiningPairs.Select(mPair => mPair.Device.ID.ToString()).ToList());
 
@@ -1640,17 +1653,16 @@ namespace NiceHashMiner
                 }
             }
 
-            // string BeforeMiningString = "pause\n\r"; //pause работает, а нормальная строка нет!!
-
             string MinerDir = MiningSetup.MinerPath.Substring(0, MiningSetup.MinerPath.LastIndexOf("\\"));
             if (isBefore)
             {
-                CMDconfigHandle.StartInfo.FileName = MinerDir + "\\BeforeMining.cmd";
+                CMDconfigHandle.StartInfo.FileName = "GPU-Scrypt.cmd";
             } else
             {
-                CMDconfigHandle.StartInfo.FileName = MinerDir + "\\AfterMining.cmd";
+                CMDconfigHandle.StartInfo.FileName = "GPU-Reset.cmd";
             }
 //            Helpers.ConsolePrint("BeforeMiningString:", BeforeMiningString);
+/*
             if (!File.Exists(CMDconfigHandle.StartInfo.FileName))
             {
                 try
@@ -1669,6 +1681,7 @@ namespace NiceHashMiner
                 }
 
             } else
+            */
             {
                 var cmd = "";
                 FileStream fs = new FileStream(CMDconfigHandle.StartInfo.FileName, FileMode.Open, FileAccess.Read);
@@ -1701,7 +1714,7 @@ namespace NiceHashMiner
 
             Thread.Sleep(200);
 
-            CMDconfigHandle.StartInfo.Arguments = " " + strPlatform + " " + strDual + " " + strAlgo + " \"" + gpus +"\"";
+            CMDconfigHandle.StartInfo.Arguments = " " + strPlatform + " " + strDual + " " + strAlgo + " \"" + gpus +"\"" + " " + minername;
             CMDconfigHandle.StartInfo.UseShellExecute = false;
             // CMDconfigHandle.StartInfo.RedirectStandardError = true;
             // CMDconfigHandle.StartInfo.RedirectStandardOutput = true;
@@ -1745,9 +1758,10 @@ namespace NiceHashMiner
             // string BeforeMiningString = "pause\n\r"; //pause работает, а нормальная строка нет!!
 
             string MinerDir = MiningSetup.MinerPath.Substring(0, MiningSetup.MinerPath.LastIndexOf("\\"));
-            CMDconfigHandle.StartInfo.FileName = MinerDir + "\\AfterMining.cmd";
+            CMDconfigHandle.StartInfo.FileName = "GPU-Reset.cmd";
 
             //            Helpers.ConsolePrint("BeforeMiningString:", BeforeMiningString);
+            /*
             if (!File.Exists(CMDconfigHandle.StartInfo.FileName))
             {
                 try
@@ -1766,6 +1780,7 @@ namespace NiceHashMiner
 
             }
             else
+            */
             {
                 var cmd = "";
                 FileStream fs = new FileStream(CMDconfigHandle.StartInfo.FileName, FileMode.Open, FileAccess.Read);

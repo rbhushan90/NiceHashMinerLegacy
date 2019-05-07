@@ -60,7 +60,7 @@ namespace NiceHashMiner.Forms
             // Initialize tabs
             InitializeGeneralTab();
 
-            // initialization calls 
+            // initialization calls
             InitializeDevicesTab();
             // link algorithm list with algorithm settings control
             algorithmSettingsControl1.Enabled = false;
@@ -145,7 +145,7 @@ namespace NiceHashMiner.Forms
                 International.GetText("Form_Settings_General_AllowMultipleInstances_ToolTip"));
             toolTip1.SetToolTip(pictureBox_AllowMultipleInstances,
                 International.GetText("Form_Settings_General_AllowMultipleInstances_ToolTip"));
-            
+
             toolTip1.SetToolTip(label_MinProfit, International.GetText("Form_Settings_ToolTip_MinimumProfit"));
             toolTip1.SetToolTip(pictureBox_MinProfit, International.GetText("Form_Settings_ToolTip_MinimumProfit"));
             toolTip1.SetToolTip(textBox_MinProfit, International.GetText("Form_Settings_ToolTip_MinimumProfit"));
@@ -385,7 +385,7 @@ namespace NiceHashMiner.Forms
             label_MinerAPIQueryInterval.Text =
                 International.GetText("Form_Settings_General_MinerAPIQueryInterval") + ":";
             label_LogMaxFileSize.Text = International.GetText("Form_Settings_General_LogMaxFileSize") + ":";
-            
+
             label_SwitchMaxSeconds.Text =
                 International.GetText("Form_Settings_General_SwitchMaxSeconds") + ":";
             label_SwitchMinSeconds.Text = International.GetText("Form_Settings_General_SwitchMinSeconds") + ":";
@@ -437,10 +437,12 @@ namespace NiceHashMiner.Forms
             groupBox_Miners.Text = International.GetText("FormSettings_Tab_Advanced_Group_Miners");
             groupBoxBenchmarkTimeLimits.Text =
                 International.GetText("FormSettings_Tab_Advanced_Group_BenchmarkTimeLimits");
-
-            buttonAllProfit.Text = International.GetText("FormSettings_Tab_Devices_Algorithms_Check_ALLProfitability");
-            buttonSelectedProfit.Text =
-                International.GetText("FormSettings_Tab_Devices_Algorithms_Check_SingleProfitability");
+            if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
+            {
+                buttonGPUtuning.Text = "Настройка GPU";
+            }
+            //buttonSelectedProfit.Text =
+              //  International.GetText("FormSettings_Tab_Devices_Algorithms_Check_SingleProfitability");
 
             checkBox_DisableDefaultOptimizations.Text =
                 International.GetText("Form_Settings_Text_DisableDefaultOptimizations");
@@ -774,7 +776,7 @@ namespace NiceHashMiner.Forms
             ConfigManager.GeneralConfig.BitcoinAddress = textBox_BitcoinAddress.Text.Trim();
             if (ConfigManager.GeneralConfig.WorkerName != textBox_WorkerName.Text.Trim()) _isCredChange = true;
             ConfigManager.GeneralConfig.WorkerName = textBox_WorkerName.Text.Trim();
-            
+
             ConfigManager.GeneralConfig.SwitchSmaTimeChangeSeconds.Upper =
                 Helpers.ParseInt(textBox_SwitchMaxSeconds.Text);
             ConfigManager.GeneralConfig.SwitchSmaTimeChangeSeconds.Lower = Helpers.ParseInt(textBox_SwitchMinSeconds.Text);
@@ -869,35 +871,9 @@ namespace NiceHashMiner.Forms
             System.Diagnostics.Process.Start(url);
         }
 
-        private void ButtonAllProfit_Click(object sender, EventArgs e)
+        private void ButtonGPUtuning_Click(object sender, EventArgs e)
         {
-            var url = Links.NhmProfitCheck + "CUSTOM";
-            var total = new Dictionary<AlgorithmType, double>();
-            foreach (var curCDev in ComputeDeviceManager.Available.Devices)
-            {
-                foreach (var algorithm in curCDev.GetAlgorithmSettingsFastest())
-                {
-                    if (total.ContainsKey(algorithm.NiceHashID))
-                    {
-                        total[algorithm.NiceHashID] += algorithm.BenchmarkSpeed;
-                    }
-                    else
-                    {
-                        total[algorithm.NiceHashID] = algorithm.BenchmarkSpeed;
-                    }
-                }
-            }
-
-            foreach (var algorithm in total)
-            {
-                var id = (int) algorithm.Key;
-                url += "&speed" + id + "=" + ProfitabilityCalculator.GetFormatedSpeed(algorithm.Value, algorithm.Key)
-                           .ToString("F2", CultureInfo.InvariantCulture);
-            }
-
-            url += "&nhmver=" + Application.ProductVersion; // Add version info
-            url += "&cost=1&power=1"; // Set default power and cost to 1
-            System.Diagnostics.Process.Start(url);
+             System.Diagnostics.Process.Start("GPU-Tuning.exe");
         }
 
         #endregion //Tab Device
