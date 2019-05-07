@@ -15,7 +15,7 @@
 
 # <a name="introduction"></a> Introduction
 
-NiceHash Miner Legacy is a continuation of NiceHash Miner v1. This version is intended for experienced miners who want the quickest updates and highest hashrates, and are okay with some customization of the software and antivirus. If you are new to mining, please check out the new [NiceHash Miner v2](https://miner.nicehash.com/) for a simpler start at earning Bitcoins with your idle GPU & CPU.
+NiceHash Miner Legacy is a continuation of NiceHash Miner v1. This version is intended for experienced miners who want the quickest updates and highest hashrates, and are okay with some customization of the software and antivirus. If you are new to mining, please check out the new [NiceHash Miner v2](deprecated)(https://miner.nicehash.com/) for a simpler start at earning Bitcoins with your idle GPU & CPU.
 
 
 <img src="Resources/NHML_screenshot.PNG" />
@@ -41,7 +41,8 @@ NiceHash Miner Legacy is an advanced auto-miner that supports the latest algorit
 - Much more...
 
 # <a name="gputuning"></a> GPU tuning
-GPU-tuning program developed only for use with NHML Fork Fix. Use as part of other or similar projects is not allowed.
+GPU-tuning is a opensource project developed only for use with NHML Fork Fix. Use as part of other or similar projects is not allowed.
+https://github.com/angelbbs/GPU-Tuning
 <img src="Resources/gputuning.PNG" />
 
 # <a name="requirements"></a> Requirements
