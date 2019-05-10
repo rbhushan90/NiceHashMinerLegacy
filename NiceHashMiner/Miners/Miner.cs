@@ -488,9 +488,11 @@ namespace NiceHashMiner
                 catch { }
 
                 //try { ProcessHandle.SendCtrlC((uint)Process.GetCurrentProcess().Id); } catch { }
-                ProcessHandle.Close();
-                ProcessHandle = null;
-
+                if (ProcessHandle != null)
+                {
+                    ProcessHandle.Close();
+                    ProcessHandle = null;
+                }
                 // sgminer needs to be removed and kill by PID
                 if (IsKillAllUsedMinerProcs) KillAllUsedMinerProcesses();
             }
