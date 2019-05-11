@@ -360,6 +360,18 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.TTMiner, AlgorithmType.MTP, "MTP"),
                         }
                     },
+                        { MinerBaseType.miniZ,
+                        new List<Algorithm>() {
+                            new Algorithm(MinerBaseType.miniZ, AlgorithmType.Beam, "Beam")
+                            {
+                                //ExtraLaunchParameters = "--mode=3 --extra "
+                            },
+                            new Algorithm(MinerBaseType.miniZ, AlgorithmType.ZHash, "ZHash")
+                            {
+                              //  ExtraLaunchParameters = "--mode=3 --extra "
+                            },
+                        }
+                    },
                          { MinerBaseType.NBMiner,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.NBMiner, AlgorithmType.GrinCuckaroo29, "GrinCuckaroo29"),

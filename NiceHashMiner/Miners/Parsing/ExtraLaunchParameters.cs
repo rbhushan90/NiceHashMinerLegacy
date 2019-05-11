@@ -55,6 +55,21 @@ namespace NiceHashMiner.Miners.Parsing
                 new List<MinerOption>()
 
             ),
+                new MinerOptionPackage(
+                MinerType.miniZ,
+                new List<MinerOption>() {
+                    new MinerOption("miniZ_logfile", "--log-file=", "--log-file=", "", MinerOptionFlagType.SingleParam, ""),
+                    new MinerOption("miniZ_Intensity", "--intensity=", "--intensity=", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("miniZ_nocolor", "--nocolor", "--nocolor", null, MinerOptionFlagType.Uni),
+                    new MinerOption("miniZ_f11", "--f11=", "--f11=", "0", MinerOptionFlagType.SingleParam, ""),
+                    new MinerOption("miniZ_extra", "--extra", "--extra", null, MinerOptionFlagType.Uni),
+                    new MinerOption("miniZ_oc1", "--oc1", "--oc1", null, MinerOptionFlagType.SingleParam, ""),
+                    new MinerOption("miniZ_oc2", "--oc2", "--oc2", null, MinerOptionFlagType.SingleParam, ""),
+                    new MinerOption("miniZ_mod", "--mode=", "--mode=", "0", MinerOptionFlagType.MultiParam, "")
+                },
+                new List<MinerOption>()
+
+            ),
 
                 new MinerOptionPackage(
                 MinerType.TTMiner,

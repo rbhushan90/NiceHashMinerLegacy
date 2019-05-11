@@ -42,6 +42,7 @@
         TTMiner,
         XmrigNVIDIA,
         NBMiner,
+        miniZ,
         END
     }
 }

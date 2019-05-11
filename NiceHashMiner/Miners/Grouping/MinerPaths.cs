@@ -139,6 +139,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string WildRig = Bin3rdParty + @"\WildRig\wildrig.exe";
             public const string TTMiner = Bin3rdParty + @"\TT-Miner\TT-Miner.exe";
             public const string NBMiner = Bin3rdParty + @"\NBMiner\nbminer.exe";
+            public const string miniZ = Bin3rdParty + @"\miniZ\miniZ.exe";
         }
 
         // NEW START
@@ -243,6 +244,8 @@ namespace NiceHashMiner.Miners.Grouping
                     return Data.XmrigNVIDIA;
                 case MinerBaseType.NBMiner:
                     return Data.NBMiner;
+                case MinerBaseType.miniZ:
+                    return Data.miniZ;
             }
             return Data.None;
         }
@@ -391,6 +394,21 @@ namespace NiceHashMiner.Miners.Grouping
                 if (nvidiaGroup == DeviceGroupType.NVIDIA_5_x || nvidiaGroup == DeviceGroupType.NVIDIA_6_x)
                 {
                     return Data.NBMiner;
+                }
+                // TODO wrong case?
+                return Data.None; // should not happen
+            }
+            public static string miniZ(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
+            {
+                // sm21 and sm3x have same settings
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_2_1 || nvidiaGroup == DeviceGroupType.NVIDIA_3_x)
+                {
+                    return Data.miniZ;
+                }
+                // sm5x and sm6x have same settings otherwise
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_5_x || nvidiaGroup == DeviceGroupType.NVIDIA_6_x)
+                {
+                    return Data.miniZ;
                 }
                 // TODO wrong case?
                 return Data.None; // should not happen

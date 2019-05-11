@@ -318,7 +318,19 @@ namespace NiceHashMiner.Devices.Algorithms
                 }
             }
             Helpers.ConsolePrint("GPU MEMORY: ", device.GpuRam.ToString() + " bytes - " + device.Name);
+            if (algoSettings.ContainsKey(MinerBaseType.miniZ))
+            {
+                var miniZAlgos = algoSettings[MinerBaseType.miniZ];
+                int miniZBeam_Index = miniZAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.Beam);
 
+                if (miniZBeam_Index > -1)
+                {
+                    if (device.GpuRam < 1024 * 1024 * 1024 * 4.7) 
+                    {
+                        miniZAlgos[miniZBeam_Index].ExtraLaunchParameters = " --mode=3";
+                    }
+                }
+            }
             //if (algoSettings.ContainsKey(MinerBaseType.Claymore) && (device.Name.Contains("3GB"))
             if (algoSettings.ContainsKey(MinerBaseType.Claymore) && device.GpuRam < 1024*1024*1024 * 3.7 && !device.Name.Contains("R7 370"))
              {

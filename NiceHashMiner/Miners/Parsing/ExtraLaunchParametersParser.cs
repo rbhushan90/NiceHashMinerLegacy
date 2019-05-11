@@ -337,6 +337,8 @@ namespace NiceHashMiner.Miners.Parsing
                     return MinerType.TTMiner;
                 case MinerBaseType.NBMiner:
                     return MinerType.NBMiner;
+                case MinerBaseType.miniZ:
+                    return MinerType.miniZ;
 
 
 
