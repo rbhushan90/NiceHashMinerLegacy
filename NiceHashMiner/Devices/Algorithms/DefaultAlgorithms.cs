@@ -339,6 +339,7 @@ namespace NiceHashMiner.Devices.Algorithms
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.trex, AlgorithmType.Lyra2z, "Lyra2z"),
                             new Algorithm(MinerBaseType.trex, AlgorithmType.Skunk, "Skunk"),
+                            new Algorithm(MinerBaseType.trex, AlgorithmType.MTP, "MTP"),
                             new Algorithm(MinerBaseType.trex, AlgorithmType.X16R, "X16R"),
                         }
                     },

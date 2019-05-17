@@ -144,7 +144,24 @@ namespace NiceHashMiner.Miners
                 commandLine += GetDevicesCommandString();
                 _benchmarkTimeWait = 240;
             }
-
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
+            {
+                commandLine = "--algo mtp" +
+                 " -o stratum+tcp://xzc.2miners.com:8080" + " -u aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE" + " -p x " +
+                 " -o " + url + " -u " + username + " -p x " +
+                 " -o " + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+                              ExtraLaunchParametersParser.ParseForMiningSetup(
+                                  MiningSetup,
+                                  DeviceType.NVIDIA) + " -l " + GetLogFileName() +
+                              " -d ";
+                commandLine += GetDevicesCommandString();
+                _benchmarkTimeWait = 300;
+            }
             return commandLine;
         }
 
@@ -278,6 +295,28 @@ namespace NiceHashMiner.Miners
                     {
                         if (line != null)
                         {
+                            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
+                            {
+                                if (line.Contains("1/1") || line.Contains("0/1"))
+                                {
+
+                                    var st = line.IndexOf("- ");
+                                    var e = line.ToLower().IndexOf("h/s");
+                                    var parse = line.Substring(st + 2, e - st - 4).Trim();
+                                    double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                                    // save speed
+
+                                    if (line.ToLower().Contains("kh/s"))
+                                        tmp *= 1000;
+                                    else if (line.ToLower().Contains("mh/s"))
+                                        tmp *= 1000000;
+
+                                    BenchmarkAlgorithm.BenchmarkSpeed = tmp;
+                                    BenchmarkSignalFinnished = true;
+
+                                }
+                            }
+
                             if (line.Contains("3/3") || line.Contains("2/3"))
                             {
 
