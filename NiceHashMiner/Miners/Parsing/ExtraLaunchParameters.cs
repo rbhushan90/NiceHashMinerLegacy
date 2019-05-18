@@ -475,6 +475,7 @@ namespace NiceHashMiner.Miners.Parsing
                     // v9.0
                     new MinerOption("ClaymoreDual_asm", "-asm", "-asm", "1", MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("ClaymoreDual_strap", "-strap", "-strap", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("ClaymoreDual_strap", "-sintensity", "-sintensity", "0", MinerOptionFlagType.MultiParam, ","),
                 },
                 new List<MinerOption>
                 {
