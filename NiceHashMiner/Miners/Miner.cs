@@ -461,8 +461,11 @@ namespace NiceHashMiner
             }
             try
             {
-                Process proc = Process.GetProcessById(pid);
-                proc.Kill();
+              //  if (pid != null) //процесс может быть уже убит?
+               // {
+                //    Process proc = Process.GetProcessById(pid);
+                 //   proc.Kill();
+                //}
             }
             catch (ArgumentException)
             {
