@@ -99,7 +99,7 @@ namespace NiceHashMiner.Miners
         protected override string GetDevicesCommandString()
         {
             var deviceStringCommand = MiningSetup.MiningPairs.Aggregate(" --cuda-devices ",
-                (current, nvidiaPair) => current + (nvidiaPair.Device.ID + " "));
+                (current, nvidiaPair) => current + (nvidiaPair.Device.IDByBus + " "));
 
             deviceStringCommand +=
                 " " + ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);
