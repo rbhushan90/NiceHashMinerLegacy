@@ -22,7 +22,7 @@ namespace NiceHashMiner.Miners
     public class SRBMiner : Miner
     {
         private readonly int GPUPlatformNumber;
-        private int _benchmarkTimeWait = 180;
+        private int _benchmarkTimeWait = 240;
 
         private int TotalCount = 2;
         private const int TotalDelim = 2;
@@ -251,7 +251,7 @@ namespace NiceHashMiner.Miners
                 algo = "cryptonightheavy";
                 port = "3364";
                 variant = " --ccryptonighttype heavy";
-                return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool loki.miner.rocks:5555 --cwallet L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi --cpassword w={ConfigManager.GeneralConfig.WorkerName.Trim()} --logfile {GetLogFileName()} --pools poolsH.txt";
+                return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool cryptonightheavy.hk.nicehash.com:3364 --cwallet {btcAdress}.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsH.txt";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
             {
@@ -260,7 +260,13 @@ namespace NiceHashMiner.Miners
                 variant = " --ccryptonighttype normalv4";
                 return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool xmr-eu1.nanopool.org:14444 --cwallet 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsR.txt";
             }
-
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
+            {
+                algo = "cryptonightv8";
+                port = "3367";
+                variant = " --ccryptonighttype normalv8";
+                return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool cryptonightv8.hk.nicehash.com:3367 --cwallet {btcAdress}.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsV8.txt";
+            }
             return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool eu.nicehash.com:3367 --cwallet {btcAdress}.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsV8.txt";
 
         }

@@ -400,7 +400,8 @@ namespace NiceHashMiner.Miners.Parsing
                     new MinerOption("SRBMiner-worksize", "--cgpuworksize", null, MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("SRBMiner-targettemperature", "--cgputargettemperature", null, MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("SRBMiner-cgputargetfanspeed", "--cgputargetfanspeed", null, MinerOptionFlagType.MultiParam, ","),
-                    new MinerOption("SRBMiner-cgpuadltype", "--cgpuadltype", null, MinerOptionFlagType.MultiParam, ",")
+                    new MinerOption("SRBMiner-cgpuadltype", "--cgpuadltype", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("SRBMiner-cgputweakprofile", "--cgputweakprofile", null, MinerOptionFlagType.MultiParam, ",")
                 },
                 new List<MinerOption>(){ }
              ),
@@ -475,7 +476,8 @@ namespace NiceHashMiner.Miners.Parsing
                     // v9.0
                     new MinerOption("ClaymoreDual_asm", "-asm", "-asm", "1", MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("ClaymoreDual_strap", "-strap", "-strap", "0", MinerOptionFlagType.MultiParam, ","),
-                    new MinerOption("ClaymoreDual_strap", "-sintensity", "-sintensity", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("ClaymoreDual_sintensity", "-sintensity", "-sintensity", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("ClaymoreDual_rxboost", "-rxboost", "-rxboost", "0", MinerOptionFlagType.MultiParam, ","),
                 },
                 new List<MinerOption>
                 {

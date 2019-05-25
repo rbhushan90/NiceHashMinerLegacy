@@ -149,7 +149,7 @@ namespace NiceHashMiner.Miners
                     var speed = lineLowered.Substring(speedStart, lineLowered.Length - speedStart);
                     speed = speed.Replace(_lookForStart, "");
                     speed = speed.Substring(0, speed.IndexOf(_lookForEnd));
-                    if (count >= 8) //пропустить первые 8
+                    if (count >= 8 || (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3) && count>=4 )) //пропустить первые 8
                     {
                         try
                         {

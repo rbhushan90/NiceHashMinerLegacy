@@ -106,6 +106,7 @@ namespace NiceHashMiner.Miners
                                   DeviceType.NVIDIA) + " -l " + GetLogFileName() +
                               " -d ";
                 commandLine += GetDevicesCommandString();
+                _benchmarkTimeWait = 120;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Skunk))
             {
@@ -142,7 +143,7 @@ namespace NiceHashMiner.Miners
                                   DeviceType.NVIDIA) + " -l " + GetLogFileName() +
                               " -d ";
                 commandLine += GetDevicesCommandString();
-                _benchmarkTimeWait = 240;
+                _benchmarkTimeWait = 180;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
             {
@@ -160,7 +161,7 @@ namespace NiceHashMiner.Miners
                                   DeviceType.NVIDIA) + " -l " + GetLogFileName() +
                               " -d ";
                 commandLine += GetDevicesCommandString();
-                _benchmarkTimeWait = 300;
+                _benchmarkTimeWait = 360;
             }
             return commandLine;
         }
@@ -259,6 +260,7 @@ namespace NiceHashMiner.Miners
                 var dirInfo = new DirectoryInfo(WorkingDirectory);
 
                 // read file log
+                Thread.Sleep(1000);
                 if (File.Exists(WorkingDirectory + latestLogFile))
                 {
                     var lines = new string[0];
@@ -335,8 +337,46 @@ namespace NiceHashMiner.Miners
                                 BenchmarkSignalFinnished = true;
 
                             }
+                            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
+                            {
+                                if (line.Contains("6/6") || line.Contains("5/6"))
+                                {
 
+                                    var st = line.IndexOf("- ");
+                                    var e = line.ToLower().IndexOf("h/s");
+                                    var parse = line.Substring(st + 2, e - st - 4).Trim();
+                                    double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                                    // save speed
 
+                                    if (line.ToLower().Contains("kh/s"))
+                                        tmp *= 1000;
+                                    else if (line.ToLower().Contains("mh/s"))
+                                        tmp *= 1000000;
+
+                                    BenchmarkAlgorithm.BenchmarkSpeed = tmp;
+                                    BenchmarkSignalFinnished = true;
+                                }
+                            }
+                            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16R))
+                            {
+                                if (line.Contains("6/6") || line.Contains("5/6"))
+                                {
+
+                                    var st = line.IndexOf("- ");
+                                    var e = line.ToLower().IndexOf("h/s");
+                                    var parse = line.Substring(st + 2, e - st - 4).Trim();
+                                    double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                                    // save speed
+
+                                    if (line.ToLower().Contains("kh/s"))
+                                        tmp *= 1000;
+                                    else if (line.ToLower().Contains("mh/s"))
+                                        tmp *= 1000000;
+
+                                    BenchmarkAlgorithm.BenchmarkSpeed = tmp;
+                                    BenchmarkSignalFinnished = true;
+                                }
+                            }
                         }
                     }
                 }

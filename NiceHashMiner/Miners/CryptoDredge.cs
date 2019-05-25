@@ -82,7 +82,7 @@ namespace NiceHashMiner.Miners
             }
             LastCommandLine = algo +
                 " -o " + url + " -u " + username + " -p x " +
-                " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
@@ -134,6 +134,19 @@ namespace NiceHashMiner.Miners
                 commandLine = "--algo blake2s" +
                 " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://blake2s.eu.mine.zpool.ca:5766" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
+                " --log " + GetLogFileName() +
+                apiBind +
+                " -d " + GetDevicesCommandString() + " " +
+                ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
+                TotalCount = 3;
+                Total = 0.0d;
+                return commandLine;
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16R))
+            {
+                commandLine = "--algo x16r" +
+                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o stratum+tcp://x16r.eu.mine.zpool.ca:3636" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
                 " --log " + GetLogFileName() +
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
