@@ -136,10 +136,12 @@ namespace NiceHashMiner.Devices.Algorithms
                         ExtraLaunchParameters = DefaultParam + "--intensity 15"
                     },
                     */
+                    /*
                     new Algorithm(MinerBaseType.sgminer, AlgorithmType.X16R, "X16R")
                     {
                         ExtraLaunchParameters = DefaultParam + "--gpu-threads 2"
                     }
+                    */
                 }
             },
                     { MinerBaseType.CastXMR,
@@ -286,7 +288,7 @@ namespace NiceHashMiner.Devices.Algorithms
                 MinerBaseType.ccminer,
                 new List<Algorithm>
                 {
-                    new Algorithm(MinerBaseType.ccminer, AlgorithmType.NeoScrypt, "neoscrypt"),
+                    //new Algorithm(MinerBaseType.ccminer, AlgorithmType.NeoScrypt, "neoscrypt"),
                     //new Algorithm(MinerBaseType.ccminer, AlgorithmType.Lyra2REv2, "lyra2v2"),
                     //new Algorithm(MinerBaseType.ccminer, AlgorithmType.Decred, "decred"),
                     //new Algorithm(MinerBaseType.ccminer, AlgorithmType.Lbry, "lbry"),
@@ -294,12 +296,12 @@ namespace NiceHashMiner.Devices.Algorithms
                     //new Algorithm(MinerBaseType.ccminer, AlgorithmType.Blake2s, "blake2s"),
                     //new Algorithm(MinerBaseType.ccminer, AlgorithmType.Sia, "sia"),
                     //new Algorithm(MinerBaseType.ccminer, AlgorithmType.Keccak, "keccak"),
-                    new Algorithm(MinerBaseType.ccminer, AlgorithmType.Skunk, "skunk"),
-                    new Algorithm(MinerBaseType.ccminer, AlgorithmType.Lyra2z, "lyra2z"),
-                    new Algorithm(MinerBaseType.ccminer, AlgorithmType.MTP, "MTP")
-                    {
-                                ExtraLaunchParameters = "-i 20 "
-                    },
+                    //new Algorithm(MinerBaseType.ccminer, AlgorithmType.Skunk, "skunk"),
+                    //new Algorithm(MinerBaseType.ccminer, AlgorithmType.Lyra2z, "lyra2z"),
+                    //new Algorithm(MinerBaseType.ccminer, AlgorithmType.MTP, "MTP")
+                    //{
+                    //            ExtraLaunchParameters = "-i 20 "
+                    //},
                 }
             },
             /*
