@@ -7,9 +7,6 @@ namespace NiceHashMiner.Utils
         public static string[] ALL_FILES_BINS =
         {
             @"/vc_redist.x64.exe",
-            @"/ccminer_klaust/ccminer.exe",
-            @"/ccminer_neoscrypt/ccminer.exe",
-            @"/sgminer-kl/sgminer.exe",
             @"/xmr-stak/xmrstak_cuda_backend.dll",
             @"/xmr-stak/xmrstak_opencl_backend.dll",
             @"/xmr-stak/xmr-stak.exe",
@@ -17,7 +14,6 @@ namespace NiceHashMiner.Utils
             @"/xmrig-amd/xmrig-amd.exe",
             @"/xmrig-nvidia/xmrig-nvidia.exe",
             @"/xmr-stak_heavy/xmr-stak.exe",
-            @"/cpuminer_opt/cpuminer.exe",
             @"/Fork_Fix_15.txt"
         };
 

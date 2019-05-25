@@ -76,7 +76,7 @@ namespace NiceHashMiner.Devices.Algorithms
                 MinerBaseType.cpuminer,
                 new List<Algorithm>
                 {
-                    new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Lyra2z, "lyra2z")
+             //       new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Lyra2z, "lyra2z")
                 }
             }
         }.ConcatDict(All);
