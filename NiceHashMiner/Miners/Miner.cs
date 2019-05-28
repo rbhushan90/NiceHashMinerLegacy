@@ -465,7 +465,7 @@ namespace NiceHashMiner
                 int i = ProcessTag().IndexOf(")|bin");
                 var cpid = ProcessTag().Substring(k + 4, i - k - 4).Trim();
                 pid = int.Parse(cpid, CultureInfo.InvariantCulture);
-
+                Thread.Sleep(500);
                 if (pid > 0) //процесс может быть уже убит?
                 {
                     try
@@ -499,9 +499,11 @@ namespace NiceHashMiner
                 int pid = int.Parse(cpid, CultureInfo.InvariantCulture);
                 KillProcessAndChildren(pid);
 
-                try { ProcessHandle.Kill(); }
-                catch { }
-
+                if (ProcessHandle != null)
+                {
+                    try { ProcessHandle.Kill(); }
+                    catch { }
+                }
                 //try { ProcessHandle.SendCtrlC((uint)Process.GetCurrentProcess().Id); } catch { }
                 if (ProcessHandle != null)
                 {

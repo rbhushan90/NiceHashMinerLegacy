@@ -13,6 +13,7 @@ namespace NiceHashMiner.Configs.Data
         public bool DecreasePowerCost;
         public bool NoShowApiInLog;
         public bool lolMinerOldEnumeration;
+        public bool NoForceTRexClose;
         public LanguageType Language = LanguageType.En;
         public string DisplayCurrency = "USD";
 

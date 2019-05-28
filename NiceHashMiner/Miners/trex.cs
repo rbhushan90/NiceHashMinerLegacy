@@ -55,7 +55,7 @@ namespace NiceHashMiner.Miners
      " -o stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
      " -o stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
      apiBind +
-     " -d " + GetDevicesCommandString() + " " +
+     " -d " + GetDevicesCommandString() + " --no-watchdog " +
      ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
      
      /*
@@ -103,7 +103,7 @@ namespace NiceHashMiner.Miners
                  " -o stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
-                                  DeviceType.NVIDIA) + " -l " + GetLogFileName() +
+                                  DeviceType.NVIDIA) + " --no-watchdog -l " + GetLogFileName() +
                               " -d ";
                 commandLine += GetDevicesCommandString();
                 _benchmarkTimeWait = 120;
@@ -122,7 +122,7 @@ namespace NiceHashMiner.Miners
                  " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
-                                  DeviceType.NVIDIA) + " -l " + GetLogFileName() +
+                                  DeviceType.NVIDIA) + " --no-watchdog -l " + GetLogFileName() +
                               " -d ";
                 commandLine += GetDevicesCommandString();
                 _benchmarkTimeWait = 240;
@@ -140,7 +140,7 @@ namespace NiceHashMiner.Miners
                  " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
-                                  DeviceType.NVIDIA) + " -l " + GetLogFileName() +
+                                  DeviceType.NVIDIA) + " --no-watchdog -l " + GetLogFileName() +
                               " -d ";
                 commandLine += GetDevicesCommandString();
                 _benchmarkTimeWait = 180;
@@ -158,7 +158,7 @@ namespace NiceHashMiner.Miners
                  " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
-                                  DeviceType.NVIDIA) + " -l " + GetLogFileName() +
+                                  DeviceType.NVIDIA) + " --no-watchdog -l " + GetLogFileName() +
                               " -d ";
                 commandLine += GetDevicesCommandString();
                 _benchmarkTimeWait = 360;
@@ -459,6 +459,16 @@ namespace NiceHashMiner.Miners
         protected override void _Stop(MinerStopType willswitch)
         {
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
+            if (ProcessHandle != null)
+            {
+                if (!ConfigManager.GeneralConfig.NoForceTRexClose)
+                {
+                    Thread.Sleep(500);
+                    Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Try force killing miner!");
+                    try { KillMinerBase("t-rex"); }
+                    catch { }
+                }
+            }
         }
 
         protected override int GetMaxCooldownTimeInMilliseconds()

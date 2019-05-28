@@ -91,6 +91,8 @@ Parameter | Range | Description
 ConfigFileVersion | Version | This is to identify which version of NiceHashMinerLegacy did the config file is made from.
 ForkFixVersion | number | NHML Fork Fix Version (Do not change this value).
 DecreasePowerCost | true or false | On "true" show total profit minus cost consumption of electricity.
+lolMinerOldEnumeration | true or false | Change lolMiner Enumeration.
+NoForceTRexClose | true or false | On true disable t-rex force killing.
 Language | number | Language selection for NiceHashMinerLegacy GUI.
 DisplayCurrency | valid 3 letter code | Converts to selected currency via http://fixer.io valid options are any supported via fixer.
 DebugConsole | true or false | When set to true, it displays debug console.
