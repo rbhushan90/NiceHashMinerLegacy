@@ -445,7 +445,7 @@ namespace NiceHashMiner
             _isEnded = true;
             Stop(MinerStopType.FORCE_END);
         }
-        private static void KillProcessAndChildren(int pid)
+        protected void KillProcessAndChildren(int pid)
         {
             // Cannot close 'system idle process'.
             if (pid == 0)
@@ -461,11 +461,23 @@ namespace NiceHashMiner
             }
             try
             {
-              //  if (pid != null) //процесс может быть уже убит?
-               // {
-                //    Process proc = Process.GetProcessById(pid);
-                 //   proc.Kill();
-                //}
+                int k = ProcessTag().IndexOf("pid(");
+                int i = ProcessTag().IndexOf(")|bin");
+                var cpid = ProcessTag().Substring(k + 4, i - k - 4).Trim();
+                pid = int.Parse(cpid, CultureInfo.InvariantCulture);
+
+                if (pid > 0) //процесс может быть уже убит?
+                {
+                    try
+                    {
+                        Process proc = Process.GetProcessById(pid);
+                        proc.Kill();
+                        Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Killing miner with pid: " + pid.ToString());
+                    }
+                    catch {
+                        Helpers.ConsolePrint(MinerTag(), ProcessTag() + " ERROR killing miner with pid: " + pid.ToString());
+                    }
+                }
             }
             catch (ArgumentException)
             {
