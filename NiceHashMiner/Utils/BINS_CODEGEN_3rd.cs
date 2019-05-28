@@ -6,17 +6,6 @@ namespace NiceHashMiner.Utils
 
         public static string[] ALL_FILES_BINS =
         {
-            @"/claymore_dual/Data.bin",
-            @"/claymore_dual/Data1a1.bin",
-            @"/claymore_dual/Data1b1.bin",
-            @"/claymore_dual/Data1c1.bin",
-            @"/claymore_dual/Data1d1.bin",
-            @"/claymore_dual/Data1e1.bin",
-            @"/claymore_dual/Data1e2.bin",
-            @"/claymore_dual/Data1g1.bin",
-            @"/claymore_dual/Data1g2.bin",
-            @"/claymore_dual/Data1h1.bin",
-            @"/claymore_dual/Data1i1.bin",
             @"/claymore_dual/EthDcrMiner64.exe",
             @"/claymore_zcash/Data.bin",
             @"/claymore_zcash/Data1a1.bin",

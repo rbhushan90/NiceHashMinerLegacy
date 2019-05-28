@@ -136,7 +136,7 @@ namespace NiceHashMiner.Miners
                 ret = GetDevicesCommandString() + ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA)
                       + " --log-file=" + GetLogFileName()
                       + " --pers auto --par=" + algo
-                      + " --url 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ".nhmlff" + "@equihash144.eu.mine.zpool.ca:2144"
+                      + " --url 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ".nhmlff" + "@equihash144.eu.mine.zpool.ca:2144 -p c=BTC"
                       + " --url " + btcAddress + "." + worker + "@" + algoName + ".hk.nicehash.com:" + stratumPort
                       + " --url " + btcAddress + "." + worker + "@" + algoName + ".in.nicehash.com:" + stratumPort
                       + " --url " + btcAddress + "." + worker + "@" + algoName + ".usa.nicehash.com:" + stratumPort
