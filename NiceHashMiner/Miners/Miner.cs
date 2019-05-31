@@ -459,8 +459,10 @@ namespace NiceHashMiner
             {
                 KillProcessAndChildren(Convert.ToInt32(mo["ProcessID"]));
             }
+            /*
             try
             {
+                //проблемы с перезапуском майнеров
                 int k = ProcessTag().IndexOf("pid(");
                 int i = ProcessTag().IndexOf(")|bin");
                 var cpid = ProcessTag().Substring(k + 4, i - k - 4).Trim();
@@ -471,18 +473,20 @@ namespace NiceHashMiner
                     try
                     {
                         Process proc = Process.GetProcessById(pid);
-                        proc.Kill();
+                        //proc.Kill();
                         Helpers.ConsolePrint(MinerTag(), ProcessTag() + " Killing miner with pid: " + pid.ToString());
                     }
                     catch {
                         Helpers.ConsolePrint(MinerTag(), ProcessTag() + " ERROR killing miner with pid: " + pid.ToString());
                     }
                 }
+                
             }
             catch (ArgumentException)
             {
                 // Process already exited.
             }
+            */
         }
         protected void Stop_cpu_ccminer_sgminer_nheqminer(MinerStopType willswitch)
         {
