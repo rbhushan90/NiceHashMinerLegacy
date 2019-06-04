@@ -466,7 +466,7 @@ namespace NiceHashMiner.Forms
         {
             bool CreateNoWindow = false;
             var CMDconfigHandle = new Process
-           
+
             {
                 StartInfo =
                 {

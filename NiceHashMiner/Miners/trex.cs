@@ -220,6 +220,20 @@ namespace NiceHashMiner.Miners
                         var imageName = MinerExeName.Replace(".exe", "");
                         // maybe will have to KILL process
                         KillMinerBase(imageName);
+                        //Stop_cpu_ccminer_sgminer_nheqminer(MinerStopType.END);
+                        /*
+                        if (ProcessHandle != null)
+                        {
+                            try { ProcessHandle.Kill(); }
+                            catch { }
+                        }
+                        */
+                        int k = ProcessTag().IndexOf("pid(");
+                        int i = ProcessTag().IndexOf(")|bin");
+                        var cpid = ProcessTag().Substring(k + 4, i - k - 4).Trim();
+                        int pid = int.Parse(cpid, CultureInfo.InvariantCulture);
+                        KillProcessAndChildren(pid);
+
                         if (BenchmarkSignalTimedout)
                         {
                             throw new Exception("Benchmark timedout");
