@@ -120,6 +120,7 @@
     <Compile Include="Configs\CredentialsSettings.cs" />
     <Compile Include="Configs\Data\PluginAlgorithmConfig.cs" />
     <Compile Include="Configs\IdleMiningSettings.cs" />
+    <Compile Include="Configs\MiningProfitSettings.cs" />
     <Compile Include="Configs\RunAtStartup.cs" />
     <Compile Include="Configs\ThirdPartyMinerSettings.cs" />
     <Compile Include="Configs\TranslationsSettings.cs" />
@@ -269,6 +270,7 @@
     <Compile Include="Miners\IntegratedPlugins\XmrStakIntegrated\XmrStakIntegratedPlugin.cs" />
     <Compile Include="Miners\MinerApiWatchdog.cs" />
     <Compile Include="Miners\MiningManager.cs" />
+    <Compile Include="NHMProductInfo.cs" />
     <Compile Include="Plugin\PluginContainer.cs" />
     <Compile Include="Plugin\SupportedAlgorithmsFilter.cs" />
     <Compile Include="Plugin\SupportedPluginsFilter.cs" />
