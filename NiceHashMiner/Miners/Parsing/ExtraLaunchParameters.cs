@@ -397,6 +397,7 @@ namespace NiceHashMiner.Miners.Parsing
                 MinerType.SRBMiner,
                 new List<MinerOption>() {
                     new MinerOption("SRBMiner-tls", "--ctls", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("SRBMiner-enablegpurampup", "--enablegpurampup", null, MinerOptionFlagType.SingleParam, " "),
                     new MinerOption("SRBMiner-disablegpuwatchdog", "--disablegpuwatchdog", null, MinerOptionFlagType.Uni, " "),
                     new MinerOption("SRBMiner-intensity", "--cgpuintensity", null, MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("SRBMiner-threads", "--cgputhreads", null, MinerOptionFlagType.MultiParam, ","),

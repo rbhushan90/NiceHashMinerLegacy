@@ -168,15 +168,15 @@ namespace NiceHashMiner.Devices.Algorithms
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.SRBMiner, AlgorithmType.CryptoNightV8, "CryptoNightV8")
                             {
-                                ExtraLaunchParameters = "--cgpuintensity 0 --cgputhreads 2 "
+                                ExtraLaunchParameters = "--enablegpurampup --cgpuintensity 0 --cgputhreads 2 "
                             },
                             new Algorithm(MinerBaseType.SRBMiner, AlgorithmType.CryptoNightR, "CryptoNightR")
                             {
-                                ExtraLaunchParameters = "--cgpuintensity 0 --cgputhreads 2 "
+                                ExtraLaunchParameters = "--enablegpurampup --cgpuintensity 0 --cgputhreads 2 "
                             },
                             new Algorithm(MinerBaseType.SRBMiner, AlgorithmType.CryptoNightHeavy, "CryptoNightHeavy")
                             {
-                                ExtraLaunchParameters = "--cgpuintensity 0 --cgputhreads 2 "
+                                ExtraLaunchParameters = "--enablegpurampup --cgpuintensity 0 --cgputhreads 2 "
                             }
                         }
                     },
