@@ -46,7 +46,7 @@ namespace NiceHashMiner
         private int _flowLayoutPanelRatesIndex = 0;
 
         private const string BetaAlphaPostfixString = "";
-        const string ForkString = " Fork Fix 15.3";
+        const string ForkString = " Fork Fix 15.4";
 
         private bool _isDeviceDetectionInitialized = false;
 
@@ -81,9 +81,16 @@ namespace NiceHashMiner
 
             R = new Random((int) DateTime.Now.Ticks);
 
-//            Text += " v" + Application.ProductVersion + BetaAlphaPostfixString;
-            Text += ForkString;
-
+            //            Text += " v" + Application.ProductVersion + BetaAlphaPostfixString;
+            var cPlatform = "";
+            if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
+            {
+                cPlatform = " (для старой платформы NiceHash)";
+            } else
+            {
+                cPlatform = " (for old NiceHash platform)";
+            }
+            Text += ForkString + cPlatform;
 
             label_NotProfitable.Visible = false;
 

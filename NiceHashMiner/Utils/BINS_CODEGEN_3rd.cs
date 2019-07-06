@@ -35,7 +35,7 @@ namespace NiceHashMiner.Utils
             @"/TT-Miner/TT-Miner.exe",
             @"/NBMiner/NBMiner.exe",
             @"/miniZ/miniZ.exe",
-            @"/Fork_Fix_15.3.txt",
+            @"/Fork_Fix_15.4.txt",
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py
