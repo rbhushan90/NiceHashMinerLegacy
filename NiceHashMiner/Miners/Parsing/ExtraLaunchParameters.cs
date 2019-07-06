@@ -189,7 +189,8 @@ namespace NiceHashMiner.Miners.Parsing
                 MinerType.lolMiner,
                 new List<MinerOption>() {
                     // SingleParam
-                    new MinerOption("lolMiner_log", "", "--logs", "0", MinerOptionFlagType.SingleParam, "")
+                    new MinerOption("lolMiner_log", "", "--logs", "0", MinerOptionFlagType.SingleParam, ""),
+                    new MinerOption("lolMinerasm", "", "--asm", "0", MinerOptionFlagType.MultiParam, ",")
                 },
                 // TemperatureOptions
                 new List<MinerOption>() {
@@ -199,7 +200,8 @@ namespace NiceHashMiner.Miners.Parsing
                 MinerType.lolMinerBEAM,
                 new List<MinerOption>() {
                     // SingleParam
-                    new MinerOption("lolMinerBEAM_log", "", "--logs", "0", MinerOptionFlagType.SingleParam, "")
+                    new MinerOption("lolMinerBEAM_log", "", "--logs", "0", MinerOptionFlagType.SingleParam, ""),
+                    new MinerOption("lolMinerBEAMasm", "", "--asm", "0", MinerOptionFlagType.MultiParam, ",")
                 },
                 // TemperatureOptions
                 new List<MinerOption>() {

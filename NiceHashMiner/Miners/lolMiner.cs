@@ -240,7 +240,10 @@ namespace NiceHashMiner.Miners
             var sortedMinerPairs = MiningSetup.MiningPairs.OrderBy(pair => pair.Device.DeviceType).ToList();
             foreach (var mPair in sortedMinerPairs)
             {
-                var id = mPair.Device.ID;
+               // var id = mPair.Device.ID;
+                int id = mPair.Device.IDByBus + variables.mPairDeviceIDByBus_lolBeam;
+                if (ConfigManager.GeneralConfig.lolMinerOldEnumeration)
+                    id = mPair.Device.IDByBus;
                 if (id < 0)
                 {
                     Helpers.ConsolePrint("lolMinerIndexing", "ID too low: " + id + " skipping device");
