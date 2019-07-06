@@ -477,7 +477,13 @@ namespace NiceHashMiner.Devices.Algorithms
                         AlgorithmType.DaggerHashimoto
                     });
             }
-
+            if (algoSettings.ContainsKey(MinerBaseType.teamredminer) && device.GpuRam < 1024 * 1024 * 1024 * 4.4)
+            {
+                algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
+                    {
+                        AlgorithmType.MTP
+                    });
+            }
             if (algoSettings.ContainsKey(MinerBaseType.CryptoDredge) && device.GpuRam < 1024 * 1024 * 1024 * 4.4)
             {
                 algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>

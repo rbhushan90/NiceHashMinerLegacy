@@ -82,6 +82,10 @@ namespace NiceHashMiner.Miners
             {
                 algo = " -a x16r";
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
+            {
+                algo = " -a mtp --allow_all_devices";
+            }
             LastCommandLine = variables.TRMiner_add1 + algo + " -o " + url +
                               " -u " + username +
                               " -p x " + apiBind +
@@ -139,6 +143,11 @@ namespace NiceHashMiner.Miners
                 CommandLine = variables.TRMiner_add1 + " -a cnr" +
                 " -o stratum+tcp://cryptonightr.eu.nicehash.com:3375" + " -u " + username + " - p x " +
                 " -o stratum+tcp://xmr-eu1.nanopool.org:14444" + " -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX" + " -p x -d ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
+            {
+                CommandLine = variables.TRMiner_add1 + " -a mtp --allow_all_devices" +
+                 " -o stratum+tcp://xzc.2miners.com:8080" + " -u aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE" + " -p x -d ";
             }
             //return $" -o stratum+tcp://xmr-eu.dwarfpool.com:8005 {variant} -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1"
             /*
@@ -246,6 +255,46 @@ namespace NiceHashMiner.Miners
             if (outdata.Contains("cnr: "))
             {
                 int i = outdata.IndexOf("cnr: ");
+                int k = outdata.IndexOf("h/s, avg");
+                hashSpeed = outdata.Substring(i + 5, k - i - 6).Trim();
+                //Helpers.ConsolePrint(hashSpeed, "");
+                if (outdata.ToUpper().Contains("H/S"))
+                {
+                    kspeed = 1;
+                }
+                if (outdata.Substring(0, 65).ToUpper().Contains("KH/S"))
+                {
+                    kspeed = 1000;
+                }
+                if (outdata.Substring(0, 65).ToUpper().Contains("MH/S"))
+                {
+                    kspeed = 1000000;
+                }
+                count++;
+                if (count >= 3)
+                {
+                    try
+                    {
+                        speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
+                    BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
+                    //Killteamredminer();
+                    BenchmarkSignalFinnished = true;
+                    //BenchmarkSignalHanged = true;
+                    return true;
+                }
+            }
+
+            if (outdata.Contains("mtp: "))
+            {
+                int i = outdata.IndexOf("mtp: ");
                 int k = outdata.IndexOf("h/s, avg");
                 hashSpeed = outdata.Substring(i + 5, k - i - 6).Trim();
                 //Helpers.ConsolePrint(hashSpeed, "");
