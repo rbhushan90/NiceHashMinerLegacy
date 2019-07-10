@@ -45,7 +45,7 @@ namespace NiceHashMiner.Miners
             apiBind = " -b 127.0.0.1:" + ApiPort;
             IsApiReadException = false;
 
-            
+          //  url = url.Replace(".nicehash.", "-new.nicehash.");
  LastCommandLine = algo +
      " -o " + url + " -u " + username + " -p x " +
      " -o stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +

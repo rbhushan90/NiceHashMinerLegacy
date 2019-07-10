@@ -30,6 +30,7 @@
 
         // SMA Socket
         public const string NhmSocketAddress = "https://nhmws.nicehash.com/v2/nhm";
+        public const string NhmSocketAddress_new = "https://nhmws-new.nicehash.com/v3/nhml";
         public static string NhmSocketAddress_old = "wss://api.nicehash.com/v2/nhm";
     }
 }

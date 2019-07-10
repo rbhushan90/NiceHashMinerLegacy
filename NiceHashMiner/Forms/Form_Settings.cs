@@ -108,7 +108,13 @@ namespace NiceHashMiner.Forms
                 International.GetText("Form_Settings_ToolTip_checkBox_DebugConsole"));
 
             toolTip1.SetToolTip(textBox_BitcoinAddress, International.GetText("Form_Settings_ToolTip_BitcoinAddress"));
+
             toolTip1.SetToolTip(label_BitcoinAddress, International.GetText("Form_Settings_ToolTip_BitcoinAddress"));
+            if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
+            {
+                toolTip1.SetToolTip(label_BitcoinAddress, "Биткоин адрес (старая платформа)");
+                toolTip1.SetToolTip(label_BitcoinAddressNew, "Биткоин адрес (новая платформа)");
+            }
             toolTip1.SetToolTip(pictureBox_Info_BitcoinAddress,
                 International.GetText("Form_Settings_ToolTip_BitcoinAddress"));
 
@@ -373,6 +379,13 @@ namespace NiceHashMiner.Forms
 
             label_Language.Text = International.GetText("Form_Settings_General_Language") + ":";
             label_BitcoinAddress.Text = International.GetText("BitcoinAddress") + ":";
+            if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
+            {
+                label_BitcoinAddress.Text = "Биткоин адрес (старая платформа)";
+                label_BitcoinAddressNew.Text = "Биткоин адрес (новая платформа)";
+            }
+
+
             label_WorkerName.Text = International.GetText("WorkerName") + ":";
             label_ServiceLocation.Text = International.GetText("Service_Location") + ":";
             {
@@ -478,6 +491,7 @@ namespace NiceHashMiner.Forms
             // Add EventHandler for all the general tab's textboxes
             {
                 textBox_BitcoinAddress.Leave += GeneralTextBoxes_Leave;
+                textBox_BitcoinAddressNew.Leave += GeneralTextBoxes_Leave;
                 textBox_WorkerName.Leave += GeneralTextBoxes_Leave;
                 textBox_IFTTTKey.Leave += GeneralTextBoxes_Leave;
                 // these are ints only
@@ -563,6 +577,7 @@ namespace NiceHashMiner.Forms
             // Textboxes
             {
                 textBox_BitcoinAddress.Text = ConfigManager.GeneralConfig.BitcoinAddress;
+                textBox_BitcoinAddressNew.Text = ConfigManager.GeneralConfig.BitcoinAddressNew;
                 textBox_WorkerName.Text = ConfigManager.GeneralConfig.WorkerName;
                 textBox_IFTTTKey.Text = ConfigManager.GeneralConfig.IFTTTKey;
                 textBox_IFTTTKey.Enabled = ConfigManager.GeneralConfig.UseIFTTT;
@@ -774,6 +789,8 @@ namespace NiceHashMiner.Forms
             IsChange = true;
             if (ConfigManager.GeneralConfig.BitcoinAddress != textBox_BitcoinAddress.Text.Trim()) _isCredChange = true;
             ConfigManager.GeneralConfig.BitcoinAddress = textBox_BitcoinAddress.Text.Trim();
+            if (ConfigManager.GeneralConfig.BitcoinAddressNew != textBox_BitcoinAddressNew.Text.Trim()) _isCredChange = true;
+            ConfigManager.GeneralConfig.BitcoinAddressNew = textBox_BitcoinAddressNew.Text.Trim();
             if (ConfigManager.GeneralConfig.WorkerName != textBox_WorkerName.Text.Trim()) _isCredChange = true;
             ConfigManager.GeneralConfig.WorkerName = textBox_WorkerName.Text.Trim();
 
@@ -914,8 +931,15 @@ namespace NiceHashMiner.Forms
 
             if (_isCredChange)
             {
-                NiceHashStats.SetCredentials(ConfigManager.GeneralConfig.BitcoinAddress.Trim(),
+                if (ConfigManager.GeneralConfig.NewPlatform)
+                {
+                    NiceHashStats.SetCredentials(ConfigManager.GeneralConfig.BitcoinAddressNew.Trim(),
                     ConfigManager.GeneralConfig.WorkerName.Trim());
+                } else
+                {
+                    NiceHashStats.SetCredentials(ConfigManager.GeneralConfig.BitcoinAddress.Trim(),
+                                       ConfigManager.GeneralConfig.WorkerName.Trim());
+                }
             }
 
             Close();
@@ -1038,6 +1062,16 @@ namespace NiceHashMiner.Forms
         }
 
         private void groupBoxAlgorithmSettings_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox_AutoStartMining_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox_RunScriptOnCUDA_GPU_Lost_CheckedChanged(object sender, EventArgs e)
         {
 
         }

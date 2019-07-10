@@ -18,7 +18,9 @@ namespace NiceHashMiner.Configs.Data
         public string DisplayCurrency = "USD";
 
         public bool DebugConsole = false;
+        public bool NewPlatform = true;
         public string BitcoinAddress = "";
+        public string BitcoinAddressNew = "";
         public string WorkerName = "worker1";
         public TimeUnitType TimeUnit = TimeUnitType.Day;
         public string IFTTTKey = "";

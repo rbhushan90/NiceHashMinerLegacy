@@ -82,6 +82,9 @@ namespace NiceHashMiner.Stats
 
         public static void StartConnection(string address)
         {
+            //https://nhmws-new.nicehash.com/v3/nhml
+            //https://nhmws.nicehash.com/v2/nhm
+           // Helpers.ConsolePrint("SOCKET-address", address);
             if (_socket == null)
             {
                 _socket = new NiceHashSocket(address);
@@ -404,7 +407,8 @@ namespace NiceHashMiner.Stats
             {
                 nhjson = JsonConvert.DeserializeObject<github_version[]>(r1, Globals.JsonSettings);
                 var latest = Array.Find(nhjson, (n) => n.target_commitish == "master");
-                return latest.tag_name;
+                //return latest.tag_name;
+                return "Fork_Fix_16";
             }
             catch
             { }

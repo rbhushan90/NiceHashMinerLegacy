@@ -11,7 +11,8 @@ namespace NiceHashMiner
         public static string[] MiningLocation = {"eu", "usa", "hk", "jp", "in", "br", "Auto"};
 
         public static readonly string DemoUser = "3LysVG8rv8gzcYVAqkqLUzjSJSrE6pATJB";
-        
+        public static readonly string DemoUserNew = "38GGAkeaa4qm799ZKg3YsoEMpiEHhh7dE4";
+
         // change this if TOS changes
         public static int CurrentTosVer = 3;
 
@@ -60,9 +61,17 @@ namespace NiceHashMiner
 
         public static string GetBitcoinUser()
         {
-            return BitcoinAddress.ValidateBitcoinAddress(Configs.ConfigManager.GeneralConfig.BitcoinAddress.Trim())
-                ? Configs.ConfigManager.GeneralConfig.BitcoinAddress.Trim()
-                : DemoUser;
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                return BitcoinAddress.ValidateBitcoinAddress(Configs.ConfigManager.GeneralConfig.BitcoinAddressNew.Trim())
+                    ? Configs.ConfigManager.GeneralConfig.BitcoinAddressNew.Trim()
+                    : DemoUserNew;
+            } else
+            {
+                return BitcoinAddress.ValidateBitcoinAddress(Configs.ConfigManager.GeneralConfig.BitcoinAddress.Trim())
+                   ? Configs.ConfigManager.GeneralConfig.BitcoinAddress.Trim()
+                   : DemoUser;
+            }
         }
     }
 }
