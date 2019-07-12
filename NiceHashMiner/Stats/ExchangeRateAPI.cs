@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading;
 using Newtonsoft.Json;
 using NiceHashMiner.Configs;
@@ -13,6 +17,7 @@ namespace NiceHashMiner.Stats
 
         private static readonly ConcurrentDictionary<string, double> ExchangesFiat = new ConcurrentDictionary<string, double>();
         private static double _usdBtcRate = -1;
+        public static double BTCcost = 1;
 
         public static double UsdBtcRate
         {
@@ -25,10 +30,62 @@ namespace NiceHashMiner.Stats
                     Interlocked.Exchange(ref _usdBtcRate, value);
                     Helpers.ConsolePrint("NICEHASH", $"USD rate updated: {value} BTC");
                 }
+                if (value > 0 && value < 100)
+                {
+                    Helpers.ConsolePrint("NICEHASH", "BTC rate error: "+value.ToString());
+                    GetNewBTCRate();
+                    value = BTCcost;
+                    Interlocked.Exchange(ref _usdBtcRate, value);
+                    Helpers.ConsolePrint("NICEHASH", $"USD rate updated: {value} BTC");
+                    //Interlocked.Exchange(ref _usdBtcRate, value);
+                    //Helpers.ConsolePrint("NICEHASH", $"USD rate updated: {value} BTC");
+                }
             }
         }
         public static string ActiveDisplayCurrency = "USD";
 
+     //   private static async void GetNewBTCRate()
+        private static async void GetNewBTCRate()
+        {
+            string ResponseFromAPI;
+            try
+            {
+                HttpWebRequest WR = (HttpWebRequest)WebRequest.Create("https://api2.nicehash.com/main/api/v2/exchangeRate/list/");
+                WR.UserAgent = "GET / HTTP/1.1\r\n\r\n";
+                WR.Timeout = 30 * 1000;
+                WR.Credentials = CredentialCache.DefaultCredentials;
+                WebResponse Response = WR.GetResponse();
+                Stream SS = Response.GetResponseStream();
+                SS.ReadTimeout = 5 * 1000;
+                StreamReader Reader = new StreamReader(SS);
+                ResponseFromAPI = await Reader.ReadToEndAsync();
+                Reader.Close();
+                Response.Close();
+            }
+            catch (Exception ex)
+            {
+                //Helpers.ConsolePrint("API", ex.Message);
+                return;
+            }
+
+            dynamic resp = JsonConvert.DeserializeObject(ResponseFromAPI);
+
+            if (resp != null)
+            {
+                var er = resp.list;
+
+                foreach (var pair in er)
+                {
+                   if (pair.fromCurrency.ToString() == "BTC" && pair.toCurrency.ToString() == "USD")
+                    {
+                        // Helpers.ConsolePrint("API:", pair.exchangeRate.ToString());
+                        BTCcost = pair.exchangeRate;
+                    }
+                }
+                
+            }
+            return;
+        }
         private static bool ConverterActive => ConfigManager.GeneralConfig.DisplayCurrency != "USD";
 
         public static void UpdateExchangesFiat(Dictionary<string, double> newExchanges)

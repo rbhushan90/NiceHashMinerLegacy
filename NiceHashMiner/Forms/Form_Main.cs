@@ -59,6 +59,7 @@ namespace NiceHashMiner
 
         private readonly int _mainFormHeight = 0;
         private readonly int _emtpyGroupPanelHeight = 0;
+        bool firstStartConnection = false;
 
         public Form_Main()
         {
@@ -337,6 +338,23 @@ namespace NiceHashMiner
             //        R.Next(ConfigManager.GeneralConfig.SwitchMinSecondsDynamic * 1000);
             //}
 
+
+            _loadingScreen.IncreaseLoadCounterAndMessage(
+                International.GetText("Form_Main_loadtext_SetEnvironmentVariable"));
+            Helpers.SetDefaultEnvironmentVariables();
+
+            _loadingScreen.IncreaseLoadCounterAndMessage(
+                International.GetText("Form_Main_loadtext_SetWindowsErrorReporting"));
+
+            Helpers.DisableWindowsErrorReporting(ConfigManager.GeneralConfig.DisableWindowsErrorReporting);
+
+            _loadingScreen.IncreaseLoadCounter();
+            if (ConfigManager.GeneralConfig.NVIDIAP0State)
+            {
+                _loadingScreen.SetInfoMsg(International.GetText("Form_Main_loadtext_NVIDIAP0State"));
+                Helpers.SetNvidiaP0State();
+            }
+            Thread.Sleep(200);
             _loadingScreen.IncreaseLoadCounterAndMessage(International.GetText("Form_Main_loadtext_GetNiceHashSMA"));
             // Init ws connection
             NiceHashStats.OnBalanceUpdate += BalanceCallback;
@@ -346,12 +364,20 @@ namespace NiceHashMiner
             NiceHashStats.OnConnectionEstablished += ConnectionEstablishedCallback;
             NiceHashStats.OnVersionBurn += VersionBurnCallback;
             NiceHashStats.OnExchangeUpdate += ExchangeCallback;
-            NiceHashStats.StartConnection(Links.NhmSocketAddress);
-
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                NiceHashStats.StartConnection(Links.NhmSocketAddress_new);
+            }
+            else
+            {
+                NiceHashStats.StartConnection(Links.NhmSocketAddress);
+            }
+           
             // increase timeout
             if (Globals.IsFirstNetworkCheckTimeout)
             {
-                while (!Helpers.WebRequestTestGoogle() && Globals.FirstNetworkCheckTimeoutTries > 0)
+                //while (!Helpers.WebRequestTestGoogle() && Globals.FirstNetworkCheckTimeoutTries > 0)
+                while (Globals.FirstNetworkCheckTimeoutTries > 0)
                 {
                     --Globals.FirstNetworkCheckTimeoutTries;
                 }
@@ -375,24 +401,8 @@ namespace NiceHashMiner
             //    }
             //}
 
-            _loadingScreen.IncreaseLoadCounterAndMessage(
-                International.GetText("Form_Main_loadtext_SetEnvironmentVariable"));
-            Helpers.SetDefaultEnvironmentVariables();
-
-            _loadingScreen.IncreaseLoadCounterAndMessage(
-                International.GetText("Form_Main_loadtext_SetWindowsErrorReporting"));
-
-            Helpers.DisableWindowsErrorReporting(ConfigManager.GeneralConfig.DisableWindowsErrorReporting);
-
-            _loadingScreen.IncreaseLoadCounter();
-            if (ConfigManager.GeneralConfig.NVIDIAP0State)
-            {
-                _loadingScreen.SetInfoMsg(International.GetText("Form_Main_loadtext_NVIDIAP0State"));
-                Helpers.SetNvidiaP0State();
-            }
-
             _loadingScreen.FinishLoad();
-
+            firstStartConnection = true;
             var runVCRed = !MinersExistanceChecker.IsMinersBinsInit() && !ConfigManager.GeneralConfig.DownloadInit;
             // standard miners check scope
             {
@@ -873,7 +883,7 @@ namespace NiceHashMiner
             // send credentials
             if (ConfigManager.GeneralConfig.NewPlatform)
             {
-                NiceHashStats.SetCredentials(textBoxBTCAddress_new.Text.Trim(), textBoxWorkerName.Text.Trim());
+                //NiceHashStats.SetCredentials(textBoxBTCAddress_new.Text.Trim(), textBoxWorkerName.Text.Trim());
             } else
             {
                 NiceHashStats.SetCredentials(textBoxBTCAddress.Text.Trim(), textBoxWorkerName.Text.Trim());
@@ -1414,6 +1424,7 @@ namespace NiceHashMiner
         {
             ConfigManager.GeneralConfig.NewPlatform = !radioButtonOldPlatform.Checked;
             ConfigManager.GeneralConfigFileCommit();
+            Helpers.ConsolePrint("SOCKET", "-------------------------------------");
         }
 
         private void radioButtonNewPlatform_CheckedChanged(object sender, EventArgs e)
@@ -1425,6 +1436,46 @@ namespace NiceHashMiner
             textBoxBTCAddress.Enabled = !radioButtonNewPlatform.Checked;
             textBoxBTCAddress_new.Enabled = radioButtonNewPlatform.Checked;
             ConfigManager.GeneralConfigFileCommit();
+            Thread.Sleep(100);
+            //ComputeDeviceManager.Query.QueryDevices(_loadingScreen);
+            //_loadingScreen.IncreaseLoadCounterAndMessage(International.GetText("Form_Main_loadtext_GetNiceHashSMA"));
+            if (firstStartConnection && NiceHashSocket._webSocket != null)
+            {
+                Helpers.ConsolePrint("SOCKET", "**************");
+                NiceHashStats._socket = null;
+                NiceHashSocket._restartConnection = true;
+                NiceHashSocket._webSocket.Close();
+                NiceHashSocket._webSocket = null;
+
+
+                NiceHashStats._deviceUpdateTimer.Change(System.Threading.Timeout.Infinite, 0);
+                NiceHashStats._deviceUpdateTimer.Dispose();
+                NiceHashStats._deviceUpdateTimer = null;
+                //ForceMinerStatsUpdate();
+                //_minerStatsCheck.Stop();
+                //_minerStatsCheck.Start();
+
+                
+                if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+                {
+                    NiceHashStats.ClearAlgorithmRates();
+                    NiceHashStats.StartConnection(Links.NhmSocketAddress_new);
+                }
+                else
+                {
+                    NiceHashStats.ClearAlgorithmRates();
+                    NiceHashStats.StartConnection(Links.NhmSocketAddress);
+                }
+                
+                //_startupTimer.Stop();
+                //_startupTimer.Dispose();
+                //_startupTimer = new Timer();
+                //_startupTimer.Tick += StartupTimer_Tick;
+                //_startupTimer.Interval = 200;
+                //_startupTimer.Start();
+            }
+            //_loadingScreen.FinishLoad();
+            //_loadingScreen = null;
         }
     }
 }

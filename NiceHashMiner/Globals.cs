@@ -25,7 +25,7 @@ namespace NiceHashMiner
         public static bool IsFirstNetworkCheckTimeout = true;
 
         public static int FirstNetworkCheckTimeoutTimeMs = 500;
-        public static int FirstNetworkCheckTimeoutTries = 10;
+        public static int FirstNetworkCheckTimeoutTries = 5;
 
 
         public static string GetLocationUrl(AlgorithmType algorithmType, string miningLocation, NhmConectionType conectionType)
