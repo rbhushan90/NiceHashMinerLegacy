@@ -34,7 +34,7 @@ namespace NiceHashMiner.Stats
                     Interlocked.Exchange(ref _usdBtcRate, value);
                     Helpers.ConsolePrint("NICEHASH", $"USD rate updated: {value} BTC");
                 }
-                if (value > 0 && value < 100)
+                if (value > 0 && value < 100 && Configs.ConfigManager.GeneralConfig.NewPlatform)
                 {
                     Helpers.ConsolePrint("NICEHASH", "BTC rate error: "+value.ToString());
                     GetNewBTCRate();
@@ -63,32 +63,38 @@ namespace NiceHashMiner.Stats
             }
             catch (Exception ex)
             {
-                Helpers.ConsolePrint("API", ex.Message);
+                Helpers.ConsolePrint("API-error", ex.Message);
                 return;
             }
 
-            dynamic resp = JsonConvert.DeserializeObject(ResponseFromAPI);
-
-            if (resp != null)
+           
+            try
             {
-                var er = resp.list;
-
-                foreach (var pair in er)
+                dynamic resp = JsonConvert.DeserializeObject(ResponseFromAPI);
+                if (resp != null)
                 {
-                   if (pair.fromCurrency == "BTC" && pair.toCurrency == "USD")
-                    {
-                        //Helpers.ConsolePrint("API:", pair.exchangeRate.ToString());
-                        var sBTCcost = pair.exchangeRate.ToString();
+                    var er = resp.list;
 
-                        
+                    foreach (var pair in er)
+                    {
+                        if (pair.fromCurrency == "BTC" && pair.toCurrency == "USD")
+                        {
+                            //Helpers.ConsolePrint("API:", pair.exchangeRate.ToString());
+                            var sBTCcost = pair.exchangeRate.ToString();
+
+
                             double.TryParse(sBTCcost, NumberStyles.Number, CultureInfo.InvariantCulture, out double BTCcost);
                             Interlocked.Exchange(ref _usdBtcRate, BTCcost);
                             Helpers.ConsolePrint("NICEHASH", $"USD rate updated: {sBTCcost} ");
                             //BTCcost = pair.exchangeRate;
-                        
+
+                        }
                     }
+
                 }
-                
+            } catch (Exception ex)
+            {
+                Helpers.ConsolePrint("API-error", ex.Message);
             }
             return;
         }

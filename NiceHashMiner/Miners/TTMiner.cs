@@ -76,15 +76,19 @@ namespace NiceHashMiner.Miners
             {
                 algo = "MTP-92";
             }
-
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
             LastCommandLine = " -a "+algo +
                 " -P " + username + ":x@" + url +
-                " -P " + username + ":x@" + alg + ".hk.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".jp.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".in.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".usa.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".br.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".eu.nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".hk" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".jp" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".in" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".usa" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".br" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".eu" + nhsuff + ".nicehash.com:" + port +
 
                 apiBind +
                 " -devices " + GetDevicesCommandString() + " " +
@@ -110,6 +114,11 @@ namespace NiceHashMiner.Miners
             var username = GetUsername(Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
             var commandLine = "";
             var algo = "MTP";
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
             if (NiceHashMiner.Devices.ComputeDeviceManager.Query.CUDA_version == "CUDA 10.1")
             {
                 algo = "MTP-101";
@@ -127,12 +136,12 @@ namespace NiceHashMiner.Miners
             {
                 commandLine = " -a " + algo +
                 " -P aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE." + ConfigManager.GeneralConfig.WorkerName.Trim() + ":x@xzc.2miners.com:8080" +
-                " -P " + username + ":x@" + alg + ".eu.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".hk.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".jp.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".in.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".usa.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".br.nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".eu" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".hk" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".jp" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".in" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".usa" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".br" + nhsuff + ".nicehash.com:" + port +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) +
@@ -142,12 +151,12 @@ namespace NiceHashMiner.Miners
             {
                 commandLine = " -a LYRA2V3" +
                 " -P 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2." + ConfigManager.GeneralConfig.WorkerName.Trim() + ":x@lyra2v3.eu.mine.zpool.ca:4550" +
-                " -P " + username + ":x@" + alg + ".eu.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".hk.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".jp.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".in.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".usa.nicehash.com:" + port +
-                " -P " + username + ":x@" + alg + ".br.nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".eu" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".hk" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".jp" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".in" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".usa" + nhsuff + ".nicehash.com:" + port +
+                " -P " + username + ":x@" + alg + ".br" + nhsuff + ".nicehash.com:" + port +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) +

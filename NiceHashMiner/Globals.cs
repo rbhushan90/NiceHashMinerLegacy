@@ -52,11 +52,22 @@ namespace NiceHashMiner
                     break;
             }
 
-            return prefix
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                return prefix
+                   + name
+                   + "." + miningLocation
+                   + "-new.nicehash.com:"
+                   + port;
+            }
+            else
+            {
+                return prefix
                    + name
                    + "." + miningLocation
                    + ".nicehash.com:"
                    + port;
+            }
         }
 
         public static string GetBitcoinUser()

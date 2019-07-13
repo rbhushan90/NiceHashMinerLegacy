@@ -100,21 +100,27 @@ namespace NiceHashMiner.Miners
                 algo = "cuckatoo31";
                 algoName = "grin";
             }
-
-            var ret = GetDevicesCommandString()
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            } 
+                var ret = GetDevicesCommandString()
                       + " --pers auto --algo " + algo + " --server " + url.Split(':')[0]
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + ".hk.nicehash.com"
+                      + " --server " + algoName + ".hk" + nhsuff + ".nicehash.com"
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + ".in.nicehash.com"
+                      + " --server " + algoName + ".in" + nhsuff + ".nicehash.com"
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + ".usa.nicehash.com"
+                      + " --server " + algoName + ".usa" + nhsuff + ".nicehash.com"
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + ".jp.nicehash.com"
+                      + " --server " + algoName + ".jp" + nhsuff + ".nicehash.com"
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + ".br.nicehash.com"
+                      + " --server " + algoName + ".br" + nhsuff + ".nicehash.com"
                       + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
                       + " --api " + ApiPort;
+
+
             return ret;
         }
         protected override string GetDevicesCommandString()
@@ -230,12 +236,17 @@ namespace NiceHashMiner.Miners
                Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
             var btcAddress = Globals.GetBitcoinUser();
             var worker = ConfigManager.GeneralConfig.WorkerName.Trim();
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
             {
                 ret = " -logfile " + GetLogFileName() + " --color 0 --pec --pers BgoldPoW --algo 144_5" +
                 " --server europe.equihash-hub.miningpoolhub.com --user angelbbs.FBench11 --pass x --port 20595 " +
-                " --server zhash.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
-                " --server zhash.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
+                " --server zhash.eu" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
+                " --server zhash.hk" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
                 GetDevicesCommandString();
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
@@ -244,8 +255,8 @@ namespace NiceHashMiner.Miners
                 ret = " -logfile " + GetLogFileName() +
                 " -uri beam://2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9:bench_b@beam-eu.sparkpool.com:2222 " +
                 " -uri beam://2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9:bench_b@beam-asia.sparkpool.com:2222 " +
-                " -uri beam://" + btcAddress + ":" + worker + "@beam.eu.nicehash.com:3370 " +
-                " -uri beam://" + btcAddress + ":" + worker + "@beam.hk.nicehash.com:3370 " +
+                " -uri beam://" + btcAddress + ":" + worker + "@beam.eu" + nhsuff + ".nicehash.com:3370 " +
+                " -uri beam://" + btcAddress + ":" + worker + "@beam.hk" + nhsuff + ".nicehash.com:3370 " +
                 GetDevicesCommandString();
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
@@ -253,8 +264,8 @@ namespace NiceHashMiner.Miners
                 //START bminer.exe - uri cuckaroo29://angelbbs@mail.ru:Farm1@eu-west-stratum.grinmint.com:3416
                 ret = " -logfile " + GetLogFileName() + " --color 0 --pec --algo cuckaroo29" +
                 " --server grin.sparkpool.com --user angelbbs@mail.ru/bench_g --pass x --port 6666 --ssl 0" +
-                " --server grincuckaroo29.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
-                " --server grincuckaroo29.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                " --server grincuckaroo29.eu" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                " --server grincuckaroo29.hk" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
                 GetDevicesCommandString();
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
@@ -262,8 +273,8 @@ namespace NiceHashMiner.Miners
                 //START bminer.exe - uri cuckaroo29://angelbbs@mail.ru:Farm1@eu-west-stratum.grinmint.com:3416
                 ret = " -logfile " + GetLogFileName() + " --color 0 --pec --algo cuckatoo31" +
                 " --server grin.sparkpool.com --user angelbbs@mail.ru/bench_g --pass x --port 6666 --ssl 0" +
-                " --server grincuckatoo31.eu.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
-                " --server grincuckatoo31.hk.nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                " --server grincuckatoo31.eu" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
+                " --server grincuckatoo31.hk" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369 --ssl 0" +
                 GetDevicesCommandString();
             }
 

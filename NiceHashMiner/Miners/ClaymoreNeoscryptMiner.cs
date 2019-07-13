@@ -40,12 +40,17 @@ namespace NiceHashMiner.Miners {
             url = url.Replace("stratum+ssl", "stratum+tcp").Replace("33341", "3341");
             LastCommandLine = " " + GetDevicesCommandString() + " -mport -" + ApiPort + " -pool " + url +
                                   " -wal " + username + " -psw x -dbg -1 -ftime 10 -retrydelay 5";
-            String epools = String.Format("POOL: stratum+tcp://neoscrypt.usa.nicehash.com:3341, WALLET: {1}, PSW: x", url, username, ApiPort) + "\n"
-               + String.Format("POOL: stratum+tcp://neoscrypt.hk.nicehash.com:3341, WALLET: {1}, PSW: x", url, username, ApiPort) + "\n"
-               + String.Format("POOL: stratum+tcp://neoscrypt.jp.nicehash.com:3341, WALLET: {1}, PSW: x", url, username, ApiPort) + "\n"
-               + String.Format("POOL: stratum+tcp://neoscrypt.in.nicehash.com:3341, WALLET: {1}, PSW: x", url, username, ApiPort) + "\n"
-               + String.Format("POOL: stratum+tcp://neoscrypt.br.nicehash.com:3341, WALLET: {1}, PSW: x", url, username, ApiPort) + "\n"
-               + String.Format("POOL: stratum+tcp://neoscrypt.eu.nicehash.com:3341, WALLET: {1}, PSW: x", url, username, ApiPort) + "\n";
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
+            String epools = String.Format("POOL: stratum+tcp://neoscrypt.usa{0}.nicehash.com:3341, WALLET: {1}, PSW: x", nhsuff, username, ApiPort) + "\n"
+               + String.Format("POOL: stratum+tcp://neoscrypt.hk{0}.nicehash.com:3341, WALLET: {1}, PSW: x", nhsuff, username, ApiPort) + "\n"
+               + String.Format("POOL: stratum+tcp://neoscrypt.jp{0}.nicehash.com:3341, WALLET: {1}, PSW: x", nhsuff, username, ApiPort) + "\n"
+               + String.Format("POOL: stratum+tcp://neoscrypt.in{0}.nicehash.com:3341, WALLET: {1}, PSW: x", nhsuff, username, ApiPort) + "\n"
+               + String.Format("POOL: stratum+tcp://neoscrypt.br{0}.nicehash.com:3341, WALLET: {1}, PSW: x", nhsuff, username, ApiPort) + "\n"
+               + String.Format("POOL: stratum+tcp://neoscrypt.eu{0}.nicehash.com:3341, WALLET: {1}, PSW: x", nhsuff, username, ApiPort) + "\n";
 
             FileStream fs = new FileStream("bin_3rdparty\\claymore_neoscrypt\\pools.txt", FileMode.Create, FileAccess.Write);
             StreamWriter w = new StreamWriter(fs);

@@ -65,10 +65,15 @@ namespace NiceHashMiner.Miners
             url = url.Replace("stratum+tcp://", "");
             url = url.Substring(0, url.IndexOf(":"));
             var apiBind = " --apiport " + ApiPort;
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
 
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
             {
-                LastCommandLine = "--coin AUTO144_5 --pool " + url + ";zhash.hk.nicehash.com;zhash.jp.nicehash.com;zhash.usa.nicehash.com;zhash.in.nicehash.com;zhash.br.nicehash.com" +
+                LastCommandLine = "--coin AUTO144_5 --pool " + url + ";zhash.hk" + nhsuff + ".nicehash.com;zhash.jp" + nhsuff + ".nicehash.com;zhash.usa" + nhsuff + ".nicehash.com;zhash.in" + nhsuff + ".nicehash.com;zhash.br" + nhsuff + ".nicehash.com" +
                               " --port " + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" +
                               " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" +
                               " -p x;x;x;x;x;x " + apiBind +
@@ -81,7 +86,7 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
             {
-                LastCommandLine = "--coin BEAM --pool " + url + ";beam.hk.nicehash.com;beam.jp.nicehash.com;beam.usa.nicehash.com;beam.in.nicehash.com;beam.br.nicehash.com" +
+                LastCommandLine = "--coin BEAM --pool " + url + ";beam.hk" + nhsuff + ".nicehash.com;beam.jp" + nhsuff + ".nicehash.com;beam.usa" + nhsuff + ".nicehash.com;beam.in" + nhsuff + ".nicehash.com;beam.br" + nhsuff + ".nicehash.com" +
                              " --port " + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" + port +
                              " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username +
                              " -p x;x;x;x;x;x --tls 0;0;0;0;0;0 " + apiBind +
@@ -94,7 +99,7 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
             {
-                LastCommandLine = "--coin GRIN-AT31 --pool " + url + ";grincuckatoo31.hk.nicehash.com;grincuckatoo31.jp.nicehash.com;grincuckatoo31.usa.nicehash.com;grincuckatoo31.in.nicehash.com;grincuckatoo31.br.nicehash.com" +
+                LastCommandLine = "--coin GRIN-AT31 --pool " + url + ";grincuckatoo31.hk" + nhsuff + ".nicehash.com;grincuckatoo31.jp" + nhsuff + ".nicehash.com;grincuckatoo31.usa" + nhsuff + ".nicehash.com;grincuckatoo31.in" + nhsuff + ".nicehash.com;grincuckatoo31.br" + nhsuff + ".nicehash.com" +
                              " --port " + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" + port +
                              " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username +
                              " -p x;x;x;x;x;x --tls 0;0;0;0;0;0 " + apiBind +
@@ -124,10 +129,16 @@ namespace NiceHashMiner.Miners
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
             string worker = ConfigManager.GeneralConfig.WorkerName.Trim();
 
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
+
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
             {
                 CommandLine = "--coin BEAM " +
-                " --pool beam-eu.sparkpool.com;beam-asia.sparkpool.com;beam.eu.nicehash.com;beam.hk.nicehash.com" +
+                " --pool beam-eu.sparkpool.com;beam-asia.sparkpool.com;beam.eu" + nhsuff + ".nicehash.com;beam.hk" + nhsuff + ".nicehash.com" +
                 " --port 2222;12222;3370;3370" +
                 " --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + ";2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + ";" + username + ";" + username +
                 " --pass x;x;x;x --tls 1;1;0;0 " +
@@ -150,7 +161,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
             {
                 CommandLine = "--coin GRIN-AT31 " +
-                " --pool grin.sparkpool.com;grincuckatoo31.usa.nicehash.com --port 6667;3372 --user angelbbs@mail.ru." + worker + ";"+username+ " --pass x;x" +
+                " --pool grin.sparkpool.com;grincuckatoo31.usa" + nhsuff + ".nicehash.com --port 6667;3372 --user angelbbs@mail.ru." + worker + ";"+username+ " --pass x;x" +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                                 MiningSetup,
                                                 DeviceType.AMD) +

@@ -54,15 +54,19 @@ namespace NiceHashMiner.Miners
                 algo = "--algo=" + MiningSetup.MinerName;
                 apiBind = " --api-bind=" + ApiPort;
             }
-
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
             LastCommandLine = algo +
                 " --url=" + url + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".jp.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".br.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " --userpass=" + username + ":x" +
                 " --url=" + url + " --userpass=" + username + ":x" +
                 " --userpass=" + username + ":x" + apiBind +
                 " --devices " + GetDevicesCommandString() + " " +
@@ -95,10 +99,15 @@ namespace NiceHashMiner.Miners
             var username = GetUsername(Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
             var commandLine = "";
             var timeLimit = (_benchmarkException) ? "" : " --time-limit 300";
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.NeoScrypt))
             {
                 commandLine = " --algo=" + algorithm.MinerName +
-                    " --url=stratum+tcp://neoscrypt.eu.nicehash.com:3341" + " --userpass=" + username + ":x" +
+                    " --url=stratum+tcp://neoscrypt.eu" + nhsuff + ".nicehash.com:3341" + " --userpass=" + username + ":x" +
                     " --url=stratum+tcp://neoscrypt.eu.mine.zpool.ca:4233" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ":c=BTC " +
                              timeLimit + " " +
                              ExtraLaunchParametersParser.ParseForMiningSetup(
@@ -110,7 +119,7 @@ namespace NiceHashMiner.Miners
             {
                 commandLine = " --algo=" + algorithm.MinerName +
                     " --url=stratum+tcp://lyra2v2.eu.mine.zpool.ca:4533" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ":c=BTC " +
-                    " --url=stratum+tcp://lyra2rev2.eu.nicehash.com:3347 --userpass=" + username + ":x" +
+                    " --url=stratum+tcp://lyra2rev2.eu" + nhsuff + ".nicehash.com:3347 --userpass=" + username + ":x" +
                              timeLimit + " " +
                              ExtraLaunchParametersParser.ParseForMiningSetup(
                                  MiningSetup,
@@ -121,7 +130,7 @@ namespace NiceHashMiner.Miners
             {
                 commandLine = " --algo=" + algorithm.MinerName +
                     " --url=stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ":c=BTC " +
-                    " --url=stratum+tcp://lyra2z.eu.nicehash.com:3365 --userpass=" + username + ":x" +
+                    " --url=stratum+tcp://lyra2z.eu" + nhsuff + ".nicehash.com:3365 --userpass=" + username + ":x" +
                              timeLimit + " " +
                              ExtraLaunchParametersParser.ParseForMiningSetup(
                                  MiningSetup,
@@ -132,7 +141,7 @@ namespace NiceHashMiner.Miners
             {
                 commandLine = " --algo=" + algorithm.MinerName +
                    " --url=stratum+tcp://hdac.moricpool.com:3333" + " -u HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ" + " -p x " +
-                    " --url=stratum+tcp://skunk.eu.nicehash.com:3362 --userpass=" + username + ":x" +
+                    " --url=stratum+tcp://skunk.eu" + nhsuff + ".nicehash.com:3362 --userpass=" + username + ":x" +
                              timeLimit + " " +
                              ExtraLaunchParametersParser.ParseForMiningSetup(
                                  MiningSetup,
@@ -142,9 +151,9 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
             {
                 commandLine = " --algo=" + algorithm.MinerName +
-                   //" --url=stratum+tcp://xzc.2miners.com:8080" + " -u aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE." + ConfigManager.GeneralConfig.WorkerName.Trim()+ " -p x " +
-                    " --url=stratum+tcp://mtp.eu.nicehash.com:3374" + " --userpass=" + username + ":x" +
-                    " --url=stratum+tcp://mtp.hk.nicehash.com:3374" + " --userpass=" + username + ":x" +
+                    //" --url=stratum+tcp://xzc.2miners.com:8080" + " -u aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE." + ConfigManager.GeneralConfig.WorkerName.Trim()+ " -p x " +
+                    " --url=stratum+tcp://mtp.eu" + nhsuff + ".nicehash.com:3374" + " --userpass=" + username + ":x" +
+                    " --url=stratum+tcp://mtp.hk" + nhsuff + ".nicehash.com:3374" + " --userpass=" + username + ":x" +
                              timeLimit + " " +
                              ExtraLaunchParametersParser.ParseForMiningSetup(
                                  MiningSetup,

@@ -85,13 +85,17 @@ namespace NiceHashMiner.Miners
                 File.Delete("bin_3rdparty\\claymore_dual\\" + dpoolsFile);
 
             Thread.Sleep(200);
-
-            String epools = String.Format("POOL: daggerhashimoto.usa.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.hk.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.jp.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.in.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.br.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.eu.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n";
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
+            String epools = String.Format("POOL: daggerhashimoto.usa{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.hk{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.jp{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.in{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.br{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.eu{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n";
             try
             {
                 FileStream fs = new FileStream("bin_3rdparty\\claymore_dual\\"+ epoolsFile, FileMode.Create, FileAccess.Write);
@@ -162,12 +166,12 @@ namespace NiceHashMiner.Miners
             }
             else //dual
             {
-                String dpools = "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".usa.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
-                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".hk.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
-                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".jp.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
-                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".in.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
-                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".br.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n"
-                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".eu.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x", username) + "\n";
+                String dpools = "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".usa{0}.nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x", nhsuff, username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".hk{0}.nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x", nhsuff, username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".jp{0}.nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x", nhsuff, username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".in{0}.nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x", nhsuff, username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".br{0}.nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x", nhsuff, username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".eu{0}.nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x", nhsuff, username) + "\n";
                 try
                 {
                     FileStream fs1 = new FileStream("bin_3rdparty\\claymore_dual\\"+dpoolsFile, FileMode.Create, FileAccess.Write);
@@ -299,13 +303,17 @@ namespace NiceHashMiner.Miners
                 File.Delete("bin_3rdparty\\claymore_dual\\" + dpoolsFile);
 
             Thread.Sleep(200);
-
-            String epools = String.Format("POOL: daggerhashimoto.usa.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.hk.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.jp.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.in.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.br.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.eu.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n";
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
+            String epools = String.Format("POOL: daggerhashimoto.usa{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.hk{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.jp{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.in{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.br{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.eu{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n";
             try
             {
                 FileStream fs = new FileStream("bin_3rdparty\\claymore_dual\\" + epoolsFile, FileMode.Create, FileAccess.Write);
@@ -353,12 +361,12 @@ namespace NiceHashMiner.Miners
             }
             else //dual
             {
-                String dpools = "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".eu.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x, ESM: 3, ALLPOOLS: 1", username) + "\n"
-                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".hk.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x, ESM: 3, ALLPOOLS: 1", username) + "\n"
-                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".jp.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x, ESM: 3, ALLPOOLS: 1", username) + "\n"
-                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".in.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x, ESM: 3, ALLPOOLS: 1", username) + "\n"
-                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".br.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x, ESM: 3, ALLPOOLS: 1", username) + "\n"
-                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".usa.nicehash.com:" + poolport + String.Format(", WALLET: {0}, PSW: x, ESM: 3, ALLPOOLS: 1", username) + "\n";
+                String dpools = "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".eu{0}.nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".hk{0}.nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".jp{0}.nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".in{0}.nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".br{0}.nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+                 + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + ".usa{0}.nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n";
                 try
                 {
                     FileStream fs1 = new FileStream("bin_3rdparty\\claymore_dual\\" + dpoolsFile, FileMode.Create, FileAccess.Write);
@@ -405,14 +413,14 @@ namespace NiceHashMiner.Miners
                 
                 if (SecondaryAlgorithmType == AlgorithmType.Pascal)
                 {
-                    urlSecond = "stratum+tcp://pascal.eu.nicehash.com:" + poolport;
+                    urlSecond = "stratum+tcp://pascal.eu"+ nhsuff+".nicehash.com:" + poolport;
                     username = Globals.GetBitcoinUser();
                     dpsw = "x";
                     //esm = "-esm 3";
                 }
                 if (SecondaryAlgorithmType == AlgorithmType.Sia)
                 {
-                    urlSecond = "stratum+tcp://sia.eu.nicehash.com:" + poolport;
+                    urlSecond = "stratum+tcp://sia.eu" + nhsuff + ".nicehash.com:" + poolport;
                     username = Globals.GetBitcoinUser();
                     dpsw = "x";
                     //esm = "-esm 3";
@@ -496,7 +504,7 @@ namespace NiceHashMiner.Miners
 
                 addParam = " "
                                         + GetDevicesCommandString()
-                                        + String.Format("  -epool daggerhashimoto.usa.nicehash.com:3353 -ewal {0}/{1} -mport 127.0.0.1:-{2} -epsw x -esm 3 -allpools 1 -ftime 10 -retrydelay 5", username, worker, ApiPort)
+                                        + String.Format("  -epool daggerhashimoto.usa" + nhsuff + ".nicehash.com:3353 -ewal {0}/{1} -mport 127.0.0.1:-{2} -epsw x -esm 3 -allpools 1 -ftime 10 -retrydelay 5", username, worker, ApiPort)
                                         + dualModeParams;
             }
             else

@@ -261,7 +261,7 @@ namespace NiceHashMiner.Devices.Algorithms
                 {
                     //new Algorithm(MinerBaseType.Claymore, AlgorithmType.CryptoNightV7, ""),
                     new Algorithm(MinerBaseType.Claymore, AlgorithmType.NeoScrypt, "neoscrypt"),
-                    new Algorithm(MinerBaseType.Claymore, AlgorithmType.Equihash, "equihash")
+                   // new Algorithm(MinerBaseType.Claymore, AlgorithmType.Equihash, "equihash")
                 }
             },
             /*

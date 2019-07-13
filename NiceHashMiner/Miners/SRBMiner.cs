@@ -57,39 +57,44 @@ namespace NiceHashMiner.Miners
             var port = "3367";
             var variant = " --ccryptonighttype normalv8";
             url = url.Replace("stratum+tcp://", "");
-           if (File.Exists("bin_3rdparty\\SRBMiner\\poolsV8.txt"))
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
+            if (File.Exists("bin_3rdparty\\SRBMiner\\poolsV8.txt"))
                 File.Delete("bin_3rdparty\\SRBMiner\\poolsV8.txt");
             Thread.Sleep(200);
             var str1 = "{\r\n" +
                        "\"pools\" :\r\n" +
                        "[\r\n";
             var str2 = "        {\r\n" +
-                    "                \"pool\" : \"cryptonightv8.eu.nicehash.com:3367\",\r\n" +
+                    "                \"pool\" : \"cryptonightv8.eu" + nhsuff + ".nicehash.com:3367\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightv8.in.nicehash.com:3367\",\r\n" +
+                    "                \"pool\" : \"cryptonightv8.in" + nhsuff + ".nicehash.com:3367\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightv8.hk.nicehash.com:3367\",\r\n" +
+                    "                \"pool\" : \"cryptonightv8.hk" + nhsuff + ".nicehash.com:3367\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightv8.br.nicehash.com:3367\",\r\n" +
+                    "                \"pool\" : \"cryptonightv8.br" + nhsuff + ".nicehash.com:3367\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightv8.usa.nicehash.com:3367\",\r\n" +
+                    "                \"pool\" : \"cryptonightv8.usa" + nhsuff + ".nicehash.com:3367\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightv8.jp.nicehash.com:3367\",\r\n" +
+                    "                \"pool\" : \"cryptonightv8.jp" + nhsuff + ".nicehash.com:3367\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "        }\r\n"+
@@ -121,32 +126,32 @@ namespace NiceHashMiner.Miners
                            "[\r\n";
 
                 var strh2 = "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.eu.nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy.eu" + nhsuff + ".nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \""+btcAdress+"."+worker+"\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.in.nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy.in" + nhsuff + ".nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.hk.nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy.hk" + nhsuff + ".nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.br.nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy.br" + nhsuff + ".nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.usa.nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy.usa" + nhsuff + ".nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.jp.nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy.jp" + nhsuff + ".nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "        }\r\n";
@@ -180,32 +185,32 @@ namespace NiceHashMiner.Miners
                            "[\r\n";
 
                 var strh2 = "        {\r\n" +
-                    "                \"pool\" : \"cryptonightr.eu.nicehash.com:3375\",\r\n" +
+                    "                \"pool\" : \"cryptonightr.eu" + nhsuff + ".nicehash.com:3375\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightr.in.nicehash.com:3375\",\r\n" +
+                    "                \"pool\" : \"cryptonightr.in" + nhsuff + ".nicehash.com:3375\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightr.hk.nicehash.com:3375\",\r\n" +
+                    "                \"pool\" : \"cryptonightr.hk" + nhsuff + ".nicehash.com:3375\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightr.br.nicehash.com:3375\",\r\n" +
+                    "                \"pool\" : \"cryptonightr.br" + nhsuff + ".nicehash.com:3375\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightr.usa.nicehash.com:3375\",\r\n" +
+                    "                \"pool\" : \"cryptonightr.usa" + nhsuff + ".nicehash.com:3375\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightr.jp.nicehash.com:3375\",\r\n" +
+                    "                \"pool\" : \"cryptonightr.jp" + nhsuff + ".nicehash.com:3375\",\r\n" +
                     "                \"wallet\" : \"" + btcAdress + "." + worker + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "        }\r\n";
@@ -246,12 +251,17 @@ namespace NiceHashMiner.Miners
             if (File.Exists(GetLogFileName()))
                 File.Delete(GetLogFileName());
             Thread.Sleep(500);
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
                 algo = "cryptonightheavy";
                 port = "3364";
                 variant = " --ccryptonighttype heavy";
-                return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool cryptonightheavy.hk.nicehash.com:3364 --cwallet {btcAdress}.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsH.txt";
+                return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool cryptonightheavy.hk" + nhsuff + ".nicehash.com:3364 --cwallet {btcAdress}.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsH.txt";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
             {
@@ -265,9 +275,9 @@ namespace NiceHashMiner.Miners
                 algo = "cryptonightv8";
                 port = "3367";
                 variant = " --ccryptonighttype normalv8";
-                return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool cryptonightv8.hk.nicehash.com:3367 --cwallet {btcAdress}.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsV8.txt";
+                return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool cryptonightv8.hk" + nhsuff + ".nicehash.com:3367 --cwallet {btcAdress}.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsV8.txt";
             }
-            return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool eu.nicehash.com:3367 --cwallet {btcAdress}.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsV8.txt";
+            return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --apienable --apiport {ApiPort} --cpool eu" + nhsuff + ".nicehash.com:3367 --cwallet {btcAdress}.{worker} --cpassword x --logfile {GetLogFileName()} --pools poolsV8.txt";
 
         }
 

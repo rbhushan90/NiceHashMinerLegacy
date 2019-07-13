@@ -80,14 +80,19 @@ namespace NiceHashMiner.Miners
                 //IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.CryptoDredge;
                 //IsApiReadException = true; //0.18.0 api broken
             }
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
             LastCommandLine = algo +
                 " -o " + url + " -u " + username + " -p x " +
-                " -o " + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+                " -o " + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x " +
                 " -o " + url + " -u " + username + " -p x --log " + GetLogFileName() +
                 apiBind + 
                 " -d " + GetDevicesCommandString() + " " +
@@ -128,11 +133,16 @@ namespace NiceHashMiner.Miners
 
             if (File.Exists("bin_3rdparty\\CryptoDredge\\" + GetLogFileName()))
                 File.Delete("bin_3rdparty\\CryptoDredge\\" + GetLogFileName());
+            string nhsuff = "";
 
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Blake2s))
             {
                 commandLine = "--algo blake2s" +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://blake2s.eu.mine.zpool.ca:5766" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
                 " --log " + GetLogFileName() +
                 apiBind +
@@ -145,7 +155,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16R))
             {
                 commandLine = "--algo x16r" +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://x16r.eu.mine.zpool.ca:3636" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
                 " --log " + GetLogFileName() +
                 apiBind +
@@ -158,7 +168,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
             {
                 commandLine = "--algo lyra2z" +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
                 " --log " + GetLogFileName() +
                 apiBind +
@@ -171,7 +181,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv2))
             {
                 commandLine = "--algo lyra2v2" +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://lyra2v2.eu.mine.zpool.ca:4533" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
                 " --log " + GetLogFileName() +
                 apiBind +
@@ -184,7 +194,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
             {
                 commandLine = "--algo lyra2v3" +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://lyra2v3.eu.mine.zpool.ca:4550" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
                 " --log " + GetLogFileName() +
                 apiBind +
@@ -197,7 +207,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.NeoScrypt))
             {
                 commandLine = "--algo neoscrypt --retry-pause 5" +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://neoscrypt.na.mine.zpool.ca:4233" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " + //no support for failover pools?
                 " -o stratum+tcp://neoscrypt.jp.mine.zpool.ca:4233" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
                 " -o stratum+tcp://neoscrypt.sea.mine.zpool.ca:4233" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
@@ -213,7 +223,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Skunk))
             {
                 commandLine = "--algo skunk" +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                // " -o stratum+tcp://hdac.moricpool.com:3333" + " -u HGr2JYPDMgYr9GzS9TcadBxxkyxo4v9XAJ" + " -p x " +
                "-o stratum+tcp://skunk.eu.mine.zpool.ca:8433 -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 -p c=BTC" +
                 " --log " + GetLogFileName() +
@@ -227,9 +237,9 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
                 commandLine = "--algo cnheavy" +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " --url=stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 //" -o stratum+tcp://loki.miner.rocks:5555" + " -u L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi"+ " -p w=" + ConfigManager.GeneralConfig.WorkerName.Trim() +
                 " --log " + GetLogFileName() +
                 apiBind +
@@ -248,9 +258,9 @@ namespace NiceHashMiner.Miners
                     */
                 algo = "--algo cnv8";
                 commandLine = algo +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " --url=stratum+tcp://" + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
               //  " -o stratum+tcp://xmr-usa.dwarfpool.com:8005" + " -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX." + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
               //  " -o stratum+tcp://xmr-eu.dwarfpool.com:8005" + " -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX."+ ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
                 " --log " + GetLogFileName() +
@@ -266,7 +276,7 @@ namespace NiceHashMiner.Miners
             {
                 algo = "--algo mtp";
                 commandLine = algo +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://xzc.2miners.com:8080" + " -u aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE." + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
                 " --log " + GetLogFileName() +
                 apiBind +
@@ -280,7 +290,7 @@ namespace NiceHashMiner.Miners
             {
                 algo = "--algo cuckaroo29";
                 commandLine = algo +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://grin.sparkpool.com:6666" + " -u angelbbs@mail.ru/" + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
                 " --log " + GetLogFileName() +
                 apiBind +
@@ -294,7 +304,7 @@ namespace NiceHashMiner.Miners
             {
                 algo = "--algo aeternity";
                 commandLine = algo +
-                " --url=stratum+tcp://" + alg + ".eu.nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                 " -o stratum+tcp://ae.f2pool.com:7898" + " -u ak_2f9AMwztStKs5roPmT592wTbUEeTyqRgYVZNrc5TyZfr94m7fM." + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
                 " --log " + GetLogFileName() +
                 apiBind +
@@ -306,12 +316,12 @@ namespace NiceHashMiner.Miners
             }
             commandLine = algo +
                 " -o " + url + " -u " + username + " -p x " +
-                " --url=stratum+tcp://" + alg + ".hk.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o " + alg + ".jp.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o " + alg + ".in.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o " + alg + ".br.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o " + alg + ".usa.nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o " + alg + ".eu.nicehash.com:" + port + " -u " + username + " -p x " +
+                " --url=stratum+tcp://" + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o " + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x " +
                 " -o " + url + " -u " + username + " -p x --log " + GetLogFileName() +
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +

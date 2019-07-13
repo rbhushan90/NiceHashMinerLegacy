@@ -61,13 +61,17 @@ namespace NiceHashMiner.Miners
 
 
             Thread.Sleep(200);
-
-            var epools = String.Format("POOL: daggerhashimoto.usa.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.hk.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.jp.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.in.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.br.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n"
-               + String.Format("POOL: daggerhashimoto.eu.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", url, username) + "\n";
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
+            var epools = String.Format("POOL: daggerhashimoto.usa{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.hk{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.jp{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.in{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.br{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
+               + String.Format("POOL: daggerhashimoto.eu{0}.nicehash.com:3353, WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n";
             try
             {
                 FileStream fs = new FileStream("bin_3rdparty\\phoenix\\epools.txt", FileMode.Create, FileAccess.Write);

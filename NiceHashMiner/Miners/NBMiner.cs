@@ -78,29 +78,33 @@ namespace NiceHashMiner.Miners
 
             var user = GetUsername(btcAddress, worker);
             var devs = string.Join(",", MiningSetup.MiningPairs.Select(p => p.Device.IDByBus));
-
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.DaggerHashimoto))
             {
-                cmd = $"-a {AlgoName} -o {url} -u {user} -o1 ethnh+tcp://daggerhashimoto.hk.nicehash.com:3353 -u1 {user} " +
-                    $"-o2 ethnh+tcp://daggerhashimoto.usa.nicehash.com:3353 -u2 {user} " + 
+                cmd = $"-a {AlgoName} -o {url} -u {user} -o1 ethnh+tcp://daggerhashimoto.hk" + nhsuff + ".nicehash.com:3353 -u1 {user} " +
+                    $"-o2 ethnh+tcp://daggerhashimoto.usa" + nhsuff + ".nicehash.com:3353 -u2 {user} " + 
                     $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckaroo29))
             {
-                cmd = $"-a {AlgoName} -o {url} -u {user} -o1 stratum+tcp://grincuckaroo29.hk.nicehash.com:3371 -u1 {user} " +
-                    $"-o2 stratum+tcp://grincuckaroo29.usa.nicehash.com:3371 -u2 {user} " +
+                cmd = $"-a {AlgoName} -o {url} -u {user} -o1 stratum+tcp://grincuckaroo29.hk" + nhsuff + ".nicehash.com:3371 -u1 {user} " +
+                    $"-o2 stratum+tcp://grincuckaroo29.usa" + nhsuff + ".nicehash.com:3371 -u2 {user} " +
                     $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckatoo31))
             {
-                cmd = $"-a {AlgoName} -o {url} -u {user} -o1 stratum+tcp://grincuckatoo31.hk.nicehash.com:3372 -u1 {user} " +
-                    $"-o2 stratum+tcp://grincuckatoo31.usa.nicehash.com:3372 -u2 {user} " +
+                cmd = $"-a {AlgoName} -o {url} -u {user} -o1 stratum+tcp://grincuckatoo31.hk" + nhsuff + ".nicehash.com:3372 -u1 {user} " +
+                    $"-o2 stratum+tcp://grincuckatoo31.usa" + nhsuff + ".nicehash.com:3372 -u2 {user} " +
                     $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
             }
             if(MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CuckooCycle))
             {
-                cmd = $"-a {AlgoName} -o {url} -u {user} -o1 stratum+tcp://cuckoocycle.hk.nicehash.com:3376 -u1 {user} " +
-                    $"-o2 stratum+tcp://cuckoocycle.usa.nicehash.com:3376 -u2 {user} " +
+                cmd = $"-a {AlgoName} -o {url} -u {user} -o1 stratum+tcp://cuckoocycle.hk" + nhsuff + ".nicehash.com:3376 -u1 {user} " +
+                    $"-o2 stratum+tcp://cuckoocycle.usa" + nhsuff + ".nicehash.com:3376 -u2 {user} " +
                     $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
             }
             cmd += ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);
@@ -128,29 +132,33 @@ namespace NiceHashMiner.Miners
             var worker = ConfigManager.GeneralConfig.WorkerName.Trim();
             var cmd = "";
             var devs = string.Join(",", MiningSetup.MiningPairs.Select(p => p.Device.IDByBus));
-
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.DaggerHashimoto))
             {
-                cmd = $"-a {AlgoName} -o ethproxy+tcp://eth-eu.dwarfpool.com:8008 -u 0x9290e50e7ccf1bdc90da8248a2bbacc5063aeee1.{worker} -o1 ethnh+tcp://daggerhashimoto.hk.nicehash.com:3353 -u1 {user}.{worker} " +
-                    $"-o2 ethnh+tcp://daggerhashimoto.usa.nicehash.com:3353 -u2 {user}.{worker} " +
+                cmd = $"-a {AlgoName} -o ethproxy+tcp://eth-eu.dwarfpool.com:8008 -u 0x9290e50e7ccf1bdc90da8248a2bbacc5063aeee1.{worker} -o1 ethnh+tcp://daggerhashimoto.hk" + nhsuff + ".nicehash.com:3353 -u1 {user}.{worker} " +
+                    $"-o2 ethnh+tcp://daggerhashimoto.usa" + nhsuff + ".nicehash.com:3353 -u2 {user}.{worker} " +
                     $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckaroo29))
             {
-                cmd = $"-a {AlgoName} -o stratum+tcp://grin.sparkpool.com:6666 -u angelbbs@mail.ru.{worker} -o1 stratum+tcp://grincuckaroo29.hk.nicehash.com:3371 -u1 {user}.{worker} " +
-                    $"-o2 stratum+tcp://grincuckaroo29.usa.nicehash.com:3371 -u2 {user}.{worker} " +
+                cmd = $"-a {AlgoName} -o stratum+tcp://grin.sparkpool.com:6666 -u angelbbs@mail.ru.{worker} -o1 stratum+tcp://grincuckaroo29.hk" + nhsuff + ".nicehash.com:3371 -u1 {user}.{worker} " +
+                    $"-o2 stratum+tcp://grincuckaroo29.usa" + nhsuff + ".nicehash.com:3371 -u2 {user}.{worker} " +
                     $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckatoo31))
             {
-                cmd = $"-a {AlgoName} -o stratum+tcp://grin.sparkpool.com:6667 -u angelbbs@mail.ru.{worker} -o1 stratum+tcp://grincuckatoo31.hk.nicehash.com:3372 -u1 {user}.{worker} " +
-                    $"-o2 stratum+tcp://grincuckatoo31.usa.nicehash.com:3372 -u2 {user}.{worker} " +
+                cmd = $"-a {AlgoName} -o stratum+tcp://grin.sparkpool.com:6667 -u angelbbs@mail.ru.{worker} -o1 stratum+tcp://grincuckatoo31.hk" + nhsuff + ".nicehash.com:3372 -u1 {user}.{worker} " +
+                    $"-o2 stratum+tcp://grincuckatoo31.usa" + nhsuff + ".nicehash.com:3372 -u2 {user}.{worker} " +
                     $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CuckooCycle))
             {
-                cmd = $"-a {AlgoName} -o stratum+tcp://ae.f2pool.com:7898 -u ak_2f9AMwztStKs5roPmT592wTbUEeTyqRgYVZNrc5TyZfr94m7fM.{worker} -o1 stratum+tcp://cuckoocycle.hk.nicehash.com:3376 -u1 {user}.{worker} " +
-                    $"-o2 stratum+tcp://cuckoocycle.usa.nicehash.com:3376 -u2 {user}.{worker} " +
+                cmd = $"-a {AlgoName} -o stratum+tcp://ae.f2pool.com:7898 -u ak_2f9AMwztStKs5roPmT592wTbUEeTyqRgYVZNrc5TyZfr94m7fM.{worker} -o1 stratum+tcp://cuckoocycle.hk" + nhsuff + ".nicehash.com:3376 -u1 {user}.{worker} " +
+                    $"-o2 stratum+tcp://cuckoocycle.usa" + nhsuff + ".nicehash.com:3376 -u2 {user}.{worker} " +
                     $"--api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
             }
             cmd += ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA);
