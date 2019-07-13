@@ -92,7 +92,7 @@
             // labelServiceLocation
             // 
             this.labelServiceLocation.AutoSize = true;
-            this.labelServiceLocation.Location = new System.Drawing.Point(8, 32);
+            this.labelServiceLocation.Location = new System.Drawing.Point(8, 23);
             this.labelServiceLocation.Name = "labelServiceLocation";
             this.labelServiceLocation.Size = new System.Drawing.Size(86, 13);
             this.labelServiceLocation.TabIndex = 99;
@@ -110,7 +110,7 @@
             "India - Chennai",
             "Brazil - Sao Paulo",
             "Auto"});
-            this.comboBoxLocation.Location = new System.Drawing.Point(113, 29);
+            this.comboBoxLocation.Location = new System.Drawing.Point(113, 20);
             this.comboBoxLocation.Name = "comboBoxLocation";
             this.comboBoxLocation.Size = new System.Drawing.Size(121, 21);
             this.comboBoxLocation.TabIndex = 0;
@@ -312,11 +312,11 @@
             // 
             this.labelDemoMode.AutoSize = true;
             this.labelDemoMode.BackColor = System.Drawing.Color.Transparent;
-            this.labelDemoMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDemoMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDemoMode.ForeColor = System.Drawing.Color.Red;
-            this.labelDemoMode.Location = new System.Drawing.Point(6, 7);
+            this.labelDemoMode.Location = new System.Drawing.Point(8, 3);
             this.labelDemoMode.Name = "labelDemoMode";
-            this.labelDemoMode.Size = new System.Drawing.Size(364, 20);
+            this.labelDemoMode.Size = new System.Drawing.Size(342, 18);
             this.labelDemoMode.TabIndex = 100;
             this.labelDemoMode.Text = "NiceHash Miner Legacy is running in DEMO mode!";
             this.labelDemoMode.Visible = false;

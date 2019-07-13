@@ -19,6 +19,8 @@ using NiceHashMiner.Configs;
 using static NiceHashMiner.Devices.ComputeDeviceManager;
 using NiceHashMinerLegacy.UUID;
 
+
+
 namespace NiceHashMiner.Stats
 {
     public class SocketEventArgs : EventArgs
@@ -185,7 +187,7 @@ namespace NiceHashMiner.Stats
 
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                _deviceUpdateTimer = new System.Threading.Timer(DeviceStatus_TickNew, null, DeviceUpdateInterval, DeviceUpdateInterval);
+                _deviceUpdateTimer = new System.Threading.Timer(DeviceStatus_Tick, null, DeviceUpdateInterval, DeviceUpdateInterval);
             } else
             {
                 _deviceUpdateTimer = new System.Threading.Timer(DeviceStatus_Tick, null, DeviceUpdateInterval, DeviceUpdateInterval);
@@ -838,6 +840,9 @@ namespace NiceHashMiner.Stats
 
                     var type = "0";
                     //var b64Web = UUID.GetB64UUID("CPU-1523ab40-096f-5c1c-8b46-b0d98cffb5a6");
+                    //надо проверить, надо ли вообще эти извращения с uuid устройств? 
+                    //попробовать передать данные и посмотреть, будет ли риг один в кабинете
+                    //[UUID] GEN-fc783f7408f8298df2dbe0edda1fe54433f910bc47fbc19d76e6c336a4ee8940
                     var b64Web = UUID.GetB64UUID(device.Uuid); //не правильный uuid!!!!
                     var nuuid =  $"{type}-{b64Web}";
                     Helpers.ConsolePrint("UUID", device.Uuid);
@@ -894,8 +899,8 @@ namespace NiceHashMiner.Stats
             if (_socket != null)
             {
                 //sendData = "{\"method\":\"miner.status\",\"params\":[\"MINING\",[[\"Intel(R) Core(TM) i7-3630QM CPU @ 2.40GHz\",\"1-YBxRn6UfL1O7dUk6NNR5EA\",9,3,[],-1,-1,-1,-1,0]]]}";
-                 //await _socket.SendData(sendData);
-                Helpers.ConsolePrint("SOCKET", sendData);
+                 await _socket.SendData(sendData);
+                //Helpers.ConsolePrint("SOCKET", sendData);
             }
             //my
             //0-WimjpF2sa1e9ugUVaqZCow
