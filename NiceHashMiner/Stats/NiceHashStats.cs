@@ -14,8 +14,9 @@ using System.Windows.Forms;
 using NiceHashMinerLegacy.Common.Enums;
 using WebSocketSharp;
 using System.Threading;
-using System.Timers;
+
 using NiceHashMiner.Configs;
+
 
 
 namespace NiceHashMiner.Stats
@@ -87,8 +88,7 @@ namespace NiceHashMiner.Stats
         {
             //https://nhmws-new.nicehash.com/v3/nhml
             //https://nhmws.nicehash.com/v2/nhm
-            // Helpers.ConsolePrint("SOCKET-address", address);
-
+            
             /*
             if (_deviceUpdateTimer != null)
             {
@@ -318,7 +318,8 @@ namespace NiceHashMiner.Stats
             
             if (ConfigManager.GeneralConfig.NewPlatform)
             {
-                return true;
+                //NHSmaData.Initialized = true;
+                return false;
             }
             
                 try
@@ -340,51 +341,7 @@ namespace NiceHashMiner.Stats
                     {
                         Helpers.ConsolePrint("NHM_API_info", resp);
                     }
-                    //{"miningAlgorithms":[
-                    //{ "algorithm":"SCRYPT","title":"Scrypt","speed":"139179.34974628","paying":"0.00002995"},
-                    //{ "algorithm":"SHA256","title":"SHA256","speed":"3135.32612608","paying":"0"},
-                    //{ "algorithm":"X11","title":"X11","speed":"901927.01007968","paying":"0.00000023"},
-                    //{ "algorithm":"X13","title":"X13","speed":"4129.39471601","paying":"0.00000071"},
-                    //{ "algorithm":"KECCAK","title":"Keccak","speed":"270492.97552064","paying":"0.00000007"},
-                    //{ "algorithm":"X15","title":"X15","speed":"0","paying":"0"},
-                    //{ "algorithm":"NIST5","title":"Nist5","speed":"6442.450944","paying":"0.00000001"},
-                    //{ "algorithm":"NEOSCRYPT","title":"NeoScrypt","speed":"0","paying":"0"},
-                    //{ "algorithm":"QUBIT","title":"Qubit","speed":"31953.0520186","paying":"0.00000001"},
-                    //{ "algorithm":"QUARK","title":"Quark","speed":"0","paying":"0"},
-                    //{ "algorithm":"LYRA2REV2","title":"Lyra2REv2","speed":"105707.85435114","paying":"0.00001198"},
-                    //{ "algorithm":"BLAKE256R8","title":"Blake256r8","speed":"0","paying":"0"},
-                    //{ "algorithm":"DAGGERHASHIMOTO","title":"DaggerHashimoto","speed":"130451.77279822","paying":"0.00017779"},
-                    //{ "algorithm":"DECRED","title":"Decred","speed":"330.49773343","paying":"0"},
-                    //{ "algorithm":"CRYPTONIGHT","title":"CryptoNight","speed":"0","paying":"0.01501"},
-                    //{ "algorithm":"LBRY","title":"Lbry","speed":"66.54335997","paying":"0.00000005"},
-                    //{ "algorithm":"EQUIHASH","title":"Equihash","speed":"3904401.60171067","paying":"0.8332256"},
-                    //{ "algorithm":"PASCAL","title":"Pascal","speed":"0","paying":"0"},
-                    //{ "algorithm":"SIA","title":"Sia","speed":"0","paying":"0"},
-                    //{ "algorithm":"BLAKE2S","title":"Blake2s","speed":"53.3206567","paying":"0.00000001"},
-                    //{ "algorithm":"SKUNK","title":"Skunk","speed":"3.43592141","paying":"0.00001"},
-                    //{ "algorithm":"CRYPTONIGHTV7","title":"CryptoNightV7","speed":"0","paying":"0.15"},
-                    //{ "algorithm":"CRYPTONIGHTHEAVY","title":"CryptoNightHeavy","speed":"0","paying":"0.01"},
-                    //{ "algorithm":"LYRA2Z","title":"Lyra2Z","speed":"0","paying":"0"},
-                    //{ "algorithm":"X16R","title":"X16R","speed":"17255.65307391","paying":"0.00026866"},
-                    //{ "algorithm":"CRYPTONIGHTV8","title":"CryptoNightV8","speed":"0","paying":"0.01"},
-                    //{ "algorithm":"SHA256ASICBOOST","title":"SHA256AsicBoost","speed":"0","paying":"0"},
-                    //{ "algorithm":"ZHASH","title":"ZHash","speed":"48391.18053136","paying":"105.46999042"},
-                    //{ "algorithm":"BEAM","title":"Beam","speed":"21114.88000001","paying":"234.96347194"},
-                    //{ "algorithm":"GRINCUCKAROO29","title":"GrinCuckaroo29","speed":"17384.52357913","paying":"1320.6930785"},
-                    //{ "algorithm":"GRINCUCKATOO31","title":"GrinCuckatoo31","speed":"231.25150828","paying":"2132.47314021"},
-                    //{ "algorithm":"LYRA2REV3","title":"Lyra2REv3","speed":"1576.61091157","paying":"0.00005667"},
-                    //{ "algorithm":"CRYPTONIGHTR","title":"CryptoNightR","speed":"616","paying":"4.22511377"},
-                    //{ "algorithm":"CUCKOOCYCLE","title":"CuckooCycle","speed":"65.70663304","paying":"375.86200525"}
-                    //]}
-                    /*
-                    { "result":{ "simplemultialgo":[{"paying":"0.00029919","port":3333,"name":"scrypt","algo":0},
-                    {"paying":"0.00000003","port":3334,"name":"sha256","algo":1},
-                    {"paying":"0","port":3335,"name":"scryptnf","algo":2},
-                    {"paying":"0.00000281","port":3336,"name":"x11","algo":3},{"paying":"0.00008571","port":3337,"name":"x13","algo":4},{"paying":"0.00000152","port":3338,"name":"keccak","algo":5},{"paying":"0.0001","port":3339,"name":"x15","algo":6},{"paying":"0.00000575","port":3340,"name":"nist5","algo":7},{"paying":"0.02277784","port":3341,"name":"neoscrypt","algo":8},{"paying":"0","port":3342,"name":"lyra2re","algo":9},{"paying":"0","port":3343,"name":"whirlpoolx","algo":10},{"paying":"0.00000746","port":3344,"name":"qubit","algo":11},{"paying":"0.00000291","port":3345,"name":"quark","algo":12},{"paying":"0","port":3346,"name":"axiom","algo":13},{"paying":"0.00014356","port":3347,"name":"lyra2rev2","algo":14},{"paying":"0","port":3348,"name":"scryptjanenf16","algo":15},{"paying":"0.00000011","port":3349,"name":"blake256r8","algo":16},{"paying":"0","port":3350,"name":"blake256r14","algo":17},{"paying":"0","port":3351,"name":"blake256r8vnl","algo":18},{"paying":"0","port":3352,"name":"hodl","algo":19},{"paying":"0.00192647","port":3353,"name":"daggerhashimoto","algo":20},{"paying":"0.00000001","port":3354,"name":"decred","algo":21},{"paying":"0.31717939","port":3355,"name":"cryptonight","algo":22},{"paying":"0.00000078","port":3356,"name":"lbry","algo":23},{"paying":"9.81508791","port":3357,"name":"equihash","algo":24},{"paying":"0.00000011","port":3358,"name":"pascal","algo":25},{"paying":"0","port":3359,"name":"x11gost","algo":26},{"paying":"0","port":3360,"name":"sia","algo":27},{"paying":"0.00000011","port":3361,"name":"blake2s","algo":28},{"paying":"0.00031","port":3362,"name":"skunk","algo":29},{"paying":"3.08160114","port":3363,"name":"cryptonightv7","algo":30},{"paying":"5.56135135","port":3364,"name":"cryptonightheavy","algo":31},{"paying":"0.00082045","port":3365,"name":"lyra2z","algo":32},{"paying":"0.00245316","port":3366,"name":"x16r","algo":33},{"paying":"31.11766068","port":3367,"name":"cryptonightv8","algo":34},{"paying":"0.00000003","port":3368,"name":"sha256asicboost","algo":35},{"paying":"1214.77312142","port":3369,"name":"zhash","algo":36},{"paying":"3259.48313625","port":3370,"name":"beam","algo":37},{"paying":"14827.46208488","port":3371,"name":"grincuckaroo29","algo":38},{"paying":"99025.75291859","port":3372,"name":"grincuckatoo31","algo":39},{"paying":"0.00071719","port":3373,"name":"lyra2rev3","algo":40},{"paying":"0.03104377","port":3374,"name":"mtp","algo":41},{"paying":"41.89290546","port":3375,"name":"cryptonightr","algo":42},{"paying":"10623.31220285","port":3376,"name":"cuckoocycle","algo":43}]},"method":"simplemultialgo.info"}
-                    */
-                    /*
-                     {"miningAlgorithms":[{"algorithm":"SCRYPT","title":"Scrypt","enabled":true,"order":0,"displayMiningFactor":"MH","miningFactor":"1000000","displayMarketFactor":"TH","marketFactor":"1000000000000","minimalOrderAmount":"0.005","minSpeedLimit":"0.01","maxSpeedLimit":"10000","priceDownStep":"-0.00001","minimalPoolDifficulty":"500000","port":3333,"color":"#afafaf","ordersEnabled":true},
-                     */
+                   
                     dynamic list;
                     if (ConfigManager.GeneralConfig.NewPlatform)
                     {
@@ -415,13 +372,7 @@ namespace NiceHashMiner.Stats
                     
                     //Helpers.ConsolePrint("SMA-DATA-API***: ", outProf);
                     JArray smadata = (JArray.Parse(outProf));
-                    /*
-                    if (AlgorithmRates == null || niceHashData == null)
-                    {
-                        niceHashData = new NiceHashData();
-                        AlgorithmRates = niceHashData.NormalizedSMA();
-                    }
-                    */
+
                     NiceHashStats.SetAlgorithmRates(smadata);
 
                     FileStream fs = new FileStream("configs\\sma.dat", FileMode.Create, FileAccess.Write);
@@ -614,34 +565,35 @@ namespace NiceHashMiner.Stats
         public static void ClearAlgorithmRates()
         {
             var _currentSma = new Dictionary<AlgorithmType, NiceHashSma>();
+            var payingDict = new Dictionary<AlgorithmType, double>();
             try
-            { 
-            foreach (AlgorithmType algo in Enum.GetValues(typeof(AlgorithmType)))
             {
-                if (algo >= 0)
+                foreach (AlgorithmType algo in Enum.GetValues(typeof(AlgorithmType)))
                 {
-                    var paying = 0d;
-
-                    _currentSma[algo] = new NiceHashSma
+                    if (algo >= 0)
                     {
-                        Port = (int)algo + 3333,
-                        Name = algo.ToString().ToLower(),
-                        Algo = (int)algo,
-                        Paying = paying
-                    };
-                    //_recentPaying[algo] = new List<double>
-                    //{
-                    //    0
-                    //};
+                        var paying = 0d;
+
+                        _currentSma[algo] = new NiceHashSma
+                        {
+                            Port = (int)algo + 3333,
+                            Name = algo.ToString().ToLower(),
+                            Algo = (int)algo,
+                            Paying = paying
+                        };
+                        payingDict[algo] = paying;
+                        //_recentPaying[algo] = new List<double>
+                        //{
+                        //    0
+                        //};
+                    }
                 }
-            }
 
-          //  Initialized = true;
-
-
-         //   NHSmaData.UpdateSmaPaying(payingDict);
+                //NiceHashSma.Initialized = true;
+                NHSmaData.UpdateSmaPaying(payingDict);
 
                 OnSmaUpdate?.Invoke(null, EventArgs.Empty);
+
             }
             catch (Exception e)
             {

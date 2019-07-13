@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebSocketSharp;
 
+using NiceHashMinerLegacy.UUID;
+
 namespace NiceHashMiner.Stats
 {
     public class NiceHashSocket
@@ -46,6 +48,7 @@ namespace NiceHashMiner.Stats
         public event EventHandler OnConnectionEstablished;
         public event EventHandler<MessageEventArgs> OnDataReceived;
         public event EventHandler OnConnectionLost;
+        public static string RigID => UUID.GetDeviceB64UUID();
 
         public NiceHashSocket(string address)
         {
@@ -56,40 +59,9 @@ namespace NiceHashMiner.Stats
         
         public void StartConnectionNew(string btc = null, string worker = null, string group = null)
         {
-            
-             Helpers.ConsolePrint("SOCKET", "Start connection to old platform");
             NHSmaData.InitializeIfNeeded();
             _connectionAttempted = true;
 
-            try
-            {
-                if (_webSocket == null)
-                {
-                    _webSocket = new WebSocket(_address, true);
-                } else
-                {
-                    _connectionEstablished = false;
-                    _restartConnection = true;
-                    _webSocket.Close();
-                }
-                _webSocket.OnOpen += ConnectCallback;
-                _webSocket.OnMessage += ReceiveCallback;
-                _webSocket.OnError += ErrorCallback;
-                _webSocket.OnClose += CloseCallback;
-                _webSocket.Log.Level = LogLevel.Debug;
-                _webSocket.Log.Output = (data, s) => Helpers.ConsolePrint("SOCKET", data.ToString());
-                _webSocket.EnableRedirection = true;
-                _webSocket.Connect();
-                _connectionEstablished = true;
-                _restartConnection = false;
-            } catch (Exception e)
-            {
-                Helpers.ConsolePrint("SOCKET", e.ToString());
-            }
-            
-            Helpers.ConsolePrint("SOCKET", "Start connection to new platform");
-            NHSmaData.InitializeIfNeeded();
-            _connectionAttempted = true;
             // TESTNET
 #if TESTNET || TESTNETDEV || PRODUCTION_NEW
             _login.rig = ApplicationStateManager.RigID;
@@ -98,7 +70,7 @@ namespace NiceHashMiner.Stats
             if (worker != null) _login.worker = worker;
             if (group != null) _login.group = group;
 #endif
-
+            // Helpers.ConsolePrint("rig:", RigID);
             try
             {
                 if (_webSocket == null)
@@ -117,8 +89,8 @@ namespace NiceHashMiner.Stats
                     _webSocket.Close();
                 }
                 Helpers.ConsolePrint("SOCKET", "Connecting");
-                _webSocket.OnOpen += Login;
-                //_webSocket.OnOpen += ConnectCallback;
+               // _webSocket.OnOpen += Login;
+                _webSocket.OnOpen += ConnectCallback;
                 _webSocket.OnMessage += ReceiveCallbackNew;
                 _webSocket.OnError += ErrorCallbackNew;
                 _webSocket.OnClose += CloseCallbackNew;
@@ -297,25 +269,7 @@ namespace NiceHashMiner.Stats
         }
 
         //****************************************************************************************************************
-        /*
-        private void Login(object sender, EventArgs e)
-        {
-            try
-            {
-                //var loginJson = JsonConvert.SerializeObject(_login);
-                var loginJson = "{ \"method\":\"login\",\"version\":\"NHML/1.9.2.7\",\"protocol\":3,\"btc\":\"3F2v4K3ExF1tqLLwa6Ac3meimSjV3iUZgQ\",\"worker\":\"worker1\",\"group\":\"\",\"rig\":\"0-AMMDquXCml2iU-g4tcFQEQ\"}";
-                //{"method":"login","version":"NHML/1.9.2.7","protocol":3,"btc":"3F2v4K3ExF1tqLLwa6Ac3meimSjV3iUZgQ","worker":"worker1","group":"","rig":""}
-                //{ "method":"login","version":"NHML/1.9.2.7","protocol":3,"btc":"3F2v4K3ExF1tqLLwa6Ac3meimSjV3iUZgQ","worker":"worker1","group":"","rig":"0-AMMDquXCml2iU-g4tcFQEQ"}
-                SendDataNew(loginJson);
 
-                OnConnectionEstablished?.Invoke(null, EventArgs.Empty);
-            }
-            catch (Exception er)
-            {
-                Helpers.ConsolePrint("SOCKET", er.Message);
-            }
-        }
-        */
         public void StartConnection()
         {
             Helpers.ConsolePrint("SOCKET", "Start connection to old platform");
@@ -333,18 +287,7 @@ namespace NiceHashMiner.Stats
                     _restartConnection = true;
                     _webSocket.Close();
                 }
-                /*
-                _webSocket.OnOpen += ConnectCallback;
-                _webSocket.OnMessage += ReceiveCallback;
-                _webSocket.OnError += ErrorCallback;
-                _webSocket.OnClose += CloseCallback;
-                _webSocket.Log.Level = LogLevel.Debug;
-                _webSocket.Log.Output = (data, s) => Helpers.ConsolePrint("SOCKET", data.ToString());
-                _webSocket.EnableRedirection = true;
-                _webSocket.Connect();
-                _connectionEstablished = true;
-                _restartConnection = false;
-                */
+
                 //_webSocket.OnOpen += Login;
                 _webSocket.OnOpen += ConnectCallback;
                 _webSocket.OnMessage += ReceiveCallback;
@@ -406,7 +349,7 @@ namespace NiceHashMiner.Stats
                 string btc;
                 string worker;
                 string group = "";
-                string rig = "0-AMMDquXCml2iU-g4tcFQEQ";
+                string rig = RigID;
                 //var version = "NHML/" + Application.ProductVersion;
                 var version = "NHML/1.9.1.7";
                 if (Configs.ConfigManager.GeneralConfig.NewPlatform)
@@ -428,8 +371,8 @@ namespace NiceHashMiner.Stats
 
                     };
                     var loginJson = JsonConvert.SerializeObject(login);
-                    loginJson = loginJson.Replace("method", " method");
-                    SendData(loginJson);
+                    loginJson = loginJson.Replace("{", " { ");
+                    SendDataNew(loginJson);
                 } else
                 {
                     protocol = 1;
@@ -442,7 +385,7 @@ namespace NiceHashMiner.Stats
                         protocol = protocol
                     };
                     var loginJson = JsonConvert.SerializeObject(login);
-                    SendData(loginJson);
+                        SendDataNew(loginJson);
                 }
                 /*
                if (Configs.ConfigManager.GeneralConfig.NewPlatform)

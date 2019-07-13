@@ -488,6 +488,10 @@
       <Project>{200498ff-f28e-4c9c-9c6f-535feee099db}</Project>
       <Name>NiceHashMinerLegacy.Extensions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NiceHashMinerLegacy.UUID\NiceHashMinerLegacy.UUID.csproj">
+      <Project>{ee6160cc-8c19-4ad8-bb1e-c295347203ee}</Project>
+      <Name>NiceHashMinerLegacy.UUID</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -501,7 +505,7 @@
   <PropertyGroup>
     <PostBuildEvent>7za a -tzip -mx0 ../LatestBuild/nhmlffLatest *.*</PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

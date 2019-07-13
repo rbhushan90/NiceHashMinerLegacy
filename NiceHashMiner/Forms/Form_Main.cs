@@ -525,6 +525,8 @@ namespace NiceHashMiner
             _startupTimer.Tick += StartupTimer_Tick;
             _startupTimer.Interval = 200;
             _startupTimer.Start();
+            textBoxBTCAddress.Enabled = !radioButtonNewPlatform.Checked;
+            textBoxBTCAddress_new.Enabled = radioButtonNewPlatform.Checked;
         }
 
         //        [Obsolete("Deprecated in favour of AlgorithmSwitchingManager timer")]
@@ -1424,24 +1426,19 @@ namespace NiceHashMiner
         {
             ConfigManager.GeneralConfig.NewPlatform = !radioButtonOldPlatform.Checked;
             ConfigManager.GeneralConfigFileCommit();
-            Helpers.ConsolePrint("SOCKET", "-------------------------------------");
         }
 
         private void radioButtonNewPlatform_CheckedChanged(object sender, EventArgs e)
         {
-            //if (Configs.ConfigManager.GeneralConfig.NewPlatform)
-            //{
-            //}
+
             ConfigManager.GeneralConfig.NewPlatform = radioButtonNewPlatform.Checked;
             textBoxBTCAddress.Enabled = !radioButtonNewPlatform.Checked;
             textBoxBTCAddress_new.Enabled = radioButtonNewPlatform.Checked;
             ConfigManager.GeneralConfigFileCommit();
             Thread.Sleep(100);
-            //ComputeDeviceManager.Query.QueryDevices(_loadingScreen);
-            //_loadingScreen.IncreaseLoadCounterAndMessage(International.GetText("Form_Main_loadtext_GetNiceHashSMA"));
+
             if (firstStartConnection && NiceHashSocket._webSocket != null)
             {
-                Helpers.ConsolePrint("SOCKET", "**************");
                 NiceHashStats._socket = null;
                 NiceHashSocket._restartConnection = true;
                 NiceHashSocket._webSocket.Close();
@@ -1451,31 +1448,18 @@ namespace NiceHashMiner
                 NiceHashStats._deviceUpdateTimer.Change(System.Threading.Timeout.Infinite, 0);
                 NiceHashStats._deviceUpdateTimer.Dispose();
                 NiceHashStats._deviceUpdateTimer = null;
-                //ForceMinerStatsUpdate();
-                //_minerStatsCheck.Stop();
-                //_minerStatsCheck.Start();
+                NiceHashStats.ClearAlgorithmRates();
+                Thread.Sleep(100);
 
-                
                 if (Configs.ConfigManager.GeneralConfig.NewPlatform)
                 {
-                    NiceHashStats.ClearAlgorithmRates();
                     NiceHashStats.StartConnection(Links.NhmSocketAddress_new);
                 }
                 else
                 {
-                    NiceHashStats.ClearAlgorithmRates();
                     NiceHashStats.StartConnection(Links.NhmSocketAddress);
                 }
-                
-                //_startupTimer.Stop();
-                //_startupTimer.Dispose();
-                //_startupTimer = new Timer();
-                //_startupTimer.Tick += StartupTimer_Tick;
-                //_startupTimer.Interval = 200;
-                //_startupTimer.Start();
             }
-            //_loadingScreen.FinishLoad();
-            //_loadingScreen = null;
         }
     }
 }

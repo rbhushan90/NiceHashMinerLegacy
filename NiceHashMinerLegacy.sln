@@ -8,6 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceHashMinerLegacy", "Nice
 		{0E9D874E-5354-465E-9EC3-F7A35C268A8A} = {0E9D874E-5354-465E-9EC3-F7A35C268A8A}
 		{23C94F99-F466-4CBE-90B7-71B450DD7BF1} = {23C94F99-F466-4CBE-90B7-71B450DD7BF1}
 		{CC9B70AB-897D-4AE9-8785-33CEB199E2E6} = {CC9B70AB-897D-4AE9-8785-33CEB199E2E6}
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE} = {EE6160CC-8C19-4AD8-BB1E-C295347203EE}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpuid", "cpuid\cpuid.vcxproj", "{23C94F99-F466-4CBE-90B7-71B450DD7BF1}"
@@ -46,7 +47,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceHashMinerLegacy.Extensi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{0DC12891-793A-412A-B0B9-81193C782923}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceHashMinerLegacy.Common", "NiceHashMinerLegacy.Common\NiceHashMinerLegacy.Common.csproj", "{279A5B29-3799-43FA-9734-E462E046BA81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceHashMinerLegacy.Common", "NiceHashMinerLegacy.Common\NiceHashMinerLegacy.Common.csproj", "{279A5B29-3799-43FA-9734-E462E046BA81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceHashMinerLegacy.UUID", "NiceHashMinerLegacy.UUID\NiceHashMinerLegacy.UUID.csproj", "{EE6160CC-8C19-4AD8-BB1E-C295347203EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -489,6 +492,38 @@ Global
 		{279A5B29-3799-43FA-9734-E462E046BA81}.Release|Win32.Build.0 = Release|Any CPU
 		{279A5B29-3799-43FA-9734-E462E046BA81}.Release|x64.ActiveCfg = Release|Any CPU
 		{279A5B29-3799-43FA-9734-E462E046BA81}.Release|x64.Build.0 = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug_Ubuntu|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug_Ubuntu|Any CPU.Build.0 = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug_Ubuntu|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug_Ubuntu|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug_Ubuntu|Win32.ActiveCfg = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug_Ubuntu|Win32.Build.0 = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug_Ubuntu|x64.ActiveCfg = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug_Ubuntu|x64.Build.0 = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug|Win32.Build.0 = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Debug|x64.Build.0 = Debug|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release_Ubuntu|Any CPU.ActiveCfg = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release_Ubuntu|Any CPU.Build.0 = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release_Ubuntu|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release_Ubuntu|Mixed Platforms.Build.0 = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release_Ubuntu|Win32.ActiveCfg = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release_Ubuntu|Win32.Build.0 = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release_Ubuntu|x64.ActiveCfg = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release_Ubuntu|x64.Build.0 = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release|Win32.ActiveCfg = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release|Win32.Build.0 = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release|x64.ActiveCfg = Release|Any CPU
+		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

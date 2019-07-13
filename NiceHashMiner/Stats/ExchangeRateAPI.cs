@@ -2,12 +2,15 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Newtonsoft.Json;
 using NiceHashMiner.Configs;
+
+
 
 namespace NiceHashMiner.Stats
 {
@@ -17,7 +20,8 @@ namespace NiceHashMiner.Stats
 
         private static readonly ConcurrentDictionary<string, double> ExchangesFiat = new ConcurrentDictionary<string, double>();
         private static double _usdBtcRate = -1;
-        public static double BTCcost = 1;
+        //public static double BTCcost = 1;
+        //public static double BTCcost { get; set; }
 
         public static double UsdBtcRate
         {
@@ -34,11 +38,6 @@ namespace NiceHashMiner.Stats
                 {
                     Helpers.ConsolePrint("NICEHASH", "BTC rate error: "+value.ToString());
                     GetNewBTCRate();
-                    value = BTCcost;
-                    Interlocked.Exchange(ref _usdBtcRate, value);
-                    Helpers.ConsolePrint("NICEHASH", $"USD rate updated: {value} BTC");
-                    //Interlocked.Exchange(ref _usdBtcRate, value);
-                    //Helpers.ConsolePrint("NICEHASH", $"USD rate updated: {value} BTC");
                 }
             }
         }
@@ -64,7 +63,7 @@ namespace NiceHashMiner.Stats
             }
             catch (Exception ex)
             {
-                //Helpers.ConsolePrint("API", ex.Message);
+                Helpers.ConsolePrint("API", ex.Message);
                 return;
             }
 
@@ -76,10 +75,17 @@ namespace NiceHashMiner.Stats
 
                 foreach (var pair in er)
                 {
-                   if (pair.fromCurrency.ToString() == "BTC" && pair.toCurrency.ToString() == "USD")
+                   if (pair.fromCurrency == "BTC" && pair.toCurrency == "USD")
                     {
-                        // Helpers.ConsolePrint("API:", pair.exchangeRate.ToString());
-                        BTCcost = pair.exchangeRate;
+                        //Helpers.ConsolePrint("API:", pair.exchangeRate.ToString());
+                        var sBTCcost = pair.exchangeRate.ToString();
+
+                        
+                            double.TryParse(sBTCcost, NumberStyles.Number, CultureInfo.InvariantCulture, out double BTCcost);
+                            Interlocked.Exchange(ref _usdBtcRate, BTCcost);
+                            Helpers.ConsolePrint("NICEHASH", $"USD rate updated: {sBTCcost} ");
+                            //BTCcost = pair.exchangeRate;
+                        
                     }
                 }
                 
