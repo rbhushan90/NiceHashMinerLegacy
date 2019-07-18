@@ -21,6 +21,7 @@ using NiceHashMinerLegacy.Common.Enums;
 using Timer = System.Timers.Timer;
 using System.Net.NetworkInformation;
 using System.Management;
+using NiceHashMiner.Stats;
 
 namespace NiceHashMiner
 {
@@ -79,7 +80,9 @@ namespace NiceHashMiner
         // sgminer/zcash claymore workaround
         protected bool IsKillAllUsedMinerProcs { get; set; }
 
-        public bool IsRunning { get; protected set; }
+
+        public  bool IsRunning { get; protected set; }
+        public static bool IsRunningNew { get; protected set; }
         protected string Path { get; private set; }
 
         protected string LastCommandLine { get; set; }
@@ -265,6 +268,7 @@ namespace NiceHashMiner
             WorkingDirectory = "";
 
             IsRunning = false;
+            IsRunningNew = false;
             PreviousTotalMH = 0.0;
 
             LastCommandLine = "";
@@ -423,7 +427,19 @@ namespace NiceHashMiner
         {
             if (worker.Length > 0)
             {
-                return btcAdress + "." + worker;
+                if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+                {
+                    return btcAdress + "." + worker + "$" + NiceHashMiner.Stats.NiceHashSocket.RigID;
+                } else
+                {
+                    return btcAdress + "." + worker;
+                }
+                //return $"{btcAdress}.{worker}{"$"+NiceHashMiner.Stats.NiceHashSocket.RigID}";
+                //return $"{btcAdress}.{worker}${NiceHashMiner.Stats.NiceHashSocket.RigID}";
+                //return $"{btcAdress}.{worker}${NiceHashMiner.Stats.NiceHashSocket.RigID}";
+            } else
+            {
+
             }
 
             return btcAdress;
@@ -437,7 +453,12 @@ namespace NiceHashMiner
             _Stop(willswitch);
             PreviousTotalMH = 0.0;
             IsRunning = false;
+            IsRunningNew = false;
             RunCMDBeforeOrAfterMining(false);
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                NiceHashStats.DeviceStatus_TickNew("STOPPED");
+            }
         }
 
         public void End()
@@ -1231,7 +1252,7 @@ namespace NiceHashMiner
 
         protected virtual NiceHashProcess _Start()
         {
-            RunCMDBeforeOrAfterMining(true);
+           RunCMDBeforeOrAfterMining(true);
             // never start when ended
             if (_isEnded)
             {
@@ -1283,7 +1304,11 @@ namespace NiceHashMiner
                 if (P.Start())
                 {
                     IsRunning = true;
-
+                    IsRunningNew = true;
+                    if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+                    {
+                        NiceHashStats.DeviceStatus_TickNew("MINING");
+                    }
                     _currentPidData = new MinerPidData
                     {
                         MinerBinPath = P.StartInfo.FileName,

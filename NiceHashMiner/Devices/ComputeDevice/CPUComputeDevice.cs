@@ -35,6 +35,8 @@ namespace NiceHashMiner.Devices
             Threads = threads;
             AffinityMask = affinityMask;
             Uuid = GetUuid(ID, GroupNames.GetGroupName(DeviceGroupType, ID), Name, DeviceGroupType);
+            CPUDevice cpu = TryCPUDevice();
+            NewUuid = cpu.UUID;
             AlgorithmSettings = GroupAlgorithms.CreateForDeviceList(this);
             Index = ID; // Don't increment for CPU
 

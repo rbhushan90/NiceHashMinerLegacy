@@ -25,6 +25,8 @@ namespace NiceHashMiner.Devices
 
         public string Codename => _openClSubset._CL_DEVICE_NAME;
 
+        public string NewUUID { get; internal set; }
+
         public int AdapterIndex; // init this with the ADL
 
         public AmdGpuDevice(OpenCLDevice openClSubset, bool isOldDriver, string infSection, bool driverDisableAlgo)

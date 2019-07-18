@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using ATI.ADL;
 using NiceHashMiner.Configs;
 using NiceHashMiner.Forms;
+using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMinerLegacy.UUID;
 
 namespace NiceHashMiner.Devices.Querying
 {
@@ -201,9 +203,12 @@ namespace NiceHashMiner.Devices.Querying
                 ComputeDeviceManager.Available.HasAmd = true;
 
                 var busID = dev.AMD_BUS_ID;
+                var gpuRAM = dev._CL_DEVICE_GLOBAL_MEM_SIZE;
+                
                 if (busID != -1 && _busIdInfos.ContainsKey(busID))
                 {
                     var deviceName = _busIdInfos[busID].Name;
+                    
                     var newAmdDev = new AmdGpuDevice(dev, _driverOld[deviceName],
                         _busIdInfos[busID].InfSection, _noNeoscryptLyra2[deviceName])
                     {
@@ -220,6 +225,25 @@ namespace NiceHashMiner.Devices.Querying
                     ComputeDeviceManager.Available.Devices.Add(
                         new AmdComputeDevice(newAmdDev, ++ComputeDeviceManager.Query.GpuCount, false,
                             _busIdInfos[busID].Adl2Index));
+                    var infSection = newAmdDev.InfSection;
+                    //var PnpDeviceID = dev.PnpDeviceID;
+                    //var PnpDeviceID = vidController.PnpDeviceID;
+                     var infoToHashed = $"{newAmdDev.DeviceID}--{DeviceType.AMD}--{newAmdDev.DeviceGlobalMemory}--{newAmdDev.Codename}--{newAmdDev.DeviceName}";
+                    infoToHashed += newAmdDev.UUID.Replace("PCI_", "PCI/");//PnpDeviceID неверный!
+                    //var vidCtrl = availableVideoControllers?.Where(vid => vid.PCI_BUS_ID == oclDev.AMD_BUS_ID).FirstOrDefault() ?? null;
+                    //if (vidCtrl != null)
+                    //{
+                    //  infSection = vidCtrl.InfSection;
+                    // infoToHashed += vidCtrl.PnpDeviceID;
+                    //}
+                    //else
+                    //{
+                    //  Logger.Info(Tag, $"TryQueryAMDDevicesAsync cannot find VideoControllerData with bus ID {oclDev.AMD_BUS_ID}");
+                    //}
+
+                    var uuidHEX = UUID.GetHexUUID(infoToHashed);
+                    var Newuuid = $"AMD-{uuidHEX}";
+                    newAmdDev.NewUUID = Newuuid;
                     // just in case 
                     try
                     {
@@ -228,6 +252,7 @@ namespace NiceHashMiner.Devices.Querying
                         stringBuilder.AppendLine($"\t\tNAME: {newAmdDev.DeviceName}");
                         stringBuilder.AppendLine($"\t\tCODE_NAME: {newAmdDev.Codename}");
                         stringBuilder.AppendLine($"\t\tUUID: {newAmdDev.UUID}");
+                        stringBuilder.AppendLine($"\t\tNewUUID: {newAmdDev.NewUUID}");
                         stringBuilder.AppendLine(
                             $"\t\tMEMORY: {newAmdDev.DeviceGlobalMemory}");
                         stringBuilder.AppendLine($"\t\tETHEREUM: {etherumCapableStr}");
@@ -408,6 +433,7 @@ namespace NiceHashMiner.Devices.Querying
                                 var udid = osAdapterInfoData.ADLAdapterInfo[i].UDID;
                                 const int pciVenIDStrSize = 21; // PCI_VEN_XXXX&DEV_XXXX
                                 var uuid = udid.Substring(0, pciVenIDStrSize) + "_" + serial;
+                                var Newuuid = "";
                                 var budId = osAdapterInfoData.ADLAdapterInfo[i].BusNumber;
                                 var index = osAdapterInfoData.ADLAdapterInfo[i].AdapterIndex;
 

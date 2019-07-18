@@ -366,9 +366,11 @@ namespace NiceHashMiner
             NiceHashStats.OnConnectionEstablished += ConnectionEstablishedCallback;
             NiceHashStats.OnVersionBurn += VersionBurnCallback;
             NiceHashStats.OnExchangeUpdate += ExchangeCallback;
+
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
                 NiceHashStats.StartConnection(Links.NhmSocketAddress_new);
+                //NiceHashStats.DeviceStatus_TickNew("PENDING");
             }
             else
             {

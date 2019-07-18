@@ -603,7 +603,9 @@ namespace NiceHashMiner.Miners
                     var m = groupMiners.Miner;
 
                     // skip if not running or if await already in progress
+                    // if (!Miner.IsRunning || m.IsUpdatingApi) continue;
                     if (!m.IsRunning || m.IsUpdatingApi) continue;
+                    // continue;
 
                     m.IsUpdatingApi = true;
                     var ad = await m.GetSummaryAsync();

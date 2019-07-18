@@ -371,7 +371,7 @@ namespace NiceHashMiner.Stats
 
                     };
                     var loginJson = JsonConvert.SerializeObject(login);
-                    loginJson = loginJson.Replace("{", " { ");
+                    //loginJson = loginJson.Replace("{", " { ");
                     SendDataNew(loginJson);
                 } else
                 {
@@ -387,13 +387,19 @@ namespace NiceHashMiner.Stats
                     var loginJson = JsonConvert.SerializeObject(login);
                         SendDataNew(loginJson);
                 }
+                if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+                {
+                    NiceHashStats.DeviceStatus_TickNew("PENDING");
+                    Thread.Sleep(100);
+                    NiceHashStats.DeviceStatus_TickNew("STOPPED");
+                }
                 /*
                if (Configs.ConfigManager.GeneralConfig.NewPlatform)
                 {
                     loginJson = "{ \"method\":\"login\",\"version\":\"NHML/1.9.2.7\",\"protocol\":3,\"btc\":\"3F2v4K3ExF1tqLLwa6Ac3meimSjV3iUZgQ\",\"worker\":\"worker1\",\"group\":\"\",\"rig\":\"0-AMMDquXCml2iU-g4tcFQEQ\"}";
                 }
                 */
-              
+
                 OnConnectionEstablished?.Invoke(null, EventArgs.Empty);
             } catch (Exception er)
             {
@@ -439,7 +445,7 @@ namespace NiceHashMiner.Stats
                     // Make sure connection is open
                     // Verify valid JSON and method
                     dynamic dataJson = JsonConvert.DeserializeObject(data);
-                    if (dataJson.method == "credentials.set" || dataJson.method == "devices.status" || dataJson.method == "login")
+                    if (dataJson.method == "credentials.set" || dataJson.method == "devices.status" || dataJson.method == "miner.status" || dataJson.method == "login")
                     {
                         Helpers.ConsolePrint("SOCKET", "Sending data: " + data);
                         _webSocket.Send(data);

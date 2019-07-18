@@ -8,6 +8,10 @@ using System.Text;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Devices.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
+using System.Threading.Tasks;
+using System.Management;
+using System;
+using NiceHashMinerLegacy.UUID;
 
 namespace NiceHashMiner.Devices
 {
@@ -31,6 +35,7 @@ namespace NiceHashMiner.Devices
 
         // UUID now used for saving
         public string Uuid { get; protected set; }
+        public string NewUuid { get; protected set; }
 
         // used for Claymore indexing
         public int BusID { get; protected set; } = -1;
@@ -64,7 +69,252 @@ namespace NiceHashMiner.Devices
         public virtual float Temp => -1;
         public virtual int FanSpeed => -1;
         public virtual double PowerUsage => -1;
+        //********************************************************************************************************************
+        private const string Tag = "CPUDetector";
+        internal class CPUDetectionResult
+        {
+            public int NumberOfCPUCores { get; internal set; }
+            public int VirtualCoresCount { get; internal set; }
+            public bool IsHyperThreadingEnabled => VirtualCoresCount > NumberOfCPUCores;
+            public List<CpuInfo> CpuInfos { get; internal set; }
+        }
 
+        internal struct CpuInfo
+        {
+            public string VendorID;
+            public string Family;
+            //public string Model;
+            public string PhysicalID;
+            public string ModelName;
+            public int NumberOfCores;
+        }
+        public class BaseDevice
+        {
+            public BaseDevice(BaseDevice bd)
+            {
+                DeviceType = bd.DeviceType;
+                UUID = bd.UUID;
+                Name = bd.Name;
+                ID = bd.ID;
+            }
+
+            public BaseDevice(DeviceType deviceType, string uuid, string name, int id)
+            {
+                DeviceType = deviceType;
+                UUID = uuid;
+                Name = name;
+                ID = id;
+            }
+            public string Name { get; }
+            public DeviceType DeviceType { get; }
+            public string UUID { get; }
+
+            // TODO the ID will correspond to CPU Index, CUDA ID and AMD/OpenCL ID
+            public int ID { get; }
+        }
+
+        public class CPUDevice : BaseDevice
+        {
+            public CPUDevice(BaseDevice bd, int cpuCount, int threadsPerCPU, bool supportsHyperThreading, List<ulong> affinityMasks) : base(bd)
+            {
+                PhysicalProcessorCount = cpuCount;
+                ThreadsPerCPU = threadsPerCPU;
+                SupportsHyperThreading = supportsHyperThreading;
+                AffinityMasks = affinityMasks;
+            }
+
+            public int PhysicalProcessorCount { get; }
+            public int ThreadsPerCPU { get; }
+            public bool SupportsHyperThreading { get; }
+            public List<ulong> AffinityMasks { get; protected set; } // TODO check if this makes any sense
+        }
+
+        public static ulong CreateAffinityMask(int index, int percpu)
+        {
+            ulong mask = 0;
+            const ulong one = 0x0000000000000001;
+            for (var i = index * percpu; i < (index + 1) * percpu; i++)
+                mask = mask | (one << i);
+            return mask;
+        }
+
+        public static Task<CPUDevice> TryQueryCPUDeviceTask()
+        {
+            return Task.Run(() =>
+            {
+                if (!CpuUtils.IsCpuMiningCapable()) return null;
+
+                var cpuDetectResult = QueryCPUDevice();
+                // get all CPUs
+                var cpuCount = CpuID.GetPhysicalProcessorCount();
+                var name = CpuID.GetCpuName().Trim();
+                // get all cores (including virtual - HT can benefit mining)
+                var threadsPerCpu = cpuDetectResult.VirtualCoresCount / cpuCount;
+                // TODO important move this to settings
+                var threadsPerCpuMask = threadsPerCpu;
+                if (threadsPerCpu * cpuCount > 64)
+                {
+                    // set lower
+                    threadsPerCpuMask = 64;
+                }
+
+                List<ulong> affinityMasks = null;
+                // multiple CPUs are identified as a single CPU from nhm perspective, it is the miner plugins job to handle this correctly
+                if (cpuCount > 1)
+                {
+                    name = $"({cpuCount}x){name}";
+                    affinityMasks = new List<ulong>();
+                    for (var i = 0; i < cpuCount; i++)
+                    {
+                        var affinityMask = CreateAffinityMask(i, threadsPerCpuMask);
+                        affinityMasks.Add(affinityMask);
+                    }
+                }
+                var hashedInfo = $"{0}--{name}--{threadsPerCpu}";
+                foreach (var cpuInfo in cpuDetectResult.CpuInfos)
+                {
+                    hashedInfo += $"{cpuInfo.Family}--{cpuInfo.ModelName}--{cpuInfo.NumberOfCores}--{cpuInfo.PhysicalID}--{cpuInfo.VendorID}";
+                }
+                var uuidHEX = UUID.GetHexUUID(hashedInfo);
+                var uuid = $"CPU-{uuidHEX}";
+
+                // plugin device
+                var bd = new BaseDevice(DeviceType.CPU, uuid, name, 0);
+                var cpu = new CPUDevice(bd, cpuCount, threadsPerCpu, cpuDetectResult.IsHyperThreadingEnabled, affinityMasks);
+                return cpu;
+            });
+        }
+
+        public static CPUDevice TryCPUDevice()
+        {
+                if (!CpuUtils.IsCpuMiningCapable()) return null;
+
+                var cpuDetectResult = QueryCPUDevice();
+                // get all CPUs
+                var cpuCount = CpuID.GetPhysicalProcessorCount();
+                var name = CpuID.GetCpuName().Trim();
+                // get all cores (including virtual - HT can benefit mining)
+                var threadsPerCpu = cpuDetectResult.VirtualCoresCount / cpuCount;
+                // TODO important move this to settings
+                var threadsPerCpuMask = threadsPerCpu;
+                if (threadsPerCpu * cpuCount > 64)
+                {
+                    // set lower
+                    threadsPerCpuMask = 64;
+                }
+
+                List<ulong> affinityMasks = null;
+                // multiple CPUs are identified as a single CPU from nhm perspective, it is the miner plugins job to handle this correctly
+                if (cpuCount > 1)
+                {
+                    name = $"({cpuCount}x){name}";
+                    affinityMasks = new List<ulong>();
+                    for (var i = 0; i < cpuCount; i++)
+                    {
+                        var affinityMask = CreateAffinityMask(i, threadsPerCpuMask);
+                        affinityMasks.Add(affinityMask);
+                    }
+                }
+                var hashedInfo = $"{0}--{name}--{threadsPerCpu}";
+                foreach (var cpuInfo in cpuDetectResult.CpuInfos)
+                {
+                    hashedInfo += $"{cpuInfo.Family}--{cpuInfo.ModelName}--{cpuInfo.NumberOfCores}--{cpuInfo.PhysicalID}--{cpuInfo.VendorID}";
+                }
+                var uuidHEX = UUID.GetHexUUID(hashedInfo);
+                var uuid = $"CPU-{uuidHEX}";
+
+                // plugin device
+                var bd = new BaseDevice(DeviceType.CPU, uuid, name, 0);
+                var cpu = new CPUDevice(bd, cpuCount, threadsPerCpu, cpuDetectResult.IsHyperThreadingEnabled, affinityMasks);
+                return cpu;
+        }
+        // maybe this will come in handy
+        private static CPUDetectionResult QueryCPUDevice()
+        {
+            var ret = new CPUDetectionResult
+            {
+                CpuInfos = GetCpuInfos(),
+                VirtualCoresCount = GetVirtualCoresCount(),
+                //NumberOfCPUCores = 0 // calculate from CpuInfos
+            };
+            ret.NumberOfCPUCores = ret.CpuInfos.Select(info => info.NumberOfCores).Sum();
+            return ret;
+        }
+
+        private static List<CpuInfo> GetCpuInfos()
+        {
+            var ret = new List<CpuInfo>();
+            try
+            {
+                using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_Processor"))
+                using (var query = searcher.Get())
+                {
+                    foreach (var obj in query)
+                    {
+                        var numberOfCores = Convert.ToInt32(obj.GetPropertyValue("NumberOfCores"));
+                        var info = new CpuInfo
+                        {
+                            Family = obj["Family"].ToString(),
+                            VendorID = obj["Manufacturer"].ToString(),
+                            ModelName = obj["Name"].ToString(),
+                            PhysicalID = obj["ProcessorID"].ToString(),
+                            NumberOfCores = numberOfCores
+                        };
+                        ret.Add(info);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Helpers.ConsolePrint(Tag, $"GetCpuInfos error: {e.Message}");
+            }
+            return ret;
+        }
+
+        private static int GetVirtualCoresCount()
+        {
+            var virtualCoreCount = 0;
+            try
+            {
+                using (var searcher = new ManagementObjectSearcher("SELECT NumberOfLogicalProcessors FROM Win32_ComputerSystem"))
+                using (var query = searcher.Get())
+                {
+                    foreach (var item in query)
+                    {
+                        virtualCoreCount += Convert.ToInt32(item.GetPropertyValue("NumberOfLogicalProcessors"));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Helpers.ConsolePrint(Tag, $"GetVirtualCoresCount error: {e.Message}");
+            }
+            return virtualCoreCount;
+        }
+
+        private static async Task DetectCPU()
+        {
+            Helpers.ConsolePrint("DetectCPU", $"DetectCPU START");
+            var cpu = await TryQueryCPUDeviceTask();
+            //DetectionResult.CPU = cpu;
+            if (cpu == null)
+            {
+                Helpers.ConsolePrint("DetectCPU", $"Found No Compatible CPU");
+            }
+            else
+            {
+                var stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine($"Found CPU:");
+                stringBuilder.AppendLine($"\tUUID: {cpu.UUID}");
+                stringBuilder.AppendLine($"\tName: {cpu.Name}");
+                stringBuilder.AppendLine($"\tPhysicalProcessorCount: {cpu.PhysicalProcessorCount}");
+                stringBuilder.AppendLine($"\tThreadsPerCPU: {cpu.ThreadsPerCPU}");
+                stringBuilder.AppendLine($"\tSupportsHyperThreading: {cpu.SupportsHyperThreading}");
+                Helpers.ConsolePrint("DetectCPU", stringBuilder.ToString());
+            }
+            Helpers.ConsolePrint("DetectCPU", $"DetectCPU END");
+        }
+        //********************************************************************************************************************
         // Ambiguous constructor
         protected ComputeDevice(int id, string name, bool enabled, DeviceGroupType group, bool ethereumCapable,
             DeviceType type, string nameCount, ulong gpuRam)
@@ -92,6 +342,8 @@ namespace NiceHashMiner.Devices
             //IsOptimizedVersion = false;
             Codename = "fake";
             Uuid = GetUuid(ID, GroupNames.GetGroupName(DeviceGroupType, ID), Name, DeviceGroupType);
+            CPUDevice cpu = TryCPUDevice();
+            NewUuid = cpu.UUID;
             GpuRam = 0;
         }
 

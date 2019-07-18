@@ -18,8 +18,9 @@ using System.Threading;
 using NiceHashMiner.Configs;
 using static NiceHashMiner.Devices.ComputeDeviceManager;
 using NiceHashMinerLegacy.UUID;
-
-
+using NiceHashMiner.Miners.Grouping;
+using System.Management;
+using System.Text;
 
 namespace NiceHashMiner.Stats
 {
@@ -100,11 +101,12 @@ namespace NiceHashMiner.Stats
         public static System.Threading.Timer _deviceUpdateTimer;
         public static System.Threading.Timer _deviceUpdateTimerNew;
 
+        
         public static void StartConnection(string address)
         {
             //https://nhmws-new.nicehash.com/v3/nhml
             //https://nhmws.nicehash.com/v2/nhm
-
+            //DetectCPU();
             /*
             if (_deviceUpdateTimer != null)
             {
@@ -187,7 +189,7 @@ namespace NiceHashMiner.Stats
 
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                _deviceUpdateTimer = new System.Threading.Timer(DeviceStatus_Tick, null, DeviceUpdateInterval, DeviceUpdateInterval);
+                _deviceUpdateTimer = new System.Threading.Timer(DeviceStatus_TickNew, null, DeviceUpdateInterval, DeviceUpdateInterval);
             } else
             {
                 _deviceUpdateTimer = new System.Threading.Timer(DeviceStatus_Tick, null, DeviceUpdateInterval, DeviceUpdateInterval);
@@ -724,103 +726,20 @@ namespace NiceHashMiner.Stats
                 }
             }
         }
-        //******************************************************************************************************************************
-        // private static void SendMinerStatus(bool sendDeviceNames)
-        /*
-        private static async void MinerStatus_Tick(object state)
+
+        public static async void DeviceStatus_TickNew(object state)
         {
-            bool sendDeviceNames = true;
-            //var devices = AvailableDevices.Devices;
             var devices = ComputeDeviceManager.Available.Devices;
-            //var rigStatus = ApplicationStateManager.CalcRigStatusString();
-            var rigStatus = "STOPPED";
-            var paramList = new List<JToken>
-            {
-                rigStatus
-            };
-
-            var deviceList = new JArray();
-            foreach (var device in devices)
-            {
-                try
-                {
-                    var array = new JArray
-                    {
-                        sendDeviceNames ? device.Name : "",
-                        device.B64Uuid  // TODO
-                    };
-                    var status = DeviceReportStatus(device.DeviceType, device.State);
-                    array.Add(status);
-
-                    array.Add((int)Math.Round(device.Load));
-
-                    var speedsJson = new JArray();
-                    var speeds = MiningStats.GetSpeedForDevice(device.Uuid);
-                    if (speeds != null && device.State == DeviceState.Mining)
-                    {
-                        foreach (var kvp in speeds)
-                        {
-                            speedsJson.Add(new JArray((int)kvp.type, kvp.speed));
-                        }
-                    }
-                    array.Add(speedsJson);
-
-                    // Hardware monitoring
-                    array.Add((int)Math.Round(device.Temp));
-                    array.Add(device.FanSpeed);
-                    array.Add((int)Math.Round(device.PowerUsage));
-
-                    // Power mode
-                    array.Add((int)device.PowerLevel);
-
-                    // Intensity mode
-                    array.Add(0);
-
-                    deviceList.Add(array);
-                }
-                catch (Exception e)
-                {
-                    NiceHashMinerLegacy.Common.Logger.Error("SOCKET", e.Message);
-                }
-            }
-
-            paramList.Add(deviceList);
-
-            var data = new MinerStatusMessage
-            {
-                param = paramList
-            };
-            var sendData = JsonConvert.SerializeObject(data);
-
-            // This function is run every minute and sends data every run which has two auxiliary effects
-            // Keeps connection alive and attempts reconnection if internet was dropped
-            _socket?.SendData(sendData);
-        }
-        */
-        //******************************************************************************************************************************
-        /*
-        public static List<(AlgorithmType type, double speed)> GetSpeedForDevice(string deviceUuid)
-        {
-            var ret = new List<(AlgorithmType type, double speed)>();
-            lock (_lock)
-            {
-                if (_devicesMiningStats.TryGetValue(deviceUuid, out var stat))
-                {
-                    foreach (var speedInfo in stat.Speeds)
-                    {
-                        ret.Add(speedInfo);
-                    }
-                }
-            }
-            return ret;
-        }
-        */
-        //private static async void DeviceStatus_Tick(object sender, ElapsedEventArgs e1)
-        private static async void DeviceStatus_TickNew(object state)
-        {
-            var devices = Available.Devices;
             var rigStatus = CalcRigStatusString();
             var activeIDs = MinersManager.GetActiveMinersIndexes();
+            string type;
+            string b64Web;
+            string nuuid = "";
+
+            if (state != null)
+                rigStatus = state.ToString();
+            {
+            }
             var paramList = new List<JToken>
             {
                 rigStatus
@@ -831,38 +750,68 @@ namespace NiceHashMiner.Stats
             {
                 try
                 {
-                    var array = new JArray
+                    /*
+                    Helpers.ConsolePrint("DEVICE", device.DeviceType.ToString());
+                    Helpers.ConsolePrint("DEVICE", device.Name);
+                    Helpers.ConsolePrint("DEVICE", device.Uuid);
+                    Helpers.ConsolePrint("DEVICE", device.NewUuid);
+                    */
+                    if (device.DeviceType == DeviceType.CPU)
                     {
-                        device.Name,
-                        device.Uuid
-                        //device.B64Uuid  // TODO
+                        type = "1";
+                        b64Web = UUID.GetB64UUID(device.NewUuid); 
+                        nuuid = $"{type}-{b64Web}";
+                    }
+                    if (device.DeviceType == DeviceType.NVIDIA)
+                    {
+                        type = "2";
+                        b64Web = UUID.GetB64UUID(device.Uuid);
+                        nuuid = $"{type}-{b64Web}";
+                    }
+                    if (device.DeviceType == DeviceType.AMD)
+                    {
+                        type = "3";
+                        var uuidHEX = UUID.GetHexUUID(device.Uuid);//это не правильный uuid, но будет работать
+                        var Newuuid = $"AMD-{uuidHEX}";
+                        b64Web = UUID.GetB64UUID(Newuuid);
+                        nuuid = $"{type}-{b64Web}";
+                    }
+                    var deviceName = device.Name;
+                    if (rigStatus != "PENDING")
+                    {
+                        deviceName = "";
+                    }
+                        var array = new JArray
+                    {
+                        deviceName,
+                        nuuid
                     };
 
-                    var type = "0";
-                    //var b64Web = UUID.GetB64UUID("CPU-1523ab40-096f-5c1c-8b46-b0d98cffb5a6");
-                    //надо проверить, надо ли вообще эти извращения с uuid устройств? 
-                    //попробовать передать данные и посмотреть, будет ли риг один в кабинете
-                    //[UUID] GEN-fc783f7408f8298df2dbe0edda1fe54433f910bc47fbc19d76e6c336a4ee8940
-                    var b64Web = UUID.GetB64UUID(device.Uuid); //не правильный uuid!!!!
-                    var nuuid =  $"{type}-{b64Web}";
-                    Helpers.ConsolePrint("UUID", device.Uuid);
-                    Helpers.ConsolePrint("UUID", nuuid);
                     //var status = DeviceReportStatus(device.DeviceType, device.State);
-                    var status = Convert.ToInt32(activeIDs.Contains(device.Index)) + ((int)device.DeviceType + 1) * 2;
+                    //var status = Convert.ToInt32(activeIDs.Contains(device.Index)) + ((int)device.DeviceType + 1) * 2;
+                    
+                    //var status = ((int)device.DeviceType + 9) + Convert.ToInt32(Miner.IsRunningNew);
+                    var status =  9;
+                    if (device.Enabled)
+                    {
+                        status = 9 + Convert.ToInt32(Miner.IsRunningNew);
+                    }
+                    //var status = 9;
                     array.Add(status);
 
                     array.Add((int)Math.Round(device.Load));
 
                     var speedsJson = new JArray();
-                    //var speeds = MiningStats.GetSpeedForDevice(device.Uuid);
-                    //var speeds = new List<(AlgorithmType type, double speed);
-                    // if (speeds != null && device.State == DeviceState.Mining)
-                    //{
-                    //foreach (var kvp in speeds)
-                        {
-                            //speedsJson.Add(new JArray((int)kvp.type, kvp.speed));
-                            speedsJson.Add(new JArray(0)); // все скорости 0
-                        }
+
+                    if (rigStatus != "MINING")
+                    {
+                        speedsJson.Add(new JArray()); // все скорости 
+                    }
+                    else
+                    {
+                        speedsJson.Add(new JArray()); //  42, 55.0
+                    }
+                    //    }
                     //}
                     array.Add(speedsJson);
 
@@ -872,17 +821,14 @@ namespace NiceHashMiner.Stats
                     array.Add((int)Math.Round(device.PowerUsage));
 
                     // Power mode
-                    array.Add(100);
+                    array.Add(-1);
 
                     // Intensity mode
                     array.Add(0);
 
                     deviceList.Add(array);
                 }
-                catch (Exception e)
-                {
-                    Helpers.ConsolePrint("SOCKET", e.Message);
-                }
+                catch (Exception e) { Helpers.ConsolePrint("SOCKET", e.ToString()); }
             }
 
             paramList.Add(deviceList);
@@ -898,36 +844,10 @@ namespace NiceHashMiner.Stats
 
             if (_socket != null)
             {
-                //sendData = "{\"method\":\"miner.status\",\"params\":[\"MINING\",[[\"Intel(R) Core(TM) i7-3630QM CPU @ 2.40GHz\",\"1-YBxRn6UfL1O7dUk6NNR5EA\",9,3,[],-1,-1,-1,-1,0]]]}";
-                 await _socket.SendData(sendData);
-                //Helpers.ConsolePrint("SOCKET", sendData);
+              await _socket.SendData(sendData);
+
             }
-            //my
-            //0-WimjpF2sa1e9ugUVaqZCow
-            //[SOCKET] {"method":"devices.status","devices":[["Intel(R) Core(TM) i7-3630QM CPU @ 2.40GHz","GEN-fc783f7408f8298df2dbe0edda1fe54433f910bc47fbc19d76e6c336a4ee8940",3,0,[],-1,-1,-1,100,0]]}
-            //[SOCKET] {"method":"miner.status","params":["MINING",[["Intel(R) Core(TM) i7-3630QM CPU @ 2.40GHz","1-YBxRn6UfL1O7dUk6NNR5EA",9,3,[],-1,-1,-1,-1,0]]]}
-
-
-            //[SOCKET] Sending data: {"method":"miner.status","params":[["Intel(R) Core(TM) i7-3630QM CPU @ 2.40GHz","GEN-fc783f7408f8298df2dbe0edda1fe54433f910bc47fbc19d76e6c336a4ee8940",3,56,[],-1,-1,-1,100,0]]}
-            //[SOCKET] Sending data: {"method":"miner.status","params":["STOPPED",[["Intel(R) Core(TM) i7-3630QM CPU @ 2.40GHz","GEN-fc783f7408f8298df2dbe0edda1fe54433f910bc47fbc19d76e6c336a4ee8940",3,0,[[0]],-1,-1,-1,100,0]]]}
-
-
-            //new
-            //[UUID] CPU-1523ab40-096f-5c1c-8b46-b0d98cffb5a6 **********
-            //[UUIDB] 1-YBxRn6UfL1O7dUk6NNR5EA
-        //[SOCKET] Sending data: {"method":"miner.status","params":["STOPPED",[["Intel(R) Core(TM) i7-3630QM CPU @ 2.40GHz","1-YBxRn6UfL1O7dUk6NNR5EA",9,3,[],-1,-1,-1,-1,0]]]}
-        //[SOCKET] Sending data: {"method":"miner.status","params":["PENDING",[["","1-YBxRn6UfL1O7dUk6NNR5EA",9,35,[],-1,-1,-1,-1,0]]]}
-        //[SOCKET] Sending data: {"method":"miner.status","params":["STOPPED",[["","1-YBxRn6UfL1O7dUk6NNR5EA",9,22,[],-1,-1,-1,-1,0]]]}
-        //[SOCKET] Sending data: {"method":"miner.status","params":["MINING",[["","1-YBxRn6UfL1O7dUk6NNR5EA",10,48,[],-1,-1,-1,-1,0]]]}
-        //[SOCKET] Sending data: {"method":"miner.status","params":["MINING",[["","1-YBxRn6UfL1O7dUk6NNR5EA",10,69,[[42,0.0]],-1,-1,-1,-1,0]]]}
-        //[SOCKET] Sending data: {"method":"miner.status","params":["MINING",[["","1-YBxRn6UfL1O7dUk6NNR5EA",10,58,[[42,97.199999999999989]],-1,-1,-1,-1,0]]]}
-        //[SOCKET] Sending data: {"method":"miner.status","params":["MINING",[["","1-YBxRn6UfL1O7dUk6NNR5EA",10,57,[[42,124.69999999999999]],-1,-1,-1,-1,0]]]}
-        //[SOCKET] Sending data: {"method":"miner.status","params":["MINING",[["","1-YBxRn6UfL1O7dUk6NNR5EA",10,77,[[42,85.6]],-1,-1,-1,-1,0]]]}
-
-
-        //old
-        //[SOCKET] Sending data: {"method":"devices.status","devices":[[0,"Intel(R) Core(TM) i7-3630QM CPU @ 2.40GHz",3,0,-1,-1]]}
-
+            
     }
         private static async void DeviceStatus_Tick(object state)
         {
@@ -942,6 +862,12 @@ namespace NiceHashMiner.Stats
             {
                 try
                 {
+                    /*
+                    Helpers.ConsolePrint("DEVICE", device.DeviceType.ToString());
+                    Helpers.ConsolePrint("DEVICE", device.Name);
+                    Helpers.ConsolePrint("DEVICE", device.Uuid);
+                    Helpers.ConsolePrint("DEVICE", device.NewUuid);
+                    */
                     var array = new JArray
                     {
                         device.Index,
@@ -1059,7 +985,18 @@ namespace NiceHashMiner.Stats
             }
             */
             //return "UNKNOWN";
-            return "STOPPED";
+            //var m = GroupMiner.Miner;
+
+            // skip if not running or if await already in progress
+            
+            if (Miner.IsRunningNew)
+            {
+                return "MINING";
+            } else
+            {
+                return "STOPPED";
+            }
+           
         }
         /*
         public string B64Uuid

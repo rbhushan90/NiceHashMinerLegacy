@@ -83,16 +83,19 @@ namespace NiceHashMiner.Miners
                 Helpers.ConsolePrint(MinerTag(), "MiningSetup is not initialized exiting Start()");
                 return;
             }
+            
             foreach (var ethminer in usedMiners)
             {
-                if (ethminer.MinerID != MinerID && (ethminer.IsRunning || ethminer.IsPaused))
+                /*
+                if (ethminer.MinerID != MinerID && (Miner.IsRunning || ethminer.IsPaused))
                 {
                     Helpers.ConsolePrint(MinerTag(), $"Will end {ethminer.MinerTag()} {ethminer.ProcessTag()}");
                     ethminer.End();
                     System.Threading.Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
                 }
+                */
             }
-
+            
             IsPaused = false;
             if (ProcessHandle == null)
             {
