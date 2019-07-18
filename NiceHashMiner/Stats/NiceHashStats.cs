@@ -101,6 +101,9 @@ namespace NiceHashMiner.Stats
         public static System.Threading.Timer _deviceUpdateTimer;
         public static System.Threading.Timer _deviceUpdateTimerNew;
 
+        public static bool remoteMiningStart = false;
+        public static bool remoteMiningStop = false;
+
         
         public static void StartConnection(string address)
         {
@@ -276,6 +279,12 @@ namespace NiceHashMiner.Stats
                         //case "burn":
                         //    OnVersionBurn?.Invoke(null, new SocketEventArgs(message.message.Value));
                         //    break;
+                        case "mining.start":
+                             RemoteMiningStart(message.id.Value.ToString(), message.device.Value);
+                            break;
+                        case "mining.stop":
+                            RemoteMiningStop(message.id.Value.ToString(), message.device.Value);
+                            break;
                         case "exchange_rates":
                             SetExchangeRates(message.data.Value);
                             break;
@@ -330,6 +339,23 @@ namespace NiceHashMiner.Stats
             public IList<IList<object>> Data { get; set; }
         }
 
+        private static void RemoteMiningStart(string id, string device)
+        {
+            //{"method":"executed","params":[33090,0]}
+            var cExecuted = "{\"method\":\"executed\",\"params\":[" + id + ",0]}";
+            _socket.SendData(cExecuted); //надо async
+            Helpers.ConsolePrint("REMOTE", "Mining start. ID:"+id+" Device:"+device);
+            remoteMiningStart = true;
+
+        }
+        private static void RemoteMiningStop(string id, string device)
+        {
+            var cExecuted = "{\"method\":\"executed\",\"params\":[" + id + ",0]}";
+            _socket.SendData(cExecuted);
+            Helpers.ConsolePrint("REMOTE", "Mining stop. ID:" + id + " Device:" + device);
+            remoteMiningStop = true;
+
+        }
         public static bool GetSmaAPI()
         {
             Helpers.ConsolePrint("NHM_API_info", "Trying GetSmaAPI");
@@ -735,8 +761,11 @@ namespace NiceHashMiner.Stats
             string type;
             string b64Web;
             string nuuid = "";
-
-            if (state != null)
+            if (!Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                return;
+            }
+                if (state != null)
                 rigStatus = state.ToString();
             {
             }
@@ -800,6 +829,7 @@ namespace NiceHashMiner.Stats
                     array.Add(status);
 
                     array.Add((int)Math.Round(device.Load));
+
 
                     var speedsJson = new JArray();
 

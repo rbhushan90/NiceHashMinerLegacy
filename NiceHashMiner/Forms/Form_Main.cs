@@ -27,10 +27,11 @@ namespace NiceHashMiner
     {
         private string _visitUrlNew = Links.VisitUrlNew;
 
-        private Timer _minerStatsCheck;
+        public Timer _minerStatsCheck;
         //private Timer _smaMinerCheck;
         //private Timer _bitcoinExchangeCheck;
         private Timer _startupTimer;
+        private Timer _remoteTimer;
         private Timer _idleCheck;
         private SystemTimer _computeDevicesCheckTimer;
 
@@ -531,6 +532,11 @@ namespace NiceHashMiner
             _startupTimer.Start();
             textBoxBTCAddress.Enabled = !radioButtonNewPlatform.Checked;
             textBoxBTCAddress_new.Enabled = radioButtonNewPlatform.Checked;
+
+            _remoteTimer = new Timer();
+            _remoteTimer.Tick += RemoteTimer_Tick;
+            _remoteTimer.Interval = 200;
+            _remoteTimer.Start();
         }
 
         //        [Obsolete("Deprecated in favour of AlgorithmSwitchingManager timer")]
@@ -1184,7 +1190,7 @@ namespace NiceHashMiner
 
         ///////////////////////////////////////
         // Miner control functions
-        private enum StartMiningReturnType
+        public enum StartMiningReturnType
         {
             StartMining,
             ShowNoMining,
@@ -1195,6 +1201,7 @@ namespace NiceHashMiner
         {
             if (ConfigManager.GeneralConfig.NewPlatform)
             {
+                NiceHashStats.DeviceStatus_TickNew("PENDING");
                 if (textBoxBTCAddress_new.Text.Equals(""))
                 {
                     if (showWarnings)
@@ -1211,6 +1218,7 @@ namespace NiceHashMiner
                         }
                         else
                         {
+                            NiceHashStats.DeviceStatus_TickNew("STOPPED");
                             return StartMiningReturnType.IgnoreMsg;
                         }
                     }
@@ -1219,7 +1227,11 @@ namespace NiceHashMiner
                         return StartMiningReturnType.IgnoreMsg;
                     }
                 }
-                else if (!VerifyMiningAddress(true)) return StartMiningReturnType.IgnoreMsg;
+                else if (!VerifyMiningAddress(true))
+                {
+                    NiceHashStats.DeviceStatus_TickNew("STOPPED");
+                    return StartMiningReturnType.IgnoreMsg;
+                }
             } else
             {
                 if (textBoxBTCAddress.Text.Equals(""))
@@ -1249,7 +1261,6 @@ namespace NiceHashMiner
                 else if (!VerifyMiningAddress(true)) return StartMiningReturnType.IgnoreMsg;
             }
             var hasData = NHSmaData.HasData;
-
             if (!showWarnings)
             {
                 for (var i = 0; i < 10; i++)
@@ -1260,7 +1271,6 @@ namespace NiceHashMiner
                     Helpers.ConsolePrint("NICEHASH", $"After {i}s has data: {hasData}");
                 }
             }
-
             if (!hasData)
             {
                 Helpers.ConsolePrint("NICEHASH", "No data received within timeout");
@@ -1270,9 +1280,9 @@ namespace NiceHashMiner
                         International.GetText("Error_with_Exclamation"),
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                NiceHashStats.DeviceStatus_TickNew("STOPPED");
                 return StartMiningReturnType.IgnoreMsg;
             }
-
 
             // Check if there are unbenchmakred algorithms
             var isBenchInit = true;
@@ -1286,7 +1296,6 @@ namespace NiceHashMiner
                     }
                 }
             }
-
             // Check if the user has run benchmark first
             if (!isBenchInit)
             {
@@ -1321,10 +1330,10 @@ namespace NiceHashMiner
                 }
                 else
                 {
+                    NiceHashStats.DeviceStatus_TickNew("STOPPED");
                     return StartMiningReturnType.IgnoreMsg;
                 }
             }
-
             textBoxBTCAddress.Enabled = false;
             textBoxBTCAddress_new.Enabled = false;
             textBoxWorkerName.Enabled = false;
@@ -1334,10 +1343,9 @@ namespace NiceHashMiner
             //buttonSettings.Enabled = false;
             devicesListViewEnableControl1.IsMining = true;
             buttonStopMining.Enabled = true;
-
+            
             // Disable profitable notification on start
             _isNotProfitable = false;
-
             ConfigManager.GeneralConfig.BitcoinAddress = textBoxBTCAddress.Text.Trim();
             ConfigManager.GeneralConfig.BitcoinAddressNew = textBoxBTCAddress_new.Text.Trim();
             ConfigManager.GeneralConfig.WorkerName = textBoxWorkerName.Text.Trim();
@@ -1385,9 +1393,26 @@ namespace NiceHashMiner
 
             return isMining ? StartMiningReturnType.StartMining : StartMiningReturnType.ShowNoMining;
         }
+        private void RemoteTimer_Tick(object sender, EventArgs e)
+        {
+            if (NiceHashStats.remoteMiningStart)
+            {
+                NiceHashStats.remoteMiningStart = false;
+                StartMining(true);
+            }
+            if (NiceHashStats.remoteMiningStop)
+            {
+                NiceHashStats.remoteMiningStop = false;
+                StopMining();
+            }
+            //_remoteTimer.Stop();
+            //_remoteTimer= null;
+        }
+ 
 
         private void StopMining()
         {
+            NiceHashStats.DeviceStatus_TickNew("PENDING");
             _minerStatsCheck.Stop();
             //_smaMinerCheck.Stop();
             _computeDevicesCheckTimer?.Stop();
@@ -1466,4 +1491,6 @@ namespace NiceHashMiner
             }
         }
     }
+
+
 }

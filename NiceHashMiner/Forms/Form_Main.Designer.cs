@@ -475,8 +475,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button buttonStartMining;
         private System.Windows.Forms.Label labelServiceLocation;
         private System.Windows.Forms.Label labelBitcoinAddress;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -497,7 +495,6 @@
         private System.Windows.Forms.Button buttonLogo;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel10;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.TextBox textBoxBTCAddress;
         private System.Windows.Forms.ComboBox comboBoxLocation;
         private System.Windows.Forms.TextBox textBoxWorkerName;
         private System.Windows.Forms.LinkLabel linkLabelChooseBTCWallet;
@@ -510,9 +507,11 @@
         private System.Windows.Forms.LinkLabel linkLabelNewVersion;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label labelBitcoinAddressNew;
-        private System.Windows.Forms.TextBox textBoxBTCAddress_new;
         private System.Windows.Forms.RadioButton radioButtonOldPlatform;
         private System.Windows.Forms.RadioButton radioButtonNewPlatform;
+        private System.Windows.Forms.TextBox textBoxBTCAddress;
+        private System.Windows.Forms.TextBox textBoxBTCAddress_new;
+        private System.Windows.Forms.Button buttonStartMining;
     }
 }
 
