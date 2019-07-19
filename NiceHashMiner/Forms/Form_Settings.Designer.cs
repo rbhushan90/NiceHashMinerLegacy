@@ -155,6 +155,7 @@
             this.buttonSaveClose = new System.Windows.Forms.Button();
             this.buttonDefaults = new System.Windows.Forms.Button();
             this.buttonCloseNoSave = new System.Windows.Forms.Button();
+            this.checkBox_Allow_remote_management = new System.Windows.Forms.CheckBox();
             this.tabControlGeneral.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBox_Misc.SuspendLayout();
@@ -246,6 +247,7 @@
             // 
             // groupBox_Misc
             // 
+            this.groupBox_Misc.Controls.Add(this.checkBox_Allow_remote_management);
             this.groupBox_Misc.Controls.Add(this.pictureBox_RunScriptOnCUDA_GPU_Lost);
             this.groupBox_Misc.Controls.Add(this.checkBox_RunScriptOnCUDA_GPU_Lost);
             this.groupBox_Misc.Controls.Add(this.pictureBox_ShowInternetConnectionWarning);
@@ -286,7 +288,7 @@
             this.groupBox_Misc.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox_Misc.Name = "groupBox_Misc";
             this.groupBox_Misc.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBox_Misc.Size = new System.Drawing.Size(244, 405);
+            this.groupBox_Misc.Size = new System.Drawing.Size(244, 462);
             this.groupBox_Misc.TabIndex = 391;
             this.groupBox_Misc.TabStop = false;
             this.groupBox_Misc.Text = "Misc:";
@@ -1747,6 +1749,17 @@
             this.buttonCloseNoSave.UseVisualStyleBackColor = true;
             this.buttonCloseNoSave.Click += new System.EventHandler(this.ButtonCloseNoSave_Click);
             // 
+            // checkBox_Allow_remote_management
+            // 
+            this.checkBox_Allow_remote_management.AutoSize = true;
+            this.checkBox_Allow_remote_management.Location = new System.Drawing.Point(6, 406);
+            this.checkBox_Allow_remote_management.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBox_Allow_remote_management.Name = "checkBox_Allow_remote_management";
+            this.checkBox_Allow_remote_management.Size = new System.Drawing.Size(150, 17);
+            this.checkBox_Allow_remote_management.TabIndex = 374;
+            this.checkBox_Allow_remote_management.Text = "Allow remote management";
+            this.checkBox_Allow_remote_management.UseVisualStyleBackColor = true;
+            // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1957,5 +1970,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label_BitcoinAddressNew;
         private System.Windows.Forms.TextBox textBox_BitcoinAddressNew;
+        private System.Windows.Forms.CheckBox checkBox_Allow_remote_management;
     }
 }

@@ -75,6 +75,7 @@ namespace NiceHashMiner.Configs.Data
         public bool DownloadInit = false;
 
         public bool RunScriptOnCUDA_GPU_Lost = false;
+        public bool Allow_remote_management = true;
 
         // 3rd party miners
         public Use3rdPartyMiners Use3rdPartyMiners = Use3rdPartyMiners.NOT_SET;
@@ -171,6 +172,7 @@ namespace NiceHashMiner.Configs.Data
             IQRNormalizeFactor = 0.0;
             CoolDownCheckEnabled = true;
             RunScriptOnCUDA_GPU_Lost = false;
+            Allow_remote_management = true;
             ForceSkipAMDNeoscryptLyraCheck = false;
             OverrideAMDBusIds = "";
             SwitchSmaTimeChangeSeconds = new Interval(34, 55);

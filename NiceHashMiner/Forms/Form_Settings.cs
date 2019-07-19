@@ -383,6 +383,7 @@ namespace NiceHashMiner.Forms
             {
                 label_BitcoinAddress.Text = "Биткоин адрес (старая платформа)";
                 label_BitcoinAddressNew.Text = "Биткоин адрес (новая платформа)";
+                checkBox_Allow_remote_management.Text = "Разрешить удаленное управление";
             }
 
 
@@ -487,6 +488,7 @@ namespace NiceHashMiner.Forms
                 checkBox_MinimizeMiningWindows.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_UseIFTTT.CheckedChanged += CheckBox_UseIFTTT_CheckChanged;
                 checkBox_RunScriptOnCUDA_GPU_Lost.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
+                checkBox_Allow_remote_management.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
             }
             // Add EventHandler for all the general tab's textboxes
             {
@@ -572,6 +574,7 @@ namespace NiceHashMiner.Forms
                 checkBox_MinimizeMiningWindows.Enabled = !ConfigManager.GeneralConfig.HideMiningWindows;
                 checkBox_UseIFTTT.Checked = ConfigManager.GeneralConfig.UseIFTTT;
                 checkBox_RunScriptOnCUDA_GPU_Lost.Checked = ConfigManager.GeneralConfig.RunScriptOnCUDA_GPU_Lost;
+                checkBox_Allow_remote_management.Checked = ConfigManager.GeneralConfig.Allow_remote_management;
             }
 
             // Textboxes
@@ -693,6 +696,7 @@ namespace NiceHashMiner.Forms
             ConfigManager.GeneralConfig.AllowMultipleInstances = checkBox_AllowMultipleInstances.Checked;
             ConfigManager.GeneralConfig.MinimizeMiningWindows = checkBox_MinimizeMiningWindows.Checked;
             ConfigManager.GeneralConfig.RunScriptOnCUDA_GPU_Lost = checkBox_RunScriptOnCUDA_GPU_Lost.Checked;
+            ConfigManager.GeneralConfig.Allow_remote_management = checkBox_Allow_remote_management.Checked;
         }
 
         private void CheckBox_AMD_DisableAMDTempControl_CheckedChanged(object sender, EventArgs e)

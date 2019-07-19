@@ -1201,7 +1201,7 @@ namespace NiceHashMiner
         {
             if (ConfigManager.GeneralConfig.NewPlatform)
             {
-                NiceHashStats.DeviceStatus_TickNew("PENDING");
+                NiceHashStats.DeviceStatus_TickNew("MINING");
                 if (textBoxBTCAddress_new.Text.Equals(""))
                 {
                     if (showWarnings)
@@ -1381,7 +1381,7 @@ namespace NiceHashMiner
             //_smaMinerCheck.Interval = 100;
             //_smaMinerCheck.Start();
             _minerStatsCheck.Start();
-
+            NiceHashStats.DeviceStatus_TickNew("MINING");
             if (ConfigManager.GeneralConfig.RunScriptOnCUDA_GPU_Lost)
             {
                 _computeDevicesCheckTimer = new SystemTimer();

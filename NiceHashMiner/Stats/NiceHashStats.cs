@@ -339,22 +339,47 @@ namespace NiceHashMiner.Stats
             public IList<IList<object>> Data { get; set; }
         }
 
-        private static void RemoteMiningStart(string id, string device)
+        public static async Task RemoteMiningStart(string id, string device)
         {
-            //{"method":"executed","params":[33090,0]}
+            if (!ConfigManager.GeneralConfig.Allow_remote_management)
+            {
+                Helpers.ConsolePrint("REMOTE", "Remote management disabled");
+                return;
+            }
             var cExecuted = "{\"method\":\"executed\",\"params\":[" + id + ",0]}";
-            _socket.SendData(cExecuted); //надо async
-            Helpers.ConsolePrint("REMOTE", "Mining start. ID:"+id+" Device:"+device);
+            if (Miner.IsRunningNew)
+            {
+                await _socket.SendData(cExecuted); 
+                Helpers.ConsolePrint("REMOTE", "Already mining");
+                return;
+            }
             remoteMiningStart = true;
-
+            Thread.Sleep(3000);
+            await _socket.SendData(cExecuted);
+            Helpers.ConsolePrint("REMOTE", "Mining start. ID:" + id + " Device:" + device);
+           //Thread.Sleep(1000);
+           //await _socket.SendData(cExecuted); 
         }
-        private static void RemoteMiningStop(string id, string device)
+        public static async Task RemoteMiningStop(string id, string device)
         {
+            if (!ConfigManager.GeneralConfig.Allow_remote_management)
+            {
+                Helpers.ConsolePrint("REMOTE", "Remote management disabled");
+                return;
+            }
             var cExecuted = "{\"method\":\"executed\",\"params\":[" + id + ",0]}";
-            _socket.SendData(cExecuted);
-            Helpers.ConsolePrint("REMOTE", "Mining stop. ID:" + id + " Device:" + device);
+            if (!Miner.IsRunningNew)
+            {
+                await _socket.SendData(cExecuted);
+                Helpers.ConsolePrint("REMOTE", "Already stopped");
+                return;
+            }
             remoteMiningStop = true;
-
+            Thread.Sleep(2000);
+            await _socket.SendData(cExecuted);
+            Helpers.ConsolePrint("REMOTE", "Mining stop. ID:" + id + " Device:" + device);
+            //Thread.Sleep(1000);
+            //await _socket.SendData(cExecuted);
         }
         public static bool GetSmaAPI()
         {
@@ -806,10 +831,12 @@ namespace NiceHashMiner.Stats
                         nuuid = $"{type}-{b64Web}";
                     }
                     var deviceName = device.Name;
+                    /*
                     if (rigStatus != "PENDING")
                     {
                         deviceName = "";
                     }
+                    */
                         var array = new JArray
                     {
                         deviceName,

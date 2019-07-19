@@ -445,7 +445,7 @@ namespace NiceHashMiner.Stats
                     // Make sure connection is open
                     // Verify valid JSON and method
                     dynamic dataJson = JsonConvert.DeserializeObject(data);
-                    if (dataJson.method == "credentials.set" || dataJson.method == "devices.status" || dataJson.method == "miner.status" || dataJson.method == "login")
+                    if (dataJson.method == "credentials.set" || dataJson.method == "devices.status" || dataJson.method == "miner.status" || dataJson.method == "login" || dataJson.method == "executed")
                     {
                         Helpers.ConsolePrint("SOCKET", "Sending data: " + data);
                         _webSocket.Send(data);
