@@ -285,6 +285,24 @@ namespace NiceHashMiner.Stats
                         case "mining.stop":
                             RemoteMiningStop(message.id.Value.ToString(), message.device.Value);
                             break;
+                        case "mining.set.username":
+                            RemoteMiningNotImplemented(message.id.Value.ToString());
+                            break;
+                        case "mining.set.worker":
+                            RemoteMiningNotImplemented(message.id.Value.ToString());
+                            break;
+                        case "mining.set.group":
+                            RemoteMiningNotImplemented(message.id.Value.ToString());
+                            break;
+                        case "mining.enable":
+                            RemoteMiningNotImplemented(message.id.Value.ToString());
+                            break;
+                        case "mining.disable":
+                            RemoteMiningNotImplemented(message.id.Value.ToString());
+                            break;
+                        case "mining.set.power_mode":
+                            RemoteMiningNotImplemented(message.id.Value.ToString());
+                            break;
                         case "exchange_rates":
                             SetExchangeRates(message.data.Value);
                             break;
@@ -339,11 +357,27 @@ namespace NiceHashMiner.Stats
             public IList<IList<object>> Data { get; set; }
         }
 
-        public static async Task RemoteMiningStart(string id, string device)
+        public static async Task RemoteMiningNotImplemented(string id)
         {
             if (!ConfigManager.GeneralConfig.Allow_remote_management)
             {
                 Helpers.ConsolePrint("REMOTE", "Remote management disabled");
+                var cExecutedDisabled = "{\"method\":\"executed\",\"params\":[" + id + ",1,\"Remote management disabled\"]}";
+                await _socket.SendData(cExecutedDisabled);
+                return;
+            }
+            Helpers.ConsolePrint("REMOTE", "Not implemented");
+            var cExecutedNotImplemented = "{\"method\":\"executed\",\"params\":[" + id + ",1,\"Not implemented in Fork Fix " + ConfigManager.GeneralConfig.ForkFixVersion.ToString().Replace(",",".") + "\"]}";
+            await _socket.SendData(cExecutedNotImplemented);
+            return;
+        }
+            public static async Task RemoteMiningStart(string id, string device)
+        {
+            if (!ConfigManager.GeneralConfig.Allow_remote_management)
+            {
+                Helpers.ConsolePrint("REMOTE", "Remote management disabled");
+                var cExecutedDisabled = "{\"method\":\"executed\",\"params\":[" + id + ",1,\"Remote management disabled\"]}";
+                await _socket.SendData(cExecutedDisabled);
                 return;
             }
             var cExecuted = "{\"method\":\"executed\",\"params\":[" + id + ",0]}";
@@ -365,6 +399,8 @@ namespace NiceHashMiner.Stats
             if (!ConfigManager.GeneralConfig.Allow_remote_management)
             {
                 Helpers.ConsolePrint("REMOTE", "Remote management disabled");
+                var cExecutedDisabled = "{\"method\":\"executed\",\"params\":[" + id + ",1,\"Remote management disabled\"]}";
+                await _socket.SendData(cExecutedDisabled);
                 return;
             }
             var cExecuted = "{\"method\":\"executed\",\"params\":[" + id + ",0]}";

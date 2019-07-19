@@ -30,6 +30,7 @@
             this.tabControlGeneral = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.groupBox_Misc = new System.Windows.Forms.GroupBox();
+            this.checkBox_Allow_remote_management = new System.Windows.Forms.CheckBox();
             this.pictureBox_RunScriptOnCUDA_GPU_Lost = new System.Windows.Forms.PictureBox();
             this.checkBox_RunScriptOnCUDA_GPU_Lost = new System.Windows.Forms.CheckBox();
             this.pictureBox_ShowInternetConnectionWarning = new System.Windows.Forms.PictureBox();
@@ -155,7 +156,7 @@
             this.buttonSaveClose = new System.Windows.Forms.Button();
             this.buttonDefaults = new System.Windows.Forms.Button();
             this.buttonCloseNoSave = new System.Windows.Forms.Button();
-            this.checkBox_Allow_remote_management = new System.Windows.Forms.CheckBox();
+            this.checkBox_Send_actual_version_info = new System.Windows.Forms.CheckBox();
             this.tabControlGeneral.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBox_Misc.SuspendLayout();
@@ -247,6 +248,7 @@
             // 
             // groupBox_Misc
             // 
+            this.groupBox_Misc.Controls.Add(this.checkBox_Send_actual_version_info);
             this.groupBox_Misc.Controls.Add(this.checkBox_Allow_remote_management);
             this.groupBox_Misc.Controls.Add(this.pictureBox_RunScriptOnCUDA_GPU_Lost);
             this.groupBox_Misc.Controls.Add(this.checkBox_RunScriptOnCUDA_GPU_Lost);
@@ -292,6 +294,17 @@
             this.groupBox_Misc.TabIndex = 391;
             this.groupBox_Misc.TabStop = false;
             this.groupBox_Misc.Text = "Misc:";
+            // 
+            // checkBox_Allow_remote_management
+            // 
+            this.checkBox_Allow_remote_management.AutoSize = true;
+            this.checkBox_Allow_remote_management.Location = new System.Drawing.Point(6, 406);
+            this.checkBox_Allow_remote_management.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBox_Allow_remote_management.Name = "checkBox_Allow_remote_management";
+            this.checkBox_Allow_remote_management.Size = new System.Drawing.Size(150, 17);
+            this.checkBox_Allow_remote_management.TabIndex = 374;
+            this.checkBox_Allow_remote_management.Text = "Allow remote management";
+            this.checkBox_Allow_remote_management.UseVisualStyleBackColor = true;
             // 
             // pictureBox_RunScriptOnCUDA_GPU_Lost
             // 
@@ -1749,16 +1762,16 @@
             this.buttonCloseNoSave.UseVisualStyleBackColor = true;
             this.buttonCloseNoSave.Click += new System.EventHandler(this.ButtonCloseNoSave_Click);
             // 
-            // checkBox_Allow_remote_management
+            // checkBox_Send_actual_version_info
             // 
-            this.checkBox_Allow_remote_management.AutoSize = true;
-            this.checkBox_Allow_remote_management.Location = new System.Drawing.Point(6, 406);
-            this.checkBox_Allow_remote_management.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.checkBox_Allow_remote_management.Name = "checkBox_Allow_remote_management";
-            this.checkBox_Allow_remote_management.Size = new System.Drawing.Size(150, 17);
-            this.checkBox_Allow_remote_management.TabIndex = 374;
-            this.checkBox_Allow_remote_management.Text = "Allow remote management";
-            this.checkBox_Allow_remote_management.UseVisualStyleBackColor = true;
+            this.checkBox_Send_actual_version_info.AutoSize = true;
+            this.checkBox_Send_actual_version_info.Location = new System.Drawing.Point(6, 429);
+            this.checkBox_Send_actual_version_info.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBox_Send_actual_version_info.Name = "checkBox_Send_actual_version_info";
+            this.checkBox_Send_actual_version_info.Size = new System.Drawing.Size(140, 17);
+            this.checkBox_Send_actual_version_info.TabIndex = 375;
+            this.checkBox_Send_actual_version_info.Text = "Send actual version info";
+            this.checkBox_Send_actual_version_info.UseVisualStyleBackColor = true;
             // 
             // Form_Settings
             // 
@@ -1971,5 +1984,6 @@
         private System.Windows.Forms.Label label_BitcoinAddressNew;
         private System.Windows.Forms.TextBox textBox_BitcoinAddressNew;
         private System.Windows.Forms.CheckBox checkBox_Allow_remote_management;
+        private System.Windows.Forms.CheckBox checkBox_Send_actual_version_info;
     }
 }

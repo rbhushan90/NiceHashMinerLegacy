@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using WebSocketSharp;
 
 using NiceHashMinerLegacy.UUID;
+using NiceHashMiner.Configs;
 
 namespace NiceHashMiner.Stats
 {
@@ -136,25 +137,7 @@ namespace NiceHashMiner.Stats
                 AttemptReconnectNew();
             }
         }
-        
-        private void Login(object sender, EventArgs e)
-        {
-            try
-            {
-                 //var loginJson = JsonConvert.SerializeObject(_login);
-                var loginJson = "{ \"method\":\"login\",\"version\":\"NHML/1.9.2.7\",\"protocol\":3,\"btc\":\"3F2v4K3ExF1tqLLwa6Ac3meimSjV3iUZgQ\",\"worker\":\"worker1\",\"group\":\"\",\"rig\":\"0-AMMDquXCml2iU-g4tcFQEQ\"}";
-                //{"method":"login","version":"NHML/1.9.2.7","protocol":3,"btc":"3F2v4K3ExF1tqLLwa6Ac3meimSjV3iUZgQ","worker":"worker1","group":"","rig":""}
-                //{ "method":"login","version":"NHML/1.9.2.7","protocol":3,"btc":"3F2v4K3ExF1tqLLwa6Ac3meimSjV3iUZgQ","worker":"worker1","group":"","rig":"0-AMMDquXCml2iU-g4tcFQEQ"}
-                SendDataNew(loginJson);
 
-                OnConnectionEstablished?.Invoke(null, EventArgs.Empty);
-            }
-            catch (Exception er)
-            {
-                Helpers.ConsolePrint("SOCKET", er.Message);
-            }
-        }
-        
         // Don't call SendData on UI threads, since it will block the thread for a bit if a reconnect is needed
         public bool SendDataNew(string data, bool recurs = false)
         {
@@ -338,10 +321,6 @@ namespace NiceHashMiner.Stats
 
         private void ConnectCallback(object sender, EventArgs e)
         {
-            /*
-            Sending data: { "method":"login","version":"NHML/1.9.2.7","protocol":3,"btc":"3F2v4K3ExF1tqLLwa6Ac3meimSjV3iUZgQ","worker":"worker1","group":"","rig":"0-AMMDquXCml2iU-g4tcFQEQ"}
-[17:02:00] [SOCKET] Sending data: {"method":"miner.status","params":["PENDING",[["Intel(R) Core(TM) i7-3630QM CPU @ 2.40GHz","1-YBxRn6UfL1O7dUk6NNR5EA",9,17,[],-1,-1,-1,-1,0]]]}
-*/
             try
             {
                 //send login
@@ -350,12 +329,16 @@ namespace NiceHashMiner.Stats
                 string worker;
                 string group = "";
                 string rig = RigID;
-                //var version = "NHML/" + Application.ProductVersion;
-                var version = "NHML/1.9.1.7";
+                var version = "NHML/1.9.1.7";//на старой платформе нельзя отправлять версию форка. Страница статистики падает )))
+                
                 if (Configs.ConfigManager.GeneralConfig.NewPlatform)
                 {
                     protocol = 3;
                     version = "NHML/1.9.2.7";
+                    if (ConfigManager.GeneralConfig.Send_actual_version_info)
+                    {
+                        version = "NHML Fork Fix/" + ConfigManager.GeneralConfig.ForkFixVersion.ToString().Replace(",", ".");
+                    }
                     btc = Configs.ConfigManager.GeneralConfig.BitcoinAddressNew;
                     worker = Configs.ConfigManager.GeneralConfig.WorkerName;
 
