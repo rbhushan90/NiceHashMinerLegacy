@@ -53,6 +53,7 @@ namespace NiceHashMiner.Miners
             var variant = " --variant 1 ";
             //cn/r cryptonight/r
             string nhsuff = "";
+            string username = GetUsername(btcAdress, worker);
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
                 nhsuff = "-new";
@@ -62,39 +63,39 @@ namespace NiceHashMiner.Miners
                 algo = "cryptonightv8";
                 port = "3367";
                 variant = " --variant 2 ";
-                return $" -o {url} {variant} -u {GetUsername(btcAdress, worker)}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 "
-               + $" -o stratum+tcp://{algo}.usa{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.br{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x ";
+                return $" -o {url} {variant} -u {username}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 "
+               + $" -o stratum+tcp://{algo}.usa{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.br{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {username}:x ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
                 algo = "cryptonightheavy";
                 port = "3364";
                 variant = "";
-                return $" --algo=cryptonight-heavy -o {url} {variant} -u {GetUsername(btcAdress, worker)}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 "
-               + $" -o stratum+tcp://{algo}.usa{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.br{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x ";
+                return $" --algo=cryptonight-heavy -o {url} {variant} -u {username}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 "
+               + $" -o stratum+tcp://{algo}.usa{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.br{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {username}:x ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
             {
                 algo = "cryptonightr";
                 port = "3375";
                 variant = "";
-                return $" --algo=cryptonight/r -o {url} {variant} -u {GetUsername(btcAdress, worker)}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 "
-               + $" -o stratum+tcp://{algo}.usa{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.br{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-               + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x ";
+                return $" --algo=cryptonight/r -o {url} {variant} -u {username}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 "
+               + $" -o stratum+tcp://{algo}.usa{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.br{nhsuff}.nicehash.com:{port} -u {username}:x "
+               + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {username}:x ";
             }
             return "unsupported algo";
         }
@@ -113,22 +114,23 @@ namespace NiceHashMiner.Miners
             var algo = "cryptonightv7";
             var port = "3363";
             var variant = " --variant 1 ";
+            string username = GetUsername(btcAdress, worker);
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
                 algo = "cryptonightv8";
                 port = "3367";
                 variant = " --variant 2 ";
                 //return $" -o stratum+tcp://xmr-eu.dwarfpool.com:8005 {variant} -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1 "
-                return $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x "
-                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x ";
+                return $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {username}:x ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
                 algo = "cryptonightheavy";
                 port = "3364";
                 variant = "";
-                return $" --algo=cryptonight-heavy -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x {extras} --api-port {ApiPort} --donate-level=1 "
-                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x ";
+                return $" --algo=cryptonight-heavy -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {username}:x {extras} --api-port {ApiPort} --donate-level=1 "
+                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {username}:x ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
             {
@@ -136,7 +138,7 @@ namespace NiceHashMiner.Miners
                 port = "3375";
                 variant = "";
                 return $" --algo=cryptonight/r -o stratum+tcp://xmr-eu1.nanopool.org:14444 -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1 "
-                + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {GetUsername(btcAdress, worker)}:x ";
+                + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {username}:x ";
             }
             return "unsupported algo";
         }

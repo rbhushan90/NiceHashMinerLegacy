@@ -133,10 +133,9 @@ namespace NiceHashMiner.Miners
             }
 
 
-            string username = Globals.GetBitcoinUser();
-
-            if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
-                username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
+            string btcAddress = Globals.GetBitcoinUser();
+            string worker = ConfigManager.GeneralConfig.WorkerName.Trim();
+            string username = GetUsername(btcAddress, worker);
 
             CommandLine = " --pool " + url +
                           " --user " + username +

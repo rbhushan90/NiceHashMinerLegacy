@@ -123,11 +123,9 @@ namespace NiceHashMiner.Miners
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
             // demo for benchmark
-            string username = Globals.GetBitcoinUser();
-
-            if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
-                username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
-            string worker = ConfigManager.GeneralConfig.WorkerName.Trim();
+            var btcAddress = Globals.GetBitcoinUser();
+            var worker = ConfigManager.GeneralConfig.WorkerName.Trim();
+            string username = GetUsername(btcAddress, worker);
 
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)

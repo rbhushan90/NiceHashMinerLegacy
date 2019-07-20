@@ -109,11 +109,10 @@ namespace NiceHashMiner.Miners
                 ConectionType);
 
             // demo for benchmark
-            var username = Globals.GetBitcoinUser();
+            var btcAdress = Globals.GetBitcoinUser();
+            var worker = ConfigManager.GeneralConfig.WorkerName.Trim();
 
-            if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
-                username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
-
+            var username = GetUsername(btcAdress, worker);
             // cd to the cgminer for the process bins
             var commandLine = " /C \"cd /d " + WorkingDirectory + " && sgminer.exe " +
                               " --gpu-platform " + _gpuPlatformNumber +

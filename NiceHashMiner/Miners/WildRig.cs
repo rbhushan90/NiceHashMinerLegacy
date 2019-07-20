@@ -67,11 +67,12 @@ namespace NiceHashMiner.Miners
             {
                 nhsuff = "-new";
             }
-            return $" -a {algo} -o {url} -u {btcAdress}.{worker}:x {extras} --api-port {ApiPort} "
-                + $" -o stratum+tcp://{algo}.usa" + nhsuff + ".nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.hk" + nhsuff + ".nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.jp" + nhsuff + ".nicehash.com:{port} -u {btcAdress}.{worker}:x "
-                + $" -o stratum+tcp://{algo}.in" + nhsuff + ".nicehash.com:{port} -u {btcAdress}.{worker}:x "
+            string username = GetUsername(btcAdress, worker);
+            return $" -a {algo} -o {url} -u {username}:x {extras} --api-port {ApiPort} "
+                + $" -o stratum+tcp://{algo}.usa{nhsuff}.nicehash.com:{port} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} -u {username}:x "
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart(); 
         }
 
@@ -81,6 +82,7 @@ namespace NiceHashMiner.Miners
             var algo = "";
             var port = "";
             string nhsuff = "";
+            string username = GetUsername(btcAdress, worker);
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
                 nhsuff = "-new";
@@ -90,7 +92,7 @@ namespace NiceHashMiner.Miners
                 algo = "skunkhash";
                 port = "3362";
                 return $" -a {algo} -o stratum+tcp://skunk.eu.mine.zpool.ca:8433 -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 -p c=BTC {extras} --api-port {ApiPort} "
-               + $" -o stratum+tcp://{algo}.eu" + nhsuff + ".nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {username}:x "
                + " --multiple-instance --opencl-devices=" + GetDevicesCommandString().TrimStart();
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16R))
@@ -98,7 +100,7 @@ namespace NiceHashMiner.Miners
                 algo = "x16r";
                 port = "3366";
                 return $" -a {algo} -o stratum+tcp://x16r.eu.mine.zpool.ca:3636 -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 -p c=BTC {extras} --api-port {ApiPort} "
-               + $" -o stratum+tcp://{algo}.eu" + nhsuff + ".nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {username}:x "
                + " --multiple-instance --opencl-devices=" + GetDevicesCommandString().TrimStart();
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
@@ -106,7 +108,7 @@ namespace NiceHashMiner.Miners
                 algo = "lyra2rev3";
                 port = "3366";
                 return $" -a lyra2v3 -o stratum+tcp://lyra2v3.eu.mine.zpool.ca:4550 -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 -p c=BTC {extras} --api-port {ApiPort} "
-               + $" -o stratum+tcp://{algo}.eu" + nhsuff + ".nicehash.com:{port} -u {btcAdress}.{worker}:x "
+               + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {username}:x "
                + " --multiple-instance --opencl-devices=" + GetDevicesCommandString().TrimStart();
             }
             return "oops... strange algo";

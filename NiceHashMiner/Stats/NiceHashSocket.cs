@@ -337,7 +337,7 @@ namespace NiceHashMiner.Stats
                     version = "NHML/1.9.2.7";
                     if (ConfigManager.GeneralConfig.Send_actual_version_info)
                     {
-                        version = "NHML Fork Fix/" + ConfigManager.GeneralConfig.ForkFixVersion.ToString().Replace(",", ".");
+                        version = "NHML/Fork Fix " + ConfigManager.GeneralConfig.ForkFixVersion.ToString().Replace(",", ".");
                     }
                     btc = Configs.ConfigManager.GeneralConfig.BitcoinAddressNew;
                     worker = Configs.ConfigManager.GeneralConfig.WorkerName;

@@ -72,6 +72,7 @@ namespace NiceHashMiner.Miners
         {
             var algo ="";
             var algoName = "";
+            string username = GetUsername(btcAddress, worker);
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
                     {
                         algo = "144_5";
@@ -106,17 +107,17 @@ namespace NiceHashMiner.Miners
 
             var ret = GetDevicesCommandString()
                       + " --pers auto --algo " + algo + " --server " + url.Split(':')[0]
-                      + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                      + " --user " + username + " --pass x --port " + url.Split(':')[1]
                       + " --server " + algoName + ".hk" + nhsuff + ".nicehash.com"
-                      + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                      + " --user " + username + " --pass x --port " + url.Split(':')[1]
                       + " --server " + algoName + ".in" + nhsuff + ".nicehash.com"
-                      + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                      + " --user " + username + " --pass x --port " + url.Split(':')[1]
                       + " --server " + algoName + ".usa" + nhsuff + ".nicehash.com"
-                      + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                      + " --user " + username + " --pass x --port " + url.Split(':')[1]
                       + " --server " + algoName + ".jp" + nhsuff + ".nicehash.com"
-                      + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                      + " --user " + username + " --pass x --port " + url.Split(':')[1]
                       + " --server " + algoName + ".br" + nhsuff + ".nicehash.com"
-                      + " --user " + btcAddress + "." + worker + " --pass x --port " + url.Split(':')[1]
+                      + " --user " + username + " --pass x --port " + url.Split(':')[1]
                       + " --api " + ApiPort;
             return ret;
         }
@@ -255,6 +256,7 @@ namespace NiceHashMiner.Miners
                Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
             var btcAddress = Globals.GetBitcoinUser();
             var worker = ConfigManager.GeneralConfig.WorkerName.Trim();
+            string username = GetUsername(btcAddress, worker);
             foreach (var pair in MiningSetup.MiningPairs)
             {
                 if (pair.Device.DeviceType == DeviceType.NVIDIA) suff = "1_"; else _benchmarkTimeWait = 180;
@@ -272,8 +274,8 @@ namespace NiceHashMiner.Miners
             {
                 ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --pers BgoldPoW --algo 144_5" +
                 " --server europe.equihash-hub.miningpoolhub.com --user angelbbs.FBench11 --pass x --port 20595 " +
-                " --server zhash.eu" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
-                " --server zhash.hk" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3369" +
+                " --server zhash.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3369" +
+                " --server zhash.hk" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3369" +
                 GetDevicesCommandString();
             }
             Helpers.ConsolePrint("BENCHMARK-suff:", suff);
@@ -283,32 +285,32 @@ namespace NiceHashMiner.Miners
                 ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo 150_5" +
                 " --server beam-eu.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 2222 --ssl 1 " +
                 " --server beam-asia.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 12222 --ssl 1 " +
-                " --server beam.eu" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3370 --ssl 0" +
-                " --server beam.hk" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3370 --ssl 0" +
+                " --server beam.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3370 --ssl 0" +
+                " --server beam.hk" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3370 --ssl 0" +
                 GetDevicesCommandString();
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
             {
                 ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo grin29" +
                 " --server grin.sparkpool.com --user angelbbs@mail.ru/" + worker + " --pass x --port 6666 --ssl 0" +
-                " --server grincuckaroo29.eu" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3371 --ssl 0" +
-                " --server grincuckaroo29.hk" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3371 --ssl 0" +
+                " --server grincuckaroo29.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3371 --ssl 0" +
+                " --server grincuckaroo29.hk" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3371 --ssl 0" +
                 GetDevicesCommandString();
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
             {
                 ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo grin31" +
                 " --server grin.sparkpool.com --user angelbbs@mail.ru/" + worker + " --pass x --port 6667 --ssl 0" +
-                " --server grincuckatoo31.eu" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3372 --ssl 0" +
-                " --server grincuckatoo31.hk" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3372 --ssl 0" +
+                " --server grincuckatoo31.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3372 --ssl 0" +
+                " --server grincuckatoo31.hk" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3372 --ssl 0" +
                 GetDevicesCommandString();
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.CuckooCycle)
             {
                 ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo aeternity" +
                 " --server ae.f2pool.com --user ak_2f9AMwztStKs5roPmT592wTbUEeTyqRgYVZNrc5TyZfr94m7fM." + worker + " --pass x --port 7898 --ssl 0" +
-                " --server cuckoocycle.eu" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3376 --ssl 0" +
-                " --server cuckoocycle.hk" + nhsuff + ".nicehash.com --user " + btcAddress + "." + worker + " --pass x --port 3376 --ssl 0" +
+                " --server cuckoocycle.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3376 --ssl 0" +
+                " --server cuckoocycle.hk" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3376 --ssl 0" +
                 GetDevicesCommandString();
             }
             return ret;

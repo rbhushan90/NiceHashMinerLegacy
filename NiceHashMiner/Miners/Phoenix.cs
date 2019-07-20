@@ -95,8 +95,9 @@ namespace NiceHashMiner.Miners
 
         private string GetStartBenchmarkCommand(string url, string btcAdress, string worker)
         {
-            var username = GetUsername(Globals.GetBitcoinUser(), worker);
-            var username2 = GetUsername(btcAdress, worker);
+            //var username = GetUsername(Globals.GetBitcoinUser(), worker);
+            //var username2 = GetUsername(btcAdress, worker);
+            var username2 = btcAdress + "." + worker;
             var platform = "";
             foreach (var pair in MiningSetup.MiningPairs)
             {

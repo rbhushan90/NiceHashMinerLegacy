@@ -384,7 +384,7 @@ namespace NiceHashMiner.Forms
                 label_BitcoinAddress.Text = "Биткоин адрес (старая платформа)";
                 label_BitcoinAddressNew.Text = "Биткоин адрес (новая платформа)";
                 checkBox_Allow_remote_management.Text = "Разрешить удаленное управление";
-                checkBox_Send_actual_version_info.Text = "Отправлять информацию о версии программы";
+                checkBox_Send_actual_version_info.Text = "Отправлять инфо о версии программы";
             }
 
 

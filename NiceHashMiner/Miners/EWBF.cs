@@ -80,9 +80,10 @@ namespace NiceHashMiner.Miners
 
         private string GetStartCommand(string url, string btcAddress, string worker)
         {
+            var username = GetUsername(btcAddress, worker);
             var ret = GetDevicesCommandString()
                       + " --pec --pers BgoldPoW --algo 144_5 --server " + url.Split(':')[0]
-                      + " --user " + btcAddress + "." + worker + " --pass x --port "
+                      + " --user " + username + " --pass x --port "
                       + url.Split(':')[1] + " --api 127.0.0.1:" + ApiPort;
             if (!ret.Contains("--fee"))
             {
