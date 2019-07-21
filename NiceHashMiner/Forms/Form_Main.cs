@@ -32,6 +32,7 @@ namespace NiceHashMiner
         //private Timer _bitcoinExchangeCheck;
         private Timer _startupTimer;
         private Timer _remoteTimer;
+        private Timer _autostartTimer;
         private Timer _idleCheck;
         private SystemTimer _computeDevicesCheckTimer;
 
@@ -61,6 +62,7 @@ namespace NiceHashMiner
         private readonly int _mainFormHeight = 0;
         private readonly int _emtpyGroupPanelHeight = 0;
         bool firstStartConnection = false;
+        private bool firstRun = false;
 
         public Form_Main()
         {
@@ -498,8 +500,24 @@ namespace NiceHashMiner
             }
 
 
+            _autostartTimer = new Timer();
+            _autostartTimer.Tick += AutoStartTimer_Tick;
+            _autostartTimer.Interval = 2000;
+            _autostartTimer.Start();
+
+            }
+
+        private void AutoStartTimer_Tick(object sender, EventArgs e)
+        {
+            _autostartTimer.Stop();
+            _autostartTimer = null;
+
             if (ConfigManager.GeneralConfig.AutoStartMining)
             {
+                if (firstRun)
+                {
+                    return;
+                }
                 // well this is started manually as we want it to start at runtime
                 _isManuallyStarted = true;
                 if (StartMining(false) != StartMiningReturnType.StartMining)
@@ -1080,6 +1098,7 @@ namespace NiceHashMiner
 
         private void ButtonStopMining_Click(object sender, EventArgs e)
         {
+            firstRun = true;
             _isManuallyStarted = false;
             StopMining();
         }

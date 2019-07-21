@@ -245,7 +245,6 @@
             // 
             // buttonStopMining
             // 
-            this.buttonStopMining.Enabled = false;
             this.buttonStopMining.Location = new System.Drawing.Point(452, 236);
             this.buttonStopMining.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonStopMining.Name = "buttonStopMining";

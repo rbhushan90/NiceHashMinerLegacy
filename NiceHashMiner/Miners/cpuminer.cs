@@ -101,10 +101,10 @@ namespace NiceHashMiner.Miners
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
-            string username = Globals.GetBitcoinUser();
+            string btcAddress = Globals.GetBitcoinUser();
             string url = Globals.GetLocationUrl(AlgorithmType.Lyra2z, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
-            if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
-                username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
+            string worker = ConfigManager.GeneralConfig.WorkerName.Trim();
+            var username = GetUsername(btcAddress, worker);
 
             foreach (ProcessorFeature feature in System.Enum.GetValues(typeof(ProcessorFeature)))
             {
