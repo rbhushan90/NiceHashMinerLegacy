@@ -152,13 +152,13 @@
             this.pictureBox_AMD_DisableAMDTempControl = new System.Windows.Forms.PictureBox();
             this.pictureBox_NVIDIAP0State = new System.Windows.Forms.PictureBox();
             this.checkBox_NVIDIAP0State = new System.Windows.Forms.CheckBox();
+            this.checkBox_Additional_info_about_device = new System.Windows.Forms.CheckBox();
             this.benchmarkLimitControlNVIDIA = new NiceHashMiner.Forms.Components.BenchmarkLimitControl();
             this.benchmarkLimitControlCPU = new NiceHashMiner.Forms.Components.BenchmarkLimitControl();
             this.benchmarkLimitControlAMD = new NiceHashMiner.Forms.Components.BenchmarkLimitControl();
             this.devicesListViewEnableControl1 = new NiceHashMiner.Forms.Components.DevicesListViewEnableControl();
             this.algorithmSettingsControl1 = new NiceHashMiner.Forms.Components.AlgorithmSettingsControl();
             this.algorithmsListView1 = new NiceHashMiner.Forms.Components.AlgorithmsListView();
-            this.checkBox_Additional_info_about_device = new System.Windows.Forms.CheckBox();
             this.tabControlGeneral.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBox_Misc.SuspendLayout();
@@ -1621,7 +1621,7 @@
             // pictureBox_DisableDetectionAMD
             // 
             this.pictureBox_DisableDetectionAMD.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_DisableDetectionAMD.Location = new System.Drawing.Point(157, 40);
+            this.pictureBox_DisableDetectionAMD.Location = new System.Drawing.Point(10, 41);
             this.pictureBox_DisableDetectionAMD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_DisableDetectionAMD.Name = "pictureBox_DisableDetectionAMD";
             this.pictureBox_DisableDetectionAMD.Size = new System.Drawing.Size(18, 18);
@@ -1632,7 +1632,7 @@
             // pictureBox_DisableDetectionNVIDIA
             // 
             this.pictureBox_DisableDetectionNVIDIA.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_DisableDetectionNVIDIA.Location = new System.Drawing.Point(157, 18);
+            this.pictureBox_DisableDetectionNVIDIA.Location = new System.Drawing.Point(10, 19);
             this.pictureBox_DisableDetectionNVIDIA.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_DisableDetectionNVIDIA.Name = "pictureBox_DisableDetectionNVIDIA";
             this.pictureBox_DisableDetectionNVIDIA.Size = new System.Drawing.Size(18, 18);
@@ -1643,7 +1643,7 @@
             // checkBox_DisableDetectionNVIDIA
             // 
             this.checkBox_DisableDetectionNVIDIA.AutoSize = true;
-            this.checkBox_DisableDetectionNVIDIA.Location = new System.Drawing.Point(10, 19);
+            this.checkBox_DisableDetectionNVIDIA.Location = new System.Drawing.Point(32, 19);
             this.checkBox_DisableDetectionNVIDIA.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_DisableDetectionNVIDIA.Name = "checkBox_DisableDetectionNVIDIA";
             this.checkBox_DisableDetectionNVIDIA.Size = new System.Drawing.Size(143, 17);
@@ -1654,7 +1654,7 @@
             // checkBox_DisableDetectionAMD
             // 
             this.checkBox_DisableDetectionAMD.AutoSize = true;
-            this.checkBox_DisableDetectionAMD.Location = new System.Drawing.Point(10, 41);
+            this.checkBox_DisableDetectionAMD.Location = new System.Drawing.Point(32, 41);
             this.checkBox_DisableDetectionAMD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_DisableDetectionAMD.Name = "checkBox_DisableDetectionAMD";
             this.checkBox_DisableDetectionAMD.Size = new System.Drawing.Size(131, 17);
@@ -1685,7 +1685,7 @@
             // checkBox_AMD_DisableAMDTempControl
             // 
             this.checkBox_AMD_DisableAMDTempControl.AutoSize = true;
-            this.checkBox_AMD_DisableAMDTempControl.Location = new System.Drawing.Point(10, 86);
+            this.checkBox_AMD_DisableAMDTempControl.Location = new System.Drawing.Point(32, 86);
             this.checkBox_AMD_DisableAMDTempControl.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_AMD_DisableAMDTempControl.Name = "checkBox_AMD_DisableAMDTempControl";
             this.checkBox_AMD_DisableAMDTempControl.Size = new System.Drawing.Size(145, 17);
@@ -1696,7 +1696,7 @@
             // pictureBox_AMD_DisableAMDTempControl
             // 
             this.pictureBox_AMD_DisableAMDTempControl.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_AMD_DisableAMDTempControl.Location = new System.Drawing.Point(157, 85);
+            this.pictureBox_AMD_DisableAMDTempControl.Location = new System.Drawing.Point(10, 86);
             this.pictureBox_AMD_DisableAMDTempControl.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_AMD_DisableAMDTempControl.Name = "pictureBox_AMD_DisableAMDTempControl";
             this.pictureBox_AMD_DisableAMDTempControl.Size = new System.Drawing.Size(18, 18);
@@ -1707,7 +1707,7 @@
             // pictureBox_NVIDIAP0State
             // 
             this.pictureBox_NVIDIAP0State.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_NVIDIAP0State.Location = new System.Drawing.Point(157, 63);
+            this.pictureBox_NVIDIAP0State.Location = new System.Drawing.Point(10, 64);
             this.pictureBox_NVIDIAP0State.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_NVIDIAP0State.Name = "pictureBox_NVIDIAP0State";
             this.pictureBox_NVIDIAP0State.Size = new System.Drawing.Size(18, 18);
@@ -1718,13 +1718,25 @@
             // checkBox_NVIDIAP0State
             // 
             this.checkBox_NVIDIAP0State.AutoSize = true;
-            this.checkBox_NVIDIAP0State.Location = new System.Drawing.Point(10, 64);
+            this.checkBox_NVIDIAP0State.Location = new System.Drawing.Point(32, 64);
             this.checkBox_NVIDIAP0State.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_NVIDIAP0State.Name = "checkBox_NVIDIAP0State";
             this.checkBox_NVIDIAP0State.Size = new System.Drawing.Size(100, 17);
             this.checkBox_NVIDIAP0State.TabIndex = 394;
             this.checkBox_NVIDIAP0State.Text = "NVIDIAP0State";
             this.checkBox_NVIDIAP0State.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_Additional_info_about_device
+            // 
+            this.checkBox_Additional_info_about_device.AutoSize = true;
+            this.checkBox_Additional_info_about_device.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.checkBox_Additional_info_about_device.Location = new System.Drawing.Point(248, 19);
+            this.checkBox_Additional_info_about_device.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBox_Additional_info_about_device.Name = "checkBox_Additional_info_about_device";
+            this.checkBox_Additional_info_about_device.Size = new System.Drawing.Size(157, 17);
+            this.checkBox_Additional_info_about_device.TabIndex = 398;
+            this.checkBox_Additional_info_about_device.Text = "Additional info about device";
+            this.checkBox_Additional_info_about_device.UseVisualStyleBackColor = true;
             // 
             // benchmarkLimitControlNVIDIA
             // 
@@ -1790,18 +1802,6 @@
             this.algorithmsListView1.Size = new System.Drawing.Size(342, 213);
             this.algorithmsListView1.TabIndex = 2;
             this.algorithmsListView1.Load += new System.EventHandler(this.algorithmsListView1_Load);
-            // 
-            // checkBox_Additional_info_about_device
-            // 
-            this.checkBox_Additional_info_about_device.AutoSize = true;
-            this.checkBox_Additional_info_about_device.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox_Additional_info_about_device.Location = new System.Drawing.Point(209, 18);
-            this.checkBox_Additional_info_about_device.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.checkBox_Additional_info_about_device.Name = "checkBox_Additional_info_about_device";
-            this.checkBox_Additional_info_about_device.Size = new System.Drawing.Size(157, 17);
-            this.checkBox_Additional_info_about_device.TabIndex = 398;
-            this.checkBox_Additional_info_about_device.Text = "Additional info about device";
-            this.checkBox_Additional_info_about_device.UseVisualStyleBackColor = true;
             // 
             // Form_Settings
             // 
