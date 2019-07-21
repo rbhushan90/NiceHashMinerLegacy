@@ -48,7 +48,7 @@ namespace NiceHashMiner
         private int _flowLayoutPanelRatesIndex = 0;
 
         private const string BetaAlphaPostfixString = "";
-        const string ForkString = " Fork Fix 16 test #1";
+        const string ForkString = " Fork Fix 16";
 
         private bool _isDeviceDetectionInitialized = false;
 
@@ -928,6 +928,10 @@ namespace NiceHashMiner
             var programVersion = ConfigManager.GeneralConfig.ForkFixVersion.ToString().Replace(",", ".");
             Helpers.ConsolePrint("Program version: ", programVersion);
             //var ret = programVersion.CompareTo(ver);
+            if (ver.Length < 1)
+            {
+                return;
+            }
             ver = ver.Replace("Fork_Fix_", "");
             Helpers.ConsolePrint("Github version: ", ver);
             double vern = double.Parse(ver, CultureInfo.InvariantCulture);

@@ -104,7 +104,7 @@ namespace NiceHashMiner.Stats
         public static bool remoteMiningStart = false;
         public static bool remoteMiningStop = false;
 
-        
+
         public static void StartConnection(string address)
         {
             //https://nhmws-new.nicehash.com/v3/nhml
@@ -383,7 +383,7 @@ namespace NiceHashMiner.Stats
             var cExecuted = "{\"method\":\"executed\",\"params\":[" + id + ",0]}";
             if (Miner.IsRunningNew)
             {
-                await _socket.SendData(cExecuted); 
+                await _socket.SendData(cExecuted);
                 Helpers.ConsolePrint("REMOTE", "Already mining");
                 return;
             }
@@ -392,7 +392,7 @@ namespace NiceHashMiner.Stats
             await _socket.SendData(cExecuted);
             Helpers.ConsolePrint("REMOTE", "Mining start. ID:" + id + " Device:" + device);
            //Thread.Sleep(1000);
-           //await _socket.SendData(cExecuted); 
+           //await _socket.SendData(cExecuted);
         }
         public static async Task RemoteMiningStop(string id, string device)
         {
@@ -615,7 +615,7 @@ namespace NiceHashMiner.Stats
             try
             {
                 nhjson = JsonConvert.DeserializeObject<github_version[]>(r1, Globals.JsonSettings);
-                var latest = Array.Find(nhjson, (n) => n.target_commitish == "master");
+                var latest = Array.Find(nhjson, (n) => n.target_commitish == "master-old");
                 return latest.tag_name;
             }
             catch
@@ -849,7 +849,7 @@ namespace NiceHashMiner.Stats
                     if (device.DeviceType == DeviceType.CPU)
                     {
                         type = "1";
-                        b64Web = UUID.GetB64UUID(device.NewUuid); 
+                        b64Web = UUID.GetB64UUID(device.NewUuid);
                         nuuid = $"{type}-{b64Web}";
                     }
                     if (device.DeviceType == DeviceType.NVIDIA)
@@ -881,7 +881,7 @@ namespace NiceHashMiner.Stats
 
                     //var status = DeviceReportStatus(device.DeviceType, device.State);
                     //var status = Convert.ToInt32(activeIDs.Contains(device.Index)) + ((int)device.DeviceType + 1) * 2;
-                    
+
                     //var status = ((int)device.DeviceType + 9) + Convert.ToInt32(Miner.IsRunningNew);
                     var status =  9;
                     if (device.Enabled)
@@ -898,7 +898,7 @@ namespace NiceHashMiner.Stats
 
                     if (rigStatus != "MINING")
                     {
-                        speedsJson.Add(new JArray()); // все скорости 
+                        speedsJson.Add(new JArray()); // все скорости
                     }
                     else
                     {
@@ -940,7 +940,7 @@ namespace NiceHashMiner.Stats
               await _socket.SendData(sendData);
 
             }
-            
+
     }
         private static async void DeviceStatus_Tick(object state)
         {
@@ -1081,7 +1081,7 @@ namespace NiceHashMiner.Stats
             //var m = GroupMiner.Miner;
 
             // skip if not running or if await already in progress
-            
+
             if (Miner.IsRunningNew)
             {
                 return "MINING";
@@ -1089,7 +1089,7 @@ namespace NiceHashMiner.Stats
             {
                 return "STOPPED";
             }
-           
+
         }
         /*
         public string B64Uuid

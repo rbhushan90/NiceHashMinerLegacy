@@ -337,6 +337,14 @@ namespace NiceHashMiner
                         Directory.Delete("internals", true);
                     ConfigManager.GeneralConfig.ForkFixVersion = 15.4;
                 }
+                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 16)
+                {
+                    Helpers.ConsolePrint("NICEHASH", "Old version");
+                    if (Directory.Exists("internals"))
+                        Directory.Delete("internals", true);
+                    ConfigManager.GeneralConfig.ForkFixVersion = 16;
+                }
+
                 //**
                 Thread.Sleep(500);
                 // init active display currency after config load
