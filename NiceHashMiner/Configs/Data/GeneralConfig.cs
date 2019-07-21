@@ -77,6 +77,7 @@ namespace NiceHashMiner.Configs.Data
         public bool RunScriptOnCUDA_GPU_Lost = false;
         public bool Allow_remote_management = true;
         public bool Send_actual_version_info = false;
+        public bool Additional_info_about_device = false;
 
         // 3rd party miners
         public Use3rdPartyMiners Use3rdPartyMiners = Use3rdPartyMiners.NOT_SET;

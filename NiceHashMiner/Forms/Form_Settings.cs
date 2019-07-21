@@ -385,6 +385,7 @@ namespace NiceHashMiner.Forms
                 label_BitcoinAddressNew.Text = "Биткоин адрес (новая платформа)";
                 checkBox_Allow_remote_management.Text = "Разрешить удаленное управление";
                 checkBox_Send_actual_version_info.Text = "Отправлять инфо о версии программы";
+                checkBox_Additional_info_about_device.Text = "Дополнительная информация об устройстве";
             }
 
 
@@ -491,6 +492,7 @@ namespace NiceHashMiner.Forms
                 checkBox_RunScriptOnCUDA_GPU_Lost.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_Allow_remote_management.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_Send_actual_version_info.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
+                checkBox_Additional_info_about_device.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
             }
             // Add EventHandler for all the general tab's textboxes
             {
@@ -578,6 +580,7 @@ namespace NiceHashMiner.Forms
                 checkBox_RunScriptOnCUDA_GPU_Lost.Checked = ConfigManager.GeneralConfig.RunScriptOnCUDA_GPU_Lost;
                 checkBox_Allow_remote_management.Checked = ConfigManager.GeneralConfig.Allow_remote_management;
                 checkBox_Send_actual_version_info.Checked = ConfigManager.GeneralConfig.Send_actual_version_info;
+                checkBox_Additional_info_about_device.Checked = ConfigManager.GeneralConfig.Additional_info_about_device;
             }
 
             // Textboxes
@@ -701,6 +704,7 @@ namespace NiceHashMiner.Forms
             ConfigManager.GeneralConfig.RunScriptOnCUDA_GPU_Lost = checkBox_RunScriptOnCUDA_GPU_Lost.Checked;
             ConfigManager.GeneralConfig.Allow_remote_management = checkBox_Allow_remote_management.Checked;
             ConfigManager.GeneralConfig.Send_actual_version_info = checkBox_Send_actual_version_info.Checked;
+            ConfigManager.GeneralConfig.Additional_info_about_device = checkBox_Additional_info_about_device.Checked;
         }
 
         private void CheckBox_AMD_DisableAMDTempControl_CheckedChanged(object sender, EventArgs e)
@@ -1080,6 +1084,11 @@ namespace NiceHashMiner.Forms
         }
 
         private void checkBox_RunScriptOnCUDA_GPU_Lost_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox_Send_actual_version_info_CheckedChanged(object sender, EventArgs e)
         {
 
         }

@@ -1,6 +1,7 @@
 ﻿using NiceHashMiner.Configs;
 using NiceHashMiner.Devices;
 using NiceHashMiner.Interfaces;
+using NiceHashMinerLegacy.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -127,13 +128,18 @@ namespace NiceHashMiner.Forms.Components
             SaveToGeneralConfig = false;
             listViewDevices.BeginUpdate();
             listViewDevices.Items.Clear();
+            string addInfo = "";
             // set devices
             foreach (var computeDevice in computeDevices)
             {
+                if (ConfigManager.GeneralConfig.Additional_info_about_device && computeDevice.DeviceType != DeviceType.CPU)
+                {
+                    addInfo = " (" + computeDevice.GpuRam / 1073741824 + " GB)" + " (" + computeDevice.Uuid.Substring(computeDevice.Uuid.Length-4,4).ToUpper() + ")";
+                }
                 var lvi = new ListViewItem
                 {
                     Checked = computeDevice.Enabled,
-                    Text = computeDevice.GetFullName(),
+                    Text = computeDevice.GetFullName()+addInfo,
                     Tag = computeDevice
                 };
                 //lvi.SubItems.Add(computeDevice.Name);
