@@ -80,8 +80,8 @@ namespace NiceHashMiner.Miners
                     }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
                     {
-                        algo = "150_5";
-                        algoName = "beam";
+                        algo = "BeamHash";
+                        algoName = "BeamHash";
                     }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
             {
@@ -287,7 +287,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
             {
                 //_benchmarkTimeWait = 180; 
-                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo 150_5" +
+                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo BeamHash" +
                 " --server beam-eu.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 2222 --ssl 1 " +
                 " --server beam-asia.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 12222 --ssl 1 " +
                 " --server beam.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3370 --ssl 0" +

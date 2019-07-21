@@ -118,7 +118,7 @@ namespace NiceHashMiner.Configs
 
         public static void GeneralConfigFileCommit()
         {
-            GeneralConfig.LastDevicesSettup.Clear();
+           // GeneralConfig.LastDevicesSettup.Clear();
             foreach (var cDev in ComputeDeviceManager.Available.Devices)
             {
                 GeneralConfig.LastDevicesSettup.Add(cDev.GetComputeDeviceConfig());
@@ -158,6 +158,7 @@ namespace NiceHashMiner.Configs
                     }
                 }
                 // remove invalids
+
                 foreach (var invalid in invalidDevices)
                 {
                     ComputeDeviceManager.Available.Devices.Remove(invalid);
