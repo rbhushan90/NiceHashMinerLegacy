@@ -93,8 +93,8 @@
         Lyra2REv3 = 40,
         MTP = 41,
         CryptoNightR = 42,
-        CuckooCycle  = 43
-
-        #endregion // NiceHashAPI
+        CuckooCycle  = 43,
+        GrinCuckarood29 = 44
+#endregion // NiceHashAPI
     }
 }

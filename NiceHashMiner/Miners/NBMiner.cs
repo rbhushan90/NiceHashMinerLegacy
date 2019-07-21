@@ -48,6 +48,8 @@ namespace NiceHashMiner.Miners
                 {
                     case AlgorithmType.GrinCuckaroo29:
                         return "cuckaroo";
+                    case AlgorithmType.GrinCuckarood29:
+                        return "cuckarood";
                     case AlgorithmType.GrinCuckatoo31:
                         return "cuckatoo";
                     case AlgorithmType.CuckooCycle:
@@ -93,6 +95,12 @@ namespace NiceHashMiner.Miners
             {
                 cmd = $"-a {AlgoName} -o {url} -u {user} -o1 stratum+tcp://grincuckaroo29.hk" + nhsuff + ".nicehash.com:3371 -u1 " + user +
                     $" -o2 stratum+tcp://grincuckaroo29.usa" + nhsuff + ".nicehash.com:3371 -u2 " + user +
+                    $" --api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckarood29))
+            {
+                cmd = $"-a {AlgoName} -o {url} -u {user} -o1 nicehash+tcp://grincuckarood29.hk" + nhsuff + ".nicehash.com:3377 -u1 " + user +
+                    $" -o2 stratum+tcp://grincuckarood29.usa" + nhsuff + ".nicehash.com:3377 -u2 " + user +
                     $" --api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckatoo31))
@@ -148,6 +156,12 @@ namespace NiceHashMiner.Miners
             {
                 cmd = $"-a {AlgoName} -o stratum+tcp://grin.sparkpool.com:6666 -u angelbbs@mail.ru.{worker} -o1 stratum+tcp://grincuckaroo29.hk" + nhsuff + ".nicehash.com:3371 -u1 " + username +
                     $" -o2 stratum+tcp://grincuckaroo29.usa" + nhsuff + ".nicehash.com:3371 -u2 " + username +
+                    $" --api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckarood29))
+            {
+                cmd = $"-a {AlgoName} -o stratum+tcp://grin.sparkpool.com:6666 -u angelbbs@mail.ru.{worker} -o1 stratum+tcp://grincuckarood29.hk" + nhsuff + ".nicehash.com:3377 -u1 " + username +
+                    $" -o2 stratum+tcp://grincuckarood29.usa" + nhsuff + ".nicehash.com:3377 -u2 " + username +
                     $" --api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckatoo31))

@@ -383,6 +383,7 @@ namespace NiceHashMiner.Devices.Algorithms
                          { MinerBaseType.NBMiner,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.NBMiner, AlgorithmType.GrinCuckaroo29, "GrinCuckaroo29"),
+                            new Algorithm(MinerBaseType.NBMiner, AlgorithmType.GrinCuckarood29, "GrinCuckarood29"),
                             new Algorithm(MinerBaseType.NBMiner, AlgorithmType.GrinCuckatoo31, "GrinCuckatoo31"),
                             new Algorithm(MinerBaseType.NBMiner, AlgorithmType.CuckooCycle, "CuckooCycle"),
                             new Algorithm(MinerBaseType.NBMiner, AlgorithmType.DaggerHashimoto, "DaggerHashimoto"),
@@ -427,6 +428,10 @@ namespace NiceHashMiner.Devices.Algorithms
                                 //ExtraLaunchParameters = "--pec 1 "
                     },
                     new Algorithm(MinerBaseType.GMiner, AlgorithmType.GrinCuckaroo29, "")
+                    {
+                                //ExtraLaunchParameters = "--pec 1 "
+                    },
+                    new Algorithm(MinerBaseType.GMiner, AlgorithmType.GrinCuckarood29, "")
                     {
                                 //ExtraLaunchParameters = "--pec 1 "
                     },

@@ -161,6 +161,7 @@ namespace NiceHashMiner
                 case AlgorithmType.Beam:
                     unit = "Sol/s ";
                     break;
+                case AlgorithmType.GrinCuckarood29:
                 case AlgorithmType.GrinCuckaroo29:
                 case AlgorithmType.GrinCuckatoo31:
                 case AlgorithmType.CuckooCycle:
