@@ -16,6 +16,7 @@ using System.Net;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace NiceHashMiner.Miners
 {
@@ -236,6 +237,15 @@ namespace NiceHashMiner.Miners
             return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --cnicehash true --apienable --apiport {ApiPort} --cpool {url} --cwallet {btcAdress}.{worker} --cpassword x --pools poolsV8.txt";
         }
 
+        protected override string GetDevicesCommandString()
+        {
+            var deviceStringCommand = " ";
+
+            var ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.IDByBus.ToString()).ToList();
+            deviceStringCommand += string.Join(",", ids);
+
+            return deviceStringCommand;
+        }
         private string GetStartBenchmarkCommand(string url, string btcAdress, string worker)
         {
             if (url.Contains("Auto"))
