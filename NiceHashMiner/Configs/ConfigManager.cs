@@ -118,7 +118,7 @@ namespace NiceHashMiner.Configs
 
         public static void GeneralConfigFileCommit()
         {
-           // GeneralConfig.LastDevicesSettup.Clear();
+            GeneralConfig.LastDevicesSettup.Clear();
             foreach (var cDev in ComputeDeviceManager.Available.Devices)
             {
                 GeneralConfig.LastDevicesSettup.Add(cDev.GetComputeDeviceConfig());

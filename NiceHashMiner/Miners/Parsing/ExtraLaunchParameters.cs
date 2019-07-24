@@ -397,15 +397,15 @@ namespace NiceHashMiner.Miners.Parsing
                 MinerType.SRBMiner,
                 new List<MinerOption>() {
                     new MinerOption("SRBMiner-tls", "--ctls", null, MinerOptionFlagType.Uni, " "),
-                    new MinerOption("SRBMiner-enablegpurampup", "--enablegpurampup", null, MinerOptionFlagType.SingleParam, " "),
-                    new MinerOption("SRBMiner-disablegpuwatchdog", "--disablegpuwatchdog", null, MinerOptionFlagType.Uni, " "),
-                    new MinerOption("SRBMiner-intensity", "--cgpuintensity", null, MinerOptionFlagType.MultiParam, ","),
-                    new MinerOption("SRBMiner-threads", "--cgputhreads", null, MinerOptionFlagType.MultiParam, ","),
-                    new MinerOption("SRBMiner-worksize", "--cgpuworksize", null, MinerOptionFlagType.MultiParam, ","),
-                    new MinerOption("SRBMiner-targettemperature", "--cgputargettemperature", null, MinerOptionFlagType.MultiParam, ","),
-                    new MinerOption("SRBMiner-cgputargetfanspeed", "--cgputargetfanspeed", null, MinerOptionFlagType.MultiParam, ","),
-                    new MinerOption("SRBMiner-cgpuadltype", "--cgpuadltype", null, MinerOptionFlagType.MultiParam, ","),
-                    new MinerOption("SRBMiner-cgputweakprofile", "--cgputweakprofile", null, MinerOptionFlagType.MultiParam, ",")
+                    new MinerOption("SRBMiner-enablegpurampup", "--enablegpurampup", "--enablegpurampup", null, MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("SRBMiner-disablegpuwatchdog", "--disablegpuwatchdog", "--disablegpuwatchdog", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("SRBMiner-intensity", "--cgpuintensity","--cgpuintensity" , "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("SRBMiner-threads", "--cgputhreads", "--cgputhreads", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("SRBMiner-worksize", "--cgpuworksize", "--cgpuworksize", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("SRBMiner-targettemperature", "--cgputargettemperature", "--cgputargettemperature", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("SRBMiner-cgputargetfanspeed", "--cgputargetfanspeed", "--cgputargetfanspeed", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("SRBMiner-cgpuadltype", "--cgpuadltype", "--cgpuadltype", "0", MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("SRBMiner-cgputweakprofile", "--cgputweakprofile", "--cgputweakprofile", "0", MinerOptionFlagType.MultiParam, ",")
                 },
                 new List<MinerOption>(){ }
              ),

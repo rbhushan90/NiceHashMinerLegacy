@@ -379,7 +379,7 @@ namespace NiceHashMiner
             {
                 NiceHashStats.StartConnection(Links.NhmSocketAddress);
             }
-           
+
             // increase timeout
             if (Globals.IsFirstNetworkCheckTimeout)
             {
@@ -1168,7 +1168,7 @@ namespace NiceHashMiner
                     ConfigManager.GeneralConfig.BitcoinAddressNew = textBoxBTCAddress_new.Text.Trim();
                     ConfigManager.GeneralConfig.WorkerName = textBoxWorkerName.Text.Trim();
                     ConfigManager.GeneralConfig.ServiceLocation = comboBoxLocation.SelectedIndex;
-                    ConfigManager.GeneralConfigFileCommit();
+                   // ConfigManager.GeneralConfigFileCommit();
                 }
             } else
             {
@@ -1184,9 +1184,10 @@ namespace NiceHashMiner
                     ConfigManager.GeneralConfig.BitcoinAddress = textBoxBTCAddress.Text.Trim();
                     ConfigManager.GeneralConfig.WorkerName = textBoxWorkerName.Text.Trim();
                     ConfigManager.GeneralConfig.ServiceLocation = comboBoxLocation.SelectedIndex;
-                    ConfigManager.GeneralConfigFileCommit();
+                   // ConfigManager.GeneralConfigFileCommit();
                 }
             }
+            ConfigManager.GeneralConfigFileCommit();
         }
 
         // Minimize to system tray if MinimizeToTray is set to true
@@ -1366,7 +1367,7 @@ namespace NiceHashMiner
             //buttonSettings.Enabled = false;
             devicesListViewEnableControl1.IsMining = true;
             buttonStopMining.Enabled = true;
-            
+
             // Disable profitable notification on start
             _isNotProfitable = false;
             ConfigManager.GeneralConfig.BitcoinAddress = textBoxBTCAddress.Text.Trim();
@@ -1431,7 +1432,7 @@ namespace NiceHashMiner
             //_remoteTimer.Stop();
             //_remoteTimer= null;
         }
- 
+
 
         private void StopMining()
         {
@@ -1477,7 +1478,7 @@ namespace NiceHashMiner
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             ConfigManager.GeneralConfig.NewPlatform = !radioButtonOldPlatform.Checked;
-            ConfigManager.GeneralConfigFileCommit();
+//            ConfigManager.GeneralConfigFileCommit();
         }
 
         private void radioButtonNewPlatform_CheckedChanged(object sender, EventArgs e)
@@ -1486,11 +1487,12 @@ namespace NiceHashMiner
             ConfigManager.GeneralConfig.NewPlatform = radioButtonNewPlatform.Checked;
             textBoxBTCAddress.Enabled = !radioButtonNewPlatform.Checked;
             textBoxBTCAddress_new.Enabled = radioButtonNewPlatform.Checked;
-            ConfigManager.GeneralConfigFileCommit();
+           // ConfigManager.GeneralConfigFileCommit();
             Thread.Sleep(100);
 
             if (firstStartConnection && NiceHashSocket._webSocket != null)
             {
+                ConfigManager.GeneralConfigFileCommit();
                 NiceHashStats._socket = null;
                 NiceHashSocket._restartConnection = true;
                 NiceHashSocket._webSocket.Close();
