@@ -91,7 +91,7 @@ namespace NiceHashMiner.Miners
                 " -P " + username + ":x@" + alg + ".eu" + nhsuff + ".nicehash.com:" + port +
 
                 apiBind +
-                " -devices " + GetDevicesCommandString() + " " +
+                " -device " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
             _started = DateTime.Now;
             ProcessHandle = _Start();
@@ -145,7 +145,7 @@ namespace NiceHashMiner.Miners
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) +
-                              " -nocolor -PRHRI 1 -devices ";
+                              " -nocolor -PRHRI 1 -device ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
             {
@@ -160,7 +160,7 @@ namespace NiceHashMiner.Miners
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
                                   DeviceType.NVIDIA) +
-                              " -nocolor -devices ";
+                              " -nocolor -device ";
             }
 
             commandLine += GetDevicesCommandString();
