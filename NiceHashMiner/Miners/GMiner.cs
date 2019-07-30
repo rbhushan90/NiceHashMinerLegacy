@@ -81,7 +81,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
                     {
                         algo = "BeamHash";
-                        algoName = "BeamHash";
+                        algoName = "beam";
                     }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
             {
