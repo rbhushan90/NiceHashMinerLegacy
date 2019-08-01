@@ -109,6 +109,18 @@ namespace NiceHashMiner.Miners
                                                                DeviceType.AMD) +
                              " --devices ";
             }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckarood29)
+            {
+                LastCommandLine = "--coin GRIN-AD29 --pool " + url + ";grincuckarood29.hk" + nhsuff + ".nicehash.com;grincuckarood29.jp" + nhsuff + ".nicehash.com;grincuckarood29.usa" + nhsuff + ".nicehash.com;grincuckarood29.in" + nhsuff + ".nicehash.com;grincuckarood29.br" + nhsuff + ".nicehash.com" +
+                             " --port " + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" + port +
+                             " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username +
+                             " -p x;x;x;x;x;x --tls 0;0;0;0;0;0 " + apiBind +
+                             " " +
+                             ExtraLaunchParametersParser.ParseForMiningSetup(
+                                                               MiningSetup,
+                                                               DeviceType.AMD) +
+                             " --devices ";
+            }
 
             LastCommandLine += GetDevicesCommandString() + " ";//amd карты перечисляются первыми
             ProcessHandle = _Start();
@@ -165,7 +177,16 @@ namespace NiceHashMiner.Miners
                                                 DeviceType.AMD) +
                 " --devices ";
             }
-                CommandLine += GetDevicesCommandString(); //amd карты перечисляются первыми
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckarood29)
+            {
+                CommandLine = "--coin GRIN-AD29 " +
+                " --pool grin.sparkpool.com;grincuckaroo29.usa" + nhsuff + ".nicehash.com --port 6666;3372 --user angelbbs@mail.ru." + worker + ";" + username + " --pass x;x" +
+                              ExtraLaunchParametersParser.ParseForMiningSetup(
+                                                MiningSetup,
+                                                DeviceType.AMD) +
+                " --devices ";
+            }
+            CommandLine += GetDevicesCommandString(); //amd карты перечисляются первыми
            
             return CommandLine;
 
@@ -331,7 +352,28 @@ namespace NiceHashMiner.Miners
                 {
                     int i = outdata.IndexOf("Average speed (30s):");
                     int k = outdata.IndexOf("g/s");
-                    hashSpeed = outdata.Substring(i + 19, k - i - 20).Trim();
+                    hashSpeed = outdata.Substring(i + 21, k - i - 22).Trim();
+                    try
+                    {
+                        speed = speed + Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
+                    count++;
+                }
+            }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckarood29)
+            {
+                if (outdata.Contains("Average speed (30s):"))
+                {
+                    int i = outdata.IndexOf("Average speed (30s):");
+                    int k = outdata.IndexOf("g/s");
+                    hashSpeed = outdata.Substring(i + 21, k - i - 22).Trim();
                     try
                     {
                         speed = speed + Double.Parse(hashSpeed, CultureInfo.InvariantCulture);

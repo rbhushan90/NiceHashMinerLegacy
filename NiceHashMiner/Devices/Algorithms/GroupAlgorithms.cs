@@ -385,6 +385,14 @@ namespace NiceHashMiner.Devices.Algorithms
                         AlgorithmType.GrinCuckatoo31
                     });
             }
+
+            if (algoSettings.ContainsKey(MinerBaseType.lolMiner) && device.GpuRam < 1024 * 1024 * 1024 * 3.4 )
+            {
+                algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
+                    {
+                        AlgorithmType.GrinCuckarood29
+                    });
+            }
             // разделение для типов работает && device.DeviceType == DeviceType.NVIDIA
             if (algoSettings.ContainsKey(MinerBaseType.GMiner) && device.DeviceType == DeviceType.AMD && device.GpuRam < 1024 * 1024 * 1024 * 4.4)
             {

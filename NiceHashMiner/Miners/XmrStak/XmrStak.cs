@@ -89,7 +89,7 @@ namespace NiceHashMiner.Miners.XmrStak
                 ManagementScope oMs = new ManagementScope(@"\\" + MachineName + @"\root\cimv2", oConn);
                 //query for remote machine
                 ObjectQuery oQuery = new ObjectQuery("Select * from Win32_Processor");
-                //Execute the query 
+                //Execute the query
                 ManagementObjectSearcher oSearcher = new ManagementObjectSearcher(oMs, oQuery);
                 //Get the results
                 ManagementObjectCollection oReturnCollection = oSearcher.Get();
@@ -177,7 +177,7 @@ namespace NiceHashMiner.Miners.XmrStak
                         numTr /= 2;
                     }
 
-                    // Fallback on classic config if haven't been able to open 
+                    // Fallback on classic config if haven't been able to open
                     var configCpu = ParseJsonFile<XmrStakConfigCpu>(type) ?? new XmrStakConfigCpu(numTr);
                     if (configCpu.cpu_threads_conf.Count == 0)
                     {
@@ -275,8 +275,10 @@ namespace NiceHashMiner.Miners.XmrStak
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
-                url = "loki.miner.rocks:5555";
-                user = "L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi";
+  //              url = "loki.miner.rocks:5555";
+  //              user = "L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi";
+                url = "xmr-eu.dwarfpool.com:8005";
+                user = "42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX";
                 configs = PrepareConfigFiles(url, user,"", true);
             }
 
@@ -299,7 +301,7 @@ namespace NiceHashMiner.Miners.XmrStak
             var speeds = outdata.Split();
             foreach (var s in speeds)
             {
-                if (!double.TryParse(s, NumberStyles.Number, CultureInfo.InvariantCulture, out var speed) || speed <= 0) 
+                if (!double.TryParse(s, NumberStyles.Number, CultureInfo.InvariantCulture, out var speed) || speed <= 0)
                     continue;
                 _benchmarkSum += speed;
                 _benchmarkCount++;
