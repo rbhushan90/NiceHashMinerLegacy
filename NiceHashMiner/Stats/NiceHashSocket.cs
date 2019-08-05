@@ -155,7 +155,7 @@ namespace NiceHashMiner.Stats
                 // Make sure connection is open
                 if (_webSocket != null && IsAlive)
                 {
-                    Helpers.ConsolePrint("SOCKET", $"Sending data: {data}");
+                    Helpers.ConsolePrint("SOCKETNEW", $"Sending data: {data}");
                     _webSocket.Send(data);
                     return true;
                 }
@@ -168,25 +168,25 @@ namespace NiceHashMiner.Stats
                     }
                     else
                     {
-                        Helpers.ConsolePrint("SOCKET", "Socket connection unsuccessfull, will try again on next device update (1min)");
+                        Helpers.ConsolePrint("SOCKETNEW", "Socket connection unsuccessfull, will try again on next device update (1min)");
                     }
                 }
                 else
                 {
                     if (!_connectionAttempted)
                     {
-                        Helpers.ConsolePrint("SOCKET", "Data sending attempted before socket initialization");
+                        Helpers.ConsolePrint("SOCKETNEW", "Data sending attempted before socket initialization");
                     }
                     else
                     {
-                        Helpers.ConsolePrint("SOCKET", "webSocket not created, retrying");
+                        Helpers.ConsolePrint("SOCKETNEW", "webSocket not created, retrying");
                         StartConnectionNew();
                     }
                 }
             }
             catch (Exception e)
             {
-                Helpers.ConsolePrint("NiceHashSocket", $"Error occured while sending data: {e.Message}");
+                Helpers.ConsolePrint("NiceHashSocketNew", $"Error occured while sending data: {e.Message}");
             }
             return false;
         }

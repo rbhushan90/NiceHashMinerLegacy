@@ -161,7 +161,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 3;
+                TotalCount = 2;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -336,6 +336,7 @@ namespace NiceHashMiner.Miners
         {
           try
           {
+                //[20:42:11] INFO  - GPU0 GTX 1070 : 18,83MH/s (Avr 17,33MH/s) : 124,1KH/W : T=60C Fan=0%
                 double tmp = 0;
                     if (outdata.Contains("GPU") && outdata.ToUpper().Contains("GH/S)"))
                     {

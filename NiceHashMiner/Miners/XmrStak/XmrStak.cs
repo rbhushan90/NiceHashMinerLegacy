@@ -267,8 +267,9 @@ namespace NiceHashMiner.Miners.XmrStak
             var user = Globals.GetBitcoinUser();
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
-                url = "xmr-eu.dwarfpool.com:8005";
-                user = "42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX";
+                //url = "xmr-eu.dwarfpool.com:8005";
+                url = "cryptonightv8.eu-new.nicehash.com:3367";
+                //user = "42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX";
             }
             var configs = PrepareConfigFiles(url, user,
                 ConfigManager.GeneralConfig.WorkerName.Trim(), true);
@@ -277,8 +278,8 @@ namespace NiceHashMiner.Miners.XmrStak
             {
   //              url = "loki.miner.rocks:5555";
   //              user = "L95cF8XmPzzhBA1tkiL1NMijNNbj58vs1iJExK84oi2LKc6RQm2q1Z4PmDxYB7sicHVXY1J5YV9yg6vkMxKpuCK1L1SwoDi";
-                url = "xmr-eu.dwarfpool.com:8005";
-                user = "42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX";
+                url = "cryptonightheavy.eu-new.nicehash.com:3364";
+                //user = "42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX";
                 configs = PrepareConfigFiles(url, user,"", true);
             }
 

@@ -39,6 +39,10 @@ namespace NiceHashMiner
             // NHMConectionType.NONE
             var prefix = "";
             var port = nPort;
+            if (miningLocation.Contains("Auto"))
+            {
+                miningLocation = miningLocation.Replace("Auto", "eu");
+            }
             switch (conectionType)
             {
                 case NhmConectionType.LOCKED:
