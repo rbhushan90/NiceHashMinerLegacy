@@ -81,6 +81,7 @@ namespace NiceHashMiner.Miners
             {
                 nhsuff = "-new";
             }
+            /*
             LastCommandLine = " -a "+algo +
                 " -P " + username + ":x@" + url +
                 " -P " + username + ":x@" + alg + ".hk" + nhsuff + ".nicehash.com:" + port +
@@ -93,6 +94,18 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -device " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
+                */
+            LastCommandLine = " -a " + algo +
+           " -o " + url + " -u " + username + " -p x " +
+           " -o " + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+           " -o " + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+           " -o " + alg + ".in" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+           " -o " + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+           " -o " + alg + ".br" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+           " -o " + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+           apiBind +
+           " -device " + GetDevicesCommandString() + " " +
+           ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
             _started = DateTime.Now;
             ProcessHandle = _Start();
         }
@@ -134,6 +147,7 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
             {
+                /*
                 commandLine = " -a " + algo +
                 " -P aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE." + ConfigManager.GeneralConfig.WorkerName.Trim() + ":x@xzc.2miners.com:8080" +
                 " -P " + username + ":x@" + alg + ".eu" + nhsuff + ".nicehash.com:" + port +
@@ -146,9 +160,23 @@ namespace NiceHashMiner.Miners
                                   MiningSetup,
                                   DeviceType.NVIDIA) +
                               " -nocolor -PRHRI 1 -device ";
+                              */
+                commandLine = " -a " + algo +
+                          " -o xzc.2miners.com:8080" + " -u aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE." + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
+                          " -o " + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+                          " -o " + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+                          " -o " + alg + ".in" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+                          " -o " + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+                          " -o " + alg + ".br" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+                          " -o " + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+                          ExtraLaunchParametersParser.ParseForMiningSetup(
+                                  MiningSetup,
+                                  DeviceType.NVIDIA) +
+                              " -nocolor -PRHRI 1 -device ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
             {
+                /*
                 commandLine = " -a LYRA2V3" +
                 " -P 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2." + ConfigManager.GeneralConfig.WorkerName.Trim() + ":x@lyra2v3.eu.mine.zpool.ca:4550" +
                 " -P " + username + ":x@" + alg + ".eu" + nhsuff + ".nicehash.com:" + port +
@@ -161,6 +189,19 @@ namespace NiceHashMiner.Miners
                                   MiningSetup,
                                   DeviceType.NVIDIA) +
                               " -nocolor -device ";
+                              */
+                commandLine = " -a LYRA2V3 " +
+            " -o lyra2v3.eu.mine.zpool.ca:4550" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2." + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
+            " -o " + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+            " -o " + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+            " -o " + alg + ".in" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+            " -o " + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+            " -o " + alg + ".br" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+            " -o " + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+            ExtraLaunchParametersParser.ParseForMiningSetup(
+                    MiningSetup,
+                    DeviceType.NVIDIA) +
+                " -nocolor -PRHRI 1 -device ";
             }
 
             commandLine += GetDevicesCommandString();
@@ -187,7 +228,7 @@ namespace NiceHashMiner.Miners
                     var e = outdata.IndexOf(variables.TTMiner_bench4);
                     try
                     {
-                        var parse = outdata.Substring(st + 6, e - st - 8).Trim();
+                        var parse = outdata.Substring(st + 4, e - st - 6).Trim();
                         //Helpers.ConsolePrint("BENCHMARK!:", parse);
                         tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                     } catch
