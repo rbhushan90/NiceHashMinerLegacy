@@ -82,6 +82,10 @@ namespace NiceHashMiner.Miners
             {
                 algo = " -a x16r";
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckarood29))
+            {
+                algo = " -a cuckarood29_grin";
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
             {
                 algo = " -a mtp --allow_all_devices";
@@ -109,10 +113,12 @@ namespace NiceHashMiner.Miners
 
             // demo for benchmark
             string username = Globals.GetBitcoinUser();
-
+            string worker = "";
             if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
+            {
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
-
+                worker = ConfigManager.GeneralConfig.WorkerName.Trim();
+            }
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
@@ -129,6 +135,12 @@ namespace NiceHashMiner.Miners
                 CommandLine = variables.TRMiner_add1 + " -a x16r" + apiBind +
                 " --url stratum+tcp://x16r.eu" + nhsuff + ".nicehash.com:3366" + " --user " + username + " - p x " +
                 " --url stratum+tcp://x16r.eu.mine.zpool.ca:3636" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckarood29))
+            {
+                CommandLine = variables.TRMiner_add1 + " -a cuckarood29_grin" + apiBind +
+                " --url stratum+tcp://grincuckaroo29.eu" + nhsuff + ".nicehash.com:3371" + " --user " + username + " - p x " +
+                " --url stratum+tcp://grin.sparkpool.com:6666" + " --user angelbbs@mail.ru/" + worker + " -p x -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
             {
