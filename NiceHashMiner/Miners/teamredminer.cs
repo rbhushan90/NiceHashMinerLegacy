@@ -90,7 +90,7 @@ namespace NiceHashMiner.Miners
             {
                 algo = " -a mtp --allow_all_devices";
             }
-            LastCommandLine = variables.TRMiner_add1 + algo + " -o " + url +
+            LastCommandLine = variables.TRMiner_add1 + " --watchdog_script " + algo + " -o " + url +
                               " -u " + username +
                               " -p x " + apiBind +
                               " " +
@@ -429,6 +429,47 @@ namespace NiceHashMiner.Miners
                     return true;
                 }
             }
+            if (outdata.Contains("cuckarood29_grin: "))
+            {
+                int i = outdata.IndexOf("avg ");
+                int k = outdata.IndexOf("h/s, avg");
+                hashSpeed = outdata.Substring(i + 4, k - i - 5).Trim();
+                Helpers.ConsolePrint(hashSpeed, "");
+                if (outdata.ToUpper().Contains("G/S"))
+                {
+                    kspeed = 1;
+                }
+                if (outdata.Substring(0, 65).ToUpper().Contains("KG/S"))
+                {
+                    kspeed = 1000;
+                }
+                if (outdata.Substring(0, 65).ToUpper().Contains("MG/S"))
+                {
+                    kspeed = 1000000;
+                }
+                count++;
+                if (count >= 10)
+                {
+                    try
+                    {
+                        speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
+
+                    BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
+                    //Killteamredminer();
+                    BenchmarkSignalFinnished = true;
+                    //BenchmarkSignalHanged = true;
+                    return true;
+                }
+            }
+            
             return false;
 
         }
