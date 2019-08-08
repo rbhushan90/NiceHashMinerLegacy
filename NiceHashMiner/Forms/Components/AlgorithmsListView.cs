@@ -106,33 +106,36 @@ namespace NiceHashMiner.Forms.Components
             listViewAlgorithms.Items.Clear();
             foreach (var alg in computeDevice.GetAlgorithmSettings())
             {
-                var lvi = new ListViewItem();
-
-                var name = "";
-                var secondarySpeed = "";
-                var payingRatio = "";
-                if (alg is DualAlgorithm dualAlg)
+                if (!alg.Hidden)
                 {
-                    name = "  + " + dualAlg.SecondaryAlgorithmName;
-                    secondarySpeed = dualAlg.SecondaryBenchmarkSpeedString();
-                    payingRatio = dualAlg.SecondaryCurPayingRatio;
-                }
-                else
-                {
-                    name = $"{alg.AlgorithmName} ({alg.MinerBaseTypeName})";
-                    payingRatio = alg.CurPayingRatio;
-                }
+                    var lvi = new ListViewItem();
 
-                lvi.SubItems.Add(name);
+                    var name = "";
+                    var secondarySpeed = "";
+                    var payingRatio = "";
+                    if (alg is DualAlgorithm dualAlg)
+                    {
+                        name = "  + " + dualAlg.SecondaryAlgorithmName;
+                        secondarySpeed = dualAlg.SecondaryBenchmarkSpeedString();
+                        payingRatio = dualAlg.SecondaryCurPayingRatio;
+                    }
+                    else
+                    {
+                        name = $"{alg.AlgorithmName} ({alg.MinerBaseTypeName})";
+                        payingRatio = alg.CurPayingRatio;
+                    }
 
-                //sub.Tag = alg.Value;
-                lvi.SubItems.Add(alg.BenchmarkSpeedString());
-                lvi.SubItems.Add(secondarySpeed);
-                lvi.SubItems.Add(payingRatio);
-                lvi.SubItems.Add(alg.CurPayingRate);
-                lvi.Tag = alg;
-                lvi.Checked = alg.Enabled;
-                listViewAlgorithms.Items.Add(lvi);
+                    lvi.SubItems.Add(name);
+
+                    //sub.Tag = alg.Value;
+                    lvi.SubItems.Add(alg.BenchmarkSpeedString());
+                    lvi.SubItems.Add(secondarySpeed);
+                    lvi.SubItems.Add(payingRatio);
+                    lvi.SubItems.Add(alg.CurPayingRate);
+                    lvi.Tag = alg;
+                    lvi.Checked = alg.Enabled;
+                    listViewAlgorithms.Items.Add(lvi);
+                }
             }
 
             listViewAlgorithms.EndUpdate();

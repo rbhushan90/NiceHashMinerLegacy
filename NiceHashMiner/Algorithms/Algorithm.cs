@@ -63,6 +63,11 @@ namespace NiceHashMiner.Algorithms
         /// </summary>
         public bool Enabled { get; set; }
 
+        /// <summary>
+        /// Get or set whether this algorithm is hidden in list
+        /// </summary>
+        public bool Hidden { get; set; }
+
         // TODO not needed with new xmr-stak?
         public int LessThreads { get; set; }
 
@@ -115,6 +120,7 @@ namespace NiceHashMiner.Algorithms
             ExtraLaunchParameters = "";
             LessThreads = 0;
             Enabled = enabled;
+            Hidden = false;
             BenchmarkStatus = "";
         }
         #region Benchmark info

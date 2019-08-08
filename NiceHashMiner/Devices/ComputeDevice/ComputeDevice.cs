@@ -442,6 +442,7 @@ namespace NiceHashMiner.Devices
                         setAlgo.BenchmarkSpeed = conf.BenchmarkSpeed;
                         setAlgo.ExtraLaunchParameters = conf.ExtraLaunchParameters;
                         setAlgo.Enabled = conf.Enabled;
+                        setAlgo.Hidden = conf.Hidden;
                         setAlgo.LessThreads = conf.LessThreads;
                         setAlgo.PowerUsage = conf.PowerUsage;
                         if (setAlgo is DualAlgorithm dualSA)
@@ -499,11 +500,15 @@ namespace NiceHashMiner.Devices
                     BenchmarkSpeed = algo.BenchmarkSpeed,
                     ExtraLaunchParameters = algo.ExtraLaunchParameters,
                     Enabled = algo.Enabled,
+                    Hidden = algo.Hidden,
                     LessThreads = algo.LessThreads,
                     PowerUsage =  algo.PowerUsage
                 };
                 // insert
-                ret.AlgorithmSettings.Add(conf);
+                if (!conf.Hidden)
+                {
+                    ret.AlgorithmSettings.Add(conf);
+                }
                 if (algo is DualAlgorithm dualAlgo)
                 {
                     conf.SecondaryNiceHashID = dualAlgo.SecondaryNiceHashID;
@@ -522,8 +527,10 @@ namespace NiceHashMiner.Devices
                         IntensityPowers = dualAlgo.IntensityPowers,
                         UseIntensityPowers = dualAlgo.UseIntensityPowers
                     };
-
-                    ret.DualAlgorithmSettings.Add(dualConf);
+                    if (!conf.Hidden)
+                    {
+                        ret.DualAlgorithmSettings.Add(dualConf);
+                    }
                 }
             }
 

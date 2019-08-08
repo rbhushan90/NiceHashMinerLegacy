@@ -377,7 +377,7 @@ namespace NiceHashMiner.Devices.Algorithms
                         AlgorithmType.GrinCuckaroo29
                     });
             }
-            
+            /*
             if (algoSettings.ContainsKey(MinerBaseType.GMiner) && device.GpuRam < 1024 * 1024 * 1024 * 7.4)
             {
                 algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
@@ -385,7 +385,20 @@ namespace NiceHashMiner.Devices.Algorithms
                         AlgorithmType.GrinCuckatoo31
                     });
             }
+            */
+            if (algoSettings.ContainsKey(MinerBaseType.GMiner))
+            {
+                foreach (var algo in algoSettings[MinerBaseType.GMiner])
+                {
+                    if (algo.NiceHashID == AlgorithmType.GrinCuckatoo31 && device.DeviceType == DeviceType.NVIDIA && device.GpuRam > 1024 * 1024 * 1024 * 7.4)
+                    {
+                        algo.Enabled = true;
+                        algo.Hidden = false;
+                    }
+                }
+            }
 
+            /*
             if (algoSettings.ContainsKey(MinerBaseType.lolMiner) && device.GpuRam < 1024 * 1024 * 1024 * 3.4 )
             {
                 algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
@@ -393,6 +406,7 @@ namespace NiceHashMiner.Devices.Algorithms
                         AlgorithmType.GrinCuckarood29
                     });
             }
+            */
             /*
             if (algoSettings.ContainsKey(MinerBaseType.teamredminer) && device.GpuRam < 1024 * 1024 * 1024 * 7.4)
             {
@@ -467,23 +481,48 @@ namespace NiceHashMiner.Devices.Algorithms
             {
                 foreach (var algo in algoSettings[MinerBaseType.lolMiner])
                 {
-                    if (algo.NiceHashID == AlgorithmType.GrinCuckatoo31 && device.DeviceType == DeviceType.AMD && device.GpuRam > 1024 * 1024 * 1024 * 3.7)
+                    if (algo.NiceHashID == AlgorithmType.GrinCuckatoo31 && device.DeviceType == DeviceType.AMD && device.GpuRam < 1024 * 1024 * 1024 * 15.1)
                     {
-                        algo.Enabled = true;
+                        algo.Enabled = false;
+                        algo.Hidden = true;
                     }
                 }
             }
 
-            //не работает. предыдущие ограничения на объем памяти карты действуют без учета майнера
-            /*
-            if (algoSettings.ContainsKey(MinerBaseType.lolMiner) && device.DeviceType == DeviceType.AMD && device.GpuRam < 1024 * 1024 * 1024 * 3.4)
+            if (algoSettings.ContainsKey(MinerBaseType.lolMiner))
             {
-                algoSettings = FilterMinerAlgos(algoSettings, new List<AlgorithmType>
+                foreach (var algo in algoSettings[MinerBaseType.lolMiner])
+                {
+                    if (algo.NiceHashID == AlgorithmType.GrinCuckarood29 && device.DeviceType == DeviceType.AMD && device.GpuRam < 1024 * 1024 * 1024 * 3.7)
                     {
-                        AlgorithmType.GrinCuckatoo31
-                    });
+                        algo.Enabled = false;
+                        algo.Hidden = true;
+                    }
+                }
             }
-            */
+            if (algoSettings.ContainsKey(MinerBaseType.teamredminer))
+            {
+                foreach (var algo in algoSettings[MinerBaseType.teamredminer])
+                {
+                    if (algo.NiceHashID == AlgorithmType.GrinCuckatoo31 && device.DeviceType == DeviceType.AMD && device.GpuRam < 1024 * 1024 * 1024 * 15.1)
+                    {
+                        algo.Enabled = false;
+                        algo.Hidden = true;
+                    }
+                }
+            }
+            if (algoSettings.ContainsKey(MinerBaseType.teamredminer))
+            {
+                foreach (var algo in algoSettings[MinerBaseType.teamredminer])
+                {
+                    if (algo.NiceHashID == AlgorithmType.GrinCuckarood29 && device.DeviceType == DeviceType.AMD && device.GpuRam < 1024 * 1024 * 1024 * 7.3)
+                    {
+                        algo.Enabled = false;
+                        algo.Hidden = true;
+                    }
+                }
+            }
+
 
             if (algoSettings.ContainsKey(MinerBaseType.NBMiner) && device.GpuRam < 1024 * 1024 * 1024 * 5.4)
             {
