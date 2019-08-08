@@ -975,7 +975,7 @@ namespace NiceHashMiner
                         MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 
                     if (result == DialogResult.Yes)
-                        Process.Start(Links.NhmBtcWalletFaq);
+                        Process.Start(Links.NhmBtcWalletFaqNew);
 
                     textBoxBTCAddress_new.Focus();
                     return false;
@@ -1013,17 +1013,23 @@ namespace NiceHashMiner
             if (!VerifyMiningAddress(true)) return;
             if (ConfigManager.GeneralConfig.NewPlatform)
             {
-                Process.Start(Links.CheckStats + textBoxBTCAddress.Text.Trim());
+                Process.Start(Links.CheckStatsNew + textBoxBTCAddress_new.Text.Trim());
             } else
             {
-                Process.Start(Links.CheckStats + textBoxBTCAddress_new.Text.Trim());
+                Process.Start(Links.CheckStats + textBoxBTCAddress.Text.Trim());
             }
         }
 
 
         private void LinkLabelChooseBTCWallet_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(Links.NhmBtcWalletFaq);
+            if (ConfigManager.GeneralConfig.NewPlatform)
+            {
+                Process.Start(Links.NhmBtcWalletFaqNew);
+            } else
+            {
+                Process.Start(Links.NhmBtcWalletFaq);
+            }
         }
 
         private void LinkLabelNewVersion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -1139,7 +1145,13 @@ namespace NiceHashMiner
 
         private void ToolStripStatusLabel10_Click(object sender, EventArgs e)
         {
-            Process.Start(Links.NhmPayingFaq);
+            if (ConfigManager.GeneralConfig.NewPlatform)
+            {
+                Process.Start(Links.NhmPayingFaqNew);
+            } else
+            {
+                Process.Start(Links.NhmPayingFaq);
+            }
         }
 
         private void ToolStripStatusLabel10_MouseHover(object sender, EventArgs e)
