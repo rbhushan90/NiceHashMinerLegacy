@@ -85,7 +85,7 @@ namespace NiceHashMiner.Miners
                     }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
             {
-                algo = "grin29";
+                algo = "cuckaroo29";
                 algoName = "grincuckaroo29";
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckarood29)
@@ -111,7 +111,7 @@ namespace NiceHashMiner.Miners
             }
 
             var ret = GetDevicesCommandString()
-                      + " --pers auto --algo " + algo + " --server " + url.Split(':')[0]
+                      + " --algo " + algo + " --server " + url.Split(':')[0]
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
                       + " --server " + algoName + ".hk" + nhsuff + ".nicehash.com"
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]

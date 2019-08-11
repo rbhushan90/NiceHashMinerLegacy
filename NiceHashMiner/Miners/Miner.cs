@@ -1368,14 +1368,14 @@ namespace NiceHashMiner
             var restartInMs = ConfigManager.GeneralConfig.MinerRestartDelayMS > ms
                 ? ConfigManager.GeneralConfig.MinerRestartDelayMS
                 : ms;
-            Helpers.ConsolePrint(MinerTag(), ProcessTag() + $" Miner_Exited Will restart in {restartInMs} ms");
-            if (ConfigManager.GeneralConfig.CoolDownCheckEnabled)
-            {
-                CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
-                _needsRestart = true;
-                _currentCooldownTimeInSecondsLeft = restartInMs;
-            }
-            else
+            Helpers.ConsolePrint(MinerTag(), ProcessTag() + $" directly Miner_Exited Will restart in {restartInMs} ms");
+           // if (ConfigManager.GeneralConfig.CoolDownCheckEnabled)
+            //{
+             //   CurrentMinerReadStatus = MinerApiReadStatus.RESTART;
+              //  _needsRestart = true;
+               // _currentCooldownTimeInSecondsLeft = restartInMs;
+            //}
+           // else
             {
                 // directly restart since cooldown checker not running
                 Thread.Sleep(restartInMs);
