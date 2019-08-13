@@ -955,7 +955,7 @@ namespace NiceHashMiner.Stats
 
                     //var status = ((int)device.DeviceType + 9) + Convert.ToInt32(Miner.IsRunningNew);
                     //var status =  9;
-                    //if (device.Enabled)
+                    if (device.Enabled)
                     {
                         status = status + Convert.ToInt32(Miner.IsRunningNew) + Convert.ToInt32(device.Enabled);
                     }
