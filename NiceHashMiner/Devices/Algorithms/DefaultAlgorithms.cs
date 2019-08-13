@@ -244,7 +244,10 @@ namespace NiceHashMiner.Devices.Algorithms
 
                     { MinerBaseType.lolMinerBEAM,
                         new List<Algorithm>() {
-                            new Algorithm(MinerBaseType.lolMinerBEAM, AlgorithmType.Beam, "Beam"),
+                            new Algorithm(MinerBaseType.lolMinerBEAM, AlgorithmType.Beam, "Beam")
+                            {
+                                ExtraLaunchParameters = "--asm 1 "
+                            }
                         }
                     },
 

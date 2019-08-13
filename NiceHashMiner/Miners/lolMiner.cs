@@ -273,7 +273,7 @@ namespace NiceHashMiner.Miners
                // var id = mPair.Device.ID;
                 int id = mPair.Device.IDByBus + variables.mPairDeviceIDByBus_lolBeam;
                 if (ConfigManager.GeneralConfig.lolMinerOldEnumeration)
-                    id = mPair.Device.IDByBus;
+                    id = mPair.Device.ID;
                 if (id < 0)
                 {
                     Helpers.ConsolePrint("lolMinerIndexing", "ID too low: " + id + " skipping device");
@@ -311,7 +311,7 @@ namespace NiceHashMiner.Miners
                     int k = outdata.IndexOf("sol/s");
                     hashSpeed = outdata.Substring(i + 21, k - i - 22).Trim();
                     try
-                    {
+                    { 
                         speed = speed + Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
                     }
                     catch
@@ -333,7 +333,7 @@ namespace NiceHashMiner.Miners
                     hashSpeed = outdata.Substring(i + 21, k - i - 22).Trim();
                     try
                     {
-                        speed = speed + Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                            speed = speed + Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
                     }
                     catch
                     {
@@ -355,7 +355,7 @@ namespace NiceHashMiner.Miners
                     hashSpeed = outdata.Substring(i + 21, k - i - 22).Trim();
                     try
                     {
-                        speed = speed + Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                            speed = speed + Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
                     }
                     catch
                     {
@@ -376,7 +376,7 @@ namespace NiceHashMiner.Miners
                     hashSpeed = outdata.Substring(i + 21, k - i - 22).Trim();
                     try
                     {
-                        speed = speed + Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                            speed = speed + Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
                     }
                     catch
                     {
@@ -388,7 +388,7 @@ namespace NiceHashMiner.Miners
                     count++;
                 }
             }
-            if (outdata.Contains("Share accepted") && speed != 0)
+            if ((outdata.Contains("Share accepted") && speed != 0 && count > 4) || (count > 8 && speed != 0))
             {
                 BenchmarkAlgorithm.BenchmarkSpeed = speed / count;
                 BenchmarkSignalFinnished = true;

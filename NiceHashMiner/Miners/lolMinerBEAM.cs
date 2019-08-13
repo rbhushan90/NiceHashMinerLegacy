@@ -132,7 +132,7 @@ namespace NiceHashMiner.Miners
             {
                 int id = mPair.Device.IDByBus + variables.mPairDeviceIDByBus_lolBeam;
                 if (ConfigManager.GeneralConfig.lolMinerOldEnumeration)
-                    id = mPair.Device.IDByBus;
+                    id = mPair.Device.ID;
                 if (id < 0)
                 {
                     Helpers.ConsolePrint("lolMinerBEAMIndexing", "ID too low: " + id + " skipping device");
@@ -181,7 +181,7 @@ namespace NiceHashMiner.Miners
                 count++;
             }
 
-            if (outdata.Contains("Share accepted") && speed != 0)
+            if ( (outdata.Contains("Share accepted") && speed != 0 && count > 4) || (count > 8 && speed != 0) )
             {
                 BenchmarkAlgorithm.BenchmarkSpeed = speed / count;
                 BenchmarkSignalFinnished = true;
