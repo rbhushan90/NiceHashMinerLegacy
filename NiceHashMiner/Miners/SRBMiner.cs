@@ -231,10 +231,10 @@ namespace NiceHashMiner.Miners
                 {
                     Helpers.ConsolePrint("poolsR.txt write error:", e.ToString());
                 }
-                return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --cnicehash true --apienable --apiport {ApiPort} --cpool {url} --cwallet {btcAdress}.{worker} --cpassword x --pools poolsR.txt";
+                return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --cnicehash true --apienable --apiport {ApiPort} --cpool {url} --cwallet {username} --cpassword x --pools poolsR.txt";
             }
 
-            return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --cnicehash true --apienable --apiport {ApiPort} --cpool {url} --cwallet {btcAdress}.{worker} --cpassword x --pools poolsV8.txt";
+            return $" {variant} --cgpuid {GetDevicesCommandString().TrimStart()} {extras} --cnicehash true --apienable --apiport {ApiPort} --cpool {url} --cwallet {username} --cpassword x --pools poolsV8.txt";
         }
 
         protected override string GetDevicesCommandString()
