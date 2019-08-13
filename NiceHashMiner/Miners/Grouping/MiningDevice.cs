@@ -167,16 +167,12 @@ namespace NiceHashMiner.Miners.Grouping
 
             // find max paying value and save key
             double maxProfit = 0;
+            if (ConfigManager.GeneralConfig.Force_mining_if_nonprofitable)
+            {
+                maxProfit = -1000000000000000;
+            }
             foreach (var algo in Algorithms)
             {
-                if (ConfigManager.GeneralConfig.Force_mining_if_nonprofitable)
-                {
-                    maxProfit = algo.CurrentProfit;
-                    MostProfitableAlgorithmType = algo.DualNiceHashID;
-                    MostProfitableMinerBaseType = algo.MinerBaseType;
-                }
-                else
-                {
                     if (maxProfit < algo.CurrentProfit)
                     {
                         maxProfit = algo.CurrentProfit;
@@ -184,7 +180,6 @@ namespace NiceHashMiner.Miners.Grouping
                         MostProfitableMinerBaseType = algo.MinerBaseType;
                         Helpers.ConsolePrint("PROFIT", "WARNING! Mining nonprofitable");
                     }
-                }
             }
 #if (SWITCH_TESTING)
             var devName = Device.GetFullName();
