@@ -144,6 +144,7 @@
             this.buttonSaveClose = new System.Windows.Forms.Button();
             this.buttonDefaults = new System.Windows.Forms.Button();
             this.buttonCloseNoSave = new System.Windows.Forms.Button();
+            this.checkBox_Force_mining_if_nonprofitable = new System.Windows.Forms.CheckBox();
             this.benchmarkLimitControlNVIDIA = new NiceHashMiner.Forms.Components.BenchmarkLimitControl();
             this.benchmarkLimitControlCPU = new NiceHashMiner.Forms.Components.BenchmarkLimitControl();
             this.benchmarkLimitControlAMD = new NiceHashMiner.Forms.Components.BenchmarkLimitControl();
@@ -710,6 +711,7 @@
             // 
             // groupBox_Main
             // 
+            this.groupBox_Main.Controls.Add(this.checkBox_Force_mining_if_nonprofitable);
             this.groupBox_Main.Controls.Add(this.pictureBox1);
             this.groupBox_Main.Controls.Add(this.label_BitcoinAddressNew);
             this.groupBox_Main.Controls.Add(this.textBox_BitcoinAddressNew);
@@ -1610,6 +1612,18 @@
             this.buttonCloseNoSave.UseVisualStyleBackColor = true;
             this.buttonCloseNoSave.Click += new System.EventHandler(this.ButtonCloseNoSave_Click);
             // 
+            // checkBox_Force_mining_if_nonprofitable
+            // 
+            this.checkBox_Force_mining_if_nonprofitable.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.checkBox_Force_mining_if_nonprofitable.Location = new System.Drawing.Point(154, 273);
+            this.checkBox_Force_mining_if_nonprofitable.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBox_Force_mining_if_nonprofitable.Name = "checkBox_Force_mining_if_nonprofitable";
+            this.checkBox_Force_mining_if_nonprofitable.Size = new System.Drawing.Size(188, 38);
+            this.checkBox_Force_mining_if_nonprofitable.TabIndex = 376;
+            this.checkBox_Force_mining_if_nonprofitable.Text = "Force mining if nonprofitable";
+            this.checkBox_Force_mining_if_nonprofitable.UseVisualStyleBackColor = true;
+            this.checkBox_Force_mining_if_nonprofitable.CheckedChanged += new System.EventHandler(this.checkBox_Force_mining_if_nonprofitable_CheckedChanged);
+            // 
             // benchmarkLimitControlNVIDIA
             // 
             this.benchmarkLimitControlNVIDIA.GroupName = "NVIDIA";
@@ -1880,5 +1894,6 @@
         private System.Windows.Forms.PictureBox pictureBox_NVIDIAP0State;
         private System.Windows.Forms.CheckBox checkBox_NVIDIAP0State;
         private System.Windows.Forms.CheckBox checkBox_Additional_info_about_device;
+        private System.Windows.Forms.CheckBox checkBox_Force_mining_if_nonprofitable;
     }
 }

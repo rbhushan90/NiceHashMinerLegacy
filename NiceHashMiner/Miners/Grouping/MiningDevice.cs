@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMiner.Configs;
 
 namespace NiceHashMiner.Miners.Grouping
 {
@@ -168,11 +169,21 @@ namespace NiceHashMiner.Miners.Grouping
             double maxProfit = 0;
             foreach (var algo in Algorithms)
             {
-                if (maxProfit < algo.CurrentProfit)
+                if (ConfigManager.GeneralConfig.Force_mining_if_nonprofitable)
                 {
                     maxProfit = algo.CurrentProfit;
                     MostProfitableAlgorithmType = algo.DualNiceHashID;
                     MostProfitableMinerBaseType = algo.MinerBaseType;
+                }
+                else
+                {
+                    if (maxProfit < algo.CurrentProfit)
+                    {
+                        maxProfit = algo.CurrentProfit;
+                        MostProfitableAlgorithmType = algo.DualNiceHashID;
+                        MostProfitableMinerBaseType = algo.MinerBaseType;
+                        Helpers.ConsolePrint("PROFIT", "WARNING! Mining nonprofitable");
+                    }
                 }
             }
 #if (SWITCH_TESTING)

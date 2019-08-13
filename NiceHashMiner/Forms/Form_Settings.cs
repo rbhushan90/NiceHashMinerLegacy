@@ -387,6 +387,7 @@ namespace NiceHashMiner.Forms
                 checkBox_Allow_remote_management.Text = "Разрешить удаленное управление";
                 checkBox_Send_actual_version_info.Text = "Отправлять инфо о версии программы";
                 checkBox_Additional_info_about_device.Text = "Дополнительная информация об устройстве";
+                checkBox_Force_mining_if_nonprofitable.Text = "Принудительный майнинг, если не прибыльно";
             }
 
 
@@ -395,8 +396,23 @@ namespace NiceHashMiner.Forms
             {
                 var i = 0;
                 foreach (var loc in Globals.MiningLocation)
-                    comboBox_ServiceLocation.Items[i++] = International.GetText("LocationName_" + loc);
+                {
+                    if (i != 6)
+                    {
+                        comboBox_ServiceLocation.Items[i++] = International.GetText("LocationName_" + loc);
+                    }
+                    else
+                    {
+                        comboBox_ServiceLocation.Items[i++] = "Auto";
+                    }
+                }
             }
+//            label_ServiceLocation.Text = International.GetText("Service_Location") + ":";
+  //          {
+    //            var i = 0;
+      //          foreach (var loc in Globals.MiningLocation)
+        //            comboBox_ServiceLocation.Items[i++] = International.GetText("LocationName_" + loc);
+          //  }
             label_MinIdleSeconds.Text = International.GetText("Form_Settings_General_MinIdleSeconds") + ":";
             label_MinerRestartDelayMS.Text = International.GetText("Form_Settings_General_MinerRestartDelayMS") + ":";
             label_MinerAPIQueryInterval.Text =
@@ -496,6 +512,7 @@ namespace NiceHashMiner.Forms
                 checkBox_RunScriptOnCUDA_GPU_Lost.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_Allow_remote_management.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_Send_actual_version_info.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
+                checkBox_Force_mining_if_nonprofitable.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_Additional_info_about_device.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_AMD_DisableAMDTempControl.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
             }
@@ -589,6 +606,7 @@ namespace NiceHashMiner.Forms
                 checkBox_RunScriptOnCUDA_GPU_Lost.Checked = ConfigManager.GeneralConfig.RunScriptOnCUDA_GPU_Lost;
                 checkBox_Allow_remote_management.Checked = ConfigManager.GeneralConfig.Allow_remote_management;
                 checkBox_Send_actual_version_info.Checked = ConfigManager.GeneralConfig.Send_actual_version_info;
+                checkBox_Force_mining_if_nonprofitable.Checked = ConfigManager.GeneralConfig.Force_mining_if_nonprofitable;
                 checkBox_Additional_info_about_device.Checked = ConfigManager.GeneralConfig.Additional_info_about_device;
             }
 
@@ -715,6 +733,7 @@ namespace NiceHashMiner.Forms
             ConfigManager.GeneralConfig.RunScriptOnCUDA_GPU_Lost = checkBox_RunScriptOnCUDA_GPU_Lost.Checked;
             ConfigManager.GeneralConfig.Allow_remote_management = checkBox_Allow_remote_management.Checked;
             ConfigManager.GeneralConfig.Send_actual_version_info = checkBox_Send_actual_version_info.Checked;
+            ConfigManager.GeneralConfig.Force_mining_if_nonprofitable = checkBox_Force_mining_if_nonprofitable.Checked;
             ConfigManager.GeneralConfig.Additional_info_about_device = checkBox_Additional_info_about_device.Checked;
             ConfigManager.GeneralConfig.DisableAMDTempControl = checkBox_AMD_DisableAMDTempControl.Checked;
         }
@@ -1110,6 +1129,11 @@ namespace NiceHashMiner.Forms
         }
 
         private void algorithmSettingsControl1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox_Force_mining_if_nonprofitable_CheckedChanged(object sender, EventArgs e)
         {
 
         }
