@@ -715,7 +715,14 @@ namespace NiceHashMiner.Stats
                     foreach (var algo in data)
                     {
                         var algoKey = (AlgorithmType) algo[0].Value<int>();
-                        payingDict[algoKey] = algo[1].Value<double>();
+                        if (ConfigManager.GeneralConfig.UseNegativeProfit)
+                        {
+                            payingDict[algoKey] = Math.Abs(algo[1].Value<double>());
+                        }
+                        else
+                        {
+                            payingDict[algoKey] = algo[1].Value<double>();
+                        }
                     }
                 }
 
