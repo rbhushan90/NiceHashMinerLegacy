@@ -175,7 +175,7 @@ namespace NiceHashMiner
             groupBox1.Text = International.GetText("Form_Main_Group_Device_Rates");
         }
 
-        private void InitMainConfigGuiData()
+        public void InitMainConfigGuiData()
         {
             if (ConfigManager.GeneralConfig.ServiceLocation >= 0 &&
                 //ConfigManager.GeneralConfig.ServiceLocation < Globals.MiningLocation.Length)
@@ -1441,6 +1441,13 @@ namespace NiceHashMiner
                 NiceHashStats.remoteMiningStop = false;
                 StopMining();
             }
+            if (NiceHashStats.remoteUpdateUI)
+            {
+                NiceHashStats.remoteUpdateUI = false;
+                InitMainConfigGuiData();
+                ConfigManager.GeneralConfigFileCommit();
+            }
+            
             //_remoteTimer.Stop();
             //_remoteTimer= null;
         }

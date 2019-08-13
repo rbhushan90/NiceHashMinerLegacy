@@ -103,6 +103,7 @@ namespace NiceHashMiner.Stats
 
         public static bool remoteMiningStart = false;
         public static bool remoteMiningStop = false;
+        public static bool remoteUpdateUI = false;
 
 
         public static void StartConnection(string address)
@@ -295,10 +296,10 @@ namespace NiceHashMiner.Stats
                             RemoteMiningNotImplemented(message.id.Value.ToString());
                             break;
                         case "mining.enable":
-                            RemoteMiningNotImplemented(message.id.Value.ToString());
+                            RemoteMiningEnable(message.id.Value.ToString(), message.device.Value.ToString(), true);
                             break;
                         case "mining.disable":
-                            RemoteMiningNotImplemented(message.id.Value.ToString());
+                            RemoteMiningEnable(message.id.Value.ToString(), message.device.Value.ToString(), false);
                             break;
                         case "mining.set.power_mode":
                             RemoteMiningNotImplemented(message.id.Value.ToString());
@@ -356,7 +357,66 @@ namespace NiceHashMiner.Stats
             public string Method { get; set; }
             public IList<IList<object>> Data { get; set; }
         }
+        public static async Task RemoteMiningEnable(string id, string deviceToSwitch, bool Enabled)
+        {
+            if (!ConfigManager.GeneralConfig.Allow_remote_management)
+            {
+                Helpers.ConsolePrint("REMOTE", "Remote management disabled");
+                var cExecutedDisabled = "{\"method\":\"executed\",\"params\":[" + id + ",1,\"Remote management disabled\"]}";
+                await _socket.SendData(cExecutedDisabled);
+                return;
+            }
+            Helpers.ConsolePrint("REMOTE", "id: "+id+" device: "+ deviceToSwitch);
 
+            string type;
+            string b64Web;
+            string nuuid = "";
+            var devices = ComputeDeviceManager.Available.Devices;
+            var deviceList = new JArray();
+            foreach (var device in devices)
+            {
+                try
+                {
+                    if (device.DeviceType == DeviceType.CPU)
+                    {
+                        type = "1";
+                        b64Web = UUID.GetB64UUID(device.NewUuid);
+                        nuuid = $"{type}-{b64Web}";
+                    }
+                    if (device.DeviceType == DeviceType.NVIDIA)
+                    {
+                        type = "2";
+                        b64Web = UUID.GetB64UUID(device.Uuid);
+                        nuuid = $"{type}-{b64Web}";
+                    }
+                    if (device.DeviceType == DeviceType.AMD)
+                    {
+                        type = "3";
+                        var uuidHEX = UUID.GetHexUUID(device.Uuid);//это не правильный uuid, но будет работать
+                        var Newuuid = $"AMD-{uuidHEX}";
+                        b64Web = UUID.GetB64UUID(Newuuid);
+                        nuuid = $"{type}-{b64Web}";
+                    }
+                    var deviceName = device.Name;
+                    device.Enabled = Enabled;
+                    remoteUpdateUI = true;
+                    /*
+                    if (rigStatus != "PENDING")
+                    {
+                        deviceName = "";
+                    }
+                    */
+
+                }
+                catch (Exception e) { Helpers.ConsolePrint("REMOTE", e.ToString()); }
+            }
+
+
+            //var cExecutedNotImplemented = "{\"method\":\"executed\",\"params\":[" + id + ",1,\"Not implemented in Fork Fix " + ConfigManager.GeneralConfig.ForkFixVersion.ToString().Replace(",", ".") + "\"]}";
+            var cExecuted = "{\"method\":\"executed\",\"params\":[" + id + ",0]}";
+            await _socket.SendData(cExecuted);
+            return;
+        }
         public static async Task RemoteMiningNotImplemented(string id)
         {
             if (!ConfigManager.GeneralConfig.Allow_remote_management)
@@ -853,21 +913,25 @@ namespace NiceHashMiner.Stats
                     Helpers.ConsolePrint("DEVICE", device.Uuid);
                     Helpers.ConsolePrint("DEVICE", device.NewUuid);
                     */
+                    int status = 0;
                     if (device.DeviceType == DeviceType.CPU)
                     {
                         type = "1";
+                        status = 8;
                         b64Web = UUID.GetB64UUID(device.NewUuid);
                         nuuid = $"{type}-{b64Web}";
                     }
                     if (device.DeviceType == DeviceType.NVIDIA)
                     {
                         type = "2";
+                        status = 16;
                         b64Web = UUID.GetB64UUID(device.Uuid);
                         nuuid = $"{type}-{b64Web}";
                     }
                     if (device.DeviceType == DeviceType.AMD)
                     {
                         type = "3";
+                        status = 24;
                         var uuidHEX = UUID.GetHexUUID(device.Uuid);//это не правильный uuid, но будет работать
                         var Newuuid = $"AMD-{uuidHEX}";
                         b64Web = UUID.GetB64UUID(Newuuid);
@@ -890,10 +954,10 @@ namespace NiceHashMiner.Stats
                     //var status = Convert.ToInt32(activeIDs.Contains(device.Index)) + ((int)device.DeviceType + 1) * 2;
 
                     //var status = ((int)device.DeviceType + 9) + Convert.ToInt32(Miner.IsRunningNew);
-                    var status =  9;
-                    if (device.Enabled)
+                    //var status =  9;
+                    //if (device.Enabled)
                     {
-                        status = 9 + Convert.ToInt32(Miner.IsRunningNew);
+                        status = status + Convert.ToInt32(Miner.IsRunningNew) + Convert.ToInt32(device.Enabled);
                     }
                     //var status = 9;
                     array.Add(status);
