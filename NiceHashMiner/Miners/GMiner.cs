@@ -72,11 +72,13 @@ namespace NiceHashMiner.Miners
         {
             var algo ="";
             var algoName = "";
+            var pers = "";
             string username = GetUsername(btcAddress, worker);
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
                     {
                         algo = "144_5";
                         algoName = "zhash";
+                pers = " --pers auto ";
                     }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
                     {
@@ -111,7 +113,7 @@ namespace NiceHashMiner.Miners
             }
 
             var ret = GetDevicesCommandString()
-                      + " --algo " + algo + " --server " + url.Split(':')[0]
+                      + " --algo " + algo + pers + " --server " + url.Split(':')[0]
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
                       + " --server " + algoName + ".hk" + nhsuff + ".nicehash.com"
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]

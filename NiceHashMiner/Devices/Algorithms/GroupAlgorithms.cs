@@ -390,14 +390,24 @@ namespace NiceHashMiner.Devices.Algorithms
             {
                 foreach (var algo in algoSettings[MinerBaseType.GMiner])
                 {
-                    if (algo.NiceHashID == AlgorithmType.GrinCuckatoo31 && device.DeviceType == DeviceType.NVIDIA && device.GpuRam > 1024 * 1024 * 1024 * 7.4)
+                    if (algo.NiceHashID == AlgorithmType.GrinCuckatoo31 && device.DeviceType == DeviceType.NVIDIA && device.GpuRam < 1024 * 1024 * 1024 * 7.4)
                     {
-                        algo.Enabled = true;
-                        algo.Hidden = false;
+                        algo.Enabled = false;
+                        algo.Hidden = true;
                     }
                 }
             }
-
+            if (algoSettings.ContainsKey(MinerBaseType.NBMiner))
+            {
+                foreach (var algo in algoSettings[MinerBaseType.NBMiner])
+                {
+                    if (algo.NiceHashID == AlgorithmType.GrinCuckatoo31 && device.DeviceType == DeviceType.NVIDIA && device.GpuRam < 1024 * 1024 * 1024 * 7.4)
+                    {
+                        algo.Enabled = false;
+                        algo.Hidden = true;
+                    }
+                }
+            }
             /*
             if (algoSettings.ContainsKey(MinerBaseType.lolMiner) && device.GpuRam < 1024 * 1024 * 1024 * 3.4 )
             {

@@ -161,7 +161,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 2;
+                TotalCount = 3;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -174,7 +174,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 3;
+                TotalCount = 2;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -245,7 +245,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 3;
+                TotalCount = 2;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -291,7 +291,8 @@ namespace NiceHashMiner.Miners
                 algo = "--algo cuckaroo29";
                 commandLine = algo +
                 " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
-                " -o stratum+tcp://grin.sparkpool.com:6666" + " -u angelbbs@mail.ru/" + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
+                " --url=stratum+tcp://" + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                //" -o stratum+tcp://grin.sparkpool.com:6666" + " -u angelbbs@mail.ru/" + ConfigManager.GeneralConfig.WorkerName.Trim() + " -p x " +
                 " --log " + GetLogFileName() +
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
@@ -343,9 +344,11 @@ namespace NiceHashMiner.Miners
                         var st = outdata.IndexOf("Avr ");
                         var e = outdata.ToUpper().IndexOf("GH/S)");
                         var parse = outdata.Substring(st + 4, e - st - 4).Trim().Replace(",",".");
+                    if (count > 0)//skip first
+                    {
                         tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                         tmp *= 10000000000;
-
+                    }
                         speed += tmp;
                         count++;
                         TotalCount--;
@@ -355,9 +358,11 @@ namespace NiceHashMiner.Miners
                     var st = outdata.IndexOf("Avr ");
                         var e = outdata.ToUpper().IndexOf("MH/S)");
                         var parse = outdata.Substring(st + 4, e - st - 4).Trim().Replace(",", ".");
+                    if (count > 0)//skip first
+                    {
                         tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                         tmp *= 1000000;
-
+                    }
                         speed += tmp;
                         count++;
                         TotalCount--;
@@ -367,9 +372,11 @@ namespace NiceHashMiner.Miners
                     var st = outdata.IndexOf("Avr ");
                         var e = outdata.ToUpper().IndexOf("KH/S)");
                         var parse = outdata.Substring(st + 4, e - st - 4).Trim().Replace(",", ".");
+                    if (count > 0)//skip first
+                    {
                         tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                         tmp *= 1000;
-
+                    }
                         speed += tmp;
                         count++;
                         TotalCount--;
@@ -380,8 +387,10 @@ namespace NiceHashMiner.Miners
                     var st = outdata.IndexOf("Avr ");
                         var e = outdata.ToUpper().IndexOf("H/S)");
                         var parse = outdata.Substring(st + 4, e - st - 4).Trim().Replace(",", ".");
+                    if (count > 0)//skip first
+                    {
                         tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
-
+                    }
                         speed += tmp;
                         count++;
                         TotalCount--;
@@ -390,7 +399,7 @@ namespace NiceHashMiner.Miners
 norm:
                     if (TotalCount <= 0 && speed > 0.0d)
                     {
-                    BenchmarkAlgorithm.BenchmarkSpeed = speed / count;
+                    BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 1);
                     BenchmarkSignalFinnished = true;
                     return true;
                     }
