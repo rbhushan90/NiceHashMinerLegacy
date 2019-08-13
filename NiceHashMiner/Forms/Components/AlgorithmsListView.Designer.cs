@@ -60,7 +60,7 @@
             // columnHeader0
             // 
             this.columnHeader0.Text = "Enabled";
-            this.columnHeader0.Width = 32;
+            this.columnHeader0.Width = 24;
             // 
             // columnHeader1
             // 
@@ -71,22 +71,23 @@
             // 
             this.columnHeader2.Text = "Speed";
             this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader2.Width = 110;
+            this.columnHeader2.Width = 90;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Secondary Speed";
             this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader3.Width = 90;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Ratio BTC/GH/Day";
-            this.columnHeader4.Width = 97;
+            this.columnHeader4.Width = 110;
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "BTC/Day";
-            this.columnHeader5.Width = 134;
+            this.columnHeader5.Width = 150;
             // 
             // contextMenuStrip1
             // 

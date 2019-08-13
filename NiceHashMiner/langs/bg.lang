@@ -191,7 +191,7 @@
 
         "Form_Settings_Algo_Skip": "Прескачане",
         "Form_Settings_Algo_BenchmarkSpeed": "Тествана скорост (H/s)",
-        "Form_Settings_Algo_SecondaryBenchmarkSpeed": "Вторична тествана скорост (H/s)",
+        "Form_Settings_Algo_SecondaryBenchmarkSpeed": "Вторична скорост (H/s)",
 
         "Form_Settings_LessThreadWarningTitle": "Невалидна стойност за 'Свободни нишки'!",
         "Form_Settings_LessThreadWarningMsg": "Грешка! Въведете валидна стойност за параметъра 'Свободни нишки'.",

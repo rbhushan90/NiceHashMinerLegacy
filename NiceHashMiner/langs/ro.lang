@@ -191,7 +191,7 @@
 
         "Form_Settings_Algo_Skip": "Sări peste",
         "Form_Settings_Algo_BenchmarkSpeed": "Viteză Benchmark (H/s)",
-        "Form_Settings_Algo_SecondaryBenchmarkSpeed": "Viteză Secundară Benchmark (H/s)",
+        "Form_Settings_Algo_SecondaryBenchmarkSpeed": "Viteză Secundară (H/s)",
 
         "Form_Settings_LessThreadWarningTitle": "Număr invalid pentru LessThreads!",
         "Form_Settings_LessThreadWarningMsg": "Eroare! Introduceți un număr valid pentru LessThreads.",

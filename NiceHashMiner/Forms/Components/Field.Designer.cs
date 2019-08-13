@@ -41,15 +41,15 @@
             // 
             // textBox
             // 
-            this.textBox.Location = new System.Drawing.Point(3, 24);
+            this.textBox.Location = new System.Drawing.Point(147, 3);
             this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(214, 20);
+            this.textBox.Size = new System.Drawing.Size(102, 20);
             this.textBox.TabIndex = 7;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox1.Location = new System.Drawing.Point(197, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(255, 4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(20, 19);
             this.pictureBox1.TabIndex = 8;
@@ -65,7 +65,7 @@
             this.Controls.Add(this.labelFieldIndicator);
             this.Controls.Add(this.textBox);
             this.Name = "Field";
-            this.Size = new System.Drawing.Size(220, 48);
+            this.Size = new System.Drawing.Size(278, 28);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

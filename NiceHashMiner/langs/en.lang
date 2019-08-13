@@ -193,7 +193,7 @@
         "Form_Settings_Algo_Skip": "Skip",
         "Form_Settings_Algo_PowerUsage": "Power Usage (W)", 
         "Form_Settings_Algo_BenchmarkSpeed": "Benchmark Speed (H/s)",
-        "Form_Settings_Algo_SecondaryBenchmarkSpeed": "Secondary Benchmark Speed (H/s)",
+        "Form_Settings_Algo_SecondaryBenchmarkSpeed": "Secondary Speed (H/s)",
 
         "Form_Settings_LessThreadWarningTitle": "Invalid number for LessThreads!",
         "Form_Settings_LessThreadWarningMsg": "Error! Please input a valid number for LessThreads.",

@@ -187,7 +187,7 @@
 
         "Form_Settings_Algo_Skip": "Pomiń",
         "Form_Settings_Algo_BenchmarkSpeed": "Zmierzone tempo (H/s)",
-        "Form_Settings_Algo_SecondaryBenchmarkSpeed": "Zmierzone tempo dodatkowe (H/s)",
+        "Form_Settings_Algo_SecondaryBenchmarkSpeed": "Zmierzone dodatkowe (H/s)",
 
         "Form_Settings_LessThreadWarningTitle": "Nieprawidłowa liczba dla LessThreads!",
         "Form_Settings_LessThreadWarningMsg": "Błąd! Wprowadź prawidłową wartość dla LessThreads.",

@@ -190,11 +190,11 @@ namespace NiceHashMiner.Forms
                 International.GetText("Form_Settings_ToolTip_APIBindPortStart"));
             toolTip1.SetToolTip(pictureBox_APIBindPortStart,
                 International.GetText("Form_Settings_ToolTip_APIBindPortStart"));
-
+            /*
             toolTip1.SetToolTip(comboBox_DagLoadMode, International.GetText("Form_Settings_ToolTip_DagGeneration"));
             toolTip1.SetToolTip(label_DagGeneration, International.GetText("Form_Settings_ToolTip_DagGeneration"));
             toolTip1.SetToolTip(pictureBox_DagGeneration, International.GetText("Form_Settings_ToolTip_DagGeneration"));
-
+            */
             benchmarkLimitControlCPU.SetToolTip(ref toolTip1, "CPUs");
             benchmarkLimitControlNVIDIA.SetToolTip(ref toolTip1, "NVIDIA GPUs");
             benchmarkLimitControlAMD.SetToolTip(ref toolTip1, "AMD GPUs");
@@ -269,14 +269,14 @@ namespace NiceHashMiner.Forms
             toolTip1.SetToolTip(pictureBox_AutoStartMining,
                 International.GetText("Form_Settings_ToolTip_checkBox_AutoStartMining"));
 
-
+            /*
             toolTip1.SetToolTip(textBox_ethminerDefaultBlockHeight,
                 International.GetText("Form_Settings_ToolTip_ethminerDefaultBlockHeight"));
             toolTip1.SetToolTip(label_ethminerDefaultBlockHeight,
                 International.GetText("Form_Settings_ToolTip_ethminerDefaultBlockHeight"));
             toolTip1.SetToolTip(pictureBox_ethminerDefaultBlockHeight,
                 International.GetText("Form_Settings_ToolTip_ethminerDefaultBlockHeight"));
-
+                */
             toolTip1.SetToolTip(label_displayCurrency, International.GetText("Form_Settings_ToolTip_DisplayCurrency"));
             toolTip1.SetToolTip(pictureBox_displayCurrency,
                 International.GetText("Form_Settings_ToolTip_DisplayCurrency"));
@@ -284,13 +284,14 @@ namespace NiceHashMiner.Forms
                 International.GetText("Form_Settings_ToolTip_DisplayCurrency"));
 
             // Setup Tooltips CPU
+            /*
             toolTip1.SetToolTip(comboBox_CPU0_ForceCPUExtension,
                 International.GetText("Form_Settings_ToolTip_CPU_ForceCPUExtension"));
             toolTip1.SetToolTip(label_CPU0_ForceCPUExtension,
                 International.GetText("Form_Settings_ToolTip_CPU_ForceCPUExtension"));
             toolTip1.SetToolTip(pictureBox_CPU0_ForceCPUExtension,
                 International.GetText("Form_Settings_ToolTip_CPU_ForceCPUExtension"));
-
+                */
             // amd disable temp control
             toolTip1.SetToolTip(checkBox_AMD_DisableAMDTempControl,
                 International.GetText("Form_Settings_ToolTip_DisableAMDTempControl"));
@@ -405,10 +406,11 @@ namespace NiceHashMiner.Forms
             label_SwitchMaxSeconds.Text =
                 International.GetText("Form_Settings_General_SwitchMaxSeconds") + ":";
             label_SwitchMinSeconds.Text = International.GetText("Form_Settings_General_SwitchMinSeconds") + ":";
-
+            /*
             label_ethminerDefaultBlockHeight.Text =
                 International.GetText("Form_Settings_General_ethminerDefaultBlockHeight") + ":";
             label_DagGeneration.Text = International.GetText("Form_Settings_DagGeneration") + ":";
+            */
             label_APIBindPortStart.Text = International.GetText("Form_Settings_APIBindPortStart") + ":";
 
             label_MinProfit.Text = International.GetText("Form_Settings_General_MinimumProfit") + ":";
@@ -439,8 +441,10 @@ namespace NiceHashMiner.Forms
             algorithmsListView1.InitLocale();
 
             // Setup Tooltips CPU
+            /*
             label_CPU0_ForceCPUExtension.Text =
                 International.GetText("Form_Settings_General_CPU_ForceCPUExtension") + ":";
+                */
             // new translations
             tabControlGeneral.TabPages[0].Text = International.GetText("FormSettings_Tab_General");
             tabControlGeneral.TabPages[1].Text = International.GetText("FormSettings_Tab_Advanced");
@@ -508,7 +512,7 @@ namespace NiceHashMiner.Forms
                 textBox_MinerRestartDelayMS.Leave += GeneralTextBoxes_Leave;
                 textBox_MinIdleSeconds.Leave += GeneralTextBoxes_Leave;
                 textBox_LogMaxFileSize.Leave += GeneralTextBoxes_Leave;
-                textBox_ethminerDefaultBlockHeight.Leave += GeneralTextBoxes_Leave;
+         //       textBox_ethminerDefaultBlockHeight.Leave += GeneralTextBoxes_Leave;
                 textBox_APIBindPortStart.Leave += GeneralTextBoxes_Leave;
                 textBox_MinProfit.Leave += GeneralTextBoxes_Leave;
                 textBox_ElectricityCost.Leave += GeneralTextBoxes_Leave;
@@ -519,7 +523,7 @@ namespace NiceHashMiner.Forms
                 textBox_MinerRestartDelayMS.KeyPress += TextBoxKeyPressEvents.TextBoxIntsOnly_KeyPress;
                 textBox_MinIdleSeconds.KeyPress += TextBoxKeyPressEvents.TextBoxIntsOnly_KeyPress;
                 textBox_LogMaxFileSize.KeyPress += TextBoxKeyPressEvents.TextBoxIntsOnly_KeyPress;
-                textBox_ethminerDefaultBlockHeight.KeyPress += TextBoxKeyPressEvents.TextBoxIntsOnly_KeyPress;
+         //       textBox_ethminerDefaultBlockHeight.KeyPress += TextBoxKeyPressEvents.TextBoxIntsOnly_KeyPress;
                 textBox_APIBindPortStart.KeyPress += TextBoxKeyPressEvents.TextBoxIntsOnly_KeyPress;
                 // set double only keypress
                 textBox_MinProfit.KeyPress += TextBoxKeyPressEvents.TextBoxDoubleOnly_KeyPress;
@@ -530,14 +534,17 @@ namespace NiceHashMiner.Forms
                 comboBox_Language.Leave += GeneralComboBoxes_Leave;
                 comboBox_ServiceLocation.Leave += GeneralComboBoxes_Leave;
                 comboBox_TimeUnit.Leave += GeneralComboBoxes_Leave;
-                comboBox_DagLoadMode.Leave += GeneralComboBoxes_Leave;
+          //      comboBox_DagLoadMode.Leave += GeneralComboBoxes_Leave;
             }
 
             // CPU exceptions
+            /*
             comboBox_CPU0_ForceCPUExtension.SelectedIndex = (int) ConfigManager.GeneralConfig.ForceCPUExtension;
             comboBox_CPU0_ForceCPUExtension.SelectedIndexChanged +=
                 ComboBox_CPU0_ForceCPUExtension_SelectedIndexChanged;
+                */
             // fill dag dropdown
+            /*
             comboBox_DagLoadMode.Items.Clear();
             for (var i = 0; i < (int) DagGenerationType.END; ++i)
             {
@@ -546,6 +553,7 @@ namespace NiceHashMiner.Forms
 
             // set selected
             comboBox_DagLoadMode.SelectedIndex = (int) ConfigManager.GeneralConfig.EthminerDagGenerationType;
+            */
         }
 
         private void InitializeGeneralTabFieldValuesReferences()
@@ -597,8 +605,10 @@ namespace NiceHashMiner.Forms
                 textBox_MinerRestartDelayMS.Text = ConfigManager.GeneralConfig.MinerRestartDelayMS.ToString();
                 textBox_MinIdleSeconds.Text = ConfigManager.GeneralConfig.MinIdleSeconds.ToString();
                 textBox_LogMaxFileSize.Text = ConfigManager.GeneralConfig.LogMaxFileSize.ToString();
+                /*
                 textBox_ethminerDefaultBlockHeight.Text =
                     ConfigManager.GeneralConfig.ethminerDefaultBlockHeight.ToString();
+                    */
                 textBox_APIBindPortStart.Text = ConfigManager.GeneralConfig.ApiBindPortPoolStart.ToString();
                 textBox_MinProfit.Text =
                     ConfigManager.GeneralConfig.MinimumProfit.ToString("F2").Replace(',', '.'); // force comma;
@@ -815,8 +825,10 @@ namespace NiceHashMiner.Forms
             ConfigManager.GeneralConfig.MinerRestartDelayMS = Helpers.ParseInt(textBox_MinerRestartDelayMS.Text);
             ConfigManager.GeneralConfig.MinIdleSeconds = Helpers.ParseInt(textBox_MinIdleSeconds.Text);
             ConfigManager.GeneralConfig.LogMaxFileSize = Helpers.ParseLong(textBox_LogMaxFileSize.Text);
+            /*
             ConfigManager.GeneralConfig.ethminerDefaultBlockHeight =
                 Helpers.ParseInt(textBox_ethminerDefaultBlockHeight.Text);
+                */
             ConfigManager.GeneralConfig.ApiBindPortPoolStart = Helpers.ParseInt(textBox_APIBindPortStart.Text);
             // min profit
             ConfigManager.GeneralConfig.MinimumProfit = Helpers.ParseDouble(textBox_MinProfit.Text);
@@ -840,7 +852,7 @@ namespace NiceHashMiner.Forms
             textBox_MinerRestartDelayMS.Text = ConfigManager.GeneralConfig.MinerRestartDelayMS.ToString();
             textBox_MinIdleSeconds.Text = ConfigManager.GeneralConfig.MinIdleSeconds.ToString();
             textBox_LogMaxFileSize.Text = ConfigManager.GeneralConfig.LogMaxFileSize.ToString();
-            textBox_ethminerDefaultBlockHeight.Text = ConfigManager.GeneralConfig.ethminerDefaultBlockHeight.ToString();
+      //      textBox_ethminerDefaultBlockHeight.Text = ConfigManager.GeneralConfig.ethminerDefaultBlockHeight.ToString();
             textBox_APIBindPortStart.Text = ConfigManager.GeneralConfig.ApiBindPortPoolStart.ToString();
             textBox_ElectricityCost.Text = ConfigManager.GeneralConfig.KwhPrice.ToString("0.0000");
         }
@@ -852,8 +864,10 @@ namespace NiceHashMiner.Forms
             ConfigManager.GeneralConfig.Language = (LanguageType) comboBox_Language.SelectedIndex;
             ConfigManager.GeneralConfig.ServiceLocation = comboBox_ServiceLocation.SelectedIndex;
             ConfigManager.GeneralConfig.TimeUnit = (TimeUnitType) comboBox_TimeUnit.SelectedIndex;
+            /*
             ConfigManager.GeneralConfig.EthminerDagGenerationType =
                 (DagGenerationType) comboBox_DagLoadMode.SelectedIndex;
+                */
         }
 
         private void ComboBox_CPU0_ForceCPUExtension_SelectedIndexChanged(object sender, EventArgs e)
@@ -1091,6 +1105,11 @@ namespace NiceHashMiner.Forms
         }
 
         private void checkBox_Send_actual_version_info_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void algorithmSettingsControl1_Load(object sender, EventArgs e)
         {
 
         }

@@ -191,7 +191,7 @@
 
         "Form_Settings_Algo_Skip": "Salta",
         "Form_Settings_Algo_BenchmarkSpeed": "Velocità Benchmark (H/s)",
-        "Form_Settings_Algo_SecondaryBenchmarkSpeed": "Velocità Benchmark Secondaria (H/s)",
+        "Form_Settings_Algo_SecondaryBenchmarkSpeed": "Velocità Secondaria (H/s)",
 
         "Form_Settings_LessThreadWarningTitle": "Numero non valido!",
         "Form_Settings_LessThreadWarningMsg": "Errore! Inserisci un numero valido per LessThreads.",
