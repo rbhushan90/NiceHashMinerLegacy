@@ -182,7 +182,8 @@ namespace NiceHashMiner.Miners
                 ret = GetDevicesCommandString() + ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA)
                       + "  --log-file=" + GetLogFileName()
                       + " --pers auto --par=" + algo
-                      + " --url ssl://2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + "@beam-eu.sparkpool.com:2222"
+                      + " --url ssl://2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + "@beam.f2pool.com:5000"
+                      //+ " --url ssl://2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + "@beam-eu.sparkpool.com:2222"
                       + " --url " + username + "@" + algoName + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + stratumPort
                       + " --url " + username + "@" + algoName + "." + myServers[1, 0] + nhsuff + ".nicehash.com:" + stratumPort
                       + " --url " + username + "@" + algoName + "." + myServers[2, 0] + nhsuff + ".nicehash.com:" + stratumPort
@@ -191,6 +192,25 @@ namespace NiceHashMiner.Miners
                       + " --url " + username + "@" + algoName + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + stratumPort
                       + " --pass=x" + " --telemetry=" + ApiPort;
                 _benchmarkTimeWait = 120; 
+            }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.BeamV2)
+            {
+                algo = "150,5";
+                algoName = "beam";
+                stratumPort = "3370";
+                ret = GetDevicesCommandString() + ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA)
+                      + "  --log-file=" + GetLogFileName()
+                      + " --pers auto --par=" + algo
+                      + " --url ssl://2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + "@beam.f2pool.com:5000"
+                      //+ " --url ssl://2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + "@beam-eu.sparkpool.com:2222"
+                      + " --url " + username + "@" + algoName + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[1, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[2, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[3, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --pass=x" + " --telemetry=" + ApiPort;
+                _benchmarkTimeWait = 120;
             }
 
             return ret;

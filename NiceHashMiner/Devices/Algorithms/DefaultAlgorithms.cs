@@ -188,6 +188,10 @@ namespace NiceHashMiner.Devices.Algorithms
                     {
                                 //ExtraLaunchParameters = "--pec 1 "
                     },
+                    new Algorithm(MinerBaseType.GMiner, AlgorithmType.BeamV2, "")
+                    {
+                                //ExtraLaunchParameters = "--pec 1 "
+                    },
                     new Algorithm(MinerBaseType.GMiner, AlgorithmType.ZHash, "")
                     {
                     },
@@ -227,6 +231,10 @@ namespace NiceHashMiner.Devices.Algorithms
                     { MinerBaseType.lolMiner,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.lolMiner, AlgorithmType.ZHash, "ZHash")
+                            {
+                                ExtraLaunchParameters = "--asm 1 "
+                            },
+                            new Algorithm(MinerBaseType.lolMiner, AlgorithmType.BeamV2, "BeamV2")
                             {
                                 ExtraLaunchParameters = "--asm 1 "
                             },
@@ -386,7 +394,11 @@ namespace NiceHashMiner.Devices.Algorithms
                             {
                                 //ExtraLaunchParameters = "--mode=3 --extra "
                             },
-                            new Algorithm(MinerBaseType.miniZ, AlgorithmType.ZHash, "ZHash")
+                            new Algorithm(MinerBaseType.miniZ, AlgorithmType.BeamV2, "BeamV2")
+                            {
+                                //ExtraLaunchParameters = "--mode=3 --extra "
+                            },
+                             new Algorithm(MinerBaseType.miniZ, AlgorithmType.ZHash, "ZHash")
                             {
                               //  ExtraLaunchParameters = "--mode=3 --extra "
                             },
@@ -436,6 +448,10 @@ namespace NiceHashMiner.Devices.Algorithms
                                 //ExtraLaunchParameters = "--pec 1 "
                     },
                     new Algorithm(MinerBaseType.GMiner, AlgorithmType.Beam, "")
+                    {
+                                //ExtraLaunchParameters = "--pec 1 "
+                    },
+                    new Algorithm(MinerBaseType.GMiner, AlgorithmType.BeamV2, "")
                     {
                                 //ExtraLaunchParameters = "--pec 1 "
                     },

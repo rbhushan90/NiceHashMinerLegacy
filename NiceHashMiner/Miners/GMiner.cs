@@ -81,10 +81,15 @@ namespace NiceHashMiner.Miners
                 pers = " --pers auto ";
                     }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
-                    {
+            {
                         algo = "BeamHash";
                         algoName = "beam";
-                    }
+            }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.BeamV2)
+            {
+                algo = "BeamHash";
+                algoName = "beamv2";
+            }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
             {
                 algo = "cuckaroo29";
@@ -294,6 +299,16 @@ namespace NiceHashMiner.Miners
                 " --server beam-asia.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 12222 --ssl 1 " +
                 " --server beam.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3370 --ssl 0" +
                 " --server beam.hk" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3370 --ssl 0" +
+                GetDevicesCommandString();
+            }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.BeamV2)
+            {
+                //_benchmarkTimeWait = 180; 
+                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo BeamHash" +
+                " --server beam-eu.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 2222 --ssl 1 " +
+                " --server beam-asia.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 12222 --ssl 1 " +
+                " --server beamv2.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3378 --ssl 0" +
+                " --server beamv2.hk" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3378 --ssl 0" +
                 GetDevicesCommandString();
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)

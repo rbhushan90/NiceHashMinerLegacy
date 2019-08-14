@@ -94,7 +94,8 @@
         MTP = 41,
         CryptoNightR = 42,
         CuckooCycle  = 43,
-        GrinCuckarood29 = 44
+        GrinCuckarood29 = 44,
+        BeamV2 = 45
 #endregion // NiceHashAPI
     }
 }

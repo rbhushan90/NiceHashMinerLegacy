@@ -84,7 +84,7 @@ namespace NiceHashMiner.Miners
                               " --devices ";
             }
 
-            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.BeamV2)
             {
                 LastCommandLine = "--coin BEAM --pool " + url + ";beam." + myServers[1, 0] + nhsuff + ".nicehash.com;beam." + myServers[2, 0] + nhsuff + ".nicehash.com;beam." + myServers[3, 0] + nhsuff + ".nicehash.com;beam." + myServers[4, 0] + nhsuff + ".nicehash.com;beam." + myServers[5, 0] + nhsuff + ".nicehash.com" +
                              " --port " + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" + port +
@@ -145,7 +145,7 @@ namespace NiceHashMiner.Miners
                 nhsuff = "-new";
             }
 
-            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.BeamV2)
             {
                 CommandLine = "--coin BEAM " +
                 " --pool beam-eu.sparkpool.com;beam-asia.sparkpool.com;beam.eu" + nhsuff + ".nicehash.com;beam.hk" + nhsuff + ".nicehash.com" +
@@ -303,7 +303,7 @@ namespace NiceHashMiner.Miners
             //Average speed (30s): 25.5 sol/s 
             //GPU 3: Share accepted (45 ms)
             //Average speed (30s): 0.13 g/s 
-            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.BeamV2)
             {
                 if (outdata.Contains("Average speed (30s):"))
                 {
