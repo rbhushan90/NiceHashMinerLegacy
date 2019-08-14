@@ -1186,29 +1186,27 @@ namespace NiceHashMiner
         { }
 
         protected abstract bool BenchmarkParseLine(string outdata);
+        public static string[,] myServers = { { "eu", "20000" }, { "usa", "20001" }, { "hk", "20002" }, { "jp", "20003" }, { "in", "20004" }, { "br", "20005" } };
         public static int PingServers()
         {
             Ping ping = new Ping();
             int serverId = 0;
             int bestServerId = 0;
-            long bestReplyTime = 1000;
+            long bestReplyTime = 10000;
 
-            var myServers = new List<string>();
-            myServers.Add("speedtest.eu.nicehash.com"); //0
-            myServers.Add("speedtest.usa.nicehash.com");
-            myServers.Add("speedtest.hk.nicehash.com");
-            myServers.Add("speedtest.jp.nicehash.com");
-            myServers.Add("speedtest.in.nicehash.com");
-            myServers.Add("speedtest.br.nicehash.com");
+            string server = ""; 
             Helpers.ConsolePrint("PingServers", " start ping");
-            foreach (var server in myServers)
+            for (int i = 0; i < 6; i++)
             {
                 try
                 {
+                    server = "speedtest." + myServers[i, 0] + ".nicehash.com";
+                    // Helpers.ConsolePrint("PingServers:", myServers[i,0]);
                     var pingReply = ping.Send(server, 1000);
                     if (pingReply.Status != IPStatus.TimedOut)
                     {
                         var pingReplyTime = pingReply.RoundtripTime;
+                        myServers[i, 1] = pingReplyTime.ToString();
                         Helpers.ConsolePrint("PingServers", server + " id:" + serverId.ToString() + " ping: " + pingReplyTime.ToString());
                         if (pingReplyTime < bestReplyTime)
                         {
@@ -1220,15 +1218,42 @@ namespace NiceHashMiner
                     {
                         Helpers.ConsolePrint("PingServers", server + " out of range");
                     }
-                }
-
-                catch (PingException)
+                } catch (PingException)
                 {
                     Helpers.ConsolePrint("PingServers", server + " offline");
                 }
                 serverId++;
             }
-            Helpers.ConsolePrint("PingServers", "BestServerId: " + bestServerId.ToString());
+            string[,] tmpServers = { { "eu", "20000" }, { "usa", "20001" }, { "hk", "20002" }, { "jp", "20003" }, { "in", "20004" }, { "br", "20005" } }; ;
+            int pingReplyTimeTmp;
+            long bestReplyTimeTmp = 10000;
+            int iTmp = 0;
+            for (int k = 0; k < 6; k++)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    pingReplyTimeTmp = Convert.ToInt32(myServers[i, 1]);
+                    if (pingReplyTimeTmp < bestReplyTimeTmp && pingReplyTimeTmp != -1)
+                    {
+                        iTmp = i;
+                        bestReplyTimeTmp = pingReplyTimeTmp;
+                    }
+
+                }
+                tmpServers[k, 0] = myServers[iTmp, 0];
+                tmpServers[k, 1] = myServers[iTmp, 1];
+                myServers[iTmp, 1] = "-1";
+                bestReplyTimeTmp = 10000;
+            }
+
+            myServers = tmpServers;
+            for (int i = 0; i < 6; i++)
+            {
+                server = "speedtest." + myServers[i, 0] + ".nicehash.com";
+                Helpers.ConsolePrint("SortedServers", server + " ping: " + myServers[i, 1]);
+            }
+               
+             Helpers.ConsolePrint("PingServers", "BestServerId: " + bestServerId.ToString());
             return bestServerId;
         }
         protected string GetServiceUrl(AlgorithmType algo)
