@@ -53,12 +53,12 @@ namespace NiceHashMiner.Miners
             //  url = url.Replace(".nicehash.", "-new.nicehash.");
             LastCommandLine = algo +
      " -o " + url + " -u " + username + " -p x " +
-     " -o stratum+tcp://" + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
-     " -o stratum+tcp://" + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
-     " -o stratum+tcp://" + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
-     " -o stratum+tcp://" + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
-     " -o stratum+tcp://" + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
-     " -o stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x " +
+     " -o stratum+tcp://" + alg + "." + myServers[1, 0] + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o stratum+tcp://" + alg + "." + myServers[2, 0] + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o stratum+tcp://" + alg + "." + myServers[3, 0] + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o stratum+tcp://" + alg + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o stratum+tcp://" + alg + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+     " -o stratum+tcp://" + alg + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x " +
      apiBind +
      " -d " + GetDevicesCommandString() + " --no-watchdog " +
      ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";

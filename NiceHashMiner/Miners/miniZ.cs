@@ -66,8 +66,17 @@ namespace NiceHashMiner.Miners
             LastCommandLine = GetStartCommand(url, btcAdress, worker);
             ProcessHandle = _Start();
         }
+        static int GetWinVer(Version ver)
+        {
+            if (ver.Major == 6 & ver.Minor == 1)
+                return 7;
+            else if (ver.Major == 6 & ver.Minor == 2)
+                return 8;
+            else
+                return 10;
+        }
 
-        private string GetStartCommand(string url, string btcAddress, string worker)
+            private string GetStartCommand(string url, string btcAddress, string worker)
         {
             var server = url.Split(':')[0].Replace("stratum+tcp://", "");
             var algo = "";
@@ -88,15 +97,22 @@ namespace NiceHashMiner.Miners
             {
                 nhsuff = "-new";
             }
+            string sColor = "";
+            if ( GetWinVer(Environment.OSVersion.Version) < 8)
+            {
+                sColor = " --nocolor";
+            }
+            
+
             var ret = GetDevicesCommandString()
-                      + " --pers auto --par=" + algo
+                      + sColor + " --pers auto --par=" + algo
                       + " --url " + username + "@" + server + ":" + url.Split(':')[1]
-                      + " --url " + username + "@" + algoName + ".hk" + nhsuff + ".nicehash.com:" + url.Split(':')[1]
-                      + " --url " + username + "@" + algoName + ".in" + nhsuff + ".nicehash.com:" + url.Split(':')[1]
-                      + " --url " + username + "@" + algoName + ".usa" + nhsuff + ".nicehash.com:" + url.Split(':')[1]
-                      + " --url " + username + "@" + algoName + ".jp" + nhsuff + ".nicehash.com:" + url.Split(':')[1]
-                      + " --url " + username + "@" + algoName + ".br" + nhsuff + ".nicehash.com:" + url.Split(':')[1]
-                      + " --url " + username + "@" + algoName + ".eu" + nhsuff + ".nicehash.com:" + url.Split(':')[1]
+                      + " --url " + username + "@" + algoName + "." + myServers[1, 0] + nhsuff + ".nicehash.com:" + url.Split(':')[1]
+                      + " --url " + username + "@" + algoName + "." + myServers[2, 0] + nhsuff + ".nicehash.com:" + url.Split(':')[1]
+                      + " --url " + username + "@" + algoName + "." + myServers[3, 0] + nhsuff + ".nicehash.com:" + url.Split(':')[1]
+                      + " --url " + username + "@" + algoName + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + url.Split(':')[1]
+                      + " --url " + username + "@" + algoName + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + url.Split(':')[1]
+                      + " --url " + username + "@" + algoName + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + url.Split(':')[1]
                       + " --pass=x" + " --telemetry=" + ApiPort;
 
             return ret;
@@ -149,12 +165,12 @@ namespace NiceHashMiner.Miners
                       + " --log-file=" + GetLogFileName()
                       + " --pers auto --par=" + algo
                       + " --url 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + ".nhmlff" + "@equihash144.eu.mine.zpool.ca:2144 -p c=BTC"
-                      + " --url " + username + "@" + algoName + ".hk" + nhsuff + ".nicehash.com:" + stratumPort
-                      + " --url " + username + "@" + algoName + ".in" + nhsuff + ".nicehash.com:" + stratumPort
-                      + " --url " + username + "@" + algoName + ".usa" + nhsuff + ".nicehash.com:" + stratumPort
-                      + " --url " + username + "@" + algoName + ".jp" + nhsuff + ".nicehash.com:" + stratumPort
-                      + " --url " + username + "@" + algoName + ".br" + nhsuff + ".nicehash.com:" + stratumPort
-                      + " --url " + username + "@" + algoName + ".eu" + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[1, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[2, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[3, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + stratumPort
                       + " --pass=x" + " --telemetry=" + ApiPort;
                 _benchmarkTimeWait = 100;
             }
@@ -167,12 +183,12 @@ namespace NiceHashMiner.Miners
                       + "  --log-file=" + GetLogFileName()
                       + " --pers auto --par=" + algo
                       + " --url ssl://2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + "@beam-eu.sparkpool.com:2222"
-                      + " --url " + username + "@" + algoName + ".hk" + nhsuff + ".nicehash.com:" + stratumPort
-                      + " --url " + username + "@" + algoName + ".in" + nhsuff + ".nicehash.com:" + stratumPort
-                      + " --url " + username + "@" + algoName + ".usa" + nhsuff + ".nicehash.com:" + stratumPort
-                      + " --url " + username + "@" + algoName + ".jp" + nhsuff + ".nicehash.com:" + stratumPort
-                      + " --url " + username + "@" + algoName + ".br" + nhsuff + ".nicehash.com:" + stratumPort
-                      + " --url " + username + "@" + algoName + ".eu" + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[1, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[2, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[3, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + stratumPort
+                      + " --url " + username + "@" + algoName + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + stratumPort
                       + " --pass=x" + " --telemetry=" + ApiPort;
                 _benchmarkTimeWait = 120; 
             }

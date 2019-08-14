@@ -71,32 +71,32 @@ namespace NiceHashMiner.Miners
                        "\"pools\" :\r\n" +
                        "[\r\n";
             var str2 = "        {\r\n" +
-                    "                \"pool\" : \"cryptonightv8.eu" + nhsuff + ".nicehash.com:3367\",\r\n" +
+                    "                \"pool\" : \"cryptonightv8." + myServers[1, 0] + nhsuff + ".nicehash.com:3367\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightv8.in" + nhsuff + ".nicehash.com:3367\",\r\n" +
+                    "                \"pool\" : \"cryptonightv8." + myServers[2, 0] + nhsuff + ".nicehash.com:3367\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightv8.hk" + nhsuff + ".nicehash.com:3367\",\r\n" +
+                    "                \"pool\" : \"cryptonightv8." + myServers[3, 0] + nhsuff + ".nicehash.com:3367\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightv8.br" + nhsuff + ".nicehash.com:3367\",\r\n" +
+                    "                \"pool\" : \"cryptonightv8." + myServers[4, 0] + nhsuff + ".nicehash.com:3367\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightv8.usa" + nhsuff + ".nicehash.com:3367\",\r\n" +
+                    "                \"pool\" : \"cryptonightv8." + myServers[5, 0] + nhsuff + ".nicehash.com:3367\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightv8.jp" + nhsuff + ".nicehash.com:3367\",\r\n" +
+                    "                \"pool\" : \"cryptonightv8." + myServers[0, 0] + nhsuff + ".nicehash.com:3367\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "        }\r\n"+
@@ -128,32 +128,32 @@ namespace NiceHashMiner.Miners
                            "[\r\n";
 
                 var strh2 = "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.eu" + nhsuff + ".nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy." + myServers[1, 0] + nhsuff + ".nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \""+ username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.in" + nhsuff + ".nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy." + myServers[2, 0] + nhsuff + ".nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.hk" + nhsuff + ".nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy." + myServers[3, 0] + nhsuff + ".nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.br" + nhsuff + ".nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy." + myServers[4, 0] + nhsuff + ".nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.usa" + nhsuff + ".nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy." + myServers[5, 0] + nhsuff + ".nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightheavy.jp" + nhsuff + ".nicehash.com:3364\",\r\n" +
+                    "                \"pool\" : \"cryptonightheavy." + myServers[0, 0] + nhsuff + ".nicehash.com:3364\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "        }\r\n";
@@ -187,32 +187,32 @@ namespace NiceHashMiner.Miners
                            "[\r\n";
 
                 var strh2 = "        {\r\n" +
-                    "                \"pool\" : \"cryptonightr.eu" + nhsuff + ".nicehash.com:3375\",\r\n" +
+                    "                \"pool\" : \"cryptonightr." + myServers[1, 0] + nhsuff + ".nicehash.com:3375\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightr.in" + nhsuff + ".nicehash.com:3375\",\r\n" +
+                    "                \"pool\" : \"cryptonightr." + myServers[2, 0] + nhsuff + ".nicehash.com:3375\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightr.hk" + nhsuff + ".nicehash.com:3375\",\r\n" +
+                    "                \"pool\" : \"cryptonightr." + myServers[3, 0] + nhsuff + ".nicehash.com:3375\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightr.br" + nhsuff + ".nicehash.com:3375\",\r\n" +
+                    "                \"pool\" : \"cryptonightr." + myServers[4, 0] + nhsuff + ".nicehash.com:3375\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightr.usa" + nhsuff + ".nicehash.com:3375\",\r\n" +
+                    "                \"pool\" : \"cryptonightr." + myServers[5, 0] + nhsuff + ".nicehash.com:3375\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "},\r\n" +
                     "        {\r\n" +
-                    "                \"pool\" : \"cryptonightr.jp" + nhsuff + ".nicehash.com:3375\",\r\n" +
+                    "                \"pool\" : \"cryptonightr." + myServers[0, 0] + nhsuff + ".nicehash.com:3375\",\r\n" +
                     "                \"wallet\" : \"" + username + "\",\r\n" +
                     "                \"password\" : \"x\"\r\n" +
                     "        }\r\n";

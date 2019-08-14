@@ -61,7 +61,11 @@ namespace NiceHashMiner.Miners
 
             var algo = "";
             var apiBind = " --api_listen=127.0.0.1:" + ApiPort;
-
+            string nhsuff = "";
+            if (Configs.ConfigManager.GeneralConfig.NewPlatform)
+            {
+                nhsuff = "-new";
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
                 algo = " -a cnv8";
@@ -91,8 +95,13 @@ namespace NiceHashMiner.Miners
                 algo = " -a mtp --allow_all_devices";
             }
             LastCommandLine = variables.TRMiner_add1 + " --watchdog_script " + algo + " -o " + url +
-                              " -u " + username +
-                              " -p x " + apiBind +
+                              " -u " + username + " -p x " +
+                               " -o stratum+tcp://" + alg + "." + myServers[4, 0] + nhsuff + ".nicehash.com:3366" + " -u " + username + " - p x" +
+                               " -o stratum+tcp://" + alg + "." + myServers[3, 0] + nhsuff + ".nicehash.com:3366" + " -u " + username + " - p x" +
+                               " -o stratum+tcp://" + alg + "." + myServers[2, 0] + nhsuff + ".nicehash.com:3366" + " -u " + username + " - p x" +
+                               " -o stratum+tcp://" + alg + "." + myServers[1, 0] + nhsuff + ".nicehash.com:3366" + " -u " + username + " - p x" +
+                               " -o stratum+tcp://" + alg + "." + myServers[0, 0] + nhsuff + ".nicehash.com:3366" + " -u " + username + " - p x" +
+                              apiBind +
                               " " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                                                 MiningSetup,

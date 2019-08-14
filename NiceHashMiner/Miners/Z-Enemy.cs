@@ -55,12 +55,12 @@ namespace NiceHashMiner.Miners
             }
             LastCommandLine = algo +
                 " --url=" + url + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[1, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[2, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[3, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + port + " --userpass=" + username + ":x" +
                 " --url=" + url + " --userpass=" + username + ":x" +
                 " --userpass=" + username + ":x" + apiBind +
                 " --devices " + GetDevicesCommandString() + " " +
@@ -94,12 +94,12 @@ namespace NiceHashMiner.Miners
             {
                 commandLine = " --algo=" + algorithm.MinerName +
                 " --url=" + url + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[1, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[2, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[3, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + port + " --userpass=" + username + ":x" +
                 " --url=" + url + " --userpass=" + username + ":x" +
                 " --url=stratum+tcp://x16r.eu.mine.zpool.ca:3636" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2:c=BTC " +
                               timeLimit + " " +
@@ -112,12 +112,12 @@ namespace NiceHashMiner.Miners
             {
                 commandLine = " --algo=" + algorithm.MinerName +
                 " --url=" + url + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://" + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[1, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[2, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[3, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + port + " --userpass=" + username + ":x" +
                 " --url=" + url + " --userpass=" + username + ":x" +
                 " --url=stratum+tcp://skunk.eu.mine.zpool.ca:8433" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2:c=BTC " +
                               timeLimit + " " +

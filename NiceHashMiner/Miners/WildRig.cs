@@ -69,10 +69,10 @@ namespace NiceHashMiner.Miners
             }
             string username = GetUsername(btcAdress, worker);
             return $" -a {algo} -o {url} -u {username}:x {extras} --api-port {ApiPort} "
-                + $" -o stratum+tcp://{algo}.usa{nhsuff}.nicehash.com:{port} -u {username}:x "
-                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {username}:x "
-                + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} -u {username}:x "
-                + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[1, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[2, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[3, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[4, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x "
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart(); 
         }
 

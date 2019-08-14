@@ -73,7 +73,7 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
             {
-                LastCommandLine = "--coin AUTO144_5 --pool " + url + ";zhash.hk" + nhsuff + ".nicehash.com;zhash.jp" + nhsuff + ".nicehash.com;zhash.usa" + nhsuff + ".nicehash.com;zhash.in" + nhsuff + ".nicehash.com;zhash.br" + nhsuff + ".nicehash.com" +
+                LastCommandLine = "--coin AUTO144_5 --pool " + url + ";zhash." + myServers[1, 0] + nhsuff + ".nicehash.com;zhash." + myServers[2, 0] + nhsuff + ".nicehash.com;zhash." + myServers[3, 0] + nhsuff + ".nicehash.com;zhash." + myServers[4, 0] + nhsuff + ".nicehash.com;zhash." + myServers[5, 0] + nhsuff + ".nicehash.com" +
                               " --port " + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" +
                               " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" +
                               " -p x;x;x;x;x;x " + apiBind +
@@ -86,7 +86,7 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
             {
-                LastCommandLine = "--coin BEAM --pool " + url + ";beam.hk" + nhsuff + ".nicehash.com;beam.jp" + nhsuff + ".nicehash.com;beam.usa" + nhsuff + ".nicehash.com;beam.in" + nhsuff + ".nicehash.com;beam.br" + nhsuff + ".nicehash.com" +
+                LastCommandLine = "--coin BEAM --pool " + url + ";beam." + myServers[1, 0] + nhsuff + ".nicehash.com;beam." + myServers[2, 0] + nhsuff + ".nicehash.com;beam." + myServers[3, 0] + nhsuff + ".nicehash.com;beam." + myServers[4, 0] + nhsuff + ".nicehash.com;beam." + myServers[5, 0] + nhsuff + ".nicehash.com" +
                              " --port " + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" + port +
                              " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username +
                              " -p x;x;x;x;x;x --tls 0;0;0;0;0;0 " + apiBind +
@@ -99,7 +99,7 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31)
             {
-                LastCommandLine = "--coin GRIN-AT31 --pool " + url + ";grincuckatoo31.hk" + nhsuff + ".nicehash.com;grincuckatoo31.jp" + nhsuff + ".nicehash.com;grincuckatoo31.usa" + nhsuff + ".nicehash.com;grincuckatoo31.in" + nhsuff + ".nicehash.com;grincuckatoo31.br" + nhsuff + ".nicehash.com" +
+                LastCommandLine = "--coin GRIN-AT31 --pool " + url + ";grincuckatoo31." + myServers[1, 0] + nhsuff + ".nicehash.com;grincuckatoo31." + myServers[2, 0] + nhsuff + ".nicehash.com;grincuckatoo31." + myServers[3, 0] + nhsuff + ".nicehash.com;grincuckatoo31." + myServers[4, 0] + nhsuff + ".nicehash.com;grincuckatoo31." + myServers[5, 0] + nhsuff + ".nicehash.com" +
                              " --port " + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" + port +
                              " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username +
                              " -p x;x;x;x;x;x --tls 0;0;0;0;0;0 " + apiBind +
@@ -111,7 +111,7 @@ namespace NiceHashMiner.Miners
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckarood29)
             {
-                LastCommandLine = "--coin GRIN-AD29 --pool " + url + ";grincuckarood29.hk" + nhsuff + ".nicehash.com;grincuckarood29.jp" + nhsuff + ".nicehash.com;grincuckarood29.usa" + nhsuff + ".nicehash.com;grincuckarood29.in" + nhsuff + ".nicehash.com;grincuckarood29.br" + nhsuff + ".nicehash.com" +
+                LastCommandLine = "--coin GRIN-AD29 --pool " + url + ";grincuckarood29." + myServers[1, 0] + nhsuff + ".nicehash.com;grincuckarood29." + myServers[2, 0] + nhsuff + ".nicehash.com;grincuckarood29." + myServers[3, 0] + nhsuff + ".nicehash.com;grincuckarood29." + myServers[4, 0] + nhsuff + ".nicehash.com;grincuckarood29." + myServers[5, 0] + nhsuff + ".nicehash.com" +
                              " --port " + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" + port +
                              " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username +
                              " -p x;x;x;x;x;x --tls 0;0;0;0;0;0 " + apiBind +

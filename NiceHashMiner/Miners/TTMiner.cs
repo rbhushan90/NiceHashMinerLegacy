@@ -97,12 +97,12 @@ namespace NiceHashMiner.Miners
                 */
             LastCommandLine = " -a " + algo +
            " -o " + url + " -u " + username + " -p x " +
-           " -o " + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
-           " -o " + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
-           " -o " + alg + ".in" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
-           " -o " + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
-           " -o " + alg + ".br" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
-           " -o " + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+           " -o " + alg + "." + myServers[1, 0] + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+           " -o " + alg + "." + myServers[2, 0] + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+           " -o " + alg + "." + myServers[3, 0] + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+           " -o " + alg + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+           " -o " + alg + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
+           " -o " + alg + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
            apiBind +
            " -device " + GetDevicesCommandString() + " " +
            ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";

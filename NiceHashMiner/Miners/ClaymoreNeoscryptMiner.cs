@@ -45,12 +45,12 @@ namespace NiceHashMiner.Miners {
             {
                 nhsuff = "-new";
             }
-            String epools = String.Format("POOL: stratum+tcp://neoscrypt.usa{0}.nicehash.com:3341, WALLET: {1}, PSW: x", nhsuff, username, ApiPort) + "\n"
-               + String.Format("POOL: stratum+tcp://neoscrypt.hk{0}.nicehash.com:3341, WALLET: {1}, PSW: x", nhsuff, username, ApiPort) + "\n"
-               + String.Format("POOL: stratum+tcp://neoscrypt.jp{0}.nicehash.com:3341, WALLET: {1}, PSW: x", nhsuff, username, ApiPort) + "\n"
-               + String.Format("POOL: stratum+tcp://neoscrypt.in{0}.nicehash.com:3341, WALLET: {1}, PSW: x", nhsuff, username, ApiPort) + "\n"
-               + String.Format("POOL: stratum+tcp://neoscrypt.br{0}.nicehash.com:3341, WALLET: {1}, PSW: x", nhsuff, username, ApiPort) + "\n"
-               + String.Format("POOL: stratum+tcp://neoscrypt.eu{0}.nicehash.com:3341, WALLET: {1}, PSW: x", nhsuff, username, ApiPort) + "\n";
+            String epools = String.Format("POOL: stratum+tcp://neoscrypt.{0}{1}.nicehash.com:3341, WALLET: {2}, PSW: x", myServers[0, 0], nhsuff, username, ApiPort) + "\n"
+               + String.Format("POOL: stratum+tcp://neoscrypt.{0}{1}.nicehash.com:3341, WALLET: {2}, PSW: x", myServers[1, 0], nhsuff, username, ApiPort) + "\n"
+               + String.Format("POOL: stratum+tcp://neoscrypt.{0}{1}.nicehash.com:3341, WALLET: {2}, PSW: x", myServers[2, 0], nhsuff, username, ApiPort) + "\n"
+               + String.Format("POOL: stratum+tcp://neoscrypt.{0}{1}.nicehash.com:3341, WALLET: {2}, PSW: x", myServers[3, 0], nhsuff, username, ApiPort) + "\n"
+               + String.Format("POOL: stratum+tcp://neoscrypt.{0}{1}.nicehash.com:3341, WALLET: {2}, PSW: x", myServers[4, 0], nhsuff, username, ApiPort) + "\n"
+               + String.Format("POOL: stratum+tcp://neoscrypt.{0}{1}.nicehash.com:3341, WALLET: {2}, PSW: x", myServers[5, 0], nhsuff, username, ApiPort) + "\n";
 
             FileStream fs = new FileStream("bin_3rdparty\\claymore_neoscrypt\\pools.txt", FileMode.Create, FileAccess.Write);
             StreamWriter w = new StreamWriter(fs);

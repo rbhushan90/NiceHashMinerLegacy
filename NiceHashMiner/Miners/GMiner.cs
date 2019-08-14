@@ -115,15 +115,15 @@ namespace NiceHashMiner.Miners
             var ret = GetDevicesCommandString()
                       + " --algo " + algo + pers + " --server " + url.Split(':')[0]
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + ".hk" + nhsuff + ".nicehash.com"
+                      + " --server " + algoName + "." + myServers[1, 0] + nhsuff + ".nicehash.com"
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + ".in" + nhsuff + ".nicehash.com"
+                      + " --server " + algoName + "." + myServers[2, 0] + nhsuff + ".nicehash.com"
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + ".usa" + nhsuff + ".nicehash.com"
+                      + " --server " + algoName + "." + myServers[3, 0] + nhsuff + ".nicehash.com"
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + ".jp" + nhsuff + ".nicehash.com"
+                      + " --server " + algoName + "." + myServers[4, 0] + nhsuff + ".nicehash.com"
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + ".br" + nhsuff + ".nicehash.com"
+                      + " --server " + algoName + "." + myServers[5, 0] + nhsuff + ".nicehash.com"
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
                       + " --api " + ApiPort;
             return ret;

@@ -49,12 +49,12 @@ namespace NiceHashMiner.Miners
                 port = "3367";
                 variant = " --variant 2 ";
                 return $" -o {url} {variant} -u {username}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
-                + $" -o stratum+tcp://{algo}.usa{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.br{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[1, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[2, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[3, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[4, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[5, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[0, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart();
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
@@ -63,12 +63,12 @@ namespace NiceHashMiner.Miners
                 port = "3364";
                 variant = " --variant 2 ";
                 return $" --algo=cryptonight-heavy -o {url} {variant} -u {username}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
-                + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.br{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[1, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[2, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[3, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[4, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[5, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[0, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart();
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
@@ -77,17 +77,21 @@ namespace NiceHashMiner.Miners
                 port = "3375";
                 variant = " --variant 2 ";
                 return $" --algo=cryptonight/r -o {url} -u {username}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
-                + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[1, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[2, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[3, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[4, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[5, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[0, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart();
             }
             return $" -a {algo} -o {url} {variant} -u {username}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
-                + $" -o stratum+tcp://{algo}.usa{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
-                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
-                + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
-                + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[1, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[2, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[3, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[4, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[5, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[6, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart();
         }
 
@@ -113,12 +117,12 @@ namespace NiceHashMiner.Miners
                 port = "3367";
                 variant = " --variant 2 ";
                 return $" -o {url} {variant} -u {username}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
-                + $" -o stratum+tcp://{algo}.usa{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.br{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[1, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[2, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[3, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[4, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[5, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[0, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash"
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
@@ -127,10 +131,12 @@ namespace NiceHashMiner.Miners
                 port = "3364";
                 variant = " --variant 2 ";
                 return $" --algo=cryptonight-heavy -o {url} {variant} -u {username}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1 "
-                + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[1, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[2, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[3, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[4, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[5, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[0, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
@@ -139,17 +145,17 @@ namespace NiceHashMiner.Miners
                 port = "3375";
                 variant = " --variant 2 ";
                 return $" --algo=cryptonight/r -o stratum+tcp://xmr-eu1.nanopool.org:14444 -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1 "
-                + $" -o stratum+tcp://{algo}.eu{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.jp{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
-                + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[1, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[2, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[3, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
+                + $" -o stratum+tcp://{algo}.{myServers[4, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x --nicehash"
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
             }
             return $" -o {url} {variant} -u {username}:x --nicehash {extras} --api-port {ApiPort} --donate-level=1"
-                + $" -o stratum+tcp://{algo}.usa{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
-                + $" -o stratum+tcp://{algo}.hk{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
-                + $" -o stratum+tcp://{algo}.jp.{nhsuff}nicehash.com:{port} {variant} -u {username}:x "
-                + $" -o stratum+tcp://{algo}.in{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[1, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[2, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[3, 0]}.{nhsuff}nicehash.com:{port} {variant} -u {username}:x "
+                + $" -o stratum+tcp://{algo}.{myServers[4, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x "
                 + " --opencl-devices=" + GetDevicesCommandString().TrimStart() + " --opencl-platform=" + GPUPlatformNumber;
         }
 
