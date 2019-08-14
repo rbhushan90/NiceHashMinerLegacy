@@ -98,11 +98,15 @@ namespace NiceHashMiner.Miners.Parsing
                     Helpers.ConsolePrint("ExtraLaunchParametersParser DISABLED! ", pair.CurrentExtraLaunchParameters);
                     return pair.CurrentExtraLaunchParameters.Substring(1);
                 }
+                if (ConfigManager.GeneralConfig.Disable_extra_launch_parameter_checking)
+                {
+                    Helpers.ConsolePrint("ExtraLaunchParametersParser DISABLED! ", pair.CurrentExtraLaunchParameters);
+                    return pair.CurrentExtraLaunchParameters;
+                }
             }
-
-
-            // init devs options, and defaults
-            foreach (var pair in miningPairs)
+            
+                // init devs options, and defaults
+                foreach (var pair in miningPairs)
             {
                 var defaults = new Dictionary<string, string>();
                 foreach (var option in options)

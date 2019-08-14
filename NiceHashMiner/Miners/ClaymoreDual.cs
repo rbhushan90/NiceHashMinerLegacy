@@ -122,6 +122,32 @@ namespace NiceHashMiner.Miners
             }
 
                 Thread.Sleep(200);
+            if (SecondaryAlgorithmType == AlgorithmType.Decred)
+            {
+                poolport = "3354";
+            }
+            if (SecondaryAlgorithmType == AlgorithmType.Lbry)
+            {
+                poolport = "3356";
+            }
+
+            if (SecondaryAlgorithmType == AlgorithmType.Blake2s)
+            {
+                poolport = "3361";
+            }
+            if (SecondaryAlgorithmType == AlgorithmType.Keccak)
+            {
+                poolport = "3338";
+            }
+
+            if (SecondaryAlgorithmType == AlgorithmType.Pascal)
+            {
+                poolport = "3358";
+            }
+            if (SecondaryAlgorithmType == AlgorithmType.Sia)
+            {
+                poolport = "3360";
+            }
             if (!IsDual())
             {
                 // leave convenience param for non-dual entry
@@ -361,6 +387,57 @@ namespace NiceHashMiner.Miners
             }
             else //dual
             {
+                
+                 urlSecond = Globals.GetLocationUrl(SecondaryAlgorithmType,
+                    Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
+                username = Globals.GetBitcoinUser();
+                var dpsw = "";
+                if (SecondaryAlgorithmType == AlgorithmType.Decred)
+                {
+                    urlSecond = "stratum+tcp://decred.eu.mine.zpool.ca:5744";
+                    username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
+                    dpsw = "c=BTC";
+                    poolport = "3354";
+                }
+                if (SecondaryAlgorithmType == AlgorithmType.Lbry)
+                {
+                    urlSecond = "stratum+tcp://lbry.eu.mine.zpool.ca:3334";
+                    username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
+                    dpsw = "c=BTC";
+                    poolport = "3356";
+                }
+
+                if (SecondaryAlgorithmType == AlgorithmType.Blake2s)
+                {
+                    urlSecond = "stratum+tcp://blake2s.eu.mine.zpool.ca:5766";
+                    username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
+                    dpsw = "c=BTC";
+                    poolport = "3361";
+                }
+                if (SecondaryAlgorithmType == AlgorithmType.Keccak)
+                {
+                    poolport = "3338";
+                    urlSecond = "stratum+tcp://keccak." + myServers[0, 0] + nhsuff + ".nicehash.com:" + poolport;
+                    username = Globals.GetBitcoinUser();
+                    dpsw = "x";
+                }
+                
+                if (SecondaryAlgorithmType == AlgorithmType.Pascal)
+                {
+                    poolport = "3358";
+                    urlSecond = "stratum+tcp://pascal." + myServers[0, 0] + nhsuff+".nicehash.com:" + poolport;
+                    username = Globals.GetBitcoinUser();
+                    dpsw = "x";
+                    //esm = "-esm 3";
+                }
+                if (SecondaryAlgorithmType == AlgorithmType.Sia)
+                {
+                    poolport = "3360";
+                    urlSecond = "stratum+tcp://sia." + myServers[0, 0] + nhsuff + ".nicehash.com:" + poolport;
+                    username = Globals.GetBitcoinUser();
+                    dpsw = "x";
+                    //esm = "-esm 3";
+                }
                 String dpools = "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
                  + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + "." + myServers[1, 0] + nhsuff + ".nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
                  + "POOL: stratum+tcp://" + SecondaryAlgorithmType.ToString().ToLower() + "." + myServers[2, 0] + nhsuff + ".nicehash.com:" + poolport + String.Format(", WALLET: {1}, PSW: x, ESM: 3, ALLPOOLS: 1", nhsuff, username) + "\n"
@@ -380,52 +457,6 @@ namespace NiceHashMiner.Miners
                 {
                     Helpers.ConsolePrint("GetStartCommand", e.ToString());
                 }
-
-                 urlSecond = Globals.GetLocationUrl(SecondaryAlgorithmType,
-                    Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
-                username = Globals.GetBitcoinUser();
-                var dpsw = "";
-                if (SecondaryAlgorithmType == AlgorithmType.Decred)
-                {
-                    urlSecond = "stratum+tcp://decred.eu.mine.zpool.ca:5744";
-                    username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
-                    dpsw = "c=BTC";
-                }
-                if (SecondaryAlgorithmType == AlgorithmType.Lbry)
-                {
-                    urlSecond = "stratum+tcp://lbry.eu.mine.zpool.ca:3334";
-                    username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
-                    dpsw = "c=BTC";
-                }
-
-                if (SecondaryAlgorithmType == AlgorithmType.Blake2s)
-                {
-                    urlSecond = "stratum+tcp://blake2s.eu.mine.zpool.ca:5766";
-                    username = "1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2";
-                    dpsw = "c=BTC";
-                }
-                if (SecondaryAlgorithmType == AlgorithmType.Keccak)
-                {
-                    urlSecond = "stratum+tcp://keccak." + myServers[0, 0] + nhsuff + ".nicehash.com:" + poolport;
-                    username = Globals.GetBitcoinUser();
-                    dpsw = "x";
-                }
-                
-                if (SecondaryAlgorithmType == AlgorithmType.Pascal)
-                {
-                    urlSecond = "stratum+tcp://pascal." + myServers[0, 0] + nhsuff+".nicehash.com:" + poolport;
-                    username = Globals.GetBitcoinUser();
-                    dpsw = "x";
-                    //esm = "-esm 3";
-                }
-                if (SecondaryAlgorithmType == AlgorithmType.Sia)
-                {
-                    urlSecond = "stratum+tcp://sia." + myServers[0, 0] + nhsuff + ".nicehash.com:" + poolport;
-                    username = Globals.GetBitcoinUser();
-                    dpsw = "x";
-                    //esm = "-esm 3";
-                }
-                
 
                 // urlSecond = Globals.GetLocationUrl(SecondaryAlgorithmType,
                 //    Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);

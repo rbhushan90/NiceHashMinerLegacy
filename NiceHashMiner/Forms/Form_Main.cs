@@ -1447,7 +1447,7 @@ namespace NiceHashMiner
                 InitMainConfigGuiData();
                 ConfigManager.GeneralConfigFileCommit();
             }
-            
+
             //_remoteTimer.Stop();
             //_remoteTimer= null;
         }

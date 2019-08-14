@@ -69,6 +69,7 @@
             this.pictureBox_LogToFile = new System.Windows.Forms.PictureBox();
             this.checkBox_DebugConsole = new System.Windows.Forms.CheckBox();
             this.groupBox_Main = new System.Windows.Forms.GroupBox();
+            this.checkBox_Force_mining_if_nonprofitable = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label_BitcoinAddressNew = new System.Windows.Forms.Label();
             this.textBox_BitcoinAddressNew = new System.Windows.Forms.TextBox();
@@ -144,7 +145,7 @@
             this.buttonSaveClose = new System.Windows.Forms.Button();
             this.buttonDefaults = new System.Windows.Forms.Button();
             this.buttonCloseNoSave = new System.Windows.Forms.Button();
-            this.checkBox_Force_mining_if_nonprofitable = new System.Windows.Forms.CheckBox();
+            this.checkBox_Disable_extra_launch_parameter_checking = new System.Windows.Forms.CheckBox();
             this.benchmarkLimitControlNVIDIA = new NiceHashMiner.Forms.Components.BenchmarkLimitControl();
             this.benchmarkLimitControlCPU = new NiceHashMiner.Forms.Components.BenchmarkLimitControl();
             this.benchmarkLimitControlAMD = new NiceHashMiner.Forms.Components.BenchmarkLimitControl();
@@ -747,6 +748,18 @@
             this.groupBox_Main.TabIndex = 386;
             this.groupBox_Main.TabStop = false;
             this.groupBox_Main.Text = "Main:";
+            // 
+            // checkBox_Force_mining_if_nonprofitable
+            // 
+            this.checkBox_Force_mining_if_nonprofitable.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.checkBox_Force_mining_if_nonprofitable.Location = new System.Drawing.Point(154, 273);
+            this.checkBox_Force_mining_if_nonprofitable.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBox_Force_mining_if_nonprofitable.Name = "checkBox_Force_mining_if_nonprofitable";
+            this.checkBox_Force_mining_if_nonprofitable.Size = new System.Drawing.Size(188, 38);
+            this.checkBox_Force_mining_if_nonprofitable.TabIndex = 376;
+            this.checkBox_Force_mining_if_nonprofitable.Text = "Force mining if nonprofitable";
+            this.checkBox_Force_mining_if_nonprofitable.UseVisualStyleBackColor = true;
+            this.checkBox_Force_mining_if_nonprofitable.CheckedChanged += new System.EventHandler(this.checkBox_Force_mining_if_nonprofitable_CheckedChanged);
             // 
             // pictureBox1
             // 
@@ -1539,6 +1552,7 @@
             // 
             // tabPageDevicesAlgos
             // 
+            this.tabPageDevicesAlgos.Controls.Add(this.checkBox_Disable_extra_launch_parameter_checking);
             this.tabPageDevicesAlgos.Controls.Add(this.devicesListViewEnableControl1);
             this.tabPageDevicesAlgos.Controls.Add(this.groupBoxAlgorithmSettings);
             this.tabPageDevicesAlgos.Controls.Add(this.buttonGPUtuning);
@@ -1612,17 +1626,17 @@
             this.buttonCloseNoSave.UseVisualStyleBackColor = true;
             this.buttonCloseNoSave.Click += new System.EventHandler(this.ButtonCloseNoSave_Click);
             // 
-            // checkBox_Force_mining_if_nonprofitable
+            // checkBox_Disable_extra_launch_parameter_checking
             // 
-            this.checkBox_Force_mining_if_nonprofitable.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox_Force_mining_if_nonprofitable.Location = new System.Drawing.Point(154, 273);
-            this.checkBox_Force_mining_if_nonprofitable.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.checkBox_Force_mining_if_nonprofitable.Name = "checkBox_Force_mining_if_nonprofitable";
-            this.checkBox_Force_mining_if_nonprofitable.Size = new System.Drawing.Size(188, 38);
-            this.checkBox_Force_mining_if_nonprofitable.TabIndex = 376;
-            this.checkBox_Force_mining_if_nonprofitable.Text = "Force mining if nonprofitable";
-            this.checkBox_Force_mining_if_nonprofitable.UseVisualStyleBackColor = true;
-            this.checkBox_Force_mining_if_nonprofitable.CheckedChanged += new System.EventHandler(this.checkBox_Force_mining_if_nonprofitable_CheckedChanged);
+            this.checkBox_Disable_extra_launch_parameter_checking.AutoSize = true;
+            this.checkBox_Disable_extra_launch_parameter_checking.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.checkBox_Disable_extra_launch_parameter_checking.Location = new System.Drawing.Point(371, 221);
+            this.checkBox_Disable_extra_launch_parameter_checking.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBox_Disable_extra_launch_parameter_checking.Name = "checkBox_Disable_extra_launch_parameter_checking";
+            this.checkBox_Disable_extra_launch_parameter_checking.Size = new System.Drawing.Size(219, 17);
+            this.checkBox_Disable_extra_launch_parameter_checking.TabIndex = 399;
+            this.checkBox_Disable_extra_launch_parameter_checking.Text = "Disable extra launch parameter checking";
+            this.checkBox_Disable_extra_launch_parameter_checking.UseVisualStyleBackColor = true;
             // 
             // benchmarkLimitControlNVIDIA
             // 
@@ -1683,10 +1697,10 @@
             // 
             // algorithmSettingsControl1
             // 
-            this.algorithmSettingsControl1.Location = new System.Drawing.Point(360, 21);
+            this.algorithmSettingsControl1.Location = new System.Drawing.Point(360, 8);
             this.algorithmSettingsControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.algorithmSettingsControl1.Name = "algorithmSettingsControl1";
-            this.algorithmSettingsControl1.Size = new System.Drawing.Size(285, 215);
+            this.algorithmSettingsControl1.Size = new System.Drawing.Size(285, 205);
             this.algorithmSettingsControl1.TabIndex = 396;
             this.algorithmSettingsControl1.Load += new System.EventHandler(this.algorithmSettingsControl1_Load);
             // 
@@ -1763,6 +1777,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DisableDetectionAMD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DisableDetectionNVIDIA)).EndInit();
             this.tabPageDevicesAlgos.ResumeLayout(false);
+            this.tabPageDevicesAlgos.PerformLayout();
             this.groupBoxAlgorithmSettings.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -1895,5 +1910,6 @@
         private System.Windows.Forms.CheckBox checkBox_NVIDIAP0State;
         private System.Windows.Forms.CheckBox checkBox_Additional_info_about_device;
         private System.Windows.Forms.CheckBox checkBox_Force_mining_if_nonprofitable;
+        private System.Windows.Forms.CheckBox checkBox_Disable_extra_launch_parameter_checking;
     }
 }
