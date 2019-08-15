@@ -99,11 +99,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Controls.Add(this.groupBoxMinerGroup);
             this.Name = "GroupProfitControl";
-            this.Size = new System.Drawing.Size(537, 36);
+            this.Size = new System.Drawing.Size(541, 40);
             this.groupBoxMinerGroup.ResumeLayout(false);
             this.groupBoxMinerGroup.PerformLayout();
             this.ResumeLayout(false);

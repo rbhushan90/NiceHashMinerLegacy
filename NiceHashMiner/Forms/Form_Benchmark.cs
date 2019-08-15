@@ -662,5 +662,9 @@ namespace NiceHashMiner.Forms
         {
 
         }
+
+        private void devicesListViewEnableControl1_Load(object sender, EventArgs e)
+        {
+        }
     }
 }

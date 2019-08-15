@@ -82,12 +82,12 @@ namespace NiceHashMiner.Miners
                     }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
             {
-                        algo = "BeamHash";
+                        algo = "BeamHashI";
                         algoName = "beam";
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.BeamV2)
             {
-                algo = "BeamHash";
+                algo = "BeamHashII";
                 algoName = "beamv2";
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29)
@@ -294,7 +294,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
             {
                 //_benchmarkTimeWait = 180; 
-                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo BeamHash" +
+                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo BeamHashI" +
                 " --server beam-eu.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 2222 --ssl 1 " +
                 " --server beam-asia.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 12222 --ssl 1 " +
                 " --server beam.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3370 --ssl 0" +
@@ -304,7 +304,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.BeamV2)
             {
                 //_benchmarkTimeWait = 180; 
-                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo BeamHash" +
+                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo BeamHashII" +
                 " --server beam-eu.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 2222 --ssl 1 " +
                 " --server beam-asia.sparkpool.com --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + " --pass x --port 12222 --ssl 1 " +
                 " --server beamv2.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3378 --ssl 0" +

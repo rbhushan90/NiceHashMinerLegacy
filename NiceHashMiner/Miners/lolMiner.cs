@@ -86,7 +86,7 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.BeamV2)
             {
-                LastCommandLine = "--coin BEAM --pool " + url + ";beam." + myServers[1, 0] + nhsuff + ".nicehash.com;beam." + myServers[2, 0] + nhsuff + ".nicehash.com;beam." + myServers[3, 0] + nhsuff + ".nicehash.com;beam." + myServers[4, 0] + nhsuff + ".nicehash.com;beam." + myServers[5, 0] + nhsuff + ".nicehash.com" +
+                LastCommandLine = "--coin BEAM-II --pool " + url + ";beam." + myServers[1, 0] + nhsuff + ".nicehash.com;beam." + myServers[2, 0] + nhsuff + ".nicehash.com;beam." + myServers[3, 0] + nhsuff + ".nicehash.com;beam." + myServers[4, 0] + nhsuff + ".nicehash.com;beam." + myServers[5, 0] + nhsuff + ".nicehash.com" +
                              " --port " + port + ";" + port + ";" + port + ";" + port + ";" + port + ";" + port +
                              " --user " + username + ";" + username + ";" + username + ";" + username + ";" + username + ";" + username +
                              " -p x;x;x;x;x;x --tls 0;0;0;0;0;0 " + apiBind +
@@ -147,7 +147,7 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.BeamV2)
             {
-                CommandLine = "--coin BEAM " +
+                CommandLine = "--coin BEAM-II " +
                 " --pool beam-eu.sparkpool.com;beam-asia.sparkpool.com;beam.eu" + nhsuff + ".nicehash.com;beam.hk" + nhsuff + ".nicehash.com" +
                 " --port 2222;12222;3370;3370" +
                 " --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + ";2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + ";" + username + ";" + username +

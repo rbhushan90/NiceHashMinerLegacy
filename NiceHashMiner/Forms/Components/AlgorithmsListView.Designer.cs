@@ -87,7 +87,7 @@
             // columnHeader5
             // 
             this.columnHeader5.Text = "BTC/Day";
-            this.columnHeader5.Width = 150;
+            this.columnHeader5.Width = 148;
             // 
             // contextMenuStrip1
             // 
