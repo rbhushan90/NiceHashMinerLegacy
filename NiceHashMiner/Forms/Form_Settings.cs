@@ -389,6 +389,7 @@ namespace NiceHashMiner.Forms
                 checkBox_Additional_info_about_device.Text = "Дополнительная информация об устройстве";
                 checkBox_Force_mining_if_nonprofitable.Text = "Принудительный майнинг, если не прибыльно";
                 checkBox_Disable_extra_launch_parameter_checking.Text = "Отключить проверку дополнительных параметров";
+                label_AutoStartMiningDelay.Text = "Задержка автозапуска майнинга (сек)";
             }
 
 
@@ -529,6 +530,7 @@ namespace NiceHashMiner.Forms
                 textBox_SwitchMinSeconds.Leave += GeneralTextBoxes_Leave;
                 textBox_MinerAPIQueryInterval.Leave += GeneralTextBoxes_Leave;
                 textBox_MinerRestartDelayMS.Leave += GeneralTextBoxes_Leave;
+                textBox_AutoStartMiningDelay.Leave += GeneralTextBoxes_Leave;
                 textBox_MinIdleSeconds.Leave += GeneralTextBoxes_Leave;
                 textBox_LogMaxFileSize.Leave += GeneralTextBoxes_Leave;
          //       textBox_ethminerDefaultBlockHeight.Leave += GeneralTextBoxes_Leave;
@@ -626,6 +628,7 @@ namespace NiceHashMiner.Forms
                 textBox_MinerRestartDelayMS.Text = ConfigManager.GeneralConfig.MinerRestartDelayMS.ToString();
                 textBox_MinIdleSeconds.Text = ConfigManager.GeneralConfig.MinIdleSeconds.ToString();
                 textBox_LogMaxFileSize.Text = ConfigManager.GeneralConfig.LogMaxFileSize.ToString();
+                textBox_AutoStartMiningDelay.Text = ConfigManager.GeneralConfig.AutoStartMiningDelay.ToString();
                 /*
                 textBox_ethminerDefaultBlockHeight.Text =
                     ConfigManager.GeneralConfig.ethminerDefaultBlockHeight.ToString();
@@ -717,6 +720,8 @@ namespace NiceHashMiner.Forms
             IsChange = true;
             ConfigManager.GeneralConfig.DebugConsole = checkBox_DebugConsole.Checked;
             ConfigManager.GeneralConfig.AutoStartMining = checkBox_AutoStartMining.Checked;
+            label_AutoStartMiningDelay.Enabled = checkBox_AutoStartMining.Checked;
+            textBox_AutoStartMiningDelay.Enabled = checkBox_AutoStartMining.Checked;
             ConfigManager.GeneralConfig.HideMiningWindows = checkBox_HideMiningWindows.Checked;
             ConfigManager.GeneralConfig.MinimizeToTray = checkBox_MinimizeToTray.Checked;
             ConfigManager.GeneralConfig.DeviceDetection.DisableDetectionNVIDIA =
@@ -848,6 +853,8 @@ namespace NiceHashMiner.Forms
             ConfigManager.GeneralConfig.MinerRestartDelayMS = Helpers.ParseInt(textBox_MinerRestartDelayMS.Text);
             ConfigManager.GeneralConfig.MinIdleSeconds = Helpers.ParseInt(textBox_MinIdleSeconds.Text);
             ConfigManager.GeneralConfig.LogMaxFileSize = Helpers.ParseLong(textBox_LogMaxFileSize.Text);
+            ConfigManager.GeneralConfig.AutoStartMiningDelay = Helpers.ParseInt(textBox_AutoStartMiningDelay.Text);
+
             /*
             ConfigManager.GeneralConfig.ethminerDefaultBlockHeight =
                 Helpers.ParseInt(textBox_ethminerDefaultBlockHeight.Text);
@@ -875,7 +882,8 @@ namespace NiceHashMiner.Forms
             textBox_MinerRestartDelayMS.Text = ConfigManager.GeneralConfig.MinerRestartDelayMS.ToString();
             textBox_MinIdleSeconds.Text = ConfigManager.GeneralConfig.MinIdleSeconds.ToString();
             textBox_LogMaxFileSize.Text = ConfigManager.GeneralConfig.LogMaxFileSize.ToString();
-      //      textBox_ethminerDefaultBlockHeight.Text = ConfigManager.GeneralConfig.ethminerDefaultBlockHeight.ToString();
+            textBox_AutoStartMiningDelay.Text = ConfigManager.GeneralConfig.AutoStartMiningDelay.ToString();
+            //      textBox_ethminerDefaultBlockHeight.Text = ConfigManager.GeneralConfig.ethminerDefaultBlockHeight.ToString();
             textBox_APIBindPortStart.Text = ConfigManager.GeneralConfig.ApiBindPortPoolStart.ToString();
             textBox_ElectricityCost.Text = ConfigManager.GeneralConfig.KwhPrice.ToString("0.0000");
         }
@@ -1139,6 +1147,16 @@ namespace NiceHashMiner.Forms
 
         private void checkBox_Force_mining_if_nonprofitable_CheckedChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void textBox_AutoStartMiningDelay_KeyPress(object sender, KeyPressEventArgs e)
+        {
+        char number = e.KeyChar;
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
 
         }
     }

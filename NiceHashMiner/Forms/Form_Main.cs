@@ -34,6 +34,8 @@ namespace NiceHashMiner
         private Timer _startupTimer;
         private Timer _remoteTimer;
         private Timer _autostartTimer;
+        private Timer _autostartTimerDelay;
+        private int _AutoStartMiningDelay = 0;
         private Timer _idleCheck;
         private SystemTimer _computeDevicesCheckTimer;
 
@@ -331,7 +333,7 @@ namespace NiceHashMiner
             _minerStatsCheck = new Timer();
             _minerStatsCheck.Tick += MinerStatsCheck_Tick;
             _minerStatsCheck.Interval = ConfigManager.GeneralConfig.MinerAPIQueryInterval * 1000;
-
+            //buttonStopMining.Enabled = false;
             //_smaMinerCheck = new Timer();
             //_smaMinerCheck.Tick += SMAMinerCheck_Tick;
             //_smaMinerCheck.Interval = ConfigManager.GeneralConfig.SwitchMinSecondsFixed * 1000 +
@@ -499,16 +501,40 @@ namespace NiceHashMiner
             {
                 Helpers.InstallVcRedist();
             }
-
+            
+            _AutoStartMiningDelay = ConfigManager.GeneralConfig.AutoStartMiningDelay;
+            _autostartTimerDelay = new Timer();
+            _autostartTimerDelay.Tick += AutoStartTimer_TickDelay;
+            _autostartTimerDelay.Interval = 1000;
+            _autostartTimerDelay.Start();
 
             _autostartTimer = new Timer();
             _autostartTimer.Tick += AutoStartTimer_Tick;
-            _autostartTimer.Interval = 2000;
+            _autostartTimer.Interval = Math.Max(2000, ConfigManager.GeneralConfig.AutoStartMiningDelay * 1000);
             _autostartTimer.Start();
 
             }
-
-        private void AutoStartTimer_Tick(object sender, EventArgs e)
+        private void AutoStartTimer_TickDelay(object sender, EventArgs e)
+        {
+            if (ConfigManager.GeneralConfig.AutoStartMining)
+            {
+                _AutoStartMiningDelay--;
+                if (firstRun || _AutoStartMiningDelay < 1)
+                {
+                    _autostartTimerDelay.Stop();
+                    _autostartTimerDelay = null;
+                    buttonStopMining.Text = International.GetText("Form_Main_stop");
+                    return;
+                } else
+                {
+                    //buttonStartMining.Enabled = false;
+                    buttonStopMining.Enabled = true;
+                    buttonStopMining.Text = International.GetText("Form_Main_stop") + " (" + _AutoStartMiningDelay.ToString() + ")";
+                    buttonStartMining.Update();
+                }
+            }
+        }
+            private void AutoStartTimer_Tick(object sender, EventArgs e)
         {
             _autostartTimer.Stop();
             _autostartTimer = null;
@@ -517,6 +543,12 @@ namespace NiceHashMiner
             {
                 if (firstRun)
                 {
+                    if (_autostartTimerDelay != null)
+                    {
+                        _autostartTimerDelay.Stop();
+                        _autostartTimerDelay = null;
+                        buttonStopMining.Text = International.GetText("Form_Main_stop");
+                    }
                     return;
                 }
                 // well this is started manually as we want it to start at runtime
@@ -1236,6 +1268,17 @@ namespace NiceHashMiner
 
         private StartMiningReturnType StartMining(bool showWarnings)
         {
+            if (_autostartTimerDelay != null)
+            {
+                _autostartTimerDelay.Stop();
+                _autostartTimerDelay = null;
+                buttonStopMining.Text = International.GetText("Form_Main_stop");
+            }
+            if (_autostartTimer != null)
+            {
+                _autostartTimer.Stop();
+                _autostartTimer = null;
+            }
             if (ConfigManager.GeneralConfig.NewPlatform)
             {
                 NiceHashStats.DeviceStatus_TickNew("MINING");

@@ -27,6 +27,7 @@ namespace NiceHashMiner.Configs.Data
         public string IFTTTKey = "";
         public int ServiceLocation = 0;
         public bool AutoStartMining = false;
+        public int AutoStartMiningDelay = 0;
         public bool HideMiningWindows = false;
         public bool MinimizeToTray = false;
 
@@ -138,6 +139,7 @@ namespace NiceHashMiner.Configs.Data
             TimeUnit = TimeUnitType.Day;
             ServiceLocation = 0;
             AutoStartMining = false;
+            AutoStartMiningDelay = 0;
             //LessThreads = 0;
             DebugConsole = false;
             HideMiningWindows = false;
