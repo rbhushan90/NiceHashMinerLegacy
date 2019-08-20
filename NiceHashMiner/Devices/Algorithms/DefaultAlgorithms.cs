@@ -21,6 +21,7 @@ namespace NiceHashMiner.Devices.Algorithms
                 {
                 //    new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNightV7, ""),
                     new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNightHeavy, ""),
+                    new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNightR, ""),
                     new Algorithm(MinerBaseType.XmrStak, AlgorithmType.CryptoNightV8, ""),
 
                 }
