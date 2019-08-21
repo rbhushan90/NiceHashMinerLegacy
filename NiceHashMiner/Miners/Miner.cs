@@ -1306,7 +1306,7 @@ namespace NiceHashMiner
 
             P.StartInfo.FileName = Path;
             P.ExitEvent = Miner_Exited;
-
+            LastCommandLine = System.Text.RegularExpressions.Regex.Replace(LastCommandLine, @"\s+", " ");
             P.StartInfo.Arguments = LastCommandLine;
             if (IsNeverHideMiningWindow)
             {
