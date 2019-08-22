@@ -43,7 +43,16 @@ namespace NiceHashMiner.Miners
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
         //    Killteamredminer();
         }
-        
+        static int GetWinVer(Version ver)
+        {
+            if (ver.Major == 6 & ver.Minor == 1)
+                return 7;
+            else if (ver.Major == 6 & ver.Minor == 2)
+                return 8;
+            else
+                return 10;
+        }
+
         public override void Start(string url, string btcAdress, string worker)
         {
             if (!IsInit)
@@ -94,7 +103,13 @@ namespace NiceHashMiner.Miners
             {
                 algo = " -a mtp --allow_all_devices";
             }
-            LastCommandLine = variables.TRMiner_add1 + " --watchdog_script " + algo + " -o " + url +
+            var sc = "";
+            if (GetWinVer(Environment.OSVersion.Version) < 8)
+            {
+                sc = variables.TRMiner_add1;
+            }
+
+            LastCommandLine = sc + " --watchdog_script " + algo + " -o " + url +
                               " -u " + username + " -p x " +
                                " -o stratum+tcp://" + alg + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
                                " -o stratum+tcp://" + alg + "." + myServers[3, 0] + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x" +
@@ -119,7 +134,11 @@ namespace NiceHashMiner.Miners
             var CommandLine = "";
             var apiBind = " --api_listen=127.0.0.1:" + ApiPort;
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
-
+            var sc = "";
+            if (GetWinVer(Environment.OSVersion.Version) < 8)
+            {
+                sc = variables.TRMiner_add1;
+            }
             // demo for benchmark
             string username = Globals.GetBitcoinUser();
             string worker = "";
@@ -135,44 +154,44 @@ namespace NiceHashMiner.Miners
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
             {
-                CommandLine = variables.TRMiner_add1 + " -a lyra2z" + apiBind +
+                CommandLine = sc + " -a lyra2z" + apiBind +
                 " --url stratum+tcp://lyra2z.eu" + nhsuff + ".nicehash.com:3365" +  " --user " + username + " - p x " +
                 " --url stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16R))
             {
-                CommandLine = variables.TRMiner_add1 + " -a x16r" + apiBind +
+                CommandLine = sc + " -a x16r" + apiBind +
                 " --url stratum+tcp://x16r.eu" + nhsuff + ".nicehash.com:3366" + " --user " + username + " - p x " +
                 " --url stratum+tcp://x16r.eu.mine.zpool.ca:3636" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckarood29))
             {
-                CommandLine = variables.TRMiner_add1 + " -a cuckarood29_grin" + apiBind +
+                CommandLine = sc + " -a cuckarood29_grin" + apiBind +
                 " --url stratum+tcp://grincuckaroo29.eu" + nhsuff + ".nicehash.com:3371" + " --user " + username + " -p x " +
                 " --url stratum+tcp://grin.sparkpool.com:6666" + " --user angelbbs@mail.ru/" + worker + " -p x -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
             {
-                CommandLine = variables.TRMiner_add1 + " -a lyra2rev3" + apiBind +
+                CommandLine = sc + " -a lyra2rev3" + apiBind +
                 " --url stratum+tcp://lyra2rev3.eu" + nhsuff + ".nicehash.com:3373" + " --user " + username + " -p x " +
                 " --url stratum+tcp://lyra2v3.eu.mine.zpool.ca:4550" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
             }
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
-                CommandLine = variables.TRMiner_add1 + " -a cnv8" + apiBind +
+                CommandLine = sc + " -a cnv8" + apiBind +
                 " --url stratum+tcp://cryptonightv8.eu" + nhsuff + ".nicehash.com:3367" + " --user " + username + " -p x -d ";
             }
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
             {
-                CommandLine = variables.TRMiner_add1 + " -a cnr" +
+                CommandLine = sc + " -a cnr" +
                 " -o stratum+tcp://cryptonightr.eu" + nhsuff + ".nicehash.com:3375" + " -u " + username + " -p x " +
                 " -o stratum+tcp://xmr-eu1.nanopool.org:14444" + " -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX" + " -p x -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
             {
-                CommandLine = variables.TRMiner_add1 + " -a mtp --allow_all_devices" +
+                CommandLine = sc + " -a mtp --allow_all_devices" +
                  " -o stratum+tcp://xzc.2miners.com:8080" + " -u aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE" + " -p x -d ";
             }
             //return $" -o stratum+tcp://xmr-eu.dwarfpool.com:8005 {variant} -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1"
