@@ -206,7 +206,8 @@ namespace NiceHashMiner.Miners
 
             commandLine += GetDevicesCommandString();
 
-            TotalCount = 10;
+            //TotalCount = 10;
+            TotalCount = (time / 12);
 
             Total = 0.0d;
 
@@ -254,7 +255,7 @@ namespace NiceHashMiner.Miners
                     TotalCount--;
                 }
 
-                if (TotalCount <= 0)
+                if (TotalCount <= 0 && speed > 0)
                 {
                     BenchmarkAlgorithm.BenchmarkSpeed = speed;
                     BenchmarkSignalFinnished = true;

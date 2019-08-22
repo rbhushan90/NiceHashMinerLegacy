@@ -129,7 +129,8 @@ namespace NiceHashMiner.Miners
 
             commandLine += GetDevicesCommandString();
 
-            TotalCount = 2;
+            //TotalCount = 2;
+            TotalCount =(time / 60);
 
             Total = 0.0d;
 

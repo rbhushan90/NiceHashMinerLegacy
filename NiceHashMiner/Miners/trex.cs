@@ -25,7 +25,7 @@ namespace NiceHashMiner.Miners
         public trex() : base("trex_NVIDIA")
         {
         }
-
+        private bool _benchmarkException => MiningSetup.MinerPath == MinerPaths.Data.trex;
         public override void Start(string url, string btcAdress, string worker)
         {
             if (!IsInit)
@@ -117,7 +117,8 @@ namespace NiceHashMiner.Miners
                                   DeviceType.NVIDIA) + " --no-watchdog -l " + GetLogFileName() +
                               " -d ";
                 commandLine += GetDevicesCommandString();
-                _benchmarkTimeWait = 120;
+                //_benchmarkTimeWait = 120;
+                _benchmarkTimeWait = time;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Skunk))
             {
@@ -136,7 +137,8 @@ namespace NiceHashMiner.Miners
                                   DeviceType.NVIDIA) + " --no-watchdog -l " + GetLogFileName() +
                               " -d ";
                 commandLine += GetDevicesCommandString();
-                _benchmarkTimeWait = 240;
+                //_benchmarkTimeWait = 240;
+                _benchmarkTimeWait = time;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16R))
             {
@@ -149,12 +151,16 @@ namespace NiceHashMiner.Miners
                  " -o " + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                  " -o " + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                  " -o " + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x " +
+               //  " -b 127.0.0.1:" + ApiPort.ToString() + " " +
+              //   " --time-limit " + time.ToString() + " " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,
-                                  DeviceType.NVIDIA) + " --no-watchdog -l " + GetLogFileName() +
+                                  DeviceType.NVIDIA) +
+                                  " -l " + GetLogFileName() +
                               " -d ";
                 commandLine += GetDevicesCommandString();
-                _benchmarkTimeWait = 180;
+                //_benchmarkTimeWait = 180;
+                _benchmarkTimeWait = time;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
             {
@@ -172,10 +178,13 @@ namespace NiceHashMiner.Miners
                                   DeviceType.NVIDIA) + " --no-watchdog -l " + GetLogFileName() +
                               " -d ";
                 commandLine += GetDevicesCommandString();
-                _benchmarkTimeWait = 360;
+                _benchmarkTimeWait = time * 2;//more time for mtp
             }
             return commandLine;
         }
+
+
+        
 
         protected override void BenchmarkThreadRoutine(object commandLine)
         {
@@ -188,6 +197,7 @@ namespace NiceHashMiner.Miners
 
             try
             {
+                /*
                 try
                 {
                     var latestLogFile = GetLogFileName();
@@ -202,6 +212,7 @@ namespace NiceHashMiner.Miners
                     Helpers.ConsolePrint("BENCHMARK", "Benchmark skip");
                     return;
                 }
+                */
                 Helpers.ConsolePrint("BENCHMARK", "Benchmark starts");
                 Helpers.ConsolePrint(MinerTag(), "Benchmark should end in : " + _benchmarkTimeWait + " seconds");
                 BenchmarkHandle = BenchmarkStartProcess((string) commandLine);
@@ -209,7 +220,7 @@ namespace NiceHashMiner.Miners
                 var benchmarkTimer = new Stopwatch();
                 benchmarkTimer.Reset();
                 benchmarkTimer.Start();
-                //BenchmarkThreadRoutineStartSettup();
+                BenchmarkThreadRoutineStartSettup();
                 // wait a little longer then the benchmark routine if exit false throw
                 //var timeoutTime = BenchmarkTimeoutInSeconds(BenchmarkTimeInSeconds);
                 //var exitSucces = BenchmarkHandle.WaitForExit(timeoutTime * 1000);
@@ -279,6 +290,7 @@ namespace NiceHashMiner.Miners
             }
             finally
             {
+                
                 BenchmarkAlgorithm.BenchmarkSpeed = 0;
 
                 var latestLogFile = GetLogFileName();
@@ -318,94 +330,115 @@ namespace NiceHashMiner.Miners
                     }
 
                     var addBenchLines = BenchLines.Count == 0;
+                    int shares = 0;
+                    double tmp = 0.0d;
+                    double speed = 0.0d;
                     foreach (var line in lines)
                     {
                         if (line != null)
                         {
-                            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
+                           // if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
                             {
-                                if (line.Contains("1/1") || line.Contains("0/1"))
+                                //if (line.Contains("1/1") || line.Contains("0/1"))
+                                if (line.Contains("[ OK ]"))
                                 {
 
                                     var st = line.IndexOf("- ");
                                     var e = line.ToLower().IndexOf("h/s");
                                     var parse = line.Substring(st + 2, e - st - 4).Trim();
-                                    double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                                    tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                                    if (tmp != 0)
+                                    {
+                                        shares++;
+                                    }
                                     // save speed
-
                                     if (line.ToLower().Contains("kh/s"))
-                                        tmp *= 1000;
+                                        speed += tmp * 1000;
                                     else if (line.ToLower().Contains("mh/s"))
-                                        tmp *= 1000000;
+                                        speed += tmp * 1000000;
 
-                                    BenchmarkAlgorithm.BenchmarkSpeed = tmp;
+                                    BenchmarkAlgorithm.BenchmarkSpeed = speed / shares;
                                     BenchmarkSignalFinnished = true;
 
                                 }
                             }
-
+                            /*
                             if (line.Contains("3/3") || line.Contains("2/3"))
                             {
 
                                 var st = line.IndexOf("- ");
                                 var e = line.ToLower().IndexOf("h/s");
                                 var parse = line.Substring(st+2, e - st - 4).Trim();
-                                double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                                tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                                if (tmp != 0)
+                                {
+                                    shares++;
+                                }
                                 // save speed
-
                                 if (line.ToLower().Contains("kh/s"))
-                                    tmp *= 1000;
+                                    speed += tmp * 1000;
                                 else if (line.ToLower().Contains("mh/s"))
-                                    tmp *= 1000000;
+                                    speed += tmp * 1000000;
 
-                                BenchmarkAlgorithm.BenchmarkSpeed = tmp;
+                                BenchmarkAlgorithm.BenchmarkSpeed = speed / shares;
                                 BenchmarkSignalFinnished = true;
 
                             }
+                            */
+                            /*
                             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
                             {
-                                if (line.Contains("6/6") || line.Contains("5/6"))
+                                // if (line.Contains("6/6") || line.Contains("5/6"))
+                                if (line.Contains("[ OK ]"))
                                 {
 
                                     var st = line.IndexOf("- ");
                                     var e = line.ToLower().IndexOf("h/s");
                                     var parse = line.Substring(st + 2, e - st - 4).Trim();
-                                    double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                                    tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                                    if (tmp != 0)
+                                    {
+                                        shares++;
+                                    }
                                     // save speed
-
                                     if (line.ToLower().Contains("kh/s"))
-                                        tmp *= 1000;
+                                        speed += tmp * 1000;
                                     else if (line.ToLower().Contains("mh/s"))
-                                        tmp *= 1000000;
+                                        speed += tmp * 1000000;
 
-                                    BenchmarkAlgorithm.BenchmarkSpeed = tmp;
+                                    BenchmarkAlgorithm.BenchmarkSpeed = speed / shares;
                                     BenchmarkSignalFinnished = true;
                                 }
                             }
                             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16R))
                             {
-                                if (line.Contains("6/6") || line.Contains("5/6"))
+                               // if (line.Contains("6/6") || line.Contains("5/6"))
+                                if (line.Contains("[ OK ]"))
                                 {
-
                                     var st = line.IndexOf("- ");
                                     var e = line.ToLower().IndexOf("h/s");
                                     var parse = line.Substring(st + 2, e - st - 4).Trim();
-                                    double tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                                    tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
+                                    if (tmp != 0)
+                                    {
+                                        shares++;
+                                    }
                                     // save speed
-
                                     if (line.ToLower().Contains("kh/s"))
-                                        tmp *= 1000;
+                                        speed += tmp * 1000;
                                     else if (line.ToLower().Contains("mh/s"))
-                                        tmp *= 1000000;
+                                        speed += tmp * 1000000;
 
-                                    BenchmarkAlgorithm.BenchmarkSpeed = tmp;
+                                    BenchmarkAlgorithm.BenchmarkSpeed = speed / shares;
                                     BenchmarkSignalFinnished = true;
                                 }
                             }
+                            */
                         }
                     }
-                }
 
+                }
+                
                 BenchmarkThreadRoutineFinish();
             }
         }
@@ -418,7 +451,6 @@ namespace NiceHashMiner.Miners
 
         protected override bool BenchmarkParseLine(string outdata)
         {
-            Helpers.ConsolePrint("BENCHMARK", outdata);
             return false;
         }
 

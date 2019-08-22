@@ -171,7 +171,7 @@ namespace NiceHashMiner.Miners
             var server = Globals.GetLocationUrl(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
                 ConectionType);
-            //_benchmarkTimeWait = time;
+            benchmarkTimeWait = time;
             return GetStartBenchmarkCommand(server, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim())
                 + $" -l {GetLogFileName()} --print-time=2 --nicehash";
         }
@@ -204,7 +204,7 @@ namespace NiceHashMiner.Miners
                     }
                 else if (double.TryParse(speeds[0], out var twoSecSpeed))
                     {
-                    // Store 2.5s data in case 60s is never reached
+                    // Store 10s data in case 60s is never reached
                     twoSecTotal += twoSecSpeed;
                     ++twoSecCount;
                     }

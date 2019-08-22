@@ -285,7 +285,8 @@ namespace NiceHashMiner.Miners.XmrStak
             }
             _benchmarkCount = 0;
             _benchmarkSum = 0;
-            BenchmarkTimeInSeconds = Math.Max(time, 120);
+            BenchmarkTimeInSeconds = time;
+            //BenchmarkTimeInSeconds = Math.Max(time, 120);
             CleanOldLogs();
             return CreateLaunchCommand(GetBenchConfigName(), configs);
         }

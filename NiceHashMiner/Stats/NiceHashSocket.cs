@@ -329,12 +329,12 @@ namespace NiceHashMiner.Stats
                 string worker;
                 string group = "";
                 string rig = RigID;
-                var version = "NHML/1.9.1.7";//на старой платформе нельзя отправлять версию форка. Страница статистики падает )))
+                var version = "NHML/1.9.1.12";//на старой платформе нельзя отправлять версию форка. Страница статистики падает )))
                 
                 if (Configs.ConfigManager.GeneralConfig.NewPlatform)
                 {
                     protocol = 3;
-                    version = "NHML/1.9.2.7";
+                    version = "NHML/1.9.2.12";
                     if (ConfigManager.GeneralConfig.Send_actual_version_info)
                     {
                         version = "NHML/Fork Fix " + ConfigManager.GeneralConfig.ForkFixVersion.ToString().Replace(",", ".");
