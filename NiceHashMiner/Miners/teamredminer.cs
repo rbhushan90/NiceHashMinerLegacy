@@ -25,6 +25,9 @@ namespace NiceHashMiner.Miners
         private readonly int GPUPlatformNumber;
         Stopwatch _benchmarkTimer = new Stopwatch();
         int count = 0;
+        private int TotalCount = 0;
+        private double speed = 0;
+        private double tmp = 0;
 
         public teamredminer()
             : base("teamredminer_AMD")
@@ -206,7 +209,7 @@ namespace NiceHashMiner.Miners
                           " -d ";
 */
             CommandLine += GetDevicesCommandString();
-           
+            TotalCount = (time / 30) * 2;
             return CommandLine;
 
         }
@@ -214,7 +217,7 @@ namespace NiceHashMiner.Miners
         protected override bool BenchmarkParseLine(string outdata) {
             string hashSpeed = "";
             int kspeed = 1;
-            double speed = 0;
+
             //Helpers.ConsolePrint("TEAMRED:", outdata);
             //[2019-02-02 23:44:25] GPU 0 [64C, fan 39%] lyra2rev3: 22.58Mh/s, avg 22.93Mh/s,
             //[2019-03-09 11:21:02] GPU 1 [ 0C, fan  0%]       cnr: 3.072kh/s, avg 1.531kh/s, pool 1.579kh/s a:3 r:0 hw:0
@@ -237,11 +240,11 @@ namespace NiceHashMiner.Miners
                     kspeed = 1000000;
                 }
                 count++;
-                if (count >= 3)
+                if (count >= 4) //skip 2*30=1min
                 {
                     try
                     {
-                        speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                        tmp = Double.Parse(hashSpeed, CultureInfo.InvariantCulture) * kspeed;
                     }
                     catch
                     {
@@ -250,12 +253,13 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-
-                    BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
-                    //Killteamredminer();
-                    BenchmarkSignalFinnished = true;
-                    //BenchmarkSignalHanged = true;
-                    return true;
+                    speed = speed + tmp;
+                    BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
+                    if (count >= TotalCount)
+                    {
+                        BenchmarkSignalFinnished = true;
+                        return true;
+                    }
                 }
             }
             if (outdata.Contains("cnv8: "))
@@ -277,11 +281,11 @@ namespace NiceHashMiner.Miners
                     kspeed = 1000000;
                 }
                 count++;
-                if (count >= 3) 
+                if (count >= 4) //skip 2*30=1min
                 {
                     try
                     {
-                        speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                        tmp = Double.Parse(hashSpeed, CultureInfo.InvariantCulture) * kspeed;
                     }
                     catch
                     {
@@ -290,11 +294,13 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-                    BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
-                    //Killteamredminer();
-                    BenchmarkSignalFinnished = true;
-                    //BenchmarkSignalHanged = true;
-                    return true;
+                    speed = speed + tmp;
+                    BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
+                    if (count >= TotalCount)
+                    {
+                        BenchmarkSignalFinnished = true;
+                        return true;
+                    }
                 }
             }
             if (outdata.Contains("cnr: "))
@@ -316,11 +322,11 @@ namespace NiceHashMiner.Miners
                     kspeed = 1000000;
                 }
                 count++;
-                if (count >= 3)
+                if (count >= 4) //skip 2*30=1min
                 {
                     try
                     {
-                        speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                        tmp = Double.Parse(hashSpeed, CultureInfo.InvariantCulture) * kspeed;
                     }
                     catch
                     {
@@ -329,11 +335,13 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-                    BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
-                    //Killteamredminer();
-                    BenchmarkSignalFinnished = true;
-                    //BenchmarkSignalHanged = true;
-                    return true;
+                    speed = speed + tmp;
+                    BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
+                    if (count >= TotalCount)
+                    {
+                        BenchmarkSignalFinnished = true;
+                        return true;
+                    }
                 }
             }
 
@@ -356,11 +364,11 @@ namespace NiceHashMiner.Miners
                     kspeed = 1000000;
                 }
                 count++;
-                if (count >= 3)
+                if (count >= 4) //skip 2*30=1min
                 {
                     try
                     {
-                        speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                        tmp = Double.Parse(hashSpeed, CultureInfo.InvariantCulture) * kspeed;
                     }
                     catch
                     {
@@ -369,11 +377,13 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-                    BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
-                    //Killteamredminer();
-                    BenchmarkSignalFinnished = true;
-                    //BenchmarkSignalHanged = true;
-                    return true;
+                    speed = speed + tmp;
+                    BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
+                    if (count >= TotalCount)
+                    {
+                        BenchmarkSignalFinnished = true;
+                        return true;
+                    }
                 }
             }
             //GPU 0 [56C, fan 35%] lyra2z: 1.410Mh/s, avg 1.437Mh/s, pool   0.0 h/s a:0 r:0 hw:0
@@ -396,11 +406,11 @@ namespace NiceHashMiner.Miners
                     kspeed = 1000000;
                 }
                 count++;
-                if (count >= 3)
+                if (count >= 4) //skip 2*30=1min
                 {
                     try
                     {
-                        speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                        tmp = Double.Parse(hashSpeed, CultureInfo.InvariantCulture) * kspeed;
                     }
                     catch
                     {
@@ -409,12 +419,13 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-
-                    BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
-                    //Killteamredminer();
-                    BenchmarkSignalFinnished = true;
-                    //BenchmarkSignalHanged = true;
-                    return true;
+                    speed = speed + tmp;
+                    BenchmarkAlgorithm.BenchmarkSpeed =  speed / (count - 3);
+                    if (count >= TotalCount)
+                    {
+                        BenchmarkSignalFinnished = true;
+                        return true;
+                    }
                 }
             }
             if (outdata.Contains("x16r: "))
@@ -436,11 +447,11 @@ namespace NiceHashMiner.Miners
                     kspeed = 1000000;
                 }
                 count++;
-                if (count >= 10)
+                if (count >= 4) //skip 2*30=1min
                 {
                     try
                     {
-                        speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                        tmp = Double.Parse(hashSpeed, CultureInfo.InvariantCulture) * kspeed;
                     }
                     catch
                     {
@@ -449,12 +460,13 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-
-                    BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
-                    //Killteamredminer();
-                    BenchmarkSignalFinnished = true;
-                    //BenchmarkSignalHanged = true;
-                    return true;
+                    speed = speed + tmp;
+                    BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
+                    if (count >= TotalCount)
+                    {
+                        BenchmarkSignalFinnished = true;
+                        return true;
+                    }
                 }
             }
             if (outdata.Contains("cuckarood29_grin: "))
@@ -476,11 +488,11 @@ namespace NiceHashMiner.Miners
                     kspeed = 1000000;
                 }
                 count++;
-                if (count >= 10)
+                if (count >= 4) //skip 2*30=1min
                 {
                     try
                     {
-                        speed = Double.Parse(hashSpeed, CultureInfo.InvariantCulture);
+                        tmp = Double.Parse(hashSpeed, CultureInfo.InvariantCulture) * kspeed;
                     }
                     catch
                     {
@@ -489,12 +501,13 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-
-                    BenchmarkAlgorithm.BenchmarkSpeed = Math.Max(BenchmarkAlgorithm.BenchmarkSpeed, speed * kspeed);
-                    //Killteamredminer();
-                    BenchmarkSignalFinnished = true;
-                    //BenchmarkSignalHanged = true;
-                    return true;
+                    speed = speed + tmp;
+                    BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
+                    if (count >= TotalCount)
+                    {
+                        BenchmarkSignalFinnished = true;
+                        return true;
+                    }
                 }
             }
             

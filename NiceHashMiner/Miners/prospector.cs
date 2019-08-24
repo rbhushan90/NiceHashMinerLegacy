@@ -343,7 +343,7 @@ namespace NiceHashMiner.Miners
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
             // Prospector can take a very long time to start up
-            _benchmarkTimeWait = time + 60;
+            _benchmarkTimeWait = time + 20;
             // network stub
             var url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation],
                 ConectionType);

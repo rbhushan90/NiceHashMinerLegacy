@@ -23,12 +23,13 @@ namespace NiceHashMiner.Miners
     public class SRBMiner : Miner
     {
         private readonly int GPUPlatformNumber;
-        private int _benchmarkTimeWait = 240;
+        private int _benchmarkTimeWait = 240 + 20;
 
-        private int TotalCount = 2;
+       // private int TotalCount = 2;
         private const int TotalDelim = 2;
-        double speed = 0;
         int count = 0;
+        private double speed = 0;
+        private double tmp = 0;
 
         public SRBMiner() : base("SRBMiner") {
             GPUPlatformNumber = ComputeDeviceManager.Available.AmdOpenCLPlatformNum;
@@ -362,7 +363,7 @@ namespace NiceHashMiner.Miners
             var server = Globals.GetLocationUrl(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], 
                 ConectionType);
-            //   _benchmarkTimeWait = time;
+              // _benchmarkTimeWait = time;//SRBMiner report hashrate every 3 min
             return GetStartBenchmarkCommand(server, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
         }
                 
@@ -373,6 +374,7 @@ namespace NiceHashMiner.Miners
 
         protected override void ProcessBenchLinesAlternate(string[] lines)
         {
+            int kspeed = 1;
             foreach (var line in lines)
             {
                 Helpers.ConsolePrint(MinerTag(), line);
@@ -383,10 +385,16 @@ namespace NiceHashMiner.Miners
                 {
                     var st = lineLowered.IndexOf("Total: ".ToLower());
                     var e = lineLowered.IndexOf("/s".ToLower());
+
+                    if (lineLowered.Contains("kh/s"))
+                        kspeed = 1000;
+                    else if (lineLowered.Contains("mh/s"))
+                        kspeed = 1000000;
+                    count++;
                     var parse = lineLowered.Substring(st + 7, e - st - 9).Trim().Replace(",", ".");
                     try
                     {
-                        speed = Double.Parse(parse, CultureInfo.InvariantCulture);
+                        tmp = Double.Parse(parse, CultureInfo.InvariantCulture) * kspeed;
                     }
                     catch
                     {
@@ -395,25 +403,26 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                     }
 
-                    if (lineLowered.Contains("kh/s"))
-                        speed *= 1000;
-                    else if (lineLowered.Contains("mh/s"))
-                        speed *= 1000000;
-
-                    BenchmarkAlgorithm.BenchmarkSpeed = speed;
+                    speed = speed + tmp;
+                    BenchmarkAlgorithm.BenchmarkSpeed = speed / (count);
+                    /*
+                    if (count >= TotalCount)
+                    {
+                        BenchmarkSignalFinnished = true;
+                    }
+                    */
+                    //BenchmarkAlgorithm.BenchmarkSpeed = speed;
                 }
             }
         }
 
         protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata)
         {
-            Helpers.ConsolePrint("SRBMiner BENCH-3", "");
             CheckOutdata(outdata);
         }
 
         protected override bool BenchmarkParseLine(string outdata)
         {
-            Helpers.ConsolePrint("SRBMiner BENCH-4", "");
             Helpers.ConsolePrint(MinerTag(), outdata);
             return false;
         }
