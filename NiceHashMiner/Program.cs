@@ -10,6 +10,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using NiceHashMiner.Stats;
+using NiceHashMiner.Configs.Data;
 
 namespace NiceHashMiner
 {
@@ -350,6 +351,22 @@ namespace NiceHashMiner
                     if (Directory.Exists("internals"))
                         Directory.Delete("internals", true);
                     ConfigManager.GeneralConfig.ForkFixVersion = 17;
+                }
+                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 17.1)
+                {
+                    //public BenchmarkTimeLimitsConfig BenchmarkTimeLimits = new BenchmarkTimeLimitsConfig();
+                    //SetTimeLimit(BenchmarkPerformanceType.Quick, textBoxQuick.Text);
+                    // BenchmarkTimeLimitsConfig.Equals.
+                    ConfigManager.GeneralConfig.BenchmarkTimeLimits = new BenchmarkTimeLimitsConfig();
+                    Helpers.ConsolePrint("NICEHASH", "Old version");
+                    if (Directory.Exists("internals"))
+                        Directory.Delete("internals", true);
+                    ConfigManager.GeneralConfig.ForkFixVersion = 17.1;
+//                    new BenchmarkTimeLimitsConfig();
+                  //  benchmarkLimitControlCPU.TimeLimits = ConfigManager.GeneralConfig.BenchmarkTimeLimits.CPU;
+                    //benchmarkLimitControlNVIDIA.TimeLimits = ConfigManager.GeneralConfig.BenchmarkTimeLimits.NVIDIA;
+                    //benchmarkLimitControlAMD.TimeLimits = ConfigManager.GeneralConfig.BenchmarkTimeLimits.AMD;
+
                 }
 
                 //**

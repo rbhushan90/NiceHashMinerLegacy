@@ -51,7 +51,7 @@ namespace NiceHashMiner
         private int _flowLayoutPanelRatesIndex = 0;
 
         private const string BetaAlphaPostfixString = "";
-        const string ForkString = " Fork Fix 17";
+        const string ForkString = " Fork Fix 17.1";
 
         private bool _isDeviceDetectionInitialized = false;
 
@@ -501,7 +501,7 @@ namespace NiceHashMiner
             {
                 Helpers.InstallVcRedist();
             }
-            
+
             _AutoStartMiningDelay = ConfigManager.GeneralConfig.AutoStartMiningDelay;
             _autostartTimerDelay = new Timer();
             _autostartTimerDelay.Tick += AutoStartTimer_TickDelay;
@@ -1632,7 +1632,7 @@ namespace NiceHashMiner
         long SB_HORZ = 0;
         long SB_VERT = 1;
         long SB_BOTH = 3;
-        
+
         [System.Runtime.InteropServices.DllImport("user32", CallingConvention = System.Runtime.InteropServices.CallingConvention.Winapi)]
         [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
 

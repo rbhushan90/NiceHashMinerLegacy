@@ -169,14 +169,14 @@ namespace NiceHashMiner.Forms
                 International.GetText("Form_Settings_ToolTip_SwitchMinSeconds"));
             toolTip1.SetToolTip(pictureBox_SwitchMinSeconds,
                 International.GetText("Form_Settings_ToolTip_SwitchMinSeconds"));
-
+            /*
             toolTip1.SetToolTip(textBox_MinerAPIQueryInterval,
                 International.GetText("Form_Settings_ToolTip_MinerAPIQueryInterval"));
             toolTip1.SetToolTip(label_MinerAPIQueryInterval,
                 International.GetText("Form_Settings_ToolTip_MinerAPIQueryInterval"));
             toolTip1.SetToolTip(pictureBox_MinerAPIQueryInterval,
                 International.GetText("Form_Settings_ToolTip_MinerAPIQueryInterval"));
-
+                */
             toolTip1.SetToolTip(textBox_MinerRestartDelayMS,
                 International.GetText("Form_Settings_ToolTip_MinerRestartDelayMS"));
             toolTip1.SetToolTip(label_MinerRestartDelayMS,
@@ -195,10 +195,11 @@ namespace NiceHashMiner.Forms
             toolTip1.SetToolTip(label_DagGeneration, International.GetText("Form_Settings_ToolTip_DagGeneration"));
             toolTip1.SetToolTip(pictureBox_DagGeneration, International.GetText("Form_Settings_ToolTip_DagGeneration"));
             */
+            /*
             benchmarkLimitControlCPU.SetToolTip(ref toolTip1, "CPUs");
             benchmarkLimitControlNVIDIA.SetToolTip(ref toolTip1, "NVIDIA GPUs");
             benchmarkLimitControlAMD.SetToolTip(ref toolTip1, "AMD GPUs");
-
+            */
             toolTip1.SetToolTip(checkBox_DisableDetectionNVIDIA,
                 string.Format(International.GetText("Form_Settings_ToolTip_checkBox_DisableDetection"), "NVIDIA"));
             toolTip1.SetToolTip(checkBox_DisableDetectionAMD,
@@ -417,8 +418,10 @@ namespace NiceHashMiner.Forms
           //  }
             label_MinIdleSeconds.Text = International.GetText("Form_Settings_General_MinIdleSeconds") + ":";
             label_MinerRestartDelayMS.Text = International.GetText("Form_Settings_General_MinerRestartDelayMS") + ":";
+            /*
             label_MinerAPIQueryInterval.Text =
                 International.GetText("Form_Settings_General_MinerAPIQueryInterval") + ":";
+                */
             label_LogMaxFileSize.Text = International.GetText("Form_Settings_General_LogMaxFileSize") + ":";
 
             label_SwitchMaxSeconds.Text =
@@ -441,6 +444,7 @@ namespace NiceHashMiner.Forms
 
             // Benchmark time limits
             // internationalization change
+            /*
             groupBoxBenchmarkTimeLimits.Text =
                 International.GetText("Form_Settings_General_BenchmarkTimeLimits_Title") + ":";
             benchmarkLimitControlCPU.GroupName =
@@ -453,7 +457,7 @@ namespace NiceHashMiner.Forms
             benchmarkLimitControlCPU.InitLocale();
             benchmarkLimitControlNVIDIA.InitLocale();
             benchmarkLimitControlAMD.InitLocale();
-
+            */
             // device enabled listview translation
             devicesListViewEnableControl1.InitLocale();
             algorithmsListView1.InitLocale();
@@ -473,8 +477,10 @@ namespace NiceHashMiner.Forms
             groupBox_Misc.Text = International.GetText("FormSettings_Tab_General_Group_Misc");
             // advanced
             groupBox_Miners.Text = International.GetText("FormSettings_Tab_Advanced_Group_Miners");
+            /*
             groupBoxBenchmarkTimeLimits.Text =
                 International.GetText("FormSettings_Tab_Advanced_Group_BenchmarkTimeLimits");
+                */
             if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
             {
                 buttonGPUtuning.Text = "Настройка GPU";
@@ -528,7 +534,7 @@ namespace NiceHashMiner.Forms
                 // these are ints only
                 textBox_SwitchMaxSeconds.Leave += GeneralTextBoxes_Leave;
                 textBox_SwitchMinSeconds.Leave += GeneralTextBoxes_Leave;
-                textBox_MinerAPIQueryInterval.Leave += GeneralTextBoxes_Leave;
+               // textBox_MinerAPIQueryInterval.Leave += GeneralTextBoxes_Leave;
                 textBox_MinerRestartDelayMS.Leave += GeneralTextBoxes_Leave;
                 textBox_AutoStartMiningDelay.Leave += GeneralTextBoxes_Leave;
                 textBox_MinIdleSeconds.Leave += GeneralTextBoxes_Leave;
@@ -540,7 +546,7 @@ namespace NiceHashMiner.Forms
                 // set int only keypress
                 textBox_SwitchMaxSeconds.KeyPress += TextBoxKeyPressEvents.TextBoxIntsOnly_KeyPress;
                 textBox_SwitchMinSeconds.KeyPress += TextBoxKeyPressEvents.TextBoxIntsOnly_KeyPress;
-                textBox_MinerAPIQueryInterval.KeyPress += TextBoxKeyPressEvents.TextBoxIntsOnly_KeyPress;
+              //  textBox_MinerAPIQueryInterval.KeyPress += TextBoxKeyPressEvents.TextBoxIntsOnly_KeyPress;
                 textBox_MinerRestartDelayMS.KeyPress += TextBoxKeyPressEvents.TextBoxIntsOnly_KeyPress;
                 textBox_MinIdleSeconds.KeyPress += TextBoxKeyPressEvents.TextBoxIntsOnly_KeyPress;
                 textBox_LogMaxFileSize.KeyPress += TextBoxKeyPressEvents.TextBoxIntsOnly_KeyPress;
@@ -624,7 +630,7 @@ namespace NiceHashMiner.Forms
                 textBox_IFTTTKey.Enabled = ConfigManager.GeneralConfig.UseIFTTT;
                 textBox_SwitchMaxSeconds.Text = ConfigManager.GeneralConfig.SwitchSmaTimeChangeSeconds.Upper.ToString();
                 textBox_SwitchMinSeconds.Text = ConfigManager.GeneralConfig.SwitchSmaTimeChangeSeconds.Lower.ToString();
-                textBox_MinerAPIQueryInterval.Text = ConfigManager.GeneralConfig.MinerAPIQueryInterval.ToString();
+               // textBox_MinerAPIQueryInterval.Text = ConfigManager.GeneralConfig.MinerAPIQueryInterval.ToString();
                 textBox_MinerRestartDelayMS.Text = ConfigManager.GeneralConfig.MinerRestartDelayMS.ToString();
                 textBox_MinIdleSeconds.Text = ConfigManager.GeneralConfig.MinIdleSeconds.ToString();
                 textBox_LogMaxFileSize.Text = ConfigManager.GeneralConfig.LogMaxFileSize.ToString();
@@ -643,10 +649,11 @@ namespace NiceHashMiner.Forms
 
             // set custom control referances
             {
+                /*
                 benchmarkLimitControlCPU.TimeLimits = ConfigManager.GeneralConfig.BenchmarkTimeLimits.CPU;
                 benchmarkLimitControlNVIDIA.TimeLimits = ConfigManager.GeneralConfig.BenchmarkTimeLimits.NVIDIA;
                 benchmarkLimitControlAMD.TimeLimits = ConfigManager.GeneralConfig.BenchmarkTimeLimits.AMD;
-
+                */
                 // here we want all devices
                 devicesListViewEnableControl1.SetComputeDevices(ComputeDeviceManager.Available.Devices);
                 devicesListViewEnableControl1.SetAlgorithmsListView(algorithmsListView1);
@@ -849,7 +856,7 @@ namespace NiceHashMiner.Forms
             ConfigManager.GeneralConfig.SwitchSmaTimeChangeSeconds.Upper =
                 Helpers.ParseInt(textBox_SwitchMaxSeconds.Text);
             ConfigManager.GeneralConfig.SwitchSmaTimeChangeSeconds.Lower = Helpers.ParseInt(textBox_SwitchMinSeconds.Text);
-            ConfigManager.GeneralConfig.MinerAPIQueryInterval = Helpers.ParseInt(textBox_MinerAPIQueryInterval.Text);
+           // ConfigManager.GeneralConfig.MinerAPIQueryInterval = Helpers.ParseInt(textBox_MinerAPIQueryInterval.Text);
             ConfigManager.GeneralConfig.MinerRestartDelayMS = Helpers.ParseInt(textBox_MinerRestartDelayMS.Text);
             ConfigManager.GeneralConfig.MinIdleSeconds = Helpers.ParseInt(textBox_MinIdleSeconds.Text);
             ConfigManager.GeneralConfig.LogMaxFileSize = Helpers.ParseLong(textBox_LogMaxFileSize.Text);
@@ -878,7 +885,7 @@ namespace NiceHashMiner.Forms
                 .ToString("F2").Replace(',', '.'); // force comma
             textBox_SwitchMaxSeconds.Text = ConfigManager.GeneralConfig.SwitchSmaTimeChangeSeconds.Upper.ToString();
             textBox_SwitchMinSeconds.Text = ConfigManager.GeneralConfig.SwitchSmaTimeChangeSeconds.Lower.ToString();
-            textBox_MinerAPIQueryInterval.Text = ConfigManager.GeneralConfig.MinerAPIQueryInterval.ToString();
+          //  textBox_MinerAPIQueryInterval.Text = ConfigManager.GeneralConfig.MinerAPIQueryInterval.ToString();
             textBox_MinerRestartDelayMS.Text = ConfigManager.GeneralConfig.MinerRestartDelayMS.ToString();
             textBox_MinIdleSeconds.Text = ConfigManager.GeneralConfig.MinIdleSeconds.ToString();
             textBox_LogMaxFileSize.Text = ConfigManager.GeneralConfig.LogMaxFileSize.ToString();
