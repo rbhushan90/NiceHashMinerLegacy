@@ -10,7 +10,7 @@ namespace NiceHashMiner.Miners.Grouping
 {
     public class MiningDevice
     {
-        // switch testing quick and dirty, runtime versions 
+        // switch testing quick and dirty, runtime versions
 #if (SWITCH_TESTING)
         static List<AlgorithmType> testingAlgos = new List<AlgorithmType>() {
             //AlgorithmType.X13,
@@ -178,7 +178,7 @@ namespace NiceHashMiner.Miners.Grouping
                         maxProfit = algo.CurrentProfit;
                         MostProfitableAlgorithmType = algo.DualNiceHashID;
                         MostProfitableMinerBaseType = algo.MinerBaseType;
-                        Helpers.ConsolePrint("PROFIT", "WARNING! Mining nonprofitable");
+//                        Helpers.ConsolePrint("PROFIT", "WARNING! Mining nonprofitable");
                     }
             }
 #if (SWITCH_TESTING)

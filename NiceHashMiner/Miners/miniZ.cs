@@ -172,7 +172,7 @@ namespace NiceHashMiner.Miners
                       + " --url " + username + "@" + algoName + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + stratumPort
                       + " --url " + username + "@" + algoName + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + stratumPort
                       + " --pass=x" + " --telemetry=" + ApiPort;
-                _benchmarkTimeWait = 100;
+                _benchmarkTimeWait = time;
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.Beam)
             {
@@ -191,7 +191,7 @@ namespace NiceHashMiner.Miners
                       + " --url " + username + "@" + algoName + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + stratumPort
                       + " --url " + username + "@" + algoName + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + stratumPort
                       + " --pass=x" + " --telemetry=" + ApiPort;
-                _benchmarkTimeWait = 120; 
+                _benchmarkTimeWait = time; 
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.BeamV2)
             {
@@ -210,7 +210,7 @@ namespace NiceHashMiner.Miners
                       + " --url " + username + "@" + algoName + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + stratumPort
                       + " --url " + username + "@" + algoName + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + stratumPort
                       + " --pass=x" + " --telemetry=" + ApiPort;
-                _benchmarkTimeWait = 120;
+                _benchmarkTimeWait = time;
             }
 
             return ret;
@@ -334,7 +334,7 @@ namespace NiceHashMiner.Miners
                             var lineLowered = line.ToLower();
                             if (lineLowered.Contains(LookForStart) && lineLowered.Contains(LookForEnd))
                             {
-                                if (_benchmarkReadCount > 0) //1st skip
+                                if (_benchmarkReadCount > 2) //3 skip
                                 {
                                     _benchmarkSum += GetNumber(lineLowered);
                                 }
@@ -345,7 +345,7 @@ namespace NiceHashMiner.Miners
 
                     if (_benchmarkReadCount > 0)
                     {
-                        BenchmarkAlgorithm.BenchmarkSpeed = _benchmarkSum / (_benchmarkReadCount-1);
+                        BenchmarkAlgorithm.BenchmarkSpeed = _benchmarkSum / (_benchmarkReadCount-3);
                     }
                 }
 

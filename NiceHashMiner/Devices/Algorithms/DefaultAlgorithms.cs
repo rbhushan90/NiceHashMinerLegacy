@@ -251,7 +251,7 @@ namespace NiceHashMiner.Devices.Algorithms
                          //   new Algorithm(MinerBaseType.lolMiner, AlgorithmType.GrinCuckatoo31, "GrinCuckatoo31"),
                         }
                     },
-
+                    /*
                     { MinerBaseType.lolMinerBEAM,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.lolMinerBEAM, AlgorithmType.Beam, "Beam")
@@ -260,7 +260,7 @@ namespace NiceHashMiner.Devices.Algorithms
                             }
                         }
                     },
-
+                    */
                     { MinerBaseType.WildRig,
                         new List<Algorithm>() {
                             new Algorithm(MinerBaseType.WildRig, AlgorithmType.Skunk, "Skunk")
@@ -392,10 +392,12 @@ namespace NiceHashMiner.Devices.Algorithms
                     },
                         { MinerBaseType.miniZ,
                         new List<Algorithm>() {
+                            /*
                             new Algorithm(MinerBaseType.miniZ, AlgorithmType.Beam, "Beam")
                             {
                                 //ExtraLaunchParameters = "--mode=3 --extra "
                             },
+                            */
                             new Algorithm(MinerBaseType.miniZ, AlgorithmType.BeamV2, "BeamV2")
                             {
                                 //ExtraLaunchParameters = "--mode=3 --extra "

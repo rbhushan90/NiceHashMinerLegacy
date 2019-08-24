@@ -28,6 +28,7 @@ namespace NiceHashMiner.Miners
         Stopwatch _benchmarkTimer = new Stopwatch();
         int count = 0;
         double speed = 0;
+        private int _benchmarkTimeWait = 240;
 
         public lolMiner()
             : base("lolMiner_AMD")
@@ -187,77 +188,11 @@ namespace NiceHashMiner.Miners
                 " --devices ";
             }
             CommandLine += GetDevicesCommandString(); //amd карты перечисляются первыми
-           
+            _benchmarkTimeWait = time;
             return CommandLine;
 
         }
-        /*
-        protected override string GetDevicesCommandString0()
-        {
-            // First by device type (AMD then NV), then by bus ID index
-            var sortedMinerPairs = MiningSetup.MiningPairs
-                .OrderByDescending(pair => pair.Device.DeviceType)
-                .ThenBy(pair => pair.Device.IDByBus)
-                .ToList();
-            var extraParams = ExtraLaunchParametersParser.ParseForMiningPairs(sortedMinerPairs, DeviceType.AMD);
-
-            var ids = new List<string>();
-            var intensities = new List<string>();
-
-            var amdDeviceCount = ComputeDeviceManager.Query.AmdDevices.Count;
-            Helpers.ConsolePrint("ClaymoreIndexing", $"Found {amdDeviceCount} AMD devices");
-
-            foreach (var mPair in sortedMinerPairs)
-            {
-                var id = mPair.Device.IDByBus;
-                if (id < 0)
-                {
-                    // should never happen
-                    Helpers.ConsolePrint("ClaymoreIndexing", "ID by Bus too low: " + id + " skipping device");
-                    continue;
-                }
-
-                if (mPair.Device.DeviceType == DeviceType.NVIDIA)
-                {
-                    Helpers.ConsolePrint("ClaymoreIndexing", "NVIDIA device increasing index by " + amdDeviceCount);
-                    id += amdDeviceCount;
-                }
-
-                if (id > 9)
-                {
-                    // New >10 GPU support in CD9.8
-                    if (id < 36)
-                    {
-                        // CD supports 0-9 and a-z indexes, so 36 GPUs
-                        var idchar = (char)(id + 87); // 10 = 97(a), 11 - 98(b), etc
-                        ids.Add(idchar.ToString());
-                    }
-                    else
-                    {
-                        Helpers.ConsolePrint("ClaymoreIndexing", "ID " + id + " too high, ignoring");
-                    }
-                }
-                else
-                {
-                    ids.Add(id.ToString());
-                }
-
-                if (mPair.Algorithm is DualAlgorithm algo && algo.TuningEnabled)
-                {
-                    intensities.Add(algo.CurrentIntensity.ToString());
-                }
-            }
-
-            var deviceStringCommand = DeviceCommand(amdDeviceCount) + string.Join("", ids);
-            var intensityStringCommand = "";
-            if (intensities.Count > 0)
-            {
-                intensityStringCommand = " -dcri " + string.Join(",", intensities);
-            }
-
-            return deviceStringCommand + intensityStringCommand + extraParams;
-        }
-*/
+        
         protected override string GetDevicesCommandString()
         {
             var deviceStringCommand = " ";
@@ -388,13 +323,20 @@ namespace NiceHashMiner.Miners
                     count++;
                 }
             }
+            /*
             if ((outdata.Contains("Share accepted") && speed != 0 && count > 4) || (count > 8 && speed != 0))
             {
                 BenchmarkAlgorithm.BenchmarkSpeed = speed / count;
                 BenchmarkSignalFinnished = true;
                 return true;
             }
-
+            */
+            if ((count > _benchmarkTimeWait / 30 && speed != 0))
+            {
+                BenchmarkAlgorithm.BenchmarkSpeed = speed / count;
+                BenchmarkSignalFinnished = true;
+                return true;
+            }
             return false;
 
         }

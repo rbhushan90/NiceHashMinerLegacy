@@ -17,7 +17,9 @@ namespace NiceHashMiner.Miners
     {
         public hsrneoscrypt() : base("hsrneoscrypt_NVIDIA")
         { }
-
+        private int count = 0;
+        double speed = 0;
+        private int _benchmarkTimeWait = 240;
         bool benchmarkException => MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt
                                            || MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt;
 
@@ -101,25 +103,25 @@ namespace NiceHashMiner.Miners
             CommandLine += GetDevicesCommandString();
 
             Helpers.ConsolePrint(MinerTag(), CommandLine);
-
+            _benchmarkTimeWait = time;
             return CommandLine;
         }
 
         protected override bool BenchmarkParseLine(string outdata)
         {
-            double speed = 0;
             Helpers.ConsolePrint(MinerTag(), outdata);
             if (benchmarkException)
             {
 
                 if (outdata.Contains("speed is "))
                 {
+                    count++;
                     int st = outdata.IndexOf("speed is ");
                     int end = outdata.IndexOf("kH/s");
                     string hashspeed = outdata.Substring(st + 9, end - st - 9);
                     try
                     {
-                        speed = Double.Parse(hashspeed, CultureInfo.InvariantCulture);
+                        speed = speed + Double.Parse(hashspeed, CultureInfo.InvariantCulture);
                     }
                     catch
                     {
@@ -128,8 +130,11 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-                    BenchmarkAlgorithm.BenchmarkSpeed = speed * 1000;
-                    BenchmarkSignalFinnished = true;
+                    if (count >= _benchmarkTimeWait / 60)
+                    {
+                        BenchmarkAlgorithm.BenchmarkSpeed = (speed/count) * 1000;
+                        BenchmarkSignalFinnished = true;
+                    }
                 }
             }
             return false;

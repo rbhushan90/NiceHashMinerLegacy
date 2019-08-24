@@ -261,7 +261,8 @@ namespace NiceHashMiner.Miners
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
             CleanOldLogs();
-            _benchmarkTimeWait = Math.Max(time * 3, 180); //
+            //_benchmarkTimeWait = Math.Max(time * 3, 180); //
+            _benchmarkTimeWait = time;
             var ret = "";
             var suff = "0_";
             var server = Globals.GetLocationUrl(algorithm.NiceHashID,
@@ -271,7 +272,10 @@ namespace NiceHashMiner.Miners
             string username = GetUsername(btcAddress, worker);
             foreach (var pair in MiningSetup.MiningPairs)
             {
-                if (pair.Device.DeviceType == DeviceType.NVIDIA) suff = "1_"; else _benchmarkTimeWait = 180;
+                if (pair.Device.DeviceType == DeviceType.NVIDIA)
+                {
+                    suff = "1_";
+                }
             }
             if (File.Exists("bin_3rdparty\\gminer\\"+ suff + GetLogFileName()))
                 File.Delete("bin_3rdparty\\gminer\\"+ suff + GetLogFileName());
