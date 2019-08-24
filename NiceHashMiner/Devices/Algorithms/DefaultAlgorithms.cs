@@ -236,10 +236,10 @@ namespace NiceHashMiner.Devices.Algorithms
                                 ExtraLaunchParameters = "--asm 1 "
                             },
                             //lolminer broken
-                          //  new Algorithm(MinerBaseType.lolMiner, AlgorithmType.BeamV2, "BeamV2")
-                          //  {
-                          //      ExtraLaunchParameters = "--asm 0 "
-                          //  },
+                            new Algorithm(MinerBaseType.lolMiner, AlgorithmType.BeamV2, "BeamV2")
+                            {
+                                ExtraLaunchParameters = "--asm 1 "
+                            },
                             new Algorithm(MinerBaseType.lolMiner, AlgorithmType.GrinCuckarood29, "GrinCuckarood29")
                             {
                                 ExtraLaunchParameters = "--asm 1 "
