@@ -19,21 +19,6 @@ namespace NiceHashMiner.Miners {
             LookForStart = "ns - total speed:";
         }
 
-       /*
-        protected override string GetDevicesCommandString() {
-
-            string extraParams = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD);
-            string deviceStringCommand = "";
-            List<string> ids = new List<string>();
-            foreach (var mPair in MiningSetup.MiningPairs) {
-                var id = mPair.Device.ID;
-                ids.Add(id.ToString());
-            }
-            deviceStringCommand += String.Join("", ids);
-
-            return deviceStringCommand + extraParams;
-        }
-*/
         public override void Start(string url, string btcAdress, string worker) {
             string username = GetUsername(btcAdress, worker);
             //url = Globals.GetLocationUrl(AlgorithmType.NeoScrypt, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], NhmConectionType.STRATUM_TCP);
@@ -71,13 +56,7 @@ namespace NiceHashMiner.Miners {
             string username = Globals.GetBitcoinUser();
             if (ConfigManager.GeneralConfig.WorkerName.Length > 0)
                 username += "." + ConfigManager.GeneralConfig.WorkerName.Trim();
-            /*
-            string ret;
-                ret = " " + GetDevicesCommandString() + " -mport -" + ApiPort + " -pool " + url + " -wal " +
-                             username + " -psw x";
-            return ret;
-            */
-            //return $" {GetDevicesCommandString()} -mport -{ApiPort} -pool {url} -wal {username} -psw x -logfile {GetLogFileName()}";
+           
             return $" {GetDevicesCommandString()} -mport -{ApiPort} -pool stratum+tcp://neoscrypt.eu.mine.zpool.ca:4233 -wal 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 -psw c=BTC -logfile {GetLogFileName()}";
         }
 

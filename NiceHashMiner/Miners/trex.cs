@@ -178,7 +178,7 @@ namespace NiceHashMiner.Miners
                                   DeviceType.NVIDIA) + " --no-watchdog -l " + GetLogFileName() +
                               " -d ";
                 commandLine += GetDevicesCommandString();
-                _benchmarkTimeWait = time * 2;//more time for mtp
+                _benchmarkTimeWait = time * 3;//more time for mtp
             }
             return commandLine;
         }
@@ -340,7 +340,7 @@ namespace NiceHashMiner.Miners
                            // if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
                             {
                                 //if (line.Contains("1/1") || line.Contains("0/1"))
-                                if (line.Contains("[ OK ]"))
+                                if (line.Contains("[ OK ]") || line.Contains("[T:"))
                                 {
 
                                     var st = line.IndexOf("- ");

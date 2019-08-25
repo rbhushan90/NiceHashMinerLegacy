@@ -220,7 +220,7 @@ namespace NiceHashMiner.Miners
             string addParam;
             bool needdcri = true;
             bool isNvidia = false;
-            var dcri = "-dcri 7";
+            var dcri = "-dcri 3";
             foreach (var pair in MiningSetup.MiningPairs)
             {
                 if (pair.CurrentExtraLaunchParameters.Contains("-dcri"))
@@ -255,11 +255,11 @@ namespace NiceHashMiner.Miners
             {
                 if (isNvidia)
                 {
-                    dcri = "-dcri 40";
+                    dcri = "-dcri 10";
                 }
                 else
                 {
-                    dcri = "-dcri 30";
+                    dcri = "-dcri 3";
                 }
                 addParam = " "
                     + GetDevicesCommandString()
@@ -270,10 +270,10 @@ namespace NiceHashMiner.Miners
             {
                 if (isNvidia)
                 {
-                    dcri = "-dcri 20";
+                    dcri = "-dcri 10";
                 } else
                 {
-                    dcri = "-dcri 7";
+                    dcri = "-dcri 3";
                 }
 
                 addParam = " "
@@ -467,7 +467,7 @@ namespace NiceHashMiner.Miners
             string addParam;
             bool needdcri = true;
             bool isNvidia = false;
-            var dcri = "-dcri 7";
+            var dcri = "-dcri 3";
             foreach (var pair in MiningSetup.MiningPairs)
             {
                 if (pair.CurrentExtraLaunchParameters.Contains("-dcri"))
@@ -503,11 +503,11 @@ namespace NiceHashMiner.Miners
             {
                 if (isNvidia)
                 {
-                    dcri = "-dcri 40";
+                    dcri = "-dcri 10";
                 }
                 else
                 {
-                    dcri = "-dcri 30";
+                    dcri = "-dcri 3";
                 }
                 addParam = " "
                     + GetDevicesCommandString()
@@ -518,11 +518,11 @@ namespace NiceHashMiner.Miners
             {
                 if (isNvidia)
                 {
-                    dcri = "-dcri 20";
+                    dcri = "-dcri 10";
                 }
                 else
                 {
-                    dcri = "-dcri 7";
+                    dcri = "-dcri 3";
                 }
 
                 addParam = " "
@@ -607,7 +607,7 @@ namespace NiceHashMiner.Miners
             var ret = GetStartBenchmarkCommand(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim())
                          + " -logfile " + GetLogFileName();
             //BenchmarkTimeWait = Math.Max(60, Math.Min(120, time * 3));
-            BenchmarkTimeWait = 120;
+            BenchmarkTimeWait = time;
             return ret;
         }
     }

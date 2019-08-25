@@ -27,6 +27,7 @@ namespace NiceHashMiner.Miners
         private int st = 0;
         private double speed = 0.0d;
         private string hashspeed = "";
+        private int _benchmarkTimeWait = 240;
         public CastXMR() : base("CastXMR") { }
 
         bool benchmarkException {
@@ -119,7 +120,7 @@ namespace NiceHashMiner.Miners
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
 
             string CommandLine;
-            
+            _benchmarkTimeWait = time;
             string url = "";
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV7))
             {
@@ -217,7 +218,7 @@ namespace NiceHashMiner.Miners
                         return false;
                     }
                     //if (outdata.Contains("Hash Rate Avg: ")) //не находит шару за 5 минут на 570...
-                    if (benchmarkStep >=20)
+                    if (benchmarkStep >= _benchmarkTimeWait / 5)
                     {
                         BenchmarkAlgorithm.BenchmarkSpeed = (speed / benchmarkStep);
                         BenchmarkSignalFinnished = true;

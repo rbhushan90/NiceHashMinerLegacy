@@ -30,6 +30,7 @@ namespace NiceHashMiner.Miners
         private const int TotalDelim = 2;
         double speed = 0;
         int count = 0;
+        private int _benchmarkTimeWait = 120;
 
         private bool _benchmarkException => MiningSetup.MinerPath == MinerPaths.Data.CryptoDredge;
 
@@ -130,6 +131,8 @@ namespace NiceHashMiner.Miners
             var apiBind = " --api-bind 127.0.0.1:" + ApiPort;
             var algo = "--algo " + MiningSetup.MinerName;
             var commandLine = "";
+            _benchmarkTimeWait = time;
+            TotalCount = _benchmarkTimeWait/60;
 
             if (File.Exists("bin_3rdparty\\CryptoDredge\\" + GetLogFileName()))
                 File.Delete("bin_3rdparty\\CryptoDredge\\" + GetLogFileName());
@@ -148,7 +151,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 3;
+              //  TotalCount = 3;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -161,7 +164,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 3;
+             //   TotalCount = 3;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -174,7 +177,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 2;
+            //    TotalCount = 2;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -187,7 +190,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 2;
+             //   TotalCount = 2;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -200,7 +203,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 2;
+              //  TotalCount = 2;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -216,7 +219,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 2;
+             //   TotalCount = 2;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -230,7 +233,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 2;
+              //  TotalCount = 2;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -245,7 +248,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 2;
+             //   TotalCount = 2;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -267,7 +270,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 3;
+             //   TotalCount = 3;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -282,7 +285,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 3;
+             //   TotalCount = 3;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -297,7 +300,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 3;
+             //   TotalCount = 3;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -311,7 +314,7 @@ namespace NiceHashMiner.Miners
                 apiBind +
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
-                TotalCount = 3;
+             //   TotalCount = 3;
                 Total = 0.0d;
                 return commandLine;
             }
@@ -328,7 +331,7 @@ namespace NiceHashMiner.Miners
                 " -d " + GetDevicesCommandString() + " " +
                 ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
 
-            TotalCount = 2;
+           // TotalCount = 2;
             Total = 0.0d;
             return commandLine;
         }
@@ -344,7 +347,7 @@ namespace NiceHashMiner.Miners
                         var st = outdata.IndexOf("Avr ");
                         var e = outdata.ToUpper().IndexOf("GH/S)");
                         var parse = outdata.Substring(st + 4, e - st - 4).Trim().Replace(",",".");
-                    if (count > 0)//skip first
+                  //  if (count > 0)//skip first
                     {
                         tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                         tmp *= 10000000000;
@@ -358,7 +361,7 @@ namespace NiceHashMiner.Miners
                     var st = outdata.IndexOf("Avr ");
                         var e = outdata.ToUpper().IndexOf("MH/S)");
                         var parse = outdata.Substring(st + 4, e - st - 4).Trim().Replace(",", ".");
-                    if (count > 0)//skip first
+                   // if (count > 0)//skip first
                     {
                         tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                         tmp *= 1000000;
@@ -372,7 +375,7 @@ namespace NiceHashMiner.Miners
                     var st = outdata.IndexOf("Avr ");
                         var e = outdata.ToUpper().IndexOf("KH/S)");
                         var parse = outdata.Substring(st + 4, e - st - 4).Trim().Replace(",", ".");
-                    if (count > 0)//skip first
+                 //   if (count > 0)//skip first
                     {
                         tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                         tmp *= 1000;
@@ -387,7 +390,7 @@ namespace NiceHashMiner.Miners
                     var st = outdata.IndexOf("Avr ");
                         var e = outdata.ToUpper().IndexOf("H/S)");
                         var parse = outdata.Substring(st + 4, e - st - 4).Trim().Replace(",", ".");
-                    if (count > 0)//skip first
+                 //   if (count > 0)//skip first
                     {
                         tmp = Double.Parse(parse, CultureInfo.InvariantCulture);
                     }
@@ -399,7 +402,7 @@ namespace NiceHashMiner.Miners
 norm:
                     if (TotalCount <= 0 && speed > 0.0d)
                     {
-                    BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 1);
+                    BenchmarkAlgorithm.BenchmarkSpeed = speed / (count);
                     BenchmarkSignalFinnished = true;
                     return true;
                     }

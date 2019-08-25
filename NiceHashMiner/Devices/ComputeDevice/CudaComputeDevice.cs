@@ -32,7 +32,7 @@ namespace NiceHashMiner.Devices
                 }
                 catch (Exception e)
                 {
-                    Helpers.ConsolePrint("NVML", e.ToString());
+                    //Helpers.ConsolePrint("NVML", e.ToString());
                 }
 
                 return load;
@@ -98,7 +98,7 @@ namespace NiceHashMiner.Devices
                 }
                 catch (Exception e)
                 {
-                    Helpers.ConsolePrint("NVML", e.ToString());
+                   // Helpers.ConsolePrint("NVML", e.ToString());
                 }
 
                 return -1;
