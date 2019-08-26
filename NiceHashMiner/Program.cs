@@ -352,7 +352,7 @@ namespace NiceHashMiner
                         Directory.Delete("internals", true);
                     ConfigManager.GeneralConfig.ForkFixVersion = 17;
                 }
-                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 17.1)
+                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 18)
                 {
                     //public BenchmarkTimeLimitsConfig BenchmarkTimeLimits = new BenchmarkTimeLimitsConfig();
                     //SetTimeLimit(BenchmarkPerformanceType.Quick, textBoxQuick.Text);
@@ -361,7 +361,7 @@ namespace NiceHashMiner
                     Helpers.ConsolePrint("NICEHASH", "Old version");
                     if (Directory.Exists("internals"))
                         Directory.Delete("internals", true);
-                    ConfigManager.GeneralConfig.ForkFixVersion = 17.1;
+                    ConfigManager.GeneralConfig.ForkFixVersion = 18;
 //                    new BenchmarkTimeLimitsConfig();
                   //  benchmarkLimitControlCPU.TimeLimits = ConfigManager.GeneralConfig.BenchmarkTimeLimits.CPU;
                     //benchmarkLimitControlNVIDIA.TimeLimits = ConfigManager.GeneralConfig.BenchmarkTimeLimits.NVIDIA;

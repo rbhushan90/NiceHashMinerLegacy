@@ -18,8 +18,6 @@ namespace NiceHashMiner.Utils
             @"/claymore_zcash/Data1i1.bin",
             @"/claymore_zcash/Data2.bin",
             @"/claymore_zcash/ZecMiner64.exe",
-            @"/dstm/pthreadVC2.dll",
-            @"/dstm/zm.exe",
             @"/prospector/prospector.exe",
             @"/castxmr/cast_xmr-vega.exe",
             @"/hsrminer_neoscrypt/hsrminer_neoscrypt.exe",
@@ -35,7 +33,7 @@ namespace NiceHashMiner.Utils
             @"/TT-Miner/TT-Miner.exe",
             @"/NBMiner/NBMiner.exe",
             @"/miniZ/miniZ.exe",
-            @"/Fork_Fix_17.1.txt",
+            @"/Fork_Fix_18.txt",
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py
