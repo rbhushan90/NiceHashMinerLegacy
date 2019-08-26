@@ -783,6 +783,13 @@ namespace NiceHashMiner.Stats
                         {
                             payingDict[algoKey] = algo[1].Value<double>();
                         }
+                        //DaggerOrderMaxPay = 0
+                        //0.001418488464
+                        if (ConfigManager.GeneralConfig.DaggerOrderMaxPay > 0 && algoKey == AlgorithmType.DaggerHashimoto && Math.Abs(algo[1].Value<double>()) > ConfigManager.GeneralConfig.DaggerOrderMaxPay)
+                        {
+                            Helpers.ConsolePrint("SMA", "Sets DaggerHashimoto to 0");
+                            payingDict[algoKey] = 0;
+                        }
                     }
                 }
 

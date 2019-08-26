@@ -15,6 +15,7 @@ namespace NiceHashMiner.Configs.Data
         public bool lolMinerOldEnumeration;
         public bool NoForceTRexClose;
         public bool UseNegativeProfit = false;
+        public double DaggerOrderMaxPay = 0;
         public LanguageType Language = LanguageType.En;
         public string DisplayCurrency = "USD";
 
