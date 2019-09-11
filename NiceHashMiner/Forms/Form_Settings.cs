@@ -391,8 +391,17 @@ namespace NiceHashMiner.Forms
                 checkBox_Force_mining_if_nonprofitable.Text = "Принудительный майнинг, если не прибыльно";
                 checkBox_Disable_extra_launch_parameter_checking.Text = "Отключить проверку дополнительных параметров";
                 label_AutoStartMiningDelay.Text = "Задержка автозапуска майнинга (сек)";
+                groupBoxMOPA.Text = "Метод получения прибыльности алгоритмов";
+                radioButtonMOPA1.Text = "Стандартный NHM";
+                radioButtonMOPA2.Text = "Текущая прибыльность";
+                radioButtonMOPA3.Text = "Средняя прибыльность за 5 минут";
+                radioButtonMOPA4.Text = "Средняя прибыльность за 24 часа";
             }
 
+            radioButtonMOPA1.Checked = ConfigManager.GeneralConfig.MOPA1;
+            radioButtonMOPA2.Checked = ConfigManager.GeneralConfig.MOPA2;
+            radioButtonMOPA3.Checked = ConfigManager.GeneralConfig.MOPA3;
+            radioButtonMOPA4.Checked = ConfigManager.GeneralConfig.MOPA4;
 
             label_WorkerName.Text = International.GetText("WorkerName") + ":";
             label_ServiceLocation.Text = International.GetText("Service_Location") + ":";
@@ -1165,6 +1174,26 @@ namespace NiceHashMiner.Forms
                 e.Handled = true;
             }
 
+        }
+
+        private void radioButtonMOPA1_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfigManager.GeneralConfig.MOPA1 = radioButtonMOPA1.Checked;
+        }
+
+        private void radioButtonMOPA2_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfigManager.GeneralConfig.MOPA2 = radioButtonMOPA2.Checked;
+        }
+
+        private void radioButtonMOPA3_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfigManager.GeneralConfig.MOPA3 = radioButtonMOPA3.Checked;
+        }
+
+        private void radioButtonMOPA4_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfigManager.GeneralConfig.MOPA4 = radioButtonMOPA4.Checked;
         }
     }
 }

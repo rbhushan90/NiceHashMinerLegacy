@@ -107,7 +107,7 @@
             this.comboBox_Language = new System.Windows.Forms.ComboBox();
             this.currencyConverterCombobox = new System.Windows.Forms.ComboBox();
             this.label_displayCurrency = new System.Windows.Forms.Label();
-            this.tabPageAdvanced = new System.Windows.Forms.TabPage();
+            this.tabPageAdvanced1 = new System.Windows.Forms.TabPage();
             this.groupBox_Miners = new System.Windows.Forms.GroupBox();
             this.pictureBox_MinerRestartDelayMS = new System.Windows.Forms.PictureBox();
             this.pictureBox_APIBindPortStart = new System.Windows.Forms.PictureBox();
@@ -144,6 +144,11 @@
             this.buttonSaveClose = new System.Windows.Forms.Button();
             this.buttonDefaults = new System.Windows.Forms.Button();
             this.buttonCloseNoSave = new System.Windows.Forms.Button();
+            this.radioButtonMOPA1 = new System.Windows.Forms.RadioButton();
+            this.groupBoxMOPA = new System.Windows.Forms.GroupBox();
+            this.radioButtonMOPA2 = new System.Windows.Forms.RadioButton();
+            this.radioButtonMOPA3 = new System.Windows.Forms.RadioButton();
+            this.radioButtonMOPA4 = new System.Windows.Forms.RadioButton();
             this.algorithmsListView1 = new NiceHashMiner.Forms.Components.AlgorithmsListView();
             this.devicesListViewEnableControl1 = new NiceHashMiner.Forms.Components.DevicesListViewEnableControl();
             this.algorithmSettingsControl1 = new NiceHashMiner.Forms.Components.AlgorithmSettingsControl();
@@ -182,7 +187,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_displayCurrency)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Language)).BeginInit();
-            this.tabPageAdvanced.SuspendLayout();
+            this.tabPageAdvanced1.SuspendLayout();
             this.groupBox_Miners.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_MinerRestartDelayMS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_APIBindPortStart)).BeginInit();
@@ -197,6 +202,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DisableDetectionNVIDIA)).BeginInit();
             this.tabPageDevicesAlgos.SuspendLayout();
             this.groupBoxAlgorithmSettings.SuspendLayout();
+            this.groupBoxMOPA.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolTip1
@@ -207,7 +213,7 @@
             // tabControlGeneral
             // 
             this.tabControlGeneral.Controls.Add(this.tabPageGeneral);
-            this.tabControlGeneral.Controls.Add(this.tabPageAdvanced);
+            this.tabControlGeneral.Controls.Add(this.tabPageAdvanced1);
             this.tabControlGeneral.Controls.Add(this.tabPageDevicesAlgos);
             this.tabControlGeneral.Location = new System.Drawing.Point(12, 11);
             this.tabControlGeneral.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -297,7 +303,7 @@
             // checkBox_Send_actual_version_info
             // 
             this.checkBox_Send_actual_version_info.AutoSize = true;
-            this.checkBox_Send_actual_version_info.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.checkBox_Send_actual_version_info.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBox_Send_actual_version_info.Location = new System.Drawing.Point(4, 373);
             this.checkBox_Send_actual_version_info.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_Send_actual_version_info.Name = "checkBox_Send_actual_version_info";
@@ -310,7 +316,7 @@
             // checkBox_Allow_remote_management
             // 
             this.checkBox_Allow_remote_management.AutoSize = true;
-            this.checkBox_Allow_remote_management.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.checkBox_Allow_remote_management.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBox_Allow_remote_management.Location = new System.Drawing.Point(4, 350);
             this.checkBox_Allow_remote_management.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_Allow_remote_management.Name = "checkBox_Allow_remote_management";
@@ -765,7 +771,7 @@
             // 
             // checkBox_Force_mining_if_nonprofitable
             // 
-            this.checkBox_Force_mining_if_nonprofitable.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.checkBox_Force_mining_if_nonprofitable.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBox_Force_mining_if_nonprofitable.Location = new System.Drawing.Point(154, 273);
             this.checkBox_Force_mining_if_nonprofitable.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_Force_mining_if_nonprofitable.Name = "checkBox_Force_mining_if_nonprofitable";
@@ -1180,18 +1186,19 @@
             this.label_displayCurrency.TabIndex = 382;
             this.label_displayCurrency.Text = "Display Currency:";
             // 
-            // tabPageAdvanced
+            // tabPageAdvanced1
             // 
-            this.tabPageAdvanced.Controls.Add(this.groupBox_Miners);
-            this.tabPageAdvanced.Controls.Add(this.groupBox1);
-            this.tabPageAdvanced.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAdvanced.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tabPageAdvanced.Name = "tabPageAdvanced";
-            this.tabPageAdvanced.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tabPageAdvanced.Size = new System.Drawing.Size(651, 498);
-            this.tabPageAdvanced.TabIndex = 2;
-            this.tabPageAdvanced.Text = "Advanced";
-            this.tabPageAdvanced.UseVisualStyleBackColor = true;
+            this.tabPageAdvanced1.Controls.Add(this.groupBoxMOPA);
+            this.tabPageAdvanced1.Controls.Add(this.groupBox_Miners);
+            this.tabPageAdvanced1.Controls.Add(this.groupBox1);
+            this.tabPageAdvanced1.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAdvanced1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.tabPageAdvanced1.Name = "tabPageAdvanced1";
+            this.tabPageAdvanced1.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.tabPageAdvanced1.Size = new System.Drawing.Size(651, 498);
+            this.tabPageAdvanced1.TabIndex = 2;
+            this.tabPageAdvanced1.Text = "Advanced";
+            this.tabPageAdvanced1.UseVisualStyleBackColor = true;
             // 
             // groupBox_Miners
             // 
@@ -1225,7 +1232,7 @@
             // pictureBox_MinerRestartDelayMS
             // 
             this.pictureBox_MinerRestartDelayMS.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_MinerRestartDelayMS.Location = new System.Drawing.Point(383, 15);
+            this.pictureBox_MinerRestartDelayMS.Location = new System.Drawing.Point(394, 15);
             this.pictureBox_MinerRestartDelayMS.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_MinerRestartDelayMS.Name = "pictureBox_MinerRestartDelayMS";
             this.pictureBox_MinerRestartDelayMS.Size = new System.Drawing.Size(18, 18);
@@ -1247,7 +1254,7 @@
             // pictureBox_SwitchMaxSeconds
             // 
             this.pictureBox_SwitchMaxSeconds.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_SwitchMaxSeconds.Location = new System.Drawing.Point(383, 59);
+            this.pictureBox_SwitchMaxSeconds.Location = new System.Drawing.Point(394, 59);
             this.pictureBox_SwitchMaxSeconds.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_SwitchMaxSeconds.Name = "pictureBox_SwitchMaxSeconds";
             this.pictureBox_SwitchMaxSeconds.Size = new System.Drawing.Size(18, 18);
@@ -1301,7 +1308,7 @@
             // label_SwitchMaxSeconds
             // 
             this.label_SwitchMaxSeconds.AutoSize = true;
-            this.label_SwitchMaxSeconds.Location = new System.Drawing.Point(231, 59);
+            this.label_SwitchMaxSeconds.Location = new System.Drawing.Point(242, 59);
             this.label_SwitchMaxSeconds.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_SwitchMaxSeconds.Name = "label_SwitchMaxSeconds";
             this.label_SwitchMaxSeconds.Size = new System.Drawing.Size(86, 13);
@@ -1311,7 +1318,7 @@
             // label_MinerRestartDelayMS
             // 
             this.label_MinerRestartDelayMS.AutoSize = true;
-            this.label_MinerRestartDelayMS.Location = new System.Drawing.Point(231, 15);
+            this.label_MinerRestartDelayMS.Location = new System.Drawing.Point(242, 15);
             this.label_MinerRestartDelayMS.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_MinerRestartDelayMS.Name = "label_MinerRestartDelayMS";
             this.label_MinerRestartDelayMS.Size = new System.Drawing.Size(113, 13);
@@ -1351,9 +1358,9 @@
             this.label_SwitchProfitabilityThreshold.Location = new System.Drawing.Point(463, 59);
             this.label_SwitchProfitabilityThreshold.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_SwitchProfitabilityThreshold.Name = "label_SwitchProfitabilityThreshold";
-            this.label_SwitchProfitabilityThreshold.Size = new System.Drawing.Size(142, 13);
+            this.label_SwitchProfitabilityThreshold.Size = new System.Drawing.Size(136, 13);
             this.label_SwitchProfitabilityThreshold.TabIndex = 361;
-            this.label_SwitchProfitabilityThreshold.Text = "ethminerDefaultBlockHeight:";
+            this.label_SwitchProfitabilityThreshold.Text = "SwitchProfitabilityThreshold";
             // 
             // textBox_APIBindPortStart
             // 
@@ -1383,7 +1390,7 @@
             // 
             // textBox_SwitchMaxSeconds
             // 
-            this.textBox_SwitchMaxSeconds.Location = new System.Drawing.Point(231, 78);
+            this.textBox_SwitchMaxSeconds.Location = new System.Drawing.Point(242, 78);
             this.textBox_SwitchMaxSeconds.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_SwitchMaxSeconds.Name = "textBox_SwitchMaxSeconds";
             this.textBox_SwitchMaxSeconds.Size = new System.Drawing.Size(172, 20);
@@ -1391,7 +1398,7 @@
             // 
             // textBox_MinerRestartDelayMS
             // 
-            this.textBox_MinerRestartDelayMS.Location = new System.Drawing.Point(231, 33);
+            this.textBox_MinerRestartDelayMS.Location = new System.Drawing.Point(242, 33);
             this.textBox_MinerRestartDelayMS.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_MinerRestartDelayMS.Name = "textBox_MinerRestartDelayMS";
             this.textBox_MinerRestartDelayMS.Size = new System.Drawing.Size(172, 20);
@@ -1408,7 +1415,7 @@
             this.groupBox1.Controls.Add(this.checkBox_DisableDetectionNVIDIA);
             this.groupBox1.Controls.Add(this.pictureBox_DisableDetectionNVIDIA);
             this.groupBox1.Controls.Add(this.checkBox_DisableDetectionAMD);
-            this.groupBox1.Location = new System.Drawing.Point(6, 129);
+            this.groupBox1.Location = new System.Drawing.Point(6, 203);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1420,7 +1427,7 @@
             // checkBox_Additional_info_about_device
             // 
             this.checkBox_Additional_info_about_device.AutoSize = true;
-            this.checkBox_Additional_info_about_device.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.checkBox_Additional_info_about_device.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBox_Additional_info_about_device.Location = new System.Drawing.Point(32, 109);
             this.checkBox_Additional_info_about_device.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_Additional_info_about_device.Name = "checkBox_Additional_info_about_device";
@@ -1536,7 +1543,7 @@
             // checkBox_Disable_extra_launch_parameter_checking
             // 
             this.checkBox_Disable_extra_launch_parameter_checking.AutoSize = true;
-            this.checkBox_Disable_extra_launch_parameter_checking.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.checkBox_Disable_extra_launch_parameter_checking.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBox_Disable_extra_launch_parameter_checking.Location = new System.Drawing.Point(371, 221);
             this.checkBox_Disable_extra_launch_parameter_checking.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_Disable_extra_launch_parameter_checking.Name = "checkBox_Disable_extra_launch_parameter_checking";
@@ -1604,6 +1611,69 @@
             this.buttonCloseNoSave.Text = "&Close without Saving";
             this.buttonCloseNoSave.UseVisualStyleBackColor = true;
             this.buttonCloseNoSave.Click += new System.EventHandler(this.ButtonCloseNoSave_Click);
+            // 
+            // radioButtonMOPA1
+            // 
+            this.radioButtonMOPA1.AutoSize = true;
+            this.radioButtonMOPA1.Location = new System.Drawing.Point(10, 19);
+            this.radioButtonMOPA1.Name = "radioButtonMOPA1";
+            this.radioButtonMOPA1.Size = new System.Drawing.Size(93, 17);
+            this.radioButtonMOPA1.TabIndex = 395;
+            this.radioButtonMOPA1.TabStop = true;
+            this.radioButtonMOPA1.Text = "Standart NHM";
+            this.radioButtonMOPA1.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA1.CheckedChanged += new System.EventHandler(this.radioButtonMOPA1_CheckedChanged);
+            // 
+            // groupBoxMOPA
+            // 
+            this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA4);
+            this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA3);
+            this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA2);
+            this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA1);
+            this.groupBoxMOPA.Location = new System.Drawing.Point(6, 129);
+            this.groupBoxMOPA.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.groupBoxMOPA.Name = "groupBoxMOPA";
+            this.groupBoxMOPA.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.groupBoxMOPA.Size = new System.Drawing.Size(641, 68);
+            this.groupBoxMOPA.TabIndex = 396;
+            this.groupBoxMOPA.TabStop = false;
+            this.groupBoxMOPA.Text = "Method of obtaining profitability of algorithms:";
+            // 
+            // radioButtonMOPA2
+            // 
+            this.radioButtonMOPA2.AutoSize = true;
+            this.radioButtonMOPA2.Location = new System.Drawing.Point(242, 19);
+            this.radioButtonMOPA2.Name = "radioButtonMOPA2";
+            this.radioButtonMOPA2.Size = new System.Drawing.Size(111, 17);
+            this.radioButtonMOPA2.TabIndex = 396;
+            this.radioButtonMOPA2.TabStop = true;
+            this.radioButtonMOPA2.Text = "Current profitability";
+            this.radioButtonMOPA2.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA2.CheckedChanged += new System.EventHandler(this.radioButtonMOPA2_CheckedChanged);
+            // 
+            // radioButtonMOPA3
+            // 
+            this.radioButtonMOPA3.AutoSize = true;
+            this.radioButtonMOPA3.Location = new System.Drawing.Point(10, 42);
+            this.radioButtonMOPA3.Name = "radioButtonMOPA3";
+            this.radioButtonMOPA3.Size = new System.Drawing.Size(143, 17);
+            this.radioButtonMOPA3.TabIndex = 397;
+            this.radioButtonMOPA3.TabStop = true;
+            this.radioButtonMOPA3.Text = "5 minutes avg profitability";
+            this.radioButtonMOPA3.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA3.CheckedChanged += new System.EventHandler(this.radioButtonMOPA3_CheckedChanged);
+            // 
+            // radioButtonMOPA4
+            // 
+            this.radioButtonMOPA4.AutoSize = true;
+            this.radioButtonMOPA4.Location = new System.Drawing.Point(242, 42);
+            this.radioButtonMOPA4.Name = "radioButtonMOPA4";
+            this.radioButtonMOPA4.Size = new System.Drawing.Size(139, 17);
+            this.radioButtonMOPA4.TabIndex = 398;
+            this.radioButtonMOPA4.TabStop = true;
+            this.radioButtonMOPA4.Text = "24 hours avg profitability";
+            this.radioButtonMOPA4.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA4.CheckedChanged += new System.EventHandler(this.radioButtonMOPA4_CheckedChanged);
             // 
             // algorithmsListView1
             // 
@@ -1697,7 +1767,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_displayCurrency)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Language)).EndInit();
-            this.tabPageAdvanced.ResumeLayout(false);
+            this.tabPageAdvanced1.ResumeLayout(false);
             this.groupBox_Miners.ResumeLayout(false);
             this.groupBox_Miners.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_MinerRestartDelayMS)).EndInit();
@@ -1715,6 +1785,8 @@
             this.tabPageDevicesAlgos.ResumeLayout(false);
             this.tabPageDevicesAlgos.PerformLayout();
             this.groupBoxAlgorithmSettings.ResumeLayout(false);
+            this.groupBoxMOPA.ResumeLayout(false);
+            this.groupBoxMOPA.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1747,7 +1819,7 @@
         private System.Windows.Forms.GroupBox groupBox_Logging;
         private System.Windows.Forms.TextBox textBox_MinProfit;
         private System.Windows.Forms.Label label_MinProfit;
-        private System.Windows.Forms.TabPage tabPageAdvanced;
+        private System.Windows.Forms.TabPage tabPageAdvanced1;
         private System.Windows.Forms.GroupBox groupBox_Miners;
         private System.Windows.Forms.Label label_MinIdleSeconds;
         private System.Windows.Forms.Label label_SwitchMaxSeconds;
@@ -1842,5 +1914,10 @@
         private System.Windows.Forms.CheckBox checkBox_Disable_extra_launch_parameter_checking;
         private System.Windows.Forms.Label label_AutoStartMiningDelay;
         private System.Windows.Forms.TextBox textBox_AutoStartMiningDelay;
+        private System.Windows.Forms.GroupBox groupBoxMOPA;
+        private System.Windows.Forms.RadioButton radioButtonMOPA1;
+        private System.Windows.Forms.RadioButton radioButtonMOPA4;
+        private System.Windows.Forms.RadioButton radioButtonMOPA3;
+        private System.Windows.Forms.RadioButton radioButtonMOPA2;
     }
 }

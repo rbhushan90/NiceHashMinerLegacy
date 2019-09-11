@@ -31,6 +31,10 @@ namespace NiceHashMiner.Configs.Data
         public int AutoStartMiningDelay = 0;
         public bool HideMiningWindows = false;
         public bool MinimizeToTray = false;
+        public bool MOPA1 = true;
+        public bool MOPA2 = false;
+        public bool MOPA3 = false;
+        public bool MOPA4 = false;
 
         public bool MinimizeMiningWindows = false;
 

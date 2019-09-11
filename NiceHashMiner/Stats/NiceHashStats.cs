@@ -192,11 +192,11 @@ namespace NiceHashMiner.Stats
                                         Helpers.ConsolePrint("SMA-DATA-WS: ", Enum.GetName(typeof(AlgorithmType), algoKey) + " - " + algo[1]);
                                     }
                                 }
+                                SetAlgorithmRates(message.data);
                                 GetSmaAPI();
                                // if (!GetSmaAPI())
                                // {
-                                SetAlgorithmRates(message.data);
-                               // }
+                                // }
 
                                 //***************************
                                 /*
@@ -274,14 +274,7 @@ namespace NiceHashMiner.Stats
             public Result result { get; set; }
             public string method { get; set; }
         }
-        /* foreach (var result in list.result.simplemultialgo)
-        {"result":{"simplemultialgo":[{"paying":"0.00015015","port":3333,"name":"scrypt","algo":0},
-        {"paying":"0.00000002","port":3334,"name":"sha256","algo":1},
-        {"paying":"0","port":3335,"name":"scryptnf","algo":2},
-        {"paying":"0.00000236","port":3336,"name":"x11","algo":3},
-        {"paying":"0.00010467","port":3337,"name":"x13","algo":4},
-        {"paying":"0.00000061","port":3338,"name":"keccak","algo":5},{"paying":"0","port":3339,"name":"x15","algo":6},{"paying":"0.00000389","port":3340,"name":"nist5","algo":7},{"paying":"0.0112137","port":3341,"name":"neoscrypt","algo":8},{"paying":"0","port":3342,"name":"lyra2re","algo":9},{"paying":"0","port":3343,"name":"whirlpoolx","algo":10},{"paying":"0.00000538","port":3344,"name":"qubit","algo":11},{"paying":"0.00000372","port":3345,"name":"quark","algo":12},{"paying":"0","port":3346,"name":"axiom","algo":13},{"paying":"0.00005449","port":3347,"name":"lyra2rev2","algo":14},{"paying":"0","port":3348,"name":"scryptjanenf16","algo":15},{"paying":"0.00000011","port":3349,"name":"blake256r8","algo":16},{"paying":"0","port":3350,"name":"blake256r14","algo":17},{"paying":"0","port":3351,"name":"blake256r8vnl","algo":18},{"paying":"0","port":3352,"name":"hodl","algo":19},{"paying":"0.00127361","port":3353,"name":"daggerhashimoto","algo":20},{"paying":"0","port":3354,"name":"decred","algo":21},{"paying":"0.36098132","port":3355,"name":"cryptonight","algo":22},{"paying":"0.00000061","port":3356,"name":"lbry","algo":23},{"paying":"5.83724186","port":3357,"name":"equihash","algo":24},{"paying":"0.00000051","port":3358,"name":"pascal","algo":25},{"paying":"0","port":3359,"name":"x11gost","algo":26},{"paying":"0","port":3360,"name":"sia","algo":27},{"paying":"0.00000011","port":3361,"name":"blake2s","algo":28},{"paying":"0.00011316","port":3362,"name":"skunk","algo":29},{"paying":"0.70442088","port":3363,"name":"cryptonightv7","algo":30},{"paying":"7.935","port":3364,"name":"cryptonightheavy","algo":31},{"paying":"0.00081484","port":3365,"name":"lyra2z","algo":32},{"paying":"0.00114093","port":3366,"name":"x16r","algo":33},{"paying":"2.65937155","port":3367,"name":"cryptonightv8","algo":34},{"paying":"0.00000002","port":3368,"name":"sha256asicboost","algo":35},{"paying":"654.18408982","port":3369,"name":"zhash","algo":36},{"paying":"110","port":3370,"name":"beam","algo":37},{"paying":"5505.99535694","port":3371,"name":"grincuckaroo29","algo":38},{"paying":"44874.35200716","port":3372,"name":"grincuckatoo31","algo":39},{"paying":"0.00060666","port":3373,"name":"lyra2rev3","algo":40},{"paying":"0.01979942","port":3374,"name":"mtp","algo":41},{"paying":"31.05141414","port":3375,"name":"cryptonightr","algo":42},{"paying":"5460.77720207","port":3376,"name":"cuckoocycle","algo":43}]},"method":"simplemultialgo.info"}
-        */
+
         public class Result
         {
             public Simplemultialgo[] simplemultialgo { get; set; }
@@ -305,13 +298,7 @@ namespace NiceHashMiner.Stats
             public string speed { get; set; }
             public string paying { get; set; }
         }
-        /* current
-        {"miningAlgorithms":[{"algorithm":"BLAKE2S","title":"Blake2s","speed":"2031.09989159","paying":"0"},
-        {"algorithm":"SHA256","title":"SHA256","speed":"138877.643709","paying":"0"},
-        {"algorithm":"CUCKOOCYCLE","title":"CuckooCycle","speed":"894.80487519","paying":"571.28105533"},
-        {"algorithm":"BEAMV2","title":"BeamV2","speed":"3193148.08021565","paying":"131.69316489"},
-        {"algorithm":"CRYPTONIGHT","title":"CryptoNight","speed":"134264.66666666","paying":"0.0241936"},{"algorithm":"QUBIT","title":"Qubit","speed":"52451853.03186948","paying":"0.0000004"},{"algorithm":"SCRYPT","title":"Scrypt","speed":"1620326.87304252","paying":"0.00001542"},{"algorithm":"KECCAK","title":"Keccak","speed":"449389.65285788","paying":"0.00000005"},{"algorithm":"SKUNK","title":"Skunk","speed":"2584.38555238","paying":"0.00002"},{"algorithm":"LBRY","title":"Lbry","speed":"3037.04624271","paying":"0.00000006"},{"algorithm":"CRYPTONIGHTHEAVY","title":"CryptoNightHeavy","speed":"1","paying":"0.00999993"},{"algorithm":"LYRA2REV2","title":"Lyra2REv2","speed":"9845876.23914217","paying":"0.00000454"},{"algorithm":"DAGGERHASHIMOTO","title":"DaggerHashimoto","speed":"160409.04034574","paying":"0.00012791"},{"algorithm":"CRYPTONIGHTV7","title":"CryptoNightV7","speed":"43461.91310378","paying":"0.12039885"},{"algorithm":"NEOSCRYPT","title":"NeoScrypt","speed":"29.61095899","paying":"0.00127333"},{"algorithm":"LYRA2REV3","title":"Lyra2REv3","speed":"218229.07787946","paying":"0.00006006"},{"algorithm":"DECRED","title":"Decred","speed":"1431.84188058","paying":"0"},{"algorithm":"LYRA2Z","title":"Lyra2Z","speed":"6336.78095391","paying":"0.00002634"},{"algorithm":"CRYPTONIGHTR","title":"CryptoNightR","speed":"11555.92497549","paying":"3.38371948"},{"algorithm":"QUARK","title":"Quark","speed":"486036.51338245","paying":"0.00000056"},{"algorithm":"CRYPTONIGHTV8","title":"CryptoNightV8","speed":"29033.2507471","paying":"0.26703126"},{"algorithm":"BEAM","title":"Beam","speed":"5675.94666666","paying":"10.00001456"},{"algorithm":"X16R","title":"X16R","speed":"116932.82176413","paying":"0.00013184"},{"algorithm":"X11","title":"X11","speed":"46431533.49528558","paying":"0.00000017"},{"algorithm":"X13","title":"X13","speed":"1681885.44165889","paying":"0.00001141"},{"algorithm":"EQUIHASH","title":"Equihash","speed":"93243187.89508205","paying":"0.52896534"},{"algorithm":"GRINCUCKATOO31","title":"GrinCuckatoo31","speed":"11682.54178742","paying":"4357.57393637"},{"algorithm":"SHA256ASICBOOST","title":"SHA256AsicBoost","speed":"25169.20379566","paying":"0"},{"algorithm":"GRINCUCKAROO29","title":"GrinCuckaroo29","speed":"247.29587338","paying":"187.47249786"},{"algorithm":"ZHASH","title":"ZHash","speed":"685095.55429114","paying":"57.62613668"},{"algorithm":"GRINCUCKAROOD29","title":"GrinCuckarood29","speed":"31787.22639159","paying":"702.03574792"},{"algorithm":"NIST5","title":"Nist5","speed":"286689.06700799","paying":"0.0000005"}]}
-        */
+
         public class Rootobject5m
         {
             public Algos5m[] algos { get; set; }
@@ -319,7 +306,7 @@ namespace NiceHashMiner.Stats
         public class Algos5m
         {
             public int a { get; set; }
-            public float p { get; set; }
+            public string p { get; set; }
             public float s { get; set; }
         }
         public class Rootobject24h
@@ -329,16 +316,9 @@ namespace NiceHashMiner.Stats
         public class Algos24h
         {
             public int a { get; set; }
-            public float p { get; set; }
+            public string p { get; set; }
             public float s { get; set; }
         }
-        /*  5m
-        {"algos":[{"a":3,"p":2.08829493510898E-7,"s":4.0228027817300234E13},
-        {"a":11,"p":3.5402334102915883E-7,"s":4.9156564898548586E13},
-        {"a":20,"p":1.3073810673908684E-4,"s":2.9801158928941143E12},
-        {"a":29,"p":2.0000038784801862E-5,"s":3.833686576332799E9},
-        {"a":36,"p":58.26247244714595,"s":767626.5368692477},{"a":43,"p":567.5526119746537,"s":816.0763821686793},{"a":37,"p":10.000018437274859,"s":5502.634666666667},{"a":5,"p":5.999973415116809E-8,"s":5.2882309664681464E11},{"a":45,"p":130.98624636616663,"s":2652780.89395459},{"a":14,"p":4.848073534255276E-6,"s":7.031655472354586E12},{"a":33,"p":1.324170559771866E-4,"s":1.2224634727057964E11},{"a":12,"p":5.655570058861942E-7,"s":4.685628807395957E11},{"a":44,"p":702.4144589471267,"s":30568.099549125},{"a":1,"p":2.3006956863594774E-9,"s":1.29069869164115712E17},{"a":28,"p":9.999993521806463E-9,"s":4.779179877324397E13},{"a":30,"p":0.12477053068168704,"s":4.311579350709881E7},{"a":34,"p":0.26311441640649036,"s":2.7023395501365185E7},{"a":8,"p":0.0015430951877576965,"s":3.1263714963683803E7},{"a":23,"p":6.574848641200265E-8,"s":2.884544317607954E12},{"a":35,"p":2.272278097022249E-9,"s":2.2669463285282112E16},{"a":32,"p":3.867700157095753E-5,"s":1.1422804870867626E10},{"a":42,"p":3.4907121145605644,"s":1.067277278639334E7},{"a":7,"p":5.045281497468163E-7,"s":2.9420239646446936E11},{"a":24,"p":0.5327647878133156,"s":9.256237693262306E7},{"a":21,"p":9.891525161582652E-12,"s":1.5026000351286614E12},{"a":39,"p":4369.850983855188,"s":11082.232846782777},{"a":38,"p":151.61143045032614,"s":248.0126730174465},{"a":22,"p":0.01463700701221939,"s":1.417961333333333E8},{"a":40,"p":6.006928983849852E-5,"s":2.4238719517764267E11},{"a":4,"p":1.1401527792144026E-5,"s":1.424256610854253E12},{"a":0,"p":1.5536200071593158E-5,"s":3.157352793908215E12},{"a":31,"p":0.0,"s":0.0}]}
-        */
 
         public class ProfitsSMA
         {
@@ -493,7 +473,7 @@ namespace NiceHashMiner.Stats
                 {
                     if (!ConfigManager.GeneralConfig.NoShowApiInLog)
                     {
-                       // Helpers.ConsolePrint("NHM_API_info", resp);
+                     //   Helpers.ConsolePrint("NHM_API_info", resp);
                     }
 
                     dynamic list;
@@ -525,7 +505,7 @@ namespace NiceHashMiner.Stats
                     }
                     outProf = outProf.Remove(outProf.Length - 2) + "]";
 
-                    Helpers.ConsolePrint("SMA-DATA-APICurrentOld: ", outProf);
+                  // Helpers.ConsolePrint("SMA-DATA-APICurrentOld: ", outProf);
                     JArray smadata = (JArray.Parse(outProf));
 
                     NiceHashStats.SetAlgorithmRates(smadata);
@@ -560,11 +540,7 @@ namespace NiceHashMiner.Stats
         {
             Helpers.ConsolePrint("NHM_API_info", "Trying GetSmaAPICurrent");
 
-            if (ConfigManager.GeneralConfig.NewPlatform)
-            {
-                //NHSmaData.Initialized = true;
-                //return false;
-            } else
+            if (!ConfigManager.GeneralConfig.NewPlatform)
             {
                 return true;
             }
@@ -577,7 +553,7 @@ namespace NiceHashMiner.Stats
                 {
                     if (!ConfigManager.GeneralConfig.NoShowApiInLog)
                     {
-                   //     Helpers.ConsolePrint("NHM_API_info", resp);
+                       // Helpers.ConsolePrint("NHM_API_info", resp);
                     }
 
                     dynamic list;
@@ -592,15 +568,6 @@ namespace NiceHashMiner.Stats
                     var _currentSma = new Dictionary<AlgorithmType, NiceHashSma>();
                     foreach (var miningAlgorithms in list.miningAlgorithms)
                     {
-                        /*
-                        if (!miningAlgorithms.algorithm.ToString().Contains("UNUSED"))
-                        {
-                            if (!ConfigManager.GeneralConfig.NoShowApiInLog)
-                            {
-                              //  Helpers.ConsolePrint("SMA-DATA-APICurrent: ", miningAlgorithms.title + " - " + miningAlgorithms.paying);
-                            }
-                        }
-                        */
                         int Algo = 0;
                         foreach (AlgorithmType algo in Enum.GetValues(typeof(AlgorithmType)))
                         {
@@ -614,7 +581,7 @@ namespace NiceHashMiner.Stats
                                     {
                                         Helpers.ConsolePrint("SMA-DATA-APICurrent: ", miningAlgorithms.title + " - " + Algo + " - " + miningAlgorithms.paying);
                                     }
-                                    outProf = outProf + "  [\n" + "    " + Algo + ",\n" + "    " + miningAlgorithms.paying*10 + "\n" + "  ],\n";
+                                    outProf = outProf + "  [\n" + "    " + Algo + ",\n" + "    " + miningAlgorithms.paying + "\n" + "  ],\n";
                                     break;
                                 }
                             }
@@ -625,14 +592,15 @@ namespace NiceHashMiner.Stats
                    // Helpers.ConsolePrint("SMA-DATA-APICurrent: ", outProf);
                     JArray smadata = (JArray.Parse(outProf));
 
-                    NiceHashStats.SetAlgorithmRates(smadata);
-
+                    NiceHashStats.SetAlgorithmRates(smadata, 10);
+                    /*
                     FileStream fs = new FileStream("configs\\sma.dat", FileMode.Create, FileAccess.Write);
                     StreamWriter w = new StreamWriter(fs);
                     w.Write(smadata);
                     //w.Write(JsonConvert.SerializeObject(message));
                     w.Flush();
                     w.Close();
+                    */
                     if (!ConfigManager.GeneralConfig.NoShowApiInLog)
                     {
                         Helpers.ConsolePrint("NHM_API_info", "GetSmaAPICurrent OK");
@@ -656,12 +624,7 @@ namespace NiceHashMiner.Stats
         {
             Helpers.ConsolePrint("NHM_API_info", "Trying GetSmaAPI5m");
 
-            if (ConfigManager.GeneralConfig.NewPlatform)
-            {
-                //NHSmaData.Initialized = true;
-                //return false;
-            }
-            else
+            if (!ConfigManager.GeneralConfig.NewPlatform)
             {
                 return true;
             }
@@ -674,7 +637,7 @@ namespace NiceHashMiner.Stats
                 {
                     if (!ConfigManager.GeneralConfig.NoShowApiInLog)
                     {
-                        Helpers.ConsolePrint("NHM_API_info", resp);
+                      //  Helpers.ConsolePrint("NHM_API_info", resp);
                     }
 
                     dynamic list;
@@ -694,23 +657,23 @@ namespace NiceHashMiner.Stats
                                     {
                                         Helpers.ConsolePrint("SMA-DATA-API5m: ", algos.a + " - " +  algos.p);
                                     }
-                                    float pay = algos.p;
                                     outProf = outProf + "  [\n" + "    " + algos.a + ",\n" + "    \"" + algos.p + "\"\n" + "  ],\n";
                                 }
                     }
                     outProf = outProf.Remove(outProf.Length - 2) + "]";
 
-                     Helpers.ConsolePrint("SMA-DATA-APICurrent: ", outProf);
+                   //  Helpers.ConsolePrint("SMA-DATA-APICurrent: ", outProf);
                     JArray smadata = (JArray.Parse(outProf));
 
-                    NiceHashStats.SetAlgorithmRates(smadata);
-
+                    NiceHashStats.SetAlgorithmRates(smadata, 10);
+                    /*
                     FileStream fs = new FileStream("configs\\sma.dat", FileMode.Create, FileAccess.Write);
                     StreamWriter w = new StreamWriter(fs);
                     w.Write(smadata);
                     //w.Write(JsonConvert.SerializeObject(message));
                     w.Flush();
                     w.Close();
+                    */
                     if (!ConfigManager.GeneralConfig.NoShowApiInLog)
                     {
                         Helpers.ConsolePrint("NHM_API_info", "GetSmaAPI5m OK");
@@ -735,12 +698,7 @@ namespace NiceHashMiner.Stats
         {
             Helpers.ConsolePrint("NHM_API_info", "Trying GetSmaAPI24h");
 
-            if (ConfigManager.GeneralConfig.NewPlatform)
-            {
-                //NHSmaData.Initialized = true;
-                //return false;
-            }
-            else
+            if (!ConfigManager.GeneralConfig.NewPlatform)
             {
                 return true;
             }
@@ -748,12 +706,12 @@ namespace NiceHashMiner.Stats
             try
             {
                 string resp;
-                resp = NiceHashStats.GetNiceHashApiData("https://api2.nicehash.com/main/api/v2/public/stats/global/current", "x");
+                resp = NiceHashStats.GetNiceHashApiData("https://api2.nicehash.com/main/api/v2/public/stats/global/24h", "x");
                 if (resp != null)
                 {
                     if (!ConfigManager.GeneralConfig.NoShowApiInLog)
                     {
-                        Helpers.ConsolePrint("NHM_API_info", resp);
+                      //  Helpers.ConsolePrint("NHM_API_info", resp);
                     }
 
                     dynamic list;
@@ -773,23 +731,23 @@ namespace NiceHashMiner.Stats
                             {
                                 Helpers.ConsolePrint("SMA-DATA-API24h: ", algos.a + " - " + algos.p);
                             }
-                            float pay = algos.p;
                             outProf = outProf + "  [\n" + "    " + algos.a + ",\n" + "    \"" + algos.p + "\"\n" + "  ],\n";
                         }
                     }
                     outProf = outProf.Remove(outProf.Length - 2) + "]";
 
-                    Helpers.ConsolePrint("SMA-DATA-API24h: ", outProf);
+                 //   Helpers.ConsolePrint("SMA-DATA-API24h: ", outProf);
                     JArray smadata = (JArray.Parse(outProf));
 
-                    NiceHashStats.SetAlgorithmRates(smadata);
-
+                    NiceHashStats.SetAlgorithmRates(smadata, 10);
+                    /*
                     FileStream fs = new FileStream("configs\\sma.dat", FileMode.Create, FileAccess.Write);
                     StreamWriter w = new StreamWriter(fs);
                     w.Write(smadata);
                     //w.Write(JsonConvert.SerializeObject(message));
                     w.Flush();
                     w.Close();
+                    */
                     if (!ConfigManager.GeneralConfig.NoShowApiInLog)
                     {
                         Helpers.ConsolePrint("NHM_API_info", "GetSmaAPI24h OK");
@@ -813,13 +771,23 @@ namespace NiceHashMiner.Stats
         {
 
             if (ConfigManager.GeneralConfig.NewPlatform)
+            { 
+                if (ConfigManager.GeneralConfig.MOPA2)
+                {
+                    GetSmaAPICurrent(); //bug *10
+                }
+                if (ConfigManager.GeneralConfig.MOPA3)
+                {
+                    GetSmaAPI5m(); //bug *10
+                }
+                if (ConfigManager.GeneralConfig.MOPA4)
+                {
+                    GetSmaAPI24h(); //bug *10
+                }
+            }
+            else
             {
-                GetSmaAPICurrent(); //bug *10
-                GetSmaAPI5m(); //bug
-                GetSmaAPI24h(); //bug
-            } else
-            {
-                GetSmaAPICurrentOld();
+                return GetSmaAPICurrentOld();
             }
             return true;
         }
@@ -979,6 +947,7 @@ namespace NiceHashMiner.Stats
             //string ghv = GetVersion("");
             //Helpers.ConsolePrint("GITHUB", ghv);
             //SetVersion(ghv);
+           // GetSmaAPICurrent();
             OnConnectionEstablished?.Invoke(null, EventArgs.Empty);
         }
 
@@ -1023,23 +992,24 @@ namespace NiceHashMiner.Stats
                 Helpers.ConsolePrint("SOCKET", e.ToString());
             }
         }
-        private static void SetAlgorithmRates(JArray data)
+        private static void SetAlgorithmRates(JArray data, int mult = 1)
         {
             try
             {
                 var payingDict = new Dictionary<AlgorithmType, double>();
                 if (data != null)
                 {
+                  //   Helpers.ConsolePrint("SetAlgorithmRates: ", data.ToString());
                     foreach (var algo in data)
                     {
                         var algoKey = (AlgorithmType) algo[0].Value<int>();
                         if (ConfigManager.GeneralConfig.UseNegativeProfit)
                         {
-                            payingDict[algoKey] = Math.Abs(algo[1].Value<double>());
+                            payingDict[algoKey] = Math.Abs(algo[1].Value<double>()) * mult;
                         }
                         else
                         {
-                            payingDict[algoKey] = algo[1].Value<double>();
+                            payingDict[algoKey] = algo[1].Value<double>() * mult;
                         }
                         //DaggerOrderMaxPay = 0
                         //0.001418488464
