@@ -107,12 +107,12 @@ namespace NiceHashMiner.Forms
             toolTip1.SetToolTip(pictureBox_DebugConsole,
                 International.GetText("Form_Settings_ToolTip_checkBox_DebugConsole"));
 
-            toolTip1.SetToolTip(textBox_BitcoinAddress, International.GetText("Form_Settings_ToolTip_BitcoinAddress"));
+            //toolTip1.SetToolTip(textBox_BitcoinAddress, International.GetText("Form_Settings_ToolTip_BitcoinAddress"));
 
-            toolTip1.SetToolTip(label_BitcoinAddress, International.GetText("Form_Settings_ToolTip_BitcoinAddress"));
+            toolTip1.SetToolTip(label_BitcoinAddressNew, International.GetText("Form_Settings_ToolTip_BitcoinAddress"));
             if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
             {
-                toolTip1.SetToolTip(label_BitcoinAddress, "Биткоин адрес (старая платформа)");
+                //toolTip1.SetToolTip(label_BitcoinAddress, "Биткоин адрес (старая платформа)");
                 toolTip1.SetToolTip(label_BitcoinAddressNew, "Биткоин адрес (новая платформа)");
             }
             toolTip1.SetToolTip(pictureBox_Info_BitcoinAddress,
@@ -380,11 +380,11 @@ namespace NiceHashMiner.Forms
                 International.GetText("Form_Settings_General_RunScriptOnCUDA_GPU_Lost");
 
             label_Language.Text = International.GetText("Form_Settings_General_Language") + ":";
-            label_BitcoinAddress.Text = International.GetText("BitcoinAddress") + ":";
+            //label_BitcoinAddress.Text = International.GetText("BitcoinAddress") + ":";
             if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
             {
-                label_BitcoinAddress.Text = "Биткоин адрес (старая платформа)";
-                label_BitcoinAddressNew.Text = "Биткоин адрес (новая платформа)";
+              //  label_BitcoinAddress.Text = "Биткоин адрес (старая платформа)";
+                label_BitcoinAddressNew.Text = "Биткоин адрес:";
                 checkBox_Allow_remote_management.Text = "Разрешить удаленное управление";
                 checkBox_Send_actual_version_info.Text = "Отправлять инфо о версии программы";
                 checkBox_Additional_info_about_device.Text = "Дополнительная информация об устройстве";
@@ -536,7 +536,7 @@ namespace NiceHashMiner.Forms
             }
             // Add EventHandler for all the general tab's textboxes
             {
-                textBox_BitcoinAddress.Leave += GeneralTextBoxes_Leave;
+               // textBox_BitcoinAddress.Leave += GeneralTextBoxes_Leave;
                 textBox_BitcoinAddressNew.Leave += GeneralTextBoxes_Leave;
                 textBox_WorkerName.Leave += GeneralTextBoxes_Leave;
                 textBox_IFTTTKey.Leave += GeneralTextBoxes_Leave;
@@ -632,7 +632,7 @@ namespace NiceHashMiner.Forms
 
             // Textboxes
             {
-                textBox_BitcoinAddress.Text = ConfigManager.GeneralConfig.BitcoinAddress;
+               // textBox_BitcoinAddress.Text = ConfigManager.GeneralConfig.BitcoinAddress;
                 textBox_BitcoinAddressNew.Text = ConfigManager.GeneralConfig.BitcoinAddressNew;
                 textBox_WorkerName.Text = ConfigManager.GeneralConfig.WorkerName;
                 textBox_IFTTTKey.Text = ConfigManager.GeneralConfig.IFTTTKey;
@@ -855,8 +855,8 @@ namespace NiceHashMiner.Forms
         {
             if (!_isInitFinished) return;
             IsChange = true;
-            if (ConfigManager.GeneralConfig.BitcoinAddress != textBox_BitcoinAddress.Text.Trim()) _isCredChange = true;
-            ConfigManager.GeneralConfig.BitcoinAddress = textBox_BitcoinAddress.Text.Trim();
+           // if (ConfigManager.GeneralConfig.BitcoinAddress != textBox_BitcoinAddress.Text.Trim()) _isCredChange = true;
+           // ConfigManager.GeneralConfig.BitcoinAddress = textBox_BitcoinAddress.Text.Trim();
             if (ConfigManager.GeneralConfig.BitcoinAddressNew != textBox_BitcoinAddressNew.Text.Trim()) _isCredChange = true;
             ConfigManager.GeneralConfig.BitcoinAddressNew = textBox_BitcoinAddressNew.Text.Trim();
             if (ConfigManager.GeneralConfig.WorkerName != textBox_WorkerName.Text.Trim()) _isCredChange = true;
@@ -1006,15 +1006,19 @@ namespace NiceHashMiner.Forms
 
             if (_isCredChange)
             {
-                if (ConfigManager.GeneralConfig.NewPlatform)
+                //if (ConfigManager.GeneralConfig.NewPlatform)
+                if (true)
                 {
                     NiceHashStats.SetCredentials(ConfigManager.GeneralConfig.BitcoinAddressNew.Trim(),
                     ConfigManager.GeneralConfig.WorkerName.Trim());
-                } else
+                }
+                /*
+                else
                 {
                     NiceHashStats.SetCredentials(ConfigManager.GeneralConfig.BitcoinAddress.Trim(),
                                        ConfigManager.GeneralConfig.WorkerName.Trim());
                 }
+                */
             }
 
             Close();
@@ -1194,6 +1198,116 @@ namespace NiceHashMiner.Forms
         private void radioButtonMOPA4_CheckedChanged(object sender, EventArgs e)
         {
             ConfigManager.GeneralConfig.MOPA4 = radioButtonMOPA4.Checked;
+        }
+
+        private void textBox_BitcoinAddressNew_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox_ElectricityCost_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_ElectricityCost_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_ElectricityCost_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox_TimeUnit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_TimeUnit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox_TimeUnit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_IFTTTAPIKey_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_IFTTTKey_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox_UseIFTTT_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox_UseIFTTT_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox_WorkerName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox_MinProfit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox_ServiceLocation_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_MinProfit_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox_IdleWhenNoInternetAccess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_MinProfit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_WorkerName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_ServiceLocation_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox_ServiceLocation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_WorkerName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_BitcoinAddressNew_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

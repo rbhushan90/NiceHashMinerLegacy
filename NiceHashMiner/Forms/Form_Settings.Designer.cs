@@ -72,7 +72,6 @@
             this.checkBox_DebugConsole = new System.Windows.Forms.CheckBox();
             this.groupBox_Main = new System.Windows.Forms.GroupBox();
             this.checkBox_Force_mining_if_nonprofitable = new System.Windows.Forms.CheckBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label_BitcoinAddressNew = new System.Windows.Forms.Label();
             this.textBox_BitcoinAddressNew = new System.Windows.Forms.TextBox();
             this.pictureBox_ElectricityCost = new System.Windows.Forms.PictureBox();
@@ -92,12 +91,10 @@
             this.pictureBox_Info_BitcoinAddress = new System.Windows.Forms.PictureBox();
             this.textBox_MinProfit = new System.Windows.Forms.TextBox();
             this.pictureBox_IdleWhenNoInternetAccess = new System.Windows.Forms.PictureBox();
-            this.label_BitcoinAddress = new System.Windows.Forms.Label();
             this.label_MinProfit = new System.Windows.Forms.Label();
             this.label_WorkerName = new System.Windows.Forms.Label();
             this.label_ServiceLocation = new System.Windows.Forms.Label();
             this.comboBox_ServiceLocation = new System.Windows.Forms.ComboBox();
-            this.textBox_BitcoinAddress = new System.Windows.Forms.TextBox();
             this.textBox_WorkerName = new System.Windows.Forms.TextBox();
             this.groupBox_Localization = new System.Windows.Forms.GroupBox();
             this.label_Language = new System.Windows.Forms.Label();
@@ -108,6 +105,11 @@
             this.currencyConverterCombobox = new System.Windows.Forms.ComboBox();
             this.label_displayCurrency = new System.Windows.Forms.Label();
             this.tabPageAdvanced1 = new System.Windows.Forms.TabPage();
+            this.groupBoxMOPA = new System.Windows.Forms.GroupBox();
+            this.radioButtonMOPA4 = new System.Windows.Forms.RadioButton();
+            this.radioButtonMOPA3 = new System.Windows.Forms.RadioButton();
+            this.radioButtonMOPA2 = new System.Windows.Forms.RadioButton();
+            this.radioButtonMOPA1 = new System.Windows.Forms.RadioButton();
             this.groupBox_Miners = new System.Windows.Forms.GroupBox();
             this.pictureBox_MinerRestartDelayMS = new System.Windows.Forms.PictureBox();
             this.pictureBox_APIBindPortStart = new System.Windows.Forms.PictureBox();
@@ -140,18 +142,13 @@
             this.tabPageDevicesAlgos = new System.Windows.Forms.TabPage();
             this.checkBox_Disable_extra_launch_parameter_checking = new System.Windows.Forms.CheckBox();
             this.groupBoxAlgorithmSettings = new System.Windows.Forms.GroupBox();
+            this.algorithmsListView1 = new NiceHashMiner.Forms.Components.AlgorithmsListView();
             this.buttonGPUtuning = new System.Windows.Forms.Button();
+            this.devicesListViewEnableControl1 = new NiceHashMiner.Forms.Components.DevicesListViewEnableControl();
+            this.algorithmSettingsControl1 = new NiceHashMiner.Forms.Components.AlgorithmSettingsControl();
             this.buttonSaveClose = new System.Windows.Forms.Button();
             this.buttonDefaults = new System.Windows.Forms.Button();
             this.buttonCloseNoSave = new System.Windows.Forms.Button();
-            this.radioButtonMOPA1 = new System.Windows.Forms.RadioButton();
-            this.groupBoxMOPA = new System.Windows.Forms.GroupBox();
-            this.radioButtonMOPA2 = new System.Windows.Forms.RadioButton();
-            this.radioButtonMOPA3 = new System.Windows.Forms.RadioButton();
-            this.radioButtonMOPA4 = new System.Windows.Forms.RadioButton();
-            this.algorithmsListView1 = new NiceHashMiner.Forms.Components.AlgorithmsListView();
-            this.devicesListViewEnableControl1 = new NiceHashMiner.Forms.Components.DevicesListViewEnableControl();
-            this.algorithmSettingsControl1 = new NiceHashMiner.Forms.Components.AlgorithmSettingsControl();
             this.tabControlGeneral.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBox_Misc.SuspendLayout();
@@ -174,7 +171,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_LogMaxFileSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_LogToFile)).BeginInit();
             this.groupBox_Main.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ElectricityCost)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_TimeUnit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_UseIFTTT)).BeginInit();
@@ -188,6 +184,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_displayCurrency)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Language)).BeginInit();
             this.tabPageAdvanced1.SuspendLayout();
+            this.groupBoxMOPA.SuspendLayout();
             this.groupBox_Miners.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_MinerRestartDelayMS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_APIBindPortStart)).BeginInit();
@@ -202,7 +199,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DisableDetectionNVIDIA)).BeginInit();
             this.tabPageDevicesAlgos.SuspendLayout();
             this.groupBoxAlgorithmSettings.SuspendLayout();
-            this.groupBoxMOPA.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolTip1
@@ -276,7 +272,7 @@
             this.groupBox_Misc.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox_Misc.Name = "groupBox_Misc";
             this.groupBox_Misc.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBox_Misc.Size = new System.Drawing.Size(289, 462);
+            this.groupBox_Misc.Size = new System.Drawing.Size(289, 429);
             this.groupBox_Misc.TabIndex = 391;
             this.groupBox_Misc.TabStop = false;
             this.groupBox_Misc.Text = "Misc:";
@@ -648,7 +644,7 @@
             this.groupBox_Logging.Controls.Add(this.pictureBox_LogMaxFileSize);
             this.groupBox_Logging.Controls.Add(this.pictureBox_LogToFile);
             this.groupBox_Logging.Controls.Add(this.checkBox_DebugConsole);
-            this.groupBox_Logging.Location = new System.Drawing.Point(4, 398);
+            this.groupBox_Logging.Location = new System.Drawing.Point(8, 365);
             this.groupBox_Logging.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox_Logging.Name = "groupBox_Logging";
             this.groupBox_Logging.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -733,7 +729,6 @@
             // groupBox_Main
             // 
             this.groupBox_Main.Controls.Add(this.checkBox_Force_mining_if_nonprofitable);
-            this.groupBox_Main.Controls.Add(this.pictureBox1);
             this.groupBox_Main.Controls.Add(this.label_BitcoinAddressNew);
             this.groupBox_Main.Controls.Add(this.textBox_BitcoinAddressNew);
             this.groupBox_Main.Controls.Add(this.pictureBox_ElectricityCost);
@@ -753,18 +748,16 @@
             this.groupBox_Main.Controls.Add(this.pictureBox_Info_BitcoinAddress);
             this.groupBox_Main.Controls.Add(this.textBox_MinProfit);
             this.groupBox_Main.Controls.Add(this.pictureBox_IdleWhenNoInternetAccess);
-            this.groupBox_Main.Controls.Add(this.label_BitcoinAddress);
             this.groupBox_Main.Controls.Add(this.label_MinProfit);
             this.groupBox_Main.Controls.Add(this.label_WorkerName);
             this.groupBox_Main.Controls.Add(this.label_ServiceLocation);
             this.groupBox_Main.Controls.Add(this.comboBox_ServiceLocation);
-            this.groupBox_Main.Controls.Add(this.textBox_BitcoinAddress);
             this.groupBox_Main.Controls.Add(this.textBox_WorkerName);
             this.groupBox_Main.Location = new System.Drawing.Point(6, 6);
             this.groupBox_Main.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox_Main.Name = "groupBox_Main";
             this.groupBox_Main.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBox_Main.Size = new System.Drawing.Size(346, 311);
+            this.groupBox_Main.Size = new System.Drawing.Size(346, 278);
             this.groupBox_Main.TabIndex = 386;
             this.groupBox_Main.TabStop = false;
             this.groupBox_Main.Text = "Main:";
@@ -772,7 +765,7 @@
             // checkBox_Force_mining_if_nonprofitable
             // 
             this.checkBox_Force_mining_if_nonprofitable.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBox_Force_mining_if_nonprofitable.Location = new System.Drawing.Point(154, 273);
+            this.checkBox_Force_mining_if_nonprofitable.Location = new System.Drawing.Point(154, 245);
             this.checkBox_Force_mining_if_nonprofitable.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_Force_mining_if_nonprofitable.Name = "checkBox_Force_mining_if_nonprofitable";
             this.checkBox_Force_mining_if_nonprofitable.Size = new System.Drawing.Size(188, 38);
@@ -781,140 +774,141 @@
             this.checkBox_Force_mining_if_nonprofitable.UseVisualStyleBackColor = true;
             this.checkBox_Force_mining_if_nonprofitable.CheckedChanged += new System.EventHandler(this.checkBox_Force_mining_if_nonprofitable_CheckedChanged);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox1.Location = new System.Drawing.Point(308, 60);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(18, 18);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 378;
-            this.pictureBox1.TabStop = false;
-            // 
             // label_BitcoinAddressNew
             // 
             this.label_BitcoinAddressNew.AutoSize = true;
-            this.label_BitcoinAddressNew.Location = new System.Drawing.Point(10, 60);
+            this.label_BitcoinAddressNew.Location = new System.Drawing.Point(10, 18);
             this.label_BitcoinAddressNew.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_BitcoinAddressNew.Name = "label_BitcoinAddressNew";
-            this.label_BitcoinAddressNew.Size = new System.Drawing.Size(149, 13);
+            this.label_BitcoinAddressNew.Size = new System.Drawing.Size(80, 13);
             this.label_BitcoinAddressNew.TabIndex = 377;
-            this.label_BitcoinAddressNew.Text = "BitcoinAddress (new platform):";
+            this.label_BitcoinAddressNew.Text = "BitcoinAddress:";
+            this.label_BitcoinAddressNew.Click += new System.EventHandler(this.label_BitcoinAddressNew_Click);
             // 
             // textBox_BitcoinAddressNew
             // 
-            this.textBox_BitcoinAddressNew.Location = new System.Drawing.Point(10, 80);
+            this.textBox_BitcoinAddressNew.Location = new System.Drawing.Point(10, 38);
             this.textBox_BitcoinAddressNew.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_BitcoinAddressNew.Name = "textBox_BitcoinAddressNew";
             this.textBox_BitcoinAddressNew.Size = new System.Drawing.Size(316, 20);
             this.textBox_BitcoinAddressNew.TabIndex = 376;
+            this.textBox_BitcoinAddressNew.TextChanged += new System.EventHandler(this.textBox_BitcoinAddressNew_TextChanged);
             // 
             // pictureBox_ElectricityCost
             // 
             this.pictureBox_ElectricityCost.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_ElectricityCost.Location = new System.Drawing.Point(130, 260);
+            this.pictureBox_ElectricityCost.Location = new System.Drawing.Point(130, 232);
             this.pictureBox_ElectricityCost.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_ElectricityCost.Name = "pictureBox_ElectricityCost";
             this.pictureBox_ElectricityCost.Size = new System.Drawing.Size(18, 18);
             this.pictureBox_ElectricityCost.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_ElectricityCost.TabIndex = 375;
             this.pictureBox_ElectricityCost.TabStop = false;
+            this.pictureBox_ElectricityCost.Click += new System.EventHandler(this.pictureBox_ElectricityCost_Click);
             // 
             // textBox_ElectricityCost
             // 
-            this.textBox_ElectricityCost.Location = new System.Drawing.Point(10, 280);
+            this.textBox_ElectricityCost.Location = new System.Drawing.Point(10, 252);
             this.textBox_ElectricityCost.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_ElectricityCost.Name = "textBox_ElectricityCost";
             this.textBox_ElectricityCost.Size = new System.Drawing.Size(138, 20);
             this.textBox_ElectricityCost.TabIndex = 373;
+            this.textBox_ElectricityCost.TextChanged += new System.EventHandler(this.textBox_ElectricityCost_TextChanged);
             // 
             // label_ElectricityCost
             // 
             this.label_ElectricityCost.AutoSize = true;
-            this.label_ElectricityCost.Location = new System.Drawing.Point(10, 260);
+            this.label_ElectricityCost.Location = new System.Drawing.Point(10, 232);
             this.label_ElectricityCost.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_ElectricityCost.Name = "label_ElectricityCost";
             this.label_ElectricityCost.Size = new System.Drawing.Size(117, 13);
             this.label_ElectricityCost.TabIndex = 374;
             this.label_ElectricityCost.Text = "Electricity Cost (/KWh):";
+            this.label_ElectricityCost.Click += new System.EventHandler(this.label_ElectricityCost_Click);
             // 
             // pictureBox_TimeUnit
             // 
             this.pictureBox_TimeUnit.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_TimeUnit.Location = new System.Drawing.Point(308, 151);
+            this.pictureBox_TimeUnit.Location = new System.Drawing.Point(308, 113);
             this.pictureBox_TimeUnit.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_TimeUnit.Name = "pictureBox_TimeUnit";
             this.pictureBox_TimeUnit.Size = new System.Drawing.Size(18, 18);
             this.pictureBox_TimeUnit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_TimeUnit.TabIndex = 372;
             this.pictureBox_TimeUnit.TabStop = false;
+            this.pictureBox_TimeUnit.Click += new System.EventHandler(this.pictureBox_TimeUnit_Click);
             // 
             // label_TimeUnit
             // 
             this.label_TimeUnit.AutoSize = true;
-            this.label_TimeUnit.Location = new System.Drawing.Point(166, 151);
+            this.label_TimeUnit.Location = new System.Drawing.Point(166, 113);
             this.label_TimeUnit.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_TimeUnit.Name = "label_TimeUnit";
             this.label_TimeUnit.Size = new System.Drawing.Size(52, 13);
             this.label_TimeUnit.TabIndex = 371;
             this.label_TimeUnit.Text = "TimeUnit:";
+            this.label_TimeUnit.Click += new System.EventHandler(this.label_TimeUnit_Click);
             // 
             // comboBox_TimeUnit
             // 
             this.comboBox_TimeUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_TimeUnit.FormattingEnabled = true;
-            this.comboBox_TimeUnit.Location = new System.Drawing.Point(166, 172);
+            this.comboBox_TimeUnit.Location = new System.Drawing.Point(166, 134);
             this.comboBox_TimeUnit.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBox_TimeUnit.Name = "comboBox_TimeUnit";
             this.comboBox_TimeUnit.Size = new System.Drawing.Size(160, 21);
             this.comboBox_TimeUnit.TabIndex = 370;
+            this.comboBox_TimeUnit.SelectedIndexChanged += new System.EventHandler(this.comboBox_TimeUnit_SelectedIndexChanged);
             // 
             // label_IFTTTAPIKey
             // 
             this.label_IFTTTAPIKey.AutoSize = true;
-            this.label_IFTTTAPIKey.Location = new System.Drawing.Point(113, 219);
+            this.label_IFTTTAPIKey.Location = new System.Drawing.Point(113, 184);
             this.label_IFTTTAPIKey.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_IFTTTAPIKey.Name = "label_IFTTTAPIKey";
             this.label_IFTTTAPIKey.Size = new System.Drawing.Size(81, 13);
             this.label_IFTTTAPIKey.TabIndex = 369;
             this.label_IFTTTAPIKey.Text = "IFTTT API Key:";
+            this.label_IFTTTAPIKey.Click += new System.EventHandler(this.label_IFTTTAPIKey_Click);
             // 
             // textBox_IFTTTKey
             // 
             this.textBox_IFTTTKey.Enabled = false;
-            this.textBox_IFTTTKey.Location = new System.Drawing.Point(110, 236);
+            this.textBox_IFTTTKey.Location = new System.Drawing.Point(110, 201);
             this.textBox_IFTTTKey.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_IFTTTKey.Name = "textBox_IFTTTKey";
             this.textBox_IFTTTKey.Size = new System.Drawing.Size(210, 20);
             this.textBox_IFTTTKey.TabIndex = 368;
+            this.textBox_IFTTTKey.TextChanged += new System.EventHandler(this.textBox_IFTTTKey_TextChanged);
             // 
             // pictureBox_UseIFTTT
             // 
             this.pictureBox_UseIFTTT.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_UseIFTTT.Location = new System.Drawing.Point(88, 233);
+            this.pictureBox_UseIFTTT.Location = new System.Drawing.Point(88, 198);
             this.pictureBox_UseIFTTT.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_UseIFTTT.Name = "pictureBox_UseIFTTT";
             this.pictureBox_UseIFTTT.Size = new System.Drawing.Size(18, 18);
             this.pictureBox_UseIFTTT.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_UseIFTTT.TabIndex = 367;
             this.pictureBox_UseIFTTT.TabStop = false;
+            this.pictureBox_UseIFTTT.Click += new System.EventHandler(this.pictureBox_UseIFTTT_Click);
             // 
             // checkBox_UseIFTTT
             // 
             this.checkBox_UseIFTTT.AutoSize = true;
-            this.checkBox_UseIFTTT.Location = new System.Drawing.Point(10, 237);
+            this.checkBox_UseIFTTT.Location = new System.Drawing.Point(10, 202);
             this.checkBox_UseIFTTT.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_UseIFTTT.Name = "checkBox_UseIFTTT";
             this.checkBox_UseIFTTT.Size = new System.Drawing.Size(78, 17);
             this.checkBox_UseIFTTT.TabIndex = 366;
             this.checkBox_UseIFTTT.Text = "Use IFTTT";
             this.checkBox_UseIFTTT.UseVisualStyleBackColor = true;
+            this.checkBox_UseIFTTT.CheckedChanged += new System.EventHandler(this.checkBox_UseIFTTT_CheckedChanged);
             // 
             // checkBox_IdleWhenNoInternetAccess
             // 
             this.checkBox_IdleWhenNoInternetAccess.AutoSize = true;
-            this.checkBox_IdleWhenNoInternetAccess.Location = new System.Drawing.Point(10, 198);
+            this.checkBox_IdleWhenNoInternetAccess.Location = new System.Drawing.Point(10, 160);
             this.checkBox_IdleWhenNoInternetAccess.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_IdleWhenNoInternetAccess.Name = "checkBox_IdleWhenNoInternetAccess";
             this.checkBox_IdleWhenNoInternetAccess.Size = new System.Drawing.Size(205, 17);
@@ -926,35 +920,38 @@
             // pictureBox_WorkerName
             // 
             this.pictureBox_WorkerName.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_WorkerName.Location = new System.Drawing.Point(130, 108);
+            this.pictureBox_WorkerName.Location = new System.Drawing.Point(130, 66);
             this.pictureBox_WorkerName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_WorkerName.Name = "pictureBox_WorkerName";
             this.pictureBox_WorkerName.Size = new System.Drawing.Size(18, 18);
             this.pictureBox_WorkerName.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_WorkerName.TabIndex = 364;
             this.pictureBox_WorkerName.TabStop = false;
+            this.pictureBox_WorkerName.Click += new System.EventHandler(this.pictureBox_WorkerName_Click);
             // 
             // pictureBox_MinProfit
             // 
             this.pictureBox_MinProfit.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_MinProfit.Location = new System.Drawing.Point(130, 152);
+            this.pictureBox_MinProfit.Location = new System.Drawing.Point(130, 114);
             this.pictureBox_MinProfit.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_MinProfit.Name = "pictureBox_MinProfit";
             this.pictureBox_MinProfit.Size = new System.Drawing.Size(18, 18);
             this.pictureBox_MinProfit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_MinProfit.TabIndex = 364;
             this.pictureBox_MinProfit.TabStop = false;
+            this.pictureBox_MinProfit.Click += new System.EventHandler(this.pictureBox_MinProfit_Click);
             // 
             // pictureBox_ServiceLocation
             // 
             this.pictureBox_ServiceLocation.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_ServiceLocation.Location = new System.Drawing.Point(308, 108);
+            this.pictureBox_ServiceLocation.Location = new System.Drawing.Point(308, 66);
             this.pictureBox_ServiceLocation.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_ServiceLocation.Name = "pictureBox_ServiceLocation";
             this.pictureBox_ServiceLocation.Size = new System.Drawing.Size(18, 18);
             this.pictureBox_ServiceLocation.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_ServiceLocation.TabIndex = 364;
             this.pictureBox_ServiceLocation.TabStop = false;
+            this.pictureBox_ServiceLocation.Click += new System.EventHandler(this.pictureBox_ServiceLocation_Click);
             // 
             // pictureBox_Info_BitcoinAddress
             // 
@@ -969,62 +966,57 @@
             // 
             // textBox_MinProfit
             // 
-            this.textBox_MinProfit.Location = new System.Drawing.Point(10, 172);
+            this.textBox_MinProfit.Location = new System.Drawing.Point(10, 134);
             this.textBox_MinProfit.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_MinProfit.Name = "textBox_MinProfit";
             this.textBox_MinProfit.Size = new System.Drawing.Size(138, 20);
             this.textBox_MinProfit.TabIndex = 334;
+            this.textBox_MinProfit.TextChanged += new System.EventHandler(this.textBox_MinProfit_TextChanged);
             // 
             // pictureBox_IdleWhenNoInternetAccess
             // 
             this.pictureBox_IdleWhenNoInternetAccess.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_IdleWhenNoInternetAccess.Location = new System.Drawing.Point(308, 198);
+            this.pictureBox_IdleWhenNoInternetAccess.Location = new System.Drawing.Point(308, 160);
             this.pictureBox_IdleWhenNoInternetAccess.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_IdleWhenNoInternetAccess.Name = "pictureBox_IdleWhenNoInternetAccess";
             this.pictureBox_IdleWhenNoInternetAccess.Size = new System.Drawing.Size(18, 18);
             this.pictureBox_IdleWhenNoInternetAccess.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_IdleWhenNoInternetAccess.TabIndex = 364;
             this.pictureBox_IdleWhenNoInternetAccess.TabStop = false;
-            // 
-            // label_BitcoinAddress
-            // 
-            this.label_BitcoinAddress.AutoSize = true;
-            this.label_BitcoinAddress.Location = new System.Drawing.Point(10, 16);
-            this.label_BitcoinAddress.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label_BitcoinAddress.Name = "label_BitcoinAddress";
-            this.label_BitcoinAddress.Size = new System.Drawing.Size(143, 13);
-            this.label_BitcoinAddress.TabIndex = 355;
-            this.label_BitcoinAddress.Text = "BitcoinAddress (old platform):";
+            this.pictureBox_IdleWhenNoInternetAccess.Click += new System.EventHandler(this.pictureBox_IdleWhenNoInternetAccess_Click);
             // 
             // label_MinProfit
             // 
             this.label_MinProfit.AutoSize = true;
-            this.label_MinProfit.Location = new System.Drawing.Point(10, 152);
+            this.label_MinProfit.Location = new System.Drawing.Point(10, 114);
             this.label_MinProfit.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_MinProfit.Name = "label_MinProfit";
             this.label_MinProfit.Size = new System.Drawing.Size(115, 13);
             this.label_MinProfit.TabIndex = 357;
             this.label_MinProfit.Text = "Minimum Profit ($/day):";
+            this.label_MinProfit.Click += new System.EventHandler(this.label_MinProfit_Click);
             // 
             // label_WorkerName
             // 
             this.label_WorkerName.AutoSize = true;
-            this.label_WorkerName.Location = new System.Drawing.Point(10, 108);
+            this.label_WorkerName.Location = new System.Drawing.Point(10, 66);
             this.label_WorkerName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_WorkerName.Name = "label_WorkerName";
             this.label_WorkerName.Size = new System.Drawing.Size(73, 13);
             this.label_WorkerName.TabIndex = 354;
             this.label_WorkerName.Text = "WorkerName:";
+            this.label_WorkerName.Click += new System.EventHandler(this.label_WorkerName_Click);
             // 
             // label_ServiceLocation
             // 
             this.label_ServiceLocation.AutoSize = true;
-            this.label_ServiceLocation.Location = new System.Drawing.Point(166, 108);
+            this.label_ServiceLocation.Location = new System.Drawing.Point(166, 66);
             this.label_ServiceLocation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_ServiceLocation.Name = "label_ServiceLocation";
             this.label_ServiceLocation.Size = new System.Drawing.Size(87, 13);
             this.label_ServiceLocation.TabIndex = 363;
             this.label_ServiceLocation.Text = "ServiceLocation:";
+            this.label_ServiceLocation.Click += new System.EventHandler(this.label_ServiceLocation_Click);
             // 
             // comboBox_ServiceLocation
             // 
@@ -1038,27 +1030,21 @@
             "India - Chennai",
             "Brazil - Sao Paulo",
             "Auto"});
-            this.comboBox_ServiceLocation.Location = new System.Drawing.Point(166, 129);
+            this.comboBox_ServiceLocation.Location = new System.Drawing.Point(166, 87);
             this.comboBox_ServiceLocation.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBox_ServiceLocation.Name = "comboBox_ServiceLocation";
             this.comboBox_ServiceLocation.Size = new System.Drawing.Size(160, 21);
             this.comboBox_ServiceLocation.TabIndex = 330;
-            // 
-            // textBox_BitcoinAddress
-            // 
-            this.textBox_BitcoinAddress.Location = new System.Drawing.Point(10, 36);
-            this.textBox_BitcoinAddress.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.textBox_BitcoinAddress.Name = "textBox_BitcoinAddress";
-            this.textBox_BitcoinAddress.Size = new System.Drawing.Size(316, 20);
-            this.textBox_BitcoinAddress.TabIndex = 329;
+            this.comboBox_ServiceLocation.SelectedIndexChanged += new System.EventHandler(this.comboBox_ServiceLocation_SelectedIndexChanged);
             // 
             // textBox_WorkerName
             // 
-            this.textBox_WorkerName.Location = new System.Drawing.Point(10, 129);
+            this.textBox_WorkerName.Location = new System.Drawing.Point(10, 87);
             this.textBox_WorkerName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_WorkerName.Name = "textBox_WorkerName";
             this.textBox_WorkerName.Size = new System.Drawing.Size(138, 20);
             this.textBox_WorkerName.TabIndex = 339;
+            this.textBox_WorkerName.TextChanged += new System.EventHandler(this.textBox_WorkerName_TextChanged);
             // 
             // groupBox_Localization
             // 
@@ -1069,7 +1055,7 @@
             this.groupBox_Localization.Controls.Add(this.comboBox_Language);
             this.groupBox_Localization.Controls.Add(this.currencyConverterCombobox);
             this.groupBox_Localization.Controls.Add(this.label_displayCurrency);
-            this.groupBox_Localization.Location = new System.Drawing.Point(4, 323);
+            this.groupBox_Localization.Location = new System.Drawing.Point(6, 289);
             this.groupBox_Localization.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox_Localization.Name = "groupBox_Localization";
             this.groupBox_Localization.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1199,6 +1185,69 @@
             this.tabPageAdvanced1.TabIndex = 2;
             this.tabPageAdvanced1.Text = "Advanced";
             this.tabPageAdvanced1.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxMOPA
+            // 
+            this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA4);
+            this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA3);
+            this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA2);
+            this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA1);
+            this.groupBoxMOPA.Location = new System.Drawing.Point(6, 129);
+            this.groupBoxMOPA.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.groupBoxMOPA.Name = "groupBoxMOPA";
+            this.groupBoxMOPA.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.groupBoxMOPA.Size = new System.Drawing.Size(641, 68);
+            this.groupBoxMOPA.TabIndex = 396;
+            this.groupBoxMOPA.TabStop = false;
+            this.groupBoxMOPA.Text = "Method of obtaining profitability of algorithms:";
+            // 
+            // radioButtonMOPA4
+            // 
+            this.radioButtonMOPA4.AutoSize = true;
+            this.radioButtonMOPA4.Location = new System.Drawing.Point(242, 42);
+            this.radioButtonMOPA4.Name = "radioButtonMOPA4";
+            this.radioButtonMOPA4.Size = new System.Drawing.Size(139, 17);
+            this.radioButtonMOPA4.TabIndex = 398;
+            this.radioButtonMOPA4.TabStop = true;
+            this.radioButtonMOPA4.Text = "24 hours avg profitability";
+            this.radioButtonMOPA4.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA4.CheckedChanged += new System.EventHandler(this.radioButtonMOPA4_CheckedChanged);
+            // 
+            // radioButtonMOPA3
+            // 
+            this.radioButtonMOPA3.AutoSize = true;
+            this.radioButtonMOPA3.Location = new System.Drawing.Point(10, 42);
+            this.radioButtonMOPA3.Name = "radioButtonMOPA3";
+            this.radioButtonMOPA3.Size = new System.Drawing.Size(143, 17);
+            this.radioButtonMOPA3.TabIndex = 397;
+            this.radioButtonMOPA3.TabStop = true;
+            this.radioButtonMOPA3.Text = "5 minutes avg profitability";
+            this.radioButtonMOPA3.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA3.CheckedChanged += new System.EventHandler(this.radioButtonMOPA3_CheckedChanged);
+            // 
+            // radioButtonMOPA2
+            // 
+            this.radioButtonMOPA2.AutoSize = true;
+            this.radioButtonMOPA2.Location = new System.Drawing.Point(242, 19);
+            this.radioButtonMOPA2.Name = "radioButtonMOPA2";
+            this.radioButtonMOPA2.Size = new System.Drawing.Size(111, 17);
+            this.radioButtonMOPA2.TabIndex = 396;
+            this.radioButtonMOPA2.TabStop = true;
+            this.radioButtonMOPA2.Text = "Current profitability";
+            this.radioButtonMOPA2.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA2.CheckedChanged += new System.EventHandler(this.radioButtonMOPA2_CheckedChanged);
+            // 
+            // radioButtonMOPA1
+            // 
+            this.radioButtonMOPA1.AutoSize = true;
+            this.radioButtonMOPA1.Location = new System.Drawing.Point(10, 19);
+            this.radioButtonMOPA1.Name = "radioButtonMOPA1";
+            this.radioButtonMOPA1.Size = new System.Drawing.Size(93, 17);
+            this.radioButtonMOPA1.TabIndex = 395;
+            this.radioButtonMOPA1.TabStop = true;
+            this.radioButtonMOPA1.Text = "Standart NHM";
+            this.radioButtonMOPA1.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA1.CheckedChanged += new System.EventHandler(this.radioButtonMOPA1_CheckedChanged);
             // 
             // groupBox_Miners
             // 
@@ -1565,6 +1614,20 @@
             this.groupBoxAlgorithmSettings.Text = "Algorithm settings for selected device:";
             this.groupBoxAlgorithmSettings.Enter += new System.EventHandler(this.groupBoxAlgorithmSettings_Enter);
             // 
+            // algorithmsListView1
+            // 
+            this.algorithmsListView1.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
+            this.algorithmsListView1.BackColor = System.Drawing.SystemColors.Control;
+            this.algorithmsListView1.BenchmarkCalculation = null;
+            this.algorithmsListView1.ComunicationInterface = null;
+            this.algorithmsListView1.IsInBenchmark = false;
+            this.algorithmsListView1.Location = new System.Drawing.Point(6, 21);
+            this.algorithmsListView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.algorithmsListView1.Name = "algorithmsListView1";
+            this.algorithmsListView1.Size = new System.Drawing.Size(627, 219);
+            this.algorithmsListView1.TabIndex = 2;
+            this.algorithmsListView1.Load += new System.EventHandler(this.algorithmsListView1_Load);
+            // 
             // buttonGPUtuning
             // 
             this.buttonGPUtuning.Location = new System.Drawing.Point(12, 17);
@@ -1575,6 +1638,29 @@
             this.buttonGPUtuning.Text = "GPU tuning";
             this.buttonGPUtuning.UseVisualStyleBackColor = true;
             this.buttonGPUtuning.Click += new System.EventHandler(this.ButtonGPUtuning_Click);
+            // 
+            // devicesListViewEnableControl1
+            // 
+            this.devicesListViewEnableControl1.AutoScroll = true;
+            this.devicesListViewEnableControl1.BenchmarkCalculation = null;
+            this.devicesListViewEnableControl1.FirstColumnText = "Enabled";
+            this.devicesListViewEnableControl1.IsInBenchmark = false;
+            this.devicesListViewEnableControl1.IsMining = false;
+            this.devicesListViewEnableControl1.Location = new System.Drawing.Point(8, 68);
+            this.devicesListViewEnableControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.devicesListViewEnableControl1.Name = "devicesListViewEnableControl1";
+            this.devicesListViewEnableControl1.SaveToGeneralConfig = false;
+            this.devicesListViewEnableControl1.Size = new System.Drawing.Size(348, 168);
+            this.devicesListViewEnableControl1.TabIndex = 397;
+            // 
+            // algorithmSettingsControl1
+            // 
+            this.algorithmSettingsControl1.Location = new System.Drawing.Point(360, 8);
+            this.algorithmSettingsControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.algorithmSettingsControl1.Name = "algorithmSettingsControl1";
+            this.algorithmSettingsControl1.Size = new System.Drawing.Size(285, 205);
+            this.algorithmSettingsControl1.TabIndex = 396;
+            this.algorithmSettingsControl1.Load += new System.EventHandler(this.algorithmSettingsControl1_Load);
             // 
             // buttonSaveClose
             // 
@@ -1611,106 +1697,6 @@
             this.buttonCloseNoSave.Text = "&Close without Saving";
             this.buttonCloseNoSave.UseVisualStyleBackColor = true;
             this.buttonCloseNoSave.Click += new System.EventHandler(this.ButtonCloseNoSave_Click);
-            // 
-            // radioButtonMOPA1
-            // 
-            this.radioButtonMOPA1.AutoSize = true;
-            this.radioButtonMOPA1.Location = new System.Drawing.Point(10, 19);
-            this.radioButtonMOPA1.Name = "radioButtonMOPA1";
-            this.radioButtonMOPA1.Size = new System.Drawing.Size(93, 17);
-            this.radioButtonMOPA1.TabIndex = 395;
-            this.radioButtonMOPA1.TabStop = true;
-            this.radioButtonMOPA1.Text = "Standart NHM";
-            this.radioButtonMOPA1.UseVisualStyleBackColor = true;
-            this.radioButtonMOPA1.CheckedChanged += new System.EventHandler(this.radioButtonMOPA1_CheckedChanged);
-            // 
-            // groupBoxMOPA
-            // 
-            this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA4);
-            this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA3);
-            this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA2);
-            this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA1);
-            this.groupBoxMOPA.Location = new System.Drawing.Point(6, 129);
-            this.groupBoxMOPA.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBoxMOPA.Name = "groupBoxMOPA";
-            this.groupBoxMOPA.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBoxMOPA.Size = new System.Drawing.Size(641, 68);
-            this.groupBoxMOPA.TabIndex = 396;
-            this.groupBoxMOPA.TabStop = false;
-            this.groupBoxMOPA.Text = "Method of obtaining profitability of algorithms:";
-            // 
-            // radioButtonMOPA2
-            // 
-            this.radioButtonMOPA2.AutoSize = true;
-            this.radioButtonMOPA2.Location = new System.Drawing.Point(242, 19);
-            this.radioButtonMOPA2.Name = "radioButtonMOPA2";
-            this.radioButtonMOPA2.Size = new System.Drawing.Size(111, 17);
-            this.radioButtonMOPA2.TabIndex = 396;
-            this.radioButtonMOPA2.TabStop = true;
-            this.radioButtonMOPA2.Text = "Current profitability";
-            this.radioButtonMOPA2.UseVisualStyleBackColor = true;
-            this.radioButtonMOPA2.CheckedChanged += new System.EventHandler(this.radioButtonMOPA2_CheckedChanged);
-            // 
-            // radioButtonMOPA3
-            // 
-            this.radioButtonMOPA3.AutoSize = true;
-            this.radioButtonMOPA3.Location = new System.Drawing.Point(10, 42);
-            this.radioButtonMOPA3.Name = "radioButtonMOPA3";
-            this.radioButtonMOPA3.Size = new System.Drawing.Size(143, 17);
-            this.radioButtonMOPA3.TabIndex = 397;
-            this.radioButtonMOPA3.TabStop = true;
-            this.radioButtonMOPA3.Text = "5 minutes avg profitability";
-            this.radioButtonMOPA3.UseVisualStyleBackColor = true;
-            this.radioButtonMOPA3.CheckedChanged += new System.EventHandler(this.radioButtonMOPA3_CheckedChanged);
-            // 
-            // radioButtonMOPA4
-            // 
-            this.radioButtonMOPA4.AutoSize = true;
-            this.radioButtonMOPA4.Location = new System.Drawing.Point(242, 42);
-            this.radioButtonMOPA4.Name = "radioButtonMOPA4";
-            this.radioButtonMOPA4.Size = new System.Drawing.Size(139, 17);
-            this.radioButtonMOPA4.TabIndex = 398;
-            this.radioButtonMOPA4.TabStop = true;
-            this.radioButtonMOPA4.Text = "24 hours avg profitability";
-            this.radioButtonMOPA4.UseVisualStyleBackColor = true;
-            this.radioButtonMOPA4.CheckedChanged += new System.EventHandler(this.radioButtonMOPA4_CheckedChanged);
-            // 
-            // algorithmsListView1
-            // 
-            this.algorithmsListView1.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.algorithmsListView1.BackColor = System.Drawing.SystemColors.Control;
-            this.algorithmsListView1.BenchmarkCalculation = null;
-            this.algorithmsListView1.ComunicationInterface = null;
-            this.algorithmsListView1.IsInBenchmark = false;
-            this.algorithmsListView1.Location = new System.Drawing.Point(6, 21);
-            this.algorithmsListView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.algorithmsListView1.Name = "algorithmsListView1";
-            this.algorithmsListView1.Size = new System.Drawing.Size(627, 219);
-            this.algorithmsListView1.TabIndex = 2;
-            this.algorithmsListView1.Load += new System.EventHandler(this.algorithmsListView1_Load);
-            // 
-            // devicesListViewEnableControl1
-            // 
-            this.devicesListViewEnableControl1.AutoScroll = true;
-            this.devicesListViewEnableControl1.BenchmarkCalculation = null;
-            this.devicesListViewEnableControl1.FirstColumnText = "Enabled";
-            this.devicesListViewEnableControl1.IsInBenchmark = false;
-            this.devicesListViewEnableControl1.IsMining = false;
-            this.devicesListViewEnableControl1.Location = new System.Drawing.Point(8, 68);
-            this.devicesListViewEnableControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.devicesListViewEnableControl1.Name = "devicesListViewEnableControl1";
-            this.devicesListViewEnableControl1.SaveToGeneralConfig = false;
-            this.devicesListViewEnableControl1.Size = new System.Drawing.Size(348, 168);
-            this.devicesListViewEnableControl1.TabIndex = 397;
-            // 
-            // algorithmSettingsControl1
-            // 
-            this.algorithmSettingsControl1.Location = new System.Drawing.Point(360, 8);
-            this.algorithmSettingsControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.algorithmSettingsControl1.Name = "algorithmSettingsControl1";
-            this.algorithmSettingsControl1.Size = new System.Drawing.Size(285, 205);
-            this.algorithmSettingsControl1.TabIndex = 396;
-            this.algorithmSettingsControl1.Load += new System.EventHandler(this.algorithmSettingsControl1_Load);
             // 
             // Form_Settings
             // 
@@ -1753,7 +1739,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_LogToFile)).EndInit();
             this.groupBox_Main.ResumeLayout(false);
             this.groupBox_Main.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ElectricityCost)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_TimeUnit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_UseIFTTT)).EndInit();
@@ -1768,6 +1753,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_displayCurrency)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Language)).EndInit();
             this.tabPageAdvanced1.ResumeLayout(false);
+            this.groupBoxMOPA.ResumeLayout(false);
+            this.groupBoxMOPA.PerformLayout();
             this.groupBox_Miners.ResumeLayout(false);
             this.groupBox_Miners.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_MinerRestartDelayMS)).EndInit();
@@ -1785,8 +1772,6 @@
             this.tabPageDevicesAlgos.ResumeLayout(false);
             this.tabPageDevicesAlgos.PerformLayout();
             this.groupBoxAlgorithmSettings.ResumeLayout(false);
-            this.groupBoxMOPA.ResumeLayout(false);
-            this.groupBoxMOPA.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1802,7 +1787,6 @@
         private System.Windows.Forms.ComboBox currencyConverterCombobox;
         private System.Windows.Forms.TextBox textBox_LogMaxFileSize;
         private System.Windows.Forms.TextBox textBox_WorkerName;
-        private System.Windows.Forms.TextBox textBox_BitcoinAddress;
         private System.Windows.Forms.CheckBox checkBox_LogToFile;
         private System.Windows.Forms.Label label_Language;
         private System.Windows.Forms.ComboBox comboBox_Language;
@@ -1810,7 +1794,6 @@
         private System.Windows.Forms.ComboBox comboBox_ServiceLocation;
         private System.Windows.Forms.Label label_ServiceLocation;
         private System.Windows.Forms.Label label_WorkerName;
-        private System.Windows.Forms.Label label_BitcoinAddress;
         private System.Windows.Forms.CheckBox checkBox_DebugConsole;
         private System.Windows.Forms.TabPage tabPageDevicesAlgos;
         private System.Windows.Forms.ToolTip toolTip1;
@@ -1895,7 +1878,6 @@
         private System.Windows.Forms.PictureBox pictureBox_ElectricityCost;
         private System.Windows.Forms.TextBox textBox_ElectricityCost;
         private System.Windows.Forms.Label label_ElectricityCost;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label_BitcoinAddressNew;
         private System.Windows.Forms.TextBox textBox_BitcoinAddressNew;
         private System.Windows.Forms.CheckBox checkBox_Allow_remote_management;
