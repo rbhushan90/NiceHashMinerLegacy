@@ -4,7 +4,8 @@ namespace ATI.ADL
 {
     internal static partial class ADL
     {
-        internal class AMDDelegateContainer<T> where T : Delegate
+        //internal class AMDDelegateContainer<T> where T : Delegate
+        internal class AMDDelegateContainer<T>
         {
             public AMDDelegateContainer(string funcName, T nativeDelegate)
             {
@@ -23,7 +24,7 @@ namespace ATI.ADL
                     }
                     if (_isFunctionValid) return _nativeDelegate;
                     // function not found or not valid
-                    return null;
+                    return _nativeDelegate;
                 }
             }
             private string _functionName;
