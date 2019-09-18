@@ -35,6 +35,7 @@ namespace NiceHashMiner
         private Timer _remoteTimer;
         private Timer _autostartTimer;
         private Timer _autostartTimerDelay;
+        private Timer _deviceStatusTimer;
         private int _AutoStartMiningDelay = 0;
         private Timer _idleCheck;
         private SystemTimer _computeDevicesCheckTimer;
@@ -161,7 +162,8 @@ namespace NiceHashMiner
             linkLabelCheckStats.Text = International.GetText("Form_Main_check_stats");
             linkLabelChooseBTCWallet.Text = International.GetText("Form_Main_choose_bitcoin_wallet");
 
-            toolStripStatusLabelGlobalRateText.Text = International.GetText("Form_Main_global_rate").Substring(0, 2) + ":";
+           // toolStripStatusLabelGlobalRateText.Text = International.GetText("Form_Main_global_rate").Substring(0, 2) + ":";
+            toolStripStatusLabelGlobalRateText.Text = International.GetText("Form_Main_global_rate");
             toolStripStatusLabelBTCDayText.Text =
                 "BTC/" + International.GetText(ConfigManager.GeneralConfig.TimeUnit.ToString());
             toolStripStatusLabelBalanceText.Text = (ExchangeRateApi.ActiveDisplayCurrency + "/") +
@@ -169,7 +171,7 @@ namespace NiceHashMiner
                                                        ConfigManager.GeneralConfig.TimeUnit.ToString()) + "     " +
                                                    International.GetText("Form_Main_balance") + ":";
 
-            devicesListViewEnableControl1.InitLocale();
+            devicesListViewEnableControl1.InitLocaleMain();
 
             buttonBenchmark.Text = International.GetText("Form_Main_benchmark");
             buttonSettings.Text = International.GetText("Form_Main_settings");
@@ -592,6 +594,11 @@ namespace NiceHashMiner
             _remoteTimer.Tick += RemoteTimer_Tick;
             _remoteTimer.Interval = 200;
             _remoteTimer.Start();
+
+            _deviceStatusTimer = new Timer();
+            _deviceStatusTimer.Tick += DeviceStatusTimer_Tick;
+            _deviceStatusTimer.Interval = 1000;
+            _deviceStatusTimer.Start();
         }
 
         //        [Obsolete("Deprecated in favour of AlgorithmSwitchingManager timer")]
@@ -1520,7 +1527,10 @@ namespace NiceHashMiner
             //_remoteTimer= null;
         }
 
-
+        private void DeviceStatusTimer_Tick(object sender, EventArgs e)
+        {
+            devicesListViewEnableControl1.SetComputeDevicesStatus(ComputeDeviceManager.Available.Devices);
+        }
         private void StopMining()
         {
             NiceHashStats.DeviceStatus_TickNew("PENDING");

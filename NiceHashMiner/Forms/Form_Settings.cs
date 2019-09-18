@@ -68,6 +68,7 @@ namespace NiceHashMiner.Forms
             //algorithmsListView1.RemoveRatioRates();
 
 
+
             // set first device selected {
             if (ComputeDeviceManager.Available.Devices.Count > 0)
             {
@@ -1306,6 +1307,11 @@ namespace NiceHashMiner.Forms
         }
 
         private void label_BitcoinAddressNew_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void devicesListViewEnableControl1_Load(object sender, EventArgs e)
         {
 
         }

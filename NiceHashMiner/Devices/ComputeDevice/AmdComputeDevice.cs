@@ -72,6 +72,7 @@ namespace NiceHashMiner.Devices
                     var result = ADL.ADL2_Overdrive6_CurrentPower_Get(_adlContext, _adapterIndex2, 1, ref power);
                     if (result == ADL.ADL_SUCCESS)
                     {
+                    //Helpers.ConsolePrint("ADL", power.ToString()); //не работает
                         return (double) power / (1 << 8);
                     }
 

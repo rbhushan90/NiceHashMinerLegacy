@@ -68,7 +68,7 @@
             // 
             // buttonStartMining
             // 
-            this.buttonStartMining.Location = new System.Drawing.Point(452, 177);
+            this.buttonStartMining.Location = new System.Drawing.Point(613, 177);
             this.buttonStartMining.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonStartMining.Name = "buttonStartMining";
             this.buttonStartMining.Size = new System.Drawing.Size(105, 23);
@@ -100,7 +100,7 @@
             "Auto"});
             this.comboBoxLocation.Location = new System.Drawing.Point(100, 20);
             this.comboBoxLocation.Name = "comboBoxLocation";
-            this.comboBoxLocation.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxLocation.Size = new System.Drawing.Size(138, 21);
             this.comboBoxLocation.TabIndex = 0;
             this.comboBoxLocation.SelectedIndexChanged += new System.EventHandler(this.comboBoxLocation_SelectedIndexChanged);
             this.comboBoxLocation.Leave += new System.EventHandler(this.TextBoxCheckBoxMain_Leave);
@@ -121,7 +121,7 @@
             this.toolStripStatusLabel10});
             this.statusStrip1.Location = new System.Drawing.Point(0, 341);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(564, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(729, 25);
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
@@ -224,7 +224,7 @@
             // 
             // buttonStopMining
             // 
-            this.buttonStopMining.Location = new System.Drawing.Point(452, 203);
+            this.buttonStopMining.Location = new System.Drawing.Point(613, 203);
             this.buttonStopMining.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonStopMining.Name = "buttonStopMining";
             this.buttonStopMining.Size = new System.Drawing.Size(105, 23);
@@ -235,7 +235,7 @@
             // 
             // buttonBenchmark
             // 
-            this.buttonBenchmark.Location = new System.Drawing.Point(452, 124);
+            this.buttonBenchmark.Location = new System.Drawing.Point(613, 124);
             this.buttonBenchmark.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.buttonBenchmark.Name = "buttonBenchmark";
             this.buttonBenchmark.Size = new System.Drawing.Size(105, 23);
@@ -246,7 +246,7 @@
             // 
             // buttonSettings
             // 
-            this.buttonSettings.Location = new System.Drawing.Point(452, 150);
+            this.buttonSettings.Location = new System.Drawing.Point(613, 150);
             this.buttonSettings.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonSettings.Name = "buttonSettings";
             this.buttonSettings.Size = new System.Drawing.Size(105, 23);
@@ -306,7 +306,7 @@
             this.flowLayoutPanelRates.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanelRates.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanelRates.Name = "flowLayoutPanelRates";
-            this.flowLayoutPanelRates.Size = new System.Drawing.Size(545, 40);
+            this.flowLayoutPanelRates.Size = new System.Drawing.Size(594, 40);
             this.flowLayoutPanelRates.TabIndex = 107;
             this.flowLayoutPanelRates.WrapContents = false;
             // 
@@ -316,7 +316,7 @@
             this.groupBox1.Controls.Add(this.flowLayoutPanelRates);
             this.groupBox1.Location = new System.Drawing.Point(6, 281);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(551, 59);
+            this.groupBox1.Size = new System.Drawing.Size(600, 59);
             this.groupBox1.TabIndex = 108;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Group/Device Rates:";
@@ -334,7 +334,7 @@
             // 
             // buttonHelp
             // 
-            this.buttonHelp.Location = new System.Drawing.Point(452, 230);
+            this.buttonHelp.Location = new System.Drawing.Point(613, 230);
             this.buttonHelp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(105, 23);
@@ -378,7 +378,7 @@
             this.devicesListViewEnableControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.devicesListViewEnableControl1.Name = "devicesListViewEnableControl1";
             this.devicesListViewEnableControl1.SaveToGeneralConfig = false;
-            this.devicesListViewEnableControl1.Size = new System.Drawing.Size(433, 149);
+            this.devicesListViewEnableControl1.Size = new System.Drawing.Size(595, 149);
             this.devicesListViewEnableControl1.TabIndex = 109;
             this.devicesListViewEnableControl1.Load += new System.EventHandler(this.devicesListViewEnableControl1_Load);
             // 
@@ -386,7 +386,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(564, 366);
+            this.ClientSize = new System.Drawing.Size(729, 366);
             this.Controls.Add(this.labelBitcoinAddressNew);
             this.Controls.Add(this.textBoxBTCAddress_new);
             this.Controls.Add(this.linkLabelNewVersion);

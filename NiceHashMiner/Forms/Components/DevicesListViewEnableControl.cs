@@ -12,7 +12,10 @@ namespace NiceHashMiner.Forms.Components
     public partial class DevicesListViewEnableControl : UserControl
     {
         private const int ENABLED = 0;
-        private const int DEVICE = 1;
+        private const int TEMP = 1;
+        private const int LOAD = 2;
+        private const int FAN = 3;
+        private const int POWER = 4;
 
         private class DefaultDevicesColorSeter : IListItemCheckColorSetter
         {
@@ -144,6 +147,10 @@ namespace NiceHashMiner.Forms.Components
                 };
                 //lvi.SubItems.Add(computeDevice.Name);
                 listViewDevices.Items.Add(lvi);
+                lvi.SubItems.Add("");
+                lvi.SubItems.Add("");
+                lvi.SubItems.Add("");
+                lvi.SubItems.Add("");
                 _listItemCheckColorSetter.LviSetColor(lvi);
             }
             listViewDevices.EndUpdate();
@@ -152,6 +159,36 @@ namespace NiceHashMiner.Forms.Components
             SaveToGeneralConfig = tmpSaveToGeneralConfig;
         }
 
+        public void SetComputeDevicesStatus(List<ComputeDevice> computeDevices)
+        {
+            int index = 0;
+            foreach (var computeDevice in computeDevices)
+            {
+                string cTemp = Math.Truncate(computeDevice.Temp).ToString()+ "°C";
+                string cLoad = Math.Truncate(computeDevice.Load).ToString()+"%";
+                string cFanSpeed = computeDevice.FanSpeed.ToString();
+                string cPowerUsage = Math.Truncate(computeDevice.PowerUsage).ToString();
+                if (Math.Truncate(computeDevice.PowerUsage) == 0)
+                {
+                    cPowerUsage = "-1";
+                }
+                if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
+                {
+                    cPowerUsage = cPowerUsage + " Вт";
+                } else
+                {
+                    cPowerUsage = cPowerUsage + " W";
+                }
+
+                listViewDevices.Items[index].SubItems[1].Text = cTemp.Contains("-1")?"--":cTemp;
+                listViewDevices.Items[index].SubItems[2].Text = cLoad.Contains("-1") ? "--" :cLoad;
+                listViewDevices.Items[index].SubItems[3].Text = cFanSpeed.Contains("-1") ? "--" :cFanSpeed;
+                listViewDevices.Items[index].SubItems[4].Text = cPowerUsage.Contains("-1") ? "--" :cPowerUsage;
+                index++;
+
+            }
+
+        }
         public void ResetComputeDevices(List<ComputeDevice> computeDevices)
         {
             SetComputeDevices(computeDevices);
@@ -159,9 +196,36 @@ namespace NiceHashMiner.Forms.Components
 
         public void InitLocale()
         {
-            listViewDevices.Columns[ENABLED].Text =
-                International.GetText("ListView_Device"); //International.GetText("ListView_Enabled");
-            //listViewDevices.Columns[DEVICE].Text = International.GetText("ListView_Device");
+            listViewDevices.Columns[ENABLED].Text = International.GetText("ListView_Device");
+
+            if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
+            {
+                listViewDevices.Columns[TEMP].Text = "Температура";
+                listViewDevices.Columns[LOAD].Text = "Нагрузка";
+                listViewDevices.Columns[FAN].Text = "Об/мин";
+                listViewDevices.Columns[POWER].Text = "Потребление";
+            }
+            listViewDevices.Columns[TEMP].Width = 0;
+            listViewDevices.Columns[LOAD].Width = 0;
+            listViewDevices.Columns[FAN].Width = 0;
+            listViewDevices.Columns[POWER].Width = 0;
+            //listViewDevices.Columns[0].Width = Width - 4 - SystemInformation.VerticalScrollBarWidth;
+            //listViewDevices.Columns[0].Width = Width - SystemInformation.VerticalScrollBarWidth;
+            listViewDevices.Columns[0].Width = Width - SystemInformation.VerticalScrollBarWidth - 4;
+            
+        }
+
+        public void InitLocaleMain()
+        {
+            listViewDevices.Columns[ENABLED].Text = International.GetText("ListView_Device");
+            if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
+            {
+                listViewDevices.Columns[TEMP].Text = "Температура";
+                listViewDevices.Columns[LOAD].Text = "Нагрузка";
+                listViewDevices.Columns[FAN].Text = "Об/мин";
+                listViewDevices.Columns[POWER].Text = "Потребление";
+            }
+            //  listViewDevices.Scrollable = true;
         }
 
         private void ListViewDevicesItemChecked(object sender, ItemCheckedEventArgs e)
@@ -217,7 +281,7 @@ namespace NiceHashMiner.Forms.Components
                                         copyBenchDropDownItem.Click += ToolStripMenuItemCopySettings_Click;
                                         copyBenchDropDownItem.Tag = cDev.Uuid;
                                         copyBenchItem.DropDownItems.Add(copyBenchDropDownItem);
-                                        
+
                                         var copyTuningDropDownItem = new ToolStripMenuItem {
                                             Text = cDev.Name
                                             //Checked = cDev.UUID == CDevice.TuningCopyUUID
@@ -250,14 +314,14 @@ namespace NiceHashMiner.Forms.Components
                         copyBenchCDev.GetFullName(), CDevice.GetFullName()),
                     International.GetText("DeviceListView_ContextMenu_CopySettings_Confirm_Dialog_Title"),
                     MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes) 
+                if (result == DialogResult.Yes)
                 {
-                    if (justTuning) 
+                    if (justTuning)
                     {
                         CDevice.TuningCopyUuid = uuid;
                         CDevice.CopyTuningSettingsFrom(copyBenchCDev);
-                    } 
-                    else 
+                    }
+                    else
                     {
                         CDevice.BenchmarkCopyUuid = uuid;
                         CDevice.CopyBenchmarkSettingsFrom(copyBenchCDev);
@@ -270,22 +334,23 @@ namespace NiceHashMiner.Forms.Components
             }
         }
 
-        private void ToolStripMenuItemCopySettings_Click(object sender, EventArgs e) 
+        private void ToolStripMenuItemCopySettings_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem_Click(sender, false);
         }
 
-        private void ToolStripMenuItemCopyTuning_Click(object sender, EventArgs e) 
+        private void ToolStripMenuItemCopyTuning_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem_Click(sender, true);
         }
 
         private void DevicesListViewEnableControl_Resize(object sender, EventArgs e)
         {
-            // only one 
+            //listViewDevices.Columns[0].Width = Width - SystemInformation.VerticalScrollBarWidth;
+            // only one
             foreach (ColumnHeader ch in listViewDevices.Columns)
             {
-                ch.Width = Width - 10;
+          //      ch.Width = Width - 10;
             }
         }
 
