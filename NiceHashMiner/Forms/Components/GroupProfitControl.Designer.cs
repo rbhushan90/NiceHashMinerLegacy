@@ -34,6 +34,8 @@
             // 
             // groupBoxMinerGroup
             // 
+            this.groupBoxMinerGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxMinerGroup.Controls.Add(this.labelSpeedIndicator);
             this.groupBoxMinerGroup.Controls.Add(this.labelCurentcyPerDayVaue);
             this.groupBoxMinerGroup.Controls.Add(this.labelBTCRateValue);
@@ -59,6 +61,8 @@
             // 
             // labelCurentcyPerDayVaue
             // 
+            this.labelCurentcyPerDayVaue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCurentcyPerDayVaue.AutoSize = true;
             this.labelCurentcyPerDayVaue.Location = new System.Drawing.Point(434, 16);
             this.labelCurentcyPerDayVaue.Name = "labelCurentcyPerDayVaue";
@@ -79,7 +83,7 @@
             // labelBTCRateIndicator
             // 
             this.labelBTCRateIndicator.AutoSize = true;
-            this.labelBTCRateIndicator.Location = new System.Drawing.Point(279, 16);
+            this.labelBTCRateIndicator.Location = new System.Drawing.Point(272, 16);
             this.labelBTCRateIndicator.Name = "labelBTCRateIndicator";
             this.labelBTCRateIndicator.Size = new System.Drawing.Size(33, 13);
             this.labelBTCRateIndicator.TabIndex = 106;
@@ -89,7 +93,7 @@
             // 
             this.labelSpeedValue.AutoSize = true;
             this.labelSpeedValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelSpeedValue.Location = new System.Drawing.Point(56, 16);
+            this.labelSpeedValue.Location = new System.Drawing.Point(75, 16);
             this.labelSpeedValue.Name = "labelSpeedValue";
             this.labelSpeedValue.Size = new System.Drawing.Size(30, 13);
             this.labelSpeedValue.TabIndex = 107;

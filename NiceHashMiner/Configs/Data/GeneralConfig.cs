@@ -40,6 +40,7 @@ namespace NiceHashMiner.Configs.Data
         public int ColumnLOAD = 66;
         public int ColumnFAN = 56;
         public int ColumnPOWER = 85;
+        public int FormWidth = 745;
 
         public bool MinimizeMiningWindows = false;
 
@@ -205,6 +206,7 @@ namespace NiceHashMiner.Configs.Data
             ColumnLOAD = 66;
             ColumnFAN = 56;
             ColumnPOWER = 85;
+            FormWidth = 745;
         }
 
         public void FixSettingBounds()

@@ -104,7 +104,7 @@ namespace NiceHashMiner
             Text += ForkString;
 
             label_NotProfitable.Visible = false;
-
+            
             InitMainConfigGuiData();
 
             // for resizing
@@ -574,6 +574,7 @@ namespace NiceHashMiner
 
         private void Form_Main_Shown(object sender, EventArgs e)
         {
+            Form_Main.ActiveForm.Width = ConfigManager.GeneralConfig.FormWidth;
             // general loading indicator
             const int totalLoadSteps = 11;
             _loadingScreen = new Form_Loading(this,
@@ -1094,6 +1095,7 @@ namespace NiceHashMiner
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             devicesListViewEnableControl1.SaveColumns();
+            ConfigManager.GeneralConfig.FormWidth = Form_Main.ActiveForm.Width;
             MinersManager.StopAllMiners();
 
             MessageBoxManager.Unregister();
