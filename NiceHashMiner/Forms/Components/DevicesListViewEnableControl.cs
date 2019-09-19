@@ -225,7 +225,20 @@ namespace NiceHashMiner.Forms.Components
                 listViewDevices.Columns[FAN].Text = "Об/мин";
                 listViewDevices.Columns[POWER].Text = "Потребление";
             }
+            listViewDevices.Columns[ENABLED].Width = ConfigManager.GeneralConfig.ColumnENABLED;
+            listViewDevices.Columns[TEMP].Width = ConfigManager.GeneralConfig.ColumnTEMP;
+            listViewDevices.Columns[LOAD].Width = ConfigManager.GeneralConfig.ColumnLOAD;
+            listViewDevices.Columns[FAN].Width = ConfigManager.GeneralConfig.ColumnFAN;
+            listViewDevices.Columns[POWER].Width = ConfigManager.GeneralConfig.ColumnPOWER;
             //  listViewDevices.Scrollable = true;
+        }
+        public void SaveColumns()
+        {
+            ConfigManager.GeneralConfig.ColumnENABLED = listViewDevices.Columns[ENABLED].Width;
+            ConfigManager.GeneralConfig.ColumnTEMP = listViewDevices.Columns[TEMP].Width;
+            ConfigManager.GeneralConfig.ColumnLOAD = listViewDevices.Columns[LOAD].Width;
+            ConfigManager.GeneralConfig.ColumnFAN = listViewDevices.Columns[FAN].Width;
+            ConfigManager.GeneralConfig.ColumnPOWER = listViewDevices.Columns[POWER].Width;
         }
 
         private void ListViewDevicesItemChecked(object sender, ItemCheckedEventArgs e)

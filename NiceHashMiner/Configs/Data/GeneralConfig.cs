@@ -35,6 +35,11 @@ namespace NiceHashMiner.Configs.Data
         public bool MOPA2 = false;
         public bool MOPA3 = false;
         public bool MOPA4 = false;
+        public int ColumnENABLED = 304;
+        public int ColumnTEMP = 80;
+        public int ColumnLOAD = 66;
+        public int ColumnFAN = 56;
+        public int ColumnPOWER = 85;
 
         public bool MinimizeMiningWindows = false;
 
@@ -191,6 +196,15 @@ namespace NiceHashMiner.Configs.Data
             SwitchSmaTicksStable = new Interval(2, 3);
             SwitchSmaTicksUnstable = new Interval(5, 13);
             UseSmaCache = true;
+            MOPA1 = true;
+            MOPA2 = false;
+            MOPA3 = false;
+            MOPA4 = false;
+            ColumnENABLED = 304;
+            ColumnTEMP = 80;
+            ColumnLOAD = 66;
+            ColumnFAN = 56;
+            ColumnPOWER = 85;
         }
 
         public void FixSettingBounds()

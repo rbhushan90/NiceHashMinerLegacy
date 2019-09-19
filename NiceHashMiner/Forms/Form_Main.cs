@@ -1093,9 +1093,11 @@ namespace NiceHashMiner
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            devicesListViewEnableControl1.SaveColumns();
             MinersManager.StopAllMiners();
 
             MessageBoxManager.Unregister();
+            ConfigManager.GeneralConfigFileCommit();
         }
 
         private void ButtonBenchmark_Click(object sender, EventArgs e)

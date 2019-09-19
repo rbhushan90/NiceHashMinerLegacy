@@ -69,10 +69,10 @@ namespace NiceHashMiner.Devices
                 var power = -1;
                 if (!_powerHasFailed && _adlContext != IntPtr.Zero && ADL.ADL2_Overdrive6_CurrentPower_Get != null)
                 {
-                    var result = ADL.ADL2_Overdrive6_CurrentPower_Get(_adlContext, _adapterIndex2, 1, ref power);
+                    var result = ADL.ADL2_Overdrive6_CurrentPower_Get(_adlContext, _adapterIndex2, 0, ref power); //0
                     if (result == ADL.ADL_SUCCESS)
                     {
-                    //Helpers.ConsolePrint("ADL", power.ToString()); //не работает
+                   // Helpers.ConsolePrint("ADL", power.ToString()); 
                         return (double) power / (1 << 8);
                     }
 
