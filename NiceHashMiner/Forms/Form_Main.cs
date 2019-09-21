@@ -333,6 +333,15 @@ namespace NiceHashMiner
         // This is a single shot _benchmarkTimer
         private void StartupTimer_Tick(object sender, EventArgs e)
         {
+            if (!ConfigManager.GeneralConfig.AutoStartMining)
+            { 
+                buttonStopMining.Enabled = false;
+            } else
+            {
+                buttonStopMining.Text = buttonStopMining.Text + "...";
+            }
+
+
             _startupTimer.Stop();
             _startupTimer = null;
 
@@ -583,13 +592,18 @@ namespace NiceHashMiner
                     _autostartTimerDelay = null;
                     buttonStopMining.Text = International.GetText("Form_Main_stop");
                     return;
-                } else
+                }
+                else
                 {
                     //buttonStartMining.Enabled = false;
                     buttonStopMining.Enabled = true;
                     buttonStopMining.Text = International.GetText("Form_Main_stop") + " (" + _AutoStartMiningDelay.ToString() + ")";
                     buttonStartMining.Update();
                 }
+            }
+            else
+            {
+                buttonStopMining.Enabled = false;
             }
         }
             private void AutoStartTimer_Tick(object sender, EventArgs e)
