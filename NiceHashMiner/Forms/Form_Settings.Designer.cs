@@ -151,6 +151,8 @@
             this.buttonSaveClose = new System.Windows.Forms.Button();
             this.buttonDefaults = new System.Windows.Forms.Button();
             this.buttonCloseNoSave = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.checkBox_DisableDetectionCPU = new System.Windows.Forms.CheckBox();
             this.tabControlGeneral.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBox_Misc.SuspendLayout();
@@ -201,6 +203,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DisableDetectionNVIDIA)).BeginInit();
             this.tabPageDevicesAlgos.SuspendLayout();
             this.groupBoxAlgorithmSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // toolTip1
@@ -1486,6 +1489,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Controls.Add(this.checkBox_DisableDetectionCPU);
             this.groupBox1.Controls.Add(this.checkBox_Additional_info_about_device);
             this.groupBox1.Controls.Add(this.checkBox_AMD_DisableAMDTempControl);
             this.groupBox1.Controls.Add(this.pictureBox_AMD_DisableAMDTempControl);
@@ -1508,7 +1513,7 @@
             // 
             this.checkBox_Additional_info_about_device.AutoSize = true;
             this.checkBox_Additional_info_about_device.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBox_Additional_info_about_device.Location = new System.Drawing.Point(32, 109);
+            this.checkBox_Additional_info_about_device.Location = new System.Drawing.Point(242, 19);
             this.checkBox_Additional_info_about_device.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_Additional_info_about_device.Name = "checkBox_Additional_info_about_device";
             this.checkBox_Additional_info_about_device.Size = new System.Drawing.Size(157, 17);
@@ -1519,7 +1524,7 @@
             // checkBox_AMD_DisableAMDTempControl
             // 
             this.checkBox_AMD_DisableAMDTempControl.AutoSize = true;
-            this.checkBox_AMD_DisableAMDTempControl.Location = new System.Drawing.Point(32, 86);
+            this.checkBox_AMD_DisableAMDTempControl.Location = new System.Drawing.Point(32, 109);
             this.checkBox_AMD_DisableAMDTempControl.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_AMD_DisableAMDTempControl.Name = "checkBox_AMD_DisableAMDTempControl";
             this.checkBox_AMD_DisableAMDTempControl.Size = new System.Drawing.Size(145, 17);
@@ -1530,7 +1535,7 @@
             // pictureBox_AMD_DisableAMDTempControl
             // 
             this.pictureBox_AMD_DisableAMDTempControl.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_AMD_DisableAMDTempControl.Location = new System.Drawing.Point(10, 86);
+            this.pictureBox_AMD_DisableAMDTempControl.Location = new System.Drawing.Point(10, 109);
             this.pictureBox_AMD_DisableAMDTempControl.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_AMD_DisableAMDTempControl.Name = "pictureBox_AMD_DisableAMDTempControl";
             this.pictureBox_AMD_DisableAMDTempControl.Size = new System.Drawing.Size(18, 18);
@@ -1541,7 +1546,7 @@
             // pictureBox_NVIDIAP0State
             // 
             this.pictureBox_NVIDIAP0State.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_NVIDIAP0State.Location = new System.Drawing.Point(10, 64);
+            this.pictureBox_NVIDIAP0State.Location = new System.Drawing.Point(10, 87);
             this.pictureBox_NVIDIAP0State.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_NVIDIAP0State.Name = "pictureBox_NVIDIAP0State";
             this.pictureBox_NVIDIAP0State.Size = new System.Drawing.Size(18, 18);
@@ -1552,7 +1557,7 @@
             // checkBox_NVIDIAP0State
             // 
             this.checkBox_NVIDIAP0State.AutoSize = true;
-            this.checkBox_NVIDIAP0State.Location = new System.Drawing.Point(32, 64);
+            this.checkBox_NVIDIAP0State.Location = new System.Drawing.Point(32, 87);
             this.checkBox_NVIDIAP0State.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_NVIDIAP0State.Name = "checkBox_NVIDIAP0State";
             this.checkBox_NVIDIAP0State.Size = new System.Drawing.Size(100, 17);
@@ -1577,9 +1582,9 @@
             this.checkBox_DisableDetectionNVIDIA.Location = new System.Drawing.Point(32, 19);
             this.checkBox_DisableDetectionNVIDIA.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_DisableDetectionNVIDIA.Name = "checkBox_DisableDetectionNVIDIA";
-            this.checkBox_DisableDetectionNVIDIA.Size = new System.Drawing.Size(143, 17);
+            this.checkBox_DisableDetectionNVIDIA.Size = new System.Drawing.Size(149, 17);
             this.checkBox_DisableDetectionNVIDIA.TabIndex = 390;
-            this.checkBox_DisableDetectionNVIDIA.Text = "DisableDetectionNVIDIA";
+            this.checkBox_DisableDetectionNVIDIA.Text = "Disable Detection NVIDIA";
             this.checkBox_DisableDetectionNVIDIA.UseVisualStyleBackColor = true;
             // 
             // pictureBox_DisableDetectionNVIDIA
@@ -1599,9 +1604,9 @@
             this.checkBox_DisableDetectionAMD.Location = new System.Drawing.Point(32, 41);
             this.checkBox_DisableDetectionAMD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_DisableDetectionAMD.Name = "checkBox_DisableDetectionAMD";
-            this.checkBox_DisableDetectionAMD.Size = new System.Drawing.Size(131, 17);
+            this.checkBox_DisableDetectionAMD.Size = new System.Drawing.Size(137, 17);
             this.checkBox_DisableDetectionAMD.TabIndex = 391;
-            this.checkBox_DisableDetectionAMD.Text = "DisableDetectionAMD";
+            this.checkBox_DisableDetectionAMD.Text = "Disable Detection AMD";
             this.checkBox_DisableDetectionAMD.UseVisualStyleBackColor = true;
             // 
             // tabPageDevicesAlgos
@@ -1730,6 +1735,28 @@
             this.buttonCloseNoSave.UseVisualStyleBackColor = true;
             this.buttonCloseNoSave.Click += new System.EventHandler(this.ButtonCloseNoSave_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
+            this.pictureBox1.Location = new System.Drawing.Point(10, 64);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(18, 18);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 400;
+            this.pictureBox1.TabStop = false;
+            // 
+            // checkBox_DisableDetectionCPU
+            // 
+            this.checkBox_DisableDetectionCPU.AutoSize = true;
+            this.checkBox_DisableDetectionCPU.Location = new System.Drawing.Point(32, 64);
+            this.checkBox_DisableDetectionCPU.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBox_DisableDetectionCPU.Name = "checkBox_DisableDetectionCPU";
+            this.checkBox_DisableDetectionCPU.Size = new System.Drawing.Size(135, 17);
+            this.checkBox_DisableDetectionCPU.TabIndex = 399;
+            this.checkBox_DisableDetectionCPU.Text = "Disable Detection CPU";
+            this.checkBox_DisableDetectionCPU.UseVisualStyleBackColor = true;
+            // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1804,6 +1831,7 @@
             this.tabPageDevicesAlgos.ResumeLayout(false);
             this.tabPageDevicesAlgos.PerformLayout();
             this.groupBoxAlgorithmSettings.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1935,5 +1963,7 @@
         private System.Windows.Forms.RadioButton radioButtonMOPA2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox_ColorProfile;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.CheckBox checkBox_DisableDetectionCPU;
     }
 }

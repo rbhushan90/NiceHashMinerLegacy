@@ -209,7 +209,10 @@ namespace NiceHashMiner.Devices
                 WindowsDisplayAdapters.QueryVideoControllers();
                 // Order important CPU Query must be first
                 // #1 CPU
-                Cpu.QueryCpus();
+                if (!ConfigManager.GeneralConfig.DeviceDetection.DisableDetectionCPU)
+                {
+                    Cpu.QueryCpus();
+                }
                 // #2 CUDA
                 if (Nvidia.IsSkipNvidia())
                 {

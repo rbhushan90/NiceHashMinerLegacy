@@ -630,6 +630,7 @@ namespace NiceHashMiner.Forms
             // Add EventHandler for all the general tab's checkboxes
             {
                 checkBox_AutoScaleBTCValues.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
+                checkBox_DisableDetectionCPU.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_DisableDetectionAMD.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_DisableDetectionNVIDIA.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_MinimizeToTray.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
@@ -722,6 +723,7 @@ namespace NiceHashMiner.Forms
                 checkBox_MinimizeToTray.Checked = ConfigManager.GeneralConfig.MinimizeToTray;
                 checkBox_DisableDetectionNVIDIA.Checked =
                     ConfigManager.GeneralConfig.DeviceDetection.DisableDetectionNVIDIA;
+                checkBox_DisableDetectionCPU.Checked = ConfigManager.GeneralConfig.DeviceDetection.DisableDetectionCPU;
                 checkBox_DisableDetectionAMD.Checked = ConfigManager.GeneralConfig.DeviceDetection.DisableDetectionAMD;
                 checkBox_AutoScaleBTCValues.Checked = ConfigManager.GeneralConfig.AutoScaleBTCValues;
                 checkBox_StartMiningWhenIdle.Checked = ConfigManager.GeneralConfig.StartMiningWhenIdle;
@@ -864,6 +866,7 @@ namespace NiceHashMiner.Forms
             ConfigManager.GeneralConfig.DeviceDetection.DisableDetectionNVIDIA =
                 checkBox_DisableDetectionNVIDIA.Checked;
             ConfigManager.GeneralConfig.DeviceDetection.DisableDetectionAMD = checkBox_DisableDetectionAMD.Checked;
+            ConfigManager.GeneralConfig.DeviceDetection.DisableDetectionCPU = checkBox_DisableDetectionCPU.Checked;
             ConfigManager.GeneralConfig.AutoScaleBTCValues = checkBox_AutoScaleBTCValues.Checked;
             ConfigManager.GeneralConfig.StartMiningWhenIdle = checkBox_StartMiningWhenIdle.Checked;
             ConfigManager.GeneralConfig.ShowDriverVersionWarning = checkBox_ShowDriverVersionWarning.Checked;
