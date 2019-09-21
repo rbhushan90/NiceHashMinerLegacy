@@ -44,7 +44,7 @@
             this.groupBoxMinerGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBoxMinerGroup.Location = new System.Drawing.Point(0, 0);
             this.groupBoxMinerGroup.Name = "groupBoxMinerGroup";
-            this.groupBoxMinerGroup.Size = new System.Drawing.Size(536, 32);
+            this.groupBoxMinerGroup.Size = new System.Drawing.Size(536, 40);
             this.groupBoxMinerGroup.TabIndex = 108;
             this.groupBoxMinerGroup.TabStop = false;
             this.groupBoxMinerGroup.Text = "Mining Devices { N/A } ";
@@ -107,7 +107,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Controls.Add(this.groupBoxMinerGroup);
             this.Name = "GroupProfitControl";
-            this.Size = new System.Drawing.Size(541, 40);
+            this.Size = new System.Drawing.Size(541, 43);
             this.groupBoxMinerGroup.ResumeLayout(false);
             this.groupBoxMinerGroup.PerformLayout();
             this.ResumeLayout(false);
