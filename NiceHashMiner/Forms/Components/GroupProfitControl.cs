@@ -20,6 +20,8 @@ namespace NiceHashMiner.Forms.Components
             labelSpeedValue.Text = speedString;
             labelBTCRateValue.Text = btcRateString;
             labelCurentcyPerDayVaue.Text = currencyRateString;
+            groupBoxMinerGroup.ForeColor = Form_Main._foreColor;
+            groupBoxMinerGroup.BackColor = Form_Main._backColor;
         }
     }
 }

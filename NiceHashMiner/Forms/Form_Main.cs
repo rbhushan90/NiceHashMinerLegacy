@@ -67,16 +67,61 @@ namespace NiceHashMiner
         private readonly int _emtpyGroupPanelHeight = 0;
         bool firstStartConnection = false;
         private bool firstRun = false;
+        public static Color _backColor;
+        public static Color _foreColor;
+        public static Color _windowColor;
+        public static Color _textColor;
 
         public Form_Main()
         {
+            switch (ConfigManager.GeneralConfig.ColorProfileIndex)
+            {
+                case 0: //default
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[3];
+                     break;
+                case 1: //gray
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.Gray[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.Gray[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.Gray[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.Gray[3];
+                    break;
+                case 2: //dark
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.Dark[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.Dark[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.Dark[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.Dark[3];
+                    break;
+                case 3: //black
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.Black[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.Black[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.Black[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.Black[3];
+                    break;
+                case 4: //darkgreen
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkGreen[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkGreen[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkGreen[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkGreen[3];
+                    break;
+                default:
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[3];
+                    break;
+            }
             InitializeComponent();
             Icon = Properties.Resources.logo;
 
             InitLocalization();
-
+            devicesListViewEnableControl1.Visible = false;
             ComputeDeviceManager.SystemSpecs.QueryAndLog();
 
+            comboBoxLocation.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboBoxLocation.DrawItem += new DrawItemEventHandler(comboBoxLocation_DrawItem);
             // Log the computer's amount of Total RAM and Page File Size
             var moc = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem").Get();
             foreach (ManagementObject mo in moc)
@@ -101,12 +146,14 @@ namespace NiceHashMiner
                 cPlatform = " (for old NiceHash platform)";
             }
             */
+
+            
             Text += ForkString;
 
             label_NotProfitable.Visible = false;
             
             InitMainConfigGuiData();
-
+            
             // for resizing
             InitFlowPanelStart();
 
@@ -121,6 +168,7 @@ namespace NiceHashMiner
                 _mainFormHeight = 330 - _emtpyGroupPanelHeight;
             }
             ClearRatesAll();
+            
         }
 
         private void InitLocalization()
@@ -172,6 +220,7 @@ namespace NiceHashMiner
                                                    International.GetText("Form_Main_balance") + ":";
 
             devicesListViewEnableControl1.InitLocaleMain();
+          //  devicesListViewEnableControl1.Focus();
 
             buttonBenchmark.Text = International.GetText("Form_Main_benchmark");
             buttonSettings.Text = International.GetText("Form_Main_settings");
@@ -240,6 +289,9 @@ namespace NiceHashMiner
 
         public void AfterLoadComplete()
         {
+            
+            
+
             _loadingScreen = null;
             Enabled = true;
 
@@ -247,6 +299,7 @@ namespace NiceHashMiner
             _idleCheck.Tick += IdleCheck_Tick;
             _idleCheck.Interval = 500;
             _idleCheck.Start();
+            devicesListViewEnableControl1.Visible = true;
         }
 
 
@@ -317,7 +370,6 @@ namespace NiceHashMiner
                     tos.ShowDialog(this);
                 }
             }
-
             // Query Available ComputeDevices
             ComputeDeviceManager.Query.QueryDevices(_loadingScreen);
             _isDeviceDetectionInitialized = true;
@@ -415,8 +467,9 @@ namespace NiceHashMiner
             //        BitcoinExchangeCheck_Tick(null, null);
             //    }
             //}
-
+            
             _loadingScreen.FinishLoad();
+            
             firstStartConnection = true;
             var runVCRed = !MinersExistanceChecker.IsMinersBinsInit() && !ConfigManager.GeneralConfig.DownloadInit;
             // standard miners check scope
@@ -574,15 +627,91 @@ namespace NiceHashMiner
 
         private void Form_Main_Shown(object sender, EventArgs e)
         {
+            
+
+            //  Color ColorProfile = ConfigManager.GeneralConfig.DefaultColor[0];
+
+            // MessageBox.Show(_foreColor.ToString());
+            //     var _backColor2 = SystemColors.ControlDark; 
             Form_Main.ActiveForm.Width = ConfigManager.GeneralConfig.FormWidth;
+
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                Form_Main.ActiveForm.BackColor = _backColor;
+                Form_Main.ActiveForm.ForeColor = _foreColor;
+
+                //Form_Main.ActiveForm.BackColor = Color.DarkSlateGray; //темно сине-серый
+                //this.BackColor = SystemColors.HotTrack;
+                foreach (var lbl in this.Controls.OfType<Label>()) lbl.BackColor = _backColor;
+                foreach (var lbl in this.Controls.OfType<LinkLabel>()) lbl.LinkColor = Color.LightBlue;
+
+                foreach (var lbl in this.Controls.OfType<GroupBox>()) lbl.BackColor = _backColor;
+
+                foreach (var lbl in this.Controls.OfType<HScrollBar>())
+                    lbl.BackColor = _backColor;
+                foreach (var lbl in this.Controls.OfType<ListBox>()) lbl.BackColor = _backColor;
+                foreach (var lbl in this.Controls.OfType<ListControl>()) lbl.BackColor = _backColor;
+                foreach (var lbl in this.Controls.OfType<ListView>()) lbl.BackColor = _backColor;
+                foreach (var lbl in this.Controls.OfType<ListViewItem>())
+                {
+                    lbl.BackColor = _backColor;
+                    lbl.ForeColor = _textColor;
+                }
+                foreach (var lbl in this.Controls.OfType<StatusBar>())
+                    lbl.BackColor = _backColor;
+                foreach (var lbl in this.Controls.OfType<ComboBox>()) lbl.BackColor = _backColor;
+                foreach (var lbl in this.Controls.OfType<ComboBox>()) lbl.ForeColor = _foreColor;
+
+                foreach (var lbl in this.Controls.OfType<GroupBox>()) lbl.BackColor = _backColor;
+                foreach (var lbl in this.Controls.OfType<GroupBox>()) lbl.ForeColor = _textColor;
+                // foreach (var lbl in this.Controls.OfType<ComboBox>()) lbl.ForeColor = _foreColor;
+
+                foreach (var lbl in this.Controls.OfType<TextBox>()) 
+                {
+                    lbl.BackColor = _backColor;
+                    lbl.ForeColor = _foreColor;
+                    lbl.BorderStyle = BorderStyle.FixedSingle;
+                }
+                foreach (var lbl in this.Controls.OfType<StatusStrip>()) lbl.BackColor = _backColor;
+                foreach (var lbl in this.Controls.OfType<StatusStrip>()) lbl.ForeColor = _foreColor;
+                foreach (var lbl in this.Controls.OfType<ToolStripStatusLabel>()) lbl.BackColor = _backColor;
+                foreach (var lbl in this.Controls.OfType<ToolStripStatusLabel>()) lbl.ForeColor = _foreColor;
+                
+                foreach (var lbl in Form_Main.ActiveForm.Controls.OfType<Button>()) lbl.BackColor = _backColor;
+                foreach (var lbl in Form_Main.ActiveForm.Controls.OfType<Button>())
+                {
+                    lbl.ForeColor = _textColor;
+                    lbl.FlatStyle = FlatStyle.Flat;
+                    lbl.FlatAppearance.BorderColor = _textColor;
+                    lbl.FlatAppearance.BorderSize = 1;
+                }
+                Form_Main.ActiveForm.Enabled = true;
+                buttonLogo.FlatAppearance.BorderSize = 0;
+
+                foreach (var lbl in this.Controls.OfType<CheckBox>()) lbl.BackColor = _backColor;
+                // DevicesListViewEnableControl.listViewDevices.BackColor = _backColor;
+                devicesListViewEnableControl1.BackColor = _backColor;
+                devicesListViewEnableControl1.ForeColor = _foreColor;
+
+                //DevicesListViewEnableControl.DefaultDevicesColorSeter.
+                //   DevicesListViewEnableControl.DefaultDevicesColorSeter.EnabledColor = _backColor;
+                //  devicesListViewEnableControl1.listViewDevices.Items[0].UseItemStyleForSubItems = false;
+
+            }
+            Form_Main.ActiveForm.Update();
+            Form_Main.ActiveForm.Refresh();
             // general loading indicator
             const int totalLoadSteps = 11;
             _loadingScreen = new Form_Loading(this,
                 International.GetText("Form_Loading_label_LoadingText"),
                 International.GetText("Form_Main_loadtext_CPU"), totalLoadSteps);
+
             SetChildFormCenter(_loadingScreen);
             _loadingScreen.Show();
-
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                Form_Loading.ActiveForm.BackColor = Color.LightGray;
+            }
             _startupTimer = new Timer();
             _startupTimer.Tick += StartupTimer_Tick;
             _startupTimer.Interval = 200;
@@ -600,6 +729,7 @@ namespace NiceHashMiner
             _deviceStatusTimer.Tick += DeviceStatusTimer_Tick;
             _deviceStatusTimer.Interval = 1000;
             _deviceStatusTimer.Start();
+           
         }
 
         //        [Obsolete("Deprecated in favour of AlgorithmSwitchingManager timer")]
@@ -1266,6 +1396,7 @@ namespace NiceHashMiner
         // Minimize to system tray if MinimizeToTray is set to true
         private void Form1_Resize(object sender, EventArgs e)
         {
+
             notifyIcon1.Icon = Properties.Resources.logo;
             notifyIcon1.Text = Application.ProductName + " v" + Application.ProductVersion +
                                "\nDouble-click to restore..";
@@ -1569,6 +1700,32 @@ namespace NiceHashMiner
         private void comboBoxLocation_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBoxLocation_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            var cmb = (ComboBox)sender;
+            if (cmb == null) return;
+            
+   
+                e.DrawBackground();
+           
+            // change background color
+            var bc = new SolidBrush(_backColor);
+            var fc = new SolidBrush(_foreColor);
+            var wc = new SolidBrush(_windowColor);
+            var gr = new SolidBrush(Color.Gray);
+            e.Graphics.FillRectangle(bc, e.Bounds);
+
+               
+            // change foreground color
+            Brush brush = ((e.State & DrawItemState.Selected) > 0) ? fc : gr;
+            if (e.Index >= 0)
+            {
+                e.Graphics.DrawString(cmb.Items[e.Index].ToString(), cmb.Font, brush, e.Bounds);
+                e.DrawFocusRectangle();
+            }
+            
         }
 
         private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

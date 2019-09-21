@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using NiceHashMiner.Devices.Algorithms;
 using NiceHashMiner.Stats;
 using NiceHashMinerLegacy.Common.Enums;
+using System.Linq;
+using System.Drawing;
 
 namespace NiceHashMiner.Forms
 {
@@ -420,12 +422,35 @@ namespace NiceHashMiner.Forms
                     }
                 }
             }
-//            label_ServiceLocation.Text = International.GetText("Service_Location") + ":";
-  //          {
-    //            var i = 0;
-      //          foreach (var loc in Globals.MiningLocation)
-        //            comboBox_ServiceLocation.Items[i++] = International.GetText("LocationName_" + loc);
-          //  }
+
+            //  var i = 0;
+            //   var cp = ConfigManager.GeneralConfig.ColorProfiles;
+            // MessageBox.Show(cp.ToString());
+            //MessageBox.Show(cp.DefaultColor[0].ToString());
+            //MessageBox.Show(cp.DefaultColor[0].ToString());
+            //for (var i = 0; i < 2; i++)
+            //{
+            /*
+                    comboBox_ColorProfile.Items[1] = "Default";
+                    comboBox_ColorProfile.Items[2] = "Gray";
+                    comboBox_ColorProfile.Items[3] = "Dark";
+                    comboBox_ColorProfile.Items[4] = "Black";
+                    */
+                    /*
+            comboBox_ColorProfile.Items.AddRange(new object[] {
+            "Default",
+            "Gray",
+            "Dark",
+            "Black"});
+            */
+            //}
+
+            //            label_ServiceLocation.Text = International.GetText("Service_Location") + ":";
+            //          {
+            //            var i = 0;
+            //          foreach (var loc in Globals.MiningLocation)
+            //            comboBox_ServiceLocation.Items[i++] = International.GetText("LocationName_" + loc);
+            //  }
             label_MinIdleSeconds.Text = International.GetText("Form_Settings_General_MinIdleSeconds") + ":";
             label_MinerRestartDelayMS.Text = International.GetText("Form_Settings_General_MinerRestartDelayMS") + ":";
             /*
@@ -471,6 +496,99 @@ namespace NiceHashMiner.Forms
             // device enabled listview translation
             devicesListViewEnableControl1.InitLocale();
             algorithmsListView1.InitLocale();
+
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                Form_Settings.ActiveForm.BackColor = Form_Main._backColor;
+                Form_Settings.ActiveForm.ForeColor = Form_Main._foreColor;
+                this.BackColor = Form_Main._backColor;
+                this.ForeColor = Form_Main._foreColor;
+                //   tabPageGeneral.dw
+                tabControlGeneral.SelectedTab.BackColor = Form_Main._backColor;
+                foreach (var lbl in Form_Settings.ActiveForm.Controls.OfType<TabControl>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                }
+                foreach (var lbl in Form_Settings.ActiveForm.Controls.OfType<TabPage>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                }
+
+
+
+                foreach (var lbl in tabPageGeneral.Controls.OfType<Label>()) lbl.BackColor = Form_Main._backColor;
+               
+
+                foreach (var lbl in tabPageGeneral.Controls.OfType<LinkLabel>()) lbl.LinkColor = Color.LightBlue;
+
+                foreach (var lbl in tabPageGeneral.Controls.OfType<GroupBox>()) lbl.BackColor = Form_Main._backColor;
+
+                foreach (var lbl in tabPageGeneral.Controls.OfType<HScrollBar>())
+                    lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<ListBox>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<ListControl>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<ListView>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<ListView>()) lbl.ForeColor = Form_Main._textColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<ListViewItem>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._textColor;
+                }
+                foreach (var lbl in tabPageGeneral.Controls.OfType<StatusBar>())
+                    lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<ComboBox>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<ComboBox>()) lbl.ForeColor = Form_Main._foreColor;
+
+                foreach (var lbl in tabPageGeneral.Controls.OfType<GroupBox>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<GroupBox>()) lbl.ForeColor = Form_Main._textColor;
+                // foreach (var lbl in this.Controls.OfType<ComboBox>()) lbl.ForeColor = _foreColor;
+
+                foreach (var lbl in tabPageGeneral.Controls.OfType<TextBox>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                    lbl.BorderStyle = BorderStyle.FixedSingle;
+                }
+
+                foreach (var lbl in tabPageGeneral.Controls.OfType<StatusStrip>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<StatusStrip>()) lbl.ForeColor = Form_Main._foreColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<ToolStripStatusLabel>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<ToolStripStatusLabel>()) lbl.ForeColor = Form_Main._foreColor;
+
+                foreach (var lbl in tabPageGeneral.Controls.OfType<Button>()) lbl.BackColor = Form_Main._backColor;
+                /*
+                foreach (var lbl in tabControlGeneral.SelectedTab.Controls.OfType<Button>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._textColor;
+                    lbl.FlatStyle = FlatStyle.Flat;
+                    lbl.FlatAppearance.BorderColor = Form_Main._textColor;
+                    lbl.FlatAppearance.BorderSize = 1;
+                }
+                */
+                // Form_Benchmark.ActiveForm.Enabled = true;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<CheckBox>()) lbl.BackColor = Form_Main._backColor;
+
+                textBox_BitcoinAddressNew.BackColor = Form_Main._backColor;
+                textBox_BitcoinAddressNew.ForeColor = Form_Main._foreColor;
+                textBox_BitcoinAddressNew.BorderStyle = BorderStyle.FixedSingle;
+
+                // DevicesListViewEnableControl.listViewDevices.BackColor = _backColor;
+                devicesListViewEnableControl1.BackColor = Form_Main._backColor;
+                devicesListViewEnableControl1.ForeColor = Form_Main._foreColor;
+                algorithmsListView1.BackColor = Form_Main._backColor;
+                algorithmsListView1.ForeColor = Form_Main._foreColor;
+                tabPageGeneral.BackColor = Form_Main._backColor;
+                tabPageGeneral.ForeColor = Form_Main._foreColor;
+                
+                //DevicesListViewEnableControl.DefaultDevicesColorSeter.
+                //   DevicesListViewEnableControl.DefaultDevicesColorSeter.EnabledColor = _backColor;
+                //  devicesListViewEnableControl1.listViewDevices.Items[0].UseItemStyleForSubItems = false;
+
+
+            }
 
             // Setup Tooltips CPU
             /*
@@ -571,6 +689,7 @@ namespace NiceHashMiner.Forms
                 comboBox_Language.Leave += GeneralComboBoxes_Leave;
                 comboBox_ServiceLocation.Leave += GeneralComboBoxes_Leave;
                 comboBox_TimeUnit.Leave += GeneralComboBoxes_Leave;
+                comboBox_ColorProfile.Leave += GeneralComboBoxes_Leave;
           //      comboBox_DagLoadMode.Leave += GeneralComboBoxes_Leave;
             }
 
@@ -698,6 +817,7 @@ namespace NiceHashMiner.Forms
                 comboBox_ServiceLocation.SelectedIndex = ConfigManager.GeneralConfig.ServiceLocation;
                 comboBox_TimeUnit.SelectedItem = International.GetText(ConfigManager.GeneralConfig.TimeUnit.ToString());
                 currencyConverterCombobox.SelectedItem = ConfigManager.GeneralConfig.DisplayCurrency;
+                comboBox_ColorProfile.SelectedIndex = ConfigManager.GeneralConfig.ColorProfileIndex;
             }
         }
 
@@ -911,6 +1031,7 @@ namespace NiceHashMiner.Forms
             IsChange = true;
             ConfigManager.GeneralConfig.Language = (LanguageType) comboBox_Language.SelectedIndex;
             ConfigManager.GeneralConfig.ServiceLocation = comboBox_ServiceLocation.SelectedIndex;
+            ConfigManager.GeneralConfig.ColorProfileIndex = comboBox_ColorProfile.SelectedIndex;
             ConfigManager.GeneralConfig.TimeUnit = (TimeUnitType) comboBox_TimeUnit.SelectedIndex;
             /*
             ConfigManager.GeneralConfig.EthminerDagGenerationType =
@@ -1300,7 +1421,10 @@ namespace NiceHashMiner.Forms
         {
 
         }
+        private void comboBox_ColorProfile_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
         private void textBox_WorkerName_TextChanged(object sender, EventArgs e)
         {
 

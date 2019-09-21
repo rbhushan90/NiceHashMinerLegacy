@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
+using NiceHashMiner.Configs;
 using NiceHashMinerLegacy.Common.Enums;
 
 
@@ -12,6 +14,16 @@ namespace NiceHashMiner.Forms.Components
         public BenchmarkOptions()
         {
             InitializeComponent();
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                this.BackColor = Form_Main._backColor;
+                this.ForeColor = Form_Main._foreColor;
+                foreach (var lbl in this.Controls.OfType<GroupBox>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                }
+            }
         }
 
         public void SetPerformanceType(BenchmarkPerformanceType performanceType)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common.Enums;
 
@@ -138,6 +139,10 @@ namespace NiceHashMiner.Configs.Data
         /// True if NHML should try to cache SMA values for next launch
         /// </summary>
         public bool UseSmaCache = true;
+
+        public int ColorProfileIndex = 0;
+        public ColorProfilesConfig ColorProfiles = new ColorProfilesConfig();
+        
 
         // methods
         public void SetDefaults()
@@ -287,5 +292,86 @@ namespace NiceHashMiner.Configs.Data
             SwitchSmaTicksStable.FixRange();
             SwitchSmaTicksUnstable.FixRange();
         }
+
+        /*
+        [Serializable]
+        public class AlgorithmConfig
+        {
+            public string Name = ""; // Used as an indicator for easier user interaction
+            public AlgorithmType NiceHashID = AlgorithmType.NONE;
+            public AlgorithmType SecondaryNiceHashID = AlgorithmType.NONE;
+            public MinerBaseType MinerBaseType = MinerBaseType.NONE;
+            public string MinerName = ""; // probably not needed
+            public double BenchmarkSpeed = 0;
+            public double SecondaryBenchmarkSpeed = 0;
+            public string ExtraLaunchParameters = "";
+            public bool Enabled = true;
+            public bool Hidden = false;
+            public int LessThreads = 0;
+            public double PowerUsage = 0;
+        }
+        */
+
+        [Serializable]
+        public class ColorProfilesConfig
+        {
+            /*
+            _backColor;
+            _foreColor;
+            _windowColor;
+            _textColor;
+        */
+            private static readonly Color[] DefaultColorProfile = { SystemColors.Control, SystemColors.WindowText, SystemColors.Window, SystemColors.ControlText };
+            private static readonly Color[] GrayProfile = { SystemColors.ControlDark, SystemColors.WindowText, SystemColors.ControlDark, SystemColors.ControlText };
+            private static readonly Color[] DarkProfile = { SystemColors.ControlDarkDark, Color.White, SystemColors.ControlDarkDark, Color.White };
+            private static readonly Color[] BlackProfile = { Color.DarkGreen, Color.Violet, Color.Blue, Color.Red };
+            private static readonly Color[] DarkGreenProfile = { Color.DarkGreen, Color.White, Color.DarkGreen, Color.White };
+
+            private Color[] _DefaultColorProfile = MemoryHelper.DeepClone(DefaultColorProfile);
+            private Color[] _GrayColorProfile = MemoryHelper.DeepClone(GrayProfile);
+            private Color[] _DarkColorProfile = MemoryHelper.DeepClone(DarkProfile);
+            private Color[] _BlackColorProfile = MemoryHelper.DeepClone(BlackProfile);
+            private Color[] _DarkGreenProfile = MemoryHelper.DeepClone(DarkGreenProfile);
+
+            private static bool IsValid(Color[] value)
+            {
+                return value != null && value.Length == 4;
+            }
+
+            public Color[] DefaultColor
+            {
+                get => DefaultColorProfile;
+                set => _DefaultColorProfile = MemoryHelper.DeepClone(IsValid(value) ? value : DefaultColorProfile);
+            }
+            public Color[] Gray
+            {
+                get => GrayProfile;
+                set => _GrayColorProfile = MemoryHelper.DeepClone(IsValid(value) ? value : GrayProfile);
+            }
+            public Color[] Dark
+            {
+                get => DarkProfile;
+                set => _DarkColorProfile = MemoryHelper.DeepClone(IsValid(value) ? value : DarkProfile);
+            }
+            public Color[] Black
+            {
+                get => BlackProfile;
+                set => _BlackColorProfile = MemoryHelper.DeepClone(IsValid(value) ? value : BlackProfile);
+            }
+            public Color[] DarkGreen
+            {
+                get => DarkGreenProfile;
+                set => _DarkGreenProfile = MemoryHelper.DeepClone(IsValid(value) ? value : DarkGreenProfile);
+            }
+            /*
+                        public Color[] GetColorProfile(int col)
+                        {
+                            return DefaultColorProfile;
+                        }
+                        */
+        }
     }
+
+    
+
 }

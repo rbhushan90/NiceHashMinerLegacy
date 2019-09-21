@@ -30,8 +30,10 @@
             this.tabControlGeneral = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.groupBox_Misc = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.textBox_AutoStartMiningDelay = new System.Windows.Forms.TextBox();
             this.label_AutoStartMiningDelay = new System.Windows.Forms.Label();
+            this.comboBox_ColorProfile = new System.Windows.Forms.ComboBox();
             this.checkBox_Send_actual_version_info = new System.Windows.Forms.CheckBox();
             this.checkBox_Allow_remote_management = new System.Windows.Forms.CheckBox();
             this.pictureBox_RunScriptOnCUDA_GPU_Lost = new System.Windows.Forms.PictureBox();
@@ -236,8 +238,10 @@
             // 
             // groupBox_Misc
             // 
+            this.groupBox_Misc.Controls.Add(this.label1);
             this.groupBox_Misc.Controls.Add(this.textBox_AutoStartMiningDelay);
             this.groupBox_Misc.Controls.Add(this.label_AutoStartMiningDelay);
+            this.groupBox_Misc.Controls.Add(this.comboBox_ColorProfile);
             this.groupBox_Misc.Controls.Add(this.checkBox_Send_actual_version_info);
             this.groupBox_Misc.Controls.Add(this.checkBox_Allow_remote_management);
             this.groupBox_Misc.Controls.Add(this.pictureBox_RunScriptOnCUDA_GPU_Lost);
@@ -277,6 +281,16 @@
             this.groupBox_Misc.TabStop = false;
             this.groupBox_Misc.Text = "Misc:";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 400);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(62, 13);
+            this.label1.TabIndex = 379;
+            this.label1.Text = "Color profile";
+            // 
             // textBox_AutoStartMiningDelay
             // 
             this.textBox_AutoStartMiningDelay.Location = new System.Drawing.Point(241, 42);
@@ -295,6 +309,23 @@
             this.label_AutoStartMiningDelay.Size = new System.Drawing.Size(139, 13);
             this.label_AutoStartMiningDelay.TabIndex = 376;
             this.label_AutoStartMiningDelay.Text = "Autostart Mining Delay (sec)";
+            // 
+            // comboBox_ColorProfile
+            // 
+            this.comboBox_ColorProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_ColorProfile.FormattingEnabled = true;
+            this.comboBox_ColorProfile.Items.AddRange(new object[] {
+            "Default",
+            "Gray",
+            "Dark",
+            "Black",
+            "DarkGreen"});
+            this.comboBox_ColorProfile.Location = new System.Drawing.Point(108, 396);
+            this.comboBox_ColorProfile.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.comboBox_ColorProfile.Name = "comboBox_ColorProfile";
+            this.comboBox_ColorProfile.Size = new System.Drawing.Size(160, 21);
+            this.comboBox_ColorProfile.TabIndex = 378;
+            this.comboBox_ColorProfile.SelectedIndexChanged += new System.EventHandler(this.comboBox_ColorProfile_SelectedIndexChanged);
             // 
             // checkBox_Send_actual_version_info
             // 
@@ -1902,5 +1933,7 @@
         private System.Windows.Forms.RadioButton radioButtonMOPA4;
         private System.Windows.Forms.RadioButton radioButtonMOPA3;
         private System.Windows.Forms.RadioButton radioButtonMOPA2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox_ColorProfile;
     }
 }

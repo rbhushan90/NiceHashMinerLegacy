@@ -5,6 +5,7 @@ using NiceHashMinerLegacy.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace NiceHashMiner.Forms.Components
@@ -16,12 +17,12 @@ namespace NiceHashMiner.Forms.Components
         private const int LOAD = 2;
         private const int FAN = 3;
         private const int POWER = 4;
+        public static Color EnabledColor = Form_Main._windowColor;
+        public static Color DisabledColor = Color.FromArgb(Form_Main._backColor.ToArgb() + 40 * 256 * 256 * 256 + 40 * 256 * 256 + 40 * 256 + 40);
 
-        private class DefaultDevicesColorSeter : IListItemCheckColorSetter
+        public class DefaultDevicesColorSeter : IListItemCheckColorSetter
         {
-            private static readonly Color EnabledColor = Color.White;
-            private static readonly Color DisabledColor = Color.DarkGray;
-
+            
             public void LviSetColor(ListViewItem lvi)
             {
                 if (lvi.Tag is ComputeDevice cdvo)
@@ -94,16 +95,21 @@ namespace NiceHashMiner.Forms.Components
 
         public bool SaveToGeneralConfig { get; set; }
 
+
         public DevicesListViewEnableControl()
         {
             InitializeComponent();
-
+           
+            listViewDevices.DoubleBuffer();
+            DevicesListViewEnableControl.colorListViewHeader(ref listViewDevices, Form_Main._backColor, Form_Main._textColor);
             SaveToGeneralConfig = false;
             // intialize ListView callbacks
             listViewDevices.ItemChecked += ListViewDevicesItemChecked;
-            //listViewDevices.CheckBoxes = false;
+            this.listViewDevices.ItemCheck += new ItemCheckEventHandler(listViewDevices_ItemCheck);
+            
             IsMining = false;
             BenchmarkCalculation = null;
+          //  listViewDevices.OwnerDraw = true;
         }
 
         public void SetIListItemCheckColorSetter(IListItemCheckColorSetter listItemCheckColorSetter)
@@ -137,12 +143,12 @@ namespace NiceHashMiner.Forms.Components
             {
                 if (ConfigManager.GeneralConfig.Additional_info_about_device && computeDevice.DeviceType != DeviceType.CPU)
                 {
-                    addInfo = " (" + computeDevice.GpuRam / 1073741824 + " GB)" + " (" + computeDevice.Uuid.Substring(computeDevice.Uuid.Length-4,4).ToUpper() + ")";
+                    addInfo = " (" + computeDevice.GpuRam / 1073741824 + " GB)" + " (" + computeDevice.Uuid.Substring(computeDevice.Uuid.Length - 4, 4).ToUpper() + ")";
                 }
                 var lvi = new ListViewItem
                 {
                     Checked = computeDevice.Enabled,
-                    Text = computeDevice.GetFullName()+addInfo,
+                    Text = computeDevice.GetFullName() + addInfo,
                     Tag = computeDevice
                 };
                 //lvi.SubItems.Add(computeDevice.Name);
@@ -164,8 +170,8 @@ namespace NiceHashMiner.Forms.Components
             int index = 0;
             foreach (var computeDevice in computeDevices)
             {
-                string cTemp = Math.Truncate(computeDevice.Temp).ToString()+ "°C";
-                string cLoad = Math.Truncate(computeDevice.Load).ToString()+"%";
+                string cTemp = Math.Truncate(computeDevice.Temp).ToString() + "°C";
+                string cLoad = Math.Truncate(computeDevice.Load).ToString() + "%";
                 string cFanSpeed = computeDevice.FanSpeed.ToString();
                 string cPowerUsage = Math.Truncate(computeDevice.PowerUsage).ToString();
                 if (Math.Truncate(computeDevice.PowerUsage) == 0)
@@ -175,15 +181,16 @@ namespace NiceHashMiner.Forms.Components
                 if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
                 {
                     cPowerUsage = cPowerUsage + " Вт";
-                } else
+                }
+                else
                 {
                     cPowerUsage = cPowerUsage + " W";
                 }
 
-                listViewDevices.Items[index].SubItems[1].Text = cTemp.Contains("-1")?"--":cTemp;
-                listViewDevices.Items[index].SubItems[2].Text = cLoad.Contains("-1") ? "--" :cLoad;
-                listViewDevices.Items[index].SubItems[3].Text = cFanSpeed.Contains("-1") ? "--" :cFanSpeed;
-                listViewDevices.Items[index].SubItems[4].Text = cPowerUsage.Contains("-1") ? "--" :cPowerUsage;
+                listViewDevices.Items[index].SubItems[1].Text = cTemp.Contains("-1") ? "--" : cTemp;
+                listViewDevices.Items[index].SubItems[2].Text = cLoad.Contains("-1") ? "--" : cLoad;
+                listViewDevices.Items[index].SubItems[3].Text = cFanSpeed.Contains("-1") ? "--" : cFanSpeed;
+                listViewDevices.Items[index].SubItems[4].Text = cPowerUsage.Contains("-1") ? "--" : cPowerUsage;
                 index++;
 
             }
@@ -193,10 +200,68 @@ namespace NiceHashMiner.Forms.Components
         {
             SetComputeDevices(computeDevices);
         }
+        //List view header formatters
+        public static void colorListViewHeader(ref ListView list, Color backColor, Color foreColor)
+        {
+            
+            list.OwnerDraw = true;
+            list.DrawColumnHeader +=
+            new DrawListViewColumnHeaderEventHandler
+            (
+            (sender, e) => headerDraw(sender, e, backColor, foreColor)
+            );
+            list.DrawItem += new DrawListViewItemEventHandler(bodyDraw);
+            list.Columns[TEMP].TextAlign = HorizontalAlignment.Center; //не работает
+            
+        }
 
+        private static void headerDraw(object sender, DrawListViewColumnHeaderEventArgs e, Color backColor, Color foreColor)
+        {
+            using (SolidBrush backBrush = new SolidBrush(backColor))
+            {
+                e.Graphics.FillRectangle(backBrush, e.Bounds);
+            }
+
+            using (SolidBrush foreBrush = new SolidBrush(foreColor))
+            {
+                StringFormat sf = new StringFormat();
+                if ((e.ColumnIndex == 0))
+                {
+                    sf.LineAlignment = StringAlignment.Center;
+                    sf.Alignment = StringAlignment.Near;
+                }
+                else
+                {
+                    sf.LineAlignment = StringAlignment.Center;
+                    sf.Alignment = StringAlignment.Center;
+                }
+                e.Graphics.DrawString(e.Header.Text, e.Font, foreBrush, e.Bounds, sf);
+            }
+        }
+
+        private static void bodyDraw(object sender, DrawListViewItemEventArgs e)
+        {
+            e.DrawDefault = true;
+            //lvi.BackColor = cdvo.Enabled ? EnabledColor : DisabledColor;
+            using (SolidBrush backBrush = new SolidBrush(Form_Main._backColor))
+            {
+                e.Graphics.FillRectangle(backBrush, e.Bounds);
+            }
+
+        }
         public void InitLocale()
         {
-            listViewDevices.Columns[ENABLED].Text = International.GetText("ListView_Device");
+
+            var _backColor = Form_Main._backColor;
+            var _foreColor = Form_Main._foreColor;
+            var _textColor = Form_Main._textColor;
+            foreach (var lbl in this.Controls.OfType<ListView>()) lbl.BackColor = _backColor;
+            listViewDevices.BackColor = _backColor;
+            listViewDevices.ForeColor = _textColor;
+
+            this.BackColor = _backColor;
+
+            listViewDevices.Columns[ENABLED].Text = " " + International.GetText("ListView_Device");
 
             if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
             {
@@ -206,18 +271,27 @@ namespace NiceHashMiner.Forms.Components
                 listViewDevices.Columns[POWER].Text = "Потребление";
             }
             listViewDevices.Columns[TEMP].Width = 0;
+            listViewDevices.Columns[TEMP].TextAlign = HorizontalAlignment.Center; //не работает
             listViewDevices.Columns[LOAD].Width = 0;
             listViewDevices.Columns[FAN].Width = 0;
             listViewDevices.Columns[POWER].Width = 0;
             //listViewDevices.Columns[0].Width = Width - 4 - SystemInformation.VerticalScrollBarWidth;
             //listViewDevices.Columns[0].Width = Width - SystemInformation.VerticalScrollBarWidth;
-            listViewDevices.Columns[0].Width = Width - SystemInformation.VerticalScrollBarWidth - 4;
-            
+            listViewDevices.Columns[0].Width = Width - 4;
+
         }
 
         public void InitLocaleMain()
         {
-            listViewDevices.Columns[ENABLED].Text = International.GetText("ListView_Device");
+            var _backColor = Form_Main._backColor;
+            var _foreColor = Form_Main._foreColor;
+            var _textColor = Form_Main._textColor;
+            foreach (var lbl in this.Controls.OfType<ListView>()) lbl.BackColor = _backColor;
+          //  listViewDevices.BackColor = _backColor;
+            listViewDevices.ForeColor = _textColor;
+           // this.BackColor = _backColor;
+
+            listViewDevices.Columns[ENABLED].Text = " " + International.GetText("ListView_Device");
             if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
             {
                 listViewDevices.Columns[TEMP].Text = "Температура";
@@ -225,6 +299,7 @@ namespace NiceHashMiner.Forms.Components
                 listViewDevices.Columns[FAN].Text = "Об/мин";
                 listViewDevices.Columns[POWER].Text = "Потребление";
             }
+            
             listViewDevices.Columns[ENABLED].Width = ConfigManager.GeneralConfig.ColumnENABLED;
             listViewDevices.Columns[TEMP].Width = ConfigManager.GeneralConfig.ColumnTEMP;
             listViewDevices.Columns[LOAD].Width = ConfigManager.GeneralConfig.ColumnLOAD;
@@ -295,7 +370,8 @@ namespace NiceHashMiner.Forms.Components
                                         copyBenchDropDownItem.Tag = cDev.Uuid;
                                         copyBenchItem.DropDownItems.Add(copyBenchDropDownItem);
 
-                                        var copyTuningDropDownItem = new ToolStripMenuItem {
+                                        var copyTuningDropDownItem = new ToolStripMenuItem
+                                        {
                                             Text = cDev.Name
                                             //Checked = cDev.UUID == CDevice.TuningCopyUUID
                                         };
@@ -316,9 +392,11 @@ namespace NiceHashMiner.Forms.Components
             }
         }
 
-        private void ToolStripMenuItem_Click(object sender, bool justTuning) {
+        private void ToolStripMenuItem_Click(object sender, bool justTuning)
+        {
             if (sender is ToolStripMenuItem item && item.Tag is string uuid
-                && listViewDevices.FocusedItem.Tag is ComputeDevice CDevice) {
+                && listViewDevices.FocusedItem.Tag is ComputeDevice CDevice)
+            {
                 var copyBenchCDev = ComputeDeviceManager.Available.GetDeviceWithUuid(uuid);
 
                 var result = MessageBox.Show(
@@ -359,11 +437,14 @@ namespace NiceHashMiner.Forms.Components
 
         private void DevicesListViewEnableControl_Resize(object sender, EventArgs e)
         {
-            //listViewDevices.Columns[0].Width = Width - SystemInformation.VerticalScrollBarWidth;
+            //ResizeColumn();
+            listViewDevices.BeginUpdate();
+            ResizeAutoSizeColumn(listViewDevices, 0);
+            listViewDevices.EndUpdate();
             // only one
             foreach (ColumnHeader ch in listViewDevices.Columns)
             {
-          //      ch.Width = Width - 10;
+                //  ch.Width = Width;
             }
         }
 
@@ -378,7 +459,130 @@ namespace NiceHashMiner.Forms.Components
 
         private void listViewDevices_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //  CheckBox checkbox = (CheckBox)sender;
+        }
+        private void listViewDevices_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
 
+        }
+        private void listViewDevices_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            /*
+            CheckBox test = sender as CheckBox;
+
+            for (int i = 0; i < listViewDevices.Items.Count; i++)
+            {
+                listViewDevices.Items[i].BackColor = DisabledColor;
+            }
+            */
+        }
+        private void Bink(object sender, System.EventArgs e)
+        {
+            /*
+            CheckBox test = sender as CheckBox;
+
+            for (int i = 0; i < listViewDevices.Items.Count; i++)
+            {
+                listViewDevices.Items[i].Checked = test.Checked;
+                listViewDevices.Items[i].BackColor = DisabledColor;
+            }
+            */
+        }
+        private void listViewDevices_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            /*
+            if ((e.ColumnIndex == 0))
+            {
+                CheckBox cck = new CheckBox();
+                // With...
+                Text = "";
+                Visible = true;
+                listViewDevices.SuspendLayout();
+                e.DrawBackground();
+                cck.BackColor = Form_Main._backColor;
+                //cck.UseVisualStyleBackColor = true;
+
+                cck.SetBounds(e.Bounds.X, e.Bounds.Y, cck.GetPreferredSize(new Size(e.Bounds.Width, e.Bounds.Height)).Width, cck.GetPreferredSize(new Size(e.Bounds.Width, e.Bounds.Height)).Width);
+                cck.Size = new Size((cck.GetPreferredSize(new Size((e.Bounds.Width - 1), e.Bounds.Height)).Width + 1), e.Bounds.Height);
+                cck.Location = new Point(3, 0);
+                listViewDevices.Controls.Add(cck);
+                cck.Show();
+                cck.BringToFront();
+                e.DrawText((TextFormatFlags.VerticalCenter | TextFormatFlags.VerticalCenter));
+                cck.Click += new EventHandler(Bink);
+                listViewDevices.ResumeLayout(true);
+            }
+            else
+            {
+                e.DrawDefault = true;
+            }
+            
+            var with1 = e.Graphics;
+            with1.DrawLines(new Pen(Color.Green), new Point[] { new Point(e.Bounds.Left + e.Bounds.Width, e.Bounds.Top - 1), new Point(e.Bounds.Left + e.Bounds.Width, e.Bounds.Top + e.Bounds.Height) });
+            e.DrawText();
+            */
+        }
+
+        private void listViewDevices_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
+        {
+            listViewDevices.BeginUpdate();
+            if (e.ColumnIndex == 4)
+            {
+                ResizeAutoSizeColumn(listViewDevices, 0);
+            }
+            if (e.ColumnIndex == 0)
+            {
+                ResizeAutoSizeColumn(listViewDevices, 4);
+            }
+            listViewDevices.EndUpdate();
+            //  ResizeAutoSizeColumn(listViewDevices, 0);
+            //   ResizeColumn();
+        }
+        /*
+        private void ResizeColumn()
+        {
+            listViewDevices.BeginUpdate();
+            listViewDevices.Columns[4].Width = -2; //magic
+            listViewDevices.EndUpdate();
+        }
+        */
+        static private void ResizeAutoSizeColumn(ListView listView, int autoSizeColumnIndex)
+        {
+            // Do some rudimentary (parameter) validation.
+            if (listView == null) throw new ArgumentNullException("listView");
+            if (listView.View != View.Details || listView.Columns.Count <= 0 || autoSizeColumnIndex < 0) return;
+            if (autoSizeColumnIndex >= listView.Columns.Count)
+                throw new IndexOutOfRangeException("Parameter autoSizeColumnIndex is outside the range of column indices in the ListView.");
+
+            // Sum up the width of all columns except the auto-resizing one.
+            int otherColumnsWidth = 0;
+            foreach (ColumnHeader header in listView.Columns)
+                if (header.Index != autoSizeColumnIndex)
+                    otherColumnsWidth += header.Width;
+
+            // Calculate the (possibly) new width of the auto-resizable column.
+            int autoSizeColumnWidth = listView.ClientRectangle.Width - otherColumnsWidth;
+
+            // Finally set the new width of the auto-resizing column, if it has changed.
+            if (listView.Columns[autoSizeColumnIndex].Width != autoSizeColumnWidth)
+                listView.Columns[autoSizeColumnIndex].Width = autoSizeColumnWidth;
+        }
+
+        private void listViewDevices_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
+        {
+            
+        //    var with1 = e.Graphics;
+          //  with1.DrawLines(new Pen(Color.Green), new Point[] {/*new Point(e.Bounds.Left, e.Bounds.Top - 1),*/new Point(e.Bounds.Left + e.Bounds.Width, e.Bounds.Top - 1), new Point(e.Bounds.Left + e.Bounds.Width, e.Bounds.Top + e.Bounds.Height)/*,new Point(e.Bounds.Left, e.Bounds.Top + e.Bounds.Height)*/});
+           // e.DrawText();
+            
+        }
+    }
+    public static class ControlExtensions
+    {
+        public static void DoubleBuffer(this Control control)
+        {
+            System.Reflection.PropertyInfo dbProp = typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            dbProp.SetValue(control, true, null);
         }
     }
 }

@@ -16,13 +16,14 @@ using NiceHashMinerLegacy.Common.Enums;
 using Timer = System.Windows.Forms.Timer;
 using System.Diagnostics;
 using System.IO;
+using NiceHashMiner.Forms.Components;
 
 namespace NiceHashMiner.Forms
 {
     public partial class Form_Benchmark : Form, IListItemCheckColorSetter, IBenchmarkForm, IBenchmarkCalculation
     {
-        private static readonly Color DisabledColor = Color.DarkGray;
-        private static readonly Color BenchmarkedColor = Color.LightGreen;
+        private static readonly Color DisabledColor = Color.FromArgb(Form_Main._backColor.ToArgb() + 40*256*256*256 + 40*256*256 + 40*256 + 40);
+        private static readonly Color BenchmarkedColor = Form_Main._backColor;
         private static readonly Color UnbenchmarkedColor = Color.LightBlue;
 
         private AlgorithmBenchmarkSettingsType _algorithmOption =
@@ -57,7 +58,7 @@ namespace NiceHashMiner.Forms
             Icon = Resources.logo;
 
             StartMining = false;
-
+           
             // clear prev pending statuses
             foreach (var dev in ComputeDeviceManager.Available.Devices)
             foreach (var algo in dev.GetAlgorithmSettings())
@@ -71,6 +72,74 @@ namespace NiceHashMiner.Forms
 
             InitLocale();
 
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+               this.BackColor = Form_Main._backColor;
+               this.ForeColor = Form_Main._foreColor;
+
+                foreach (var lbl in this.Controls.OfType<Label>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in this.Controls.OfType<LinkLabel>()) lbl.LinkColor = Color.LightBlue;
+
+                foreach (var lbl in this.Controls.OfType<GroupBox>()) lbl.BackColor = Form_Main._backColor;
+
+                foreach (var lbl in this.Controls.OfType<HScrollBar>())
+                    lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in this.Controls.OfType<ListBox>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in this.Controls.OfType<ListControl>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in this.Controls.OfType<ListView>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in this.Controls.OfType<ListView>()) lbl.ForeColor = Form_Main._textColor;
+                foreach (var lbl in this.Controls.OfType<ListViewItem>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._textColor;
+                }
+                foreach (var lbl in this.Controls.OfType<StatusBar>())
+                    lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in this.Controls.OfType<ComboBox>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in this.Controls.OfType<ComboBox>()) lbl.ForeColor = Form_Main._foreColor;
+
+                foreach (var lbl in this.Controls.OfType<GroupBox>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in this.Controls.OfType<GroupBox>()) lbl.ForeColor = Form_Main._textColor;
+                // foreach (var lbl in this.Controls.OfType<ComboBox>()) lbl.ForeColor = _foreColor;
+
+                foreach (var lbl in this.Controls.OfType<TextBox>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                    lbl.BorderStyle = BorderStyle.FixedSingle;
+                }
+                foreach (var lbl in this.Controls.OfType<StatusStrip>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in this.Controls.OfType<StatusStrip>()) lbl.ForeColor = Form_Main._foreColor;
+                foreach (var lbl in this.Controls.OfType<ToolStripStatusLabel>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in this.Controls.OfType<ToolStripStatusLabel>()) lbl.ForeColor = Form_Main._foreColor;
+
+                foreach (var lbl in this.Controls.OfType<Button>()) lbl.BackColor = Form_Main._backColor;
+                
+                foreach (var lbl in this.Controls.OfType<Button>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._textColor;
+                    lbl.FlatStyle = FlatStyle.Flat;
+                    lbl.FlatAppearance.BorderColor = Form_Main._textColor;
+                    lbl.FlatAppearance.BorderSize = 1;
+                }
+                
+               // Form_Benchmark.ActiveForm.Enabled = true;
+
+
+                foreach (var lbl in this.Controls.OfType<CheckBox>()) lbl.BackColor = Form_Main._backColor;
+                // DevicesListViewEnableControl.listViewDevices.BackColor = _backColor;
+                devicesListViewEnableControl1.BackColor = Form_Main._backColor;
+                devicesListViewEnableControl1.ForeColor = Form_Main._foreColor;
+                algorithmsListView1.BackColor = Form_Main._backColor;
+                algorithmsListView1.ForeColor = Form_Main._foreColor;
+                //DevicesListViewEnableControl.DefaultDevicesColorSeter.
+                //   DevicesListViewEnableControl.DefaultDevicesColorSeter.EnabledColor = _backColor;
+                //  devicesListViewEnableControl1.listViewDevices.Items[0].UseItemStyleForSubItems = false;
+
+
+            }
+           
             _benchmarkingTimer = new Timer();
             _benchmarkingTimer.Tick += BenchmarkingTimer_Tick;
             _benchmarkingTimer.Interval = 1000; // 1s
@@ -120,6 +189,7 @@ namespace NiceHashMiner.Forms
                 ExitWhenFinished = true;
                 StartStopBtn_Click(null, null);
             }
+
         }
 
         #region IBenchmarkCalculation methods
@@ -155,9 +225,11 @@ namespace NiceHashMiner.Forms
                 }
                 else
                 {
+                    
                     status = algorithmQueue.Count == 0
                         ? BenchmarkSettingsStatus.DISABLED_NONE
                         : BenchmarkSettingsStatus.DISABLED_TODO;
+                        
                 }
 
                 _benchmarkDevicesAlgorithmStatus[cDev.Uuid] = status;

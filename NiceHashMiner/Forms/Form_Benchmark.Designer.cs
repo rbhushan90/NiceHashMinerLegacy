@@ -40,12 +40,13 @@
             // StartStopBtn
             // 
             this.StartStopBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.StartStopBtn.BackColor = System.Drawing.SystemColors.Control;
             this.StartStopBtn.Location = new System.Drawing.Point(482, 471);
             this.StartStopBtn.Name = "StartStopBtn";
             this.StartStopBtn.Size = new System.Drawing.Size(75, 23);
             this.StartStopBtn.TabIndex = 100;
             this.StartStopBtn.Text = "&Start";
-            this.StartStopBtn.UseVisualStyleBackColor = true;
+            this.StartStopBtn.UseVisualStyleBackColor = false;
             this.StartStopBtn.Click += new System.EventHandler(this.StartStopBtn_Click);
             // 
             // CloseBtn
@@ -137,7 +138,7 @@
             this.algorithmsListView1.Location = new System.Drawing.Point(12, 192);
             this.algorithmsListView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.algorithmsListView1.Name = "algorithmsListView1";
-            this.algorithmsListView1.Size = new System.Drawing.Size(626, 201);
+            this.algorithmsListView1.Size = new System.Drawing.Size(626, 198);
             this.algorithmsListView1.TabIndex = 109;
             this.algorithmsListView1.Load += new System.EventHandler(this.algorithmsListView1_Load);
             // 
@@ -162,7 +163,7 @@
             this.devicesListViewEnableControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.devicesListViewEnableControl1.Name = "devicesListViewEnableControl1";
             this.devicesListViewEnableControl1.SaveToGeneralConfig = false;
-            this.devicesListViewEnableControl1.Size = new System.Drawing.Size(422, 167);
+            this.devicesListViewEnableControl1.Size = new System.Drawing.Size(422, 164);
             this.devicesListViewEnableControl1.TabIndex = 0;
             this.devicesListViewEnableControl1.Load += new System.EventHandler(this.devicesListViewEnableControl1_Load);
             // 

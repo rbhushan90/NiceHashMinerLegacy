@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using NiceHashMiner.Algorithms;
+using NiceHashMiner.Configs;
 
 namespace NiceHashMiner.Forms.Components
 {
@@ -16,7 +17,7 @@ namespace NiceHashMiner.Forms.Components
         private const int SECSPEED = 3;
         private const int RATIO = 4;
         private const int RATE = 5;
-
+        public static bool isListViewEnabled = true;
         public interface IAlgorithmsListView
         {
             void SetCurrentlySelected(ListViewItem lvi, ComputeDevice computeDevice);
@@ -32,12 +33,17 @@ namespace NiceHashMiner.Forms.Components
 
         private class DefaultAlgorithmColorSeter : IListItemCheckColorSetter
         {
-            private static readonly Color DisabledColor = Color.DarkGray;
-            private static readonly Color BenchmarkedColor = Color.LightGreen;
+            private static readonly Color DisabledColor = Color.FromArgb(Form_Main._backColor.ToArgb() + 40 * 256 * 256 * 256 + 40 * 256 * 256 + 40 * 256 + 40);
+          //  private static readonly Color DisabledColor = Form_Main._backColor;
+            private static readonly Color BenchmarkedColor = Form_Main._backColor;
             private static readonly Color UnbenchmarkedColor = Color.LightBlue;
 
             public void LviSetColor(ListViewItem lvi)
             {
+                if (!isListViewEnabled)
+                {
+                    return;
+                }
                 if (lvi.Tag is Algorithm algorithm)
                 {
                     if (!algorithm.Enabled && !algorithm.IsBenchmarkPending)
@@ -83,14 +89,71 @@ namespace NiceHashMiner.Forms.Components
         public AlgorithmsListView()
         {
             InitializeComponent();
+            System.Reflection.PropertyInfo dbProp = typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            dbProp.SetValue(this, true, null);
+            AlgorithmsListView.colorListViewHeader(ref listViewAlgorithms, Form_Main._backColor, Form_Main._textColor);
+
             // callback initializations
             listViewAlgorithms.ItemSelectionChanged += ListViewAlgorithms_ItemSelectionChanged;
             listViewAlgorithms.ItemChecked += (ItemCheckedEventHandler) ListViewAlgorithms_ItemChecked;
             IsInBenchmark = false;
+         //   listViewAlgorithms.OwnerDraw = true;
+        }
+        public static void colorListViewHeader(ref ListView list, Color backColor, Color foreColor)
+        {
+            list.OwnerDraw = true;
+            list.DrawColumnHeader +=
+            new DrawListViewColumnHeaderEventHandler
+            (
+            (sender, e) => headerDraw(sender, e, backColor, foreColor)
+            );
+            list.DrawItem += new DrawListViewItemEventHandler(bodyDraw);
+
+        }
+        private static void headerDraw(object sender, DrawListViewColumnHeaderEventArgs e, Color backColor, Color foreColor)
+        {
+            using (SolidBrush backBrush = new SolidBrush(backColor))
+            {
+                e.Graphics.FillRectangle(backBrush, e.Bounds);
+            }
+
+            using (SolidBrush foreBrush = new SolidBrush(foreColor))
+            {
+                StringFormat sf = new StringFormat();
+                if ((e.ColumnIndex == 0))
+                {
+                    sf.LineAlignment = StringAlignment.Center;
+                    sf.Alignment = StringAlignment.Near;
+                }
+                else
+                {
+                    sf.LineAlignment = StringAlignment.Center;
+                    sf.Alignment = StringAlignment.Center;
+                }
+                e.Graphics.DrawString(e.Header.Text, e.Font, foreBrush, e.Bounds, sf);
+            }
         }
 
+        private static void bodyDraw(object sender, DrawListViewItemEventArgs e)
+        {
+            e.DrawDefault = true;
+
+            using (SolidBrush backBrush = new SolidBrush(Form_Main._backColor))
+            {
+                e.Graphics.FillRectangle(backBrush, e.Bounds);
+            }
+
+        }
         public void InitLocale()
         {
+            var _backColor = Form_Main._backColor;
+            var _foreColor = Form_Main._foreColor;
+            var _textColor = Form_Main._textColor;
+            //  foreach (var lbl in this.Controls.OfType<ListView>()) lbl.BackColor = _backColor;
+            listViewAlgorithms.BackColor = _backColor;
+            listViewAlgorithms.ForeColor = _textColor;
+            this.BackColor = _backColor;
+
             listViewAlgorithms.Columns[ENABLED].Text = International.GetText("AlgorithmsListView_Enabled");
             listViewAlgorithms.Columns[ALGORITHM].Text = International.GetText("AlgorithmsListView_Algorithm");
             listViewAlgorithms.Columns[SPEED].Text = International.GetText("AlgorithmsListView_Speed");
@@ -139,7 +202,12 @@ namespace NiceHashMiner.Forms.Components
             }
 
             listViewAlgorithms.EndUpdate();
-            Enabled = isEnabled;
+            //Enabled = isEnabled;
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                isListViewEnabled = isEnabled;
+                listViewAlgorithms.CheckBoxes = isEnabled;
+            }
         }
 
         public void RepaintStatus(bool isEnabled, string uuid)
@@ -156,7 +224,13 @@ namespace NiceHashMiner.Forms.Components
                     _listItemCheckColorSetter.LviSetColor(lvi);
                 }
 
-                Enabled = isEnabled;
+                //Visible = isEnabled;
+                //Enabled = isEnabled;
+                if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+                {
+                    isListViewEnabled = isEnabled;
+                    listViewAlgorithms.CheckBoxes = isEnabled;
+                }
             }
         }
 
@@ -234,6 +308,11 @@ namespace NiceHashMiner.Forms.Components
 
         private void ListViewAlgorithms_MouseClick(object sender, MouseEventArgs e)
         {
+            if (!isListViewEnabled)
+            {
+                listViewAlgorithms.SelectedItems.Clear();
+                return;
+            }
             if (IsInBenchmark) return;
             if (e.Button == MouseButtons.Right)
             {
@@ -430,5 +509,35 @@ namespace NiceHashMiner.Forms.Components
         {
 
         }
+
+        private void listViewAlgorithms_EnabledChanged(object sender, EventArgs e)
+        {
+          //  AlgorithmsListView.colorListViewHeader(ref listViewAlgorithms, Color.Red, Form_Main._textColor);
+        }
+
+        private void listViewAlgorithms_Click(object sender, EventArgs e)
+        {
+            if (!isListViewEnabled)
+            {
+                listViewAlgorithms.SelectedItems.Clear();
+            }
+        }
+
+        private void listViewAlgorithms_ItemChecked_1(object sender, ItemCheckedEventArgs e)
+        {
+            if (!isListViewEnabled)
+            {
+                listViewAlgorithms.SelectedItems.Clear();
+            }
+        }
+
+        private void listViewAlgorithms_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (!isListViewEnabled)
+            {
+                listViewAlgorithms.SelectedItems.Clear();
+            }
+        }
     }
+
 }

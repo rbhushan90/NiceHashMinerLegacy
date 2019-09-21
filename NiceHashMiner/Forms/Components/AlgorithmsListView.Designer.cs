@@ -36,6 +36,7 @@
             // 
             // listViewAlgorithms
             // 
+            this.listViewAlgorithms.BackColor = System.Drawing.SystemColors.Control;
             this.listViewAlgorithms.CheckBoxes = true;
             this.listViewAlgorithms.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader0,
@@ -47,6 +48,7 @@
             this.listViewAlgorithms.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewAlgorithms.FullRowSelect = true;
             this.listViewAlgorithms.GridLines = true;
+            this.listViewAlgorithms.HideSelection = false;
             this.listViewAlgorithms.Location = new System.Drawing.Point(0, 0);
             this.listViewAlgorithms.MultiSelect = false;
             this.listViewAlgorithms.Name = "listViewAlgorithms";
@@ -54,13 +56,17 @@
             this.listViewAlgorithms.TabIndex = 11;
             this.listViewAlgorithms.UseCompatibleStateImageBehavior = false;
             this.listViewAlgorithms.View = System.Windows.Forms.View.Details;
+            this.listViewAlgorithms.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.listViewAlgorithms_ItemCheck);
+            this.listViewAlgorithms.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewAlgorithms_ItemChecked_1);
             this.listViewAlgorithms.SelectedIndexChanged += new System.EventHandler(this.listViewAlgorithms_SelectedIndexChanged);
+            this.listViewAlgorithms.EnabledChanged += new System.EventHandler(this.listViewAlgorithms_EnabledChanged);
+            this.listViewAlgorithms.Click += new System.EventHandler(this.listViewAlgorithms_Click);
             this.listViewAlgorithms.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListViewAlgorithms_MouseClick);
             // 
             // columnHeader0
             // 
             this.columnHeader0.Text = "Enabled";
-            this.columnHeader0.Width = 24;
+            this.columnHeader0.Width = 53;
             // 
             // columnHeader1
             // 
@@ -71,18 +77,18 @@
             // 
             this.columnHeader2.Text = "Speed";
             this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader2.Width = 90;
+            this.columnHeader2.Width = 88;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Secondary Speed";
             this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader3.Width = 90;
+            this.columnHeader3.Width = 88;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Ratio BTC/GH/Day";
-            this.columnHeader4.Width = 110;
+            this.columnHeader4.Width = 84;
             // 
             // columnHeader5
             // 
