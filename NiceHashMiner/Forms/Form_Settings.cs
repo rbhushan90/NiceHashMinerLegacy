@@ -499,67 +499,13 @@ namespace NiceHashMiner.Forms
 
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {
-                Form_Settings.ActiveForm.BackColor = Form_Main._backColor;
-                Form_Settings.ActiveForm.ForeColor = Form_Main._foreColor;
-                this.BackColor = Form_Main._backColor;
-                this.ForeColor = Form_Main._foreColor;
-                //   tabPageGeneral.dw
-                tabControlGeneral.SelectedTab.BackColor = Form_Main._backColor;
-                foreach (var lbl in Form_Settings.ActiveForm.Controls.OfType<TabControl>())
-                {
-                    lbl.BackColor = Form_Main._backColor;
-                    lbl.ForeColor = Form_Main._foreColor;
-                }
-                foreach (var lbl in Form_Settings.ActiveForm.Controls.OfType<TabPage>())
-                {
-                    lbl.BackColor = Form_Main._backColor;
-                    lbl.ForeColor = Form_Main._foreColor;
-                }
+               //    Form_Settings.ActiveForm.BackColor = Form_Main._backColor;
+                 //  Form_Settings.ActiveForm.ForeColor = Form_Main._foreColor;
+                  this.BackColor = Form_Main._backColor;
+                 this.ForeColor = Form_Main._foreColor;
 
-
-
-                foreach (var lbl in tabPageGeneral.Controls.OfType<Label>()) lbl.BackColor = Form_Main._backColor;
-               
-
-                foreach (var lbl in tabPageGeneral.Controls.OfType<LinkLabel>()) lbl.LinkColor = Color.LightBlue;
-
-                foreach (var lbl in tabPageGeneral.Controls.OfType<GroupBox>()) lbl.BackColor = Form_Main._backColor;
-
-                foreach (var lbl in tabPageGeneral.Controls.OfType<HScrollBar>())
-                    lbl.BackColor = Form_Main._backColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<ListBox>()) lbl.BackColor = Form_Main._backColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<ListControl>()) lbl.BackColor = Form_Main._backColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<ListView>()) lbl.BackColor = Form_Main._backColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<ListView>()) lbl.ForeColor = Form_Main._textColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<ListViewItem>())
-                {
-                    lbl.BackColor = Form_Main._backColor;
-                    lbl.ForeColor = Form_Main._textColor;
-                }
-                foreach (var lbl in tabPageGeneral.Controls.OfType<StatusBar>())
-                    lbl.BackColor = Form_Main._backColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<ComboBox>()) lbl.BackColor = Form_Main._backColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<ComboBox>()) lbl.ForeColor = Form_Main._foreColor;
-
-                foreach (var lbl in tabPageGeneral.Controls.OfType<GroupBox>()) lbl.BackColor = Form_Main._backColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<GroupBox>()) lbl.ForeColor = Form_Main._textColor;
-                // foreach (var lbl in this.Controls.OfType<ComboBox>()) lbl.ForeColor = _foreColor;
-
-                foreach (var lbl in tabPageGeneral.Controls.OfType<TextBox>())
-                {
-                    lbl.BackColor = Form_Main._backColor;
-                    lbl.ForeColor = Form_Main._foreColor;
-                    lbl.BorderStyle = BorderStyle.FixedSingle;
-                }
-
-                foreach (var lbl in tabPageGeneral.Controls.OfType<StatusStrip>()) lbl.BackColor = Form_Main._backColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<StatusStrip>()) lbl.ForeColor = Form_Main._foreColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<ToolStripStatusLabel>()) lbl.BackColor = Form_Main._backColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<ToolStripStatusLabel>()) lbl.ForeColor = Form_Main._foreColor;
-
-                foreach (var lbl in tabPageGeneral.Controls.OfType<Button>()) lbl.BackColor = Form_Main._backColor;
-                /*
-                foreach (var lbl in tabControlGeneral.SelectedTab.Controls.OfType<Button>())
+                
+                foreach (var lbl in this.Controls.OfType<Button>())
                 {
                     lbl.BackColor = Form_Main._backColor;
                     lbl.ForeColor = Form_Main._textColor;
@@ -567,9 +513,98 @@ namespace NiceHashMiner.Forms
                     lbl.FlatAppearance.BorderColor = Form_Main._textColor;
                     lbl.FlatAppearance.BorderSize = 1;
                 }
+                
+
+                //   tabPageGeneral.dw
+             //   tabControlGeneral.SelectedTab.BackColor = Form_Main._backColor;
+                foreach (var lbl in this.Controls.OfType<TabControl>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                }
+                /*
+                foreach (var lbl in this.Controls.OfType<TabPage>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                }
+
+                foreach (var lbl in this.Controls.OfType<Label>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._textColor;
+                }
+               */
+
+                //   foreach (var lbl in tabPageGeneral.Controls.OfType<LinkLabel>()) lbl.LinkColor = Color.LightBlue;
+
+                //  foreach (var lbl in tabPageGeneral.Controls.OfType<GroupBox>()) lbl.BackColor = Form_Main._backColor;
+
+                //   foreach (var lbl in tabPageGeneral.Controls.OfType<HScrollBar>())
+                //     lbl.BackColor = Form_Main._backColor;
+                /*
+                 foreach (var lbl in tabPageGeneral.Controls.OfType<ListBox>()) lbl.BackColor = Form_Main._backColor;
+                 foreach (var lbl in tabPageGeneral.Controls.OfType<ListControl>()) lbl.BackColor = Form_Main._backColor;
+                 foreach (var lbl in tabPageGeneral.Controls.OfType<ListView>()) lbl.BackColor = Form_Main._backColor;
+                 foreach (var lbl in tabPageGeneral.Controls.OfType<ListView>()) lbl.ForeColor = Form_Main._textColor;
+                 foreach (var lbl in tabPageGeneral.Controls.OfType<ListViewItem>())
+                 {
+                     lbl.BackColor = Form_Main._backColor;
+                     lbl.ForeColor = Form_Main._textColor;
+                 }
+                 foreach (var lbl in tabPageGeneral.Controls.OfType<StatusBar>())
+                     lbl.BackColor = Form_Main._backColor;
+                     */
+                //   foreach (var lbl in tabPageGeneral.Controls.OfType<ComboBox>()) lbl.BackColor = Form_Main._backColor;
+                // foreach (var lbl in tabPageGeneral.Controls.OfType<ComboBox>()) lbl.ForeColor = Form_Main._foreColor;
+
+                //    foreach (var lbl in tabPageGeneral.Controls.OfType<GroupBox>()) lbl.BackColor = Form_Main._backColor;
+                //  foreach (var lbl in tabPageGeneral.Controls.OfType<GroupBox>()) lbl.ForeColor = Form_Main._textColor;
+                // foreach (var lbl in this.Controls.OfType<ComboBox>()) lbl.ForeColor = _foreColor;
+                /*
+                foreach (var lbl in this.Controls.OfType<TextBox>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                    lbl.BorderStyle = BorderStyle.FixedSingle;
+                }
+                */
+                /*
+                foreach (var lbl in tabPageGeneral.Controls.OfType<StatusStrip>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<StatusStrip>()) lbl.ForeColor = Form_Main._foreColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<ToolStripStatusLabel>()) lbl.BackColor = Form_Main._backColor;
+                foreach (var lbl in tabPageGeneral.Controls.OfType<ToolStripStatusLabel>()) lbl.ForeColor = Form_Main._foreColor;
+
+                foreach (var lbl in tabPageGeneral.Controls.OfType<Button>()) lbl.BackColor = Form_Main._backColor;
                 */
                 // Form_Benchmark.ActiveForm.Enabled = true;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<CheckBox>()) lbl.BackColor = Form_Main._backColor;
+                /*
+                foreach (var lbl in this.Controls.OfType<CheckBox>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._textColor;
+                }
+                */
+                tabControlGeneral.DrawMode = TabDrawMode.OwnerDrawFixed;
+                this.tabControlGeneral.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
+                this.tabPageAdvanced1.Paint += tabpage_Paint; // custom paint event so we get the backcolor we want
+                
+
+                /*
+                foreach (var lbl in this.Controls.OfType<TabControl>())
+                {
+                    lbl.Controls. = FlatStyle.Flat;
+                    lbl.FlatAppearance.BorderColor = Form_Main._textColor;
+                    lbl.FlatAppearance.BorderSize = 1;
+                }
+                */
+
+                foreach (var lbl in this.tabPageGeneral.Controls.OfType<TextBox>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                    lbl.BorderStyle = BorderStyle.FixedSingle;
+                }
 
                 textBox_BitcoinAddressNew.BackColor = Form_Main._backColor;
                 textBox_BitcoinAddressNew.ForeColor = Form_Main._foreColor;
@@ -1441,6 +1476,45 @@ namespace NiceHashMiner.Forms
         private void devicesListViewEnableControl1_Load(object sender, EventArgs e)
         {
 
+        }
+        private Dictionary<TabPage, Color> TabColors = new Dictionary<TabPage, Color>();
+        private void SetTabHeader(TabPage page, Color color)
+        {
+            TabColors[page] = color;
+            tabControlGeneral.Invalidate();
+        }
+        private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            //  using (Brush br = new SolidBrush(tabColorDictionary[tabControlGeneral.TabPages[e.Index]]))
+            var bc = new SolidBrush(Form_Main._backColor);
+            var fc = new Pen(Form_Main._backColor);
+            var wc = new SolidBrush(Form_Main._windowColor);
+            var tc = new SolidBrush(Form_Main._textColor);
+            var gr = new SolidBrush(Color.Gray);
+            using (Brush br = bc)
+            {
+                e.Graphics.FillRectangle(br, e.Bounds);
+                SizeF sz = e.Graphics.MeasureString(tabControlGeneral.TabPages[e.Index].Text, e.Font);
+                e.Graphics.DrawString(tabControlGeneral.TabPages[e.Index].Text, e.Font, tc, e.Bounds.Left + (e.Bounds.Width - sz.Width) / 2, e.Bounds.Top + (e.Bounds.Height - sz.Height) / 2 + 1);
+
+                Rectangle rect = e.Bounds;
+                rect.Offset(0, 1);
+                rect.Inflate(0, -1);
+                e.Graphics.DrawRectangle(fc, rect);
+                e.DrawFocusRectangle();
+            }
+
+        }
+        private void tabpage_Paint(object sender, PaintEventArgs e)
+        {
+            SolidBrush fillBrush = new SolidBrush(Form_Main._backColor);
+            e.Graphics.FillRectangle(fillBrush, e.ClipRectangle);
+        }
+
+        private void Form_Settings_Paint(object sender, PaintEventArgs e)
+        {
+            SolidBrush fillBrush = new SolidBrush(Form_Main._backColor);
+            e.Graphics.FillRectangle(fillBrush, e.ClipRectangle);
         }
     }
 }

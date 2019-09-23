@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceHashMinerLegacy.Common"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceHashMinerLegacy.UUID", "NiceHashMinerLegacy.UUID\NiceHashMinerLegacy.UUID.csproj", "{EE6160CC-8C19-4AD8-BB1E-C295347203EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomTabControl", "CustomTabControl\CustomTabControl.csproj", "{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_Ubuntu|Any CPU = Debug_Ubuntu|Any CPU
@@ -524,6 +526,34 @@ Global
 		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release|Win32.Build.0 = Release|Any CPU
 		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release|x64.ActiveCfg = Release|Any CPU
 		{EE6160CC-8C19-4AD8-BB1E-C295347203EE}.Release|x64.Build.0 = Release|Any CPU
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug_Ubuntu|Any CPU.ActiveCfg = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug_Ubuntu|Any CPU.Build.0 = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug_Ubuntu|Mixed Platforms.ActiveCfg = Debug|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug_Ubuntu|Mixed Platforms.Build.0 = Debug|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug_Ubuntu|Win32.ActiveCfg = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug_Ubuntu|Win32.Build.0 = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug_Ubuntu|x64.ActiveCfg = Debug|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug_Ubuntu|x64.Build.0 = Debug|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug|Win32.ActiveCfg = Debug|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug|x64.ActiveCfg = Debug|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug|x64.Build.0 = Debug|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release_Ubuntu|Any CPU.ActiveCfg = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release_Ubuntu|Any CPU.Build.0 = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release_Ubuntu|Mixed Platforms.ActiveCfg = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release_Ubuntu|Mixed Platforms.Build.0 = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release_Ubuntu|Win32.ActiveCfg = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release_Ubuntu|Win32.Build.0 = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release_Ubuntu|x64.ActiveCfg = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release_Ubuntu|x64.Build.0 = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release|Any CPU.ActiveCfg = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release|Mixed Platforms.ActiveCfg = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release|Mixed Platforms.Build.0 = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release|Win32.ActiveCfg = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release|x64.ActiveCfg = Release|x64
+		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

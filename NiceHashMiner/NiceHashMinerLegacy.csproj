@@ -476,6 +476,10 @@
       <Project>{b357bac7-529e-4d81-a0d2-71041b19c8de}</Project>
       <Name>websocket-sharp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CustomTabControl\CustomTabControl.csproj">
+      <Project>{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}</Project>
+      <Name>CustomTabControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MessageBoxManager\MessageBoxManager.csproj">
       <Project>{0e9d874e-5354-465e-9ec3-f7a35c268a8a}</Project>
       <Name>MessageBoxManager</Name>

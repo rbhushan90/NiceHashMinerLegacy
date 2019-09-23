@@ -132,6 +132,8 @@
             this.textBox_SwitchMaxSeconds = new System.Windows.Forms.TextBox();
             this.textBox_MinerRestartDelayMS = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.checkBox_DisableDetectionCPU = new System.Windows.Forms.CheckBox();
             this.checkBox_Additional_info_about_device = new System.Windows.Forms.CheckBox();
             this.checkBox_AMD_DisableAMDTempControl = new System.Windows.Forms.CheckBox();
             this.pictureBox_AMD_DisableAMDTempControl = new System.Windows.Forms.PictureBox();
@@ -151,8 +153,9 @@
             this.buttonSaveClose = new System.Windows.Forms.Button();
             this.buttonDefaults = new System.Windows.Forms.Button();
             this.buttonCloseNoSave = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.checkBox_DisableDetectionCPU = new System.Windows.Forms.CheckBox();
+            this.customTabControl1 = new System.Windows.Forms.CustomTabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControlGeneral.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBox_Misc.SuspendLayout();
@@ -197,13 +200,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_SwitchMinSeconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_MinIdleSeconds)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_AMD_DisableAMDTempControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_NVIDIAP0State)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DisableDetectionAMD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DisableDetectionNVIDIA)).BeginInit();
             this.tabPageDevicesAlgos.SuspendLayout();
             this.groupBoxAlgorithmSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.customTabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolTip1
@@ -237,7 +241,6 @@
             this.tabPageGeneral.Size = new System.Drawing.Size(651, 498);
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
-            this.tabPageGeneral.UseVisualStyleBackColor = true;
             // 
             // groupBox_Misc
             // 
@@ -1218,7 +1221,6 @@
             this.tabPageAdvanced1.Size = new System.Drawing.Size(651, 498);
             this.tabPageAdvanced1.TabIndex = 2;
             this.tabPageAdvanced1.Text = "Advanced";
-            this.tabPageAdvanced1.UseVisualStyleBackColor = true;
             // 
             // groupBoxMOPA
             // 
@@ -1509,6 +1511,28 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Devices:";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
+            this.pictureBox1.Location = new System.Drawing.Point(10, 64);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(18, 18);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 400;
+            this.pictureBox1.TabStop = false;
+            // 
+            // checkBox_DisableDetectionCPU
+            // 
+            this.checkBox_DisableDetectionCPU.AutoSize = true;
+            this.checkBox_DisableDetectionCPU.Location = new System.Drawing.Point(32, 64);
+            this.checkBox_DisableDetectionCPU.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBox_DisableDetectionCPU.Name = "checkBox_DisableDetectionCPU";
+            this.checkBox_DisableDetectionCPU.Size = new System.Drawing.Size(135, 17);
+            this.checkBox_DisableDetectionCPU.TabIndex = 399;
+            this.checkBox_DisableDetectionCPU.Text = "Disable Detection CPU";
+            this.checkBox_DisableDetectionCPU.UseVisualStyleBackColor = true;
+            // 
             // checkBox_Additional_info_about_device
             // 
             this.checkBox_Additional_info_about_device.AutoSize = true;
@@ -1623,7 +1647,6 @@
             this.tabPageDevicesAlgos.Size = new System.Drawing.Size(651, 498);
             this.tabPageDevicesAlgos.TabIndex = 1;
             this.tabPageDevicesAlgos.Text = "Devices/Algorithms";
-            this.tabPageDevicesAlgos.UseVisualStyleBackColor = true;
             // 
             // checkBox_Disable_extra_launch_parameter_checking
             // 
@@ -1735,33 +1758,61 @@
             this.buttonCloseNoSave.UseVisualStyleBackColor = true;
             this.buttonCloseNoSave.Click += new System.EventHandler(this.ButtonCloseNoSave_Click);
             // 
-            // pictureBox1
+            // customTabControl1
             // 
-            this.pictureBox1.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox1.Location = new System.Drawing.Point(10, 64);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(18, 18);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 400;
-            this.pictureBox1.TabStop = false;
+            this.customTabControl1.Controls.Add(this.tabPage1);
+            this.customTabControl1.Controls.Add(this.tabPage2);
             // 
-            // checkBox_DisableDetectionCPU
             // 
-            this.checkBox_DisableDetectionCPU.AutoSize = true;
-            this.checkBox_DisableDetectionCPU.Location = new System.Drawing.Point(32, 64);
-            this.checkBox_DisableDetectionCPU.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.checkBox_DisableDetectionCPU.Name = "checkBox_DisableDetectionCPU";
-            this.checkBox_DisableDetectionCPU.Size = new System.Drawing.Size(135, 17);
-            this.checkBox_DisableDetectionCPU.TabIndex = 399;
-            this.checkBox_DisableDetectionCPU.Text = "Disable Detection CPU";
-            this.checkBox_DisableDetectionCPU.UseVisualStyleBackColor = true;
+            // 
+            this.customTabControl1.DisplayStyleProvider.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.customTabControl1.DisplayStyleProvider.BorderColorHot = System.Drawing.SystemColors.ControlDark;
+            this.customTabControl1.DisplayStyleProvider.BorderColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(157)))), ((int)(((byte)(185)))));
+            this.customTabControl1.DisplayStyleProvider.CloserColor = System.Drawing.Color.DarkGray;
+            this.customTabControl1.DisplayStyleProvider.FocusTrack = true;
+            this.customTabControl1.DisplayStyleProvider.HotTrack = true;
+            this.customTabControl1.DisplayStyleProvider.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.customTabControl1.DisplayStyleProvider.Opacity = 1F;
+            this.customTabControl1.DisplayStyleProvider.Overlap = 0;
+            this.customTabControl1.DisplayStyleProvider.Padding = new System.Drawing.Point(6, 3);
+            this.customTabControl1.DisplayStyleProvider.Radius = 2;
+            this.customTabControl1.DisplayStyleProvider.ShowTabCloser = false;
+            this.customTabControl1.DisplayStyleProvider.TextColor = System.Drawing.SystemColors.ControlText;
+            this.customTabControl1.DisplayStyleProvider.TextColorDisabled = System.Drawing.SystemColors.ControlDark;
+            this.customTabControl1.DisplayStyleProvider.TextColorSelected = System.Drawing.SystemColors.ControlText;
+            this.customTabControl1.HotTrack = true;
+            this.customTabControl1.Location = new System.Drawing.Point(245, 7);
+            this.customTabControl1.Name = "customTabControl1";
+            this.customTabControl1.SelectedIndex = 0;
+            this.customTabControl1.Size = new System.Drawing.Size(400, 325);
+            this.customTabControl1.TabIndex = 392;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 23);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(392, 298);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 23);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(392, 298);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 577);
+            this.Controls.Add(this.customTabControl1);
             this.Controls.Add(this.buttonDefaults);
             this.Controls.Add(this.buttonSaveClose);
             this.Controls.Add(this.tabControlGeneral);
@@ -1773,6 +1824,7 @@
             this.Name = "Form_Settings";
             this.Text = "Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormSettings_FormClosing);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form_Settings_Paint);
             this.tabControlGeneral.ResumeLayout(false);
             this.tabPageGeneral.ResumeLayout(false);
             this.groupBox_Misc.ResumeLayout(false);
@@ -1824,6 +1876,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_MinIdleSeconds)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_AMD_DisableAMDTempControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_NVIDIAP0State)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DisableDetectionAMD)).EndInit();
@@ -1831,7 +1884,7 @@
             this.tabPageDevicesAlgos.ResumeLayout(false);
             this.tabPageDevicesAlgos.PerformLayout();
             this.groupBoxAlgorithmSettings.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.customTabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1965,5 +2018,8 @@
         private System.Windows.Forms.ComboBox comboBox_ColorProfile;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox checkBox_DisableDetectionCPU;
+        private System.Windows.Forms.CustomTabControl customTabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
