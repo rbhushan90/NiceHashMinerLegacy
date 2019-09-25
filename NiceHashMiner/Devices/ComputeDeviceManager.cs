@@ -169,11 +169,13 @@ namespace NiceHashMiner.Devices
 
                 // check CUDA devices
                 var currentCudaDevices = new List<CudaDevice>();
-                if (!Nvidia.IsSkipNvidia())
+              //  if (!Nvidia.IsSkipNvidia())
                     Nvidia.QueryCudaDevices(ref currentCudaDevices);
 
+                var currentCudaDevices2 = new List<CudaDevice>();
+
                 var gpusOld = _cudaDevices.Count;
-                var gpusNew = currentCudaDevices.Count;
+                var gpusNew = Math.Max(currentCudaDevices.Count, currentCudaDevices2.Count);
 
                 Helpers.ConsolePrint("ComputeDeviceManager.CheckCount",
                     "CUDA GPUs count: Old: " + gpusOld + " / New: " + gpusNew);

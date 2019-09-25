@@ -1291,7 +1291,10 @@ namespace NiceHashMiner
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             devicesListViewEnableControl1.SaveColumns();
-            ConfigManager.GeneralConfig.FormWidth = Form_Main.ActiveForm.Width;
+            if (Form_Main.ActiveForm != null)
+            {
+                ConfigManager.GeneralConfig.FormWidth = Form_Main.ActiveForm.Width;
+            }
             MinersManager.StopAllMiners();
             if (Miner._cooldownCheckTimer != null && Miner._cooldownCheckTimer.Enabled) Miner._cooldownCheckTimer.Stop();
             MessageBoxManager.Unregister();
