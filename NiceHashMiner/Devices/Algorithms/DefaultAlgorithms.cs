@@ -52,6 +52,9 @@ namespace NiceHashMiner.Devices.Algorithms
                 new List<Algorithm>
                 {
                     new Algorithm(MinerBaseType.Phoenix, AlgorithmType.DaggerHashimoto, "")
+                    {
+    //                    ExtraLaunchParameters = "-rvram -1 -eres 0 "
+                    }
                 }
             },
         };

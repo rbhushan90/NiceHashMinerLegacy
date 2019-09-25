@@ -511,6 +511,8 @@ namespace NiceHashMiner.Miners.Parsing
                     new MinerOption("Phoenix_clNew", "-clNew", "-clNew", "0", MinerOptionFlagType.SingleParam, ","),
                     new MinerOption("Phoenix_clf", "-clf", "-clf", "0", MinerOptionFlagType.SingleParam, ","),
                     new MinerOption("Phoenix_nvNew", "-nvNew", "-nvNew", "0", MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("Phoenix_eres", "-eres", "-eres", "0", MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("Phoenix_rvram", "-rvram", "-rvram", "0", MinerOptionFlagType.SingleParam, ","),
                     new MinerOption("Phoenix_nvf", "-nvf", "-nvf", "0", MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("Phoenix_mt", "-mt", "-mt", "0", MinerOptionFlagType.MultiParam, ","),
                 },
