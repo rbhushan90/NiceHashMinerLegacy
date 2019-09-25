@@ -784,6 +784,12 @@ namespace NiceHashMiner.Stats
                 {
                     GetSmaAPI24h(); //bug *10
                 }
+                if (ConfigManager.GeneralConfig.MOPA5)
+                {
+                    GetSmaAPICurrent(); //bug *10
+                    GetSmaAPI5m(); //bug *10
+                    GetSmaAPI24h(); //bug *10 
+                }
             }
             else
             {
@@ -1002,14 +1008,35 @@ namespace NiceHashMiner.Stats
                   //   Helpers.ConsolePrint("SetAlgorithmRates: ", data.ToString());
                     foreach (var algo in data)
                     {
-                        var algoKey = (AlgorithmType) algo[0].Value<int>();
-                        if (ConfigManager.GeneralConfig.UseNegativeProfit)
+                        var algoKey = (AlgorithmType)algo[0].Value<int>();
+                        if (!NHSmaData.TryGetSma(algoKey, out NiceHashSma sma))
                         {
-                            payingDict[algoKey] = Math.Abs(algo[1].Value<double>()) * mult;
+                            Helpers.ConsolePrint("SMA API", "ERROR !NHSmaData.TryGetSma");
+                        }
+
+                        if (sma.Paying != 0 && (sma.Paying * 8 < Math.Abs(algo[1].Value<double>()) * mult || (sma.Paying / 8 > Math.Abs(algo[1].Value<double>() * mult))))
+                        {
+                            Helpers.ConsolePrint("SMA API", "Bug found in: "+ sma.Algo.ToString() + " " + sma.Paying.ToString() + "<>" + Math.Abs(algo[1].Value<double>() * mult));
+                        } else if (ConfigManager.GeneralConfig.UseNegativeProfit)
+                        {
+                            if (ConfigManager.GeneralConfig.MOPA5)
+                            {
+                                payingDict[algoKey] = Math.Max(Math.Abs(algo[1].Value<double>()) * mult, sma.Paying);
+                            } else
+                            {
+                                payingDict[algoKey] = Math.Abs(algo[1].Value<double>()) * mult;
+                            }
                         }
                         else
                         {
-                            payingDict[algoKey] = algo[1].Value<double>() * mult;
+                            if (ConfigManager.GeneralConfig.MOPA5)
+                            {
+                                payingDict[algoKey] = Math.Max(algo[1].Value<double>() * mult, sma.Paying);
+                            }
+                            else
+                            {
+                                payingDict[algoKey] = algo[1].Value<double>() * mult;
+                            }
                         }
                         //DaggerOrderMaxPay = 0
                         //0.001418488464

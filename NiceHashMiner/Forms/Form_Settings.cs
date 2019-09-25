@@ -423,6 +423,7 @@ namespace NiceHashMiner.Forms
                 radioButtonMOPA2.Text = "Текущая прибыльность";
                 radioButtonMOPA3.Text = "Средняя прибыльность за 5 минут";
                 radioButtonMOPA4.Text = "Средняя прибыльность за 24 часа";
+                radioButtonMOPA5.Text = "Наибольшая прибыльность по всем методам";
                 label1.Text = "Цветовой профиль (частично)";
             }
 
@@ -431,6 +432,7 @@ namespace NiceHashMiner.Forms
             radioButtonMOPA2.Checked = ConfigManager.GeneralConfig.MOPA2;
             radioButtonMOPA3.Checked = ConfigManager.GeneralConfig.MOPA3;
             radioButtonMOPA4.Checked = ConfigManager.GeneralConfig.MOPA4;
+            radioButtonMOPA5.Checked = ConfigManager.GeneralConfig.MOPA5;
 
             label_WorkerName.Text = International.GetText("WorkerName") + ":";
             label_ServiceLocation.Text = International.GetText("Service_Location") + ":";
@@ -1806,6 +1808,11 @@ namespace NiceHashMiner.Forms
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void radioButtonMOPA5_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfigManager.GeneralConfig.MOPA5 = radioButtonMOPA5.Checked;
         }
     }
 }

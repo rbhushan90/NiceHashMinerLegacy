@@ -145,16 +145,15 @@
             this.tabPageDevicesAlgos = new System.Windows.Forms.TabPage();
             this.checkBox_Disable_extra_launch_parameter_checking = new System.Windows.Forms.CheckBox();
             this.groupBoxAlgorithmSettings = new System.Windows.Forms.GroupBox();
-            this.algorithmsListView1 = new NiceHashMiner.Forms.Components.AlgorithmsListView();
             this.buttonGPUtuning = new System.Windows.Forms.Button();
-            this.devicesListViewEnableControl1 = new NiceHashMiner.Forms.Components.DevicesListViewEnableControl();
-            this.algorithmSettingsControl1 = new NiceHashMiner.Forms.Components.AlgorithmSettingsControl();
             this.buttonSaveClose = new System.Windows.Forms.Button();
             this.buttonDefaults = new System.Windows.Forms.Button();
             this.buttonCloseNoSave = new System.Windows.Forms.Button();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControlGeneral = new System.Windows.Forms.CustomTabControl();
+            this.radioButtonMOPA5 = new System.Windows.Forms.RadioButton();
+            this.algorithmsListView1 = new NiceHashMiner.Forms.Components.AlgorithmsListView();
+            this.devicesListViewEnableControl1 = new NiceHashMiner.Forms.Components.DevicesListViewEnableControl();
+            this.algorithmSettingsControl1 = new NiceHashMiner.Forms.Components.AlgorithmSettingsControl();
             this.tabPageGeneral.SuspendLayout();
             this.groupBox_Main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ElectricityCost)).BeginInit();
@@ -207,15 +206,15 @@
             this.groupBoxAlgorithmSettings.SuspendLayout();
             this.tabControlGeneral.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // toolTip1
-            //
+            // 
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.ToolTip1_Popup);
-            //
+            // 
             // tabPageGeneral
-            //
-            this.tabPageGeneral.BackColor = System.Drawing.SystemColors.Control;
+            // 
+            this.tabPageGeneral.BackColor = System.Drawing.Color.Transparent;
             this.tabPageGeneral.Controls.Add(this.groupBox_Main);
             this.tabPageGeneral.Controls.Add(this.groupBox_Misc);
             this.tabPageGeneral.Controls.Add(this.groupBox_Logging);
@@ -223,13 +222,14 @@
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 23);
             this.tabPageGeneral.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPageGeneral.Name = "tabPageGeneral";
-            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(656, 496);
+            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageGeneral.Size = new System.Drawing.Size(652, 496);
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
-            //
+            this.tabPageGeneral.UseVisualStyleBackColor = true;
+            // 
             // groupBox_Main
-            //
+            // 
             this.groupBox_Main.Controls.Add(this.checkBox_Force_mining_if_nonprofitable);
             this.groupBox_Main.Controls.Add(this.label_BitcoinAddressNew);
             this.groupBox_Main.Controls.Add(this.textBox_BitcoinAddressNew);
@@ -263,9 +263,9 @@
             this.groupBox_Main.TabIndex = 386;
             this.groupBox_Main.TabStop = false;
             this.groupBox_Main.Text = "Main:";
-            //
+            // 
             // checkBox_Force_mining_if_nonprofitable
-            //
+            // 
             this.checkBox_Force_mining_if_nonprofitable.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBox_Force_mining_if_nonprofitable.Location = new System.Drawing.Point(154, 245);
             this.checkBox_Force_mining_if_nonprofitable.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -275,9 +275,9 @@
             this.checkBox_Force_mining_if_nonprofitable.Text = "Force mining if nonprofitable";
             this.checkBox_Force_mining_if_nonprofitable.UseVisualStyleBackColor = true;
             this.checkBox_Force_mining_if_nonprofitable.CheckedChanged += new System.EventHandler(this.checkBox_Force_mining_if_nonprofitable_CheckedChanged);
-            //
+            // 
             // label_BitcoinAddressNew
-            //
+            // 
             this.label_BitcoinAddressNew.AutoSize = true;
             this.label_BitcoinAddressNew.Location = new System.Drawing.Point(10, 18);
             this.label_BitcoinAddressNew.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -286,18 +286,18 @@
             this.label_BitcoinAddressNew.TabIndex = 377;
             this.label_BitcoinAddressNew.Text = "BitcoinAddress:";
             this.label_BitcoinAddressNew.Click += new System.EventHandler(this.label_BitcoinAddressNew_Click);
-            //
+            // 
             // textBox_BitcoinAddressNew
-            //
+            // 
             this.textBox_BitcoinAddressNew.Location = new System.Drawing.Point(10, 38);
             this.textBox_BitcoinAddressNew.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_BitcoinAddressNew.Name = "textBox_BitcoinAddressNew";
             this.textBox_BitcoinAddressNew.Size = new System.Drawing.Size(316, 20);
             this.textBox_BitcoinAddressNew.TabIndex = 376;
             this.textBox_BitcoinAddressNew.TextChanged += new System.EventHandler(this.textBox_BitcoinAddressNew_TextChanged);
-            //
+            // 
             // pictureBox_ElectricityCost
-            //
+            // 
             this.pictureBox_ElectricityCost.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_ElectricityCost.Location = new System.Drawing.Point(130, 232);
             this.pictureBox_ElectricityCost.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -307,18 +307,18 @@
             this.pictureBox_ElectricityCost.TabIndex = 375;
             this.pictureBox_ElectricityCost.TabStop = false;
             this.pictureBox_ElectricityCost.Click += new System.EventHandler(this.pictureBox_ElectricityCost_Click);
-            //
+            // 
             // textBox_ElectricityCost
-            //
+            // 
             this.textBox_ElectricityCost.Location = new System.Drawing.Point(10, 252);
             this.textBox_ElectricityCost.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_ElectricityCost.Name = "textBox_ElectricityCost";
             this.textBox_ElectricityCost.Size = new System.Drawing.Size(138, 20);
             this.textBox_ElectricityCost.TabIndex = 373;
             this.textBox_ElectricityCost.TextChanged += new System.EventHandler(this.textBox_ElectricityCost_TextChanged);
-            //
+            // 
             // label_ElectricityCost
-            //
+            // 
             this.label_ElectricityCost.AutoSize = true;
             this.label_ElectricityCost.Location = new System.Drawing.Point(10, 232);
             this.label_ElectricityCost.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -327,9 +327,9 @@
             this.label_ElectricityCost.TabIndex = 374;
             this.label_ElectricityCost.Text = "Electricity Cost (/KWh):";
             this.label_ElectricityCost.Click += new System.EventHandler(this.label_ElectricityCost_Click);
-            //
+            // 
             // pictureBox_TimeUnit
-            //
+            // 
             this.pictureBox_TimeUnit.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_TimeUnit.Location = new System.Drawing.Point(308, 113);
             this.pictureBox_TimeUnit.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -339,9 +339,9 @@
             this.pictureBox_TimeUnit.TabIndex = 372;
             this.pictureBox_TimeUnit.TabStop = false;
             this.pictureBox_TimeUnit.Click += new System.EventHandler(this.pictureBox_TimeUnit_Click);
-            //
+            // 
             // label_TimeUnit
-            //
+            // 
             this.label_TimeUnit.AutoSize = true;
             this.label_TimeUnit.Location = new System.Drawing.Point(166, 113);
             this.label_TimeUnit.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -350,9 +350,9 @@
             this.label_TimeUnit.TabIndex = 371;
             this.label_TimeUnit.Text = "TimeUnit:";
             this.label_TimeUnit.Click += new System.EventHandler(this.label_TimeUnit_Click);
-            //
+            // 
             // comboBox_TimeUnit
-            //
+            // 
             this.comboBox_TimeUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_TimeUnit.FormattingEnabled = true;
             this.comboBox_TimeUnit.Location = new System.Drawing.Point(166, 134);
@@ -362,9 +362,9 @@
             this.comboBox_TimeUnit.TabIndex = 370;
             this.comboBox_TimeUnit.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox_TimeUnit_DrawItem);
             this.comboBox_TimeUnit.SelectedIndexChanged += new System.EventHandler(this.comboBox_TimeUnit_SelectedIndexChanged);
-            //
+            // 
             // label_IFTTTAPIKey
-            //
+            // 
             this.label_IFTTTAPIKey.AutoSize = true;
             this.label_IFTTTAPIKey.Location = new System.Drawing.Point(113, 184);
             this.label_IFTTTAPIKey.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -373,9 +373,9 @@
             this.label_IFTTTAPIKey.TabIndex = 369;
             this.label_IFTTTAPIKey.Text = "IFTTT API Key:";
             this.label_IFTTTAPIKey.Click += new System.EventHandler(this.label_IFTTTAPIKey_Click);
-            //
+            // 
             // textBox_IFTTTKey
-            //
+            // 
             this.textBox_IFTTTKey.Enabled = false;
             this.textBox_IFTTTKey.Location = new System.Drawing.Point(110, 201);
             this.textBox_IFTTTKey.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -383,9 +383,9 @@
             this.textBox_IFTTTKey.Size = new System.Drawing.Size(210, 20);
             this.textBox_IFTTTKey.TabIndex = 368;
             this.textBox_IFTTTKey.TextChanged += new System.EventHandler(this.textBox_IFTTTKey_TextChanged);
-            //
+            // 
             // pictureBox_UseIFTTT
-            //
+            // 
             this.pictureBox_UseIFTTT.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_UseIFTTT.Location = new System.Drawing.Point(88, 198);
             this.pictureBox_UseIFTTT.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -395,9 +395,9 @@
             this.pictureBox_UseIFTTT.TabIndex = 367;
             this.pictureBox_UseIFTTT.TabStop = false;
             this.pictureBox_UseIFTTT.Click += new System.EventHandler(this.pictureBox_UseIFTTT_Click);
-            //
+            // 
             // checkBox_UseIFTTT
-            //
+            // 
             this.checkBox_UseIFTTT.AutoSize = true;
             this.checkBox_UseIFTTT.Location = new System.Drawing.Point(10, 202);
             this.checkBox_UseIFTTT.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -407,9 +407,9 @@
             this.checkBox_UseIFTTT.Text = "Use IFTTT";
             this.checkBox_UseIFTTT.UseVisualStyleBackColor = true;
             this.checkBox_UseIFTTT.CheckedChanged += new System.EventHandler(this.checkBox_UseIFTTT_CheckedChanged);
-            //
+            // 
             // checkBox_IdleWhenNoInternetAccess
-            //
+            // 
             this.checkBox_IdleWhenNoInternetAccess.AutoSize = true;
             this.checkBox_IdleWhenNoInternetAccess.Location = new System.Drawing.Point(10, 160);
             this.checkBox_IdleWhenNoInternetAccess.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -419,9 +419,9 @@
             this.checkBox_IdleWhenNoInternetAccess.Text = "Continue Mining If No Internet Access";
             this.checkBox_IdleWhenNoInternetAccess.UseVisualStyleBackColor = true;
             this.checkBox_IdleWhenNoInternetAccess.CheckedChanged += new System.EventHandler(this.GeneralCheckBoxes_CheckedChanged);
-            //
+            // 
             // pictureBox_WorkerName
-            //
+            // 
             this.pictureBox_WorkerName.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_WorkerName.Location = new System.Drawing.Point(130, 66);
             this.pictureBox_WorkerName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -431,9 +431,9 @@
             this.pictureBox_WorkerName.TabIndex = 364;
             this.pictureBox_WorkerName.TabStop = false;
             this.pictureBox_WorkerName.Click += new System.EventHandler(this.pictureBox_WorkerName_Click);
-            //
+            // 
             // pictureBox_MinProfit
-            //
+            // 
             this.pictureBox_MinProfit.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_MinProfit.Location = new System.Drawing.Point(130, 114);
             this.pictureBox_MinProfit.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -443,9 +443,9 @@
             this.pictureBox_MinProfit.TabIndex = 364;
             this.pictureBox_MinProfit.TabStop = false;
             this.pictureBox_MinProfit.Click += new System.EventHandler(this.pictureBox_MinProfit_Click);
-            //
+            // 
             // pictureBox_ServiceLocation
-            //
+            // 
             this.pictureBox_ServiceLocation.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_ServiceLocation.Location = new System.Drawing.Point(308, 66);
             this.pictureBox_ServiceLocation.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -455,9 +455,9 @@
             this.pictureBox_ServiceLocation.TabIndex = 364;
             this.pictureBox_ServiceLocation.TabStop = false;
             this.pictureBox_ServiceLocation.Click += new System.EventHandler(this.pictureBox_ServiceLocation_Click);
-            //
+            // 
             // pictureBox_Info_BitcoinAddress
-            //
+            // 
             this.pictureBox_Info_BitcoinAddress.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_Info_BitcoinAddress.Location = new System.Drawing.Point(308, 16);
             this.pictureBox_Info_BitcoinAddress.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -466,18 +466,18 @@
             this.pictureBox_Info_BitcoinAddress.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_Info_BitcoinAddress.TabIndex = 364;
             this.pictureBox_Info_BitcoinAddress.TabStop = false;
-            //
+            // 
             // textBox_MinProfit
-            //
+            // 
             this.textBox_MinProfit.Location = new System.Drawing.Point(10, 134);
             this.textBox_MinProfit.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_MinProfit.Name = "textBox_MinProfit";
             this.textBox_MinProfit.Size = new System.Drawing.Size(138, 20);
             this.textBox_MinProfit.TabIndex = 334;
             this.textBox_MinProfit.TextChanged += new System.EventHandler(this.textBox_MinProfit_TextChanged);
-            //
+            // 
             // pictureBox_IdleWhenNoInternetAccess
-            //
+            // 
             this.pictureBox_IdleWhenNoInternetAccess.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_IdleWhenNoInternetAccess.Location = new System.Drawing.Point(308, 160);
             this.pictureBox_IdleWhenNoInternetAccess.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -487,9 +487,9 @@
             this.pictureBox_IdleWhenNoInternetAccess.TabIndex = 364;
             this.pictureBox_IdleWhenNoInternetAccess.TabStop = false;
             this.pictureBox_IdleWhenNoInternetAccess.Click += new System.EventHandler(this.pictureBox_IdleWhenNoInternetAccess_Click);
-            //
+            // 
             // label_MinProfit
-            //
+            // 
             this.label_MinProfit.AutoSize = true;
             this.label_MinProfit.Location = new System.Drawing.Point(10, 114);
             this.label_MinProfit.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -498,9 +498,9 @@
             this.label_MinProfit.TabIndex = 357;
             this.label_MinProfit.Text = "Minimum Profit ($/day):";
             this.label_MinProfit.Click += new System.EventHandler(this.label_MinProfit_Click);
-            //
+            // 
             // label_WorkerName
-            //
+            // 
             this.label_WorkerName.AutoSize = true;
             this.label_WorkerName.Location = new System.Drawing.Point(10, 66);
             this.label_WorkerName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -509,9 +509,9 @@
             this.label_WorkerName.TabIndex = 354;
             this.label_WorkerName.Text = "WorkerName:";
             this.label_WorkerName.Click += new System.EventHandler(this.label_WorkerName_Click);
-            //
+            // 
             // label_ServiceLocation
-            //
+            // 
             this.label_ServiceLocation.AutoSize = true;
             this.label_ServiceLocation.Location = new System.Drawing.Point(166, 66);
             this.label_ServiceLocation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -520,9 +520,9 @@
             this.label_ServiceLocation.TabIndex = 363;
             this.label_ServiceLocation.Text = "ServiceLocation:";
             this.label_ServiceLocation.Click += new System.EventHandler(this.label_ServiceLocation_Click);
-            //
+            // 
             // comboBox_ServiceLocation
-            //
+            // 
             this.comboBox_ServiceLocation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_ServiceLocation.FormattingEnabled = true;
             this.comboBox_ServiceLocation.Items.AddRange(new object[] {
@@ -540,18 +540,18 @@
             this.comboBox_ServiceLocation.TabIndex = 330;
             this.comboBox_ServiceLocation.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox_ServiceLocation_DrawItem);
             this.comboBox_ServiceLocation.SelectedIndexChanged += new System.EventHandler(this.comboBox_ServiceLocation_SelectedIndexChanged);
-            //
+            // 
             // textBox_WorkerName
-            //
+            // 
             this.textBox_WorkerName.Location = new System.Drawing.Point(10, 87);
             this.textBox_WorkerName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_WorkerName.Name = "textBox_WorkerName";
             this.textBox_WorkerName.Size = new System.Drawing.Size(138, 20);
             this.textBox_WorkerName.TabIndex = 339;
             this.textBox_WorkerName.TextChanged += new System.EventHandler(this.textBox_WorkerName_TextChanged);
-            //
+            // 
             // groupBox_Misc
-            //
+            // 
             this.groupBox_Misc.Controls.Add(this.label1);
             this.groupBox_Misc.Controls.Add(this.textBox_AutoStartMiningDelay);
             this.groupBox_Misc.Controls.Add(this.label_AutoStartMiningDelay);
@@ -594,9 +594,9 @@
             this.groupBox_Misc.TabIndex = 391;
             this.groupBox_Misc.TabStop = false;
             this.groupBox_Misc.Text = "Misc:";
-            //
+            // 
             // label1
-            //
+            // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(4, 400);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -605,18 +605,18 @@
             this.label1.TabIndex = 379;
             this.label1.Text = "Color profile";
             this.label1.Click += new System.EventHandler(this.label1_Click);
-            //
+            // 
             // textBox_AutoStartMiningDelay
-            //
+            // 
             this.textBox_AutoStartMiningDelay.Location = new System.Drawing.Point(241, 42);
             this.textBox_AutoStartMiningDelay.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_AutoStartMiningDelay.Name = "textBox_AutoStartMiningDelay";
             this.textBox_AutoStartMiningDelay.Size = new System.Drawing.Size(27, 20);
             this.textBox_AutoStartMiningDelay.TabIndex = 377;
             this.textBox_AutoStartMiningDelay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_AutoStartMiningDelay_KeyPress);
-            //
+            // 
             // label_AutoStartMiningDelay
-            //
+            // 
             this.label_AutoStartMiningDelay.AutoSize = true;
             this.label_AutoStartMiningDelay.Location = new System.Drawing.Point(28, 45);
             this.label_AutoStartMiningDelay.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -624,9 +624,9 @@
             this.label_AutoStartMiningDelay.Size = new System.Drawing.Size(139, 13);
             this.label_AutoStartMiningDelay.TabIndex = 376;
             this.label_AutoStartMiningDelay.Text = "Autostart Mining Delay (sec)";
-            //
+            // 
             // comboBox_ColorProfile
-            //
+            // 
             this.comboBox_ColorProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_ColorProfile.FormattingEnabled = true;
             this.comboBox_ColorProfile.Location = new System.Drawing.Point(171, 396);
@@ -636,9 +636,9 @@
             this.comboBox_ColorProfile.TabIndex = 378;
             this.comboBox_ColorProfile.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox_ColorProfile_DrawItem);
             this.comboBox_ColorProfile.SelectedIndexChanged += new System.EventHandler(this.comboBox_ColorProfile_SelectedIndexChanged);
-            //
+            // 
             // checkBox_Send_actual_version_info
-            //
+            // 
             this.checkBox_Send_actual_version_info.AutoSize = true;
             this.checkBox_Send_actual_version_info.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBox_Send_actual_version_info.Location = new System.Drawing.Point(4, 373);
@@ -649,9 +649,9 @@
             this.checkBox_Send_actual_version_info.Text = "Send actual version info";
             this.checkBox_Send_actual_version_info.UseVisualStyleBackColor = true;
             this.checkBox_Send_actual_version_info.CheckedChanged += new System.EventHandler(this.checkBox_Send_actual_version_info_CheckedChanged);
-            //
+            // 
             // checkBox_Allow_remote_management
-            //
+            // 
             this.checkBox_Allow_remote_management.AutoSize = true;
             this.checkBox_Allow_remote_management.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBox_Allow_remote_management.Location = new System.Drawing.Point(4, 350);
@@ -661,9 +661,9 @@
             this.checkBox_Allow_remote_management.TabIndex = 374;
             this.checkBox_Allow_remote_management.Text = "Allow remote management";
             this.checkBox_Allow_remote_management.UseVisualStyleBackColor = true;
-            //
+            // 
             // pictureBox_RunScriptOnCUDA_GPU_Lost
-            //
+            // 
             this.pictureBox_RunScriptOnCUDA_GPU_Lost.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_RunScriptOnCUDA_GPU_Lost.Location = new System.Drawing.Point(250, 326);
             this.pictureBox_RunScriptOnCUDA_GPU_Lost.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -672,9 +672,9 @@
             this.pictureBox_RunScriptOnCUDA_GPU_Lost.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_RunScriptOnCUDA_GPU_Lost.TabIndex = 373;
             this.pictureBox_RunScriptOnCUDA_GPU_Lost.TabStop = false;
-            //
+            // 
             // checkBox_RunScriptOnCUDA_GPU_Lost
-            //
+            // 
             this.checkBox_RunScriptOnCUDA_GPU_Lost.AutoSize = true;
             this.checkBox_RunScriptOnCUDA_GPU_Lost.Location = new System.Drawing.Point(4, 327);
             this.checkBox_RunScriptOnCUDA_GPU_Lost.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -684,9 +684,9 @@
             this.checkBox_RunScriptOnCUDA_GPU_Lost.Text = "Run script when CUDA GPU is lost";
             this.checkBox_RunScriptOnCUDA_GPU_Lost.UseVisualStyleBackColor = true;
             this.checkBox_RunScriptOnCUDA_GPU_Lost.CheckedChanged += new System.EventHandler(this.checkBox_RunScriptOnCUDA_GPU_Lost_CheckedChanged);
-            //
+            // 
             // pictureBox_ShowInternetConnectionWarning
-            //
+            // 
             this.pictureBox_ShowInternetConnectionWarning.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_ShowInternetConnectionWarning.Location = new System.Drawing.Point(250, 304);
             this.pictureBox_ShowInternetConnectionWarning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -695,9 +695,9 @@
             this.pictureBox_ShowInternetConnectionWarning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_ShowInternetConnectionWarning.TabIndex = 371;
             this.pictureBox_ShowInternetConnectionWarning.TabStop = false;
-            //
+            // 
             // checkBox_ShowInternetConnectionWarning
-            //
+            // 
             this.checkBox_ShowInternetConnectionWarning.AutoSize = true;
             this.checkBox_ShowInternetConnectionWarning.Location = new System.Drawing.Point(4, 305);
             this.checkBox_ShowInternetConnectionWarning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -706,9 +706,9 @@
             this.checkBox_ShowInternetConnectionWarning.TabIndex = 370;
             this.checkBox_ShowInternetConnectionWarning.Text = "Show Internet Connection Warning";
             this.checkBox_ShowInternetConnectionWarning.UseVisualStyleBackColor = true;
-            //
+            // 
             // checkBox_MinimizeMiningWindows
-            //
+            // 
             this.checkBox_MinimizeMiningWindows.AutoSize = true;
             this.checkBox_MinimizeMiningWindows.Location = new System.Drawing.Point(4, 88);
             this.checkBox_MinimizeMiningWindows.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -717,9 +717,9 @@
             this.checkBox_MinimizeMiningWindows.TabIndex = 368;
             this.checkBox_MinimizeMiningWindows.Text = "MinimizeMiningWindows";
             this.checkBox_MinimizeMiningWindows.UseVisualStyleBackColor = true;
-            //
+            // 
             // pictureBox_MinimizeMiningWindows
-            //
+            // 
             this.pictureBox_MinimizeMiningWindows.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_MinimizeMiningWindows.Location = new System.Drawing.Point(250, 87);
             this.pictureBox_MinimizeMiningWindows.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -728,9 +728,9 @@
             this.pictureBox_MinimizeMiningWindows.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_MinimizeMiningWindows.TabIndex = 369;
             this.pictureBox_MinimizeMiningWindows.TabStop = false;
-            //
+            // 
             // pictureBox_RunAtStartup
-            //
+            // 
             this.pictureBox_RunAtStartup.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_RunAtStartup.Location = new System.Drawing.Point(250, 282);
             this.pictureBox_RunAtStartup.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -739,9 +739,9 @@
             this.pictureBox_RunAtStartup.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_RunAtStartup.TabIndex = 367;
             this.pictureBox_RunAtStartup.TabStop = false;
-            //
+            // 
             // checkBox_RunAtStartup
-            //
+            // 
             this.checkBox_RunAtStartup.AutoSize = true;
             this.checkBox_RunAtStartup.Location = new System.Drawing.Point(4, 283);
             this.checkBox_RunAtStartup.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -751,9 +751,9 @@
             this.checkBox_RunAtStartup.Text = "Start With Windows";
             this.checkBox_RunAtStartup.UseVisualStyleBackColor = true;
             this.checkBox_RunAtStartup.CheckedChanged += new System.EventHandler(this.CheckBox_RunAtStartup_CheckedChanged);
-            //
+            // 
             // checkBox_AllowMultipleInstances
-            //
+            // 
             this.checkBox_AllowMultipleInstances.AutoSize = true;
             this.checkBox_AllowMultipleInstances.Location = new System.Drawing.Point(4, 261);
             this.checkBox_AllowMultipleInstances.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -763,9 +763,9 @@
             this.checkBox_AllowMultipleInstances.Text = "Allow Multiple Instances";
             this.checkBox_AllowMultipleInstances.UseVisualStyleBackColor = true;
             this.checkBox_AllowMultipleInstances.CheckedChanged += new System.EventHandler(this.CheckBox_DisableDefaultOptimizations_CheckedChanged);
-            //
+            // 
             // checkBox_DisableDefaultOptimizations
-            //
+            // 
             this.checkBox_DisableDefaultOptimizations.AutoSize = true;
             this.checkBox_DisableDefaultOptimizations.Location = new System.Drawing.Point(4, 240);
             this.checkBox_DisableDefaultOptimizations.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -775,9 +775,9 @@
             this.checkBox_DisableDefaultOptimizations.Text = "Disable Default Optimizations";
             this.checkBox_DisableDefaultOptimizations.UseVisualStyleBackColor = true;
             this.checkBox_DisableDefaultOptimizations.CheckedChanged += new System.EventHandler(this.CheckBox_DisableDefaultOptimizations_CheckedChanged);
-            //
+            // 
             // checkBox_AutoStartMining
-            //
+            // 
             this.checkBox_AutoStartMining.AutoSize = true;
             this.checkBox_AutoStartMining.Location = new System.Drawing.Point(6, 19);
             this.checkBox_AutoStartMining.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -787,9 +787,9 @@
             this.checkBox_AutoStartMining.Text = "Autostart Mining";
             this.checkBox_AutoStartMining.UseVisualStyleBackColor = true;
             this.checkBox_AutoStartMining.CheckedChanged += new System.EventHandler(this.checkBox_AutoStartMining_CheckedChanged);
-            //
+            // 
             // checkBox_HideMiningWindows
-            //
+            // 
             this.checkBox_HideMiningWindows.AutoSize = true;
             this.checkBox_HideMiningWindows.Location = new System.Drawing.Point(4, 67);
             this.checkBox_HideMiningWindows.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -798,9 +798,9 @@
             this.checkBox_HideMiningWindows.TabIndex = 315;
             this.checkBox_HideMiningWindows.Text = "HideMiningWindows";
             this.checkBox_HideMiningWindows.UseVisualStyleBackColor = true;
-            //
+            // 
             // pictureBox_AllowMultipleInstances
-            //
+            // 
             this.pictureBox_AllowMultipleInstances.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_AllowMultipleInstances.Location = new System.Drawing.Point(250, 260);
             this.pictureBox_AllowMultipleInstances.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -809,9 +809,9 @@
             this.pictureBox_AllowMultipleInstances.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_AllowMultipleInstances.TabIndex = 364;
             this.pictureBox_AllowMultipleInstances.TabStop = false;
-            //
+            // 
             // checkBox_MinimizeToTray
-            //
+            // 
             this.checkBox_MinimizeToTray.AutoSize = true;
             this.checkBox_MinimizeToTray.Location = new System.Drawing.Point(4, 110);
             this.checkBox_MinimizeToTray.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -820,9 +820,9 @@
             this.checkBox_MinimizeToTray.TabIndex = 316;
             this.checkBox_MinimizeToTray.Text = "MinimizeToTray";
             this.checkBox_MinimizeToTray.UseVisualStyleBackColor = true;
-            //
+            // 
             // pictureBox_DisableDefaultOptimizations
-            //
+            // 
             this.pictureBox_DisableDefaultOptimizations.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_DisableDefaultOptimizations.Location = new System.Drawing.Point(250, 239);
             this.pictureBox_DisableDefaultOptimizations.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -831,9 +831,9 @@
             this.pictureBox_DisableDefaultOptimizations.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_DisableDefaultOptimizations.TabIndex = 364;
             this.pictureBox_DisableDefaultOptimizations.TabStop = false;
-            //
+            // 
             // pictureBox_DisableWindowsErrorReporting
-            //
+            // 
             this.pictureBox_DisableWindowsErrorReporting.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_DisableWindowsErrorReporting.Location = new System.Drawing.Point(250, 216);
             this.pictureBox_DisableWindowsErrorReporting.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -842,9 +842,9 @@
             this.pictureBox_DisableWindowsErrorReporting.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_DisableWindowsErrorReporting.TabIndex = 364;
             this.pictureBox_DisableWindowsErrorReporting.TabStop = false;
-            //
+            // 
             // pictureBox_ShowDriverVersionWarning
-            //
+            // 
             this.pictureBox_ShowDriverVersionWarning.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_ShowDriverVersionWarning.Location = new System.Drawing.Point(250, 195);
             this.pictureBox_ShowDriverVersionWarning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -853,9 +853,9 @@
             this.pictureBox_ShowDriverVersionWarning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_ShowDriverVersionWarning.TabIndex = 364;
             this.pictureBox_ShowDriverVersionWarning.TabStop = false;
-            //
+            // 
             // pictureBox_StartMiningWhenIdle
-            //
+            // 
             this.pictureBox_StartMiningWhenIdle.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_StartMiningWhenIdle.Location = new System.Drawing.Point(250, 173);
             this.pictureBox_StartMiningWhenIdle.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -864,9 +864,9 @@
             this.pictureBox_StartMiningWhenIdle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_StartMiningWhenIdle.TabIndex = 364;
             this.pictureBox_StartMiningWhenIdle.TabStop = false;
-            //
+            // 
             // pictureBox_AutoScaleBTCValues
-            //
+            // 
             this.pictureBox_AutoScaleBTCValues.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_AutoScaleBTCValues.Location = new System.Drawing.Point(250, 152);
             this.pictureBox_AutoScaleBTCValues.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -875,9 +875,9 @@
             this.pictureBox_AutoScaleBTCValues.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_AutoScaleBTCValues.TabIndex = 364;
             this.pictureBox_AutoScaleBTCValues.TabStop = false;
-            //
+            // 
             // pictureBox_Use3rdPartyMiners
-            //
+            // 
             this.pictureBox_Use3rdPartyMiners.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_Use3rdPartyMiners.Location = new System.Drawing.Point(250, 129);
             this.pictureBox_Use3rdPartyMiners.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -886,9 +886,9 @@
             this.pictureBox_Use3rdPartyMiners.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_Use3rdPartyMiners.TabIndex = 364;
             this.pictureBox_Use3rdPartyMiners.TabStop = false;
-            //
+            // 
             // pictureBox_AutoStartMining
-            //
+            // 
             this.pictureBox_AutoStartMining.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_AutoStartMining.Location = new System.Drawing.Point(252, 18);
             this.pictureBox_AutoStartMining.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -897,9 +897,9 @@
             this.pictureBox_AutoStartMining.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_AutoStartMining.TabIndex = 364;
             this.pictureBox_AutoStartMining.TabStop = false;
-            //
+            // 
             // pictureBox_MinimizeToTray
-            //
+            // 
             this.pictureBox_MinimizeToTray.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_MinimizeToTray.Location = new System.Drawing.Point(250, 109);
             this.pictureBox_MinimizeToTray.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -908,9 +908,9 @@
             this.pictureBox_MinimizeToTray.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_MinimizeToTray.TabIndex = 364;
             this.pictureBox_MinimizeToTray.TabStop = false;
-            //
+            // 
             // pictureBox_HideMiningWindows
-            //
+            // 
             this.pictureBox_HideMiningWindows.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_HideMiningWindows.Location = new System.Drawing.Point(250, 66);
             this.pictureBox_HideMiningWindows.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -919,9 +919,9 @@
             this.pictureBox_HideMiningWindows.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_HideMiningWindows.TabIndex = 364;
             this.pictureBox_HideMiningWindows.TabStop = false;
-            //
+            // 
             // checkBox_Use3rdPartyMiners
-            //
+            // 
             this.checkBox_Use3rdPartyMiners.AutoSize = true;
             this.checkBox_Use3rdPartyMiners.Location = new System.Drawing.Point(4, 131);
             this.checkBox_Use3rdPartyMiners.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -931,9 +931,9 @@
             this.checkBox_Use3rdPartyMiners.Text = "Enable3rdPartyMiners";
             this.checkBox_Use3rdPartyMiners.UseVisualStyleBackColor = true;
             this.checkBox_Use3rdPartyMiners.CheckedChanged += new System.EventHandler(this.CheckBox_Use3rdPartyMiners_CheckedChanged);
-            //
+            // 
             // checkBox_AutoScaleBTCValues
-            //
+            // 
             this.checkBox_AutoScaleBTCValues.AutoSize = true;
             this.checkBox_AutoScaleBTCValues.Location = new System.Drawing.Point(4, 153);
             this.checkBox_AutoScaleBTCValues.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -942,9 +942,9 @@
             this.checkBox_AutoScaleBTCValues.TabIndex = 321;
             this.checkBox_AutoScaleBTCValues.Text = "AutoScaleBTCValues";
             this.checkBox_AutoScaleBTCValues.UseVisualStyleBackColor = true;
-            //
+            // 
             // checkBox_DisableWindowsErrorReporting
-            //
+            // 
             this.checkBox_DisableWindowsErrorReporting.AutoSize = true;
             this.checkBox_DisableWindowsErrorReporting.Location = new System.Drawing.Point(4, 217);
             this.checkBox_DisableWindowsErrorReporting.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -953,9 +953,9 @@
             this.checkBox_DisableWindowsErrorReporting.TabIndex = 324;
             this.checkBox_DisableWindowsErrorReporting.Text = "DisableWindowsErrorReporting";
             this.checkBox_DisableWindowsErrorReporting.UseVisualStyleBackColor = true;
-            //
+            // 
             // checkBox_StartMiningWhenIdle
-            //
+            // 
             this.checkBox_StartMiningWhenIdle.AutoSize = true;
             this.checkBox_StartMiningWhenIdle.Location = new System.Drawing.Point(4, 174);
             this.checkBox_StartMiningWhenIdle.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -964,9 +964,9 @@
             this.checkBox_StartMiningWhenIdle.TabIndex = 322;
             this.checkBox_StartMiningWhenIdle.Text = "StartMiningWhenIdle";
             this.checkBox_StartMiningWhenIdle.UseVisualStyleBackColor = true;
-            //
+            // 
             // checkBox_ShowDriverVersionWarning
-            //
+            // 
             this.checkBox_ShowDriverVersionWarning.AutoSize = true;
             this.checkBox_ShowDriverVersionWarning.Location = new System.Drawing.Point(4, 196);
             this.checkBox_ShowDriverVersionWarning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -975,9 +975,9 @@
             this.checkBox_ShowDriverVersionWarning.TabIndex = 323;
             this.checkBox_ShowDriverVersionWarning.Text = "ShowDriverVersionWarning";
             this.checkBox_ShowDriverVersionWarning.UseVisualStyleBackColor = true;
-            //
+            // 
             // groupBox_Logging
-            //
+            // 
             this.groupBox_Logging.Controls.Add(this.label_LogMaxFileSize);
             this.groupBox_Logging.Controls.Add(this.textBox_LogMaxFileSize);
             this.groupBox_Logging.Controls.Add(this.checkBox_LogToFile);
@@ -993,9 +993,9 @@
             this.groupBox_Logging.TabIndex = 388;
             this.groupBox_Logging.TabStop = false;
             this.groupBox_Logging.Text = "Logging:";
-            //
+            // 
             // label_LogMaxFileSize
-            //
+            // 
             this.label_LogMaxFileSize.AutoSize = true;
             this.label_LogMaxFileSize.Location = new System.Drawing.Point(174, 19);
             this.label_LogMaxFileSize.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -1003,17 +1003,17 @@
             this.label_LogMaxFileSize.Size = new System.Drawing.Size(84, 13);
             this.label_LogMaxFileSize.TabIndex = 357;
             this.label_LogMaxFileSize.Text = "LogMaxFileSize:";
-            //
+            // 
             // textBox_LogMaxFileSize
-            //
+            // 
             this.textBox_LogMaxFileSize.Location = new System.Drawing.Point(174, 41);
             this.textBox_LogMaxFileSize.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_LogMaxFileSize.Name = "textBox_LogMaxFileSize";
             this.textBox_LogMaxFileSize.Size = new System.Drawing.Size(160, 20);
             this.textBox_LogMaxFileSize.TabIndex = 334;
-            //
+            // 
             // checkBox_LogToFile
-            //
+            // 
             this.checkBox_LogToFile.AutoSize = true;
             this.checkBox_LogToFile.Location = new System.Drawing.Point(6, 19);
             this.checkBox_LogToFile.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1022,9 +1022,9 @@
             this.checkBox_LogToFile.TabIndex = 327;
             this.checkBox_LogToFile.Text = "Log to file";
             this.checkBox_LogToFile.UseVisualStyleBackColor = true;
-            //
+            // 
             // pictureBox_DebugConsole
-            //
+            // 
             this.pictureBox_DebugConsole.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_DebugConsole.Location = new System.Drawing.Point(130, 42);
             this.pictureBox_DebugConsole.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1033,9 +1033,9 @@
             this.pictureBox_DebugConsole.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_DebugConsole.TabIndex = 364;
             this.pictureBox_DebugConsole.TabStop = false;
-            //
+            // 
             // pictureBox_LogMaxFileSize
-            //
+            // 
             this.pictureBox_LogMaxFileSize.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_LogMaxFileSize.Location = new System.Drawing.Point(318, 19);
             this.pictureBox_LogMaxFileSize.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1044,9 +1044,9 @@
             this.pictureBox_LogMaxFileSize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_LogMaxFileSize.TabIndex = 364;
             this.pictureBox_LogMaxFileSize.TabStop = false;
-            //
+            // 
             // pictureBox_LogToFile
-            //
+            // 
             this.pictureBox_LogToFile.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_LogToFile.Location = new System.Drawing.Point(130, 19);
             this.pictureBox_LogToFile.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1055,9 +1055,9 @@
             this.pictureBox_LogToFile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_LogToFile.TabIndex = 364;
             this.pictureBox_LogToFile.TabStop = false;
-            //
+            // 
             // checkBox_DebugConsole
-            //
+            // 
             this.checkBox_DebugConsole.AutoSize = true;
             this.checkBox_DebugConsole.Location = new System.Drawing.Point(6, 42);
             this.checkBox_DebugConsole.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1066,9 +1066,9 @@
             this.checkBox_DebugConsole.TabIndex = 313;
             this.checkBox_DebugConsole.Text = "DebugConsole";
             this.checkBox_DebugConsole.UseVisualStyleBackColor = true;
-            //
+            // 
             // groupBox_Localization
-            //
+            // 
             this.groupBox_Localization.Controls.Add(this.label_Language);
             this.groupBox_Localization.Controls.Add(this.pictureBox5);
             this.groupBox_Localization.Controls.Add(this.pictureBox_displayCurrency);
@@ -1084,9 +1084,9 @@
             this.groupBox_Localization.TabIndex = 385;
             this.groupBox_Localization.TabStop = false;
             this.groupBox_Localization.Text = "Localization:";
-            //
+            // 
             // label_Language
-            //
+            // 
             this.label_Language.AutoSize = true;
             this.label_Language.Location = new System.Drawing.Point(6, 16);
             this.label_Language.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -1094,9 +1094,9 @@
             this.label_Language.Size = new System.Drawing.Size(58, 13);
             this.label_Language.TabIndex = 358;
             this.label_Language.Text = "Language:";
-            //
+            // 
             // pictureBox5
-            //
+            // 
             this.pictureBox5.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox5.Location = new System.Drawing.Point(-58, 59);
             this.pictureBox5.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1105,9 +1105,9 @@
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox5.TabIndex = 364;
             this.pictureBox5.TabStop = false;
-            //
+            // 
             // pictureBox_displayCurrency
-            //
+            // 
             this.pictureBox_displayCurrency.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_displayCurrency.Location = new System.Drawing.Point(314, 16);
             this.pictureBox_displayCurrency.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1116,9 +1116,9 @@
             this.pictureBox_displayCurrency.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_displayCurrency.TabIndex = 364;
             this.pictureBox_displayCurrency.TabStop = false;
-            //
+            // 
             // pictureBox_Language
-            //
+            // 
             this.pictureBox_Language.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_Language.Location = new System.Drawing.Point(178, 16);
             this.pictureBox_Language.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1127,9 +1127,9 @@
             this.pictureBox_Language.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_Language.TabIndex = 364;
             this.pictureBox_Language.TabStop = false;
-            //
+            // 
             // comboBox_Language
-            //
+            // 
             this.comboBox_Language.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Language.FormattingEnabled = true;
             this.comboBox_Language.Location = new System.Drawing.Point(6, 36);
@@ -1139,9 +1139,9 @@
             this.comboBox_Language.TabIndex = 328;
             this.comboBox_Language.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox_Language_DrawItem);
             this.comboBox_Language.SelectedIndexChanged += new System.EventHandler(this.comboBox_Language_SelectedIndexChanged);
-            //
+            // 
             // currencyConverterCombobox
-            //
+            // 
             this.currencyConverterCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.currencyConverterCombobox.FormattingEnabled = true;
             this.currencyConverterCombobox.Items.AddRange(new object[] {
@@ -1185,9 +1185,9 @@
             this.currencyConverterCombobox.TabIndex = 381;
             this.currencyConverterCombobox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.currencyConverterCombobox_DrawItem);
             this.currencyConverterCombobox.SelectedIndexChanged += new System.EventHandler(this.CurrencyConverterCombobox_SelectedIndexChanged);
-            //
+            // 
             // label_displayCurrency
-            //
+            // 
             this.label_displayCurrency.AutoSize = true;
             this.label_displayCurrency.Location = new System.Drawing.Point(212, 16);
             this.label_displayCurrency.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -1195,9 +1195,9 @@
             this.label_displayCurrency.Size = new System.Drawing.Size(89, 13);
             this.label_displayCurrency.TabIndex = 382;
             this.label_displayCurrency.Text = "Display Currency:";
-            //
+            // 
             // tabPageAdvanced1
-            //
+            // 
             this.tabPageAdvanced1.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageAdvanced1.Controls.Add(this.groupBoxMOPA);
             this.tabPageAdvanced1.Controls.Add(this.groupBox_Miners);
@@ -1206,12 +1206,13 @@
             this.tabPageAdvanced1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPageAdvanced1.Name = "tabPageAdvanced1";
             this.tabPageAdvanced1.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tabPageAdvanced1.Size = new System.Drawing.Size(656, 496);
+            this.tabPageAdvanced1.Size = new System.Drawing.Size(652, 496);
             this.tabPageAdvanced1.TabIndex = 2;
             this.tabPageAdvanced1.Text = "Advanced";
-            //
+            // 
             // groupBoxMOPA
-            //
+            // 
+            this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA5);
             this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA4);
             this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA3);
             this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA2);
@@ -1224,11 +1225,11 @@
             this.groupBoxMOPA.TabIndex = 396;
             this.groupBoxMOPA.TabStop = false;
             this.groupBoxMOPA.Text = "Method of obtaining profitability of algorithms:";
-            //
+            // 
             // radioButtonMOPA4
-            //
+            // 
             this.radioButtonMOPA4.AutoSize = true;
-            this.radioButtonMOPA4.Location = new System.Drawing.Point(242, 42);
+            this.radioButtonMOPA4.Location = new System.Drawing.Point(10, 42);
             this.radioButtonMOPA4.Name = "radioButtonMOPA4";
             this.radioButtonMOPA4.Size = new System.Drawing.Size(139, 17);
             this.radioButtonMOPA4.TabIndex = 398;
@@ -1236,11 +1237,11 @@
             this.radioButtonMOPA4.Text = "24 hours avg profitability";
             this.radioButtonMOPA4.UseVisualStyleBackColor = true;
             this.radioButtonMOPA4.CheckedChanged += new System.EventHandler(this.radioButtonMOPA4_CheckedChanged);
-            //
+            // 
             // radioButtonMOPA3
-            //
+            // 
             this.radioButtonMOPA3.AutoSize = true;
-            this.radioButtonMOPA3.Location = new System.Drawing.Point(10, 42);
+            this.radioButtonMOPA3.Location = new System.Drawing.Point(465, 19);
             this.radioButtonMOPA3.Name = "radioButtonMOPA3";
             this.radioButtonMOPA3.Size = new System.Drawing.Size(143, 17);
             this.radioButtonMOPA3.TabIndex = 397;
@@ -1248,9 +1249,9 @@
             this.radioButtonMOPA3.Text = "5 minutes avg profitability";
             this.radioButtonMOPA3.UseVisualStyleBackColor = true;
             this.radioButtonMOPA3.CheckedChanged += new System.EventHandler(this.radioButtonMOPA3_CheckedChanged);
-            //
+            // 
             // radioButtonMOPA2
-            //
+            // 
             this.radioButtonMOPA2.AutoSize = true;
             this.radioButtonMOPA2.Location = new System.Drawing.Point(242, 19);
             this.radioButtonMOPA2.Name = "radioButtonMOPA2";
@@ -1260,9 +1261,9 @@
             this.radioButtonMOPA2.Text = "Current profitability";
             this.radioButtonMOPA2.UseVisualStyleBackColor = true;
             this.radioButtonMOPA2.CheckedChanged += new System.EventHandler(this.radioButtonMOPA2_CheckedChanged);
-            //
+            // 
             // radioButtonMOPA1
-            //
+            // 
             this.radioButtonMOPA1.AutoSize = true;
             this.radioButtonMOPA1.Location = new System.Drawing.Point(10, 19);
             this.radioButtonMOPA1.Name = "radioButtonMOPA1";
@@ -1272,9 +1273,9 @@
             this.radioButtonMOPA1.Text = "Standart NHM";
             this.radioButtonMOPA1.UseVisualStyleBackColor = true;
             this.radioButtonMOPA1.CheckedChanged += new System.EventHandler(this.radioButtonMOPA1_CheckedChanged);
-            //
+            // 
             // groupBox_Miners
-            //
+            // 
             this.groupBox_Miners.Controls.Add(this.pictureBox_MinerRestartDelayMS);
             this.groupBox_Miners.Controls.Add(this.pictureBox_APIBindPortStart);
             this.groupBox_Miners.Controls.Add(this.pictureBox_SwitchMaxSeconds);
@@ -1301,9 +1302,9 @@
             this.groupBox_Miners.TabIndex = 389;
             this.groupBox_Miners.TabStop = false;
             this.groupBox_Miners.Text = "Miners:";
-            //
+            // 
             // pictureBox_MinerRestartDelayMS
-            //
+            // 
             this.pictureBox_MinerRestartDelayMS.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_MinerRestartDelayMS.Location = new System.Drawing.Point(394, 15);
             this.pictureBox_MinerRestartDelayMS.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1312,9 +1313,9 @@
             this.pictureBox_MinerRestartDelayMS.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_MinerRestartDelayMS.TabIndex = 385;
             this.pictureBox_MinerRestartDelayMS.TabStop = false;
-            //
+            // 
             // pictureBox_APIBindPortStart
-            //
+            // 
             this.pictureBox_APIBindPortStart.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_APIBindPortStart.Location = new System.Drawing.Point(617, 15);
             this.pictureBox_APIBindPortStart.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1323,9 +1324,9 @@
             this.pictureBox_APIBindPortStart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_APIBindPortStart.TabIndex = 385;
             this.pictureBox_APIBindPortStart.TabStop = false;
-            //
+            // 
             // pictureBox_SwitchMaxSeconds
-            //
+            // 
             this.pictureBox_SwitchMaxSeconds.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_SwitchMaxSeconds.Location = new System.Drawing.Point(394, 59);
             this.pictureBox_SwitchMaxSeconds.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1334,9 +1335,9 @@
             this.pictureBox_SwitchMaxSeconds.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_SwitchMaxSeconds.TabIndex = 385;
             this.pictureBox_SwitchMaxSeconds.TabStop = false;
-            //
+            // 
             // pictureBox_SwitchProfitabilityThreshold
-            //
+            // 
             this.pictureBox_SwitchProfitabilityThreshold.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_SwitchProfitabilityThreshold.Location = new System.Drawing.Point(617, 61);
             this.pictureBox_SwitchProfitabilityThreshold.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1345,9 +1346,9 @@
             this.pictureBox_SwitchProfitabilityThreshold.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_SwitchProfitabilityThreshold.TabIndex = 385;
             this.pictureBox_SwitchProfitabilityThreshold.TabStop = false;
-            //
+            // 
             // pictureBox_SwitchMinSeconds
-            //
+            // 
             this.pictureBox_SwitchMinSeconds.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_SwitchMinSeconds.Location = new System.Drawing.Point(168, 59);
             this.pictureBox_SwitchMinSeconds.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1356,9 +1357,9 @@
             this.pictureBox_SwitchMinSeconds.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_SwitchMinSeconds.TabIndex = 385;
             this.pictureBox_SwitchMinSeconds.TabStop = false;
-            //
+            // 
             // pictureBox_MinIdleSeconds
-            //
+            // 
             this.pictureBox_MinIdleSeconds.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_MinIdleSeconds.Location = new System.Drawing.Point(168, 15);
             this.pictureBox_MinIdleSeconds.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1367,9 +1368,9 @@
             this.pictureBox_MinIdleSeconds.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_MinIdleSeconds.TabIndex = 385;
             this.pictureBox_MinIdleSeconds.TabStop = false;
-            //
+            // 
             // label_MinIdleSeconds
-            //
+            // 
             this.label_MinIdleSeconds.AutoSize = true;
             this.label_MinIdleSeconds.Location = new System.Drawing.Point(10, 15);
             this.label_MinIdleSeconds.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -1377,9 +1378,9 @@
             this.label_MinIdleSeconds.Size = new System.Drawing.Size(86, 13);
             this.label_MinIdleSeconds.TabIndex = 356;
             this.label_MinIdleSeconds.Text = "MinIdleSeconds:";
-            //
+            // 
             // label_SwitchMaxSeconds
-            //
+            // 
             this.label_SwitchMaxSeconds.AutoSize = true;
             this.label_SwitchMaxSeconds.Location = new System.Drawing.Point(242, 59);
             this.label_SwitchMaxSeconds.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -1387,9 +1388,9 @@
             this.label_SwitchMaxSeconds.Size = new System.Drawing.Size(86, 13);
             this.label_SwitchMaxSeconds.TabIndex = 378;
             this.label_SwitchMaxSeconds.Text = "SwitchMaxSecs:";
-            //
+            // 
             // label_MinerRestartDelayMS
-            //
+            // 
             this.label_MinerRestartDelayMS.AutoSize = true;
             this.label_MinerRestartDelayMS.Location = new System.Drawing.Point(242, 15);
             this.label_MinerRestartDelayMS.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -1397,17 +1398,17 @@
             this.label_MinerRestartDelayMS.Size = new System.Drawing.Size(113, 13);
             this.label_MinerRestartDelayMS.TabIndex = 375;
             this.label_MinerRestartDelayMS.Text = "MinerRestartDelayMS:";
-            //
+            // 
             // textBox_SwitchMinSeconds
-            //
+            // 
             this.textBox_SwitchMinSeconds.Location = new System.Drawing.Point(10, 78);
             this.textBox_SwitchMinSeconds.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_SwitchMinSeconds.Name = "textBox_SwitchMinSeconds";
             this.textBox_SwitchMinSeconds.Size = new System.Drawing.Size(178, 20);
             this.textBox_SwitchMinSeconds.TabIndex = 342;
-            //
+            // 
             // label_APIBindPortStart
-            //
+            // 
             this.label_APIBindPortStart.AutoSize = true;
             this.label_APIBindPortStart.Location = new System.Drawing.Point(465, 15);
             this.label_APIBindPortStart.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -1415,18 +1416,18 @@
             this.label_APIBindPortStart.Size = new System.Drawing.Size(118, 13);
             this.label_APIBindPortStart.TabIndex = 357;
             this.label_APIBindPortStart.Text = "API Bind port pool start:";
-            //
+            // 
             // textBox_SwitchProfitabilityThreshold
-            //
+            // 
             this.textBox_SwitchProfitabilityThreshold.Location = new System.Drawing.Point(465, 79);
             this.textBox_SwitchProfitabilityThreshold.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_SwitchProfitabilityThreshold.Name = "textBox_SwitchProfitabilityThreshold";
             this.textBox_SwitchProfitabilityThreshold.Size = new System.Drawing.Size(172, 20);
             this.textBox_SwitchProfitabilityThreshold.TabIndex = 333;
             this.textBox_SwitchProfitabilityThreshold.Leave += new System.EventHandler(this.GeneralTextBoxes_Leave);
-            //
+            // 
             // label_SwitchProfitabilityThreshold
-            //
+            // 
             this.label_SwitchProfitabilityThreshold.AutoSize = true;
             this.label_SwitchProfitabilityThreshold.Location = new System.Drawing.Point(463, 59);
             this.label_SwitchProfitabilityThreshold.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -1434,17 +1435,17 @@
             this.label_SwitchProfitabilityThreshold.Size = new System.Drawing.Size(136, 13);
             this.label_SwitchProfitabilityThreshold.TabIndex = 361;
             this.label_SwitchProfitabilityThreshold.Text = "SwitchProfitabilityThreshold";
-            //
+            // 
             // textBox_APIBindPortStart
-            //
+            // 
             this.textBox_APIBindPortStart.Location = new System.Drawing.Point(465, 33);
             this.textBox_APIBindPortStart.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_APIBindPortStart.Name = "textBox_APIBindPortStart";
             this.textBox_APIBindPortStart.Size = new System.Drawing.Size(172, 20);
             this.textBox_APIBindPortStart.TabIndex = 334;
-            //
+            // 
             // label_SwitchMinSeconds
-            //
+            // 
             this.label_SwitchMinSeconds.AutoSize = true;
             this.label_SwitchMinSeconds.Location = new System.Drawing.Point(10, 59);
             this.label_SwitchMinSeconds.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -1452,33 +1453,33 @@
             this.label_SwitchMinSeconds.Size = new System.Drawing.Size(83, 13);
             this.label_SwitchMinSeconds.TabIndex = 362;
             this.label_SwitchMinSeconds.Text = "SwitchMinSecs:";
-            //
+            // 
             // textBox_MinIdleSeconds
-            //
+            // 
             this.textBox_MinIdleSeconds.Location = new System.Drawing.Point(10, 33);
             this.textBox_MinIdleSeconds.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_MinIdleSeconds.Name = "textBox_MinIdleSeconds";
             this.textBox_MinIdleSeconds.Size = new System.Drawing.Size(178, 20);
             this.textBox_MinIdleSeconds.TabIndex = 335;
-            //
+            // 
             // textBox_SwitchMaxSeconds
-            //
+            // 
             this.textBox_SwitchMaxSeconds.Location = new System.Drawing.Point(242, 78);
             this.textBox_SwitchMaxSeconds.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_SwitchMaxSeconds.Name = "textBox_SwitchMaxSeconds";
             this.textBox_SwitchMaxSeconds.Size = new System.Drawing.Size(172, 20);
             this.textBox_SwitchMaxSeconds.TabIndex = 337;
-            //
+            // 
             // textBox_MinerRestartDelayMS
-            //
+            // 
             this.textBox_MinerRestartDelayMS.Location = new System.Drawing.Point(242, 33);
             this.textBox_MinerRestartDelayMS.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox_MinerRestartDelayMS.Name = "textBox_MinerRestartDelayMS";
             this.textBox_MinerRestartDelayMS.Size = new System.Drawing.Size(172, 20);
             this.textBox_MinerRestartDelayMS.TabIndex = 340;
-            //
+            // 
             // groupBox1
-            //
+            // 
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.checkBox_DisableDetectionCPU);
             this.groupBox1.Controls.Add(this.checkBox_Additional_info_about_device);
@@ -1498,9 +1499,9 @@
             this.groupBox1.TabIndex = 394;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Devices:";
-            //
+            // 
             // pictureBox1
-            //
+            // 
             this.pictureBox1.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox1.Location = new System.Drawing.Point(10, 64);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1509,9 +1510,9 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 400;
             this.pictureBox1.TabStop = false;
-            //
+            // 
             // checkBox_DisableDetectionCPU
-            //
+            // 
             this.checkBox_DisableDetectionCPU.AutoSize = true;
             this.checkBox_DisableDetectionCPU.Location = new System.Drawing.Point(32, 64);
             this.checkBox_DisableDetectionCPU.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1520,9 +1521,9 @@
             this.checkBox_DisableDetectionCPU.TabIndex = 399;
             this.checkBox_DisableDetectionCPU.Text = "Disable Detection CPU";
             this.checkBox_DisableDetectionCPU.UseVisualStyleBackColor = true;
-            //
+            // 
             // checkBox_Additional_info_about_device
-            //
+            // 
             this.checkBox_Additional_info_about_device.AutoSize = true;
             this.checkBox_Additional_info_about_device.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBox_Additional_info_about_device.Location = new System.Drawing.Point(242, 19);
@@ -1532,9 +1533,9 @@
             this.checkBox_Additional_info_about_device.TabIndex = 398;
             this.checkBox_Additional_info_about_device.Text = "Additional info about device";
             this.checkBox_Additional_info_about_device.UseVisualStyleBackColor = true;
-            //
+            // 
             // checkBox_AMD_DisableAMDTempControl
-            //
+            // 
             this.checkBox_AMD_DisableAMDTempControl.AutoSize = true;
             this.checkBox_AMD_DisableAMDTempControl.Location = new System.Drawing.Point(32, 109);
             this.checkBox_AMD_DisableAMDTempControl.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1543,9 +1544,9 @@
             this.checkBox_AMD_DisableAMDTempControl.TabIndex = 397;
             this.checkBox_AMD_DisableAMDTempControl.Text = "DisableAMDTempControl";
             this.checkBox_AMD_DisableAMDTempControl.UseVisualStyleBackColor = true;
-            //
+            // 
             // pictureBox_AMD_DisableAMDTempControl
-            //
+            // 
             this.pictureBox_AMD_DisableAMDTempControl.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_AMD_DisableAMDTempControl.Location = new System.Drawing.Point(10, 109);
             this.pictureBox_AMD_DisableAMDTempControl.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1554,9 +1555,9 @@
             this.pictureBox_AMD_DisableAMDTempControl.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_AMD_DisableAMDTempControl.TabIndex = 395;
             this.pictureBox_AMD_DisableAMDTempControl.TabStop = false;
-            //
+            // 
             // pictureBox_NVIDIAP0State
-            //
+            // 
             this.pictureBox_NVIDIAP0State.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_NVIDIAP0State.Location = new System.Drawing.Point(10, 87);
             this.pictureBox_NVIDIAP0State.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1565,9 +1566,9 @@
             this.pictureBox_NVIDIAP0State.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_NVIDIAP0State.TabIndex = 396;
             this.pictureBox_NVIDIAP0State.TabStop = false;
-            //
+            // 
             // checkBox_NVIDIAP0State
-            //
+            // 
             this.checkBox_NVIDIAP0State.AutoSize = true;
             this.checkBox_NVIDIAP0State.Location = new System.Drawing.Point(32, 87);
             this.checkBox_NVIDIAP0State.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1576,9 +1577,9 @@
             this.checkBox_NVIDIAP0State.TabIndex = 394;
             this.checkBox_NVIDIAP0State.Text = "NVIDIAP0State";
             this.checkBox_NVIDIAP0State.UseVisualStyleBackColor = true;
-            //
+            // 
             // pictureBox_DisableDetectionAMD
-            //
+            // 
             this.pictureBox_DisableDetectionAMD.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_DisableDetectionAMD.Location = new System.Drawing.Point(10, 41);
             this.pictureBox_DisableDetectionAMD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1587,9 +1588,9 @@
             this.pictureBox_DisableDetectionAMD.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_DisableDetectionAMD.TabIndex = 392;
             this.pictureBox_DisableDetectionAMD.TabStop = false;
-            //
+            // 
             // checkBox_DisableDetectionNVIDIA
-            //
+            // 
             this.checkBox_DisableDetectionNVIDIA.AutoSize = true;
             this.checkBox_DisableDetectionNVIDIA.Location = new System.Drawing.Point(32, 19);
             this.checkBox_DisableDetectionNVIDIA.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1598,9 +1599,9 @@
             this.checkBox_DisableDetectionNVIDIA.TabIndex = 390;
             this.checkBox_DisableDetectionNVIDIA.Text = "Disable Detection NVIDIA";
             this.checkBox_DisableDetectionNVIDIA.UseVisualStyleBackColor = true;
-            //
+            // 
             // pictureBox_DisableDetectionNVIDIA
-            //
+            // 
             this.pictureBox_DisableDetectionNVIDIA.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
             this.pictureBox_DisableDetectionNVIDIA.Location = new System.Drawing.Point(10, 19);
             this.pictureBox_DisableDetectionNVIDIA.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1609,9 +1610,9 @@
             this.pictureBox_DisableDetectionNVIDIA.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_DisableDetectionNVIDIA.TabIndex = 393;
             this.pictureBox_DisableDetectionNVIDIA.TabStop = false;
-            //
+            // 
             // checkBox_DisableDetectionAMD
-            //
+            // 
             this.checkBox_DisableDetectionAMD.AutoSize = true;
             this.checkBox_DisableDetectionAMD.Location = new System.Drawing.Point(32, 41);
             this.checkBox_DisableDetectionAMD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1620,9 +1621,9 @@
             this.checkBox_DisableDetectionAMD.TabIndex = 391;
             this.checkBox_DisableDetectionAMD.Text = "Disable Detection AMD";
             this.checkBox_DisableDetectionAMD.UseVisualStyleBackColor = true;
-            //
+            // 
             // tabPageDevicesAlgos
-            //
+            // 
             this.tabPageDevicesAlgos.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageDevicesAlgos.Controls.Add(this.checkBox_Disable_extra_launch_parameter_checking);
             this.tabPageDevicesAlgos.Controls.Add(this.groupBoxAlgorithmSettings);
@@ -1633,12 +1634,12 @@
             this.tabPageDevicesAlgos.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPageDevicesAlgos.Name = "tabPageDevicesAlgos";
             this.tabPageDevicesAlgos.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tabPageDevicesAlgos.Size = new System.Drawing.Size(656, 496);
+            this.tabPageDevicesAlgos.Size = new System.Drawing.Size(652, 496);
             this.tabPageDevicesAlgos.TabIndex = 1;
             this.tabPageDevicesAlgos.Text = "Devices/Algorithms";
-            //
+            // 
             // checkBox_Disable_extra_launch_parameter_checking
-            //
+            // 
             this.checkBox_Disable_extra_launch_parameter_checking.AutoSize = true;
             this.checkBox_Disable_extra_launch_parameter_checking.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBox_Disable_extra_launch_parameter_checking.Location = new System.Drawing.Point(371, 221);
@@ -1648,9 +1649,9 @@
             this.checkBox_Disable_extra_launch_parameter_checking.TabIndex = 399;
             this.checkBox_Disable_extra_launch_parameter_checking.Text = "Disable extra launch parameter checking";
             this.checkBox_Disable_extra_launch_parameter_checking.UseVisualStyleBackColor = true;
-            //
+            // 
             // groupBoxAlgorithmSettings
-            //
+            // 
             this.groupBoxAlgorithmSettings.Controls.Add(this.algorithmsListView1);
             this.groupBoxAlgorithmSettings.Location = new System.Drawing.Point(6, 244);
             this.groupBoxAlgorithmSettings.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1661,23 +1662,9 @@
             this.groupBoxAlgorithmSettings.TabStop = false;
             this.groupBoxAlgorithmSettings.Text = "Algorithm settings for selected device:";
             this.groupBoxAlgorithmSettings.Enter += new System.EventHandler(this.groupBoxAlgorithmSettings_Enter);
-            //
-            // algorithmsListView1
-            //
-            this.algorithmsListView1.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.algorithmsListView1.BackColor = System.Drawing.SystemColors.Control;
-            this.algorithmsListView1.BenchmarkCalculation = null;
-            this.algorithmsListView1.ComunicationInterface = null;
-            this.algorithmsListView1.IsInBenchmark = false;
-            this.algorithmsListView1.Location = new System.Drawing.Point(6, 21);
-            this.algorithmsListView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.algorithmsListView1.Name = "algorithmsListView1";
-            this.algorithmsListView1.Size = new System.Drawing.Size(627, 219);
-            this.algorithmsListView1.TabIndex = 2;
-            this.algorithmsListView1.Load += new System.EventHandler(this.algorithmsListView1_Load);
-            //
+            // 
             // buttonGPUtuning
-            //
+            // 
             this.buttonGPUtuning.Location = new System.Drawing.Point(12, 17);
             this.buttonGPUtuning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonGPUtuning.Name = "buttonGPUtuning";
@@ -1686,35 +1673,11 @@
             this.buttonGPUtuning.Text = "GPU tuning";
             this.buttonGPUtuning.UseVisualStyleBackColor = true;
             this.buttonGPUtuning.Click += new System.EventHandler(this.ButtonGPUtuning_Click);
-            //
-            // devicesListViewEnableControl1
-            //
-            this.devicesListViewEnableControl1.BenchmarkCalculation = null;
-            this.devicesListViewEnableControl1.FirstColumnText = "Enabled";
-            this.devicesListViewEnableControl1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.devicesListViewEnableControl1.IsInBenchmark = false;
-            this.devicesListViewEnableControl1.IsMining = false;
-            this.devicesListViewEnableControl1.Location = new System.Drawing.Point(8, 68);
-            this.devicesListViewEnableControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.devicesListViewEnableControl1.Name = "devicesListViewEnableControl1";
-            this.devicesListViewEnableControl1.SaveToGeneralConfig = false;
-            this.devicesListViewEnableControl1.Size = new System.Drawing.Size(348, 168);
-            this.devicesListViewEnableControl1.TabIndex = 397;
-            this.devicesListViewEnableControl1.Load += new System.EventHandler(this.devicesListViewEnableControl1_Load);
-            //
-            // algorithmSettingsControl1
-            //
-            this.algorithmSettingsControl1.Location = new System.Drawing.Point(360, 8);
-            this.algorithmSettingsControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.algorithmSettingsControl1.Name = "algorithmSettingsControl1";
-            this.algorithmSettingsControl1.Size = new System.Drawing.Size(285, 205);
-            this.algorithmSettingsControl1.TabIndex = 396;
-            this.algorithmSettingsControl1.Load += new System.EventHandler(this.algorithmSettingsControl1_Load);
-            //
+            // 
             // buttonSaveClose
-            //
+            // 
             this.buttonSaveClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSaveClose.Location = new System.Drawing.Point(389, 541);
+            this.buttonSaveClose.Location = new System.Drawing.Point(381, 541);
             this.buttonSaveClose.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonSaveClose.Name = "buttonSaveClose";
             this.buttonSaveClose.Size = new System.Drawing.Size(134, 23);
@@ -1722,11 +1685,11 @@
             this.buttonSaveClose.Text = "&Save and Close";
             this.buttonSaveClose.UseVisualStyleBackColor = true;
             this.buttonSaveClose.Click += new System.EventHandler(this.ButtonSaveClose_Click);
-            //
+            // 
             // buttonDefaults
-            //
+            // 
             this.buttonDefaults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDefaults.Location = new System.Drawing.Point(311, 541);
+            this.buttonDefaults.Location = new System.Drawing.Point(303, 541);
             this.buttonDefaults.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonDefaults.Name = "buttonDefaults";
             this.buttonDefaults.Size = new System.Drawing.Size(74, 23);
@@ -1734,11 +1697,11 @@
             this.buttonDefaults.Text = "&Defaults";
             this.buttonDefaults.UseVisualStyleBackColor = true;
             this.buttonDefaults.Click += new System.EventHandler(this.ButtonDefaults_Click);
-            //
+            // 
             // buttonCloseNoSave
-            //
+            // 
             this.buttonCloseNoSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCloseNoSave.Location = new System.Drawing.Point(527, 541);
+            this.buttonCloseNoSave.Location = new System.Drawing.Point(519, 541);
             this.buttonCloseNoSave.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonCloseNoSave.Name = "buttonCloseNoSave";
             this.buttonCloseNoSave.Size = new System.Drawing.Size(134, 23);
@@ -1746,29 +1709,15 @@
             this.buttonCloseNoSave.Text = "&Close without Saving";
             this.buttonCloseNoSave.UseVisualStyleBackColor = true;
             this.buttonCloseNoSave.Click += new System.EventHandler(this.ButtonCloseNoSave_Click);
-            //
-            // tabPage1
-            //
-            this.tabPage1.Location = new System.Drawing.Point(0, 0);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(200, 100);
-            this.tabPage1.TabIndex = 0;
-            //
-            // tabPage2
-            //
-            this.tabPage2.Location = new System.Drawing.Point(0, 0);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(200, 100);
-            this.tabPage2.TabIndex = 0;
-            //
+            // 
             // tabControlGeneral
-            //
+            // 
             this.tabControlGeneral.Controls.Add(this.tabPageGeneral);
             this.tabControlGeneral.Controls.Add(this.tabPageAdvanced1);
             this.tabControlGeneral.Controls.Add(this.tabPageDevicesAlgos);
-            //
-            //
-            //
+            // 
+            // 
+            // 
             this.tabControlGeneral.DisplayStyleProvider.BorderColor = System.Drawing.SystemColors.ControlDark;
             this.tabControlGeneral.DisplayStyleProvider.BorderColorHot = System.Drawing.SystemColors.ControlDark;
             this.tabControlGeneral.DisplayStyleProvider.BorderColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(157)))), ((int)(((byte)(185)))));
@@ -1785,18 +1734,67 @@
             this.tabControlGeneral.DisplayStyleProvider.TextColorDisabled = System.Drawing.SystemColors.ControlDark;
             this.tabControlGeneral.DisplayStyleProvider.TextColorSelected = System.Drawing.SystemColors.ControlText;
             this.tabControlGeneral.HotTrack = true;
-            this.tabControlGeneral.Location = new System.Drawing.Point(6, 12);
+            this.tabControlGeneral.Location = new System.Drawing.Point(3, 3);
             this.tabControlGeneral.Name = "tabControlGeneral";
             this.tabControlGeneral.SelectedIndex = 0;
-            this.tabControlGeneral.Size = new System.Drawing.Size(664, 523);
+            this.tabControlGeneral.Size = new System.Drawing.Size(660, 523);
             this.tabControlGeneral.TabIndex = 46;
-            this.tabControlGeneral.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControlGeneral_DrawItem);
-            //
+            // 
+            // radioButtonMOPA5
+            // 
+            this.radioButtonMOPA5.AutoSize = true;
+            this.radioButtonMOPA5.Location = new System.Drawing.Point(242, 45);
+            this.radioButtonMOPA5.Name = "radioButtonMOPA5";
+            this.radioButtonMOPA5.Size = new System.Drawing.Size(183, 17);
+            this.radioButtonMOPA5.TabIndex = 399;
+            this.radioButtonMOPA5.TabStop = true;
+            this.radioButtonMOPA5.Text = "Highest profitability by all methods";
+            this.radioButtonMOPA5.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA5.CheckedChanged += new System.EventHandler(this.radioButtonMOPA5_CheckedChanged);
+            // 
+            // algorithmsListView1
+            // 
+            this.algorithmsListView1.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
+            this.algorithmsListView1.BackColor = System.Drawing.SystemColors.Control;
+            this.algorithmsListView1.BenchmarkCalculation = null;
+            this.algorithmsListView1.ComunicationInterface = null;
+            this.algorithmsListView1.IsInBenchmark = false;
+            this.algorithmsListView1.Location = new System.Drawing.Point(6, 21);
+            this.algorithmsListView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.algorithmsListView1.Name = "algorithmsListView1";
+            this.algorithmsListView1.Size = new System.Drawing.Size(627, 219);
+            this.algorithmsListView1.TabIndex = 2;
+            this.algorithmsListView1.Load += new System.EventHandler(this.algorithmsListView1_Load);
+            // 
+            // devicesListViewEnableControl1
+            // 
+            this.devicesListViewEnableControl1.BenchmarkCalculation = null;
+            this.devicesListViewEnableControl1.FirstColumnText = "Enabled";
+            this.devicesListViewEnableControl1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.devicesListViewEnableControl1.IsInBenchmark = false;
+            this.devicesListViewEnableControl1.IsMining = false;
+            this.devicesListViewEnableControl1.Location = new System.Drawing.Point(8, 68);
+            this.devicesListViewEnableControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.devicesListViewEnableControl1.Name = "devicesListViewEnableControl1";
+            this.devicesListViewEnableControl1.SaveToGeneralConfig = false;
+            this.devicesListViewEnableControl1.Size = new System.Drawing.Size(348, 168);
+            this.devicesListViewEnableControl1.TabIndex = 397;
+            this.devicesListViewEnableControl1.Load += new System.EventHandler(this.devicesListViewEnableControl1_Load);
+            // 
+            // algorithmSettingsControl1
+            // 
+            this.algorithmSettingsControl1.Location = new System.Drawing.Point(360, 8);
+            this.algorithmSettingsControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.algorithmSettingsControl1.Name = "algorithmSettingsControl1";
+            this.algorithmSettingsControl1.Size = new System.Drawing.Size(285, 205);
+            this.algorithmSettingsControl1.TabIndex = 396;
+            this.algorithmSettingsControl1.Load += new System.EventHandler(this.algorithmSettingsControl1_Load);
+            // 
             // Form_Settings
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(675, 577);
+            this.ClientSize = new System.Drawing.Size(667, 577);
             this.Controls.Add(this.tabControlGeneral);
             this.Controls.Add(this.buttonDefaults);
             this.Controls.Add(this.buttonSaveClose);
@@ -2000,8 +1998,7 @@
         private System.Windows.Forms.ComboBox comboBox_ColorProfile;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox checkBox_DisableDetectionCPU;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.CustomTabControl tabControlGeneral;
+        private System.Windows.Forms.RadioButton radioButtonMOPA5;
     }
 }

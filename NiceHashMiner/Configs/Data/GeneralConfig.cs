@@ -36,6 +36,7 @@ namespace NiceHashMiner.Configs.Data
         public bool MOPA2 = false;
         public bool MOPA3 = false;
         public bool MOPA4 = false;
+        public bool MOPA5 = false;
         public int ColumnENABLED = 304;
         public int ColumnTEMP = 80;
         public int ColumnLOAD = 66;
@@ -142,7 +143,7 @@ namespace NiceHashMiner.Configs.Data
 
         public int ColorProfileIndex = 0;
         public ColorProfilesConfig ColorProfiles = new ColorProfilesConfig();
-        
+
 
         // methods
         public void SetDefaults()
@@ -206,6 +207,7 @@ namespace NiceHashMiner.Configs.Data
             MOPA2 = false;
             MOPA3 = false;
             MOPA4 = false;
+            MOPA5 = false;
             ColumnENABLED = 304;
             ColumnTEMP = 80;
             ColumnLOAD = 66;
@@ -436,6 +438,6 @@ namespace NiceHashMiner.Configs.Data
         }
     }
 
-    
+
 
 }
