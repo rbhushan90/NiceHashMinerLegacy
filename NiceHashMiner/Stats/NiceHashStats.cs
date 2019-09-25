@@ -792,7 +792,7 @@ namespace NiceHashMiner.Stats
             return true;
         }
 
-        private static void LoadSMA()
+        public static void LoadSMA()
         {
             if (!ConfigManager.GeneralConfig.NoShowApiInLog)
             {

@@ -384,6 +384,7 @@ namespace NiceHashMiner
             }
         }
 
+
         // This is a single shot _benchmarkTimer
         private void StartupTimer_Tick(object sender, EventArgs e)
         {
@@ -1292,7 +1293,7 @@ namespace NiceHashMiner
             devicesListViewEnableControl1.SaveColumns();
             ConfigManager.GeneralConfig.FormWidth = Form_Main.ActiveForm.Width;
             MinersManager.StopAllMiners();
-
+            if (Miner._cooldownCheckTimer != null && Miner._cooldownCheckTimer.Enabled) Miner._cooldownCheckTimer.Stop();
             MessageBoxManager.Unregister();
             ConfigManager.GeneralConfigFileCommit();
         }

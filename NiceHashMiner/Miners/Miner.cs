@@ -129,7 +129,7 @@ namespace NiceHashMiner
         public int _maxCooldownTimeInMilliseconds; // = GetMaxCooldownTimeInMilliseconds();
 
         protected abstract int GetMaxCooldownTimeInMilliseconds();
-        private Timer _cooldownCheckTimer;
+        public static Timer _cooldownCheckTimer;
         protected MinerApiReadStatus CurrentMinerReadStatus { get; set; }
         private int _currentCooldownTimeInSeconds = MinCooldownTimeInMilliseconds;
         private int _currentCooldownTimeInSecondsLeft = MinCooldownTimeInMilliseconds;

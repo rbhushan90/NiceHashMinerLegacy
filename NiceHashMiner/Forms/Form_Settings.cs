@@ -496,6 +496,7 @@ namespace NiceHashMiner.Forms
             devicesListViewEnableControl1.InitLocale();
             algorithmsListView1.InitLocale();
 
+            comboBox_ColorProfile.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {
                   this.BackColor = Form_Main._backColor;

@@ -44,7 +44,7 @@ namespace NiceHashMiner.Stats
         public static string ActiveDisplayCurrency = "USD";
 
      //   private static async void GetNewBTCRate()
-        private static async void GetNewBTCRate()
+        public static async void GetNewBTCRate()
         {
             string ResponseFromAPI;
             try

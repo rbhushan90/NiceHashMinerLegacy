@@ -8,6 +8,8 @@ using WebSocketSharp;
 
 using NiceHashMinerLegacy.UUID;
 using NiceHashMiner.Configs;
+using SystemTimer = System.Timers.Timer;
+using Timer = System.Windows.Forms.Timer;
 
 namespace NiceHashMiner.Stats
 {
@@ -50,6 +52,7 @@ namespace NiceHashMiner.Stats
         public event EventHandler<MessageEventArgs> OnDataReceived;
         public event EventHandler OnConnectionLost;
         public static string RigID => UUID.GetDeviceB64UUID();
+        private Timer _attemptReconnect;
 
         public NiceHashSocket(string address)
         {
@@ -72,6 +75,7 @@ namespace NiceHashMiner.Stats
             if (group != null) _login.group = group;
 #endif
             // Helpers.ConsolePrint("rig:", RigID);
+         //  NiceHashStats.LoadSMA(); //for first run
             try
             {
                 if (_webSocket == null)
@@ -90,7 +94,7 @@ namespace NiceHashMiner.Stats
                     _webSocket.Close();
                 }
                 Helpers.ConsolePrint("SOCKET", "Connecting");
-               // _webSocket.OnOpen += Login;
+            //    _webSocket.OnOpen += Login;
                 _webSocket.OnOpen += ConnectCallback;
                 _webSocket.OnMessage += ReceiveCallbackNew;
                 _webSocket.OnError += ErrorCallbackNew;
@@ -103,6 +107,7 @@ namespace NiceHashMiner.Stats
                 Helpers.ConsolePrint("SOCKET", "Connected");
                 _connectionEstablished = true;
                 _restartConnection = false;
+                _endConnection = true;
             }
             catch (Exception e)
             {
@@ -469,6 +474,9 @@ namespace NiceHashMiner.Stats
 
         private bool AttemptReconnect()
         {
+            attemptReconnect_Tick();
+            NiceHashStats.GetSmaAPICurrent();
+            ExchangeRateApi.GetNewBTCRate();
             if (_attemptingReconnect)
             {
                 return false;
@@ -478,15 +486,32 @@ namespace NiceHashMiner.Stats
                 // no reconnect needed
                 return true;
             }
+
+            //   return false;
+            /*
+            _attemptReconnect = new Timer();
+            _attemptReconnect.Tick += attemptReconnect_Tick;
+            _attemptReconnect.Interval = 10000;
+
+            _attemptReconnect.Start();
+            */
+            
+            //  _attemptReconnect = new System.Threading.Timer(DeviceStatus_TickNew, null, DeviceUpdateInterval, DeviceUpdateInterval);
+            return false;
+        }
+        private async void attemptReconnect_Tick()
+        {
+            //_attemptReconnect.Stop();
+            //_attemptReconnect = null;
             _attemptingReconnect = true;
-            var sleep = _connectionEstablished ? 10 + _random.Next(0, 20) : 0;
+            var sleep = _connectionEstablished ? 10 + _random.Next(0, 5) : 0;
             Helpers.ConsolePrint("SOCKET", "Attempting reconnect in " + sleep + " seconds");
             // More retries on first attempt
             var retries = _connectionEstablished ? 5 : 25;
             if (_connectionEstablished)
             {
                 // Don't wait if no connection yet
-                Thread.Sleep(sleep * 1000);
+                await Task.Delay(sleep * 1000);
             } else
             {
                 // Don't not wait again
@@ -501,7 +526,7 @@ namespace NiceHashMiner.Stats
                     if (IsAlive)
                     {
                         _attemptingReconnect = false;
-                        return true;
+                        return;
                     }
                 }
                 catch (InvalidOperationException e)
@@ -509,9 +534,9 @@ namespace NiceHashMiner.Stats
                     if (e.Message == "A series of reconnecting has failed.")
                     {
                         // Need to recreate websocket
-                        Helpers.ConsolePrint("SOCKET", "Try old method");
-                        _webSocket = null;
-                        StartConnectionold();
+                       // Helpers.ConsolePrint("SOCKET", "Try old method");
+                       // _webSocket = null;
+                       // StartConnectionold();
                         break;
                     }
                 }
@@ -523,7 +548,7 @@ namespace NiceHashMiner.Stats
             }
             _attemptingReconnect = false;
             OnConnectionLost?.Invoke(null, EventArgs.Empty);
-            return false;
+            return;
         }
     }
 }
