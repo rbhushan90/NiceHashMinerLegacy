@@ -100,11 +100,65 @@ namespace NiceHashMiner
                     _windowColor = ConfigManager.GeneralConfig.ColorProfiles.Black[2];
                     _textColor = ConfigManager.GeneralConfig.ColorProfiles.Black[3];
                     break;
-                case 4: //darkgreen
+                case 4: //silver
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.Silver[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.Silver[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.Silver[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.Silver[3];
+                    break;
+                case 5: //gold
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.Gold[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.Gold[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.Gold[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.Gold[3];
+                    break;
+                case 6: //darkred
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkRed[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkRed[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkRed[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkRed[3];
+                    break;
+                case 7: //darkgreen
                     _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkGreen[0];
                     _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkGreen[1];
                     _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkGreen[2];
                     _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkGreen[3];
+                    break;
+                case 8: //darkblue
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkBlue[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkBlue[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkBlue[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkBlue[3];
+                    break;
+                case 9: //magenta
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkMagenta[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkMagenta[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkMagenta[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkMagenta[3];
+                    break;
+                case 10: //orange
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkOrange[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkOrange[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkOrange[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkOrange[3];
+                    break;
+                case 11: //violet
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkViolet[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkViolet[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkViolet[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkViolet[3];
+                    break;
+                case 12: //darkslateblue
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkSlateBlue[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkSlateBlue[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkSlateBlue[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkSlateBlue[3];
+                    break;
+                case 13: //tan
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.Tan[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.Tan[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.Tan[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.Tan[3];
                     break;
                 default:
                     _backColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[0];
@@ -641,12 +695,7 @@ namespace NiceHashMiner
 
         private void Form_Main_Shown(object sender, EventArgs e)
         {
-            
 
-            //  Color ColorProfile = ConfigManager.GeneralConfig.DefaultColor[0];
-
-            // MessageBox.Show(_foreColor.ToString());
-            //     var _backColor2 = SystemColors.ControlDark; 
             Form_Main.ActiveForm.Width = ConfigManager.GeneralConfig.FormWidth;
 
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
@@ -690,7 +739,10 @@ namespace NiceHashMiner
                 foreach (var lbl in this.Controls.OfType<StatusStrip>()) lbl.ForeColor = _foreColor;
                 foreach (var lbl in this.Controls.OfType<ToolStripStatusLabel>()) lbl.BackColor = _backColor;
                 foreach (var lbl in this.Controls.OfType<ToolStripStatusLabel>()) lbl.ForeColor = _foreColor;
-                
+
+                toolStripStatusLabel10.Image = NiceHashMiner.Properties.Resources.NHM_Cash_Register_Bitcoin_transparent_white;
+
+
                 foreach (var lbl in Form_Main.ActiveForm.Controls.OfType<Button>()) lbl.BackColor = _backColor;
                 foreach (var lbl in Form_Main.ActiveForm.Controls.OfType<Button>())
                 {
@@ -730,8 +782,7 @@ namespace NiceHashMiner
             _startupTimer.Tick += StartupTimer_Tick;
             _startupTimer.Interval = 200;
             _startupTimer.Start();
-            //textBoxBTCAddress.Enabled = !radioButtonNewPlatform.Checked;
-            //textBoxBTCAddress_new.Enabled = radioButtonNewPlatform.Checked;
+
             textBoxBTCAddress_new.Enabled = true;
 
             _remoteTimer = new Timer();

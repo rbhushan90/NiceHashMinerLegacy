@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
+
 namespace System.Windows.Forms
 {
 	[System.ComponentModel.ToolboxItem(false)]
@@ -48,5 +49,56 @@ namespace System.Windows.Forms
 			}
 		}
 
-	}
+        protected override Brush GetTabBackgroundBrush(int index)
+        {
+            LinearGradientBrush fillBrush = null;
+
+            //      Capture the colours dependant on selection state of the tab
+            Color dark = Color.Transparent;
+            Color light = Color.Transparent;
+
+            if (this._TabControl.SelectedIndex == index)
+            {
+                dark = Form.ActiveForm.BackColor; 
+                light = SystemColors.Window;
+            }
+            else if (!this._TabControl.TabPages[index].Enabled)
+            {
+                light = dark;
+            }
+            else if (this.HotTrack && index == this._TabControl.ActiveIndex)
+            {
+                //      Enable hot tracking
+                dark = Form.ActiveForm.BackColor;
+                light = dark;
+            }
+
+            //      Get the correctly aligned gradient
+            Rectangle tabBounds = this.GetTabRect(index);
+            tabBounds.Inflate(3, 3);
+            tabBounds.X -= 1;
+            tabBounds.Y -= 1;
+            switch (this._TabControl.Alignment)
+            {
+                case TabAlignment.Top:
+                    fillBrush = new LinearGradientBrush(tabBounds, light, dark, LinearGradientMode.Vertical);
+                    break;
+                case TabAlignment.Bottom:
+                    fillBrush = new LinearGradientBrush(tabBounds, dark, light, LinearGradientMode.Vertical);
+                    break;
+                case TabAlignment.Left:
+                    fillBrush = new LinearGradientBrush(tabBounds, light, dark, LinearGradientMode.Horizontal);
+                    break;
+                case TabAlignment.Right:
+                    fillBrush = new LinearGradientBrush(tabBounds, dark, light, LinearGradientMode.Horizontal);
+                    break;
+            }
+
+            //      Add the blend
+          //  fillBrush.Blend = GetBackgroundBlend();
+
+            return fillBrush;
+        }
+
+    }
 }

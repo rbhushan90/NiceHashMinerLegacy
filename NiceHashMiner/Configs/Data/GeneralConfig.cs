@@ -324,14 +324,32 @@ namespace NiceHashMiner.Configs.Data
             private static readonly Color[] DefaultColorProfile = { SystemColors.Control, SystemColors.WindowText, SystemColors.Window, SystemColors.ControlText };
             private static readonly Color[] GrayProfile = { SystemColors.ControlDark, SystemColors.WindowText, SystemColors.ControlDark, SystemColors.ControlText };
             private static readonly Color[] DarkProfile = { SystemColors.ControlDarkDark, Color.White, SystemColors.ControlDarkDark, Color.White };
-            private static readonly Color[] BlackProfile = { Color.DarkGreen, Color.Violet, Color.Blue, Color.Red };
+            private static readonly Color[] BlackProfile = { Color.Black, Color.White, Color.Black, Color.White };
+            private static readonly Color[] SilverProfile = { Color.Silver, Color.Black, Color.Silver, Color.Black };
+            private static readonly Color[] GoldProfile = { Color.DarkGoldenrod, Color.White, Color.DarkGoldenrod, Color.White };
+            private static readonly Color[] DarkRedProfile = { Color.DarkRed, Color.White, Color.DarkRed, Color.White };
             private static readonly Color[] DarkGreenProfile = { Color.DarkGreen, Color.White, Color.DarkGreen, Color.White };
+            private static readonly Color[] DarkBlueProfile = { Color.DarkBlue, Color.White, Color.DarkBlue, Color.White };
+            private static readonly Color[] DarkMagentaProfile = { Color.DarkMagenta, Color.White, Color.DarkMagenta, Color.White };
+            private static readonly Color[] DarkOrangeProfile = { Color.DarkOrange, Color.White, Color.DarkOrange, Color.White };
+            private static readonly Color[] DarkVioletProfile = { Color.DarkViolet, Color.White, Color.DarkViolet, Color.White };
+            private static readonly Color[] DarkSlateBlueProfile = { Color.DarkSlateBlue, Color.White, Color.DarkSlateBlue, Color.White };
+            private static readonly Color[] TanProfile = { Color.Tan, Color.Black, Color.Tan, Color.Black };
 
             private Color[] _DefaultColorProfile = MemoryHelper.DeepClone(DefaultColorProfile);
             private Color[] _GrayColorProfile = MemoryHelper.DeepClone(GrayProfile);
             private Color[] _DarkColorProfile = MemoryHelper.DeepClone(DarkProfile);
             private Color[] _BlackColorProfile = MemoryHelper.DeepClone(BlackProfile);
+            private Color[] _SilverColorProfile = MemoryHelper.DeepClone(SilverProfile);
+            private Color[] _GoldColorProfile = MemoryHelper.DeepClone(GoldProfile);
+            private Color[] _DarkRedProfile = MemoryHelper.DeepClone(DarkRedProfile);
             private Color[] _DarkGreenProfile = MemoryHelper.DeepClone(DarkGreenProfile);
+            private Color[] _DarkBlueProfile = MemoryHelper.DeepClone(DarkBlueProfile);
+            private Color[] _DarkMagentaProfile = MemoryHelper.DeepClone(DarkMagentaProfile);
+            private Color[] _DarkOrangeProfile = MemoryHelper.DeepClone(DarkOrangeProfile);
+            private Color[] _DarkVioletProfile = MemoryHelper.DeepClone(DarkVioletProfile);
+            private Color[] _DarkSlateBlueProfile = MemoryHelper.DeepClone(DarkSlateBlueProfile);
+            private Color[] _TanProfile = MemoryHelper.DeepClone(TanProfile);
 
             private static bool IsValid(Color[] value)
             {
@@ -358,10 +376,56 @@ namespace NiceHashMiner.Configs.Data
                 get => BlackProfile;
                 set => _BlackColorProfile = MemoryHelper.DeepClone(IsValid(value) ? value : BlackProfile);
             }
+            public Color[] Silver
+            {
+                get => SilverProfile;
+                set => _SilverColorProfile = MemoryHelper.DeepClone(IsValid(value) ? value : SilverProfile);
+            }
+            public Color[] Gold
+
+            {
+                get => GoldProfile;
+                set => _GoldColorProfile = MemoryHelper.DeepClone(IsValid(value) ? value : GoldProfile);
+            }
+            public Color[] DarkRed
+            {
+                get => DarkRedProfile;
+                set => _DarkRedProfile = MemoryHelper.DeepClone(IsValid(value) ? value : DarkRedProfile);
+            }
             public Color[] DarkGreen
             {
                 get => DarkGreenProfile;
                 set => _DarkGreenProfile = MemoryHelper.DeepClone(IsValid(value) ? value : DarkGreenProfile);
+            }
+            public Color[] DarkBlue
+            {
+                get => DarkBlueProfile;
+                set => _DarkBlueProfile = MemoryHelper.DeepClone(IsValid(value) ? value : DarkBlueProfile);
+            }
+            public Color[] DarkMagenta
+            {
+                get => DarkMagentaProfile;
+                set => _DarkMagentaProfile = MemoryHelper.DeepClone(IsValid(value) ? value : DarkMagentaProfile);
+            }
+            public Color[] DarkOrange
+            {
+                get => DarkOrangeProfile;
+                set => _DarkOrangeProfile = MemoryHelper.DeepClone(IsValid(value) ? value : DarkOrangeProfile);
+            }
+            public Color[] DarkViolet
+            {
+                get => DarkVioletProfile;
+                set => _DarkVioletProfile = MemoryHelper.DeepClone(IsValid(value) ? value : DarkVioletProfile);
+            }
+            public Color[] DarkSlateBlue
+            {
+                get => DarkSlateBlueProfile;
+                set => _DarkSlateBlueProfile = MemoryHelper.DeepClone(IsValid(value) ? value : DarkSlateBlueProfile);
+            }
+            public Color[] Tan
+            {
+                get => TanProfile;
+                set => _TanProfile = MemoryHelper.DeepClone(IsValid(value) ? value : TanProfile);
             }
             /*
                         public Color[] GetColorProfile(int col)

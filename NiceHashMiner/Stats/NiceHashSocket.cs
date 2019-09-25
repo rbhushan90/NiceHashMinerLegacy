@@ -204,7 +204,10 @@ namespace NiceHashMiner.Stats
             }
             _attemptingReconnect = true;
             var sleep = _connectionEstablished ? 10 + _random.Next(0, 20) : 0;
-            Helpers.ConsolePrint("SOCKET", $"Attempting reconnect in {sleep} seconds");
+            Helpers.ConsolePrint("SOCKET", $"Attempting reconnect" +
+                $"" +
+                $"" +
+                $" in {sleep} seconds");
             // More retries on first attempt
             var retries = _connectionEstablished ? 5 : 15;
             if (_connectionEstablished)

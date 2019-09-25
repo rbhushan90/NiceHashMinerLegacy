@@ -14,6 +14,7 @@ using NiceHashMiner.Stats;
 using NiceHashMinerLegacy.Common.Enums;
 using System.Linq;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace NiceHashMiner.Forms
 {
@@ -60,6 +61,21 @@ namespace NiceHashMiner.Forms
             InitializeToolTip();
 
             // Initialize tabs
+            this.comboBox_ColorProfile.Items.Add("Default");
+            this.comboBox_ColorProfile.Items.Add("Gray");
+            this.comboBox_ColorProfile.Items.Add("Dark");
+            this.comboBox_ColorProfile.Items.Add("Black&White");
+            this.comboBox_ColorProfile.Items.Add("Silver");
+            this.comboBox_ColorProfile.Items.Add("Gold");
+            this.comboBox_ColorProfile.Items.Add("DarkRed");
+            this.comboBox_ColorProfile.Items.Add("DarkGreen");
+            this.comboBox_ColorProfile.Items.Add("DarkBlue");
+            this.comboBox_ColorProfile.Items.Add("DarkMagenta");
+            this.comboBox_ColorProfile.Items.Add("DarkOrange");
+            this.comboBox_ColorProfile.Items.Add("DarkViolet");
+            this.comboBox_ColorProfile.Items.Add("DarkSlateBlue");
+            this.comboBox_ColorProfile.Items.Add("Tan");
+
             InitializeGeneralTab();
 
             // initialization calls
@@ -68,8 +84,14 @@ namespace NiceHashMiner.Forms
             algorithmSettingsControl1.Enabled = false;
             algorithmsListView1.ComunicationInterface = algorithmSettingsControl1;
             //algorithmsListView1.RemoveRatioRates();
-
-
+            /*
+            Form_Settings.comboBox_ColorProfile.Items.AddRange(new object[] {
+            "Default",
+            "Gray",
+            "Dark",
+            "Black",
+            "DarkGreen"});
+            */
 
             // set first device selected {
             if (ComputeDeviceManager.Available.Devices.Count > 0)
@@ -78,6 +100,7 @@ namespace NiceHashMiner.Forms
                 algorithmsListView1.SetAlgorithms(_selectedComputeDevice, _selectedComputeDevice.Enabled);
                 groupBoxAlgorithmSettings.Text = string.Format(International.GetText("FormSettings_AlgorithmsSettings"),
                     _selectedComputeDevice.Name);
+               // groupBoxAlgorithmSettings.ForeColor = Form_Main._foreColor;
             }
 
             // At the very end set to true
@@ -383,6 +406,7 @@ namespace NiceHashMiner.Forms
                 International.GetText("Form_Settings_General_RunScriptOnCUDA_GPU_Lost");
 
             label_Language.Text = International.GetText("Form_Settings_General_Language") + ":";
+            label1.Text = "Color profile (partial)";
             //label_BitcoinAddress.Text = International.GetText("BitcoinAddress") + ":";
             if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
             {
@@ -399,7 +423,9 @@ namespace NiceHashMiner.Forms
                 radioButtonMOPA2.Text = "Текущая прибыльность";
                 radioButtonMOPA3.Text = "Средняя прибыльность за 5 минут";
                 radioButtonMOPA4.Text = "Средняя прибыльность за 24 часа";
+                label1.Text = "Цветовой профиль (частично)";
             }
+
 
             radioButtonMOPA1.Checked = ConfigManager.GeneralConfig.MOPA1;
             radioButtonMOPA2.Checked = ConfigManager.GeneralConfig.MOPA2;
@@ -423,34 +449,7 @@ namespace NiceHashMiner.Forms
                 }
             }
 
-            //  var i = 0;
-            //   var cp = ConfigManager.GeneralConfig.ColorProfiles;
-            // MessageBox.Show(cp.ToString());
-            //MessageBox.Show(cp.DefaultColor[0].ToString());
-            //MessageBox.Show(cp.DefaultColor[0].ToString());
-            //for (var i = 0; i < 2; i++)
-            //{
-            /*
-                    comboBox_ColorProfile.Items[1] = "Default";
-                    comboBox_ColorProfile.Items[2] = "Gray";
-                    comboBox_ColorProfile.Items[3] = "Dark";
-                    comboBox_ColorProfile.Items[4] = "Black";
-                    */
-                    /*
-            comboBox_ColorProfile.Items.AddRange(new object[] {
-            "Default",
-            "Gray",
-            "Dark",
-            "Black"});
-            */
-            //}
-
-            //            label_ServiceLocation.Text = International.GetText("Service_Location") + ":";
-            //          {
-            //            var i = 0;
-            //          foreach (var loc in Globals.MiningLocation)
-            //            comboBox_ServiceLocation.Items[i++] = International.GetText("LocationName_" + loc);
-            //  }
+           
             label_MinIdleSeconds.Text = International.GetText("Form_Settings_General_MinIdleSeconds") + ":";
             label_MinerRestartDelayMS.Text = International.GetText("Form_Settings_General_MinerRestartDelayMS") + ":";
             /*
@@ -499,12 +498,16 @@ namespace NiceHashMiner.Forms
 
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {
-               //    Form_Settings.ActiveForm.BackColor = Form_Main._backColor;
-                 //  Form_Settings.ActiveForm.ForeColor = Form_Main._foreColor;
                   this.BackColor = Form_Main._backColor;
                  this.ForeColor = Form_Main._foreColor;
+                  this.tabControlGeneral.DisplayStyle = TabStyle.Angled;
+                  this.tabControlGeneral.DisplayStyleProvider.Opacity = 0.8F;
 
-                
+                this.tabControlGeneral.DisplayStyleProvider.TextColor = Color.White;
+                this.tabControlGeneral.DisplayStyleProvider.TextColorDisabled = Color.White;
+                this.tabControlGeneral.DisplayStyleProvider.BorderColor = Color.Transparent;
+                this.tabControlGeneral.DisplayStyleProvider.BorderColorHot = Form_Main._foreColor;
+
                 foreach (var lbl in this.Controls.OfType<Button>())
                 {
                     lbl.BackColor = Form_Main._backColor;
@@ -513,116 +516,182 @@ namespace NiceHashMiner.Forms
                     lbl.FlatAppearance.BorderColor = Form_Main._textColor;
                     lbl.FlatAppearance.BorderSize = 1;
                 }
-                
 
-                //   tabPageGeneral.dw
-             //   tabControlGeneral.SelectedTab.BackColor = Form_Main._backColor;
+                tabControlGeneral.SelectedTab.BackColor = Form_Main._backColor;
                 foreach (var lbl in this.Controls.OfType<TabControl>())
                 {
                     lbl.BackColor = Form_Main._backColor;
                     lbl.ForeColor = Form_Main._foreColor;
                 }
-                /*
-                foreach (var lbl in this.Controls.OfType<TabPage>())
-                {
-                    lbl.BackColor = Form_Main._backColor;
-                    lbl.ForeColor = Form_Main._foreColor;
-                }
 
-                foreach (var lbl in this.Controls.OfType<Label>())
-                {
-                    lbl.BackColor = Form_Main._backColor;
-                    lbl.ForeColor = Form_Main._textColor;
-                }
-               */
-
-                //   foreach (var lbl in tabPageGeneral.Controls.OfType<LinkLabel>()) lbl.LinkColor = Color.LightBlue;
-
-                //  foreach (var lbl in tabPageGeneral.Controls.OfType<GroupBox>()) lbl.BackColor = Form_Main._backColor;
-
-                //   foreach (var lbl in tabPageGeneral.Controls.OfType<HScrollBar>())
-                //     lbl.BackColor = Form_Main._backColor;
-                /*
-                 foreach (var lbl in tabPageGeneral.Controls.OfType<ListBox>()) lbl.BackColor = Form_Main._backColor;
-                 foreach (var lbl in tabPageGeneral.Controls.OfType<ListControl>()) lbl.BackColor = Form_Main._backColor;
-                 foreach (var lbl in tabPageGeneral.Controls.OfType<ListView>()) lbl.BackColor = Form_Main._backColor;
-                 foreach (var lbl in tabPageGeneral.Controls.OfType<ListView>()) lbl.ForeColor = Form_Main._textColor;
-                 foreach (var lbl in tabPageGeneral.Controls.OfType<ListViewItem>())
-                 {
-                     lbl.BackColor = Form_Main._backColor;
-                     lbl.ForeColor = Form_Main._textColor;
-                 }
-                 foreach (var lbl in tabPageGeneral.Controls.OfType<StatusBar>())
-                     lbl.BackColor = Form_Main._backColor;
-                     */
-                //   foreach (var lbl in tabPageGeneral.Controls.OfType<ComboBox>()) lbl.BackColor = Form_Main._backColor;
-                // foreach (var lbl in tabPageGeneral.Controls.OfType<ComboBox>()) lbl.ForeColor = Form_Main._foreColor;
-
-                //    foreach (var lbl in tabPageGeneral.Controls.OfType<GroupBox>()) lbl.BackColor = Form_Main._backColor;
-                //  foreach (var lbl in tabPageGeneral.Controls.OfType<GroupBox>()) lbl.ForeColor = Form_Main._textColor;
-                // foreach (var lbl in this.Controls.OfType<ComboBox>()) lbl.ForeColor = _foreColor;
-                /*
-                foreach (var lbl in this.Controls.OfType<TextBox>())
-                {
-                    lbl.BackColor = Form_Main._backColor;
-                    lbl.ForeColor = Form_Main._foreColor;
-                    lbl.BorderStyle = BorderStyle.FixedSingle;
-                }
-                */
-                /*
-                foreach (var lbl in tabPageGeneral.Controls.OfType<StatusStrip>()) lbl.BackColor = Form_Main._backColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<StatusStrip>()) lbl.ForeColor = Form_Main._foreColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<ToolStripStatusLabel>()) lbl.BackColor = Form_Main._backColor;
-                foreach (var lbl in tabPageGeneral.Controls.OfType<ToolStripStatusLabel>()) lbl.ForeColor = Form_Main._foreColor;
-
-                foreach (var lbl in tabPageGeneral.Controls.OfType<Button>()) lbl.BackColor = Form_Main._backColor;
-                */
-                // Form_Benchmark.ActiveForm.Enabled = true;
-                /*
-                foreach (var lbl in this.Controls.OfType<CheckBox>())
-                {
-                    lbl.BackColor = Form_Main._backColor;
-                    lbl.ForeColor = Form_Main._textColor;
-                }
-                */
-                tabControlGeneral.DrawMode = TabDrawMode.OwnerDrawFixed;
-                this.tabControlGeneral.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
-                this.tabPageAdvanced1.Paint += tabpage_Paint; // custom paint event so we get the backcolor we want
+                tabPageAdvanced1.BackColor = Form_Main._backColor;
+                tabPageAdvanced1.ForeColor = Form_Main._foreColor;
                 
+                tabPageDevicesAlgos.BackColor = Form_Main._backColor;
+                tabPageDevicesAlgos.ForeColor = Form_Main._foreColor;
 
-                /*
-                foreach (var lbl in this.Controls.OfType<TabControl>())
+                foreach (var lbl in tabPageAdvanced1.Controls.OfType<GroupBox>())
                 {
-                    lbl.Controls. = FlatStyle.Flat;
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                }
+
+                foreach (var lbl in tabPageDevicesAlgos.Controls.OfType<GroupBox>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                }
+
+                foreach (var lbl in tabPageDevicesAlgos.Controls.OfType<Button>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._textColor;
+                    lbl.FlatStyle = FlatStyle.Flat;
                     lbl.FlatAppearance.BorderColor = Form_Main._textColor;
                     lbl.FlatAppearance.BorderSize = 1;
                 }
-                */
-
-                foreach (var lbl in this.tabPageGeneral.Controls.OfType<TextBox>())
+                
+                foreach (var lbl in tabPageDevicesAlgos.Controls.OfType<Button>())
                 {
                     lbl.BackColor = Form_Main._backColor;
                     lbl.ForeColor = Form_Main._foreColor;
-                    lbl.BorderStyle = BorderStyle.FixedSingle;
                 }
+
+                foreach (var lbl in tabPageDevicesAlgos.Controls.OfType<UserControl>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                }
+
+                comboBox_ServiceLocation.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+                comboBox_TimeUnit.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+                currencyConverterCombobox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+                comboBox_Language.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+                comboBox_ColorProfile.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+
+                foreach (var lbl in this.tabPageGeneral.Controls.OfType<GroupBox>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                }
+
+                foreach (var lbl in this.tabPageGeneral.Controls.OfType<CheckBox>())
+                {
+                    lbl.BackColor = Form_Main._backColor;
+                    lbl.ForeColor = Form_Main._foreColor;
+                }
+                checkBox_Force_mining_if_nonprofitable.BackColor = Form_Main._backColor;
+                checkBox_Force_mining_if_nonprofitable.ForeColor = Form_Main._textColor;
+
+                checkBox_Allow_remote_management.BackColor = Form_Main._backColor;
+                checkBox_Allow_remote_management.ForeColor = Form_Main._textColor;
+
+                checkBox_Send_actual_version_info.BackColor = Form_Main._backColor;
+                checkBox_Send_actual_version_info.ForeColor = Form_Main._textColor;
+
+                checkBox_Additional_info_about_device.BackColor = Form_Main._backColor;
+                checkBox_Additional_info_about_device.ForeColor = Form_Main._textColor;
+
+                checkBox_Disable_extra_launch_parameter_checking.BackColor = Form_Main._backColor;
+                checkBox_Disable_extra_launch_parameter_checking.ForeColor = Form_Main._textColor;
 
                 textBox_BitcoinAddressNew.BackColor = Form_Main._backColor;
                 textBox_BitcoinAddressNew.ForeColor = Form_Main._foreColor;
                 textBox_BitcoinAddressNew.BorderStyle = BorderStyle.FixedSingle;
 
-                // DevicesListViewEnableControl.listViewDevices.BackColor = _backColor;
+                textBox_APIBindPortStart.BackColor = Form_Main._backColor;
+                textBox_APIBindPortStart.ForeColor = Form_Main._foreColor;
+                textBox_APIBindPortStart.BorderStyle = BorderStyle.FixedSingle;
+
+                textBox_AutoStartMiningDelay.BackColor = Form_Main._backColor;
+                textBox_AutoStartMiningDelay.ForeColor = Form_Main._foreColor;
+                textBox_AutoStartMiningDelay.BorderStyle = BorderStyle.FixedSingle;
+
+                textBox_ElectricityCost.BackColor = Form_Main._backColor;
+                textBox_ElectricityCost.ForeColor = Form_Main._foreColor;
+                textBox_ElectricityCost.BorderStyle = BorderStyle.FixedSingle;
+
+                textBox_IFTTTKey.BackColor = Form_Main._backColor;
+                textBox_IFTTTKey.ForeColor = Form_Main._foreColor;
+                textBox_IFTTTKey.BorderStyle = BorderStyle.FixedSingle;
+
+                textBox_LogMaxFileSize.BackColor = Form_Main._backColor;
+                textBox_LogMaxFileSize.ForeColor = Form_Main._foreColor;
+                textBox_LogMaxFileSize.BorderStyle = BorderStyle.FixedSingle;
+
+                textBox_MinerRestartDelayMS.BackColor = Form_Main._backColor;
+                textBox_MinerRestartDelayMS.ForeColor = Form_Main._foreColor;
+                textBox_MinerRestartDelayMS.BorderStyle = BorderStyle.FixedSingle;
+
+                textBox_MinIdleSeconds.BackColor = Form_Main._backColor;
+                textBox_MinIdleSeconds.ForeColor = Form_Main._foreColor;
+                textBox_MinIdleSeconds.BorderStyle = BorderStyle.FixedSingle;
+
+                textBox_MinProfit.BackColor = Form_Main._backColor;
+                textBox_MinProfit.ForeColor = Form_Main._foreColor;
+                textBox_MinProfit.BorderStyle = BorderStyle.FixedSingle;
+
+                textBox_SwitchMaxSeconds.BackColor = Form_Main._backColor;
+                textBox_SwitchMaxSeconds.ForeColor = Form_Main._foreColor;
+                textBox_SwitchMaxSeconds.BorderStyle = BorderStyle.FixedSingle;
+
+                textBox_SwitchMinSeconds.BackColor = Form_Main._backColor;
+                textBox_SwitchMinSeconds.ForeColor = Form_Main._foreColor;
+                textBox_SwitchMinSeconds.BorderStyle = BorderStyle.FixedSingle;
+
+                textBox_SwitchProfitabilityThreshold.BackColor = Form_Main._backColor;
+                textBox_SwitchProfitabilityThreshold.ForeColor = Form_Main._foreColor;
+                textBox_SwitchProfitabilityThreshold.BorderStyle = BorderStyle.FixedSingle;
+
+                textBox_WorkerName.BackColor = Form_Main._backColor;
+                textBox_WorkerName.ForeColor = Form_Main._foreColor;
+                textBox_WorkerName.BorderStyle = BorderStyle.FixedSingle;
+
+                pictureBox_Info_BitcoinAddress.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_AllowMultipleInstances.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_AMD_DisableAMDTempControl.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_APIBindPortStart.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_AutoScaleBTCValues.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_AutoStartMining.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_DebugConsole.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_DisableDefaultOptimizations.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_DisableDetectionAMD.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_DisableDetectionNVIDIA.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_DisableWindowsErrorReporting.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_displayCurrency.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_ElectricityCost.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_HideMiningWindows.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_IdleWhenNoInternetAccess.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_Language.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_LogMaxFileSize.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_LogToFile.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_MinerRestartDelayMS.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_MinIdleSeconds.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_MinimizeMiningWindows.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_MinimizeToTray.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_MinProfit.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_NVIDIAP0State.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_RunAtStartup.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_RunScriptOnCUDA_GPU_Lost.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_ServiceLocation.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_ShowDriverVersionWarning.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_ShowInternetConnectionWarning.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_StartMiningWhenIdle.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_SwitchMaxSeconds.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_SwitchMinSeconds.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_SwitchProfitabilityThreshold.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_TimeUnit.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_Use3rdPartyMiners.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_UseIFTTT.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox_WorkerName.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                pictureBox1.Image = NiceHashMiner.Properties.Resources.info_white_18;
+
                 devicesListViewEnableControl1.BackColor = Form_Main._backColor;
                 devicesListViewEnableControl1.ForeColor = Form_Main._foreColor;
                 algorithmsListView1.BackColor = Form_Main._backColor;
                 algorithmsListView1.ForeColor = Form_Main._foreColor;
                 tabPageGeneral.BackColor = Form_Main._backColor;
                 tabPageGeneral.ForeColor = Form_Main._foreColor;
-                
-                //DevicesListViewEnableControl.DefaultDevicesColorSeter.
-                //   DevicesListViewEnableControl.DefaultDevicesColorSeter.EnabledColor = _backColor;
-                //  devicesListViewEnableControl1.listViewDevices.Items[0].UseItemStyleForSubItems = false;
-
-
             }
 
             // Setup Tooltips CPU
@@ -894,7 +963,7 @@ namespace NiceHashMiner.Forms
             IsChange = true;
             ConfigManager.GeneralConfig.DebugConsole = checkBox_DebugConsole.Checked;
             ConfigManager.GeneralConfig.AutoStartMining = checkBox_AutoStartMining.Checked;
-            label_AutoStartMiningDelay.Enabled = checkBox_AutoStartMining.Checked;
+//            label_AutoStartMiningDelay.Enabled = checkBox_AutoStartMining.Checked;
             textBox_AutoStartMiningDelay.Enabled = checkBox_AutoStartMining.Checked;
             ConfigManager.GeneralConfig.HideMiningWindows = checkBox_HideMiningWindows.Checked;
             ConfigManager.GeneralConfig.MinimizeToTray = checkBox_MinimizeToTray.Checked;
@@ -1515,6 +1584,227 @@ namespace NiceHashMiner.Forms
         {
             SolidBrush fillBrush = new SolidBrush(Form_Main._backColor);
             e.Graphics.FillRectangle(fillBrush, e.ClipRectangle);
+        }
+
+      //  private void tabControlGeneral_DrawItem(object sender, DrawItemEventArgs e)
+       // {
+            private void tabControlGeneral_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e)
+            {
+                TabPage CurrentTab = tabControlGeneral.TabPages[e.Index];
+                Rectangle ItemRect = tabControlGeneral.GetTabRect(e.Index);
+                SolidBrush FillBrush = new SolidBrush(Color.Red);
+                SolidBrush TextBrush = new SolidBrush(Color.White);
+                StringFormat sf = new StringFormat();
+                sf.Alignment = StringAlignment.Center;
+                sf.LineAlignment = StringAlignment.Center;
+
+                //If we are currently painting the Selected TabItem we'll
+                //change the brush colors and inflate the rectangle.
+                if (System.Convert.ToBoolean(e.State & DrawItemState.Selected))
+                {
+                    FillBrush.Color = Color.White;
+                    TextBrush.Color = Color.Red;
+                    ItemRect.Inflate(2, 2);
+                }
+
+                //Set up rotation for left and right aligned tabs
+                if (tabControlGeneral.Alignment == TabAlignment.Left || tabControlGeneral.Alignment == TabAlignment.Right)
+                {
+                    float RotateAngle = 90;
+                    if (tabControlGeneral.Alignment == TabAlignment.Left)
+                        RotateAngle = 270;
+                    PointF cp = new PointF(ItemRect.Left + (ItemRect.Width / 2), ItemRect.Top + (ItemRect.Height / 2));
+                    e.Graphics.TranslateTransform(cp.X, cp.Y);
+                    e.Graphics.RotateTransform(RotateAngle);
+                    ItemRect = new Rectangle(-(ItemRect.Height / 2), -(ItemRect.Width / 2), ItemRect.Height, ItemRect.Width);
+                }
+
+                //Next we'll paint the TabItem with our Fill Brush
+                e.Graphics.FillRectangle(FillBrush, ItemRect);
+
+                //Now draw the text.
+                e.Graphics.DrawString(CurrentTab.Text, e.Font, TextBrush, (RectangleF)ItemRect, sf);
+
+                //Reset any Graphics rotation
+                e.Graphics.ResetTransform();
+
+                //Finally, we should Dispose of our brushes.
+                FillBrush.Dispose();
+                TextBrush.Dispose();
+            }
+
+        private void comboBox_ServiceLocation_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            var cmb = (ComboBox)sender;
+            if (cmb == null) return;
+
+
+            e.DrawBackground();
+
+            // change background color
+            var bc = new SolidBrush(Form_Main._backColor);
+            var fc = new SolidBrush(Form_Main._foreColor);
+            var wc = new SolidBrush(Form_Main._windowColor);
+            var gr = new SolidBrush(Color.Gray);
+            e.Graphics.FillRectangle(bc, e.Bounds);
+
+
+            // change foreground color
+            Brush brush = ((e.State & DrawItemState.Selected) > 0) ? fc : gr;
+            if (e.Index >= 0)
+            {
+                e.Graphics.DrawString(cmb.Items[e.Index].ToString(), cmb.Font, brush, e.Bounds);
+                e.DrawFocusRectangle();
+            }
+        }
+
+        private void comboBox_TimeUnit_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            comboBox_ServiceLocation_DrawItem(sender, e);
+        }
+
+        private void comboBox_Language_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox_Language_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            comboBox_ServiceLocation_DrawItem(sender, e);
+        }
+
+        private void currencyConverterCombobox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            comboBox_ServiceLocation_DrawItem(sender, e);
+        }
+
+        private void comboBox_ColorProfile_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            Color _backColor;
+            Color _foreColor;
+            Color _windowColor;
+            Color _textColor;
+            switch (e.Index)
+            {
+                case 0: //default
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[3];
+                    break;
+                case 1: //gray
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.Gray[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.Gray[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.Gray[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.Gray[3];
+                    break;
+                case 2: //dark
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.Dark[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.Dark[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.Dark[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.Dark[3];
+                    break;
+                case 3: //black
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.Black[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.Black[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.Black[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.Black[3];
+                    break;
+                case 4: //silver
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.Silver[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.Silver[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.Silver[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.Silver[3];
+                    break;
+                case 5: //gold
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.Gold[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.Gold[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.Gold[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.Gold[3];
+                    break;
+                case 6: //darkred
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkRed[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkRed[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkRed[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkGreen[3];
+                    break;
+                case 7: //darkgreen
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkGreen[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkGreen[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkGreen[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkGreen[3];
+                    break;
+                case 8: //darkblue
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkBlue[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkBlue[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkBlue[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkBlue[3];
+                    break;
+                case 9: //magenta
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkMagenta[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkMagenta[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkMagenta[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkMagenta[3];
+                    break;
+                case 10: //orange
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkOrange[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkOrange[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkOrange[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkOrange[3];
+                    break;
+                case 11: //violet
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkViolet[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkViolet[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkViolet[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkViolet[3];
+                    break;
+                case 12: //darkslateblue
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DarkSlateBlue[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DarkSlateBlue[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DarkSlateBlue[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DarkSlateBlue[3];
+                    break;
+                case 13: //tan
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.Tan[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.Tan[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.Tan[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.Tan[3];
+                    break;
+                default:
+                    _backColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[0];
+                    _foreColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[1];
+                    _windowColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[2];
+                    _textColor = ConfigManager.GeneralConfig.ColorProfiles.DefaultColor[3];
+                    break;
+            }
+
+
+            var cmb = (ComboBox)sender;
+            if (cmb == null) return;
+
+
+            e.DrawBackground();
+
+            // change background color
+            var bc = new SolidBrush(_backColor);
+            var fc = new SolidBrush(_foreColor);
+            var wc = new SolidBrush(_windowColor);
+            var gr = new SolidBrush(Color.Gray);
+            e.Graphics.FillRectangle(bc, e.Bounds);
+
+
+            // change foreground color
+            Brush brush = ((e.State & DrawItemState.Selected) > 0) ? fc : gr;
+            if (e.Index >= 0)
+            {
+                e.Graphics.DrawString(cmb.Items[e.Index].ToString(), cmb.Font, brush, e.Bounds);
+                e.DrawFocusRectangle();
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

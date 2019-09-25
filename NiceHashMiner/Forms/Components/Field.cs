@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NiceHashMiner.Configs;
+using System;
 using System.Windows.Forms;
 
 namespace NiceHashMiner.Forms.Components
@@ -35,6 +36,12 @@ namespace NiceHashMiner.Forms.Components
             toolTip1.SetToolTip(labelFieldIndicator, infoMsg);
             toolTip1.SetToolTip(textBox, infoMsg);
             toolTip1.SetToolTip(pictureBox1, infoMsg);
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                pictureBox1.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                textBox.BackColor = Form_Main._backColor;
+                textBox.ForeColor = Form_Main._foreColor;
+            }
         }
 
         public void SetInputModeDoubleOnly()

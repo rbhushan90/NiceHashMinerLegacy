@@ -33,8 +33,9 @@ namespace NiceHashMiner.Forms.Components
 
         private class DefaultAlgorithmColorSeter : IListItemCheckColorSetter
         {
-            private static readonly Color DisabledColor = Color.FromArgb(Form_Main._backColor.ToArgb() + 40 * 256 * 256 * 256 + 40 * 256 * 256 + 40 * 256 + 40);
-          //  private static readonly Color DisabledColor = Form_Main._backColor;
+            //private static readonly Color DisabledColor = Color.FromArgb(Form_Main._backColor.ToArgb() + 40 * 256 * 256 * 256 + 40 * 256 * 256 + 40 * 256 + 40);
+            public static Color DisabledColor = ConfigManager.GeneralConfig.ColorProfileIndex != 0 ? Color.FromArgb(Form_Main._backColor.ToArgb() + 40 * 256 * 256 * 256 + 40 * 256 * 256 + 40 * 256 + 40) : Color.DarkGray;
+            //  private static readonly Color DisabledColor = Form_Main._backColor;
             private static readonly Color BenchmarkedColor = Form_Main._backColor;
             private static readonly Color UnbenchmarkedColor = Color.LightBlue;
 

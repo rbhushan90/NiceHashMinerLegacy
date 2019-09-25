@@ -18,7 +18,8 @@ namespace NiceHashMiner.Forms.Components
         private const int FAN = 3;
         private const int POWER = 4;
         public static Color EnabledColor = Form_Main._windowColor;
-        public static Color DisabledColor = Color.FromArgb(Form_Main._backColor.ToArgb() + 40 * 256 * 256 * 256 + 40 * 256 * 256 + 40 * 256 + 40);
+        public static Color DisabledColor = ConfigManager.GeneralConfig.ColorProfileIndex != 0 ? Color.FromArgb(Form_Main._backColor.ToArgb() + 40 * 256 * 256 * 256 + 40 * 256 * 256 + 40 * 256 + 40) : Color.DarkGray;
+        //public static Color DisabledColor = SystemColors.ControlLight;
 
         public class DefaultDevicesColorSeter : IListItemCheckColorSetter
         {
@@ -575,6 +576,11 @@ namespace NiceHashMiner.Forms.Components
           //  with1.DrawLines(new Pen(Color.Green), new Point[] {/*new Point(e.Bounds.Left, e.Bounds.Top - 1),*/new Point(e.Bounds.Left + e.Bounds.Width, e.Bounds.Top - 1), new Point(e.Bounds.Left + e.Bounds.Width, e.Bounds.Top + e.Bounds.Height)/*,new Point(e.Bounds.Left, e.Bounds.Top + e.Bounds.Height)*/});
            // e.DrawText();
             
+        }
+
+        private void DevicesListViewEnableControl_Leave(object sender, EventArgs e)
+        {
+//            listViewDevices.Enabled = false;
         }
     }
     public static class ControlExtensions

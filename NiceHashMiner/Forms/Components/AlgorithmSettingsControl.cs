@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Forms;
 using NiceHashMiner.Algorithms;
+using NiceHashMiner.Configs;
 
 namespace NiceHashMiner.Forms.Components
 {
@@ -54,6 +55,20 @@ namespace NiceHashMiner.Forms.Components
             toolTip1.SetToolTip(groupBoxExtraLaunchParameters,
                 International.GetText("Form_Settings_ToolTip_AlgoExtraLaunchParameters"));
             toolTip1.SetToolTip(pictureBox1, International.GetText("Form_Settings_ToolTip_AlgoExtraLaunchParameters"));
+
+
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                groupBoxSelectedAlgorithmSettings.BackColor = Form_Main._backColor;
+                groupBoxSelectedAlgorithmSettings.ForeColor = Form_Main._foreColor;
+
+                groupBoxExtraLaunchParameters.BackColor = Form_Main._backColor;
+                groupBoxExtraLaunchParameters.ForeColor = Form_Main._foreColor;
+
+                pictureBox1.Image = NiceHashMiner.Properties.Resources.info_white_18;
+                richTextBoxExtraLaunchParameters.BackColor = Form_Main._backColor;
+                richTextBoxExtraLaunchParameters.ForeColor = Form_Main._foreColor;
+            }
         }
 
         private static string ParseStringDefault(string value)

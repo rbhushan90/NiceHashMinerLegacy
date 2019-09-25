@@ -438,7 +438,9 @@
     <Content Include="MyDownloader.Core.csproj" />
     <Content Include="Resources\info_black_18.png" />
     <Content Include="Resources\info_black_36.png" />
+    <None Include="Resources\info_white_18.png" />
     <Content Include="Resources\logo.ico" />
+    <None Include="Resources\NHM_Cash_Register_Bitcoin_transparent_white.png" />
     <Content Include="Resources\NHM_logo_big_light.png" />
     <Content Include="Resources\NHM_logo_med_light.png" />
     <Content Include="Resources\NHM_logo_small_light.png" />

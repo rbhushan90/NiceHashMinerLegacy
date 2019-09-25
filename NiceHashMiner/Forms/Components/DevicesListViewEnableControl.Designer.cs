@@ -118,6 +118,7 @@
             this.Controls.Add(this.listViewDevices);
             this.Name = "DevicesListViewEnableControl";
             this.Size = new System.Drawing.Size(625, 226);
+            this.Leave += new System.EventHandler(this.DevicesListViewEnableControl_Leave);
             this.Resize += new System.EventHandler(this.DevicesListViewEnableControl_Resize);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);

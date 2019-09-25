@@ -69,7 +69,7 @@
             // buttonStartMining
             // 
             this.buttonStartMining.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonStartMining.Location = new System.Drawing.Point(613, 177);
+            this.buttonStartMining.Location = new System.Drawing.Point(612, 167);
             this.buttonStartMining.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonStartMining.Name = "buttonStartMining";
             this.buttonStartMining.Size = new System.Drawing.Size(105, 23);
@@ -81,7 +81,7 @@
             // labelServiceLocation
             // 
             this.labelServiceLocation.AutoSize = true;
-            this.labelServiceLocation.Location = new System.Drawing.Point(8, 23);
+            this.labelServiceLocation.Location = new System.Drawing.Point(7, 9);
             this.labelServiceLocation.Name = "labelServiceLocation";
             this.labelServiceLocation.Size = new System.Drawing.Size(86, 13);
             this.labelServiceLocation.TabIndex = 99;
@@ -99,7 +99,7 @@
             "India - Chennai",
             "Brazil - Sao Paulo",
             "Auto"});
-            this.comboBoxLocation.Location = new System.Drawing.Point(100, 20);
+            this.comboBoxLocation.Location = new System.Drawing.Point(110, 6);
             this.comboBoxLocation.Name = "comboBoxLocation";
             this.comboBoxLocation.Size = new System.Drawing.Size(138, 21);
             this.comboBoxLocation.TabIndex = 0;
@@ -120,7 +120,7 @@
             this.toolStripStatusLabelBalanceDollarText,
             this.toolStripStatusLabelBalanceDollarValue,
             this.toolStripStatusLabel10});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 341);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 330);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(729, 25);
             this.statusStrip1.TabIndex = 8;
@@ -198,7 +198,7 @@
             // linkLabelCheckStats
             // 
             this.linkLabelCheckStats.AutoSize = true;
-            this.linkLabelCheckStats.Location = new System.Drawing.Point(175, 103);
+            this.linkLabelCheckStats.Location = new System.Drawing.Point(174, 93);
             this.linkLabelCheckStats.Name = "linkLabelCheckStats";
             this.linkLabelCheckStats.Size = new System.Drawing.Size(113, 13);
             this.linkLabelCheckStats.TabIndex = 9;
@@ -209,7 +209,7 @@
             // labelWorkerName
             // 
             this.labelWorkerName.AutoSize = true;
-            this.labelWorkerName.Location = new System.Drawing.Point(347, 64);
+            this.labelWorkerName.Location = new System.Drawing.Point(7, 62);
             this.labelWorkerName.Name = "labelWorkerName";
             this.labelWorkerName.Size = new System.Drawing.Size(74, 13);
             this.labelWorkerName.TabIndex = 99;
@@ -217,7 +217,7 @@
             // 
             // textBoxWorkerName
             // 
-            this.textBoxWorkerName.Location = new System.Drawing.Point(452, 61);
+            this.textBoxWorkerName.Location = new System.Drawing.Point(110, 59);
             this.textBoxWorkerName.Name = "textBoxWorkerName";
             this.textBoxWorkerName.Size = new System.Drawing.Size(105, 20);
             this.textBoxWorkerName.TabIndex = 2;
@@ -226,19 +226,20 @@
             // buttonStopMining
             // 
             this.buttonStopMining.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonStopMining.Location = new System.Drawing.Point(613, 203);
+            this.buttonStopMining.BackColor = System.Drawing.Color.LightGray;
+            this.buttonStopMining.Location = new System.Drawing.Point(612, 193);
             this.buttonStopMining.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonStopMining.Name = "buttonStopMining";
             this.buttonStopMining.Size = new System.Drawing.Size(105, 23);
             this.buttonStopMining.TabIndex = 7;
             this.buttonStopMining.Text = "St&op";
-            this.buttonStopMining.UseVisualStyleBackColor = true;
+            this.buttonStopMining.UseVisualStyleBackColor = false;
             this.buttonStopMining.Click += new System.EventHandler(this.ButtonStopMining_Click);
             // 
             // buttonBenchmark
             // 
             this.buttonBenchmark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBenchmark.Location = new System.Drawing.Point(613, 124);
+            this.buttonBenchmark.Location = new System.Drawing.Point(612, 114);
             this.buttonBenchmark.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.buttonBenchmark.Name = "buttonBenchmark";
             this.buttonBenchmark.Size = new System.Drawing.Size(105, 23);
@@ -250,7 +251,7 @@
             // buttonSettings
             // 
             this.buttonSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSettings.Location = new System.Drawing.Point(613, 150);
+            this.buttonSettings.Location = new System.Drawing.Point(612, 140);
             this.buttonSettings.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonSettings.Name = "buttonSettings";
             this.buttonSettings.Size = new System.Drawing.Size(105, 23);
@@ -261,12 +262,13 @@
             // 
             // buttonLogo
             // 
+            this.buttonLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLogo.AutoSize = true;
             this.buttonLogo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonLogo.FlatAppearance.BorderSize = 0;
             this.buttonLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonLogo.Image = global::NiceHashMiner.Properties.Resources.NHM_logo_xsmall_light;
-            this.buttonLogo.Location = new System.Drawing.Point(376, 3);
+            this.buttonLogo.Location = new System.Drawing.Point(536, 3);
             this.buttonLogo.Name = "buttonLogo";
             this.buttonLogo.Size = new System.Drawing.Size(181, 52);
             this.buttonLogo.TabIndex = 11;
@@ -278,7 +280,7 @@
             // linkLabelChooseBTCWallet
             // 
             this.linkLabelChooseBTCWallet.AutoSize = true;
-            this.linkLabelChooseBTCWallet.Location = new System.Drawing.Point(7, 103);
+            this.linkLabelChooseBTCWallet.Location = new System.Drawing.Point(6, 93);
             this.linkLabelChooseBTCWallet.Name = "linkLabelChooseBTCWallet";
             this.linkLabelChooseBTCWallet.Size = new System.Drawing.Size(165, 13);
             this.linkLabelChooseBTCWallet.TabIndex = 10;
@@ -292,15 +294,16 @@
             // 
             // labelDemoMode
             // 
+            this.labelDemoMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDemoMode.AutoSize = true;
             this.labelDemoMode.BackColor = System.Drawing.Color.Transparent;
             this.labelDemoMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDemoMode.ForeColor = System.Drawing.Color.Red;
-            this.labelDemoMode.Location = new System.Drawing.Point(8, 3);
+            this.labelDemoMode.Location = new System.Drawing.Point(386, 58);
             this.labelDemoMode.Name = "labelDemoMode";
-            this.labelDemoMode.Size = new System.Drawing.Size(342, 18);
+            this.labelDemoMode.Size = new System.Drawing.Size(331, 18);
             this.labelDemoMode.TabIndex = 100;
-            this.labelDemoMode.Text = "NiceHash Miner Legacy is running in DEMO mode!";
+            this.labelDemoMode.Text = "Miner Legacy Fork Fix is running in DEMO mode!";
             this.labelDemoMode.Visible = false;
             // 
             // flowLayoutPanelRates
@@ -319,7 +322,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label_NotProfitable);
             this.groupBox1.Controls.Add(this.flowLayoutPanelRates);
-            this.groupBox1.Location = new System.Drawing.Point(10, 278);
+            this.groupBox1.Location = new System.Drawing.Point(9, 268);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(596, 59);
             this.groupBox1.TabIndex = 108;
@@ -340,7 +343,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(613, 230);
+            this.buttonHelp.Location = new System.Drawing.Point(612, 220);
             this.buttonHelp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(105, 23);
@@ -352,7 +355,7 @@
             // linkLabelNewVersion
             // 
             this.linkLabelNewVersion.AutoSize = true;
-            this.linkLabelNewVersion.Location = new System.Drawing.Point(292, 90);
+            this.linkLabelNewVersion.Location = new System.Drawing.Point(291, 80);
             this.linkLabelNewVersion.Name = "linkLabelNewVersion";
             this.linkLabelNewVersion.Size = new System.Drawing.Size(0, 13);
             this.linkLabelNewVersion.TabIndex = 110;
@@ -361,7 +364,7 @@
             // labelBitcoinAddressNew
             // 
             this.labelBitcoinAddressNew.AutoSize = true;
-            this.labelBitcoinAddressNew.Location = new System.Drawing.Point(8, 63);
+            this.labelBitcoinAddressNew.Location = new System.Drawing.Point(7, 36);
             this.labelBitcoinAddressNew.Name = "labelBitcoinAddressNew";
             this.labelBitcoinAddressNew.Size = new System.Drawing.Size(82, 13);
             this.labelBitcoinAddressNew.TabIndex = 112;
@@ -369,7 +372,7 @@
             // 
             // textBoxBTCAddress_new
             // 
-            this.textBoxBTCAddress_new.Location = new System.Drawing.Point(100, 60);
+            this.textBoxBTCAddress_new.Location = new System.Drawing.Point(110, 33);
             this.textBoxBTCAddress_new.Name = "textBoxBTCAddress_new";
             this.textBoxBTCAddress_new.Size = new System.Drawing.Size(230, 20);
             this.textBoxBTCAddress_new.TabIndex = 111;
@@ -383,7 +386,7 @@
             this.devicesListViewEnableControl1.FirstColumnText = "Enabled";
             this.devicesListViewEnableControl1.IsInBenchmark = false;
             this.devicesListViewEnableControl1.IsMining = false;
-            this.devicesListViewEnableControl1.Location = new System.Drawing.Point(11, 124);
+            this.devicesListViewEnableControl1.Location = new System.Drawing.Point(10, 114);
             this.devicesListViewEnableControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.devicesListViewEnableControl1.Name = "devicesListViewEnableControl1";
             this.devicesListViewEnableControl1.SaveToGeneralConfig = false;
@@ -395,7 +398,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(729, 366);
+            this.ClientSize = new System.Drawing.Size(729, 355);
             this.Controls.Add(this.labelBitcoinAddressNew);
             this.Controls.Add(this.textBoxBTCAddress_new);
             this.Controls.Add(this.linkLabelNewVersion);
