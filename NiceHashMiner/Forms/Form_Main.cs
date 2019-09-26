@@ -52,7 +52,7 @@ namespace NiceHashMiner
         private int _flowLayoutPanelRatesIndex = 0;
 
         private const string BetaAlphaPostfixString = "";
-        const string ForkString = " Fork Fix 18";
+        const string ForkString = " Fork Fix 19";
 
         private bool _isDeviceDetectionInitialized = false;
 
@@ -710,13 +710,17 @@ namespace NiceHashMiner
         private void Form_Main_Shown(object sender, EventArgs e)
         {
 
-            Form_Main.ActiveForm.Width = ConfigManager.GeneralConfig.FormWidth;
-
+            if (Form_Main.ActiveForm != null)
+            {
+                Form_Main.ActiveForm.Width = ConfigManager.GeneralConfig.FormWidth;
+            }
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {
-                Form_Main.ActiveForm.BackColor = _backColor;
-                Form_Main.ActiveForm.ForeColor = _foreColor;
-
+                if (Form_Main.ActiveForm != null)
+                {
+                    Form_Main.ActiveForm.BackColor = _backColor;
+                    Form_Main.ActiveForm.ForeColor = _foreColor;
+                }
                 //Form_Main.ActiveForm.BackColor = Color.DarkSlateGray; //темно сине-серый
                 //this.BackColor = SystemColors.HotTrack;
                 foreach (var lbl in this.Controls.OfType<Label>()) lbl.BackColor = _backColor;
