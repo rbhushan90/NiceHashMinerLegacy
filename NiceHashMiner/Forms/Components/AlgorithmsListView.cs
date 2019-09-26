@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Configs;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Forms.Components
 {
@@ -13,10 +14,11 @@ namespace NiceHashMiner.Forms.Components
     {
         private const int ENABLED = 0;
         private const int ALGORITHM = 1;
-        private const int SPEED = 2;
-        private const int SECSPEED = 3;
-        private const int RATIO = 4;
-        private const int RATE = 5;
+        private const int MINER = 2;
+        private const int SPEED = 3;
+        private const int SECSPEED = 4;
+        private const int RATIO = 5;
+        private const int RATE = 6;
         public static bool isListViewEnabled = true;
         public interface IAlgorithmsListView
         {
@@ -157,6 +159,11 @@ namespace NiceHashMiner.Forms.Components
 
             listViewAlgorithms.Columns[ENABLED].Text = International.GetText("AlgorithmsListView_Enabled");
             listViewAlgorithms.Columns[ALGORITHM].Text = International.GetText("AlgorithmsListView_Algorithm");
+            listViewAlgorithms.Columns[MINER].Text = "Miner";
+            if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
+            {
+                listViewAlgorithms.Columns[MINER].Text = "Майнер";
+            }
             listViewAlgorithms.Columns[SPEED].Text = International.GetText("AlgorithmsListView_Speed");
             listViewAlgorithms.Columns[SECSPEED].Text = International.GetText("Form_DcriValues_SecondarySpeed");
             listViewAlgorithms.Columns[RATIO].Text = International.GetText("AlgorithmsListView_Ratio");
@@ -176,21 +183,26 @@ namespace NiceHashMiner.Forms.Components
                     var lvi = new ListViewItem();
 
                     var name = "";
+                    var miner = "";
                     var secondarySpeed = "";
                     var payingRatio = "";
                     if (alg is DualAlgorithm dualAlg)
                     {
                         name = "  + " + dualAlg.SecondaryAlgorithmName;
+                        miner = alg.MinerBaseTypeName;
                         secondarySpeed = dualAlg.SecondaryBenchmarkSpeedString();
                         payingRatio = dualAlg.SecondaryCurPayingRatio;
                     }
                     else
                     {
-                        name = $"{alg.AlgorithmName} ({alg.MinerBaseTypeName})";
+                        name = alg.AlgorithmName;
+                        miner = alg.MinerBaseTypeName;
+                        //name = $"{alg.AlgorithmName} ({alg.MinerBaseTypeName})";
                         payingRatio = alg.CurPayingRatio;
                     }
 
                     lvi.SubItems.Add(name);
+                    lvi.SubItems.Add(miner);
 
                     //sub.Tag = alg.Value;
                     lvi.SubItems.Add(alg.BenchmarkSpeedString());
@@ -545,13 +557,13 @@ namespace NiceHashMiner.Forms.Components
         {
             listViewAlgorithms.BeginUpdate();
 
-            if (e.ColumnIndex == 4)
+            if (e.ColumnIndex == 6)
             {
-                ResizeAutoSizeColumn(listViewAlgorithms, 0);
+                ResizeAutoSizeColumn(listViewAlgorithms, 1);
             }
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == 1)
             {
-                ResizeAutoSizeColumn(listViewAlgorithms, 4);
+                ResizeAutoSizeColumn(listViewAlgorithms, 6);
             }
             listViewAlgorithms.EndUpdate();
         }
@@ -581,7 +593,7 @@ namespace NiceHashMiner.Forms.Components
         {
             //ResizeColumn();
             listViewAlgorithms.BeginUpdate();
-            ResizeAutoSizeColumn(listViewAlgorithms, 1);
+            ResizeAutoSizeColumn(listViewAlgorithms, 6);
             listViewAlgorithms.EndUpdate();
         }
     }

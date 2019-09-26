@@ -107,6 +107,7 @@
             this.label_displayCurrency = new System.Windows.Forms.Label();
             this.tabPageAdvanced1 = new System.Windows.Forms.TabPage();
             this.groupBoxMOPA = new System.Windows.Forms.GroupBox();
+            this.radioButtonMOPA5 = new System.Windows.Forms.RadioButton();
             this.radioButtonMOPA4 = new System.Windows.Forms.RadioButton();
             this.radioButtonMOPA3 = new System.Windows.Forms.RadioButton();
             this.radioButtonMOPA2 = new System.Windows.Forms.RadioButton();
@@ -145,15 +146,14 @@
             this.tabPageDevicesAlgos = new System.Windows.Forms.TabPage();
             this.checkBox_Disable_extra_launch_parameter_checking = new System.Windows.Forms.CheckBox();
             this.groupBoxAlgorithmSettings = new System.Windows.Forms.GroupBox();
+            this.algorithmsListView1 = new NiceHashMiner.Forms.Components.AlgorithmsListView();
             this.buttonGPUtuning = new System.Windows.Forms.Button();
+            this.devicesListViewEnableControl1 = new NiceHashMiner.Forms.Components.DevicesListViewEnableControl();
+            this.algorithmSettingsControl1 = new NiceHashMiner.Forms.Components.AlgorithmSettingsControl();
             this.buttonSaveClose = new System.Windows.Forms.Button();
             this.buttonDefaults = new System.Windows.Forms.Button();
             this.buttonCloseNoSave = new System.Windows.Forms.Button();
             this.tabControlGeneral = new System.Windows.Forms.CustomTabControl();
-            this.radioButtonMOPA5 = new System.Windows.Forms.RadioButton();
-            this.algorithmsListView1 = new NiceHashMiner.Forms.Components.AlgorithmsListView();
-            this.devicesListViewEnableControl1 = new NiceHashMiner.Forms.Components.DevicesListViewEnableControl();
-            this.algorithmSettingsControl1 = new NiceHashMiner.Forms.Components.AlgorithmSettingsControl();
             this.tabPageGeneral.SuspendLayout();
             this.groupBox_Main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ElectricityCost)).BeginInit();
@@ -590,7 +590,7 @@
             this.groupBox_Misc.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox_Misc.Name = "groupBox_Misc";
             this.groupBox_Misc.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBox_Misc.Size = new System.Drawing.Size(289, 429);
+            this.groupBox_Misc.Size = new System.Drawing.Size(288, 429);
             this.groupBox_Misc.TabIndex = 391;
             this.groupBox_Misc.TabStop = false;
             this.groupBox_Misc.Text = "Misc:";
@@ -629,10 +629,10 @@
             // 
             this.comboBox_ColorProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_ColorProfile.FormattingEnabled = true;
-            this.comboBox_ColorProfile.Location = new System.Drawing.Point(171, 396);
+            this.comboBox_ColorProfile.Location = new System.Drawing.Point(166, 396);
             this.comboBox_ColorProfile.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBox_ColorProfile.Name = "comboBox_ColorProfile";
-            this.comboBox_ColorProfile.Size = new System.Drawing.Size(97, 21);
+            this.comboBox_ColorProfile.Size = new System.Drawing.Size(102, 21);
             this.comboBox_ColorProfile.TabIndex = 378;
             this.comboBox_ColorProfile.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox_ColorProfile_DrawItem);
             this.comboBox_ColorProfile.SelectedIndexChanged += new System.EventHandler(this.comboBox_ColorProfile_SelectedIndexChanged);
@@ -1226,6 +1226,18 @@
             this.groupBoxMOPA.TabStop = false;
             this.groupBoxMOPA.Text = "Method of obtaining profitability of algorithms:";
             // 
+            // radioButtonMOPA5
+            // 
+            this.radioButtonMOPA5.AutoSize = true;
+            this.radioButtonMOPA5.Location = new System.Drawing.Point(242, 45);
+            this.radioButtonMOPA5.Name = "radioButtonMOPA5";
+            this.radioButtonMOPA5.Size = new System.Drawing.Size(183, 17);
+            this.radioButtonMOPA5.TabIndex = 399;
+            this.radioButtonMOPA5.TabStop = true;
+            this.radioButtonMOPA5.Text = "Highest profitability by all methods";
+            this.radioButtonMOPA5.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA5.CheckedChanged += new System.EventHandler(this.radioButtonMOPA5_CheckedChanged);
+            // 
             // radioButtonMOPA4
             // 
             this.radioButtonMOPA4.AutoSize = true;
@@ -1626,10 +1638,10 @@
             // 
             this.tabPageDevicesAlgos.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageDevicesAlgos.Controls.Add(this.checkBox_Disable_extra_launch_parameter_checking);
+            this.tabPageDevicesAlgos.Controls.Add(this.algorithmSettingsControl1);
             this.tabPageDevicesAlgos.Controls.Add(this.groupBoxAlgorithmSettings);
             this.tabPageDevicesAlgos.Controls.Add(this.buttonGPUtuning);
             this.tabPageDevicesAlgos.Controls.Add(this.devicesListViewEnableControl1);
-            this.tabPageDevicesAlgos.Controls.Add(this.algorithmSettingsControl1);
             this.tabPageDevicesAlgos.Location = new System.Drawing.Point(4, 23);
             this.tabPageDevicesAlgos.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPageDevicesAlgos.Name = "tabPageDevicesAlgos";
@@ -1640,9 +1652,11 @@
             // 
             // checkBox_Disable_extra_launch_parameter_checking
             // 
+            this.checkBox_Disable_extra_launch_parameter_checking.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox_Disable_extra_launch_parameter_checking.AutoSize = true;
             this.checkBox_Disable_extra_launch_parameter_checking.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBox_Disable_extra_launch_parameter_checking.Location = new System.Drawing.Point(371, 221);
+            this.checkBox_Disable_extra_launch_parameter_checking.Location = new System.Drawing.Point(360, 224);
             this.checkBox_Disable_extra_launch_parameter_checking.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_Disable_extra_launch_parameter_checking.Name = "checkBox_Disable_extra_launch_parameter_checking";
             this.checkBox_Disable_extra_launch_parameter_checking.Size = new System.Drawing.Size(219, 17);
@@ -1652,6 +1666,9 @@
             // 
             // groupBoxAlgorithmSettings
             // 
+            this.groupBoxAlgorithmSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxAlgorithmSettings.Controls.Add(this.algorithmsListView1);
             this.groupBoxAlgorithmSettings.Location = new System.Drawing.Point(6, 244);
             this.groupBoxAlgorithmSettings.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1663,9 +1680,26 @@
             this.groupBoxAlgorithmSettings.Text = "Algorithm settings for selected device:";
             this.groupBoxAlgorithmSettings.Enter += new System.EventHandler(this.groupBoxAlgorithmSettings_Enter);
             // 
+            // algorithmsListView1
+            // 
+            this.algorithmsListView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.algorithmsListView1.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
+            this.algorithmsListView1.BackColor = System.Drawing.SystemColors.Control;
+            this.algorithmsListView1.BenchmarkCalculation = null;
+            this.algorithmsListView1.ComunicationInterface = null;
+            this.algorithmsListView1.IsInBenchmark = false;
+            this.algorithmsListView1.Location = new System.Drawing.Point(6, 21);
+            this.algorithmsListView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.algorithmsListView1.Name = "algorithmsListView1";
+            this.algorithmsListView1.Size = new System.Drawing.Size(627, 219);
+            this.algorithmsListView1.TabIndex = 2;
+            this.algorithmsListView1.Load += new System.EventHandler(this.algorithmsListView1_Load);
+            // 
             // buttonGPUtuning
             // 
-            this.buttonGPUtuning.Location = new System.Drawing.Point(12, 17);
+            this.buttonGPUtuning.Location = new System.Drawing.Point(8, 20);
             this.buttonGPUtuning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonGPUtuning.Name = "buttonGPUtuning";
             this.buttonGPUtuning.Size = new System.Drawing.Size(141, 23);
@@ -1673,6 +1707,32 @@
             this.buttonGPUtuning.Text = "GPU tuning";
             this.buttonGPUtuning.UseVisualStyleBackColor = true;
             this.buttonGPUtuning.Click += new System.EventHandler(this.ButtonGPUtuning_Click);
+            // 
+            // devicesListViewEnableControl1
+            // 
+            this.devicesListViewEnableControl1.BenchmarkCalculation = null;
+            this.devicesListViewEnableControl1.FirstColumnText = "Enabled";
+            this.devicesListViewEnableControl1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.devicesListViewEnableControl1.IsInBenchmark = false;
+            this.devicesListViewEnableControl1.IsMining = false;
+            this.devicesListViewEnableControl1.Location = new System.Drawing.Point(8, 51);
+            this.devicesListViewEnableControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.devicesListViewEnableControl1.Name = "devicesListViewEnableControl1";
+            this.devicesListViewEnableControl1.SaveToGeneralConfig = false;
+            this.devicesListViewEnableControl1.Size = new System.Drawing.Size(348, 165);
+            this.devicesListViewEnableControl1.TabIndex = 397;
+            this.devicesListViewEnableControl1.Load += new System.EventHandler(this.devicesListViewEnableControl1_Load);
+            // 
+            // algorithmSettingsControl1
+            // 
+            this.algorithmSettingsControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.algorithmSettingsControl1.Location = new System.Drawing.Point(360, 8);
+            this.algorithmSettingsControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.algorithmSettingsControl1.Name = "algorithmSettingsControl1";
+            this.algorithmSettingsControl1.Size = new System.Drawing.Size(285, 208);
+            this.algorithmSettingsControl1.TabIndex = 396;
+            this.algorithmSettingsControl1.Load += new System.EventHandler(this.algorithmSettingsControl1_Load);
             // 
             // buttonSaveClose
             // 
@@ -1712,6 +1772,9 @@
             // 
             // tabControlGeneral
             // 
+            this.tabControlGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlGeneral.Controls.Add(this.tabPageGeneral);
             this.tabControlGeneral.Controls.Add(this.tabPageAdvanced1);
             this.tabControlGeneral.Controls.Add(this.tabPageDevicesAlgos);
@@ -1740,56 +1803,6 @@
             this.tabControlGeneral.Size = new System.Drawing.Size(660, 523);
             this.tabControlGeneral.TabIndex = 46;
             // 
-            // radioButtonMOPA5
-            // 
-            this.radioButtonMOPA5.AutoSize = true;
-            this.radioButtonMOPA5.Location = new System.Drawing.Point(242, 45);
-            this.radioButtonMOPA5.Name = "radioButtonMOPA5";
-            this.radioButtonMOPA5.Size = new System.Drawing.Size(183, 17);
-            this.radioButtonMOPA5.TabIndex = 399;
-            this.radioButtonMOPA5.TabStop = true;
-            this.radioButtonMOPA5.Text = "Highest profitability by all methods";
-            this.radioButtonMOPA5.UseVisualStyleBackColor = true;
-            this.radioButtonMOPA5.CheckedChanged += new System.EventHandler(this.radioButtonMOPA5_CheckedChanged);
-            // 
-            // algorithmsListView1
-            // 
-            this.algorithmsListView1.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.algorithmsListView1.BackColor = System.Drawing.SystemColors.Control;
-            this.algorithmsListView1.BenchmarkCalculation = null;
-            this.algorithmsListView1.ComunicationInterface = null;
-            this.algorithmsListView1.IsInBenchmark = false;
-            this.algorithmsListView1.Location = new System.Drawing.Point(6, 21);
-            this.algorithmsListView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.algorithmsListView1.Name = "algorithmsListView1";
-            this.algorithmsListView1.Size = new System.Drawing.Size(627, 219);
-            this.algorithmsListView1.TabIndex = 2;
-            this.algorithmsListView1.Load += new System.EventHandler(this.algorithmsListView1_Load);
-            // 
-            // devicesListViewEnableControl1
-            // 
-            this.devicesListViewEnableControl1.BenchmarkCalculation = null;
-            this.devicesListViewEnableControl1.FirstColumnText = "Enabled";
-            this.devicesListViewEnableControl1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.devicesListViewEnableControl1.IsInBenchmark = false;
-            this.devicesListViewEnableControl1.IsMining = false;
-            this.devicesListViewEnableControl1.Location = new System.Drawing.Point(8, 68);
-            this.devicesListViewEnableControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.devicesListViewEnableControl1.Name = "devicesListViewEnableControl1";
-            this.devicesListViewEnableControl1.SaveToGeneralConfig = false;
-            this.devicesListViewEnableControl1.Size = new System.Drawing.Size(348, 168);
-            this.devicesListViewEnableControl1.TabIndex = 397;
-            this.devicesListViewEnableControl1.Load += new System.EventHandler(this.devicesListViewEnableControl1_Load);
-            // 
-            // algorithmSettingsControl1
-            // 
-            this.algorithmSettingsControl1.Location = new System.Drawing.Point(360, 8);
-            this.algorithmSettingsControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.algorithmSettingsControl1.Name = "algorithmSettingsControl1";
-            this.algorithmSettingsControl1.Size = new System.Drawing.Size(285, 205);
-            this.algorithmSettingsControl1.TabIndex = 396;
-            this.algorithmSettingsControl1.Load += new System.EventHandler(this.algorithmSettingsControl1_Load);
-            // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1799,11 +1812,12 @@
             this.Controls.Add(this.buttonDefaults);
             this.Controls.Add(this.buttonSaveClose);
             this.Controls.Add(this.buttonCloseNoSave);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(683, 616);
             this.Name = "Form_Settings";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormSettings_FormClosing);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form_Settings_Paint);

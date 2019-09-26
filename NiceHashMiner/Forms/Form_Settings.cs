@@ -422,7 +422,7 @@ namespace NiceHashMiner.Forms
                 groupBoxMOPA.Text = "Метод получения прибыльности алгоритмов";
                 radioButtonMOPA1.Text = "Стандартный NHM";
                 radioButtonMOPA2.Text = "Текущая прибыльность";
-                radioButtonMOPA3.Text = "Средняя прибыльность за 5 минут";
+                radioButtonMOPA3.Text = "Средняя прибыльн. за 5 мин.";
                 radioButtonMOPA4.Text = "Средняя прибыльность за 24 часа";
                 radioButtonMOPA5.Text = "Наибольшая прибыльность по всем методам";
                 label1.Text = "Цветовой профиль (частично)";
@@ -497,6 +497,8 @@ namespace NiceHashMiner.Forms
             */
             // device enabled listview translation
             devicesListViewEnableControl1.InitLocale();
+            this.Width = ConfigManager.GeneralConfig.SettingsFormWidth;
+            this.Height = ConfigManager.GeneralConfig.SettingsFormHeight;
             algorithmsListView1.InitLocale();
 
             comboBox_ColorProfile.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -1280,6 +1282,12 @@ namespace NiceHashMiner.Forms
                 }
             }
 
+            if (Form_Benchmark.ActiveForm != null)
+            {
+                ConfigManager.GeneralConfig.SettingsFormHeight = Form_Settings.ActiveForm.Height;
+                ConfigManager.GeneralConfig.SettingsFormWidth = Form_Settings.ActiveForm.Width;
+                ConfigManager.GeneralConfigFileCommit();
+            }
             // check restart parameters change
             IsRestartNeeded = ConfigManager.IsRestartNeeded();
 

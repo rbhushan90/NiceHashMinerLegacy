@@ -45,6 +45,8 @@ namespace NiceHashMiner.Configs.Data
         public int FormWidth = 745;
         public int BenchmarkFormWidth = 670;
         public int BenchmarkFormHeight = 550;
+        public int SettingsFormWidth = 683;
+        public int SettingsFormHeight = 616;
 
         public bool MinimizeMiningWindows = false;
 
@@ -218,6 +220,8 @@ namespace NiceHashMiner.Configs.Data
             FormWidth = 745;
             BenchmarkFormWidth = 670;
             BenchmarkFormHeight = 550;
+            SettingsFormWidth = 683;
+            SettingsFormHeight = 616;
     }
 
         public void FixSettingBounds()

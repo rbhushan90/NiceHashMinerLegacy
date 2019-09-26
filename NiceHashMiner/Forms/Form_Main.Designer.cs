@@ -422,6 +422,7 @@
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(660, 316);
             this.Name = "Form_Main";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NiceHash Miner Legacy";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

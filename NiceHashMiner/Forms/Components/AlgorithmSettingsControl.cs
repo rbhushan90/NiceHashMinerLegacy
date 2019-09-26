@@ -181,7 +181,7 @@ namespace NiceHashMiner.Forms.Components
             // update lvi speed
             if (_currentlySelectedLvi != null)
             {
-                _currentlySelectedLvi.SubItems[2].Text = speedString;
+                _currentlySelectedLvi.SubItems[3].Text = speedString;
             }
         }
 

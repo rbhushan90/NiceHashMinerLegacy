@@ -58,7 +58,7 @@ namespace NiceHashMiner.Forms
             Icon = Resources.logo;
 
             StartMining = false;
-           
+
             // clear prev pending statuses
             foreach (var dev in ComputeDeviceManager.Available.Devices)
             foreach (var algo in dev.GetAlgorithmSettings())
@@ -116,7 +116,7 @@ namespace NiceHashMiner.Forms
                 foreach (var lbl in this.Controls.OfType<ToolStripStatusLabel>()) lbl.ForeColor = Form_Main._foreColor;
 
                 foreach (var lbl in this.Controls.OfType<Button>()) lbl.BackColor = Form_Main._backColor;
-                
+
                 foreach (var lbl in this.Controls.OfType<Button>())
                 {
                     lbl.BackColor = Form_Main._backColor;
@@ -125,7 +125,7 @@ namespace NiceHashMiner.Forms
                     lbl.FlatAppearance.BorderColor = Form_Main._textColor;
                     lbl.FlatAppearance.BorderSize = 1;
                 }
-                
+
                // Form_Benchmark.ActiveForm.Enabled = true;
 
 
@@ -141,7 +141,7 @@ namespace NiceHashMiner.Forms
 
 
             }
-           
+
             _benchmarkingTimer = new Timer();
             _benchmarkingTimer.Tick += BenchmarkingTimer_Tick;
             _benchmarkingTimer.Interval = 1000; // 1s
@@ -226,11 +226,11 @@ namespace NiceHashMiner.Forms
                 }
                 else
                 {
-                    
+
                     status = algorithmQueue.Count == 0
                         ? BenchmarkSettingsStatus.DISABLED_NONE
                         : BenchmarkSettingsStatus.DISABLED_TODO;
-                        
+
                 }
 
                 _benchmarkDevicesAlgorithmStatus[cDev.Uuid] = status;
@@ -569,12 +569,12 @@ namespace NiceHashMiner.Forms
                 return null;
             }
 
-            Thread.Sleep(200);
+            Thread.Sleep(100);
 
             CMDconfigHandle.StartInfo.Arguments = "";
             CMDconfigHandle.StartInfo.UseShellExecute = false;
             CMDconfigHandle.StartInfo.CreateNoWindow = CreateNoWindow;
-            Thread.Sleep(250);
+            Thread.Sleep(150);
             Helpers.ConsolePrint("RunCMDAfterBenchmark", "Start CMD: " + CMDconfigHandle.StartInfo.FileName + CMDconfigHandle.StartInfo.Arguments);
             CMDconfigHandle.Start();
 

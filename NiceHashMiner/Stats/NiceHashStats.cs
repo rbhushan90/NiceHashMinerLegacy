@@ -108,7 +108,7 @@ namespace NiceHashMiner.Stats
 
         public static void StartConnection(string address)
         {
-           
+
 
             _socket = null;
             _socket = new NiceHashSocket(address);
@@ -126,7 +126,7 @@ namespace NiceHashMiner.Stats
                 _socket.StartConnection();
 
             }
-           
+
 
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
@@ -143,7 +143,7 @@ namespace NiceHashMiner.Stats
                 SetVersion(ghv);
             }
         }
-        
+
         #region Socket Callbacks
 
         private static void SocketOnOnConnectionLost(object sender, EventArgs eventArgs)
@@ -777,7 +777,7 @@ namespace NiceHashMiner.Stats
         {
 
             if (ConfigManager.GeneralConfig.NewPlatform)
-            { 
+            {
                 if (ConfigManager.GeneralConfig.MOPA2)
                 {
                     GetSmaAPICurrent(); //bug *10
@@ -794,7 +794,7 @@ namespace NiceHashMiner.Stats
                 {
                     GetSmaAPICurrent(); //bug *10
                     GetSmaAPI5m(); //bug *10
-                    GetSmaAPI24h(); //bug *10 
+                    GetSmaAPI24h(); //bug *10
                 }
             }
             else
@@ -1111,7 +1111,7 @@ namespace NiceHashMiner.Stats
                         }
                     }
                     ExchangeRateApi.UpdateExchangesFiat(exchange.exchanges_fiat);
-                    Thread.Sleep(200);
+                    Thread.Sleep(100);
                     OnExchangeUpdate?.Invoke(null, EventArgs.Empty);
                 }
             }

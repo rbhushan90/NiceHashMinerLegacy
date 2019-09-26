@@ -27,11 +27,12 @@
             this.listViewAlgorithms = new System.Windows.Forms.ListView();
             this.columnHeader0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listViewAlgorithms
@@ -44,7 +45,8 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader5});
+            this.columnHeader5,
+            this.columnHeader6});
             this.listViewAlgorithms.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewAlgorithms.FullRowSelect = true;
             this.listViewAlgorithms.GridLines = true;
@@ -73,35 +75,40 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Algorithm";
-            this.columnHeader1.Width = 160;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Speed";
-            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader2.Width = 88;
+            this.columnHeader1.Width = 110;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Secondary Speed";
+            this.columnHeader3.Text = "Speed";
             this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeader3.Width = 88;
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "Ratio BTC/GH/Day";
-            this.columnHeader4.Width = 84;
+            this.columnHeader4.Text = "Secondary Speed";
+            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader4.Width = 88;
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Text = "BTC/Day";
-            this.columnHeader5.Width = 148;
+            this.columnHeader5.Text = "Ratio BTC/GH/Day";
+            this.columnHeader5.Width = 90;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "BTC/Day";
+            this.columnHeader6.Width = 148;
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Miner";
+            this.columnHeader2.Width = 100;
             // 
             // AlgorithmsListView
             // 
@@ -120,10 +127,11 @@
         private System.Windows.Forms.ListView listViewAlgorithms;
         private System.Windows.Forms.ColumnHeader columnHeader0;
         private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }

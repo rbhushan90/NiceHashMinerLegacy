@@ -43,7 +43,7 @@
             this.groupBoxSelectedAlgorithmSettings.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.groupBoxSelectedAlgorithmSettings.Location = new System.Drawing.Point(3, 3);
             this.groupBoxSelectedAlgorithmSettings.Name = "groupBoxSelectedAlgorithmSettings";
-            this.groupBoxSelectedAlgorithmSettings.Size = new System.Drawing.Size(282, 217);
+            this.groupBoxSelectedAlgorithmSettings.Size = new System.Drawing.Size(282, 206);
             this.groupBoxSelectedAlgorithmSettings.TabIndex = 11;
             this.groupBoxSelectedAlgorithmSettings.TabStop = false;
             this.groupBoxSelectedAlgorithmSettings.Text = "Selected Algorithm Settings:";
@@ -58,7 +58,7 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(276, 198);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(276, 187);
             this.flowLayoutPanel1.TabIndex = 12;
             // 
             // field_PowerUsage

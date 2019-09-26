@@ -201,13 +201,13 @@ namespace NiceHashMiner
             }
             */
 
-            
+
             Text += ForkString;
 
             label_NotProfitable.Visible = false;
-            
+
             InitMainConfigGuiData();
-            
+
             // for resizing
             InitFlowPanelStart();
 
@@ -222,7 +222,7 @@ namespace NiceHashMiner
                 _mainFormHeight = 330 - _emtpyGroupPanelHeight;
             }
             ClearRatesAll();
-            
+
         }
 
         private void InitLocalization()
@@ -259,8 +259,8 @@ namespace NiceHashMiner
                 labelBitcoinAddressNew.Text = "Биткоин адрес" + ":";
                 labelWorkerName.Text = "Имя компьютера" + ":";
             }
-            
-            
+
+
             linkLabelCheckStats.Text = International.GetText("Form_Main_check_stats");
             linkLabelChooseBTCWallet.Text = International.GetText("Form_Main_choose_bitcoin_wallet");
 
@@ -343,8 +343,8 @@ namespace NiceHashMiner
 
         public void AfterLoadComplete()
         {
-            
-            
+
+
 
             _loadingScreen = null;
             Enabled = true;
@@ -389,7 +389,7 @@ namespace NiceHashMiner
         private void StartupTimer_Tick(object sender, EventArgs e)
         {
             if (!ConfigManager.GeneralConfig.AutoStartMining)
-            { 
+            {
                 buttonStopMining.Enabled = false;
             } else
             {
@@ -483,7 +483,7 @@ namespace NiceHashMiner
                 _loadingScreen.SetInfoMsg(International.GetText("Form_Main_loadtext_NVIDIAP0State"));
                 Helpers.SetNvidiaP0State();
             }
-            Thread.Sleep(200);
+            Thread.Sleep(100);
             _loadingScreen.IncreaseLoadCounterAndMessage(International.GetText("Form_Main_loadtext_GetNiceHashSMA"));
             // Init ws connection
             NiceHashStats.OnBalanceUpdate += BalanceCallback;
@@ -531,9 +531,9 @@ namespace NiceHashMiner
             //        BitcoinExchangeCheck_Tick(null, null);
             //    }
             //}
-            
+
             _loadingScreen.FinishLoad();
-            
+
             firstStartConnection = true;
             var runVCRed = !MinersExistanceChecker.IsMinersBinsInit() && !ConfigManager.GeneralConfig.DownloadInit;
             // standard miners check scope
@@ -730,7 +730,7 @@ namespace NiceHashMiner
                 foreach (var lbl in this.Controls.OfType<GroupBox>()) lbl.ForeColor = _textColor;
                 // foreach (var lbl in this.Controls.OfType<ComboBox>()) lbl.ForeColor = _foreColor;
 
-                foreach (var lbl in this.Controls.OfType<TextBox>()) 
+                foreach (var lbl in this.Controls.OfType<TextBox>())
                 {
                     lbl.BackColor = _backColor;
                     lbl.ForeColor = _foreColor;
@@ -795,7 +795,7 @@ namespace NiceHashMiner
             _deviceStatusTimer.Tick += DeviceStatusTimer_Tick;
             _deviceStatusTimer.Interval = 1000;
             _deviceStatusTimer.Start();
-           
+
         }
 
         //        [Obsolete("Deprecated in favour of AlgorithmSwitchingManager timer")]
@@ -1775,10 +1775,10 @@ namespace NiceHashMiner
         {
             var cmb = (ComboBox)sender;
             if (cmb == null) return;
-            
-   
+
+
                 e.DrawBackground();
-           
+
             // change background color
             var bc = new SolidBrush(_backColor);
             var fc = new SolidBrush(_foreColor);
@@ -1786,7 +1786,7 @@ namespace NiceHashMiner
             var gr = new SolidBrush(Color.Gray);
             e.Graphics.FillRectangle(bc, e.Bounds);
 
-               
+
             // change foreground color
             Brush brush = ((e.State & DrawItemState.Selected) > 0) ? fc : gr;
             if (e.Index >= 0)
@@ -1794,7 +1794,7 @@ namespace NiceHashMiner
                 e.Graphics.DrawString(cmb.Items[e.Index].ToString(), cmb.Font, brush, e.Bounds);
                 e.DrawFocusRectangle();
             }
-            
+
         }
 
         private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -1816,7 +1816,7 @@ namespace NiceHashMiner
             textBoxBTCAddress.Enabled = !radioButtonNewPlatform.Checked;
             textBoxBTCAddress_new.Enabled = radioButtonNewPlatform.Checked;
            // ConfigManager.GeneralConfigFileCommit();
-            Thread.Sleep(100);
+            Thread.Sleep(10);
 
             if (firstStartConnection && NiceHashSocket._webSocket != null)
             {
@@ -1831,7 +1831,7 @@ namespace NiceHashMiner
                 NiceHashStats._deviceUpdateTimer.Dispose();
                 NiceHashStats._deviceUpdateTimer = null;
                 NiceHashStats.ClearAlgorithmRates();
-                Thread.Sleep(100);
+                Thread.Sleep(10);
 
                 if (Configs.ConfigManager.GeneralConfig.NewPlatform)
                 {

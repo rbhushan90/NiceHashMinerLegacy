@@ -60,7 +60,7 @@ namespace NiceHashMiner.Stats
         }
 
         //****************************************************************************************************************
-        
+
         public void StartConnectionNew(string btc = null, string worker = null, string group = null)
         {
             NHSmaData.InitializeIfNeeded();
@@ -230,7 +230,7 @@ namespace NiceHashMiner.Stats
                 try
                 {
                     _webSocket.Connect();
-                    Thread.Sleep(100);
+                    Thread.Sleep(50);
                     if (IsAlive)
                     {
                         _attemptingReconnect = false;
@@ -252,7 +252,7 @@ namespace NiceHashMiner.Stats
                 {
                     Helpers.ConsolePrint("NiceHashSocketNew", $"Error while attempting reconnect: {e.Message}");
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
             }
             _attemptingReconnect = false;
             OnConnectionLost?.Invoke(null, EventArgs.Empty);
@@ -338,7 +338,7 @@ namespace NiceHashMiner.Stats
                 string group = "";
                 string rig = RigID;
                 var version = "NHML/1.9.1.12";//на старой платформе нельзя отправлять версию форка. Страница статистики падает )))
-                
+
                 if (Configs.ConfigManager.GeneralConfig.NewPlatform)
                 {
                     protocol = 3;
@@ -495,7 +495,7 @@ namespace NiceHashMiner.Stats
 
             _attemptReconnect.Start();
             */
-            
+
             //  _attemptReconnect = new System.Threading.Timer(DeviceStatus_TickNew, null, DeviceUpdateInterval, DeviceUpdateInterval);
             return false;
         }
@@ -522,7 +522,7 @@ namespace NiceHashMiner.Stats
                 try
                 {
                     _webSocket.Connect();
-                    Thread.Sleep(100);
+                    Thread.Sleep(50);
                     if (IsAlive)
                     {
                         _attemptingReconnect = false;
@@ -544,7 +544,7 @@ namespace NiceHashMiner.Stats
                 {
                     Helpers.ConsolePrint("SOCKET", $"Error while attempting reconnect: {e}");
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
             }
             _attemptingReconnect = false;
             OnConnectionLost?.Invoke(null, EventArgs.Empty);
