@@ -69,7 +69,7 @@ namespace NiceHashMiner.Miners
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
 
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
@@ -143,7 +143,7 @@ namespace NiceHashMiner.Miners
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
 
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.BeamV2)

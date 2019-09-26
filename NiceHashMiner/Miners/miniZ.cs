@@ -95,7 +95,7 @@ namespace NiceHashMiner.Miners
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
             string sColor = "";
             if ( GetWinVer(Environment.OSVersion.Version) < 8)
@@ -155,7 +155,7 @@ namespace NiceHashMiner.Miners
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
             {

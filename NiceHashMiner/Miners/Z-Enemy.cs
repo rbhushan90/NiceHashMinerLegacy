@@ -51,7 +51,7 @@ namespace NiceHashMiner.Miners
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
             LastCommandLine = algo +
                 " --url=" + url + " --userpass=" + username + ":x" +
@@ -87,7 +87,7 @@ namespace NiceHashMiner.Miners
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
             var timeLimit = (_benchmarkException) ? "" : " --time-limit 300";
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16R))

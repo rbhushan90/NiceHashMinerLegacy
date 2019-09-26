@@ -79,7 +79,7 @@ namespace NiceHashMiner.Miners
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
             /*
             LastCommandLine = " -a "+algo +
@@ -130,7 +130,7 @@ namespace NiceHashMiner.Miners
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
             if (NiceHashMiner.Devices.ComputeDeviceManager.Query.CUDA_version == "CUDA 10.1")
             {

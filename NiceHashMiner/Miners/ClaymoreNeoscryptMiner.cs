@@ -28,7 +28,7 @@ namespace NiceHashMiner.Miners {
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
             String epools = String.Format("POOL: stratum+tcp://neoscrypt.{0}{1}.nicehash.com:3341, WALLET: {2}, PSW: x", myServers[0, 0], nhsuff, username, ApiPort) + "\n"
                + String.Format("POOL: stratum+tcp://neoscrypt.{0}{1}.nicehash.com:3341, WALLET: {2}, PSW: x", myServers[1, 0], nhsuff, username, ApiPort) + "\n"

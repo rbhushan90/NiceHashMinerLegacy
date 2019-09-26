@@ -262,19 +262,20 @@ namespace NiceHashMiner.Miners.XmrStak
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
+            var nhsuff = ConfigManager.GeneralConfig.StratumSuff;
             var url = Globals.GetLocationUrl(algorithm.NiceHashID,
                 Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], ConectionType);
             var user = Globals.GetBitcoinUser();
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
             {
-                url = "cryptonightv8.eu-new.nicehash.com:3367";
+                url = "cryptonightv8.eu" + nhsuff + ".nicehash.com:3367";
             }
             var configs = PrepareConfigFiles(url, user,
                 ConfigManager.GeneralConfig.WorkerName.Trim(), true);
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
-                url = "cryptonightheavy.eu-new.nicehash.com:3364";
+                url = "cryptonightheavy.eu" + nhsuff + ".nicehash.com:3364";
                 configs = PrepareConfigFiles(url, user,"", true);
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))

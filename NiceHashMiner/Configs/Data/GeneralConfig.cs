@@ -25,6 +25,7 @@ namespace NiceHashMiner.Configs.Data
         public string BitcoinAddress = "";
         public string BitcoinAddressNew = "";
         public string WorkerName = "worker1";
+        public string StratumSuff = "";
         public TimeUnitType TimeUnit = TimeUnitType.Day;
         public string IFTTTKey = "";
         public int ServiceLocation = 0;

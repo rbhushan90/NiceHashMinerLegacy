@@ -64,7 +64,7 @@ namespace NiceHashMiner.Miners
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
             var epools = String.Format("POOL: daggerhashimoto.{0}{1}.nicehash.com:3353, WALLET: {2}, PSW: x, ESM: 3, ALLPOOLS: 1", myServers[1, 0], nhsuff, username) + "\n"
                + String.Format("POOL: daggerhashimoto.{0}{1}.nicehash.com:3353, WALLET: {2}, PSW: x, ESM: 3, ALLPOOLS: 1", myServers[2, 0], nhsuff, username) + "\n"

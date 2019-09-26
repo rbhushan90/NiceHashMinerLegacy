@@ -104,7 +104,7 @@ namespace NiceHashMiner.Miners
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             } 
                 var ret = GetDevicesCommandString()
                       + " --pers auto --algo " + algo + " --server " + url.Split(':')[0]
@@ -241,7 +241,7 @@ namespace NiceHashMiner.Miners
             string username = GetUsername(btcAddress, worker);
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
             {

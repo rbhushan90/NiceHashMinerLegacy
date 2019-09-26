@@ -496,7 +496,7 @@ namespace NiceHashMiner
 
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                NiceHashStats.StartConnection(Links.NhmSocketAddress_new);
+                NiceHashStats.StartConnection(Links.NhmSocketAddress);
                 //NiceHashStats.DeviceStatus_TickNew("PENDING");
             }
             else

@@ -55,13 +55,13 @@ namespace NiceHashMiner
                     port = sslPort;
                     break;
             }
-
+            var nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
                 return prefix
                    + name
                    + "." + miningLocation
-                   + "-new.nicehash.com:"
+                   + nhsuff + ".nicehash.com:"
                    + port;
             }
             else

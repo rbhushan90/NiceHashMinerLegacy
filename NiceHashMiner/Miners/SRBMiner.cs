@@ -63,7 +63,7 @@ namespace NiceHashMiner.Miners
             string username = GetUsername(btcAdress, worker);
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
             if (File.Exists("bin_3rdparty\\SRBMiner\\poolsV8.txt"))
                 File.Delete("bin_3rdparty\\SRBMiner\\poolsV8.txt");
@@ -267,7 +267,7 @@ namespace NiceHashMiner.Miners
             string username = GetUsername(btcAdress, worker);
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = "-new";
+                nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightHeavy))
             {
