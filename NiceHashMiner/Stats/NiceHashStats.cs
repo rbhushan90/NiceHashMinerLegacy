@@ -136,12 +136,12 @@ namespace NiceHashMiner.Stats
                 _deviceUpdateTimer = new System.Threading.Timer(DeviceStatus_Tick, null, DeviceUpdateInterval, DeviceUpdateInterval);
             }
 
-            string ghv = GetVersion("");
-            Helpers.ConsolePrint("GITHUB", ghv);
-            if (ghv != null)
-            {
-                SetVersion(ghv);
-            }
+//            string ghv = GetVersion("");
+  //          Helpers.ConsolePrint("GITHUB", ghv);
+    //        if (ghv != null)
+      //      {
+        //        SetVersion(ghv);
+          //  }
         }
 
         #region Socket Callbacks
@@ -199,7 +199,7 @@ namespace NiceHashMiner.Stats
 
                                 SetAlgorithmRates(message.data);
                                 GetSmaAPI();
-                                
+
                                 // if (!GetSmaAPI())
                                 // {
                                 // }
@@ -1092,7 +1092,7 @@ namespace NiceHashMiner.Stats
             }
         }
 
-        private static void SetVersion(string version)
+        public static void SetVersion(string version)
         {
             Version = version;
             OnVersionUpdate?.Invoke(null, EventArgs.Empty);

@@ -435,21 +435,21 @@ namespace NiceHashMiner
                 }
             }
             // Query Available ComputeDevices
+            Thread.Sleep(100);
             ComputeDeviceManager.Query.QueryDevices(_loadingScreen);
+            Thread.Sleep(200);
             _isDeviceDetectionInitialized = true;
 
             /////////////////////////////////////////////
             /////// from here on we have our devices and Miners initialized
             ConfigManager.AfterDeviceQueryInitialization();
             _loadingScreen.IncreaseLoadCounterAndMessage(International.GetText("Form_Main_loadtext_SaveConfig"));
-
+            Thread.Sleep(200);
             // All devices settup should be initialized in AllDevices
             devicesListViewEnableControl1.ResetComputeDevices(ComputeDeviceManager.Available.Devices);
             // set properties after
             devicesListViewEnableControl1.SaveToGeneralConfig = true;
 
-            _loadingScreen.IncreaseLoadCounterAndMessage(
-                International.GetText("Form_Main_loadtext_CheckLatestVersion"));
 
             _minerStatsCheck = new Timer();
             _minerStatsCheck.Tick += MinerStatsCheck_Tick;
@@ -471,10 +471,11 @@ namespace NiceHashMiner
             _loadingScreen.IncreaseLoadCounterAndMessage(
                 International.GetText("Form_Main_loadtext_SetEnvironmentVariable"));
             Helpers.SetDefaultEnvironmentVariables();
-
+            Thread.Sleep(200);
             _loadingScreen.IncreaseLoadCounterAndMessage(
                 International.GetText("Form_Main_loadtext_SetWindowsErrorReporting"));
 
+            Thread.Sleep(10);
             Helpers.DisableWindowsErrorReporting(ConfigManager.GeneralConfig.DisableWindowsErrorReporting);
 
             _loadingScreen.IncreaseLoadCounter();
@@ -493,6 +494,7 @@ namespace NiceHashMiner
             NiceHashStats.OnConnectionEstablished += ConnectionEstablishedCallback;
             NiceHashStats.OnVersionBurn += VersionBurnCallback;
             NiceHashStats.OnExchangeUpdate += ExchangeCallback;
+            Thread.Sleep(50);
 
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
@@ -514,8 +516,19 @@ namespace NiceHashMiner
                 }
             }
 
-            _loadingScreen.IncreaseLoadCounterAndMessage(International.GetText("Form_Main_loadtext_GetBTCRate"));
+            _loadingScreen.IncreaseLoadCounterAndMessage(
+    International.GetText("Form_Main_loadtext_CheckLatestVersion"));
+            Thread.Sleep(200);
 
+            string ghv = NiceHashStats.GetVersion("");
+            Helpers.ConsolePrint("GITHUB", ghv);
+            if (ghv != null)
+            {
+                NiceHashStats.SetVersion(ghv);
+            }
+
+            _loadingScreen.IncreaseLoadCounterAndMessage(International.GetText("Form_Main_loadtext_GetBTCRate"));
+            Thread.Sleep(10);
             //// Don't start timer if socket is giving data
             //if (ExchangeRateApi.ExchangesFiat == null)
             //{
