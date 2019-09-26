@@ -199,8 +199,9 @@ namespace NiceHashMiner.Stats
 
                                 SetAlgorithmRates(message.data);
                                 GetSmaAPI();
-                               // if (!GetSmaAPI())
-                               // {
+                                
+                                // if (!GetSmaAPI())
+                                // {
                                 // }
 
                                 //***************************
@@ -210,7 +211,7 @@ namespace NiceHashMiner.Stats
                                     SetAlgorithmRates(message.data);
                                 }
                                 */
-                                    break;
+                                break;
                             }
 
                         case "balance":
@@ -933,7 +934,7 @@ namespace NiceHashMiner.Stats
                 WR.Credentials = CredentialCache.DefaultCredentials;
                 //idHTTP1.IOHandler:= IdSSLIOHandlerSocket1;
                 // ServicePointManager.SecurityProtocol = (SecurityProtocolType)SslProtocols.Tls12;
-                Thread.Sleep(100);
+                Thread.Sleep(200);
                 WebResponse Response = WR.GetResponse();
                 Stream SS = Response.GetResponseStream();
                 SS.ReadTimeout = 5 * 1000;
@@ -1011,37 +1012,42 @@ namespace NiceHashMiner.Stats
                 var payingDict = new Dictionary<AlgorithmType, double>();
                 if (data != null)
                 {
-                  //   Helpers.ConsolePrint("SetAlgorithmRates: ", data.ToString());
                     foreach (var algo in data)
                     {
                         var algoKey = (AlgorithmType)algo[0].Value<int>();
-                        if (!NHSmaData.TryGetSma(algoKey, out NiceHashSma sma))
+                        if (!NHSmaData.TryGetPaying(algoKey, out double paying))
                         {
-                            Helpers.ConsolePrint("SMA API", "ERROR !NHSmaData.TryGetSma");
-                        }
+                            Helpers.ConsolePrint("SMA API", "ERROR !NHSmaData.TryGetPaying: Unknown algo: "+ algoKey.ToString());
 
-                        if (sma.Paying != 0 && (sma.Paying * 8 < Math.Abs(algo[1].Value<double>()) * mult || (sma.Paying / 8 > Math.Abs(algo[1].Value<double>() * mult))))
-                        {
-                            Helpers.ConsolePrint("SMA API", "Bug found in: "+ sma.Algo.ToString() + " " + sma.Paying.ToString() + "<>" + Math.Abs(algo[1].Value<double>() * mult));
-                        } else if (ConfigManager.GeneralConfig.UseNegativeProfit)
-                        {
-                            if (ConfigManager.GeneralConfig.MOPA5)
-                            {
-                                payingDict[algoKey] = Math.Max(Math.Abs(algo[1].Value<double>()) * mult, sma.Paying);
-                            } else
-                            {
-                                payingDict[algoKey] = Math.Abs(algo[1].Value<double>()) * mult;
-                            }
+                            payingDict[algoKey] = algo[1].Value<double>() * mult;
                         }
                         else
                         {
-                            if (ConfigManager.GeneralConfig.MOPA5)
+                            if (paying != 0 && (paying * 8 < Math.Abs(algo[1].Value<double>()) * mult || (paying / 8 > Math.Abs(algo[1].Value<double>() * mult))))
                             {
-                                payingDict[algoKey] = Math.Max(algo[1].Value<double>() * mult, sma.Paying);
+                                Helpers.ConsolePrint("SMA API", "Bug found in: " + algoKey.ToString() + " " + paying.ToString() + "<>" + Math.Abs(algo[1].Value<double>() * mult));
+                            }
+                            else if (ConfigManager.GeneralConfig.UseNegativeProfit)
+                            {
+                                if (ConfigManager.GeneralConfig.MOPA5)
+                                {
+                                    payingDict[algoKey] = Math.Max(Math.Abs(algo[1].Value<double>()) * mult, paying);
+                                }
+                                else
+                                {
+                                    payingDict[algoKey] = Math.Abs(algo[1].Value<double>()) * mult;
+                                }
                             }
                             else
                             {
-                                payingDict[algoKey] = algo[1].Value<double>() * mult;
+                                if (ConfigManager.GeneralConfig.MOPA5)
+                                {
+                                    payingDict[algoKey] = Math.Max(algo[1].Value<double>() * mult, paying);
+                                }
+                                else
+                                {
+                                    payingDict[algoKey] = algo[1].Value<double>() * mult;
+                                }
                             }
                         }
                         //DaggerOrderMaxPay = 0
@@ -1111,7 +1117,7 @@ namespace NiceHashMiner.Stats
                         }
                     }
                     ExchangeRateApi.UpdateExchangesFiat(exchange.exchanges_fiat);
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
                     OnExchangeUpdate?.Invoke(null, EventArgs.Empty);
                 }
             }
@@ -1305,7 +1311,7 @@ namespace NiceHashMiner.Stats
                         device.Index,
                         device.Name
                     };
-                    Thread.Sleep(50);
+                    Thread.Sleep(100);
                     var status = Convert.ToInt32(activeIDs.Contains(device.Index)) + ((int) device.DeviceType + 1) * 2;
                     array.Add(status);
                     array.Add((int) Math.Round(device.Load));

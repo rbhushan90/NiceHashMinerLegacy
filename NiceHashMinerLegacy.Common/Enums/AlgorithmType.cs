@@ -95,7 +95,8 @@
         CryptoNightR = 42,
         CuckooCycle  = 43,
         GrinCuckarood29 = 44,
-        BeamV2 = 45
+        BeamV2 = 45,
+        X16RV2 = 46
 #endregion // NiceHashAPI
     }
 }

@@ -92,8 +92,10 @@ namespace NiceHashMiner.Forms.Components
         public AlgorithmsListView()
         {
             InitializeComponent();
-            System.Reflection.PropertyInfo dbProp = typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            dbProp.SetValue(this, true, null);
+            listViewAlgorithms.DoubleBuffer();
+
+           // System.Reflection.PropertyInfo dbProp = typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+           // dbProp.SetValue(this, true, null);
             AlgorithmsListView.colorListViewHeader(ref listViewAlgorithms, Form_Main._backColor, Form_Main._textColor);
 
             // callback initializations
@@ -560,11 +562,16 @@ namespace NiceHashMiner.Forms.Components
             if (e.ColumnIndex == 6)
             {
                 ResizeAutoSizeColumn(listViewAlgorithms, 1);
+            } else
+            {
+                ResizeAutoSizeColumn(listViewAlgorithms, 6);
             }
+            /*
             if (e.ColumnIndex == 1)
             {
                 ResizeAutoSizeColumn(listViewAlgorithms, 6);
             }
+            */
             listViewAlgorithms.EndUpdate();
         }
         static private void ResizeAutoSizeColumn(ListView listView, int autoSizeColumnIndex)
@@ -587,6 +594,7 @@ namespace NiceHashMiner.Forms.Components
             // Finally set the new width of the auto-resizing column, if it has changed.
             if (listView.Columns[autoSizeColumnIndex].Width != autoSizeColumnWidth)
                 listView.Columns[autoSizeColumnIndex].Width = autoSizeColumnWidth;
+
         }
 
         private void listViewAlgorithms_Resize(object sender, EventArgs e)
@@ -595,6 +603,11 @@ namespace NiceHashMiner.Forms.Components
             listViewAlgorithms.BeginUpdate();
             ResizeAutoSizeColumn(listViewAlgorithms, 6);
             listViewAlgorithms.EndUpdate();
+        }
+
+        private void listViewAlgorithms_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
+        {
+
         }
     }
 

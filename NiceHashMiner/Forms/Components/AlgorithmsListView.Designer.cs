@@ -27,12 +27,12 @@
             this.listViewAlgorithms = new System.Windows.Forms.ListView();
             this.columnHeader0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listViewAlgorithms
@@ -59,6 +59,7 @@
             this.listViewAlgorithms.UseCompatibleStateImageBehavior = false;
             this.listViewAlgorithms.View = System.Windows.Forms.View.Details;
             this.listViewAlgorithms.ColumnWidthChanged += new System.Windows.Forms.ColumnWidthChangedEventHandler(this.listViewAlgorithms_ColumnWidthChanged);
+            this.listViewAlgorithms.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listViewAlgorithms_ColumnWidthChanging);
             this.listViewAlgorithms.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.listViewAlgorithms_ItemCheck);
             this.listViewAlgorithms.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewAlgorithms_ItemChecked_1);
             this.listViewAlgorithms.SelectedIndexChanged += new System.EventHandler(this.listViewAlgorithms_SelectedIndexChanged);
@@ -76,6 +77,11 @@
             // 
             this.columnHeader1.Text = "Algorithm";
             this.columnHeader1.Width = 110;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Miner";
+            this.columnHeader2.Width = 100;
             // 
             // columnHeader3
             // 
@@ -104,11 +110,6 @@
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Miner";
-            this.columnHeader2.Width = 100;
             // 
             // AlgorithmsListView
             // 

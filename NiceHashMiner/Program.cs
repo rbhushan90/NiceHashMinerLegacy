@@ -370,7 +370,7 @@ namespace NiceHashMiner
                 }
 
                 //**
-                Thread.Sleep(50);
+                Thread.Sleep(100);
                 // init active display currency after config load
                 ExchangeRateApi.ActiveDisplayCurrency = ConfigManager.GeneralConfig.DisplayCurrency;
 

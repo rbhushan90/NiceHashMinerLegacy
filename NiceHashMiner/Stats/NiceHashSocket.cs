@@ -230,7 +230,7 @@ namespace NiceHashMiner.Stats
                 try
                 {
                     _webSocket.Connect();
-                    Thread.Sleep(50);
+                    Thread.Sleep(100);
                     if (IsAlive)
                     {
                         _attemptingReconnect = false;
@@ -252,7 +252,7 @@ namespace NiceHashMiner.Stats
                 {
                     Helpers.ConsolePrint("NiceHashSocketNew", $"Error while attempting reconnect: {e.Message}");
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
             }
             _attemptingReconnect = false;
             OnConnectionLost?.Invoke(null, EventArgs.Empty);
@@ -522,7 +522,7 @@ namespace NiceHashMiner.Stats
                 try
                 {
                     _webSocket.Connect();
-                    Thread.Sleep(50);
+                    Thread.Sleep(100);
                     if (IsAlive)
                     {
                         _attemptingReconnect = false;
@@ -544,7 +544,7 @@ namespace NiceHashMiner.Stats
                 {
                     Helpers.ConsolePrint("SOCKET", $"Error while attempting reconnect: {e}");
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
             }
             _attemptingReconnect = false;
             OnConnectionLost?.Invoke(null, EventArgs.Empty);
