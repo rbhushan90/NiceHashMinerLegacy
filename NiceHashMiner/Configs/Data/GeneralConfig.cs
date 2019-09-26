@@ -43,6 +43,8 @@ namespace NiceHashMiner.Configs.Data
         public int ColumnFAN = 56;
         public int ColumnPOWER = 85;
         public int FormWidth = 745;
+        public int BenchmarkFormWidth = 670;
+        public int BenchmarkFormHeight = 550;
 
         public bool MinimizeMiningWindows = false;
 
@@ -76,7 +78,7 @@ namespace NiceHashMiner.Configs.Data
         // in bytes
         public long LogMaxFileSize = 1048576;
 
-        public bool ShowDriverVersionWarning = true;
+        public bool ShowDriverVersionWarning = false;
         public bool DisableWindowsErrorReporting = true;
         public bool ShowInternetConnectionWarning = true;
         public bool NVIDIAP0State = false;
@@ -169,7 +171,7 @@ namespace NiceHashMiner.Configs.Data
             StartMiningWhenIdle = false;
             LogToFile = true;
             LogMaxFileSize = 1048576;
-            ShowDriverVersionWarning = true;
+            ShowDriverVersionWarning = false;
             DisableWindowsErrorReporting = true;
             ShowInternetConnectionWarning = true;
             NVIDIAP0State = false;
@@ -214,7 +216,9 @@ namespace NiceHashMiner.Configs.Data
             ColumnFAN = 56;
             ColumnPOWER = 85;
             FormWidth = 745;
-        }
+            BenchmarkFormWidth = 670;
+            BenchmarkFormHeight = 550;
+    }
 
         public void FixSettingBounds()
         {

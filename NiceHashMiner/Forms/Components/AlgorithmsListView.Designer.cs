@@ -56,12 +56,14 @@
             this.listViewAlgorithms.TabIndex = 11;
             this.listViewAlgorithms.UseCompatibleStateImageBehavior = false;
             this.listViewAlgorithms.View = System.Windows.Forms.View.Details;
+            this.listViewAlgorithms.ColumnWidthChanged += new System.Windows.Forms.ColumnWidthChangedEventHandler(this.listViewAlgorithms_ColumnWidthChanged);
             this.listViewAlgorithms.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.listViewAlgorithms_ItemCheck);
             this.listViewAlgorithms.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewAlgorithms_ItemChecked_1);
             this.listViewAlgorithms.SelectedIndexChanged += new System.EventHandler(this.listViewAlgorithms_SelectedIndexChanged);
             this.listViewAlgorithms.EnabledChanged += new System.EventHandler(this.listViewAlgorithms_EnabledChanged);
             this.listViewAlgorithms.Click += new System.EventHandler(this.listViewAlgorithms_Click);
             this.listViewAlgorithms.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListViewAlgorithms_MouseClick);
+            this.listViewAlgorithms.Resize += new System.EventHandler(this.listViewAlgorithms_Resize);
             // 
             // columnHeader0
             // 

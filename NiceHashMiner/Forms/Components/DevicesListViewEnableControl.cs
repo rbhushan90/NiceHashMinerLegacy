@@ -527,6 +527,7 @@ namespace NiceHashMiner.Forms.Components
         private void listViewDevices_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
         {
             listViewDevices.BeginUpdate();
+            
             if (e.ColumnIndex == 4)
             {
                 ResizeAutoSizeColumn(listViewDevices, 0);

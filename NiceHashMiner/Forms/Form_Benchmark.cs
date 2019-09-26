@@ -71,6 +71,8 @@ namespace NiceHashMiner.Forms
             devicesListViewEnableControl1.SetComputeDevices(ComputeDeviceManager.Available.Devices);
 
             InitLocale();
+            this.Width = ConfigManager.GeneralConfig.BenchmarkFormWidth;
+            this.Height = ConfigManager.GeneralConfig.BenchmarkFormHeight;
 
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {
@@ -189,7 +191,6 @@ namespace NiceHashMiner.Forms
                 ExitWhenFinished = true;
                 StartStopBtn_Click(null, null);
             }
-
         }
 
         #region IBenchmarkCalculation methods
@@ -674,6 +675,12 @@ namespace NiceHashMiner.Forms
                     var enabled = cdev.GetAlgorithmSettings().Any(algo => algo.BenchmarkSpeed > 0);
                     cdev.Enabled = enabled;
                 }
+            if (Form_Benchmark.ActiveForm != null)
+            {
+                ConfigManager.GeneralConfig.BenchmarkFormHeight = Form_Benchmark.ActiveForm.Height;
+                ConfigManager.GeneralConfig.BenchmarkFormWidth = Form_Benchmark.ActiveForm.Width;
+            }
+            ConfigManager.GeneralConfigFileCommit();
         }
 
         private void DevicesListView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
