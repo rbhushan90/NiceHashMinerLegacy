@@ -59,7 +59,7 @@ namespace System.Windows.Forms
 
             if (this._TabControl.SelectedIndex == index)
             {
-                dark = Form.ActiveForm.BackColor; 
+                dark = Form.DefaultBackColor; 
                 light = SystemColors.Window;
             }
             else if (!this._TabControl.TabPages[index].Enabled)

@@ -192,6 +192,11 @@ namespace NiceHashMiner.Stats
                                         Helpers.ConsolePrint("SMA-DATA-WS: ", Enum.GetName(typeof(AlgorithmType), algoKey) + " - " + algo[1]);
                                     }
                                 }
+                                if (ConfigManager.GeneralConfig.MOPA5)
+                                {
+                                    ClearAlgorithmRates();
+                                }
+
                                 SetAlgorithmRates(message.data);
                                 GetSmaAPI();
                                // if (!GetSmaAPI())
@@ -209,6 +214,7 @@ namespace NiceHashMiner.Stats
                             }
 
                         case "balance":
+                            ExchangeRateApi.GetNewBTCRate();
                             SetBalance(message.value.Value);
                             break;
                         //case "versions":

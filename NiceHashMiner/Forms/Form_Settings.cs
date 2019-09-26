@@ -117,6 +117,7 @@ namespace NiceHashMiner.Forms
             {
                 Helpers.ConsolePrint("SETTINGS", e.ToString());
             }
+            Form_Settings.ActiveForm.Refresh();
         }
 
         #region Initializations
