@@ -536,8 +536,9 @@ namespace NiceHashMiner.Forms.Components
             {
                 ResizeAutoSizeColumn(listViewDevices, 4);
             }
+          //  ResizeAutoSizeColumn(listViewDevices, 0);
             listViewDevices.EndUpdate();
-            //  ResizeAutoSizeColumn(listViewDevices, 0);
+             
             //   ResizeColumn();
         }
         /*
