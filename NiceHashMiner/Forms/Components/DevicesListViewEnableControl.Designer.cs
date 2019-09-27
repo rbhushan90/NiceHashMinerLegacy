@@ -57,9 +57,11 @@
             this.listViewDevices.TabIndex = 5;
             this.listViewDevices.UseCompatibleStateImageBehavior = false;
             this.listViewDevices.View = System.Windows.Forms.View.Details;
+            this.listViewDevices.ColumnWidthChanged += new System.Windows.Forms.ColumnWidthChangedEventHandler(this.listViewDevices_ColumnWidthChanged);
             this.listViewDevices.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listViewDevices_ColumnWidthChanging);
             this.listViewDevices.DrawSubItem += new System.Windows.Forms.DrawListViewSubItemEventHandler(this.listViewDevices_DrawSubItem);
             this.listViewDevices.SelectedIndexChanged += new System.EventHandler(this.listViewDevices_SelectedIndexChanged);
+            this.listViewDevices.SizeChanged += new System.EventHandler(this.listViewDevices_SizeChanged);
             this.listViewDevices.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListViewDevices_MouseClick);
             // 
             // columnHeader0

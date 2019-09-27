@@ -1258,6 +1258,7 @@ namespace NiceHashMiner.Forms
             }
 
             Form_Settings.ActiveForm.Close();
+         //   devicesListViewEnableControl1.Refresh();
         }
 
         private void ButtonCloseNoSave_Click(object sender, EventArgs e)
@@ -1294,7 +1295,8 @@ namespace NiceHashMiner.Forms
 
             if (IsChangeSaved)
             {
-                ConfigManager.GeneralConfigFileCommit();
+          
+            ConfigManager.GeneralConfigFileCommit();
                 ConfigManager.CommitBenchmarks();
                 International.Initialize(ConfigManager.GeneralConfig.Language);
 

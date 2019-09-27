@@ -584,6 +584,20 @@ namespace NiceHashMiner.Forms.Components
         {
 //            listViewDevices.Enabled = false;
         }
+
+        private void listViewDevices_SizeChanged(object sender, EventArgs e)
+        {
+         //   ResizeAutoSizeColumn(listViewDevices, 0);
+        }
+
+        private void listViewDevices_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
+        {
+            ConfigManager.GeneralConfig.ColumnENABLED = listViewDevices.Columns[ENABLED].Width;
+            ConfigManager.GeneralConfig.ColumnTEMP = listViewDevices.Columns[TEMP].Width;
+            ConfigManager.GeneralConfig.ColumnLOAD = listViewDevices.Columns[LOAD].Width;
+            ConfigManager.GeneralConfig.ColumnFAN = listViewDevices.Columns[FAN].Width;
+            ConfigManager.GeneralConfig.ColumnPOWER = listViewDevices.Columns[POWER].Width;
+        }
     }
     public static class ControlExtensions
     {
