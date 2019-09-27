@@ -794,7 +794,7 @@ namespace NiceHashMiner
             _loadingScreen.Show();
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {
-                Form_Loading.ActiveForm.BackColor = Color.LightGray;
+              //  Form_Loading.ActiveForm.BackColor = Color.LightGray; // при автозапуске объект неинициализирован
             }
             _startupTimer = new Timer();
             _startupTimer.Tick += StartupTimer_Tick;
