@@ -98,6 +98,10 @@ namespace NiceHashMiner.Miners
             {
                 algo = " -a x16r";
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16RV2))
+            {
+                algo = " -a x16rv2";
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckarood29))
             {
                 algo = " -a cuckarood29_grin";
@@ -166,6 +170,12 @@ namespace NiceHashMiner.Miners
                 CommandLine = sc + " -a x16r" + apiBind +
                 " --url stratum+tcp://x16r.eu" + nhsuff + ".nicehash.com:3366" + " --user " + username + " - p x " +
                 " --url stratum+tcp://x16r.eu.mine.zpool.ca:3636" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16RV2))
+            {
+                CommandLine = sc + " -a x16rv2" + apiBind +
+                " --url stratum+tcp://x16rv2.eu" + nhsuff + ".nicehash.com:3379" + " --user " + username + " - p x " +
+                " --url stratum+tcp://x16rv2.eu.mine.zpool.ca:3637" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckarood29))
             {
@@ -429,6 +439,47 @@ namespace NiceHashMiner.Miners
                 }
             }
             if (outdata.Contains("x16r: "))
+            {
+                int i = outdata.IndexOf("avg ");
+                int k = outdata.IndexOf("h/s, pool");
+                hashSpeed = outdata.Substring(i + 4, k - i - 5).Trim();
+                Helpers.ConsolePrint(hashSpeed, "");
+                if (outdata.ToUpper().Contains("H/S"))
+                {
+                    kspeed = 1;
+                }
+                if (outdata.Substring(0, 65).ToUpper().Contains("KH/S"))
+                {
+                    kspeed = 1000;
+                }
+                if (outdata.Substring(0, 65).ToUpper().Contains("MH/S"))
+                {
+                    kspeed = 1000000;
+                }
+                count++;
+                if (count >= 4) //skip 2*30=1min
+                {
+                    try
+                    {
+                        tmp = Double.Parse(hashSpeed, CultureInfo.InvariantCulture) * kspeed;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
+                    speed = speed + tmp;
+                    BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
+                    if (count >= TotalCount)
+                    {
+                        BenchmarkSignalFinnished = true;
+                        return true;
+                    }
+                }
+            }
+            if (outdata.Contains("x16rv2: "))
             {
                 int i = outdata.IndexOf("avg ");
                 int k = outdata.IndexOf("h/s, pool");

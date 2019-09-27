@@ -162,6 +162,27 @@ namespace NiceHashMiner.Miners
                 //_benchmarkTimeWait = 180;
                 _benchmarkTimeWait = time;
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16RV2))
+            {
+                commandLine = "--algo x16rv2" +
+                 " -o " + url + " -u " + username + " -p x " +
+                 " -o " + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".in" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".br" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".usa" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                 " -o " + alg + ".eu" + nhsuff + ".nicehash.com:" + port + " -u " + username + " -p x " +
+                              //  " -b 127.0.0.1:" + ApiPort.ToString() + " " +
+                              //   " --time-limit " + time.ToString() + " " +
+                              ExtraLaunchParametersParser.ParseForMiningSetup(
+                                  MiningSetup,
+                                  DeviceType.NVIDIA) +
+                                  " -l " + GetLogFileName() +
+                              " -d ";
+                commandLine += GetDevicesCommandString();
+                //_benchmarkTimeWait = 180;
+                _benchmarkTimeWait = time;
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
             {
                 commandLine = "--algo mtp" +
