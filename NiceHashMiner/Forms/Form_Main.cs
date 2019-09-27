@@ -710,18 +710,18 @@ namespace NiceHashMiner
         private void Form_Main_Shown(object sender, EventArgs e)
         {
 
-            if (Form_Main.ActiveForm != null)
+            if (this != null)
             {
-                Form_Main.ActiveForm.Width = ConfigManager.GeneralConfig.FormWidth;
+                this.Width = ConfigManager.GeneralConfig.FormWidth;
             }
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {
-                if (Form_Main.ActiveForm != null)
+                if (this != null)
                 {
-                    Form_Main.ActiveForm.BackColor = _backColor;
-                    Form_Main.ActiveForm.ForeColor = _foreColor;
+                    this.BackColor = _backColor;
+                    this.ForeColor = _foreColor;
                 }
-                //Form_Main.ActiveForm.BackColor = Color.DarkSlateGray; //темно сине-серый
+                //this.BackColor = Color.DarkSlateGray; //темно сине-серый
                 //this.BackColor = SystemColors.HotTrack;
                 foreach (var lbl in this.Controls.OfType<Label>()) lbl.BackColor = _backColor;
                 foreach (var lbl in this.Controls.OfType<LinkLabel>()) lbl.LinkColor = Color.LightBlue;
@@ -761,15 +761,15 @@ namespace NiceHashMiner
                 toolStripStatusLabel10.Image = NiceHashMiner.Properties.Resources.NHM_Cash_Register_Bitcoin_transparent_white;
 
 
-                foreach (var lbl in Form_Main.ActiveForm.Controls.OfType<Button>()) lbl.BackColor = _backColor;
-                foreach (var lbl in Form_Main.ActiveForm.Controls.OfType<Button>())
+                foreach (var lbl in this.Controls.OfType<Button>()) lbl.BackColor = _backColor;
+                foreach (var lbl in this.Controls.OfType<Button>())
                 {
                     lbl.ForeColor = _textColor;
                     lbl.FlatStyle = FlatStyle.Flat;
                     lbl.FlatAppearance.BorderColor = _textColor;
                     lbl.FlatAppearance.BorderSize = 1;
                 }
-                Form_Main.ActiveForm.Enabled = true;
+                this.Enabled = true;
                 buttonLogo.FlatAppearance.BorderSize = 0;
 
                 foreach (var lbl in this.Controls.OfType<CheckBox>()) lbl.BackColor = _backColor;
@@ -782,8 +782,8 @@ namespace NiceHashMiner
                 //  devicesListViewEnableControl1.listViewDevices.Items[0].UseItemStyleForSubItems = false;
 
             }
-            Form_Main.ActiveForm.Update();
-            Form_Main.ActiveForm.Refresh();
+            this.Update();
+            this.Refresh();
             // general loading indicator
             const int totalLoadSteps = 11;
             _loadingScreen = new Form_Loading(this,
@@ -1308,9 +1308,9 @@ namespace NiceHashMiner
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             devicesListViewEnableControl1.SaveColumns();
-            if (Form_Main.ActiveForm != null)
+            if (this != null)
             {
-                ConfigManager.GeneralConfig.FormWidth = Form_Main.ActiveForm.Width;
+                ConfigManager.GeneralConfig.FormWidth = this.Width;
             }
             MinersManager.StopAllMiners();
             if (Miner._cooldownCheckTimer != null && Miner._cooldownCheckTimer.Enabled) Miner._cooldownCheckTimer.Stop();
