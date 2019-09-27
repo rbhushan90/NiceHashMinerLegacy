@@ -33,6 +33,7 @@ namespace NiceHashMiner.Configs.Data
         public int AutoStartMiningDelay = 0;
         public bool HideMiningWindows = false;
         public bool MinimizeToTray = false;
+        public bool Lyra2z = false;
         public bool MOPA1 = true;
         public bool MOPA2 = false;
         public bool MOPA3 = false;
@@ -165,6 +166,7 @@ namespace NiceHashMiner.Configs.Data
             //LessThreads = 0;
             DebugConsole = false;
             HideMiningWindows = false;
+            Lyra2z = false;
             MinimizeToTray = false;
             BenchmarkTimeLimits = new BenchmarkTimeLimitsConfig();
             DeviceDetection = new DeviceDetectionConfig();
