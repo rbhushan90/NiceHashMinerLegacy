@@ -15,7 +15,7 @@ namespace NiceHashMiner.Forms
             Text = International.GetText("Form_Main_3rdParty_Title");
             label_Tos.Text = International.GetText("Form_Main_3rdParty_Text");
             button_Agree.Text = International.GetText("Form_Main_3rdParty_Button_Agree_Text");
-            button_Decline.Text = International.GetText("Form_Main_3rdParty_Button_Refuse_Text");
+            //button_Decline.Text = International.GetText("Form_Main_3rdParty_Button_Refuse_Text");
         }
 
 

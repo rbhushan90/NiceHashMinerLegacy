@@ -225,7 +225,6 @@ namespace NiceHashMiner.Devices.Algorithms
                     */
                     { MinerBaseType.teamredminer,
                         new List<Algorithm>() {
-                            //Configs.ConfigManager.GeneralConfig.Lyra2z? new Algorithm(MinerBaseType.teamredminer, AlgorithmType.Lyra2z, "Lyra2z"):null,
                             new Algorithm(MinerBaseType.teamredminer, AlgorithmType.X16R, "X16R"),
                          //   new Algorithm(MinerBaseType.teamredminer, AlgorithmType.X16RV2, "X16Rv2"),
                             new Algorithm(MinerBaseType.teamredminer, AlgorithmType.MTP, "MTP"),
@@ -355,7 +354,6 @@ namespace NiceHashMiner.Devices.Algorithms
                         { MinerBaseType.CryptoDredge,
                         new List<Algorithm>() {
                         //    new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Lyra2REv2, "Lyra2REv2"),
-                           // Configs.ConfigManager.GeneralConfig.Lyra2z?new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Lyra2z, "Lyra2z"):null,
                         //    new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Blake2s, "Blake2s"),
                             new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.NeoScrypt, "NeoScrypt"),
                             new Algorithm(MinerBaseType.CryptoDredge, AlgorithmType.Skunk, "Skunk"),
@@ -372,7 +370,6 @@ namespace NiceHashMiner.Devices.Algorithms
 
                         { MinerBaseType.trex,
                         new List<Algorithm>() {
-                          //  Configs.ConfigManager.GeneralConfig.Lyra2z?new Algorithm(MinerBaseType.trex, AlgorithmType.Lyra2z, "Lyra2z"):null,
                             new Algorithm(MinerBaseType.trex, AlgorithmType.Skunk, "Skunk"),
                             new Algorithm(MinerBaseType.trex, AlgorithmType.MTP, "MTP"),
                             new Algorithm(MinerBaseType.trex, AlgorithmType.X16R, "X16R"),
