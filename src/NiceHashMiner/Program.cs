@@ -148,7 +148,7 @@ namespace NiceHashMiner
 #warning "Login form feature is missing (only discontinued old platform supports it)"
 #if false
             // if no BTC address show login/register form
-   //         if (ConfigManager.GeneralConfig.BitcoinAddress.Trim() == "") Application.Run(new EnterBTCDialogSwitch());
+            if (ConfigManager.GeneralConfig.BitcoinAddress.Trim() == "") Application.Run(new EnterBTCDialogSwitch());
 #endif
 
             Application.Run(new Form_Main());
