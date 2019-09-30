@@ -712,7 +712,19 @@ namespace NiceHashMiner
 
             if (this != null)
             {
-                this.Width = ConfigManager.GeneralConfig.FormWidth;
+                Rectangle screenSize = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
+                if (ConfigManager.GeneralConfig.FormLeft + ConfigManager.GeneralConfig.FormWidth <= screenSize.Size.Width)
+                {
+                    if (ConfigManager.GeneralConfig.FormTop + ConfigManager.GeneralConfig.FormLeft != 0)
+                    {
+                        this.Top = ConfigManager.GeneralConfig.FormTop;
+                        this.Left = ConfigManager.GeneralConfig.FormLeft;
+                    }
+                    this.Width = ConfigManager.GeneralConfig.FormWidth;
+                } else
+                {
+                   // this.Width = 660; // min width
+                }
             }
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {
@@ -1311,6 +1323,8 @@ namespace NiceHashMiner
             if (this != null)
             {
                 ConfigManager.GeneralConfig.FormWidth = this.Width;
+                ConfigManager.GeneralConfig.FormTop = this.Top;
+                ConfigManager.GeneralConfig.FormLeft = this.Left;
             }
             MinersManager.StopAllMiners();
             if (Miner._cooldownCheckTimer != null && Miner._cooldownCheckTimer.Enabled) Miner._cooldownCheckTimer.Stop();
@@ -1323,7 +1337,7 @@ namespace NiceHashMiner
             ConfigManager.GeneralConfig.ServiceLocation = comboBoxLocation.SelectedIndex;
 
             _benchmarkForm = new Form_Benchmark();
-            SetChildFormCenter(_benchmarkForm);
+          //  SetChildFormCenter(_benchmarkForm);
             _benchmarkForm.ShowDialog();
             var startMining = _benchmarkForm.StartMining;
             _benchmarkForm = null;
@@ -1339,9 +1353,9 @@ namespace NiceHashMiner
         private void ButtonSettings_Click(object sender, EventArgs e)
         {
             var settings = new Form_Settings();
-            SetChildFormCenter(settings);
+            //   SetChildFormCenter(settings);
             settings.ShowDialog();
-
+            
             if (settings.IsChange && settings.IsChangeSaved && settings.IsRestartNeeded)
             {
                 MessageBox.Show(
@@ -1640,7 +1654,7 @@ namespace NiceHashMiner
                     _benchmarkForm = new Form_Benchmark(
                         BenchmarkPerformanceType.Standard,
                         true);
-                    SetChildFormCenter(_benchmarkForm);
+                  //  SetChildFormCenter(_benchmarkForm);
                     _benchmarkForm.ShowDialog();
                     _benchmarkForm = null;
                     InitMainConfigGuiData();

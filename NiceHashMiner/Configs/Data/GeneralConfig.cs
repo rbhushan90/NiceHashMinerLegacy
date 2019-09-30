@@ -45,10 +45,16 @@ namespace NiceHashMiner.Configs.Data
         public int ColumnFAN = 56;
         public int ColumnPOWER = 85;
         public int FormWidth = 745;
+        public int FormTop = 0;
+        public int FormLeft = 0;
         public int BenchmarkFormWidth = 670;
         public int BenchmarkFormHeight = 550;
+        public int BenchmarkFormTop = 0;
+        public int BenchmarkFormLeft = 0;
         public int SettingsFormWidth = 683;
         public int SettingsFormHeight = 616;
+        public int SettingsFormTop = 0;
+        public int SettingsFormLeft = 0;
 
         public bool MinimizeMiningWindows = false;
 
@@ -221,10 +227,16 @@ namespace NiceHashMiner.Configs.Data
             ColumnFAN = 56;
             ColumnPOWER = 85;
             FormWidth = 745;
+            FormTop = 0;
+            FormLeft = 0;
             BenchmarkFormWidth = 670;
             BenchmarkFormHeight = 550;
+            BenchmarkFormTop = 0;
+            BenchmarkFormLeft = 0;
             SettingsFormWidth = 683;
             SettingsFormHeight = 616;
+            SettingsFormTop = 0;
+            SettingsFormLeft = 0;
     }
 
         public void FixSettingBounds()

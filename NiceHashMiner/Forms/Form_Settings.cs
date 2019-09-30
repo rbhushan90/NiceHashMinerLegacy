@@ -497,8 +497,28 @@ namespace NiceHashMiner.Forms
             */
             // device enabled listview translation
             devicesListViewEnableControl1.InitLocale();
-            this.Width = ConfigManager.GeneralConfig.SettingsFormWidth;
-            this.Height = ConfigManager.GeneralConfig.SettingsFormHeight;
+            Rectangle screenSize = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
+            if (ConfigManager.GeneralConfig.SettingsFormLeft + ConfigManager.GeneralConfig.SettingsFormWidth <= screenSize.Size.Width &&
+                ConfigManager.GeneralConfig.SettingsFormTop + ConfigManager.GeneralConfig.SettingsFormHeight <= screenSize.Size.Height)
+            {
+                if (ConfigManager.GeneralConfig.SettingsFormTop + ConfigManager.GeneralConfig.SettingsFormLeft != 0)
+                {
+                    this.Top = ConfigManager.GeneralConfig.SettingsFormTop;
+                    this.Left = ConfigManager.GeneralConfig.SettingsFormLeft;
+                }
+                else
+                {
+                    this.StartPosition = FormStartPosition.CenterScreen;
+                }
+                this.Width = ConfigManager.GeneralConfig.SettingsFormWidth;
+                this.Height = ConfigManager.GeneralConfig.SettingsFormHeight;
+            } else
+            {
+                this.Top = 0;
+                this.Left = 0;
+            }
+
+
             algorithmsListView1.InitLocale();
 
             comboBox_ColorProfile.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -1288,6 +1308,8 @@ namespace NiceHashMiner.Forms
             {
                 ConfigManager.GeneralConfig.SettingsFormHeight = Form_Settings.ActiveForm.Height;
                 ConfigManager.GeneralConfig.SettingsFormWidth = Form_Settings.ActiveForm.Width;
+                ConfigManager.GeneralConfig.SettingsFormTop = Form_Settings.ActiveForm.Top;
+                ConfigManager.GeneralConfig.SettingsFormLeft = Form_Settings.ActiveForm.Left;
                 ConfigManager.GeneralConfigFileCommit();
             }
             // check restart parameters change

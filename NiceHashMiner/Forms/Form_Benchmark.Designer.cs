@@ -185,6 +185,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(620, 470);
             this.Name = "Form_Benchmark";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Benchmark";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormBenchmark_New_FormClosing);
             this.groupBoxBenchmarkProgress.ResumeLayout(false);

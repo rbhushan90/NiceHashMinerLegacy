@@ -71,8 +71,27 @@ namespace NiceHashMiner.Forms
             devicesListViewEnableControl1.SetComputeDevices(ComputeDeviceManager.Available.Devices);
 
             InitLocale();
-            this.Width = ConfigManager.GeneralConfig.BenchmarkFormWidth;
-            this.Height = ConfigManager.GeneralConfig.BenchmarkFormHeight;
+            Rectangle screenSize = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
+            if (ConfigManager.GeneralConfig.BenchmarkFormLeft + ConfigManager.GeneralConfig.BenchmarkFormWidth <= screenSize.Size.Width &&
+                ConfigManager.GeneralConfig.BenchmarkFormTop + ConfigManager.GeneralConfig.BenchmarkFormHeight <= screenSize.Size.Height)
+            {
+                if (ConfigManager.GeneralConfig.BenchmarkFormTop + ConfigManager.GeneralConfig.BenchmarkFormLeft != 0)
+                {
+                    this.Top = ConfigManager.GeneralConfig.BenchmarkFormTop;
+                    this.Left = ConfigManager.GeneralConfig.BenchmarkFormLeft;
+                }
+                else
+                {
+                    this.StartPosition = FormStartPosition.CenterScreen;
+                }
+                this.Width = ConfigManager.GeneralConfig.BenchmarkFormWidth;
+                this.Height = ConfigManager.GeneralConfig.BenchmarkFormHeight;
+            }
+            else
+            {
+                this.Top = 0;
+                this.Left = 0;
+            }
 
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {
@@ -679,6 +698,8 @@ namespace NiceHashMiner.Forms
             {
                 ConfigManager.GeneralConfig.BenchmarkFormHeight = Form_Benchmark.ActiveForm.Height;
                 ConfigManager.GeneralConfig.BenchmarkFormWidth = Form_Benchmark.ActiveForm.Width;
+                ConfigManager.GeneralConfig.BenchmarkFormTop = Form_Benchmark.ActiveForm.Top;
+                ConfigManager.GeneralConfig.BenchmarkFormLeft = Form_Benchmark.ActiveForm.Left;
             }
             ConfigManager.GeneralConfigFileCommit();
         }
