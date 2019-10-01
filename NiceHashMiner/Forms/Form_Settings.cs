@@ -1881,5 +1881,10 @@ namespace NiceHashMiner.Forms
                 label_RunEthlargement.ForeColor = Form_Main._foreColor;
             }
         }
+
+        private void buttonGPUtuning_Click_1(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("GPU-Tuning.exe");
+        }
     }
 }

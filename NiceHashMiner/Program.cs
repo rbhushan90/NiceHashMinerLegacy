@@ -354,21 +354,20 @@ namespace NiceHashMiner
                 }
                 if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 18)
                 {
-                    //public BenchmarkTimeLimitsConfig BenchmarkTimeLimits = new BenchmarkTimeLimitsConfig();
-                    //SetTimeLimit(BenchmarkPerformanceType.Quick, textBoxQuick.Text);
-                    // BenchmarkTimeLimitsConfig.Equals.
                     ConfigManager.GeneralConfig.BenchmarkTimeLimits = new BenchmarkTimeLimitsConfig();
                     Helpers.ConsolePrint("NICEHASH", "Old version");
                     if (Directory.Exists("internals"))
                         Directory.Delete("internals", true);
                     ConfigManager.GeneralConfig.ForkFixVersion = 18;
-//                    new BenchmarkTimeLimitsConfig();
-                  //  benchmarkLimitControlCPU.TimeLimits = ConfigManager.GeneralConfig.BenchmarkTimeLimits.CPU;
-                    //benchmarkLimitControlNVIDIA.TimeLimits = ConfigManager.GeneralConfig.BenchmarkTimeLimits.NVIDIA;
-                    //benchmarkLimitControlAMD.TimeLimits = ConfigManager.GeneralConfig.BenchmarkTimeLimits.AMD;
-
                 }
-
+                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 19)
+                {
+                    ConfigManager.GeneralConfig.BenchmarkTimeLimits = new BenchmarkTimeLimitsConfig();
+                    Helpers.ConsolePrint("NICEHASH", "Old version");
+                    if (Directory.Exists("internals"))
+                        Directory.Delete("internals", true);
+                    ConfigManager.GeneralConfig.ForkFixVersion = 19;
+                }
                 //**
                 Thread.Sleep(100);
                 // init active display currency after config load

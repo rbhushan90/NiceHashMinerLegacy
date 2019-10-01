@@ -25,7 +25,7 @@ namespace NiceHashMiner.Devices
                 var result = ADL.ADL_Overdrive5_FanSpeed_Get(_adapterIndex, 0, ref adlf);
                 if (result != ADL.ADL_SUCCESS)
                 {
-                    Helpers.ConsolePrint("ADL", "ADL fan getting failed with error code " + result);
+//                    Helpers.ConsolePrint("ADL", "ADL fan getting failed with error code " + result);
                     return -1;
                 }
                 return adlf.FanSpeed;
@@ -72,7 +72,7 @@ namespace NiceHashMiner.Devices
                     var result = ADL.ADL2_Overdrive6_CurrentPower_Get(_adlContext, _adapterIndex2, 0, ref power); //0
                     if (result == ADL.ADL_SUCCESS)
                     {
-                   // Helpers.ConsolePrint("ADL", power.ToString()); 
+                   // Helpers.ConsolePrint("ADL", power.ToString());
                         return (double) power / (1 << 8);
                     }
 

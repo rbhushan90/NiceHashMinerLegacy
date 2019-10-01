@@ -165,7 +165,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16RV2))
             {
                 commandLine = "--algo x16rv2" +
-                 " -o stratum+tcp://x16r.eu.mine.zpool.ca:3637" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
+                 " -o stratum+tcp://x16r.na.mine.zpool.ca:3637" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
                  " -o " + url + " -u " + username + " -p x " +
                  " -o " + alg + ".hk" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
                  " -o " + alg + ".jp" + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +

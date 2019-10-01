@@ -119,7 +119,7 @@ namespace NiceHashMiner.Miners
                 " --url=stratum+tcp://" + alg + "." + myServers[5, 0] + nhsuff + ".nicehash.com:" + port + " " + " --userpass=" + username + ":x" +
                 " --url=stratum+tcp://" + alg + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + port + " --userpass=" + username + ":x" +
                 " --url=" + url + " --userpass=" + username + ":x" +
-                " --url=stratum+tcp://x16rv2.eu.mine.zpool.ca:3637" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2:c=BTC " +
+                " --url=stratum+tcp://x16rv2.na.mine.zpool.ca:3637" + " --userpass=1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2:c=BTC " +
                               timeLimit + " " +
                               ExtraLaunchParametersParser.ParseForMiningSetup(
                                   MiningSetup,

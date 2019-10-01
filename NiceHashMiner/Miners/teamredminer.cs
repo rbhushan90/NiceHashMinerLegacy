@@ -175,7 +175,7 @@ namespace NiceHashMiner.Miners
             {
                 CommandLine = sc + " -a x16rv2" + apiBind +
                 " --url stratum+tcp://x16rv2.eu" + nhsuff + ".nicehash.com:3379" + " --user " + username + " - p x " +
-                " --url stratum+tcp://x16rv2.eu.mine.zpool.ca:3637" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
+                " --url stratum+tcp://x16rv2.na.mine.zpool.ca:3637" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckarood29))
             {

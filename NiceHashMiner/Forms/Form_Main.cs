@@ -52,7 +52,7 @@ namespace NiceHashMiner
         private int _flowLayoutPanelRatesIndex = 0;
 
         private const string BetaAlphaPostfixString = "";
-        const string ForkString = " Fork Fix 19 beta 1";
+        const string ForkString = " Fork Fix 19";
 
         private bool _isDeviceDetectionInitialized = false;
 
@@ -1517,6 +1517,8 @@ namespace NiceHashMiner
                 notifyIcon1.Visible = true;
                 Hide();
             }
+            buttonStartMining.Refresh();
+            buttonStopMining.Refresh();
         }
 
         // Restore NiceHashMiner from the system tray
@@ -1979,7 +1981,6 @@ namespace NiceHashMiner
         {
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {
-                var str = buttonStopMining.Text;
                 Button btn = (Button)sender;
                 TextFormatFlags flags = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.HidePrefix;   // center the text
                 TextRenderer.DrawText(e.Graphics, buttonStopMining.Text, btn.Font, e.ClipRectangle, btn.ForeColor, flags);
