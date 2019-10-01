@@ -38,7 +38,7 @@
             // 
             // listViewDevices
             // 
-            this.listViewDevices.BackColor = System.Drawing.SystemColors.Control;
+            this.listViewDevices.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.listViewDevices.CheckBoxes = true;
             this.listViewDevices.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader0,
@@ -117,6 +117,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.listViewDevices);
             this.Name = "DevicesListViewEnableControl";
             this.Size = new System.Drawing.Size(625, 226);

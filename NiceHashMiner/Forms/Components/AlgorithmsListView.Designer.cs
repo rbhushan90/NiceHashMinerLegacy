@@ -37,7 +37,7 @@
             // 
             // listViewAlgorithms
             // 
-            this.listViewAlgorithms.BackColor = System.Drawing.SystemColors.Control;
+            this.listViewAlgorithms.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.listViewAlgorithms.CheckBoxes = true;
             this.listViewAlgorithms.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader0,

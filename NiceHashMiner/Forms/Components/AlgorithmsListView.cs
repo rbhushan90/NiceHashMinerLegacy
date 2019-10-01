@@ -36,7 +36,9 @@ namespace NiceHashMiner.Forms.Components
         private class DefaultAlgorithmColorSeter : IListItemCheckColorSetter
         {
             //private static readonly Color DisabledColor = Color.FromArgb(Form_Main._backColor.ToArgb() + 40 * 256 * 256 * 256 + 40 * 256 * 256 + 40 * 256 + 40);
-            public static Color DisabledColor = ConfigManager.GeneralConfig.ColorProfileIndex != 0 ? Color.FromArgb(Form_Main._backColor.ToArgb() + 40 * 256 * 256 * 256 + 40 * 256 * 256 + 40 * 256 + 40) : Color.DarkGray;
+            //public static Color DisabledColor = ConfigManager.GeneralConfig.ColorProfileIndex != 0 ? Color.FromArgb(Form_Main._backColor.ToArgb() + 40 * 256 * 256 * 256 + 40 * 256 * 256 + 40 * 256 + 40) : Color.DarkGray;
+            public static Color DisabledColor = Form_Main._backColor;
+            public static Color DisabledForeColor = Color.Gray;
             //  private static readonly Color DisabledColor = Form_Main._backColor;
             private static readonly Color BenchmarkedColor = Form_Main._backColor;
             private static readonly Color UnbenchmarkedColor = Color.LightBlue;
@@ -45,17 +47,47 @@ namespace NiceHashMiner.Forms.Components
             {
                 if (!isListViewEnabled)
                 {
-                    return;
-                }
+                  //  return;
+                } 
                 if (lvi.Tag is Algorithm algorithm)
                 {
                     if (!algorithm.Enabled && !algorithm.IsBenchmarkPending)
                     {
-                        lvi.BackColor = DisabledColor;
+                        if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+                        {
+                            lvi.BackColor = DisabledColor;
+                        } else
+                        {
+                            lvi.BackColor = SystemColors.ControlLightLight;
+                        }
+                        lvi.ForeColor = DisabledForeColor;
                     }
                     else if (!algorithm.BenchmarkNeeded && !algorithm.IsBenchmarkPending)
                     {
                         lvi.BackColor = BenchmarkedColor;
+                        if (isListViewEnabled)
+                        {
+                            lvi.ForeColor = Form_Main._foreColor;
+                            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+                            {
+                                lvi.BackColor = DisabledColor;
+                            }
+                            else
+                            {
+                                lvi.BackColor = SystemColors.ControlLightLight;
+                            }
+                        } else
+                        {
+                            lvi.ForeColor = DisabledForeColor;
+                            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+                            {
+                                lvi.BackColor = DisabledColor;
+                            }
+                            else
+                            {
+                                lvi.BackColor = SystemColors.ControlLightLight;
+                            }
+                        }
                     }
                     else
                     {
@@ -94,9 +126,16 @@ namespace NiceHashMiner.Forms.Components
             InitializeComponent();
             listViewAlgorithms.DoubleBuffer();
 
-           // System.Reflection.PropertyInfo dbProp = typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-           // dbProp.SetValue(this, true, null);
-            AlgorithmsListView.colorListViewHeader(ref listViewAlgorithms, Form_Main._backColor, Form_Main._textColor);
+            // System.Reflection.PropertyInfo dbProp = typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            // dbProp.SetValue(this, true, null);
+            //if (ConfigManager.GeneralConfig.ColorProfileIndex == 0)
+            //{
+              //  AlgorithmsListView.colorListViewHeader(ref listViewAlgorithms, SystemColors.ControlLightLight, Form_Main._textColor);
+            //}
+            //else
+            {
+                AlgorithmsListView.colorListViewHeader(ref listViewAlgorithms, Form_Main._backColor, Form_Main._textColor);
+            }
 
             // callback initializations
             listViewAlgorithms.ItemSelectionChanged += ListViewAlgorithms_ItemSelectionChanged;
@@ -117,10 +156,11 @@ namespace NiceHashMiner.Forms.Components
         }
         private static void headerDraw(object sender, DrawListViewColumnHeaderEventArgs e, Color backColor, Color foreColor)
         {
-            using (SolidBrush backBrush = new SolidBrush(backColor))
-            {
-                e.Graphics.FillRectangle(backBrush, e.Bounds);
-            }
+                using (SolidBrush backBrush = new SolidBrush(backColor))
+                {
+                    e.Graphics.FillRectangle(backBrush, e.Bounds);
+                }
+           
 
             using (SolidBrush foreBrush = new SolidBrush(foreColor))
             {
@@ -142,22 +182,46 @@ namespace NiceHashMiner.Forms.Components
         private static void bodyDraw(object sender, DrawListViewItemEventArgs e)
         {
             e.DrawDefault = true;
-
-            using (SolidBrush backBrush = new SolidBrush(Form_Main._backColor))
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {
-                e.Graphics.FillRectangle(backBrush, e.Bounds);
+                using (SolidBrush backBrush = new SolidBrush(Form_Main._backColor))
+                {
+                    e.Graphics.FillRectangle(backBrush, e.Bounds);
+                }
+            }
+            else
+            {
+                using (SolidBrush backBrush = new SolidBrush(SystemColors.ControlLightLight))
+                {
+                    e.Graphics.FillRectangle(backBrush, e.Bounds);
+                }
             }
 
         }
         public void InitLocale()
         {
+            
             var _backColor = Form_Main._backColor;
             var _foreColor = Form_Main._foreColor;
             var _textColor = Form_Main._textColor;
+            /*
             //  foreach (var lbl in this.Controls.OfType<ListView>()) lbl.BackColor = _backColor;
             listViewAlgorithms.BackColor = _backColor;
             listViewAlgorithms.ForeColor = _textColor;
             this.BackColor = _backColor;
+            */
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                listViewAlgorithms.BackColor = _backColor;
+                listViewAlgorithms.ForeColor = _textColor;
+                this.BackColor = _backColor;
+            }
+            else
+            {
+                listViewAlgorithms.BackColor = SystemColors.ControlLightLight;
+                listViewAlgorithms.ForeColor = _textColor;
+                this.BackColor = SystemColors.ControlLightLight;
+            }
 
             listViewAlgorithms.Columns[ENABLED].Text = International.GetText("AlgorithmsListView_Enabled");
             listViewAlgorithms.Columns[ALGORITHM].Text = International.GetText("AlgorithmsListView_Algorithm");
@@ -219,17 +283,20 @@ namespace NiceHashMiner.Forms.Components
 
             listViewAlgorithms.EndUpdate();
             //Enabled = isEnabled;
-            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
-            {
+         //   if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+           // {
                 isListViewEnabled = isEnabled;
                 listViewAlgorithms.CheckBoxes = isEnabled;
-            }
+            //}
         }
 
         public void RepaintStatus(bool isEnabled, string uuid)
         {
             if (_computeDevice != null && _computeDevice.Uuid == uuid)
             {
+                isListViewEnabled = isEnabled;
+                listViewAlgorithms.CheckBoxes = isEnabled;
+
                 foreach (ListViewItem lvi in listViewAlgorithms.Items)
                 {
                     var algo = lvi.Tag as Algorithm;
@@ -242,11 +309,10 @@ namespace NiceHashMiner.Forms.Components
 
                 //Visible = isEnabled;
                 //Enabled = isEnabled;
-                if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
-                {
-                    isListViewEnabled = isEnabled;
-                    listViewAlgorithms.CheckBoxes = isEnabled;
-                }
+              //  if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+               // {
+
+               // }
             }
         }
 

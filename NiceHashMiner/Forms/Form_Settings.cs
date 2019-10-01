@@ -731,6 +731,12 @@ namespace NiceHashMiner.Forms
                 algorithmsListView1.ForeColor = Form_Main._foreColor;
                 tabPageGeneral.BackColor = Form_Main._backColor;
                 tabPageGeneral.ForeColor = Form_Main._foreColor;
+            } else
+            {
+                devicesListViewEnableControl1.BackColor = SystemColors.ControlLightLight;
+                devicesListViewEnableControl1.ForeColor = Form_Main._foreColor;
+                algorithmsListView1.BackColor = SystemColors.ControlLightLight;
+                algorithmsListView1.ForeColor = Form_Main._foreColor;
             }
 
             // Setup Tooltips CPU

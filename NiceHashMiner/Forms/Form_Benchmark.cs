@@ -22,7 +22,9 @@ namespace NiceHashMiner.Forms
 {
     public partial class Form_Benchmark : Form, IListItemCheckColorSetter, IBenchmarkForm, IBenchmarkCalculation
     {
-        private static readonly Color DisabledColor = Color.FromArgb(Form_Main._backColor.ToArgb() + 40*256*256*256 + 40*256*256 + 40*256 + 40);
+        // private static readonly Color DisabledColor = Color.FromArgb(Form_Main._backColor.ToArgb() + 40*256*256*256 + 40*256*256 + 40*256 + 40);
+        public static Color DisabledColor = Form_Main._backColor;
+        public static Color DisabledForeColor = Color.Gray;
         private static readonly Color BenchmarkedColor = Form_Main._backColor;
         private static readonly Color UnbenchmarkedColor = Color.LightBlue;
 
@@ -325,17 +327,37 @@ namespace NiceHashMiner.Forms
             {
                 var uuid = cDevice.Uuid;
                 if (!cDevice.Enabled)
-                    lvi.BackColor = DisabledColor;
+                {
+                    if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+                    {
+                        lvi.BackColor = DisabledColor;
+                    }
+                    else
+                    {
+                        lvi.BackColor = SystemColors.ControlLightLight;
+                    }
+                    lvi.ForeColor = DisabledForeColor;
+                }
                 else
                     switch (_benchmarkDevicesAlgorithmStatus[uuid])
                     {
                         case BenchmarkSettingsStatus.TODO:
                         case BenchmarkSettingsStatus.DISABLED_TODO:
                             lvi.BackColor = UnbenchmarkedColor;
+                            lvi.ForeColor = Form_Main._foreColor;
                             break;
                         case BenchmarkSettingsStatus.NONE:
                         case BenchmarkSettingsStatus.DISABLED_NONE:
-                            lvi.BackColor = BenchmarkedColor;
+                            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+                            {
+                                lvi.BackColor = BenchmarkedColor;
+                            }
+                            else
+                            {
+                                lvi.BackColor = SystemColors.ControlLightLight;
+                            }
+                           // lvi.BackColor = BenchmarkedColor;
+                            lvi.ForeColor = Form_Main._foreColor;
                             break;
                     }
                 //// enable disable status, NOT needed

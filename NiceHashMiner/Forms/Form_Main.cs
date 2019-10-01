@@ -734,6 +734,8 @@ namespace NiceHashMiner
                 lbl.FlatAppearance.BorderColor = _textColor;
                 lbl.FlatAppearance.BorderSize = 1;
             }
+            buttonLogo.FlatAppearance.BorderSize = 0;
+            devicesListViewEnableControl1.BackColor = SystemColors.ControlLightLight;
 
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {

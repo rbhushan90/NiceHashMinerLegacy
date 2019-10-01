@@ -17,8 +17,10 @@ namespace NiceHashMiner.Forms.Components
         private const int LOAD = 2;
         private const int FAN = 3;
         private const int POWER = 4;
-        public static Color EnabledColor = Form_Main._windowColor;
-        public static Color DisabledColor = ConfigManager.GeneralConfig.ColorProfileIndex != 0 ? Color.FromArgb(Form_Main._backColor.ToArgb() + 40 * 256 * 256 * 256 + 40 * 256 * 256 + 40 * 256 + 40) : Color.DarkGray;
+        public static Color EnabledColor = Form_Main._backColor;
+        //public static Color DisabledColor = ConfigManager.GeneralConfig.ColorProfileIndex != 0 ? Color.FromArgb(Form_Main._backColor.ToArgb() + 40 * 256 * 256 * 256 + 40 * 256 * 256 + 40 * 256 + 40) : Color.DarkGray;
+        public static Color DisabledColor = Form_Main._backColor;
+        public static Color DisabledForeColor = Color.Gray;
         //public static Color DisabledColor = SystemColors.ControlLight;
 
         public class DefaultDevicesColorSeter : IListItemCheckColorSetter
@@ -28,7 +30,15 @@ namespace NiceHashMiner.Forms.Components
             {
                 if (lvi.Tag is ComputeDevice cdvo)
                 {
-                    lvi.BackColor = cdvo.Enabled ? EnabledColor : DisabledColor;
+                    if (ConfigManager.GeneralConfig.ColorProfileIndex == 0)
+                    {
+                        lvi.BackColor = cdvo.Enabled ? SystemColors.ControlLightLight : SystemColors.ControlLightLight;
+                        lvi.ForeColor = cdvo.Enabled ? Form_Main._foreColor : DisabledForeColor;
+                    } else
+                    {
+                        lvi.BackColor = cdvo.Enabled ? EnabledColor : DisabledColor;
+                        lvi.ForeColor = cdvo.Enabled ? Form_Main._foreColor : DisabledForeColor;
+                    }
                 }
             }
         }
@@ -244,9 +254,18 @@ namespace NiceHashMiner.Forms.Components
         {
             e.DrawDefault = true;
             //lvi.BackColor = cdvo.Enabled ? EnabledColor : DisabledColor;
-            using (SolidBrush backBrush = new SolidBrush(Form_Main._backColor))
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {
-                e.Graphics.FillRectangle(backBrush, e.Bounds);
+                using (SolidBrush backBrush = new SolidBrush(Form_Main._backColor))
+                {
+                    e.Graphics.FillRectangle(backBrush, e.Bounds);
+                }
+            } else
+            {
+                using (SolidBrush backBrush = new SolidBrush(SystemColors.ControlLightLight))
+                {
+                    e.Graphics.FillRectangle(backBrush, e.Bounds);
+                }
             }
 
         }
@@ -256,11 +275,22 @@ namespace NiceHashMiner.Forms.Components
             var _backColor = Form_Main._backColor;
             var _foreColor = Form_Main._foreColor;
             var _textColor = Form_Main._textColor;
-            foreach (var lbl in this.Controls.OfType<ListView>()) lbl.BackColor = _backColor;
-            listViewDevices.BackColor = _backColor;
-            listViewDevices.ForeColor = _textColor;
 
-            this.BackColor = _backColor;
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                foreach (var lbl in this.Controls.OfType<ListView>()) lbl.BackColor = _backColor;
+                listViewDevices.BackColor = _backColor;
+                listViewDevices.ForeColor = _textColor;
+
+                this.BackColor = _backColor;
+            } else
+            {
+                foreach (var lbl in this.Controls.OfType<ListView>()) lbl.BackColor = SystemColors.ControlLightLight;
+                listViewDevices.BackColor = SystemColors.ControlLightLight;
+                listViewDevices.ForeColor = _textColor;
+
+                this.BackColor = SystemColors.ControlLightLight;
+            }
 
             listViewDevices.Columns[ENABLED].Text = " " + International.GetText("ListView_Device");
 
@@ -287,10 +317,27 @@ namespace NiceHashMiner.Forms.Components
             var _backColor = Form_Main._backColor;
             var _foreColor = Form_Main._foreColor;
             var _textColor = Form_Main._textColor;
-            foreach (var lbl in this.Controls.OfType<ListView>()) lbl.BackColor = _backColor;
-          //  listViewDevices.BackColor = _backColor;
-            listViewDevices.ForeColor = _textColor;
-           // this.BackColor = _backColor;
+            // foreach (var lbl in this.Controls.OfType<ListView>()) lbl.BackColor = _backColor;
+            //  listViewDevices.BackColor = _backColor;
+            // listViewDevices.ForeColor = _textColor;
+            // this.BackColor = _backColor;
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                foreach (var lbl in this.Controls.OfType<ListView>()) lbl.BackColor = _backColor;
+                listViewDevices.BackColor = _backColor;
+                listViewDevices.ForeColor = _textColor;
+
+                this.BackColor = _backColor;
+            }
+            else
+            {
+                foreach (var lbl in this.Controls.OfType<ListView>()) lbl.BackColor = SystemColors.ControlLightLight;
+                listViewDevices.BackColor = SystemColors.ControlLightLight;
+                listViewDevices.ForeColor = _textColor;
+
+                this.BackColor = SystemColors.ControlLightLight;
+            }
+
 
             listViewDevices.Columns[ENABLED].Text = " " + International.GetText("ListView_Device");
             if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
