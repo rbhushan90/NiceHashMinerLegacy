@@ -33,6 +33,7 @@ namespace NiceHashMiner.Utils
             @"/TT-Miner/TT-Miner.exe",
             @"/NBMiner/NBMiner.exe",
             @"/miniZ/miniZ.exe",
+            @"/ethlargement/OhGodAnETHlargementPill-r2.exe",
             @"/Fork_Fix_18.txt",
         };
 

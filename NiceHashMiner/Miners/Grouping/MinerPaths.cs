@@ -113,7 +113,7 @@ namespace NiceHashMiner.Miners.Grouping
             public const string Phoenix = Bin3rdParty + @"\Phoenix\PhoenixMiner.exe";
             public const string lolMiner = Bin3rdParty + @"\lolMiner\lolMiner.exe";
             public const string lolMinerBEAM = Bin3rdParty + @"\lolMinerBEAM\lolMiner.exe";
-
+            public const string EthLargement = Bin3rdParty + @"\ethlargement\OhGodAnETHlargementPill-r2.exe";
             public const string None = "";
 
             // root binary folder

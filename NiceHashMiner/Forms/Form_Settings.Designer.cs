@@ -154,6 +154,7 @@
             this.buttonGPUtuning = new System.Windows.Forms.Button();
             this.algorithmSettingsControl1 = new NiceHashMiner.Forms.Components.AlgorithmSettingsControl();
             this.devicesListViewEnableControl1 = new NiceHashMiner.Forms.Components.DevicesListViewEnableControl();
+            this.checkBox_RunEthlargement = new System.Windows.Forms.CheckBox();
             this.tabControlGeneral.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBox_Main.SuspendLayout();
@@ -1256,7 +1257,7 @@
             this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA3);
             this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA2);
             this.groupBoxMOPA.Controls.Add(this.radioButtonMOPA1);
-            this.groupBoxMOPA.Location = new System.Drawing.Point(6, 129);
+            this.groupBoxMOPA.Location = new System.Drawing.Point(5, 156);
             this.groupBoxMOPA.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBoxMOPA.Name = "groupBoxMOPA";
             this.groupBoxMOPA.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1322,6 +1323,7 @@
             // 
             // groupBox_Miners
             // 
+            this.groupBox_Miners.Controls.Add(this.checkBox_RunEthlargement);
             this.groupBox_Miners.Controls.Add(this.pictureBox_MinerRestartDelayMS);
             this.groupBox_Miners.Controls.Add(this.pictureBox_APIBindPortStart);
             this.groupBox_Miners.Controls.Add(this.pictureBox_SwitchMaxSeconds);
@@ -1344,7 +1346,7 @@
             this.groupBox_Miners.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox_Miners.Name = "groupBox_Miners";
             this.groupBox_Miners.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBox_Miners.Size = new System.Drawing.Size(641, 117);
+            this.groupBox_Miners.Size = new System.Drawing.Size(641, 144);
             this.groupBox_Miners.TabIndex = 389;
             this.groupBox_Miners.TabStop = false;
             this.groupBox_Miners.Text = "Miners:";
@@ -1536,7 +1538,7 @@
             this.groupBox1.Controls.Add(this.checkBox_DisableDetectionNVIDIA);
             this.groupBox1.Controls.Add(this.pictureBox_DisableDetectionNVIDIA);
             this.groupBox1.Controls.Add(this.checkBox_DisableDetectionAMD);
-            this.groupBox1.Location = new System.Drawing.Point(6, 203);
+            this.groupBox1.Location = new System.Drawing.Point(5, 230);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1762,6 +1764,18 @@
             this.devicesListViewEnableControl1.Size = new System.Drawing.Size(348, 165);
             this.devicesListViewEnableControl1.TabIndex = 397;
             // 
+            // checkBox_RunEthlargement
+            // 
+            this.checkBox_RunEthlargement.AutoSize = true;
+            this.checkBox_RunEthlargement.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBox_RunEthlargement.Location = new System.Drawing.Point(10, 116);
+            this.checkBox_RunEthlargement.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBox_RunEthlargement.Name = "checkBox_RunEthlargement";
+            this.checkBox_RunEthlargement.Size = new System.Drawing.Size(111, 17);
+            this.checkBox_RunEthlargement.TabIndex = 401;
+            this.checkBox_RunEthlargement.Text = "Run Ethlargement";
+            this.checkBox_RunEthlargement.UseVisualStyleBackColor = true;
+            // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1975,5 +1989,6 @@
         private Components.AlgorithmsListView algorithmsListView1;
         private System.Windows.Forms.Button buttonGPUtuning;
         private Components.DevicesListViewEnableControl devicesListViewEnableControl1;
+        private System.Windows.Forms.CheckBox checkBox_RunEthlargement;
     }
 }

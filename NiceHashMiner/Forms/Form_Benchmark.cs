@@ -620,6 +620,7 @@ namespace NiceHashMiner.Forms
             {
                 _benchmarkingTimer.Stop();
                 InBenchmark = false;
+                Ethlargement.Stop();
                 Helpers.ConsolePrint("FormBenchmark", "EndBenchmark() benchmark routine finished");
 
                 //CopyBenchmarks();

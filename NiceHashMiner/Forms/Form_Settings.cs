@@ -428,6 +428,7 @@ namespace NiceHashMiner.Forms
                 label1.Text = "Цветовой профиль (частично)";
             }
 
+            checkBox_RunEthlargement.Enabled = Helpers.IsElevated;
 
             radioButtonMOPA1.Checked = ConfigManager.GeneralConfig.MOPA1;
             radioButtonMOPA2.Checked = ConfigManager.GeneralConfig.MOPA2;
@@ -621,6 +622,9 @@ namespace NiceHashMiner.Forms
                 checkBox_Disable_extra_launch_parameter_checking.BackColor = Form_Main._backColor;
                 checkBox_Disable_extra_launch_parameter_checking.ForeColor = Form_Main._textColor;
 
+                checkBox_RunEthlargement.BackColor = Form_Main._backColor;
+                checkBox_RunEthlargement.ForeColor = Form_Main._textColor;
+
                 textBox_BitcoinAddressNew.BackColor = Form_Main._backColor;
                 textBox_BitcoinAddressNew.ForeColor = Form_Main._foreColor;
                 textBox_BitcoinAddressNew.BorderStyle = BorderStyle.FixedSingle;
@@ -783,6 +787,7 @@ namespace NiceHashMiner.Forms
                 checkBox_Additional_info_about_device.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_Disable_extra_launch_parameter_checking.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_AMD_DisableAMDTempControl.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
+                checkBox_RunEthlargement.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
             }
             // Add EventHandler for all the general tab's textboxes
             {
@@ -880,6 +885,7 @@ namespace NiceHashMiner.Forms
                 checkBox_Force_mining_if_nonprofitable.Checked = ConfigManager.GeneralConfig.Force_mining_if_nonprofitable;
                 checkBox_Additional_info_about_device.Checked = ConfigManager.GeneralConfig.Additional_info_about_device;
                 checkBox_Disable_extra_launch_parameter_checking.Checked = ConfigManager.GeneralConfig.Disable_extra_launch_parameter_checking;
+                checkBox_RunEthlargement.Checked = ConfigManager.GeneralConfig.UseEthlargement;
             }
 
             // Textboxes
@@ -1015,6 +1021,7 @@ namespace NiceHashMiner.Forms
             ConfigManager.GeneralConfig.Additional_info_about_device = checkBox_Additional_info_about_device.Checked;
             ConfigManager.GeneralConfig.Disable_extra_launch_parameter_checking = checkBox_Disable_extra_launch_parameter_checking.Checked;
             ConfigManager.GeneralConfig.DisableAMDTempControl = checkBox_AMD_DisableAMDTempControl.Checked;
+            ConfigManager.GeneralConfig.UseEthlargement = checkBox_RunEthlargement.Checked;
         }
 
         private void CheckBox_AMD_DisableAMDTempControl_CheckedChanged(object sender, EventArgs e)

@@ -155,7 +155,7 @@ namespace NiceHashMiner.Configs.Data
 
         public int ColorProfileIndex = 0;
         public ColorProfilesConfig ColorProfiles = new ColorProfilesConfig();
-
+        public bool UseEthlargement = false;
 
         // methods
         public void SetDefaults()
@@ -216,6 +216,7 @@ namespace NiceHashMiner.Configs.Data
             SwitchSmaTicksStable = new Interval(2, 3);
             SwitchSmaTicksUnstable = new Interval(5, 13);
             UseSmaCache = true;
+            UseEthlargement = false;
             MOPA1 = true;
             MOPA2 = false;
             MOPA3 = false;
