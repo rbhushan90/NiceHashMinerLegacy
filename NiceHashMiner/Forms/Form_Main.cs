@@ -726,6 +726,15 @@ namespace NiceHashMiner
                    // this.Width = 660; // min width
                 }
             }
+
+            foreach (var lbl in this.Controls.OfType<Button>())
+            {
+                lbl.ForeColor = _textColor;
+                lbl.FlatStyle = FlatStyle.Flat;
+                lbl.FlatAppearance.BorderColor = _textColor;
+                lbl.FlatAppearance.BorderSize = 1;
+            }
+
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {
                 if (this != null)
@@ -1955,6 +1964,44 @@ namespace NiceHashMiner
 
         }
 
+        private void buttonStopMining_EnabledChanged(object sender, EventArgs e)
+        {
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                buttonStopMining.ForeColor = buttonStopMining.Enabled == true ? Form_Main._foreColor : Color.Gray;
+                buttonStopMining.BackColor = buttonStopMining.Enabled == true ? Form_Main._backColor : Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            }
+       }
+
+        private void buttonStopMining_Paint(object sender, PaintEventArgs e)
+        {
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                var str = buttonStopMining.Text;
+                Button btn = (Button)sender;
+                TextFormatFlags flags = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.HidePrefix;   // center the text
+                TextRenderer.DrawText(e.Graphics, buttonStopMining.Text, btn.Font, e.ClipRectangle, btn.ForeColor, flags);
+            }
+        }
+
+        private void buttonStartMining_EnabledChanged(object sender, EventArgs e)
+        {
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                buttonStartMining.ForeColor = buttonStartMining.Enabled == true ? Form_Main._foreColor : Color.Gray;
+                buttonStartMining.BackColor = buttonStartMining.Enabled == true ? Form_Main._backColor : Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            }
+        }
+
+        private void buttonStartMining_Paint(object sender, PaintEventArgs e)
+        {
+            if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
+            {
+                Button btn = (Button)sender;
+                TextFormatFlags flags = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.HidePrefix;   // center the text
+                TextRenderer.DrawText(e.Graphics, buttonStartMining.Text, btn.Font, e.ClipRectangle, btn.ForeColor, flags);
+            }
+        }
     }
 
 

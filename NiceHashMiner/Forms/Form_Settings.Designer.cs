@@ -117,6 +117,7 @@
             this.radioButtonMOPA2 = new System.Windows.Forms.RadioButton();
             this.radioButtonMOPA1 = new System.Windows.Forms.RadioButton();
             this.groupBox_Miners = new System.Windows.Forms.GroupBox();
+            this.checkBox_RunEthlargement = new System.Windows.Forms.CheckBox();
             this.pictureBox_MinerRestartDelayMS = new System.Windows.Forms.PictureBox();
             this.pictureBox_APIBindPortStart = new System.Windows.Forms.PictureBox();
             this.pictureBox_SwitchMaxSeconds = new System.Windows.Forms.PictureBox();
@@ -150,11 +151,11 @@
             this.tabPageDevicesAlgos = new System.Windows.Forms.TabPage();
             this.checkBox_Disable_extra_launch_parameter_checking = new System.Windows.Forms.CheckBox();
             this.groupBoxAlgorithmSettings = new System.Windows.Forms.GroupBox();
-            this.algorithmsListView1 = new NiceHashMiner.Forms.Components.AlgorithmsListView();
             this.buttonGPUtuning = new System.Windows.Forms.Button();
+            this.label_RunEthlargement = new System.Windows.Forms.Label();
+            this.algorithmsListView1 = new NiceHashMiner.Forms.Components.AlgorithmsListView();
             this.algorithmSettingsControl1 = new NiceHashMiner.Forms.Components.AlgorithmSettingsControl();
             this.devicesListViewEnableControl1 = new NiceHashMiner.Forms.Components.DevicesListViewEnableControl();
-            this.checkBox_RunEthlargement = new System.Windows.Forms.CheckBox();
             this.tabControlGeneral.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBox_Main.SuspendLayout();
@@ -1323,6 +1324,7 @@
             // 
             // groupBox_Miners
             // 
+            this.groupBox_Miners.Controls.Add(this.label_RunEthlargement);
             this.groupBox_Miners.Controls.Add(this.checkBox_RunEthlargement);
             this.groupBox_Miners.Controls.Add(this.pictureBox_MinerRestartDelayMS);
             this.groupBox_Miners.Controls.Add(this.pictureBox_APIBindPortStart);
@@ -1350,6 +1352,18 @@
             this.groupBox_Miners.TabIndex = 389;
             this.groupBox_Miners.TabStop = false;
             this.groupBox_Miners.Text = "Miners:";
+            // 
+            // checkBox_RunEthlargement
+            // 
+            this.checkBox_RunEthlargement.AutoSize = true;
+            this.checkBox_RunEthlargement.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBox_RunEthlargement.Location = new System.Drawing.Point(10, 116);
+            this.checkBox_RunEthlargement.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBox_RunEthlargement.Name = "checkBox_RunEthlargement";
+            this.checkBox_RunEthlargement.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_RunEthlargement.TabIndex = 401;
+            this.checkBox_RunEthlargement.UseVisualStyleBackColor = true;
+            this.checkBox_RunEthlargement.CheckedChanged += new System.EventHandler(this.checkBox_RunEthlargement_CheckedChanged);
             // 
             // pictureBox_MinerRestartDelayMS
             // 
@@ -1714,6 +1728,26 @@
             this.groupBoxAlgorithmSettings.TabStop = false;
             this.groupBoxAlgorithmSettings.Text = "Algorithm settings for selected device:";
             // 
+            // buttonGPUtuning
+            // 
+            this.buttonGPUtuning.Location = new System.Drawing.Point(8, 20);
+            this.buttonGPUtuning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buttonGPUtuning.Name = "buttonGPUtuning";
+            this.buttonGPUtuning.Size = new System.Drawing.Size(141, 23);
+            this.buttonGPUtuning.TabIndex = 394;
+            this.buttonGPUtuning.Text = "GPU tuning";
+            this.buttonGPUtuning.UseVisualStyleBackColor = true;
+            // 
+            // label_RunEthlargement
+            // 
+            this.label_RunEthlargement.AutoSize = true;
+            this.label_RunEthlargement.Location = new System.Drawing.Point(28, 116);
+            this.label_RunEthlargement.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_RunEthlargement.Name = "label_RunEthlargement";
+            this.label_RunEthlargement.Size = new System.Drawing.Size(92, 13);
+            this.label_RunEthlargement.TabIndex = 402;
+            this.label_RunEthlargement.Text = "Run Ethlargement";
+            // 
             // algorithmsListView1
             // 
             this.algorithmsListView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1729,16 +1763,6 @@
             this.algorithmsListView1.Name = "algorithmsListView1";
             this.algorithmsListView1.Size = new System.Drawing.Size(627, 224);
             this.algorithmsListView1.TabIndex = 2;
-            // 
-            // buttonGPUtuning
-            // 
-            this.buttonGPUtuning.Location = new System.Drawing.Point(8, 20);
-            this.buttonGPUtuning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.buttonGPUtuning.Name = "buttonGPUtuning";
-            this.buttonGPUtuning.Size = new System.Drawing.Size(141, 23);
-            this.buttonGPUtuning.TabIndex = 394;
-            this.buttonGPUtuning.Text = "GPU tuning";
-            this.buttonGPUtuning.UseVisualStyleBackColor = true;
             // 
             // algorithmSettingsControl1
             // 
@@ -1763,18 +1787,6 @@
             this.devicesListViewEnableControl1.SaveToGeneralConfig = false;
             this.devicesListViewEnableControl1.Size = new System.Drawing.Size(348, 165);
             this.devicesListViewEnableControl1.TabIndex = 397;
-            // 
-            // checkBox_RunEthlargement
-            // 
-            this.checkBox_RunEthlargement.AutoSize = true;
-            this.checkBox_RunEthlargement.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBox_RunEthlargement.Location = new System.Drawing.Point(10, 116);
-            this.checkBox_RunEthlargement.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.checkBox_RunEthlargement.Name = "checkBox_RunEthlargement";
-            this.checkBox_RunEthlargement.Size = new System.Drawing.Size(111, 17);
-            this.checkBox_RunEthlargement.TabIndex = 401;
-            this.checkBox_RunEthlargement.Text = "Run Ethlargement";
-            this.checkBox_RunEthlargement.UseVisualStyleBackColor = true;
             // 
             // Form_Settings
             // 
@@ -1990,5 +2002,6 @@
         private System.Windows.Forms.Button buttonGPUtuning;
         private Components.DevicesListViewEnableControl devicesListViewEnableControl1;
         private System.Windows.Forms.CheckBox checkBox_RunEthlargement;
+        private System.Windows.Forms.Label label_RunEthlargement;
     }
 }

@@ -418,6 +418,7 @@ namespace NiceHashMiner.Forms
                 checkBox_Additional_info_about_device.Text = "Дополнительная информация об устройстве";
                 checkBox_Force_mining_if_nonprofitable.Text = "Принудительный майнинг, если не прибыльно";
                 checkBox_Disable_extra_launch_parameter_checking.Text = "Отключить проверку дополнительных параметров";
+                checkBox_DisableDetectionCPU.Text = "Отключить определение CPU";
                 label_AutoStartMiningDelay.Text = "Задержка автозапуска майнинга (сек)";
                 groupBoxMOPA.Text = "Метод получения прибыльности алгоритмов";
                 radioButtonMOPA1.Text = "Стандартный NHM";
@@ -624,6 +625,14 @@ namespace NiceHashMiner.Forms
 
                 checkBox_RunEthlargement.BackColor = Form_Main._backColor;
                 checkBox_RunEthlargement.ForeColor = Form_Main._textColor;
+                if (checkBox_RunEthlargement.Enabled == false)
+                {
+                    label_RunEthlargement.ForeColor = Color.Gray;
+                }
+                else
+                {
+                    label_RunEthlargement.ForeColor = Form_Main._foreColor;
+                }
 
                 textBox_BitcoinAddressNew.BackColor = Form_Main._backColor;
                 textBox_BitcoinAddressNew.ForeColor = Form_Main._foreColor;
@@ -1854,6 +1863,17 @@ namespace NiceHashMiner.Forms
         private void radioButtonMOPA5_CheckedChanged(object sender, EventArgs e)
         {
             ConfigManager.GeneralConfig.MOPA5 = radioButtonMOPA5.Checked;
+        }
+
+        private void checkBox_RunEthlargement_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Enabled == false)
+            {
+                label_RunEthlargement.ForeColor = Color.Gray;
+            } else
+            {
+                label_RunEthlargement.ForeColor = Form_Main._foreColor;
+            }
         }
     }
 }

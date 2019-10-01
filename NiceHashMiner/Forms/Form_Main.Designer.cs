@@ -75,8 +75,10 @@
             this.buttonStartMining.Size = new System.Drawing.Size(105, 23);
             this.buttonStartMining.TabIndex = 6;
             this.buttonStartMining.Text = "&Start";
-            this.buttonStartMining.UseVisualStyleBackColor = true;
+            this.buttonStartMining.UseVisualStyleBackColor = false;
+            this.buttonStartMining.EnabledChanged += new System.EventHandler(this.buttonStartMining_EnabledChanged);
             this.buttonStartMining.Click += new System.EventHandler(this.ButtonStartMining_Click);
+            this.buttonStartMining.Paint += new System.Windows.Forms.PaintEventHandler(this.buttonStartMining_Paint);
             // 
             // labelServiceLocation
             // 
@@ -226,7 +228,7 @@
             // buttonStopMining
             // 
             this.buttonStopMining.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonStopMining.BackColor = System.Drawing.Color.LightGray;
+            this.buttonStopMining.BackColor = System.Drawing.SystemColors.Control;
             this.buttonStopMining.Location = new System.Drawing.Point(612, 193);
             this.buttonStopMining.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonStopMining.Name = "buttonStopMining";
@@ -234,7 +236,9 @@
             this.buttonStopMining.TabIndex = 7;
             this.buttonStopMining.Text = "St&op";
             this.buttonStopMining.UseVisualStyleBackColor = false;
+            this.buttonStopMining.EnabledChanged += new System.EventHandler(this.buttonStopMining_EnabledChanged);
             this.buttonStopMining.Click += new System.EventHandler(this.ButtonStopMining_Click);
+            this.buttonStopMining.Paint += new System.Windows.Forms.PaintEventHandler(this.buttonStopMining_Paint);
             // 
             // buttonBenchmark
             // 
