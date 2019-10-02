@@ -25,11 +25,11 @@
         private void InitializeComponent() {
             this.groupBoxSelectedAlgorithmSettings = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupBoxExtraLaunchParameters = new System.Windows.Forms.GroupBox();
-            this.richTextBoxExtraLaunchParameters = new System.Windows.Forms.TextBox();
             this.field_PowerUsage = new NiceHashMiner.Forms.Components.Field();
             this.fieldBoxBenchmarkSpeed = new NiceHashMiner.Forms.Components.Field();
             this.secondaryFieldBoxBenchmarkSpeed = new NiceHashMiner.Forms.Components.Field();
+            this.groupBoxExtraLaunchParameters = new System.Windows.Forms.GroupBox();
+            this.richTextBoxExtraLaunchParameters = new System.Windows.Forms.TextBox();
             this.groupBoxSelectedAlgorithmSettings.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBoxExtraLaunchParameters.SuspendLayout();
@@ -48,9 +48,9 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.field_PowerUsage);
-            this.flowLayoutPanel1.Controls.Add(this.fieldBoxBenchmarkSpeed);
             this.flowLayoutPanel1.Controls.Add(this.secondaryFieldBoxBenchmarkSpeed);
+            this.flowLayoutPanel1.Controls.Add(this.fieldBoxBenchmarkSpeed);
+            this.flowLayoutPanel1.Controls.Add(this.field_PowerUsage);
             this.flowLayoutPanel1.Controls.Add(this.groupBoxExtraLaunchParameters);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
@@ -59,32 +59,13 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(276, 187);
             this.flowLayoutPanel1.TabIndex = 12;
             // 
-            // groupBoxExtraLaunchParameters
-            // 
-            this.groupBoxExtraLaunchParameters.Controls.Add(this.richTextBoxExtraLaunchParameters);
-            this.groupBoxExtraLaunchParameters.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.groupBoxExtraLaunchParameters.Location = new System.Drawing.Point(3, 99);
-            this.groupBoxExtraLaunchParameters.Name = "groupBoxExtraLaunchParameters";
-            this.groupBoxExtraLaunchParameters.Size = new System.Drawing.Size(270, 84);
-            this.groupBoxExtraLaunchParameters.TabIndex = 14;
-            this.groupBoxExtraLaunchParameters.TabStop = false;
-            this.groupBoxExtraLaunchParameters.Text = "Extra Launch Parameters:";
-            // 
-            // richTextBoxExtraLaunchParameters
-            // 
-            this.richTextBoxExtraLaunchParameters.Location = new System.Drawing.Point(6, 19);
-            this.richTextBoxExtraLaunchParameters.Multiline = true;
-            this.richTextBoxExtraLaunchParameters.Name = "richTextBoxExtraLaunchParameters";
-            this.richTextBoxExtraLaunchParameters.Size = new System.Drawing.Size(258, 59);
-            this.richTextBoxExtraLaunchParameters.TabIndex = 17;
-            // 
             // field_PowerUsage
             // 
             this.field_PowerUsage.AutoSize = true;
             this.field_PowerUsage.BackColor = System.Drawing.Color.Transparent;
             this.field_PowerUsage.EntryText = "";
             this.field_PowerUsage.LabelText = "Power Usage (W):";
-            this.field_PowerUsage.Location = new System.Drawing.Point(3, 3);
+            this.field_PowerUsage.Location = new System.Drawing.Point(3, 67);
             this.field_PowerUsage.Name = "field_PowerUsage";
             this.field_PowerUsage.Size = new System.Drawing.Size(278, 26);
             this.field_PowerUsage.TabIndex = 15;
@@ -106,10 +87,31 @@
             this.secondaryFieldBoxBenchmarkSpeed.BackColor = System.Drawing.Color.Transparent;
             this.secondaryFieldBoxBenchmarkSpeed.EntryText = "";
             this.secondaryFieldBoxBenchmarkSpeed.LabelText = "Secondary Speed (H/s):";
-            this.secondaryFieldBoxBenchmarkSpeed.Location = new System.Drawing.Point(3, 67);
+            this.secondaryFieldBoxBenchmarkSpeed.Location = new System.Drawing.Point(3, 3);
             this.secondaryFieldBoxBenchmarkSpeed.Name = "secondaryFieldBoxBenchmarkSpeed";
             this.secondaryFieldBoxBenchmarkSpeed.Size = new System.Drawing.Size(278, 26);
             this.secondaryFieldBoxBenchmarkSpeed.TabIndex = 16;
+            // 
+            // groupBoxExtraLaunchParameters
+            // 
+            this.groupBoxExtraLaunchParameters.Controls.Add(this.richTextBoxExtraLaunchParameters);
+            this.groupBoxExtraLaunchParameters.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.groupBoxExtraLaunchParameters.Location = new System.Drawing.Point(3, 99);
+            this.groupBoxExtraLaunchParameters.Name = "groupBoxExtraLaunchParameters";
+            this.groupBoxExtraLaunchParameters.Size = new System.Drawing.Size(270, 84);
+            this.groupBoxExtraLaunchParameters.TabIndex = 14;
+            this.groupBoxExtraLaunchParameters.TabStop = false;
+            this.groupBoxExtraLaunchParameters.Text = "Extra Launch Parameters:";
+            // 
+            // richTextBoxExtraLaunchParameters
+            // 
+            this.richTextBoxExtraLaunchParameters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBoxExtraLaunchParameters.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxExtraLaunchParameters.Location = new System.Drawing.Point(3, 16);
+            this.richTextBoxExtraLaunchParameters.Multiline = true;
+            this.richTextBoxExtraLaunchParameters.Name = "richTextBoxExtraLaunchParameters";
+            this.richTextBoxExtraLaunchParameters.Size = new System.Drawing.Size(264, 65);
+            this.richTextBoxExtraLaunchParameters.TabIndex = 17;
             // 
             // AlgorithmSettingsControl
             // 
