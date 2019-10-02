@@ -357,11 +357,14 @@ namespace NiceHashMiner.Forms.Components
         }
         public void SaveColumns()
         {
-            ConfigManager.GeneralConfig.ColumnENABLED = listViewDevices.Columns[ENABLED].Width;
-            ConfigManager.GeneralConfig.ColumnTEMP = listViewDevices.Columns[TEMP].Width;
-            ConfigManager.GeneralConfig.ColumnLOAD = listViewDevices.Columns[LOAD].Width;
-            ConfigManager.GeneralConfig.ColumnFAN = listViewDevices.Columns[FAN].Width;
-            ConfigManager.GeneralConfig.ColumnPOWER = listViewDevices.Columns[POWER].Width;
+            if (listViewDevices.Columns[ENABLED] != null)
+            {
+                ConfigManager.GeneralConfig.ColumnENABLED = listViewDevices.Columns[ENABLED].Width;
+                ConfigManager.GeneralConfig.ColumnTEMP = listViewDevices.Columns[TEMP].Width;
+                ConfigManager.GeneralConfig.ColumnLOAD = listViewDevices.Columns[LOAD].Width;
+                ConfigManager.GeneralConfig.ColumnFAN = listViewDevices.Columns[FAN].Width;
+                ConfigManager.GeneralConfig.ColumnPOWER = listViewDevices.Columns[POWER].Width;
+            }
         }
 
         private void ListViewDevicesItemChecked(object sender, ItemCheckedEventArgs e)
@@ -639,11 +642,14 @@ namespace NiceHashMiner.Forms.Components
 
         private void listViewDevices_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
         {
-            ConfigManager.GeneralConfig.ColumnENABLED = listViewDevices.Columns[ENABLED].Width;
-            ConfigManager.GeneralConfig.ColumnTEMP = listViewDevices.Columns[TEMP].Width;
-            ConfigManager.GeneralConfig.ColumnLOAD = listViewDevices.Columns[LOAD].Width;
-            ConfigManager.GeneralConfig.ColumnFAN = listViewDevices.Columns[FAN].Width;
-            ConfigManager.GeneralConfig.ColumnPOWER = listViewDevices.Columns[POWER].Width;
+            if (listViewDevices.Columns[ENABLED] != null)
+            {
+                ConfigManager.GeneralConfig.ColumnENABLED = listViewDevices.Columns[ENABLED].Width;
+                ConfigManager.GeneralConfig.ColumnTEMP = listViewDevices.Columns[TEMP].Width;
+                ConfigManager.GeneralConfig.ColumnLOAD = listViewDevices.Columns[LOAD].Width;
+                ConfigManager.GeneralConfig.ColumnFAN = listViewDevices.Columns[FAN].Width;
+                ConfigManager.GeneralConfig.ColumnPOWER = listViewDevices.Columns[POWER].Width;
+            }
         }
     }
     public static class ControlExtensions
