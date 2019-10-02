@@ -25,16 +25,14 @@
         private void InitializeComponent() {
             this.groupBoxSelectedAlgorithmSettings = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.groupBoxExtraLaunchParameters = new System.Windows.Forms.GroupBox();
+            this.richTextBoxExtraLaunchParameters = new System.Windows.Forms.TextBox();
             this.field_PowerUsage = new NiceHashMiner.Forms.Components.Field();
             this.fieldBoxBenchmarkSpeed = new NiceHashMiner.Forms.Components.Field();
             this.secondaryFieldBoxBenchmarkSpeed = new NiceHashMiner.Forms.Components.Field();
-            this.groupBoxExtraLaunchParameters = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.richTextBoxExtraLaunchParameters = new System.Windows.Forms.TextBox();
             this.groupBoxSelectedAlgorithmSettings.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBoxExtraLaunchParameters.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxSelectedAlgorithmSettings
@@ -60,6 +58,25 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(276, 187);
             this.flowLayoutPanel1.TabIndex = 12;
+            // 
+            // groupBoxExtraLaunchParameters
+            // 
+            this.groupBoxExtraLaunchParameters.Controls.Add(this.richTextBoxExtraLaunchParameters);
+            this.groupBoxExtraLaunchParameters.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.groupBoxExtraLaunchParameters.Location = new System.Drawing.Point(3, 99);
+            this.groupBoxExtraLaunchParameters.Name = "groupBoxExtraLaunchParameters";
+            this.groupBoxExtraLaunchParameters.Size = new System.Drawing.Size(270, 84);
+            this.groupBoxExtraLaunchParameters.TabIndex = 14;
+            this.groupBoxExtraLaunchParameters.TabStop = false;
+            this.groupBoxExtraLaunchParameters.Text = "Extra Launch Parameters:";
+            // 
+            // richTextBoxExtraLaunchParameters
+            // 
+            this.richTextBoxExtraLaunchParameters.Location = new System.Drawing.Point(6, 19);
+            this.richTextBoxExtraLaunchParameters.Multiline = true;
+            this.richTextBoxExtraLaunchParameters.Name = "richTextBoxExtraLaunchParameters";
+            this.richTextBoxExtraLaunchParameters.Size = new System.Drawing.Size(258, 59);
+            this.richTextBoxExtraLaunchParameters.TabIndex = 17;
             // 
             // field_PowerUsage
             // 
@@ -94,35 +111,6 @@
             this.secondaryFieldBoxBenchmarkSpeed.Size = new System.Drawing.Size(278, 26);
             this.secondaryFieldBoxBenchmarkSpeed.TabIndex = 16;
             // 
-            // groupBoxExtraLaunchParameters
-            // 
-            this.groupBoxExtraLaunchParameters.Controls.Add(this.pictureBox1);
-            this.groupBoxExtraLaunchParameters.Controls.Add(this.richTextBoxExtraLaunchParameters);
-            this.groupBoxExtraLaunchParameters.Location = new System.Drawing.Point(3, 99);
-            this.groupBoxExtraLaunchParameters.Name = "groupBoxExtraLaunchParameters";
-            this.groupBoxExtraLaunchParameters.Size = new System.Drawing.Size(270, 84);
-            this.groupBoxExtraLaunchParameters.TabIndex = 14;
-            this.groupBoxExtraLaunchParameters.TabStop = false;
-            this.groupBoxExtraLaunchParameters.Text = "Extra Launch Parameters:";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox1.Location = new System.Drawing.Point(255, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(18, 18);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
-            // richTextBoxExtraLaunchParameters
-            // 
-            this.richTextBoxExtraLaunchParameters.Location = new System.Drawing.Point(6, 19);
-            this.richTextBoxExtraLaunchParameters.Multiline = true;
-            this.richTextBoxExtraLaunchParameters.Name = "richTextBoxExtraLaunchParameters";
-            this.richTextBoxExtraLaunchParameters.Size = new System.Drawing.Size(258, 59);
-            this.richTextBoxExtraLaunchParameters.TabIndex = 17;
-            // 
             // AlgorithmSettingsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -135,7 +123,6 @@
             this.flowLayoutPanel1.PerformLayout();
             this.groupBoxExtraLaunchParameters.ResumeLayout(false);
             this.groupBoxExtraLaunchParameters.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -148,7 +135,6 @@
         private Field secondaryFieldBoxBenchmarkSpeed;
         private Field field_PowerUsage;
         private System.Windows.Forms.GroupBox groupBoxExtraLaunchParameters;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox richTextBoxExtraLaunchParameters;
     }
 }

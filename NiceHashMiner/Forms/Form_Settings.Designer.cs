@@ -285,7 +285,7 @@
             // 
             // tabPageGeneral
             // 
-            this.tabPageGeneral.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageGeneral.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageGeneral.Controls.Add(this.groupBox_Main);
             this.tabPageGeneral.Controls.Add(this.groupBox_Misc);
             this.tabPageGeneral.Controls.Add(this.groupBox_Logging);
@@ -297,7 +297,6 @@
             this.tabPageGeneral.Size = new System.Drawing.Size(652, 439);
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
-            this.tabPageGeneral.UseVisualStyleBackColor = true;
             // 
             // groupBox_Main
             // 

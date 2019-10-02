@@ -54,7 +54,7 @@ namespace NiceHashMiner.Forms.Components
             groupBoxExtraLaunchParameters.Text = International.GetText("Form_Settings_General_ExtraLaunchParameters");
             toolTip1.SetToolTip(groupBoxExtraLaunchParameters,
                 International.GetText("Form_Settings_ToolTip_AlgoExtraLaunchParameters"));
-            toolTip1.SetToolTip(pictureBox1, International.GetText("Form_Settings_ToolTip_AlgoExtraLaunchParameters"));
+          //  toolTip1.SetToolTip(pictureBox1, International.GetText("Form_Settings_ToolTip_AlgoExtraLaunchParameters"));
 
 
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
@@ -65,7 +65,7 @@ namespace NiceHashMiner.Forms.Components
                 groupBoxExtraLaunchParameters.BackColor = Form_Main._backColor;
                 groupBoxExtraLaunchParameters.ForeColor = Form_Main._foreColor;
 
-                pictureBox1.Image = NiceHashMiner.Properties.Resources.info_white_18;
+            //    pictureBox1.Image = NiceHashMiner.Properties.Resources.info_white_18;
                 richTextBoxExtraLaunchParameters.BackColor = Form_Main._backColor;
                 richTextBoxExtraLaunchParameters.ForeColor = Form_Main._foreColor;
             }
