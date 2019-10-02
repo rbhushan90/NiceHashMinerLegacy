@@ -74,21 +74,17 @@
             this.pictureBox_RunAtStartup = new System.Windows.Forms.PictureBox();
             this.checkBox_RunAtStartup = new System.Windows.Forms.CheckBox();
             this.checkBox_AllowMultipleInstances = new System.Windows.Forms.CheckBox();
-            this.checkBox_DisableDefaultOptimizations = new System.Windows.Forms.CheckBox();
             this.checkBox_AutoStartMining = new System.Windows.Forms.CheckBox();
             this.checkBox_HideMiningWindows = new System.Windows.Forms.CheckBox();
             this.pictureBox_AllowMultipleInstances = new System.Windows.Forms.PictureBox();
             this.checkBox_MinimizeToTray = new System.Windows.Forms.CheckBox();
-            this.pictureBox_DisableDefaultOptimizations = new System.Windows.Forms.PictureBox();
             this.pictureBox_DisableWindowsErrorReporting = new System.Windows.Forms.PictureBox();
             this.pictureBox_ShowDriverVersionWarning = new System.Windows.Forms.PictureBox();
             this.pictureBox_StartMiningWhenIdle = new System.Windows.Forms.PictureBox();
             this.pictureBox_AutoScaleBTCValues = new System.Windows.Forms.PictureBox();
-            this.pictureBox_Use3rdPartyMiners = new System.Windows.Forms.PictureBox();
             this.pictureBox_AutoStartMining = new System.Windows.Forms.PictureBox();
             this.pictureBox_MinimizeToTray = new System.Windows.Forms.PictureBox();
             this.pictureBox_HideMiningWindows = new System.Windows.Forms.PictureBox();
-            this.checkBox_Use3rdPartyMiners = new System.Windows.Forms.CheckBox();
             this.checkBox_AutoScaleBTCValues = new System.Windows.Forms.CheckBox();
             this.checkBox_DisableWindowsErrorReporting = new System.Windows.Forms.CheckBox();
             this.checkBox_StartMiningWhenIdle = new System.Windows.Forms.CheckBox();
@@ -152,8 +148,8 @@
             this.tabPageDevicesAlgos = new System.Windows.Forms.TabPage();
             this.checkBox_Disable_extra_launch_parameter_checking = new System.Windows.Forms.CheckBox();
             this.groupBoxAlgorithmSettings = new System.Windows.Forms.GroupBox();
-            this.algorithmsListView1 = new NiceHashMiner.Forms.Components.AlgorithmsListView();
             this.buttonGPUtuning = new System.Windows.Forms.Button();
+            this.algorithmsListView1 = new NiceHashMiner.Forms.Components.AlgorithmsListView();
             this.algorithmSettingsControl1 = new NiceHashMiner.Forms.Components.AlgorithmSettingsControl();
             this.devicesListViewEnableControl1 = new NiceHashMiner.Forms.Components.DevicesListViewEnableControl();
             this.tabControlGeneral.SuspendLayout();
@@ -173,12 +169,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_MinimizeMiningWindows)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_RunAtStartup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_AllowMultipleInstances)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DisableDefaultOptimizations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DisableWindowsErrorReporting)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ShowDriverVersionWarning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_StartMiningWhenIdle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_AutoScaleBTCValues)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Use3rdPartyMiners)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_AutoStartMining)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_MinimizeToTray)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_HideMiningWindows)).BeginInit();
@@ -615,21 +609,17 @@
             this.groupBox_Misc.Controls.Add(this.pictureBox_RunAtStartup);
             this.groupBox_Misc.Controls.Add(this.checkBox_RunAtStartup);
             this.groupBox_Misc.Controls.Add(this.checkBox_AllowMultipleInstances);
-            this.groupBox_Misc.Controls.Add(this.checkBox_DisableDefaultOptimizations);
             this.groupBox_Misc.Controls.Add(this.checkBox_AutoStartMining);
             this.groupBox_Misc.Controls.Add(this.checkBox_HideMiningWindows);
             this.groupBox_Misc.Controls.Add(this.pictureBox_AllowMultipleInstances);
             this.groupBox_Misc.Controls.Add(this.checkBox_MinimizeToTray);
-            this.groupBox_Misc.Controls.Add(this.pictureBox_DisableDefaultOptimizations);
             this.groupBox_Misc.Controls.Add(this.pictureBox_DisableWindowsErrorReporting);
             this.groupBox_Misc.Controls.Add(this.pictureBox_ShowDriverVersionWarning);
             this.groupBox_Misc.Controls.Add(this.pictureBox_StartMiningWhenIdle);
             this.groupBox_Misc.Controls.Add(this.pictureBox_AutoScaleBTCValues);
-            this.groupBox_Misc.Controls.Add(this.pictureBox_Use3rdPartyMiners);
             this.groupBox_Misc.Controls.Add(this.pictureBox_AutoStartMining);
             this.groupBox_Misc.Controls.Add(this.pictureBox_MinimizeToTray);
             this.groupBox_Misc.Controls.Add(this.pictureBox_HideMiningWindows);
-            this.groupBox_Misc.Controls.Add(this.checkBox_Use3rdPartyMiners);
             this.groupBox_Misc.Controls.Add(this.checkBox_AutoScaleBTCValues);
             this.groupBox_Misc.Controls.Add(this.checkBox_DisableWindowsErrorReporting);
             this.groupBox_Misc.Controls.Add(this.checkBox_StartMiningWhenIdle);
@@ -646,7 +636,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 400);
+            this.label1.Location = new System.Drawing.Point(4, 370);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 13);
@@ -675,7 +665,7 @@
             // 
             this.comboBox_ColorProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_ColorProfile.FormattingEnabled = true;
-            this.comboBox_ColorProfile.Location = new System.Drawing.Point(166, 396);
+            this.comboBox_ColorProfile.Location = new System.Drawing.Point(166, 366);
             this.comboBox_ColorProfile.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBox_ColorProfile.Name = "comboBox_ColorProfile";
             this.comboBox_ColorProfile.Size = new System.Drawing.Size(102, 21);
@@ -687,7 +677,7 @@
             // 
             this.checkBox_Send_actual_version_info.AutoSize = true;
             this.checkBox_Send_actual_version_info.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBox_Send_actual_version_info.Location = new System.Drawing.Point(4, 373);
+            this.checkBox_Send_actual_version_info.Location = new System.Drawing.Point(4, 343);
             this.checkBox_Send_actual_version_info.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_Send_actual_version_info.Name = "checkBox_Send_actual_version_info";
             this.checkBox_Send_actual_version_info.Size = new System.Drawing.Size(140, 17);
@@ -699,7 +689,7 @@
             // 
             this.checkBox_Allow_remote_management.AutoSize = true;
             this.checkBox_Allow_remote_management.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBox_Allow_remote_management.Location = new System.Drawing.Point(4, 350);
+            this.checkBox_Allow_remote_management.Location = new System.Drawing.Point(4, 320);
             this.checkBox_Allow_remote_management.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_Allow_remote_management.Name = "checkBox_Allow_remote_management";
             this.checkBox_Allow_remote_management.Size = new System.Drawing.Size(150, 17);
@@ -710,7 +700,7 @@
             // pictureBox_RunScriptOnCUDA_GPU_Lost
             // 
             this.pictureBox_RunScriptOnCUDA_GPU_Lost.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_RunScriptOnCUDA_GPU_Lost.Location = new System.Drawing.Point(250, 326);
+            this.pictureBox_RunScriptOnCUDA_GPU_Lost.Location = new System.Drawing.Point(250, 296);
             this.pictureBox_RunScriptOnCUDA_GPU_Lost.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_RunScriptOnCUDA_GPU_Lost.Name = "pictureBox_RunScriptOnCUDA_GPU_Lost";
             this.pictureBox_RunScriptOnCUDA_GPU_Lost.Size = new System.Drawing.Size(18, 18);
@@ -721,7 +711,7 @@
             // checkBox_RunScriptOnCUDA_GPU_Lost
             // 
             this.checkBox_RunScriptOnCUDA_GPU_Lost.AutoSize = true;
-            this.checkBox_RunScriptOnCUDA_GPU_Lost.Location = new System.Drawing.Point(4, 327);
+            this.checkBox_RunScriptOnCUDA_GPU_Lost.Location = new System.Drawing.Point(4, 297);
             this.checkBox_RunScriptOnCUDA_GPU_Lost.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_RunScriptOnCUDA_GPU_Lost.Name = "checkBox_RunScriptOnCUDA_GPU_Lost";
             this.checkBox_RunScriptOnCUDA_GPU_Lost.Size = new System.Drawing.Size(191, 17);
@@ -732,7 +722,7 @@
             // pictureBox_ShowInternetConnectionWarning
             // 
             this.pictureBox_ShowInternetConnectionWarning.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_ShowInternetConnectionWarning.Location = new System.Drawing.Point(250, 304);
+            this.pictureBox_ShowInternetConnectionWarning.Location = new System.Drawing.Point(250, 273);
             this.pictureBox_ShowInternetConnectionWarning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_ShowInternetConnectionWarning.Name = "pictureBox_ShowInternetConnectionWarning";
             this.pictureBox_ShowInternetConnectionWarning.Size = new System.Drawing.Size(18, 18);
@@ -743,7 +733,7 @@
             // checkBox_ShowInternetConnectionWarning
             // 
             this.checkBox_ShowInternetConnectionWarning.AutoSize = true;
-            this.checkBox_ShowInternetConnectionWarning.Location = new System.Drawing.Point(4, 305);
+            this.checkBox_ShowInternetConnectionWarning.Location = new System.Drawing.Point(4, 274);
             this.checkBox_ShowInternetConnectionWarning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_ShowInternetConnectionWarning.Name = "checkBox_ShowInternetConnectionWarning";
             this.checkBox_ShowInternetConnectionWarning.Size = new System.Drawing.Size(192, 17);
@@ -754,7 +744,7 @@
             // checkBox_MinimizeMiningWindows
             // 
             this.checkBox_MinimizeMiningWindows.AutoSize = true;
-            this.checkBox_MinimizeMiningWindows.Location = new System.Drawing.Point(4, 88);
+            this.checkBox_MinimizeMiningWindows.Location = new System.Drawing.Point(4, 90);
             this.checkBox_MinimizeMiningWindows.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_MinimizeMiningWindows.Name = "checkBox_MinimizeMiningWindows";
             this.checkBox_MinimizeMiningWindows.Size = new System.Drawing.Size(141, 17);
@@ -765,7 +755,7 @@
             // pictureBox_MinimizeMiningWindows
             // 
             this.pictureBox_MinimizeMiningWindows.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_MinimizeMiningWindows.Location = new System.Drawing.Point(250, 87);
+            this.pictureBox_MinimizeMiningWindows.Location = new System.Drawing.Point(250, 89);
             this.pictureBox_MinimizeMiningWindows.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_MinimizeMiningWindows.Name = "pictureBox_MinimizeMiningWindows";
             this.pictureBox_MinimizeMiningWindows.Size = new System.Drawing.Size(18, 18);
@@ -776,7 +766,7 @@
             // pictureBox_RunAtStartup
             // 
             this.pictureBox_RunAtStartup.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_RunAtStartup.Location = new System.Drawing.Point(250, 282);
+            this.pictureBox_RunAtStartup.Location = new System.Drawing.Point(250, 250);
             this.pictureBox_RunAtStartup.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_RunAtStartup.Name = "pictureBox_RunAtStartup";
             this.pictureBox_RunAtStartup.Size = new System.Drawing.Size(18, 18);
@@ -787,35 +777,25 @@
             // checkBox_RunAtStartup
             // 
             this.checkBox_RunAtStartup.AutoSize = true;
-            this.checkBox_RunAtStartup.Location = new System.Drawing.Point(4, 283);
+            this.checkBox_RunAtStartup.Location = new System.Drawing.Point(4, 251);
             this.checkBox_RunAtStartup.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_RunAtStartup.Name = "checkBox_RunAtStartup";
             this.checkBox_RunAtStartup.Size = new System.Drawing.Size(120, 17);
             this.checkBox_RunAtStartup.TabIndex = 366;
             this.checkBox_RunAtStartup.Text = "Start With Windows";
             this.checkBox_RunAtStartup.UseVisualStyleBackColor = true;
+            this.checkBox_RunAtStartup.CheckedChanged += new System.EventHandler(this.checkBox_RunAtStartup_CheckedChanged_1);
             // 
             // checkBox_AllowMultipleInstances
             // 
             this.checkBox_AllowMultipleInstances.AutoSize = true;
-            this.checkBox_AllowMultipleInstances.Location = new System.Drawing.Point(4, 261);
+            this.checkBox_AllowMultipleInstances.Location = new System.Drawing.Point(4, 228);
             this.checkBox_AllowMultipleInstances.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_AllowMultipleInstances.Name = "checkBox_AllowMultipleInstances";
             this.checkBox_AllowMultipleInstances.Size = new System.Drawing.Size(139, 17);
             this.checkBox_AllowMultipleInstances.TabIndex = 365;
             this.checkBox_AllowMultipleInstances.Text = "Allow Multiple Instances";
             this.checkBox_AllowMultipleInstances.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_DisableDefaultOptimizations
-            // 
-            this.checkBox_DisableDefaultOptimizations.AutoSize = true;
-            this.checkBox_DisableDefaultOptimizations.Location = new System.Drawing.Point(4, 240);
-            this.checkBox_DisableDefaultOptimizations.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.checkBox_DisableDefaultOptimizations.Name = "checkBox_DisableDefaultOptimizations";
-            this.checkBox_DisableDefaultOptimizations.Size = new System.Drawing.Size(163, 17);
-            this.checkBox_DisableDefaultOptimizations.TabIndex = 365;
-            this.checkBox_DisableDefaultOptimizations.Text = "Disable Default Optimizations";
-            this.checkBox_DisableDefaultOptimizations.UseVisualStyleBackColor = true;
             // 
             // checkBox_AutoStartMining
             // 
@@ -842,7 +822,7 @@
             // pictureBox_AllowMultipleInstances
             // 
             this.pictureBox_AllowMultipleInstances.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_AllowMultipleInstances.Location = new System.Drawing.Point(250, 260);
+            this.pictureBox_AllowMultipleInstances.Location = new System.Drawing.Point(250, 227);
             this.pictureBox_AllowMultipleInstances.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_AllowMultipleInstances.Name = "pictureBox_AllowMultipleInstances";
             this.pictureBox_AllowMultipleInstances.Size = new System.Drawing.Size(18, 18);
@@ -853,7 +833,7 @@
             // checkBox_MinimizeToTray
             // 
             this.checkBox_MinimizeToTray.AutoSize = true;
-            this.checkBox_MinimizeToTray.Location = new System.Drawing.Point(4, 110);
+            this.checkBox_MinimizeToTray.Location = new System.Drawing.Point(4, 113);
             this.checkBox_MinimizeToTray.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_MinimizeToTray.Name = "checkBox_MinimizeToTray";
             this.checkBox_MinimizeToTray.Size = new System.Drawing.Size(100, 17);
@@ -861,21 +841,10 @@
             this.checkBox_MinimizeToTray.Text = "MinimizeToTray";
             this.checkBox_MinimizeToTray.UseVisualStyleBackColor = true;
             // 
-            // pictureBox_DisableDefaultOptimizations
-            // 
-            this.pictureBox_DisableDefaultOptimizations.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_DisableDefaultOptimizations.Location = new System.Drawing.Point(250, 239);
-            this.pictureBox_DisableDefaultOptimizations.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.pictureBox_DisableDefaultOptimizations.Name = "pictureBox_DisableDefaultOptimizations";
-            this.pictureBox_DisableDefaultOptimizations.Size = new System.Drawing.Size(18, 18);
-            this.pictureBox_DisableDefaultOptimizations.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox_DisableDefaultOptimizations.TabIndex = 364;
-            this.pictureBox_DisableDefaultOptimizations.TabStop = false;
-            // 
             // pictureBox_DisableWindowsErrorReporting
             // 
             this.pictureBox_DisableWindowsErrorReporting.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_DisableWindowsErrorReporting.Location = new System.Drawing.Point(250, 216);
+            this.pictureBox_DisableWindowsErrorReporting.Location = new System.Drawing.Point(250, 204);
             this.pictureBox_DisableWindowsErrorReporting.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_DisableWindowsErrorReporting.Name = "pictureBox_DisableWindowsErrorReporting";
             this.pictureBox_DisableWindowsErrorReporting.Size = new System.Drawing.Size(18, 18);
@@ -886,7 +855,7 @@
             // pictureBox_ShowDriverVersionWarning
             // 
             this.pictureBox_ShowDriverVersionWarning.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_ShowDriverVersionWarning.Location = new System.Drawing.Point(250, 195);
+            this.pictureBox_ShowDriverVersionWarning.Location = new System.Drawing.Point(250, 181);
             this.pictureBox_ShowDriverVersionWarning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_ShowDriverVersionWarning.Name = "pictureBox_ShowDriverVersionWarning";
             this.pictureBox_ShowDriverVersionWarning.Size = new System.Drawing.Size(18, 18);
@@ -897,7 +866,7 @@
             // pictureBox_StartMiningWhenIdle
             // 
             this.pictureBox_StartMiningWhenIdle.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_StartMiningWhenIdle.Location = new System.Drawing.Point(250, 173);
+            this.pictureBox_StartMiningWhenIdle.Location = new System.Drawing.Point(250, 158);
             this.pictureBox_StartMiningWhenIdle.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_StartMiningWhenIdle.Name = "pictureBox_StartMiningWhenIdle";
             this.pictureBox_StartMiningWhenIdle.Size = new System.Drawing.Size(18, 18);
@@ -908,24 +877,13 @@
             // pictureBox_AutoScaleBTCValues
             // 
             this.pictureBox_AutoScaleBTCValues.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_AutoScaleBTCValues.Location = new System.Drawing.Point(250, 152);
+            this.pictureBox_AutoScaleBTCValues.Location = new System.Drawing.Point(250, 135);
             this.pictureBox_AutoScaleBTCValues.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_AutoScaleBTCValues.Name = "pictureBox_AutoScaleBTCValues";
             this.pictureBox_AutoScaleBTCValues.Size = new System.Drawing.Size(18, 18);
             this.pictureBox_AutoScaleBTCValues.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_AutoScaleBTCValues.TabIndex = 364;
             this.pictureBox_AutoScaleBTCValues.TabStop = false;
-            // 
-            // pictureBox_Use3rdPartyMiners
-            // 
-            this.pictureBox_Use3rdPartyMiners.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_Use3rdPartyMiners.Location = new System.Drawing.Point(250, 129);
-            this.pictureBox_Use3rdPartyMiners.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.pictureBox_Use3rdPartyMiners.Name = "pictureBox_Use3rdPartyMiners";
-            this.pictureBox_Use3rdPartyMiners.Size = new System.Drawing.Size(18, 18);
-            this.pictureBox_Use3rdPartyMiners.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox_Use3rdPartyMiners.TabIndex = 364;
-            this.pictureBox_Use3rdPartyMiners.TabStop = false;
             // 
             // pictureBox_AutoStartMining
             // 
@@ -941,7 +899,7 @@
             // pictureBox_MinimizeToTray
             // 
             this.pictureBox_MinimizeToTray.Image = global::NiceHashMiner.Properties.Resources.info_black_18;
-            this.pictureBox_MinimizeToTray.Location = new System.Drawing.Point(250, 109);
+            this.pictureBox_MinimizeToTray.Location = new System.Drawing.Point(250, 112);
             this.pictureBox_MinimizeToTray.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox_MinimizeToTray.Name = "pictureBox_MinimizeToTray";
             this.pictureBox_MinimizeToTray.Size = new System.Drawing.Size(18, 18);
@@ -960,21 +918,10 @@
             this.pictureBox_HideMiningWindows.TabIndex = 364;
             this.pictureBox_HideMiningWindows.TabStop = false;
             // 
-            // checkBox_Use3rdPartyMiners
-            // 
-            this.checkBox_Use3rdPartyMiners.AutoSize = true;
-            this.checkBox_Use3rdPartyMiners.Location = new System.Drawing.Point(4, 131);
-            this.checkBox_Use3rdPartyMiners.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.checkBox_Use3rdPartyMiners.Name = "checkBox_Use3rdPartyMiners";
-            this.checkBox_Use3rdPartyMiners.Size = new System.Drawing.Size(129, 17);
-            this.checkBox_Use3rdPartyMiners.TabIndex = 319;
-            this.checkBox_Use3rdPartyMiners.Text = "Enable3rdPartyMiners";
-            this.checkBox_Use3rdPartyMiners.UseVisualStyleBackColor = true;
-            // 
             // checkBox_AutoScaleBTCValues
             // 
             this.checkBox_AutoScaleBTCValues.AutoSize = true;
-            this.checkBox_AutoScaleBTCValues.Location = new System.Drawing.Point(4, 153);
+            this.checkBox_AutoScaleBTCValues.Location = new System.Drawing.Point(4, 136);
             this.checkBox_AutoScaleBTCValues.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_AutoScaleBTCValues.Name = "checkBox_AutoScaleBTCValues";
             this.checkBox_AutoScaleBTCValues.Size = new System.Drawing.Size(128, 17);
@@ -985,7 +932,7 @@
             // checkBox_DisableWindowsErrorReporting
             // 
             this.checkBox_DisableWindowsErrorReporting.AutoSize = true;
-            this.checkBox_DisableWindowsErrorReporting.Location = new System.Drawing.Point(4, 217);
+            this.checkBox_DisableWindowsErrorReporting.Location = new System.Drawing.Point(4, 205);
             this.checkBox_DisableWindowsErrorReporting.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_DisableWindowsErrorReporting.Name = "checkBox_DisableWindowsErrorReporting";
             this.checkBox_DisableWindowsErrorReporting.Size = new System.Drawing.Size(173, 17);
@@ -996,7 +943,7 @@
             // checkBox_StartMiningWhenIdle
             // 
             this.checkBox_StartMiningWhenIdle.AutoSize = true;
-            this.checkBox_StartMiningWhenIdle.Location = new System.Drawing.Point(4, 174);
+            this.checkBox_StartMiningWhenIdle.Location = new System.Drawing.Point(4, 159);
             this.checkBox_StartMiningWhenIdle.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_StartMiningWhenIdle.Name = "checkBox_StartMiningWhenIdle";
             this.checkBox_StartMiningWhenIdle.Size = new System.Drawing.Size(125, 17);
@@ -1007,7 +954,7 @@
             // checkBox_ShowDriverVersionWarning
             // 
             this.checkBox_ShowDriverVersionWarning.AutoSize = true;
-            this.checkBox_ShowDriverVersionWarning.Location = new System.Drawing.Point(4, 196);
+            this.checkBox_ShowDriverVersionWarning.Location = new System.Drawing.Point(4, 182);
             this.checkBox_ShowDriverVersionWarning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox_ShowDriverVersionWarning.Name = "checkBox_ShowDriverVersionWarning";
             this.checkBox_ShowDriverVersionWarning.Size = new System.Drawing.Size(156, 17);
@@ -1276,6 +1223,7 @@
             this.radioButtonMOPA5.TabStop = true;
             this.radioButtonMOPA5.Text = "Highest profitability by all methods";
             this.radioButtonMOPA5.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA5.CheckedChanged += new System.EventHandler(this.radioButtonMOPA5_CheckedChanged_1);
             // 
             // radioButtonMOPA4
             // 
@@ -1287,6 +1235,7 @@
             this.radioButtonMOPA4.TabStop = true;
             this.radioButtonMOPA4.Text = "24 hours avg profitability";
             this.radioButtonMOPA4.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA4.CheckedChanged += new System.EventHandler(this.radioButtonMOPA4_CheckedChanged_1);
             // 
             // radioButtonMOPA3
             // 
@@ -1298,6 +1247,7 @@
             this.radioButtonMOPA3.TabStop = true;
             this.radioButtonMOPA3.Text = "5 minutes avg profitability";
             this.radioButtonMOPA3.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA3.CheckedChanged += new System.EventHandler(this.radioButtonMOPA3_CheckedChanged_1);
             // 
             // radioButtonMOPA2
             // 
@@ -1309,6 +1259,7 @@
             this.radioButtonMOPA2.TabStop = true;
             this.radioButtonMOPA2.Text = "Current profitability";
             this.radioButtonMOPA2.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA2.CheckedChanged += new System.EventHandler(this.radioButtonMOPA2_CheckedChanged_1);
             // 
             // radioButtonMOPA1
             // 
@@ -1320,6 +1271,7 @@
             this.radioButtonMOPA1.TabStop = true;
             this.radioButtonMOPA1.Text = "Standard NHM";
             this.radioButtonMOPA1.UseVisualStyleBackColor = true;
+            this.radioButtonMOPA1.CheckedChanged += new System.EventHandler(this.radioButtonMOPA1_CheckedChanged_1);
             // 
             // groupBox_Miners
             // 
@@ -1495,6 +1447,7 @@
             this.textBox_SwitchProfitabilityThreshold.Name = "textBox_SwitchProfitabilityThreshold";
             this.textBox_SwitchProfitabilityThreshold.Size = new System.Drawing.Size(172, 20);
             this.textBox_SwitchProfitabilityThreshold.TabIndex = 333;
+            this.textBox_SwitchProfitabilityThreshold.TextChanged += new System.EventHandler(this.textBox_SwitchProfitabilityThreshold_TextChanged);
             // 
             // label_SwitchProfitabilityThreshold
             // 
@@ -1531,6 +1484,7 @@
             this.textBox_MinIdleSeconds.Name = "textBox_MinIdleSeconds";
             this.textBox_MinIdleSeconds.Size = new System.Drawing.Size(178, 20);
             this.textBox_MinIdleSeconds.TabIndex = 335;
+            this.textBox_MinIdleSeconds.TextChanged += new System.EventHandler(this.textBox_MinIdleSeconds_TextChanged);
             // 
             // textBox_SwitchMaxSeconds
             // 
@@ -1737,6 +1691,17 @@
             this.groupBoxAlgorithmSettings.TabStop = false;
             this.groupBoxAlgorithmSettings.Text = "Algorithm settings for selected device:";
             // 
+            // buttonGPUtuning
+            // 
+            this.buttonGPUtuning.Location = new System.Drawing.Point(8, 20);
+            this.buttonGPUtuning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buttonGPUtuning.Name = "buttonGPUtuning";
+            this.buttonGPUtuning.Size = new System.Drawing.Size(141, 23);
+            this.buttonGPUtuning.TabIndex = 394;
+            this.buttonGPUtuning.Text = "GPU tuning";
+            this.buttonGPUtuning.UseVisualStyleBackColor = true;
+            this.buttonGPUtuning.Click += new System.EventHandler(this.buttonGPUtuning_Click_1);
+            // 
             // algorithmsListView1
             // 
             this.algorithmsListView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1752,17 +1717,6 @@
             this.algorithmsListView1.Name = "algorithmsListView1";
             this.algorithmsListView1.Size = new System.Drawing.Size(627, 169);
             this.algorithmsListView1.TabIndex = 2;
-            // 
-            // buttonGPUtuning
-            // 
-            this.buttonGPUtuning.Location = new System.Drawing.Point(8, 20);
-            this.buttonGPUtuning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.buttonGPUtuning.Name = "buttonGPUtuning";
-            this.buttonGPUtuning.Size = new System.Drawing.Size(141, 23);
-            this.buttonGPUtuning.TabIndex = 394;
-            this.buttonGPUtuning.Text = "GPU tuning";
-            this.buttonGPUtuning.UseVisualStyleBackColor = true;
-            this.buttonGPUtuning.Click += new System.EventHandler(this.buttonGPUtuning_Click_1);
             // 
             // algorithmSettingsControl1
             // 
@@ -1827,12 +1781,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_MinimizeMiningWindows)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_RunAtStartup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_AllowMultipleInstances)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DisableDefaultOptimizations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DisableWindowsErrorReporting)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ShowDriverVersionWarning)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_StartMiningWhenIdle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_AutoScaleBTCValues)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Use3rdPartyMiners)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_AutoStartMining)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_MinimizeToTray)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_HideMiningWindows)).EndInit();
@@ -1922,21 +1874,17 @@
         private System.Windows.Forms.PictureBox pictureBox_RunAtStartup;
         private System.Windows.Forms.CheckBox checkBox_RunAtStartup;
         private System.Windows.Forms.CheckBox checkBox_AllowMultipleInstances;
-        private System.Windows.Forms.CheckBox checkBox_DisableDefaultOptimizations;
         private System.Windows.Forms.CheckBox checkBox_AutoStartMining;
         private System.Windows.Forms.CheckBox checkBox_HideMiningWindows;
         private System.Windows.Forms.PictureBox pictureBox_AllowMultipleInstances;
         private System.Windows.Forms.CheckBox checkBox_MinimizeToTray;
-        private System.Windows.Forms.PictureBox pictureBox_DisableDefaultOptimizations;
         private System.Windows.Forms.PictureBox pictureBox_DisableWindowsErrorReporting;
         private System.Windows.Forms.PictureBox pictureBox_ShowDriverVersionWarning;
         private System.Windows.Forms.PictureBox pictureBox_StartMiningWhenIdle;
         private System.Windows.Forms.PictureBox pictureBox_AutoScaleBTCValues;
-        private System.Windows.Forms.PictureBox pictureBox_Use3rdPartyMiners;
         private System.Windows.Forms.PictureBox pictureBox_AutoStartMining;
         private System.Windows.Forms.PictureBox pictureBox_MinimizeToTray;
         private System.Windows.Forms.PictureBox pictureBox_HideMiningWindows;
-        private System.Windows.Forms.CheckBox checkBox_Use3rdPartyMiners;
         private System.Windows.Forms.CheckBox checkBox_AutoScaleBTCValues;
         private System.Windows.Forms.CheckBox checkBox_DisableWindowsErrorReporting;
         private System.Windows.Forms.CheckBox checkBox_StartMiningWhenIdle;
