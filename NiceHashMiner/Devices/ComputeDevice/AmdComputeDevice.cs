@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using NiceHashMiner.Devices.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
+using NiceHashMiner.Configs;
 
 namespace NiceHashMiner.Devices
 {
@@ -22,6 +23,13 @@ namespace NiceHashMiner.Devices
                 {
                     SpeedType = ADL.ADL_DL_FANCTRL_SPEED_TYPE_RPM
                 };
+                if (ConfigManager.GeneralConfig.ShowFanAsPercent)
+                {
+                    adlf = new ADLFanSpeedValue
+                    {
+                        SpeedType = ADL.ADL_DL_FANCTRL_SPEED_TYPE_PERCENT
+                    };
+                }
                 var result = ADL.ADL_Overdrive5_FanSpeed_Get(_adapterIndex, 0, ref adlf);
                 if (result != ADL.ADL_SUCCESS)
                 {

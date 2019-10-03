@@ -184,7 +184,11 @@ namespace NiceHashMiner.Forms.Components
                 string cTemp = Math.Truncate(computeDevice.Temp).ToString() + "°C";
                 string cLoad = Math.Truncate(computeDevice.Load).ToString() + "%";
                 string cFanSpeed = computeDevice.FanSpeed.ToString();
-                string cPowerUsage = Math.Truncate(computeDevice.PowerUsage).ToString();
+                if (ConfigManager.GeneralConfig.ShowFanAsPercent)
+                {
+                    cFanSpeed += "%";
+                }
+                    string cPowerUsage = Math.Truncate(computeDevice.PowerUsage).ToString();
                 if (Math.Truncate(computeDevice.PowerUsage) == 0)
                 {
                     cPowerUsage = "-1";

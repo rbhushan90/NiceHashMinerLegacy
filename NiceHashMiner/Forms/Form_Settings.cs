@@ -417,6 +417,7 @@ namespace NiceHashMiner.Forms
                 checkBox_Allow_remote_management.Text = "Разрешить удаленное управление";
                 checkBox_Send_actual_version_info.Text = "Отправлять инфо о версии программы";
                 checkBox_Additional_info_about_device.Text = "Дополнительная информация об устройстве";
+                checkBox_ShowFanAsPercent.Text = "Показать обороты вентилятора в процентах";
                 checkBox_Force_mining_if_nonprofitable.Text = "Принудительный майнинг, если не прибыльно";
                 checkBox_Disable_extra_launch_parameter_checking.Text = "Отключить проверку дополнительных параметров";
                 checkBox_DisableDetectionCPU.Text = "Отключить определение CPU";
@@ -621,6 +622,9 @@ namespace NiceHashMiner.Forms
                 checkBox_Additional_info_about_device.BackColor = Form_Main._backColor;
                 checkBox_Additional_info_about_device.ForeColor = Form_Main._textColor;
 
+                checkBox_ShowFanAsPercent.BackColor = Form_Main._backColor;
+                checkBox_ShowFanAsPercent.ForeColor = Form_Main._textColor;
+
                 checkBox_Disable_extra_launch_parameter_checking.BackColor = Form_Main._backColor;
                 checkBox_Disable_extra_launch_parameter_checking.ForeColor = Form_Main._textColor;
 
@@ -801,6 +805,7 @@ namespace NiceHashMiner.Forms
                 checkBox_Send_actual_version_info.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_Force_mining_if_nonprofitable.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_Additional_info_about_device.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
+                checkBox_ShowFanAsPercent.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_Disable_extra_launch_parameter_checking.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_AMD_DisableAMDTempControl.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_RunEthlargement.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
@@ -901,6 +906,7 @@ namespace NiceHashMiner.Forms
                 checkBox_Send_actual_version_info.Checked = ConfigManager.GeneralConfig.Send_actual_version_info;
                 checkBox_Force_mining_if_nonprofitable.Checked = ConfigManager.GeneralConfig.Force_mining_if_nonprofitable;
                 checkBox_Additional_info_about_device.Checked = ConfigManager.GeneralConfig.Additional_info_about_device;
+                checkBox_ShowFanAsPercent.Checked = ConfigManager.GeneralConfig.ShowFanAsPercent;
                 checkBox_Disable_extra_launch_parameter_checking.Checked = ConfigManager.GeneralConfig.Disable_extra_launch_parameter_checking;
                 checkBox_RunEthlargement.Checked = ConfigManager.GeneralConfig.UseEthlargement;
             }
@@ -1036,6 +1042,7 @@ namespace NiceHashMiner.Forms
             ConfigManager.GeneralConfig.Send_actual_version_info = checkBox_Send_actual_version_info.Checked;
             ConfigManager.GeneralConfig.Force_mining_if_nonprofitable = checkBox_Force_mining_if_nonprofitable.Checked;
             ConfigManager.GeneralConfig.Additional_info_about_device = checkBox_Additional_info_about_device.Checked;
+            ConfigManager.GeneralConfig.ShowFanAsPercent = checkBox_ShowFanAsPercent.Checked;
             ConfigManager.GeneralConfig.Disable_extra_launch_parameter_checking = checkBox_Disable_extra_launch_parameter_checking.Checked;
             ConfigManager.GeneralConfig.DisableAMDTempControl = checkBox_AMD_DisableAMDTempControl.Checked;
             ConfigManager.GeneralConfig.UseEthlargement = checkBox_RunEthlargement.Checked;

@@ -148,10 +148,11 @@
             this.tabPageDevicesAlgos = new System.Windows.Forms.TabPage();
             this.checkBox_Disable_extra_launch_parameter_checking = new System.Windows.Forms.CheckBox();
             this.groupBoxAlgorithmSettings = new System.Windows.Forms.GroupBox();
-            this.buttonGPUtuning = new System.Windows.Forms.Button();
             this.algorithmsListView1 = new NiceHashMiner.Forms.Components.AlgorithmsListView();
+            this.buttonGPUtuning = new System.Windows.Forms.Button();
             this.algorithmSettingsControl1 = new NiceHashMiner.Forms.Components.AlgorithmSettingsControl();
             this.devicesListViewEnableControl1 = new NiceHashMiner.Forms.Components.DevicesListViewEnableControl();
+            this.checkBox_ShowFanAsPercent = new System.Windows.Forms.CheckBox();
             this.tabControlGeneral.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBox_Main.SuspendLayout();
@@ -1504,6 +1505,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBox_ShowFanAsPercent);
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.checkBox_DisableDetectionCPU);
             this.groupBox1.Controls.Add(this.checkBox_Additional_info_about_device);
@@ -1691,17 +1693,6 @@
             this.groupBoxAlgorithmSettings.TabStop = false;
             this.groupBoxAlgorithmSettings.Text = "Algorithm settings for selected device:";
             // 
-            // buttonGPUtuning
-            // 
-            this.buttonGPUtuning.Location = new System.Drawing.Point(8, 20);
-            this.buttonGPUtuning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.buttonGPUtuning.Name = "buttonGPUtuning";
-            this.buttonGPUtuning.Size = new System.Drawing.Size(141, 23);
-            this.buttonGPUtuning.TabIndex = 394;
-            this.buttonGPUtuning.Text = "GPU tuning";
-            this.buttonGPUtuning.UseVisualStyleBackColor = true;
-            this.buttonGPUtuning.Click += new System.EventHandler(this.buttonGPUtuning_Click_1);
-            // 
             // algorithmsListView1
             // 
             this.algorithmsListView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1717,6 +1708,17 @@
             this.algorithmsListView1.Name = "algorithmsListView1";
             this.algorithmsListView1.Size = new System.Drawing.Size(627, 169);
             this.algorithmsListView1.TabIndex = 2;
+            // 
+            // buttonGPUtuning
+            // 
+            this.buttonGPUtuning.Location = new System.Drawing.Point(8, 20);
+            this.buttonGPUtuning.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buttonGPUtuning.Name = "buttonGPUtuning";
+            this.buttonGPUtuning.Size = new System.Drawing.Size(141, 23);
+            this.buttonGPUtuning.TabIndex = 394;
+            this.buttonGPUtuning.Text = "GPU tuning";
+            this.buttonGPUtuning.UseVisualStyleBackColor = true;
+            this.buttonGPUtuning.Click += new System.EventHandler(this.buttonGPUtuning_Click_1);
             // 
             // algorithmSettingsControl1
             // 
@@ -1742,6 +1744,18 @@
             this.devicesListViewEnableControl1.SaveToGeneralConfig = false;
             this.devicesListViewEnableControl1.Size = new System.Drawing.Size(348, 165);
             this.devicesListViewEnableControl1.TabIndex = 397;
+            // 
+            // checkBox_ShowFanAsPercent
+            // 
+            this.checkBox_ShowFanAsPercent.AutoSize = true;
+            this.checkBox_ShowFanAsPercent.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBox_ShowFanAsPercent.Location = new System.Drawing.Point(242, 42);
+            this.checkBox_ShowFanAsPercent.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.checkBox_ShowFanAsPercent.Name = "checkBox_ShowFanAsPercent";
+            this.checkBox_ShowFanAsPercent.Size = new System.Drawing.Size(144, 17);
+            this.checkBox_ShowFanAsPercent.TabIndex = 401;
+            this.checkBox_ShowFanAsPercent.Text = "Show fan rpm as percent";
+            this.checkBox_ShowFanAsPercent.UseVisualStyleBackColor = true;
             // 
             // Form_Settings
             // 
@@ -1952,5 +1966,6 @@
         private Components.DevicesListViewEnableControl devicesListViewEnableControl1;
         private System.Windows.Forms.CheckBox checkBox_RunEthlargement;
         private System.Windows.Forms.Label label_RunEthlargement;
+        private System.Windows.Forms.CheckBox checkBox_ShowFanAsPercent;
     }
 }

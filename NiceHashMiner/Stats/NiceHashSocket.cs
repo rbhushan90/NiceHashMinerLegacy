@@ -214,7 +214,7 @@ namespace NiceHashMiner.Stats
                 $"" +
                 $" in {sleep} seconds");
             // More retries on first attempt
-            var retries = _connectionEstablished ? 5 : 15;
+            var retries = _connectionEstablished ? 5 : 25;
             if (_connectionEstablished)
             {
                 // Don't wait if no connection yet
@@ -252,7 +252,7 @@ namespace NiceHashMiner.Stats
                 {
                     Helpers.ConsolePrint("NiceHashSocketNew", $"Error while attempting reconnect: {e.Message}");
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
             }
             _attemptingReconnect = false;
             OnConnectionLost?.Invoke(null, EventArgs.Empty);
@@ -342,7 +342,7 @@ namespace NiceHashMiner.Stats
                 if (Configs.ConfigManager.GeneralConfig.NewPlatform)
                 {
                     protocol = 3;
-                    version = "NHML/1.9.2.14"; //
+                    version = "NHML/1.9.2.15"; //
                     if (ConfigManager.GeneralConfig.Send_actual_version_info)
                     {
                         version = "NHML/Fork Fix " + ConfigManager.GeneralConfig.ForkFixVersion.ToString().Replace(",", ".");

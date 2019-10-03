@@ -34,6 +34,7 @@ namespace NiceHashMiner.Configs.Data
         public bool HideMiningWindows = false;
         public bool MinimizeToTray = false;
         public bool Lyra2z = false;
+        public bool ShowFanAsPercent = false;
         public bool MOPA1 = true;
         public bool MOPA2 = false;
         public bool MOPA3 = false;
@@ -217,6 +218,7 @@ namespace NiceHashMiner.Configs.Data
             SwitchSmaTicksUnstable = new Interval(5, 13);
             UseSmaCache = true;
             UseEthlargement = false;
+            ShowFanAsPercent = false;
             MOPA1 = true;
             MOPA2 = false;
             MOPA3 = false;
