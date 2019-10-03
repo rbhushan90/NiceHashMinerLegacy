@@ -434,6 +434,7 @@ namespace NiceHashMiner
                     tos.ShowDialog(this);
                 }
             }
+            _loadingScreen.Opacity = 70;
             // Query Available ComputeDevices
             Thread.Sleep(100);
             ComputeDeviceManager.Query.QueryDevices(_loadingScreen);
@@ -554,6 +555,7 @@ namespace NiceHashMiner
                 // check if download needed
                 if (!MinersExistanceChecker.IsMinersBinsInit() && !ConfigManager.GeneralConfig.DownloadInit)
                 {
+                    _loadingScreen.Opacity = 100;
                     var downloadUnzipForm =
                         new Form_Loading(new MinersDownloader(MinersDownloadManager.StandardDlSetup));
                     SetChildFormCenter(downloadUnzipForm);
@@ -596,6 +598,7 @@ namespace NiceHashMiner
                     if (!MinersExistanceChecker.IsMiners3rdPartyBinsInit() &&
                         !ConfigManager.GeneralConfig.DownloadInit3rdParty)
                     {
+                        _loadingScreen.Opacity = 100;
                         var download3rdPartyUnzipForm =
                             new Form_Loading(new MinersDownloader(MinersDownloadManager.ThirdPartyDlSetup));
                         SetChildFormCenter(download3rdPartyUnzipForm);
@@ -814,6 +817,7 @@ namespace NiceHashMiner
                 International.GetText("Form_Main_loadtext_CPU"), totalLoadSteps);
 
             SetChildFormCenter(_loadingScreen);
+            _loadingScreen.Opacity = 70;
             _loadingScreen.Show();
             if (ConfigManager.GeneralConfig.ColorProfileIndex != 0)
             {

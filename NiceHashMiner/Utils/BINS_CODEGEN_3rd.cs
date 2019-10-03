@@ -34,7 +34,7 @@ namespace NiceHashMiner.Utils
             @"/NBMiner/NBMiner.exe",
             @"/miniZ/miniZ.exe",
             @"/ethlargement/OhGodAnETHlargementPill-r2.exe",
-            @"/Fork_Fix_19.txt",
+            @"/Fork_Fix_19.1.txt",
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py

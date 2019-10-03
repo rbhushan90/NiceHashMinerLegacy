@@ -190,10 +190,10 @@ namespace NiceHashMiner.Devices.Algorithms
                 MinerBaseType.GMiner,
                 new List<Algorithm>
                 {
-                    new Algorithm(MinerBaseType.GMiner, AlgorithmType.Beam, "")
-                    {
+                 //   new Algorithm(MinerBaseType.GMiner, AlgorithmType.Beam, "")
+                   // {
                                 //ExtraLaunchParameters = "--pec 1 "
-                    },
+                   // },
                     new Algorithm(MinerBaseType.GMiner, AlgorithmType.BeamV2, "")
                     {
                                 ExtraLaunchParameters = "--asm 0 "
@@ -457,10 +457,10 @@ namespace NiceHashMiner.Devices.Algorithms
                     {
                                 //ExtraLaunchParameters = "--pec 1 "
                     },
-                    new Algorithm(MinerBaseType.GMiner, AlgorithmType.Beam, "")
-                    {
+                //    new Algorithm(MinerBaseType.GMiner, AlgorithmType.Beam, "")
+                  //  {
                                 //ExtraLaunchParameters = "--pec 1 "
-                    },
+                    //},
                     new Algorithm(MinerBaseType.GMiner, AlgorithmType.BeamV2, "")
                     {
                                 //ExtraLaunchParameters = "--pec 1 "
