@@ -257,21 +257,25 @@ namespace NiceHashMiner.Stats
             {
                 Helpers.ConsolePrint("SOCKET", er.ToString());
             }
-            var timeFrom1 = new TimeSpan(12, 00, 0);
-            var timeTo1 = new TimeSpan(12, 01, 0);
-            var timeNow = DateTime.Now.TimeOfDay;
-            if (timeNow > timeFrom1 && timeNow < timeTo1)
+            for (int h = 0; h < 24; h += 3)
             {
-                Helpers.ConsolePrint("GITHUB", "Check new version");
-                try
+
+                var timeFrom1 = new TimeSpan(h, 00, 0);
+                var timeTo1 = new TimeSpan(h, 01, 30);
+                var timeNow = DateTime.Now.TimeOfDay;
+                if (timeNow > timeFrom1 && timeNow < timeTo1)
                 {
-                    string ghv = GetVersion("");
-                    Helpers.ConsolePrint("GITHUB", ghv);
-                    SetVersion(ghv);
-                }
-                catch (Exception er)
-                {
-                    Helpers.ConsolePrint("GITHUB", er.ToString());
+                    Helpers.ConsolePrint("GITHUB", "Check new version");
+                    try
+                    {
+                        string ghv = GetVersion("");
+                        Helpers.ConsolePrint("GITHUB", ghv);
+                        SetVersion(ghv);
+                    }
+                    catch (Exception er)
+                    {
+                        Helpers.ConsolePrint("GITHUB", er.ToString());
+                    }
                 }
             }
         }

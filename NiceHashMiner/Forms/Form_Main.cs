@@ -52,7 +52,7 @@ namespace NiceHashMiner
         private int _flowLayoutPanelRatesIndex = 0;
 
         private const string BetaAlphaPostfixString = "";
-        const string ForkString = " Fork Fix 19";
+        const string ForkString = " Fork Fix 19.1";
 
         private bool _isDeviceDetectionInitialized = false;
 
