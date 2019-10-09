@@ -549,7 +549,7 @@ namespace NiceHashMiner.Devices
 
             private static List<CudaDevice> _cudaDevices = new List<CudaDevice>();
 
-            private static class Nvidia
+            public static class Nvidia
             {
                 private static string _queryCudaDevicesString = "";
 

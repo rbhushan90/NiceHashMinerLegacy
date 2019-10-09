@@ -29,6 +29,8 @@ namespace NiceHashMiner.Stats
             private get => Interlocked.Exchange(ref _usdBtcRate, _usdBtcRate);
             set
             {
+                try
+                { 
                 if (value > 0)
                 {
                     Interlocked.Exchange(ref _usdBtcRate, value);
@@ -38,6 +40,12 @@ namespace NiceHashMiner.Stats
                 {
                     Helpers.ConsolePrint("NICEHASH", "BTC rate error: "+value.ToString());
                     GetNewBTCRate();
+                }
+                }
+                catch (Exception ex)
+                {
+                    Helpers.ConsolePrint("UsdBtcRate-error", ex.Message);
+                    return;
                 }
             }
         }
