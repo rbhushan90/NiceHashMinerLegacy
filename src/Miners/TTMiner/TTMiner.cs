@@ -1,15 +1,15 @@
-﻿using System;
+﻿using MinerPlugin;
+using MinerPluginToolkitV1;
+using MinerPluginToolkitV1.ClaymoreCommon;
+using MinerPluginToolkitV1.Configs;
+using MinerPluginToolkitV1.Interfaces;
+using NHM.Common;
+using NHM.Common.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MinerPlugin;
-using MinerPluginToolkitV1;
-using MinerPluginToolkitV1.Interfaces;
-using NHM.Common;
-using NHM.Common.Enums;
-using MinerPluginToolkitV1.ClaymoreCommon;
-using MinerPluginToolkitV1.Configs;
 
 namespace TTMiner
 {
@@ -18,27 +18,13 @@ namespace TTMiner
     {
         private int _apiPort;
         private string _devices;
-        private double DevFee = 1d;
+        private double DevFee => PluginSupportedAlgorithms.DevFee(_algorithmType);
         // TODO figure out how to fix API workaround without this started time
         private DateTime _started;
 
         protected readonly Dictionary<string, int> _mappedDeviceIds = new Dictionary<string, int>();
 
-        private string AlgoName
-        {
-            get
-            {
-                switch (_algorithmType)
-                {
-                    case AlgorithmType.MTP:
-                        return "mtp";
-                    case AlgorithmType.Lyra2REv3:
-                        return "LYRA2V3";
-                    default:
-                        return "";
-                }
-            }
-        }
+        private string AlgoName => PluginSupportedAlgorithms.AlgorithmName(_algorithmType);
 
         public TTMiner(string uuid, Dictionary<string, int> mappedDeviceIds) : base(uuid)
         {

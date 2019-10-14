@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using MinerPlugin;
+﻿using MinerPlugin;
 using MinerPluginToolkitV1;
 using MinerPluginToolkitV1.Configs;
 using Newtonsoft.Json;
 using NHM.Common;
 using NHM.Common.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace LolMinerBeam
 {
@@ -30,16 +30,7 @@ namespace LolMinerBeam
             _mappedIDs = mappedIDs;
         }
 
-        protected virtual string AlgorithmName(AlgorithmType algorithmType)
-        {
-            switch (algorithmType)
-            {
-                case AlgorithmType.GrinCuckarood29: return "GRIN-AD29";
-                case AlgorithmType.GrinCuckatoo31: return "GRIN-AT31";
-                case AlgorithmType.BeamV2: return "BEAM-II";
-                default: return "";
-            }
-        }
+        protected virtual string AlgorithmName(AlgorithmType algorithmType) => PluginSupportedAlgorithms.AlgorithmName(algorithmType);
 
         public async override Task<ApiData> GetMinerStatsDataAsync()
         {

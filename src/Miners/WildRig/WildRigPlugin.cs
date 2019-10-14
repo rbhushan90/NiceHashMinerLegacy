@@ -17,33 +17,30 @@ namespace WildRig
         {
             // set default internal settings
             MinerOptionsPackage = PluginInternalSettings.MinerOptionsPackage;
-            // https://bitcointalk.org/index.php?topic=5023676 | https://github.com/andru-kun/wildrig-multi/releases current 0.18 // TODO pre-release is out added RX 5700
+            // https://bitcointalk.org/index.php?topic=5023676 | https://github.com/andru-kun/wildrig-multi/releases
             MinersBinsUrlsSettings = new MinersBinsUrlsSettings
             {
-                BinVersion = "0.18",
+                BinVersion = "0.19.2",
                 ExePath = new List<string> { "wildrig.exe" },
                 Urls = new List<string>
                 {
-                    "https://github.com/andru-kun/wildrig-multi/releases/download/0.18.0/wildrig-multi-windows-0.18.0-beta.7z", // original
+                    "https://github.com/andru-kun/wildrig-multi/releases/download/0.19.2/wildrig-multi-windows-0.19.2-beta.7z", // original
                 }
             };
             PluginMetaInfo = new PluginMetaInfo
             {
                 PluginDescription = "WildRig is multi algo miner for AMD devices.",
-                SupportedDevicesAlgorithms = new Dictionary<DeviceType, List<AlgorithmType>>
-                {
-                    { DeviceType.AMD, new List<AlgorithmType>{ AlgorithmType.Lyra2REv3, AlgorithmType.X16R } }
-                }
+                SupportedDevicesAlgorithms = PluginSupportedAlgorithms.SupportedDevicesAlgorithmsDict()
             };
         }
 
         public override string PluginUUID => "2edd8080-9cb6-11e9-a6b8-09e27549d5bb";
 
-        public override Version Version => new Version(3, 0);
+        public override Version Version => new Version(3, 2);
 
         public override string Name => "WildRig";
 
-        public override string Author => "domen.kirnkrefl@nicehash.com";
+        public override string Author => "info@nicehash.com";
 
         protected readonly Dictionary<string, int> _mappedIDs = new Dictionary<string, int>();
 
@@ -75,11 +72,8 @@ namespace WildRig
 
         IReadOnlyList<Algorithm> GetSupportedAlgorithms(AMDDevice gpu)
         {
-            var algorithms = new List<Algorithm>
-            {
-                new Algorithm(PluginUUID, AlgorithmType.Lyra2REv3),
-                new Algorithm(PluginUUID, AlgorithmType.X16R)
-            };
+            var algorithms = PluginSupportedAlgorithms.GetSupportedAlgorithmsAMD(PluginUUID);
+            if (PluginSupportedAlgorithms.UnsafeLimits(PluginUUID)) return algorithms;
             var filteredAlgorithms = Filters.FilterInsufficientRamAlgorithmsList(gpu.GpuRam, algorithms);
             return filteredAlgorithms;
         }

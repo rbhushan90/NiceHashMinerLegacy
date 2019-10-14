@@ -1,12 +1,14 @@
 ﻿using MinerPlugin;
+using MinerPluginToolkitV1;
+using MinerPluginToolkitV1.Configs;
+using NHM.Common;
 using NHM.Common.Algorithm;
 using NHM.Common.Device;
 using NHM.Common.Enums;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using MinerPluginToolkitV1;
-using MinerPluginToolkitV1.Configs;
+using System.IO;
+using System.Linq;
 
 namespace TeamRedMiner
 {
@@ -30,20 +32,17 @@ namespace TeamRedMiner
             PluginMetaInfo = new PluginMetaInfo
             {
                 PluginDescription = "Miner for AMD gpus.",
-                SupportedDevicesAlgorithms = new Dictionary<DeviceType, List<AlgorithmType>>
-                {
-                    { DeviceType.AMD, new List<AlgorithmType>{ AlgorithmType.CryptoNightR, AlgorithmType.Lyra2REv3, AlgorithmType.Lyra2Z, AlgorithmType.X16R, AlgorithmType.GrinCuckatoo31, AlgorithmType.GrinCuckarood29, AlgorithmType.MTP } }
-                }
+                SupportedDevicesAlgorithms = PluginSupportedAlgorithms.SupportedDevicesAlgorithmsDict()
             };
         }
 
         public override string PluginUUID => "abc3e2a0-7237-11e9-b20c-f9f12eb6d835";
 
-        public override Version Version => new Version(3, 0);
+        public override Version Version => new Version(3, 1);
 
         public override string Name => "TeamRedMiner";
 
-        public override string Author => "stanko@nicehash.com";
+        public override string Author => "info@nicehash.com";
 
         public override bool CanGroup(MiningPair a, MiningPair b)
         {
@@ -78,17 +77,8 @@ namespace TeamRedMiner
 
         IReadOnlyList<Algorithm> GetSupportedAlgorithms(AMDDevice gpu)
         {
-            var algorithms = new List<Algorithm> {
-                new Algorithm(PluginUUID, AlgorithmType.CryptoNightR),
-                new Algorithm(PluginUUID, AlgorithmType.Lyra2REv3),
-                new Algorithm(PluginUUID, AlgorithmType.Lyra2Z),
-                new Algorithm(PluginUUID, AlgorithmType.X16R),
-                new Algorithm(PluginUUID, AlgorithmType.GrinCuckatoo31),
-                new Algorithm(PluginUUID, AlgorithmType.MTP) { Enabled = false },
-                new Algorithm(PluginUUID, AlgorithmType.GrinCuckarood29),
-                new Algorithm(PluginUUID, AlgorithmType.X16Rv2)
-            };
-
+            var algorithms = PluginSupportedAlgorithms.GetSupportedAlgorithmsAMD(PluginUUID);
+            if (PluginSupportedAlgorithms.UnsafeLimits(PluginUUID)) return algorithms;
             var filteredAlgorithms = Filters.FilterInsufficientRamAlgorithmsList(gpu.GpuRam, algorithms);
             return filteredAlgorithms;
         }

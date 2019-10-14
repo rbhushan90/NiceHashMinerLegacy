@@ -1,9 +1,9 @@
-﻿using System;
+﻿using MinerPlugin;
+using MinerPluginToolkitV1.CCMinerCommon;
+using NHM.Common.Enums;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using NHM.Common.Enums;
-using MinerPlugin;
-using MinerPluginToolkitV1.CCMinerCommon;
 
 namespace CCMinerTpruvot
 {
@@ -12,16 +12,7 @@ namespace CCMinerTpruvot
         public CCMinerTpruvot(string uuid) : base(uuid)
         { }
 
-        protected override string AlgorithmName(AlgorithmType algorithmType)
-        {
-            switch (algorithmType)
-            {
-                case AlgorithmType.X16R: return "x16r";
-                case AlgorithmType.Lyra2REv3: return "lyra2v3";
-            }
-            // TODO throw exception
-            return "";
-        }
+        protected override string AlgorithmName(AlgorithmType algorithmType) => PluginSupportedAlgorithms.AlgorithmName(algorithmType);
 
         public override async Task<BenchmarkResult> StartBenchmark(CancellationToken stop, BenchmarkPerformanceType benchmarkType = BenchmarkPerformanceType.Standard)
         {

@@ -1,12 +1,12 @@
+using MinerPluginToolkitV1;
+using MinerPluginToolkitV1.Configs;
 using NHM.Common.Algorithm;
 using NHM.Common.Device;
 using NHM.Common.Enums;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
-using MinerPluginToolkitV1.Configs;
-using MinerPluginToolkitV1;
 
 namespace CpuMinerOpt
 {
@@ -21,61 +21,48 @@ namespace CpuMinerOpt
             // https://bitcointalk.org/index.php?topic=1326803.0 | https://github.com/JayDDee/cpuminer-opt/releases
             MinersBinsUrlsSettings = new MinersBinsUrlsSettings
             {
-                BinVersion = "v3.9.8",
-                ExePath = new List<string> {}, // special case multiple executables
+                BinVersion = "v3.9.9",
+                ExePath = new List<string> { "cpuminer-avx2.exe" }, // special case multiple executables
                 Urls = new List<string>
                 {
-                    "https://github.com/JayDDee/cpuminer-opt/releases/download/v3.9.8/cpuminer-opt-3.9.8-windows.zip", // original
+                    "https://github.com/JayDDee/cpuminer-opt/releases/download/v3.9.9/cpuminer-opt-3.9.9-windows.zip", // original
                 }
             };
             PluginMetaInfo = new PluginMetaInfo
             {
                 PluginDescription = "Miner for CPU devices.",
-                SupportedDevicesAlgorithms = new Dictionary<DeviceType, List<AlgorithmType>>
-                {
-                    { DeviceType.CPU, new List<AlgorithmType>{ AlgorithmType.Lyra2Z, AlgorithmType.Lyra2REv3, AlgorithmType.X16R, AlgorithmType.X16Rv2 } }
-                }
+                SupportedDevicesAlgorithms = PluginSupportedAlgorithms.SupportedDevicesAlgorithmsDict()
             };
         }
 
         public override string PluginUUID => "92fceb00-7236-11e9-b20c-f9f12eb6d835";
 
-        public override Version Version => new Version(2, 0);
+        public override Version Version => new Version(3, 3);
 
         public override string Name => "cpuminer-opt";
 
-        public override string Author => "stanko@nicehash.com";
+        public override string Author => "info@nicehash.com";
 
         private bool IsIntel { get; set; }
 
         protected override MinerBase CreateMinerBase()
         {
-            return new CpuMiner(PluginUUID);
+            return new CpuMiner(PluginUUID, PluginSupportedAlgorithms.AlgorithmName);
         }
 
         public override Dictionary<BaseDevice, IReadOnlyList<Algorithm>> GetSupportedAlgorithms(IEnumerable<BaseDevice> devices)
         {
             // TODO set is intel/amd
-            var cpus = devices.Where(dev => dev is CPUDevice).Select(dev => (CPUDevice)dev);
+            var cpus = devices.Where(dev => dev is CPUDevice).Cast<CPUDevice>();
             IsIntel = IsIntelCpu(cpus);
             var supported = new Dictionary<BaseDevice, IReadOnlyList<Algorithm>>();
 
             foreach (var cpu in cpus)
             {
-                supported.Add(cpu, GetSupportedAlgorithms());
+                supported.Add(cpu, PluginSupportedAlgorithms.GetSupportedAlgorithmsCPU(PluginUUID));
             }
 
             return supported;
-        }
-
-        IReadOnlyList<Algorithm> GetSupportedAlgorithms()
-        {
-            return new List<Algorithm>{
-                new Algorithm(PluginUUID, AlgorithmType.Lyra2Z),
-                new Algorithm(PluginUUID, AlgorithmType.Lyra2REv3),
-                new Algorithm(PluginUUID, AlgorithmType.X16R),
-                new Algorithm(PluginUUID, AlgorithmType.X16Rv2)
-            };
         }
 
         public override IEnumerable<string> CheckBinaryPackageMissingFiles()
@@ -96,20 +83,17 @@ namespace CpuMinerOpt
         public override Tuple<string, string> GetBinAndCwdPaths()
         {
             var binCwdBase = base.GetBinAndCwdPaths();
-            var pluginRootBins = binCwdBase.Item1;
-
-            var binPath = "";
+            var cwd = binCwdBase.Item2;
             if (IsIntel)
             {
-                binPath = Path.Combine(pluginRootBins, "cpuminer-avx2.exe");
+                var binPath = Path.Combine(cwd, "cpuminer-avx2.exe");
+                return Tuple.Create(binPath, cwd);
             }
             else
             {
-                binPath = Path.Combine(pluginRootBins, "cpuminer-zen.exe");
+                var binPath = Path.Combine(cwd, "cpuminer-zen.exe");
+                return Tuple.Create(binPath, cwd);
             }
-
-            var binCwd = pluginRootBins;
-            return Tuple.Create(binPath, binCwd);
         }
 
         private bool IsIntelCpu(IEnumerable<CPUDevice> cpus)

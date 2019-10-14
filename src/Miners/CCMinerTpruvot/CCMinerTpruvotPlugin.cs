@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace CCMinerTpruvot
 {
-    public abstract class CCMinerTpruvotPlugin : PluginBase
+    public class CCMinerTpruvotPlugin : PluginBase
     {
         public CCMinerTpruvotPlugin()
         {
@@ -28,19 +28,16 @@ namespace CCMinerTpruvot
             PluginMetaInfo = new PluginMetaInfo
             {
                 PluginDescription = "NVIDIA miner for Lyra2REv3 and X16R.",
-                SupportedDevicesAlgorithms = new Dictionary<DeviceType, List<AlgorithmType>>
-                {
-                    { DeviceType.NVIDIA, new List<AlgorithmType>{ AlgorithmType.Lyra2REv3, AlgorithmType.X16R } }
-                }
+                SupportedDevicesAlgorithms = PluginSupportedAlgorithms.SupportedDevicesAlgorithmsDict()
             };
         }
 
-        //public override string PluginUUID => "MISSING";
+        public override string PluginUUID => "2257f160-7236-11e9-b20c-f9f12eb6d835";
 
-        public override Version Version => new Version(3, 0);
+        public override Version Version => new Version(3, 1);
         public override string Name => "CCMinerTpruvot";
 
-        public override string Author => "stanko@nicehash.com";
+        public override string Author => "info@nicehash.com";
 
         public override Dictionary<BaseDevice, IReadOnlyList<Algorithm>> GetSupportedAlgorithms(IEnumerable<BaseDevice> devices)
         {
@@ -55,15 +52,19 @@ namespace CCMinerTpruvot
 
             foreach (var gpu in cudaGpus)
             {
-                var algorithms = new List<Algorithm> {
-                    new Algorithm(PluginUUID, AlgorithmType.Lyra2REv3),
-                    new Algorithm(PluginUUID, AlgorithmType.X16R), // TODO check performance
-                };
-                var filteredAlgorithms = Filters.FilterInsufficientRamAlgorithmsList(gpu.GpuRam, algorithms);
-                if (filteredAlgorithms.Count > 0) supported.Add(gpu, filteredAlgorithms);
+                var algorithms = GetSupportedAlgorithms(gpu);
+                if (algorithms.Count > 0) supported.Add(gpu, algorithms);
             }
 
             return supported;
+        }
+
+        private List<Algorithm> GetSupportedAlgorithms(CUDADevice gpu)
+        {
+            var algorithms = PluginSupportedAlgorithms.GetSupportedAlgorithmsNVIDIA(PluginUUID).ToList();
+            if (PluginSupportedAlgorithms.UnsafeLimits(PluginUUID)) return algorithms;
+            var filteredAlgorithms = Filters.FilterInsufficientRamAlgorithmsList(gpu.GpuRam, algorithms);
+            return filteredAlgorithms;
         }
 
         protected override MinerBase CreateMinerBase()

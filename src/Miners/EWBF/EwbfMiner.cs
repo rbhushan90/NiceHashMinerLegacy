@@ -2,16 +2,15 @@
 using MinerPluginToolkitV1;
 using MinerPluginToolkitV1.Configs;
 using Newtonsoft.Json;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Net.Sockets;
-using System.Text;
-using static NHM.Common.StratumServiceHelpers;
 using NHM.Common;
 using NHM.Common.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EWBF
 {
@@ -27,16 +26,7 @@ namespace EWBF
         public EwbfMiner(string uuid) : base(uuid)
         {}
 
-        private string AlgorithmName(AlgorithmType algorithmType)
-        {
-            switch (algorithmType)
-            {
-                case AlgorithmType.ZHash:
-                    return "144_5";
-                default:
-                    return "";
-            }
-        }
+        private string AlgorithmName(AlgorithmType algorithmType) => PluginSupportedAlgorithms.AlgorithmName(algorithmType);
 
         private string CreateCommandLine(string username)
         {
@@ -45,7 +35,7 @@ namespace EWBF
 
             var algo = AlgorithmName(_algorithmType);
 
-            var urlWithPort = GetLocationUrl(_algorithmType, _miningLocation, NhmConectionType.NONE);
+            var urlWithPort = StratumServiceHelpers.GetLocationUrl(_algorithmType, _miningLocation, NhmConectionType.NONE);
             var split = urlWithPort.Split(':');
             var url = split[0];
             var port = split[1];

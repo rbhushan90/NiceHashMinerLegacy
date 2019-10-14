@@ -20,34 +20,30 @@ namespace GMinerPlugin
             MinerOptionsPackage = PluginInternalSettings.MinerOptionsPackage;
             GetApiMaxTimeoutConfig = PluginInternalSettings.GetApiMaxTimeoutConfig;
             DefaultTimeout = PluginInternalSettings.DefaultTimeout;
-            // https://bitcointalk.org/index.php?topic=5034735.0 | https://github.com/develsoftware/GMinerRelease/releases current v1.66
+            // https://bitcointalk.org/index.php?topic=5034735.0 | https://github.com/develsoftware/GMinerRelease/releases
             MinersBinsUrlsSettings = new MinersBinsUrlsSettings
             {
-                BinVersion = "1.66",
+                BinVersion = "1.68",
                 ExePath = new List<string> { "miner.exe" },
                 Urls = new List<string>
                 {
-                    "https://github.com/develsoftware/GMinerRelease/releases/download/1.66/gminer_1_66_windows64.zip", // original
+                    "https://github.com/develsoftware/GMinerRelease/releases/download/1.68/gminer_1_68_windows64.zip", // original
                 }
             };
             PluginMetaInfo = new PluginMetaInfo
             {
-                PluginDescription = "GMiner - High-performance miner for AMD/Nvidia GPUs.",
-                SupportedDevicesAlgorithms = new Dictionary<DeviceType, List<AlgorithmType>>
-                {
-                    { DeviceType.NVIDIA, new List<AlgorithmType>{ AlgorithmType.ZHash, AlgorithmType.GrinCuckatoo31, AlgorithmType.CuckooCycle, AlgorithmType.GrinCuckarood29, AlgorithmType.BeamV2 } },
-                    { DeviceType.AMD, new List<AlgorithmType>{ AlgorithmType.CuckooCycle, AlgorithmType.BeamV2 } }
-                }
+                PluginDescription = "GMiner - High-performance miner for NVIDIA and AMD GPUs.",
+                SupportedDevicesAlgorithms = PluginSupportedAlgorithms.SupportedDevicesAlgorithmsDict()
             };
         }
 
         public override string PluginUUID => "1b7019d0-7237-11e9-b20c-f9f12eb6d835";
 
-        public override Version Version => new Version(3, 0);
+        public override Version Version => new Version(3, 2);
 
         public override string Name => "GMinerCuda9.0+";
 
-        public override string Author => "stanko@nicehash.com";
+        public override string Author => "info@nicehash.com";
 
         protected readonly Dictionary<string, int> _mappedDeviceIds = new Dictionary<string, int>();
 
@@ -110,25 +106,16 @@ namespace GMinerPlugin
         }
 
         IReadOnlyList<Algorithm> GetCUDASupportedAlgorithms(CUDADevice gpu) {
-            var algorithms = new List<Algorithm>
-            {
-                new Algorithm(PluginUUID, AlgorithmType.ZHash),
-                new Algorithm(PluginUUID, AlgorithmType.GrinCuckatoo31),
-                new Algorithm(PluginUUID, AlgorithmType.CuckooCycle) {Enabled = false }, //~5% of invalid nonce shares,
-                new Algorithm(PluginUUID, AlgorithmType.GrinCuckarood29),
-                new Algorithm(PluginUUID, AlgorithmType.BeamV2),
-            };
+            var algorithms = PluginSupportedAlgorithms.GetSupportedAlgorithmsNVIDIA(PluginUUID);
+            if (PluginSupportedAlgorithms.UnsafeLimits(PluginUUID)) return algorithms;
             var filteredAlgorithms = Filters.FilterInsufficientRamAlgorithmsList(gpu.GpuRam, algorithms);
             return filteredAlgorithms;
         }
 
         IReadOnlyList<Algorithm> GetAMDSupportedAlgorithms(AMDDevice gpu)
         {
-            var algorithms = new List<Algorithm>
-            {
-                new Algorithm(PluginUUID, AlgorithmType.CuckooCycle) {Enabled = false }, //~5% of invalid nonce shares
-                new Algorithm(PluginUUID, AlgorithmType.BeamV2),
-            };
+            var algorithms = PluginSupportedAlgorithms.GetSupportedAlgorithmsAMD(PluginUUID);
+            if (PluginSupportedAlgorithms.UnsafeLimits(PluginUUID)) return algorithms;
             var filteredAlgorithms = Filters.FilterInsufficientRamAlgorithmsList(gpu.GpuRam, algorithms);
             return filteredAlgorithms;
         }
@@ -173,23 +160,10 @@ namespace GMinerPlugin
         {
             try
             {
-                if (ids.Count() == 0) return false;
-                if (benchmarkedPluginVersion.Major == 2 && benchmarkedPluginVersion.Minor < 8)
-                {
-                    // improved performance for ZHash for nvidia cards
-                    if (device.DeviceType == DeviceType.NVIDIA && ids.FirstOrDefault() == AlgorithmType.GrinCuckarood29) return true;
-                }
-                if (benchmarkedPluginVersion.Major == 2 && benchmarkedPluginVersion.Minor < 7)
-                {
-                    // improved performance for ZHash for nvidia cards
-                    if (device.DeviceType == DeviceType.NVIDIA && ids.FirstOrDefault() == AlgorithmType.ZHash) return true;
-                }
-                if (benchmarkedPluginVersion.Major == 2 && benchmarkedPluginVersion.Minor < 6)
-                {
-                    // improved performance for BEAM2 for nvidia cards
-                    if (device.DeviceType == DeviceType.NVIDIA && ids.FirstOrDefault() == AlgorithmType.BeamV2) return true;
-                }
-                return false;
+                var isReBenchVersion = benchmarkedPluginVersion.Major == 3 && benchmarkedPluginVersion.Minor < 2;
+                var first = ids.FirstOrDefault();
+                var isBenchAlgo = first == AlgorithmType.GrinCuckarood29 || first == AlgorithmType.CuckooCycle;
+                return isReBenchVersion && isBenchAlgo;
             }
             catch (Exception e)
             {

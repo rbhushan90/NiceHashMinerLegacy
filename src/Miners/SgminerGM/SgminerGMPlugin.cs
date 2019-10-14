@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace SgminerGM
 {
-    public abstract class SgminerGMPlugin : PluginBase
+    public class SgminerGMPlugin : PluginBase
     {
         public SgminerGMPlugin()
         {
@@ -30,19 +30,16 @@ namespace SgminerGM
             PluginMetaInfo = new PluginMetaInfo
             {
                 PluginDescription = "This is a multi-threaded multi-pool GPU miner with ATI GPU monitoring.",
-                SupportedDevicesAlgorithms = new Dictionary<DeviceType, List<AlgorithmType>>
-                {
-                    { DeviceType.AMD, new List<AlgorithmType>{ AlgorithmType.DaggerHashimoto } }
-                }
+                SupportedDevicesAlgorithms = PluginSupportedAlgorithms.SupportedDevicesAlgorithmsDict()
             };
         }
 
-        //public override string PluginUUID => "MISSING";
+        public override string PluginUUID => "d5f18960-e361-11e9-a914-497feefbdfc8";
 
-        public override Version Version => new Version(3, 0);
+        public override Version Version => new Version(3, 1);
         public override string Name => "SGminerGM";
 
-        public override string Author => "stanko@nicehash.com";
+        public override string Author => "info@nicehash.com";
 
         public override Dictionary<BaseDevice, IReadOnlyList<Algorithm>> GetSupportedAlgorithms(IEnumerable<BaseDevice> devices)
         {
@@ -54,17 +51,19 @@ namespace SgminerGM
 
             foreach (var gpu in amdGpus)
             {
-                var algorithms = new List<Algorithm> {
-                    new Algorithm(PluginUUID, AlgorithmType.DaggerHashimoto)
-                    {
-                        ExtraLaunchParameters = " --remove-disabled --xintensity 512 -w 192 -g 1"
-                    },
-                };
-                var filteredAlgorithms = Filters.FilterInsufficientRamAlgorithmsList(gpu.GpuRam, algorithms);
-                if (filteredAlgorithms.Count > 0) supported.Add(gpu, filteredAlgorithms);
+                var algorithms = GetSupportedAlgorithms(gpu);
+                if (algorithms.Count > 0) supported.Add(gpu, algorithms);
             }
 
             return supported;
+        }
+
+        private List<Algorithm> GetSupportedAlgorithms(AMDDevice gpu)
+        {
+            var algorithms = PluginSupportedAlgorithms.GetSupportedAlgorithmsAMD(PluginUUID);
+            if (PluginSupportedAlgorithms.UnsafeLimits(PluginUUID)) return algorithms;
+            var filteredAlgorithms = Filters.FilterInsufficientRamAlgorithmsList(gpu.GpuRam, algorithms);
+            return filteredAlgorithms;
         }
 
         protected override MinerBase CreateMinerBase()

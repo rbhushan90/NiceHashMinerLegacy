@@ -1,6 +1,7 @@
 ﻿using MinerPluginToolkitV1;
-using MinerPluginToolkitV1.Interfaces;
 using MinerPluginToolkitV1.ClaymoreCommon;
+using MinerPluginToolkitV1.Configs;
+using MinerPluginToolkitV1.Interfaces;
 using NHM.Common.Algorithm;
 using NHM.Common.Device;
 using NHM.Common.Enums;
@@ -9,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using MinerPluginToolkitV1.Configs;
 
 namespace ClaymoreDual14
 {
@@ -33,21 +33,17 @@ namespace ClaymoreDual14
             PluginMetaInfo = new PluginMetaInfo
             {
                 PluginDescription = "Miner for AMD and NVIDIA cards, supporting Dual mining.",
-                SupportedDevicesAlgorithms = new Dictionary<DeviceType, List<AlgorithmType>>
-                {
-                    { DeviceType.NVIDIA, new List<AlgorithmType>{ AlgorithmType.DaggerHashimoto, AlgorithmType.Decred, AlgorithmType.Blake2s, AlgorithmType.Keccak } },
-                    { DeviceType.AMD, new List<AlgorithmType>{ AlgorithmType.DaggerHashimoto, AlgorithmType.Decred, AlgorithmType.Blake2s, AlgorithmType.Keccak } }
-                }
+                SupportedDevicesAlgorithms = PluginSupportedAlgorithms.SupportedDevicesAlgorithmsDict()
             };
         }
 
-        public override string PluginUUID => "78d0bd8b-4d8f-4b7e-b393-e8ac6a83ae76";
+        public override string PluginUUID => "70984aa0-7236-11e9-b20c-f9f12eb6d835";
 
-        public override Version Version => new Version(3, 0);
+        public override Version Version => new Version(3, 1);
 
         public override string Name => "ClaymoreDual";
 
-        public override string Author => "domen.kirnkrefl@nicehash.com";
+        public override string Author => "info@nicehash.com";
 
         protected readonly Dictionary<string, int> _mappedIDs = new Dictionary<string, int>();
 
@@ -100,16 +96,8 @@ namespace ClaymoreDual14
 
         private IEnumerable<Algorithm> GetSupportedAlgorithms(IGpuDevice gpu)
         {
-            var algorithms = new List<Algorithm>
-            {
-                new Algorithm(PluginUUID, AlgorithmType.DaggerHashimoto),
-            // duals disabled by default
-#pragma warning disable 0618
-                new Algorithm(PluginUUID, AlgorithmType.DaggerHashimoto, AlgorithmType.Decred) {Enabled = false },
-                new Algorithm(PluginUUID, AlgorithmType.DaggerHashimoto, AlgorithmType.Blake2s) {Enabled = false },
-                new Algorithm(PluginUUID, AlgorithmType.DaggerHashimoto, AlgorithmType.Keccak) {Enabled = false },
-#pragma warning restore 0618
-            };
+            var algorithms = PluginSupportedAlgorithms.GetSupportedAlgorithmsGPU(PluginUUID).ToList();
+            if (PluginSupportedAlgorithms.UnsafeLimits(PluginUUID)) return algorithms;
             var filteredAlgorithms = Filters.FilterInsufficientRamAlgorithmsList(gpu.GpuRam, algorithms);
             if(gpu is AMDDevice amd && (amd.Codename.ToLower().Contains("gfx10") || amd.Name.ToLower().Contains("navi")))
             {

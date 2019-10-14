@@ -1,6 +1,5 @@
 ﻿using MinerPluginToolkitV1;
 using MinerPluginToolkitV1.Configs;
-using MinerPluginToolkitV1.Interfaces;
 using NHM.Common;
 using NHM.Common.Algorithm;
 using NHM.Common.Device;
@@ -32,20 +31,16 @@ namespace BMiner
             PluginMetaInfo = new PluginMetaInfo
             {
                 PluginDescription = "Bminer is a cryptocurrency miner that runs on modern AMD / NVIDIA GPUs.",
-                SupportedDevicesAlgorithms = new Dictionary<DeviceType, List<AlgorithmType>>
-                {
-                    { DeviceType.NVIDIA, new List<AlgorithmType>{ AlgorithmType.ZHash, AlgorithmType.DaggerHashimoto, AlgorithmType.Beam, AlgorithmType.GrinCuckaroo29, AlgorithmType.GrinCuckatoo31, AlgorithmType.GrinCuckarood29 } },
-                    { DeviceType.AMD, new List<AlgorithmType>{ AlgorithmType.Beam } }
-                }
+                SupportedDevicesAlgorithms = PluginSupportedAlgorithms.SupportedDevicesAlgorithmsDict()
             };
         }
 
         public override string PluginUUID => "e5fbd330-7235-11e9-b20c-f9f12eb6d835";
 
-        public override Version Version => new Version(3, 0);
+        public override Version Version => new Version(3, 1);
         public override string Name => "BMiner";
 
-        public override string Author => "domen.kirnkrefl@nicehash.com";
+        public override string Author => "info@nicehash.com";
 
         public override Dictionary<BaseDevice, IReadOnlyList<Algorithm>> GetSupportedAlgorithms(IEnumerable<BaseDevice> devices)
         {
@@ -74,32 +69,23 @@ namespace BMiner
 
         private IEnumerable<Algorithm> GetCUDASupportedAlgorithms(CUDADevice gpu)
         {
-            var algorithms = new List<Algorithm>
-            {
-                new Algorithm(PluginUUID, AlgorithmType.ZHash) {Enabled = false },
-                new Algorithm(PluginUUID, AlgorithmType.DaggerHashimoto) {Enabled = false },
-                new Algorithm(PluginUUID, AlgorithmType.Beam) {Enabled = false },
-                new Algorithm(PluginUUID, AlgorithmType.GrinCuckaroo29),
-                new Algorithm(PluginUUID, AlgorithmType.GrinCuckatoo31),
-                new Algorithm(PluginUUID, AlgorithmType.GrinCuckarood29),
-            };
+            var algorithms = PluginSupportedAlgorithms.GetSupportedAlgorithmsNVIDIA(PluginUUID).ToList();
+            if (PluginSupportedAlgorithms.UnsafeLimits(PluginUUID)) return algorithms;
             var filteredAlgorithms = Filters.FilterInsufficientRamAlgorithmsList(gpu.GpuRam, algorithms);
             return filteredAlgorithms;
         }
 
         private IEnumerable<Algorithm> GetAMDSupportedAlgorithms(AMDDevice gpu)
         {
-            var algorithms = new List<Algorithm>
-            {
-                new Algorithm(PluginUUID, AlgorithmType.Beam) {Enabled = false },
-            };
+            var algorithms = PluginSupportedAlgorithms.GetSupportedAlgorithmsAMD(PluginUUID).ToList();
+            if (PluginSupportedAlgorithms.UnsafeLimits(PluginUUID)) return algorithms;
             var filteredAlgorithms = Filters.FilterInsufficientRamAlgorithmsList(gpu.GpuRam, algorithms);
             return filteredAlgorithms;
         }
 
         protected override MinerBase CreateMinerBase()
         {
-            return new BMiner(PluginUUID);
+            return new BMiner(PluginUUID, PluginSupportedAlgorithms.AlgorithmName, PluginSupportedAlgorithms.DevFee);
         }
 
         public override IEnumerable<string> CheckBinaryPackageMissingFiles()

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using MinerPluginToolkitV1;
+using MinerPluginToolkitV1.Configs;
+using MinerPluginToolkitV1.Interfaces;
 using NHM.Common.Algorithm;
 using NHM.Common.Device;
 using NHM.Common.Enums;
-using MinerPluginToolkitV1.Interfaces;
-using MinerPluginToolkitV1;
-using MinerPluginToolkitV1.Configs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace TTMiner
@@ -19,32 +19,29 @@ namespace TTMiner
             MinerOptionsPackage = PluginInternalSettings.MinerOptionsPackage;
             DefaultTimeout = PluginInternalSettings.DefaultTimeout;
             GetApiMaxTimeoutConfig = PluginInternalSettings.GetApiMaxTimeoutConfig;
-            // https://bitcointalk.org/index.php?topic=5025783.0 current 3.0.5 // TODO update
+            // https://bitcointalk.org/index.php?topic=5025783.0 current 3.0.10 // TODO update
             MinersBinsUrlsSettings = new MinersBinsUrlsSettings
             {
-                BinVersion = "3.0.5",
+                BinVersion = "3.0.10",
                 ExePath = new List<string> { "TT-Miner.exe" },
                 Urls = new List<string>
                 {
-                    "https://github.com/nicehash/MinerDownloads/releases/download/1.9.1.12b/TT-Miner-3.0.5.zip",
-                    "https://tradeproject.de/download/Miner/TT-Miner-3.0.5.zip" // original
+                    "https://github.com/nicehash/MinerDownloads/releases/download/1.9.1.12b/TT-Miner-3.0.10.zip",
+                    "https://tradeproject.de/download/Miner/TT-Miner-3.0.10.zip" // original
                 }
             };
             PluginMetaInfo = new PluginMetaInfo
             {
                 PluginDescription = "TT-Miner is mining software for NVIDIA devices.",
-                SupportedDevicesAlgorithms = new Dictionary<DeviceType, List<AlgorithmType>>
-                {
-                    { DeviceType.NVIDIA, new List<AlgorithmType>{ AlgorithmType.Lyra2REv3, AlgorithmType.MTP } }
-                }
+                SupportedDevicesAlgorithms = PluginSupportedAlgorithms.SupportedDevicesAlgorithmsDict()
             };
         }
 
         public override string PluginUUID => "f1945a30-7237-11e9-b20c-f9f12eb6d835";
 
-        public override Version Version => new Version(3, 0);
+        public override Version Version => new Version(3, 2);
         public override string Name => "TTMiner";
-        public override string Author => "stanko@nicehash.com";
+        public override string Author => "info@nicehash.com";
 
         protected readonly Dictionary<string, int> _mappedDeviceIds = new Dictionary<string, int>();
 
@@ -77,11 +74,8 @@ namespace TTMiner
 
         IReadOnlyList<Algorithm> GetSupportedAlgorithms(CUDADevice gpu)
         {
-            var algorithms = new List<Algorithm>
-            {
-                new Algorithm(PluginUUID, AlgorithmType.MTP) { Enabled = false },
-                new Algorithm(PluginUUID, AlgorithmType.Lyra2REv3),
-            };
+            var algorithms = PluginSupportedAlgorithms.GetSupportedAlgorithmsNVIDIA(PluginUUID);
+            if (PluginSupportedAlgorithms.UnsafeLimits(PluginUUID)) return algorithms;
             var filteredAlgorithms = Filters.FilterInsufficientRamAlgorithmsList(gpu.GpuRam, algorithms);
             return filteredAlgorithms;
         }

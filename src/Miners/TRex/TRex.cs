@@ -1,15 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Net.Http;
-using MinerPlugin;
+﻿using MinerPlugin;
 using MinerPluginToolkitV1;
 using MinerPluginToolkitV1.Configs;
 using Newtonsoft.Json;
 using NHM.Common;
 using NHM.Common.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 
 
 namespace TRex
@@ -25,25 +25,9 @@ namespace TRex
         public TRex(string uuid) : base(uuid)
         {}
 
-        protected virtual string AlgorithmName(AlgorithmType algorithmType)
-        {
-            switch (algorithmType)
-            {
-                case AlgorithmType.Lyra2Z: return "lyra2z";
-                case AlgorithmType.X16R: return "x16r";
-                case AlgorithmType.X16Rv2: return "x16rv2";
-                case AlgorithmType.MTP: return "mtp";
-                default: return "";
-            }
-        }
+        protected virtual string AlgorithmName(AlgorithmType algorithmType) => PluginSupportedAlgorithms.AlgorithmName(algorithmType);
 
-        private double DevFee
-        {
-            get
-            {
-                return 1.0;
-            }
-        }
+        private double DevFee => PluginSupportedAlgorithms.DevFee(_algorithmType);
 
         public async override Task<ApiData> GetMinerStatsDataAsync()
         {

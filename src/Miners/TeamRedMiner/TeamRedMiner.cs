@@ -1,14 +1,14 @@
 ﻿using MinerPlugin;
 using MinerPluginToolkitV1;
-using MinerPluginToolkitV1.SgminerCommon;
 using MinerPluginToolkitV1.Configs;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+using MinerPluginToolkitV1.SgminerCommon;
 using NHM.Common;
 using NHM.Common.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using static NHM.Common.StratumServiceHelpers;
 
 namespace TeamRedMiner
@@ -28,47 +28,9 @@ namespace TeamRedMiner
         {
         }
 
-        private string AlgoName
-        {
-            get
-            {
-                switch (_algorithmType)
-                {
-                    case AlgorithmType.CryptoNightR:
-                        return "cnr";
-                    case AlgorithmType.Lyra2REv3:
-                        return "lyra2rev3";
-                    case AlgorithmType.X16R:
-                        return "x16r";
-                    case AlgorithmType.Lyra2Z:
-                        return "lyra2z";
-                    case AlgorithmType.GrinCuckatoo31:
-                        return "cuckatoo31_grin";
-                    case AlgorithmType.MTP:
-                        return "mtp";
-                    case AlgorithmType.GrinCuckarood29:
-                        return "cuckarood29_grin";
-                    case AlgorithmType.X16Rv2:
-                        return "x16rv2";
-                    default:
-                        return "";
-                }
-            }
-        }
+        private string AlgoName => PluginSupportedAlgorithms.AlgorithmName(_algorithmType);
 
-        private double DevFee
-        {
-            get
-            {
-                switch (_algorithmType)
-                {
-                    case AlgorithmType.Lyra2Z:
-                        return 3.0;
-                    default:
-                        return 2.5; 
-                }
-            }
-        }
+        private double DevFee => PluginSupportedAlgorithms.DevFee(_algorithmType);
 
         private string CreateCommandLine(string username)
         {

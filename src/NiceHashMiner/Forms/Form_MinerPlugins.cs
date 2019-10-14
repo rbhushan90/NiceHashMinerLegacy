@@ -60,7 +60,7 @@ namespace NiceHashMiner.Forms
             pluginInfoItem.Enabled = plugin.CompatibleNHPluginVersion;
             pluginInfoItem.PluginUUID = plugin.PluginUUID;
             pluginInfoItem.Description = plugin.PluginDescription;
-            pluginInfoItem.PluginName = Tr($"{plugin.PluginName} [NOT COMPATIBLE. Update NiceHash Miner]");
+            pluginInfoItem.PluginName = plugin.CompatibleNHPluginVersion ? plugin.PluginName : Tr($"{plugin.PluginName} [NOT COMPATIBLE. Update NiceHash Miner]");
             pluginInfoItem.PluginVersion = Tr("Version: {0}", $"{plugin.PluginVersion.Major}.{plugin.PluginVersion.Minor}");
             pluginInfoItem.PluginAuthor = Tr("Author: {0}", plugin.PluginAuthor);
 
@@ -235,13 +235,13 @@ namespace NiceHashMiner.Forms
             if (_pluginInfoDetailControls.ContainsKey(pluginUUID) == false) return;
             var pluginInfoControlsPair =  _pluginInfoDetailControls[pluginUUID];
 
-            var pluginPackageInfo = MinerPluginsManager.Plugins[pluginUUID];
+            var pluginPackageInfo = MinerPluginsManager.GetPluginPackageInfoCR(pluginUUID);
             try
             {
                 // remove if installed
                 if (pluginPackageInfo.Installed)
                 {
-                    MinerPluginsManager.Remove(pluginUUID);
+                    MinerPluginsManager.RemovePlugin(pluginUUID);
                     //flowLayoutPanelPluginsLV.Controls.Remove(pluginInfoItem);
                     var pluginInfoItem = pluginInfoControlsPair.Item;
                     pluginInfoItem.StatusText = "Removed";
@@ -320,7 +320,7 @@ namespace NiceHashMiner.Forms
 
                 if (state == PluginInstallProgressState.Success)
                 {
-                    var pluginPackageInfo = MinerPluginsManager.Plugins[pluginInfoItem.PluginUUID];
+                    var pluginPackageInfo = MinerPluginsManager.GetPluginPackageInfoCR(pluginInfoItem.PluginUUID);
                     setPluginInfoItem(pluginInfoItem, pluginPackageInfo);
                     setPluginInfoDetails(pluginInfoDetails, pluginPackageInfo);
                 }

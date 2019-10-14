@@ -1,5 +1,6 @@
 ﻿using MinerPlugin;
 using MinerPluginToolkitV1;
+using MinerPluginToolkitV1.Configs;
 using Newtonsoft.Json;
 using NHM.Common;
 using NHM.Common.Enums;
@@ -9,7 +10,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MinerPluginToolkitV1.Configs;
 
 namespace WildRig
 {
@@ -20,35 +20,9 @@ namespace WildRig
         private string _devices = "";
         protected readonly Dictionary<string, int> _mappedIDs = new Dictionary<string, int>();
 
-        private string AlgoName
-        {
-            get
-            {
-                switch (_algorithmType)
-                {
-                    case AlgorithmType.Lyra2REv3:
-                        return "lyra2v3";
-                    case AlgorithmType.X16R:
-                        return "x16r";
-                    default:
-                        return "";
-                }
-            }
-        }
+        private string AlgoName => PluginSupportedAlgorithms.AlgorithmName(_algorithmType);
 
-        private double DevFee
-        {
-            get
-            {
-                switch (_algorithmType)
-                {
-                    case AlgorithmType.Lyra2REv3:
-                    case AlgorithmType.X16R:
-                    default:
-                        return 2.0;
-                }
-            }
-        }
+        private double DevFee => PluginSupportedAlgorithms.DevFee(_algorithmType);
 
         public WildRig(string uuid, Dictionary<string, int> mappedIDs) : base(uuid)
         {
