@@ -276,6 +276,10 @@ namespace NiceHashMiner.Devices.Algorithms
                             {
                                 ExtraLaunchParameters = "--opencl-threads 2 --opencl-launch 18x0 "
                             },
+                            new Algorithm(MinerBaseType.WildRig, AlgorithmType.X16RV2, "X16RV2")
+                            {
+                                ExtraLaunchParameters = "--opencl-threads 2 --opencl-launch 18x0 "
+                            },
                             new Algorithm(MinerBaseType.WildRig, AlgorithmType.Lyra2REv3, "Lyra2REv3")
                             {
                                 ExtraLaunchParameters = "--opencl-threads auto --opencl-launch auto "

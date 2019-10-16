@@ -361,7 +361,8 @@ namespace NiceHashMiner.Forms.Components
         }
         public void SaveColumns()
         {
-            if (listViewDevices.Columns[ENABLED] != null)
+           // if (listViewDevices.Columns[ENABLED] != null)
+            if (listViewDevices.Columns[TEMP].Width + listViewDevices.Columns[LOAD].Width + listViewDevices.Columns[FAN].Width + listViewDevices.Columns[POWER].Width != 0)
             {
                 ConfigManager.GeneralConfig.ColumnENABLED = listViewDevices.Columns[ENABLED].Width;
                 ConfigManager.GeneralConfig.ColumnTEMP = listViewDevices.Columns[TEMP].Width;

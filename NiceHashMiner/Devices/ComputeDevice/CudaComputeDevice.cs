@@ -5,6 +5,8 @@ using NiceHashMiner.Devices.Algorithms;
 using NiceHashMinerLegacy.Common.Enums;
 using NiceHashMiner.Configs;
 using static NiceHashMiner.Devices.ComputeDeviceManager;
+using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace NiceHashMiner.Devices
 {
@@ -41,6 +43,7 @@ namespace NiceHashMiner.Devices
             }
         }
 
+        
         public override float Temp
         {
             get
@@ -54,8 +57,9 @@ namespace NiceHashMiner.Devices
                         ref utemp);
                     if (ret != nvmlReturn.Success)
                     {
-                        ComputeDeviceManager.Query.Nvidia.QueryCudaDevices();
-                       // throw new Exception($"NVML get temp failed with code: {ret}");
+                        Form_Main.needRestart = true;
+                        //ComputeDeviceManager.Query.Nvidia.QueryCudaDevices();
+                        // throw new Exception($"NVML get temp failed with code: {ret}");
                     }
                     temp = utemp;
                 }
@@ -96,7 +100,8 @@ namespace NiceHashMiner.Devices
                         var ret = NvmlNativeMethods.nvmlDeviceGetFanSpeed(_nvmlDevice, ref ufan);
                         if (ret != nvmlReturn.Success)
                         {
-                            ComputeDeviceManager.Query.Nvidia.QueryCudaDevices();
+                            Form_Main.needRestart = true;
+                            //ComputeDeviceManager.Query.Nvidia.QueryCudaDevices();
                             //throw new Exception($"NVML get fan speed failed with code: {ret}");
                         }
                         fan = (int)ufan;

@@ -39,6 +39,7 @@ namespace NiceHashMiner
         private int _AutoStartMiningDelay = 0;
         private Timer _idleCheck;
         private SystemTimer _computeDevicesCheckTimer;
+        public static bool needRestart = false;
 
         private bool _showWarningNiceHashData;
         private bool _demoMode;
@@ -715,7 +716,7 @@ namespace NiceHashMiner
                 Rectangle screenSize = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
                 if (ConfigManager.GeneralConfig.FormLeft + ConfigManager.GeneralConfig.FormWidth <= screenSize.Size.Width)
                 {
-                    if (ConfigManager.GeneralConfig.FormTop + ConfigManager.GeneralConfig.FormLeft != 0)
+                    if (ConfigManager.GeneralConfig.FormTop + ConfigManager.GeneralConfig.FormLeft >= 1)
                     {
                         this.Top = ConfigManager.GeneralConfig.FormTop;
                         this.Left = ConfigManager.GeneralConfig.FormLeft;
@@ -1334,8 +1335,11 @@ namespace NiceHashMiner
             if (this != null)
             {
                 ConfigManager.GeneralConfig.FormWidth = this.Width;
-                ConfigManager.GeneralConfig.FormTop = this.Top;
-                ConfigManager.GeneralConfig.FormLeft = this.Left;
+                if (this.Top + this.Left >= 1)
+                {
+                    ConfigManager.GeneralConfig.FormTop = this.Top;
+                    ConfigManager.GeneralConfig.FormLeft = this.Left;
+                }
             }
             MinersManager.StopAllMiners();
             if (Miner._cooldownCheckTimer != null && Miner._cooldownCheckTimer.Enabled) Miner._cooldownCheckTimer.Stop();
@@ -1775,8 +1779,25 @@ namespace NiceHashMiner
             //_remoteTimer= null;
         }
 
+        private void restartProgram()
+        {
+            var pHandle = new Process
+            {
+                StartInfo =
+                    {
+                        FileName = Application.ExecutablePath
+                    }
+            };
+            pHandle.Start();
+            Close();
+        }
         private void DeviceStatusTimer_Tick(object sender, EventArgs e)
         {
+            if (needRestart)
+            {
+                needRestart = false;
+                restartProgram();
+            }
             devicesListViewEnableControl1.SetComputeDevicesStatus(ComputeDeviceManager.Available.Devices);
         }
         private void StopMining()

@@ -166,7 +166,11 @@ namespace NiceHashMiner.Stats
                 }
                 else if (_webSocket != null)
                 {
+                    _webSocket = null; //force
+                    StartConnectionNew();
+                    /*
                     if (AttemptReconnectNew() && !recurs)
+                   // if (AttemptReconnectNew())
                     {
                         // Reconnect was successful, send data again (safety to prevent recursion overload)
                         SendDataNew(data, true);
@@ -175,6 +179,7 @@ namespace NiceHashMiner.Stats
                     {
                         Helpers.ConsolePrint("SOCKETNEW", "Socket connection unsuccessfull, will try again on next device update (1min)");
                     }
+                    */
                 }
                 else
                 {
@@ -445,7 +450,12 @@ namespace NiceHashMiner.Stats
                     }
                 } else if (_webSocket != null)
                 {
-                    if (AttemptReconnect() && !recurs)
+                    Helpers.ConsolePrint("SOCKET", "Force reconnect");
+                    _webSocket = null;
+                    StartConnectionNew();
+                    /*
+                  //  if (AttemptReconnect() && !recurs)
+                    if (AttemptReconnect())
                     {
                         // Reconnect was successful, send data again (safety to prevent recursion overload)
                         //SendData(data, true);
@@ -454,6 +464,7 @@ namespace NiceHashMiner.Stats
                     {
                         Helpers.ConsolePrint("SOCKET", "Socket connection unsuccessfull, will try again on next device update (1min)");
                     }
+                    */
                 } else
                 {
                     if (!_connectionAttempted)
