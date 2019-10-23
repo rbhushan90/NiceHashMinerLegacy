@@ -716,18 +716,9 @@ namespace NiceHashMiner
             };
 
 
-            // sgminer quickfix
-            if (this is Sgminer | this is mkxminer)
-            {
-                BenchmarkProcessPath = "cmd / " + benchmarkHandle.StartInfo.FileName;
-                benchmarkHandle.StartInfo.FileName = "cmd";
-            }
-            else
-            {
                 BenchmarkProcessPath = benchmarkHandle.StartInfo.FileName;
                 Helpers.ConsolePrint(MinerTag(), "Using miner: " + benchmarkHandle.StartInfo.FileName);
                 benchmarkHandle.StartInfo.WorkingDirectory = WorkingDirectory;
-            }
 
             // set sys variables
             if (MinersSettingsManager.MinerSystemVariables.ContainsKey(Path))

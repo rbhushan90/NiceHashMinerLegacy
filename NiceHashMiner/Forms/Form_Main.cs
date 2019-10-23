@@ -53,7 +53,7 @@ namespace NiceHashMiner
         private int _flowLayoutPanelRatesIndex = 0;
 
         private const string BetaAlphaPostfixString = "";
-        const string ForkString = " Fork Fix 19.1";
+        const string ForkString = " Fork Fix 19.2";
 
         private bool _isDeviceDetectionInitialized = false;
 
@@ -1788,8 +1788,8 @@ namespace NiceHashMiner
                         FileName = Application.ExecutablePath
                     }
             };
-            pHandle.Start();
-            Close();
+           // pHandle.Start();
+           // Close();
         }
         private void DeviceStatusTimer_Tick(object sender, EventArgs e)
         {

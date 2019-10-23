@@ -131,7 +131,6 @@
     <Compile Include="Miners\lolMinerBEAM.cs" />
     <Compile Include="Miners\lyclMiner.cs" />
     <Compile Include="Miners\miniZ.cs" />
-    <Compile Include="Miners\mkxminer.cs" />
     <Compile Include="Miners\NBMiner.cs" />
     <Compile Include="Miners\Phoenix.cs" />
     <Compile Include="Miners\SRBMiner.cs" />
@@ -321,7 +320,6 @@
     <Compile Include="Utils\ProfitabilityCalculator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Miners\Sgminer.cs" />
     <Compile Include="Forms\TextBoxKeyPressEvents.cs" />
     <Compile Include="Utils\BINS_CODEGEN.cs" />
     <Compile Include="Utils\BINS_CODEGEN_3rd.cs" />

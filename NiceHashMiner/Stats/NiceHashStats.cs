@@ -157,9 +157,9 @@ namespace NiceHashMiner.Stats
             {
                 if (e.IsText)
                 {
-                    Helpers.ConsolePrint("SOCKET", "Received: " + e.Data);
+                 //   Helpers.ConsolePrint("SOCKET", "Received: " + e.Data);
                     dynamic message = JsonConvert.DeserializeObject(e.Data);
-                    Helpers.ConsolePrint("SOCKET", "Received1: " + e.Data);
+                   // Helpers.ConsolePrint("SOCKET", "Received1: " + e.Data);
                     switch (message.method.Value)
                     {
                         case "sma":
@@ -216,11 +216,11 @@ namespace NiceHashMiner.Stats
                             }
 
                         case "balance":
-                            Helpers.ConsolePrint("SOCKET", "Received2: " + e.Data);
+                          //  Helpers.ConsolePrint("SOCKET", "Received2: " + e.Data);
                             ExchangeRateApi.GetNewBTCRate();
-                            Helpers.ConsolePrint("SOCKET", "Received3: " + e.Data);
+                            //Helpers.ConsolePrint("SOCKET", "Received3: " + e.Data);
                             SetBalance(message.value.Value);
-                            Helpers.ConsolePrint("SOCKET", "Received4: " + e.Data);
+                            //Helpers.ConsolePrint("SOCKET", "Received4: " + e.Data);
                             break;
                         //case "versions":
                         //    SetVersion(message.legacy.Value);
@@ -257,20 +257,20 @@ namespace NiceHashMiner.Stats
                             break;
                     }
                 }
-                Helpers.ConsolePrint("SOCKET", "Received8: ");
+               // Helpers.ConsolePrint("SOCKET", "Received8: ");
             } catch (Exception er)
             {
                 Helpers.ConsolePrint("SOCKET", er.ToString());
             }
 
-            Helpers.ConsolePrint("SOCKET", "Received9: ");
+           // Helpers.ConsolePrint("SOCKET", "Received9: ");
             for (int h = 0; h < 24; h += 3)
             {
 
                 var timeFrom1 = new TimeSpan(h, 00, 0);
                 var timeTo1 = new TimeSpan(h, 01, 30);
                 var timeNow = DateTime.Now.TimeOfDay;
-                Helpers.ConsolePrint("SOCKET", "Received10: ");
+               // Helpers.ConsolePrint("SOCKET", "Received10: ");
                 if (timeNow > timeFrom1 && timeNow < timeTo1)
                 {
                     Helpers.ConsolePrint("GITHUB", "Check new version");
@@ -285,7 +285,7 @@ namespace NiceHashMiner.Stats
                         Helpers.ConsolePrint("GITHUB", er.ToString());
                     }
                 }
-                Helpers.ConsolePrint("SOCKET", "Received11: ");
+              //  Helpers.ConsolePrint("SOCKET", "Received11: ");
             }
         }
 
@@ -1091,12 +1091,12 @@ namespace NiceHashMiner.Stats
 
         private static void SetBalance(string balance)
         {
-            Helpers.ConsolePrint("SOCKET", "Received5: " + balance);
+           // Helpers.ConsolePrint("SOCKET", "Received5: " + balance);
             try
             {
                 if (double.TryParse(balance, NumberStyles.Float, CultureInfo.InvariantCulture, out var bal))
                 {
-                    Helpers.ConsolePrint("SOCKET", "Received6: " + balance);
+                  //  Helpers.ConsolePrint("SOCKET", "Received6: " + balance);
                     Balance = bal;
                     OnBalanceUpdate?.Invoke(null, EventArgs.Empty);
                 }
@@ -1105,7 +1105,7 @@ namespace NiceHashMiner.Stats
             {
                 Helpers.ConsolePrint("SOCKET", e.ToString());
             }
-            Helpers.ConsolePrint("SOCKET", "Received7: " + balance);
+         //  Helpers.ConsolePrint("SOCKET", "Received7: " + balance);
         }
 
         public static void SetVersion(string version)

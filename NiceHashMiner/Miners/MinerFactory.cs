@@ -50,8 +50,6 @@ namespace NiceHashMiner.Miners
             {
                 case MinerBaseType.ccminer:
                     return new Ccminer();
-                case MinerBaseType.sgminer:
-                    return new Sgminer();
                 case MinerBaseType.nheqminer:
                     return new NhEqMiner();
                 case MinerBaseType.ethminer:
@@ -94,8 +92,6 @@ namespace NiceHashMiner.Miners
                     return new lyclMiner();
                 case MinerBaseType.trex:
                     return new trex();
-                case MinerBaseType.mkxminer:
-                    return new mkxminer();
                 case MinerBaseType.teamredminer:
                     return new teamredminer();
                 case MinerBaseType.Phoenix:
