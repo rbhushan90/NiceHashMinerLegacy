@@ -72,6 +72,51 @@ namespace NiceHashMiner.Devices
             }
         }
 
+        private NvPhysicalGpuHandle? _NvPhysicalGpuHandle;
+        private NvPhysicalGpuHandle? GetNvPhysicalGpuHandle()
+        {
+            if (_NvPhysicalGpuHandle.HasValue) return _NvPhysicalGpuHandle.Value;
+            if (NVAPI.NvAPI_EnumPhysicalGPUs == null)
+            {
+                Helpers.ConsolePrint("NVAPI", "NvAPI_EnumPhysicalGPUs unavailable", TimeSpan.FromMinutes(5));
+                return null;
+            }
+            if (NVAPI.NvAPI_GPU_GetBusID == null)
+            {
+                Helpers.ConsolePrint("NVAPI", "NvAPI_GPU_GetBusID unavailable", TimeSpan.FromMinutes(5));
+                return null;
+            }
+
+
+            var handles = new NvPhysicalGpuHandle[NVAPI.MAX_PHYSICAL_GPUS];
+            var status = NVAPI.NvAPI_EnumPhysicalGPUs(handles, out _);
+            if (status != NvStatus.OK)
+            {
+                Helpers.ConsolePrint("NVAPI", $"Enum physical GPUs failed with status: {status}", TimeSpan.FromMinutes(5));
+            }
+            else
+            {
+                foreach (var handle in handles)
+                {
+                    var idStatus = NVAPI.NvAPI_GPU_GetBusID(handle, out var id);
+
+                    if (idStatus == NvStatus.EXPECTED_PHYSICAL_GPU_HANDLE) continue;
+
+                    if (idStatus != NvStatus.OK)
+                    {
+                        Helpers.ConsolePrint("NVAPI", "Bus ID get failed with status: " + idStatus, TimeSpan.FromMinutes(5));
+                    }
+                    else if (id == BusID)
+                    {
+                        Helpers.ConsolePrint("NVAPI", "Found handle for busid " + id, TimeSpan.FromMinutes(5));
+                        _NvPhysicalGpuHandle = handle;
+                        return handle;
+                    }
+                }
+            }
+            return null;
+        }
+
         public override int FanSpeed
         {
             get
@@ -79,16 +124,28 @@ namespace NiceHashMiner.Devices
                 if (!ConfigManager.GeneralConfig.ShowFanAsPercent)
                 {
                     var fanSpeed = -1;
-                    if (NVAPI.NvAPI_GPU_GetTachReading != null)
-                    {
-                        var result = NVAPI.NvAPI_GPU_GetTachReading(_nvHandle, out fanSpeed);
-                        if (result != NvStatus.OK && result != NvStatus.NOT_SUPPORTED)
+
+
+                        // we got the lock
+                        var nvHandle = GetNvPhysicalGpuHandle();
+                        if (!nvHandle.HasValue)
                         {
-                            // GPUs without fans are not uncommon, so don't treat as error and just return -1
-                            Helpers.ConsolePrint("NVAPI", "Tach get failed with status: " + result);
+                        Helpers.ConsolePrint("NVAPI", $"FanSpeed nvHandle == null", TimeSpan.FromMinutes(5));
                             return -1;
                         }
-                    }
+
+                        if (NVAPI.NvAPI_GPU_GetTachReading != null)
+                        {
+                            //var result = NVAPI.NvAPI_GPU_GetTachReading(_nvHandle, out fanSpeed);
+                            var result = NVAPI.NvAPI_GPU_GetTachReading(nvHandle.Value, out fanSpeed);
+                            if (result != NvStatus.OK && result != NvStatus.NOT_SUPPORTED)
+                            {
+                                // GPUs without fans are not uncommon, so don't treat as error and just return -1
+                                Helpers.ConsolePrint("NVAPI", "Tach get failed with status: " + result);
+                                return -1;
+                            }
+                        }
+                    
                     return fanSpeed;
                 } else
                 {
