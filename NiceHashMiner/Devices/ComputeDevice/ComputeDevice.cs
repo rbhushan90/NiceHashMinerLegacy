@@ -443,6 +443,10 @@ namespace NiceHashMiner.Devices
                         setAlgo.ExtraLaunchParameters = conf.ExtraLaunchParameters;
                         setAlgo.Enabled = conf.Enabled;
                         setAlgo.Hidden = conf.Hidden;
+                        if (conf.Hidden)
+                        {
+                           // setAlgo.Enabled = false;
+                        }
                         setAlgo.LessThreads = conf.LessThreads;
                         setAlgo.PowerUsage = conf.PowerUsage;
                         if (setAlgo is DualAlgorithm dualSA)

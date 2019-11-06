@@ -26,7 +26,9 @@ namespace NiceHashMiner.Miners
         private int _benchmarkTimeWait = 120;
         private int _benchmarkReadCount;
         private double _benchmarkSum;
-        private const string LookForStart = "total speed: ";
+        //|  GPU0 63 C  53.8 Sol/s    4/0 127 W 0.42 Sol/W |
+      //  private const string LookForStart = "total speed: ";
+        private const string LookForStart = " c  ";
         private const string LookForEnd = "sol/s";
         private const double DevFee = 2.0;
         string  gminer_var = "";
@@ -73,6 +75,7 @@ namespace NiceHashMiner.Miners
             var algo ="";
             var algoName = "";
             var pers = "";
+            var nicehashstratum = "";
             string username = GetUsername(btcAddress, worker);
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
                     {
@@ -110,6 +113,12 @@ namespace NiceHashMiner.Miners
                 algo = "aeternity";
                 algoName = "cuckoocycle";
             }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.DaggerHashimoto)
+            {
+                algo = "ethash";
+                algoName = "daggerhashimoto";
+                nicehashstratum = " --proto stratum";
+            }
 
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
@@ -120,15 +129,15 @@ namespace NiceHashMiner.Miners
             var ret = GetDevicesCommandString()
                       + " --algo " + algo + pers + " --server " + url.Split(':')[0]
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + "." + myServers[1, 0] + nhsuff + ".nicehash.com"
+                      + " --server " + algoName + "." + myServers[1, 0] + nhsuff + ".nicehash.com" + nicehashstratum
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + "." + myServers[2, 0] + nhsuff + ".nicehash.com"
+                      + " --server " + algoName + "." + myServers[2, 0] + nhsuff + ".nicehash.com" + nicehashstratum
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + "." + myServers[3, 0] + nhsuff + ".nicehash.com"
+                      + " --server " + algoName + "." + myServers[3, 0] + nhsuff + ".nicehash.com" + nicehashstratum
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + "." + myServers[4, 0] + nhsuff + ".nicehash.com"
+                      + " --server " + algoName + "." + myServers[4, 0] + nhsuff + ".nicehash.com" + nicehashstratum
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
-                      + " --server " + algoName + "." + myServers[5, 0] + nhsuff + ".nicehash.com"
+                      + " --server " + algoName + "." + myServers[5, 0] + nhsuff + ".nicehash.com" + nicehashstratum
                       + " --user " + username + " --pass x --port " + url.Split(':')[1]
                       + " --api " + ApiPort;
             return ret;
@@ -347,6 +356,14 @@ namespace NiceHashMiner.Miners
                 " --server cuckoocycle.hk" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3376 --ssl 0" +
                 GetDevicesCommandString();
             }
+            if (MiningSetup.CurrentAlgorithmType == AlgorithmType.DaggerHashimoto)
+            {
+                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo ethash" +
+                " --server eth-eu.dwarfpool.com --user 0x9290e50e7ccf1bdc90da8248a2bbacc5063aeee1." + worker + " --pass x --port 8008 --ssl 0" +
+                " --server daggerhashimoto.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3353 --ssl 0 --proto stratum" +
+                " --server daggerhashimoto.hk" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3353 --ssl 0 --proto stratum" +
+                GetDevicesCommandString();
+            }
             return ret;
         }
 
@@ -473,7 +490,7 @@ namespace NiceHashMiner.Miners
                         {
                             BenchLines.Add(line);
                             var lineLowered = line.ToLower();
-                            //Helpers.ConsolePrint(MinerTag(), lineLowered);
+                           // Helpers.ConsolePrint(MinerTag(), lineLowered);
                             if (lineLowered.Contains(LookForStart))
                             {
                                 _benchmarkSum += GetNumber(lineLowered);
@@ -509,6 +526,9 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckarood29 || MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckaroo29 || MiningSetup.CurrentAlgorithmType == AlgorithmType.GrinCuckatoo31 || MiningSetup.CurrentAlgorithmType == AlgorithmType.CuckooCycle)
             {
                 return GetNumber(outdata, LookForStart, "g/s");
+            } else if (MiningSetup.CurrentAlgorithmType == AlgorithmType.DaggerHashimoto)
+            {
+                return GetNumber(outdata, LookForStart, "mh/s");
             } else
             {
                 return GetNumber(outdata, LookForStart, LookForEnd);
@@ -517,6 +537,7 @@ namespace NiceHashMiner.Miners
 
         protected double GetNumber(string outdata, string lookForStart, string lookForEnd)
         {
+            Helpers.ConsolePrint(MinerTag(), outdata);
             try
             {
                 double mult = 1;
@@ -536,7 +557,7 @@ namespace NiceHashMiner.Miners
                     speed = speed.Replace("m", "");
                 }
 
-                //Helpers.ConsolePrint("speed", speed);
+               // Helpers.ConsolePrint("speed", speed);
                 speed = speed.Trim();
                 try
                 {

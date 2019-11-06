@@ -305,11 +305,11 @@ namespace NiceHashMiner.Forms.Components
                 listViewDevices.Columns[FAN].Text = "Об/мин";
                 listViewDevices.Columns[POWER].Text = "Потребление";
             }
-            listViewDevices.Columns[TEMP].Width = 0;
+            listViewDevices.Columns[TEMP].Width = 80;
             listViewDevices.Columns[TEMP].TextAlign = HorizontalAlignment.Center; //не работает
-            listViewDevices.Columns[LOAD].Width = 0;
-            listViewDevices.Columns[FAN].Width = 0;
-            listViewDevices.Columns[POWER].Width = 0;
+            listViewDevices.Columns[LOAD].Width = 80;
+            listViewDevices.Columns[FAN].Width = 80;
+            listViewDevices.Columns[POWER].Width = 80;
             //listViewDevices.Columns[0].Width = Width - 4 - SystemInformation.VerticalScrollBarWidth;
             //listViewDevices.Columns[0].Width = Width - SystemInformation.VerticalScrollBarWidth;
             listViewDevices.Columns[0].Width = Width - 4;

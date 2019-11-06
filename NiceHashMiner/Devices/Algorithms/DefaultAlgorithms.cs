@@ -481,6 +481,9 @@ namespace NiceHashMiner.Devices.Algorithms
                     {
                                 //ExtraLaunchParameters = "--pec 1 "
                     },
+                     new Algorithm(MinerBaseType.GMiner, AlgorithmType.DaggerHashimoto, "")
+                    {
+                    },
                     new Algorithm(MinerBaseType.GMiner, AlgorithmType.GrinCuckatoo31, "")
                     {
                                 //ExtraLaunchParameters = "--pec 1 "
