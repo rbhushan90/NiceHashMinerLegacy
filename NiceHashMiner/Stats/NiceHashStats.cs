@@ -1009,7 +1009,7 @@ namespace NiceHashMiner.Stats
 
                 //NiceHashSma.Initialized = true;
                 NHSmaData.UpdateSmaPaying(payingDict);
-
+                Thread.Sleep(10);
                 OnSmaUpdate?.Invoke(null, EventArgs.Empty);
 
             }
@@ -1074,7 +1074,7 @@ namespace NiceHashMiner.Stats
                 }
 
                 NHSmaData.UpdateSmaPaying(payingDict);
-
+                Thread.Sleep(10);
                 OnSmaUpdate?.Invoke(null, EventArgs.Empty);
             }
             catch (Exception e)

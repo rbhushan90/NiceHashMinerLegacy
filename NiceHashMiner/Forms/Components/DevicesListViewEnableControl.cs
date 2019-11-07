@@ -25,7 +25,7 @@ namespace NiceHashMiner.Forms.Components
 
         public class DefaultDevicesColorSeter : IListItemCheckColorSetter
         {
-            
+
             public void LviSetColor(ListViewItem lvi)
             {
                 if (lvi.Tag is ComputeDevice cdvo)
@@ -110,14 +110,14 @@ namespace NiceHashMiner.Forms.Components
         public DevicesListViewEnableControl()
         {
             InitializeComponent();
-           
+
             listViewDevices.DoubleBuffer();
             DevicesListViewEnableControl.colorListViewHeader(ref listViewDevices, Form_Main._backColor, Form_Main._textColor);
             SaveToGeneralConfig = false;
             // intialize ListView callbacks
             listViewDevices.ItemChecked += ListViewDevicesItemChecked;
             this.listViewDevices.ItemCheck += new ItemCheckEventHandler(listViewDevices_ItemCheck);
-            
+
             IsMining = false;
             BenchmarkCalculation = null;
           //  listViewDevices.OwnerDraw = true;
@@ -218,7 +218,7 @@ namespace NiceHashMiner.Forms.Components
         //List view header formatters
         public static void colorListViewHeader(ref ListView list, Color backColor, Color foreColor)
         {
-            
+
             list.OwnerDraw = true;
             list.DrawColumnHeader +=
             new DrawListViewColumnHeaderEventHandler
@@ -227,7 +227,7 @@ namespace NiceHashMiner.Forms.Components
             );
             list.DrawItem += new DrawListViewItemEventHandler(bodyDraw);
             list.Columns[TEMP].TextAlign = HorizontalAlignment.Center; //не работает
-            
+
         }
 
         private static void headerDraw(object sender, DrawListViewColumnHeaderEventArgs e, Color backColor, Color foreColor)
@@ -351,7 +351,7 @@ namespace NiceHashMiner.Forms.Components
                 listViewDevices.Columns[FAN].Text = "Об/мин";
                 listViewDevices.Columns[POWER].Text = "Потребление";
             }
-            
+
             listViewDevices.Columns[ENABLED].Width = ConfigManager.GeneralConfig.ColumnENABLED;
             listViewDevices.Columns[TEMP].Width = ConfigManager.GeneralConfig.ColumnTEMP;
             listViewDevices.Columns[LOAD].Width = ConfigManager.GeneralConfig.ColumnLOAD;
@@ -362,7 +362,7 @@ namespace NiceHashMiner.Forms.Components
         public void SaveColumns()
         {
            // if (listViewDevices.Columns[ENABLED] != null)
-            if (listViewDevices.Columns[TEMP].Width + listViewDevices.Columns[LOAD].Width + listViewDevices.Columns[FAN].Width + listViewDevices.Columns[POWER].Width != 0)
+            if (listViewDevices.Columns[TEMP].Width + listViewDevices.Columns[LOAD].Width + listViewDevices.Columns[FAN].Width + listViewDevices.Columns[POWER].Width > 0)
             {
                 ConfigManager.GeneralConfig.ColumnENABLED = listViewDevices.Columns[ENABLED].Width;
                 ConfigManager.GeneralConfig.ColumnTEMP = listViewDevices.Columns[TEMP].Width;
@@ -572,7 +572,7 @@ namespace NiceHashMiner.Forms.Components
             {
                 e.DrawDefault = true;
             }
-            
+
             var with1 = e.Graphics;
             with1.DrawLines(new Pen(Color.Green), new Point[] { new Point(e.Bounds.Left + e.Bounds.Width, e.Bounds.Top - 1), new Point(e.Bounds.Left + e.Bounds.Width, e.Bounds.Top + e.Bounds.Height) });
             e.DrawText();
@@ -582,7 +582,7 @@ namespace NiceHashMiner.Forms.Components
         private void listViewDevices_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
         {
             listViewDevices.BeginUpdate();
-            
+
             if (e.ColumnIndex == 4)
             {
                 ResizeAutoSizeColumn(listViewDevices, 0);
@@ -593,7 +593,7 @@ namespace NiceHashMiner.Forms.Components
             }
           //  ResizeAutoSizeColumn(listViewDevices, 0);
             listViewDevices.EndUpdate();
-             
+
             //   ResizeColumn();
         }
         /*
@@ -628,11 +628,11 @@ namespace NiceHashMiner.Forms.Components
 
         private void listViewDevices_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
         {
-            
+
         //    var with1 = e.Graphics;
           //  with1.DrawLines(new Pen(Color.Green), new Point[] {/*new Point(e.Bounds.Left, e.Bounds.Top - 1),*/new Point(e.Bounds.Left + e.Bounds.Width, e.Bounds.Top - 1), new Point(e.Bounds.Left + e.Bounds.Width, e.Bounds.Top + e.Bounds.Height)/*,new Point(e.Bounds.Left, e.Bounds.Top + e.Bounds.Height)*/});
            // e.DrawText();
-            
+
         }
 
         private void DevicesListViewEnableControl_Leave(object sender, EventArgs e)
@@ -647,7 +647,7 @@ namespace NiceHashMiner.Forms.Components
 
         private void listViewDevices_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
         {
-            if (listViewDevices.Columns[ENABLED] != null)
+            if (listViewDevices.Columns[TEMP].Width + listViewDevices.Columns[LOAD].Width + listViewDevices.Columns[FAN].Width + listViewDevices.Columns[POWER].Width > 0)
             {
                 ConfigManager.GeneralConfig.ColumnENABLED = listViewDevices.Columns[ENABLED].Width;
                 ConfigManager.GeneralConfig.ColumnTEMP = listViewDevices.Columns[TEMP].Width;
