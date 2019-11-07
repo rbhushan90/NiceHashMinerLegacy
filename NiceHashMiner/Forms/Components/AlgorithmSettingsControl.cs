@@ -3,11 +3,20 @@ using System;
 using System.Windows.Forms;
 using NiceHashMiner.Algorithms;
 using NiceHashMiner.Configs;
+using NiceHashMinerLegacy.Common.Enums;
 
 namespace NiceHashMiner.Forms.Components
 {
     public partial class AlgorithmSettingsControl : UserControl, AlgorithmsListView.IAlgorithmsListView
     {
+        private const int ENABLED = 0;
+        private const int ALGORITHM = 1;
+        private const int MINER = 2;
+        private const int SPEED = 3;
+        //private const int SECSPEED = 4;
+        private const int POWER = 4;
+        private const int RATIO = 5;
+        private const int RATE = 6;
         private ComputeDevice _computeDevice;
         private Algorithm _currentlySelectedAlgorithm;
         private ListViewItem _currentlySelectedLvi;
@@ -22,7 +31,8 @@ namespace NiceHashMiner.Forms.Components
             secondaryFieldBoxBenchmarkSpeed.SetInputModeDoubleOnly();
             field_PowerUsage.SetInputModeDoubleOnly();
 
-            field_PowerUsage.SetOnTextLeave(PowerUsage_Leave);
+           // field_PowerUsage.SetOnTextLeave(PowerUsage_Leave);
+            field_PowerUsage.SetOnTextChanged(TextChangedPowerUsage);
             fieldBoxBenchmarkSpeed.SetOnTextChanged(TextChangedBenchmarkSpeed);
             secondaryFieldBoxBenchmarkSpeed.SetOnTextChanged(SecondaryTextChangedBenchmarkSpeed);
             richTextBoxExtraLaunchParameters.TextChanged += TextChangedExtraLaunchParameters;
@@ -163,6 +173,15 @@ namespace NiceHashMiner.Forms.Components
             }
             UpdateSpeedText();
         }
+        private void TextChangedPowerUsage(object sender, EventArgs e)
+        {
+            if (!CanEdit()) return;
+            if (double.TryParse(field_PowerUsage.EntryText, out var value))
+            {
+                _currentlySelectedAlgorithm.PowerUsage = value;
+            }
+            UpdateSpeedText();
+        }
 
         private void SecondaryTextChangedBenchmarkSpeed(object sender, EventArgs e)
         {
@@ -181,7 +200,15 @@ namespace NiceHashMiner.Forms.Components
             // update lvi speed
             if (_currentlySelectedLvi != null)
             {
-                _currentlySelectedLvi.SubItems[3].Text = speedString;
+                _currentlySelectedLvi.SubItems[SPEED].Text = speedString;
+                if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
+                {
+                    _currentlySelectedLvi.SubItems[POWER].Text = _currentlySelectedAlgorithm.PowerUsage.ToString() + " Вт";
+                } else
+                {
+                    _currentlySelectedLvi.SubItems[POWER].Text = _currentlySelectedAlgorithm.PowerUsage.ToString() + " W";
+                }
+
             }
         }
 

@@ -16,7 +16,8 @@ namespace NiceHashMiner.Forms.Components
         private const int ALGORITHM = 1;
         private const int MINER = 2;
         private const int SPEED = 3;
-        private const int SECSPEED = 4;
+        //private const int SECSPEED = 4;
+        private const int POWER = 4;
         private const int RATIO = 5;
         private const int RATE = 6;
         public static bool isListViewEnabled = true;
@@ -226,12 +227,17 @@ namespace NiceHashMiner.Forms.Components
             listViewAlgorithms.Columns[ENABLED].Text = International.GetText("AlgorithmsListView_Enabled");
             listViewAlgorithms.Columns[ALGORITHM].Text = International.GetText("AlgorithmsListView_Algorithm");
             listViewAlgorithms.Columns[MINER].Text = "Miner";
+            listViewAlgorithms.Columns[SPEED].Text = International.GetText("AlgorithmsListView_Speed");
+            //listViewAlgorithms.Columns[SECSPEED].Text = International.GetText("Form_DcriValues_SecondarySpeed");
+            listViewAlgorithms.Columns[POWER].Text = "Power";
             if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
             {
                 listViewAlgorithms.Columns[MINER].Text = "Майнер";
+                listViewAlgorithms.Columns[POWER].Text = "Потребление";
             }
-            listViewAlgorithms.Columns[SPEED].Text = International.GetText("AlgorithmsListView_Speed");
-            listViewAlgorithms.Columns[SECSPEED].Text = International.GetText("Form_DcriValues_SecondarySpeed");
+
+            
+
             listViewAlgorithms.Columns[RATIO].Text = International.GetText("AlgorithmsListView_Ratio");
             listViewAlgorithms.Columns[RATE].Text = International.GetText("AlgorithmsListView_Rate");
             //listViewAlgorithms.Columns[RATE].Width = 0;
@@ -272,7 +278,22 @@ namespace NiceHashMiner.Forms.Components
 
                     //sub.Tag = alg.Value;
                     lvi.SubItems.Add(alg.BenchmarkSpeedString());
-                    lvi.SubItems.Add(secondarySpeed);
+                    //lvi.SubItems.Add(secondarySpeed);
+                    if (alg.PowerUsage <= 0)
+                    {
+                        lvi.SubItems.Add("--");
+                    }
+                    else
+                    {
+                        if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
+                        {
+                            lvi.SubItems.Add(alg.PowerUsage.ToString() + " Вт");
+                        }
+                        else
+                        {
+                            lvi.SubItems.Add(alg.PowerUsage.ToString() + " W");
+                        }
+                    }
                     lvi.SubItems.Add(payingRatio);
                     lvi.SubItems.Add(alg.CurPayingRate);
                     lvi.Tag = alg;
@@ -303,7 +324,22 @@ namespace NiceHashMiner.Forms.Components
                     lvi.SubItems[SPEED].Text = algo?.BenchmarkSpeedString();
                     lvi.Checked = algo.Enabled;
                     if (algo is DualAlgorithm dualAlg)
-                        lvi.SubItems[SECSPEED].Text = dualAlg.SecondaryBenchmarkSpeedString();
+                    {
+                     //   lvi.SubItems[SECSPEED].Text = dualAlg.SecondaryBenchmarkSpeedString();
+                    }
+                    if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
+                    {
+                        lvi.SubItems[POWER].Text = algo?.PowerUsage.ToString() + " Вт";
+                    }
+                    else
+                    {
+                        lvi.SubItems[POWER].Text = algo?.PowerUsage.ToString() + " W";
+                    }
+                    if (algo.PowerUsage <=0)
+                    {
+                        lvi.SubItems[POWER].Text = "--";
+                    }
+
                     _listItemCheckColorSetter.LviSetColor(lvi);
                 }
 
@@ -369,11 +405,23 @@ namespace NiceHashMiner.Forms.Components
                             // TODO handle numbers
                             lvi.SubItems[SPEED].Text = algorithm.BenchmarkSpeedString();
                             lvi.SubItems[RATE].Text = algorithm.CurPayingRate;
-                            
+                            if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
+                            {
+                                lvi.SubItems[POWER].Text = algorithm.PowerUsage.ToString() + " Вт";
+                            }
+                            else
+                            {
+                                lvi.SubItems[POWER].Text = algorithm.PowerUsage.ToString() + " W";
+                            }
+                            if (algorithm.PowerUsage <= 0)
+                            {
+                                lvi.SubItems[POWER].Text = "--";
+                            }
+
                             if (algorithm is DualAlgorithm dualAlg)
                             {
-                                lvi.SubItems[RATIO].Text = dualAlg.SecondaryCurPayingRatio;
-                                lvi.SubItems[SECSPEED].Text = dualAlg.SecondaryBenchmarkSpeedString();
+                              //  lvi.SubItems[RATIO].Text = dualAlg.SecondaryCurPayingRatio;
+                              //  lvi.SubItems[SECSPEED].Text = dualAlg.SecondaryBenchmarkSpeedString();
                             }
                             else
                             {
