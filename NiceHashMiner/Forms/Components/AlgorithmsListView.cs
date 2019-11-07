@@ -285,6 +285,7 @@ namespace NiceHashMiner.Forms.Components
                     }
                     else
                     {
+                        alg.PowerUsage = Math.Round(alg.PowerUsage, 0);
                         if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
                         {
                             lvi.SubItems.Add(alg.PowerUsage.ToString() + " Вт");
@@ -327,6 +328,7 @@ namespace NiceHashMiner.Forms.Components
                     {
                      //   lvi.SubItems[SECSPEED].Text = dualAlg.SecondaryBenchmarkSpeedString();
                     }
+                    algo.PowerUsage = Math.Round(algo.PowerUsage, 0);
                     if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
                     {
                         lvi.SubItems[POWER].Text = algo?.PowerUsage.ToString() + " Вт";
@@ -405,6 +407,7 @@ namespace NiceHashMiner.Forms.Components
                             // TODO handle numbers
                             lvi.SubItems[SPEED].Text = algorithm.BenchmarkSpeedString();
                             lvi.SubItems[RATE].Text = algorithm.CurPayingRate;
+                            algorithm.PowerUsage = Math.Round(algorithm.PowerUsage, 0);
                             if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
                             {
                                 lvi.SubItems[POWER].Text = algorithm.PowerUsage.ToString() + " Вт";

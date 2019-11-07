@@ -109,7 +109,7 @@ namespace NiceHashMiner.Forms.Components
                     $"{algorithm.AlgorithmName} ({algorithm.MinerBaseTypeName})");
                 ;
 
-                field_PowerUsage.EntryText = ParseDoubleDefault(algorithm.PowerUsage);
+                field_PowerUsage.EntryText = ParseDoubleDefault(Math.Round(algorithm.PowerUsage,0)); 
                 fieldBoxBenchmarkSpeed.EntryText = ParseDoubleDefault(algorithm.BenchmarkSpeed);
                 richTextBoxExtraLaunchParameters.Text = ParseStringDefault(algorithm.ExtraLaunchParameters);
                 if (algorithm is DualAlgorithm dualAlgo) 
@@ -144,7 +144,7 @@ namespace NiceHashMiner.Forms.Components
                 if (lvi.Tag is Algorithm algorithm)
                 {
                     fieldBoxBenchmarkSpeed.EntryText = ParseDoubleDefault(algorithm.BenchmarkSpeed);
-                    field_PowerUsage.EntryText = ParseDoubleDefault(algorithm.PowerUsage);
+                    field_PowerUsage.EntryText = ParseDoubleDefault(Math.Round(algorithm.PowerUsage,0));
                     if (algorithm is DualAlgorithm dualAlgo) 
                     {
                         secondaryFieldBoxBenchmarkSpeed.EntryText = ParseDoubleDefault(dualAlgo.SecondaryBenchmarkSpeed);
@@ -178,7 +178,7 @@ namespace NiceHashMiner.Forms.Components
             if (!CanEdit()) return;
             if (double.TryParse(field_PowerUsage.EntryText, out var value))
             {
-                _currentlySelectedAlgorithm.PowerUsage = value;
+                _currentlySelectedAlgorithm.PowerUsage = Math.Round(value,0);
             }
             UpdateSpeedText();
         }
