@@ -18,7 +18,7 @@ namespace NiceHashMiner.Forms
 
             // Add language selections list
             var lang = International.GetAvailableLanguages();
-
+            MessageBox.Show(lang.Count.ToString());
             comboBox_Languages.Items.Clear();
             for (var i = 0; i < lang.Count; i++)
             {
