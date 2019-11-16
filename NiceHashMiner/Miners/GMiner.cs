@@ -298,7 +298,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
             {
                 ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --pers BgoldPoW --algo 144_5" +
-                " --server europe.equihash-hub.miningpoolhub.com --user angelbbs.FBench11 --pass x --port 20595 " +
+                " --server equihash144.eu.mine.zpool.ca --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 --pass c=BTC --port 2144 " +
                 " --server zhash.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3369" +
                 " --server zhash.hk" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3369" +
                 GetDevicesCommandString();
@@ -359,7 +359,7 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.DaggerHashimoto)
             {
                 ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --algo ethash" +
-                " --server eth-eu.dwarfpool.com --user 0x9290e50e7ccf1bdc90da8248a2bbacc5063aeee1." + worker + " --pass x --port 8008 --ssl 0" +
+                " --server eth-eu.dwarfpool.com --user 0x9290e50e7ccf1bdc90da8248a2bbacc5063aeee1." + worker + " --pass x --port 8008 --ssl 0 --proto proxy" +
                 " --server daggerhashimoto.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3353 --ssl 0 --proto stratum" +
                 " --server daggerhashimoto.hk" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3353 --ssl 0 --proto stratum" +
                 GetDevicesCommandString();
@@ -528,7 +528,7 @@ namespace NiceHashMiner.Miners
                 return GetNumber(outdata, LookForStart, "g/s");
             } else if (MiningSetup.CurrentAlgorithmType == AlgorithmType.DaggerHashimoto)
             {
-                return GetNumber(outdata, LookForStart, "mh/s");
+                return GetNumber(outdata, LookForStart, "h/s");
             } else
             {
                 return GetNumber(outdata, LookForStart, LookForEnd);
