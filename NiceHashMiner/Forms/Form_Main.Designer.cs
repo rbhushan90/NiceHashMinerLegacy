@@ -41,8 +41,6 @@
             this.toolStripStatusLabelBalanceBTCValue = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelBalanceBTCCode = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelBalanceDollarText = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelBalanceDollarValue = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel10 = new System.Windows.Forms.ToolStripStatusLabel();
             this.linkLabelCheckStats = new System.Windows.Forms.LinkLabel();
             this.labelWorkerName = new System.Windows.Forms.Label();
             this.textBoxWorkerName = new System.Windows.Forms.TextBox();
@@ -119,12 +117,10 @@
             this.toolStripStatusLabelBalanceText,
             this.toolStripStatusLabelBalanceBTCValue,
             this.toolStripStatusLabelBalanceBTCCode,
-            this.toolStripStatusLabelBalanceDollarText,
-            this.toolStripStatusLabelBalanceDollarValue,
-            this.toolStripStatusLabel10});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 330);
+            this.toolStripStatusLabelBalanceDollarText});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 333);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(729, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(729, 22);
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
@@ -132,70 +128,54 @@
             // toolStripStatusLabelGlobalRateText
             // 
             this.toolStripStatusLabelGlobalRateText.Name = "toolStripStatusLabelGlobalRateText";
-            this.toolStripStatusLabelGlobalRateText.Size = new System.Drawing.Size(67, 20);
+            this.toolStripStatusLabelGlobalRateText.Size = new System.Drawing.Size(67, 17);
             this.toolStripStatusLabelGlobalRateText.Text = "Global rate:";
             // 
             // toolStripStatusLabelGlobalRateValue
             // 
             this.toolStripStatusLabelGlobalRateValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStripStatusLabelGlobalRateValue.Name = "toolStripStatusLabelGlobalRateValue";
-            this.toolStripStatusLabelGlobalRateValue.Size = new System.Drawing.Size(73, 20);
+            this.toolStripStatusLabelGlobalRateValue.Size = new System.Drawing.Size(73, 17);
             this.toolStripStatusLabelGlobalRateValue.Text = "0.00000000";
             // 
             // toolStripStatusLabelBTCDayText
             // 
             this.toolStripStatusLabelBTCDayText.Name = "toolStripStatusLabelBTCDayText";
-            this.toolStripStatusLabelBTCDayText.Size = new System.Drawing.Size(51, 20);
+            this.toolStripStatusLabelBTCDayText.Size = new System.Drawing.Size(51, 17);
             this.toolStripStatusLabelBTCDayText.Text = "BTC/Day";
             // 
             // toolStripStatusLabelBTCDayValue
             // 
             this.toolStripStatusLabelBTCDayValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStripStatusLabelBTCDayValue.Name = "toolStripStatusLabelBTCDayValue";
-            this.toolStripStatusLabelBTCDayValue.Size = new System.Drawing.Size(31, 20);
+            this.toolStripStatusLabelBTCDayValue.Size = new System.Drawing.Size(31, 17);
             this.toolStripStatusLabelBTCDayValue.Text = "0.00";
             // 
             // toolStripStatusLabelBalanceText
             // 
             this.toolStripStatusLabelBalanceText.Name = "toolStripStatusLabelBalanceText";
-            this.toolStripStatusLabelBalanceText.Size = new System.Drawing.Size(97, 20);
+            this.toolStripStatusLabelBalanceText.Size = new System.Drawing.Size(97, 17);
             this.toolStripStatusLabelBalanceText.Text = "$/Day     Balance:";
             // 
             // toolStripStatusLabelBalanceBTCValue
             // 
             this.toolStripStatusLabelBalanceBTCValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStripStatusLabelBalanceBTCValue.Name = "toolStripStatusLabelBalanceBTCValue";
-            this.toolStripStatusLabelBalanceBTCValue.Size = new System.Drawing.Size(73, 20);
+            this.toolStripStatusLabelBalanceBTCValue.Size = new System.Drawing.Size(73, 17);
             this.toolStripStatusLabelBalanceBTCValue.Text = "0.00000000";
             // 
             // toolStripStatusLabelBalanceBTCCode
             // 
             this.toolStripStatusLabelBalanceBTCCode.Name = "toolStripStatusLabelBalanceBTCCode";
-            this.toolStripStatusLabelBalanceBTCCode.Size = new System.Drawing.Size(26, 20);
+            this.toolStripStatusLabelBalanceBTCCode.Size = new System.Drawing.Size(26, 17);
             this.toolStripStatusLabelBalanceBTCCode.Text = "BTC";
             // 
             // toolStripStatusLabelBalanceDollarText
             // 
             this.toolStripStatusLabelBalanceDollarText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStripStatusLabelBalanceDollarText.Name = "toolStripStatusLabelBalanceDollarText";
-            this.toolStripStatusLabelBalanceDollarText.Size = new System.Drawing.Size(31, 20);
+            this.toolStripStatusLabelBalanceDollarText.Size = new System.Drawing.Size(31, 17);
             this.toolStripStatusLabelBalanceDollarText.Text = "0.00";
-            // 
-            // toolStripStatusLabelBalanceDollarValue
-            // 
-            this.toolStripStatusLabelBalanceDollarValue.Name = "toolStripStatusLabelBalanceDollarValue";
-            this.toolStripStatusLabelBalanceDollarValue.Size = new System.Drawing.Size(16, 20);
-            this.toolStripStatusLabelBalanceDollarValue.Text = "$ ";
-            // 
-            // toolStripStatusLabel10
-            // 
-            this.toolStripStatusLabel10.Image = global::NiceHashMiner.Properties.Resources.NHM_Cash_Register_Bitcoin_transparent;
-            this.toolStripStatusLabel10.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripStatusLabel10.Name = "toolStripStatusLabel10";
-            this.toolStripStatusLabel10.Size = new System.Drawing.Size(35, 20);
-            this.toolStripStatusLabel10.Click += new System.EventHandler(this.ToolStripStatusLabel10_Click);
-            this.toolStripStatusLabel10.MouseLeave += new System.EventHandler(this.ToolStripStatusLabel10_MouseLeave);
-            this.toolStripStatusLabel10.MouseHover += new System.EventHandler(this.ToolStripStatusLabel10_MouseHover);
             // 
             // linkLabelCheckStats
             // 
@@ -456,10 +436,8 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelBTCDayText;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelBTCDayValue;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelBalanceDollarText;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelBalanceDollarValue;
         private System.Windows.Forms.Button buttonSettings;
         private System.Windows.Forms.Button buttonLogo;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel10;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ComboBox comboBoxLocation;
         private System.Windows.Forms.TextBox textBoxWorkerName;

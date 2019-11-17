@@ -329,7 +329,7 @@ namespace NiceHashMiner
                     break;
             }
 
-            toolStripStatusLabelBalanceDollarValue.Text = "(" + ExchangeRateApi.ActiveDisplayCurrency + ")";
+            //toolStripStatusLabelBalanceDollarValue.Text = "(" + ExchangeRateApi.ActiveDisplayCurrency + ")";
             toolStripStatusLabelBalanceText.Text = (ExchangeRateApi.ActiveDisplayCurrency + "/") +
                                                    International.GetText(
                                                        ConfigManager.GeneralConfig.TimeUnit.ToString()) + "     " +
@@ -782,7 +782,7 @@ namespace NiceHashMiner
                 foreach (var lbl in this.Controls.OfType<ToolStripStatusLabel>()) lbl.BackColor = _backColor;
                 foreach (var lbl in this.Controls.OfType<ToolStripStatusLabel>()) lbl.ForeColor = _foreColor;
 
-                toolStripStatusLabel10.Image = NiceHashMiner.Properties.Resources.NHM_Cash_Register_Bitcoin_transparent_white;
+                //toolStripStatusLabel10.Image = NiceHashMiner.Properties.Resources.NHM_Cash_Register_Bitcoin_transparent_white;
 
 
                 foreach (var lbl in this.Controls.OfType<Button>()) lbl.BackColor = _backColor;
@@ -1112,7 +1112,7 @@ namespace NiceHashMiner
                 var amount = (balance * ExchangeRateApi.GetUsdExchangeRate());
                 amount = ExchangeRateApi.ConvertToActiveCurrency(amount);
                 toolStripStatusLabelBalanceDollarText.Text = amount.ToString("F2", CultureInfo.InvariantCulture);
-                toolStripStatusLabelBalanceDollarValue.Text = $"({ExchangeRateApi.ActiveDisplayCurrency})";
+                //toolStripStatusLabelBalanceDollarValue.Text = $"({ExchangeRateApi.ActiveDisplayCurrency})";
             }
         }
 
