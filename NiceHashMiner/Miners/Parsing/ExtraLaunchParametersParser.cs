@@ -538,7 +538,8 @@ namespace NiceHashMiner.Miners.Parsing
                 // temp = Parse(setMiningPairs, minerOptionPackage.TemperatureOptions, true, minerOptionPackage.GeneralOptions);
                 var temp = Parse(setMiningPairs, minerOptionPackage.TemperatureOptions, false, minerOptionPackage.GeneralOptions, ignoreDcri);
 
-                ret = general + "  " + temp;
+               // ret = general + "  " + temp;
+                ret = general + "  ";
             }
 
             return ret;

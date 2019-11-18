@@ -227,6 +227,9 @@ namespace NiceHashMiner.Miners
                 intensityStringCommand = " -dcri " + string.Join(",", intensities);
             }
 
+          //  Helpers.ConsolePrint("Claymore", deviceStringCommand);
+          //  Helpers.ConsolePrint("Claymore", intensityStringCommand);
+          //  Helpers.ConsolePrint("Claymore", extraParams);
             return deviceStringCommand + intensityStringCommand + extraParams;
         }
 
