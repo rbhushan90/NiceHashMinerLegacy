@@ -321,11 +321,12 @@ namespace NiceHashMiner.Forms
                 International.GetText("Form_Settings_ToolTip_CPU_ForceCPUExtension"));
                 */
             // amd disable temp control
+            /*
             toolTip1.SetToolTip(checkBox_AMD_DisableAMDTempControl,
                 International.GetText("Form_Settings_ToolTip_DisableAMDTempControl"));
             toolTip1.SetToolTip(pictureBox_AMD_DisableAMDTempControl,
                 International.GetText("Form_Settings_ToolTip_DisableAMDTempControl"));
-
+                */
             // disable default optimizations
             /*
             toolTip1.SetToolTip(checkBox_DisableDefaultOptimizations,
@@ -397,8 +398,10 @@ namespace NiceHashMiner.Forms
            // checkBox_Use3rdPartyMiners.Text = International.GetText("Form_Settings_General_3rdparty_Text");
             checkBox_NVIDIAP0State.Text = International.GetText("Form_Settings_General_NVIDIAP0State");
             checkBox_LogToFile.Text = International.GetText("Form_Settings_General_LogToFile");
+            /*
             checkBox_AMD_DisableAMDTempControl.Text =
                 International.GetText("Form_Settings_General_DisableAMDTempControl");
+                */
             checkBox_AllowMultipleInstances.Text =
                 International.GetText("Form_Settings_General_AllowMultipleInstances_Text");
             checkBox_RunAtStartup.Text = International.GetText("Form_Settings_General_RunAtStartup");
@@ -693,7 +696,7 @@ namespace NiceHashMiner.Forms
 
                 pictureBox_Info_BitcoinAddress.Image = NiceHashMiner.Properties.Resources.info_white_18;
                 pictureBox_AllowMultipleInstances.Image = NiceHashMiner.Properties.Resources.info_white_18;
-                pictureBox_AMD_DisableAMDTempControl.Image = NiceHashMiner.Properties.Resources.info_white_18;
+               // pictureBox_AMD_DisableAMDTempControl.Image = NiceHashMiner.Properties.Resources.info_white_18;
                 pictureBox_APIBindPortStart.Image = NiceHashMiner.Properties.Resources.info_white_18;
                 pictureBox_AutoScaleBTCValues.Image = NiceHashMiner.Properties.Resources.info_white_18;
                 pictureBox_AutoStartMining.Image = NiceHashMiner.Properties.Resources.info_white_18;
@@ -808,7 +811,7 @@ namespace NiceHashMiner.Forms
                 checkBox_Additional_info_about_device.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_ShowFanAsPercent.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_Disable_extra_launch_parameter_checking.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
-                checkBox_AMD_DisableAMDTempControl.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
+               // checkBox_AMD_DisableAMDTempControl.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
                 checkBox_RunEthlargement.CheckedChanged += GeneralCheckBoxes_CheckedChanged;
             }
             // Add EventHandler for all the general tab's textboxes
@@ -892,7 +895,7 @@ namespace NiceHashMiner.Forms
                     ConfigManager.GeneralConfig.ShowInternetConnectionWarning;
                 checkBox_NVIDIAP0State.Checked = ConfigManager.GeneralConfig.NVIDIAP0State;
                 checkBox_LogToFile.Checked = ConfigManager.GeneralConfig.LogToFile;
-                checkBox_AMD_DisableAMDTempControl.Checked = ConfigManager.GeneralConfig.DisableAMDTempControl;
+              //  checkBox_AMD_DisableAMDTempControl.Checked = ConfigManager.GeneralConfig.DisableAMDTempControl;
             //    checkBox_DisableDefaultOptimizations.Checked = ConfigManager.GeneralConfig.DisableDefaultOptimizations;
                 checkBox_IdleWhenNoInternetAccess.Checked = ConfigManager.GeneralConfig.IdleWhenNoInternetAccess;
               //  checkBox_Use3rdPartyMiners.Checked =
@@ -1045,10 +1048,10 @@ namespace NiceHashMiner.Forms
             ConfigManager.GeneralConfig.Additional_info_about_device = checkBox_Additional_info_about_device.Checked;
             ConfigManager.GeneralConfig.ShowFanAsPercent = checkBox_ShowFanAsPercent.Checked;
             ConfigManager.GeneralConfig.Disable_extra_launch_parameter_checking = checkBox_Disable_extra_launch_parameter_checking.Checked;
-            ConfigManager.GeneralConfig.DisableAMDTempControl = checkBox_AMD_DisableAMDTempControl.Checked;
+           // ConfigManager.GeneralConfig.DisableAMDTempControl = checkBox_AMD_DisableAMDTempControl.Checked;
             ConfigManager.GeneralConfig.UseEthlargement = checkBox_RunEthlargement.Checked;
         }
-
+        /*
         private void CheckBox_AMD_DisableAMDTempControl_CheckedChanged(object sender, EventArgs e)
         {
             if (!_isInitFinished) return;
@@ -1072,7 +1075,7 @@ namespace NiceHashMiner.Forms
                 }
             }
         }
-
+        */
         private void CheckBox_DisableDefaultOptimizations_CheckedChanged(object sender, EventArgs e)
         {
             if (!_isInitFinished) return;

@@ -329,7 +329,7 @@ namespace NiceHashMiner
                     break;
             }
 
-            //toolStripStatusLabelBalanceDollarValue.Text = "(" + ExchangeRateApi.ActiveDisplayCurrency + ")";
+            toolStripStatusLabelBalanceDollarValue.Text = "(" + ExchangeRateApi.ActiveDisplayCurrency + ")";
             toolStripStatusLabelBalanceText.Text = (ExchangeRateApi.ActiveDisplayCurrency + "/") +
                                                    International.GetText(
                                                        ConfigManager.GeneralConfig.TimeUnit.ToString()) + "     " +
@@ -1112,7 +1112,7 @@ namespace NiceHashMiner
                 var amount = (balance * ExchangeRateApi.GetUsdExchangeRate());
                 amount = ExchangeRateApi.ConvertToActiveCurrency(amount);
                 toolStripStatusLabelBalanceDollarText.Text = amount.ToString("F2", CultureInfo.InvariantCulture);
-                //toolStripStatusLabelBalanceDollarValue.Text = $"({ExchangeRateApi.ActiveDisplayCurrency})";
+                toolStripStatusLabelBalanceDollarValue.Text = $"({ExchangeRateApi.ActiveDisplayCurrency})";
             }
         }
 

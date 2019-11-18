@@ -527,14 +527,16 @@ namespace NiceHashMiner.Miners.Parsing
             string ret;
             var general = Parse(setMiningPairs, minerOptionPackage.GeneralOptions, false, minerOptionPackage.TemperatureOptions, ignoreDcri);
             // temp control and parse
+            /*
             if (ConfigManager.GeneralConfig.DisableAMDTempControl)
             {
                 LogParser("DisableAMDTempControl is TRUE, temp control parameters will be ignored");
                 ret = general;
             }
             else
+            */
             {
-                LogParser("AMD parsing temperature control parameters");
+              //  LogParser("AMD parsing temperature control parameters");
                 // temp = Parse(setMiningPairs, minerOptionPackage.TemperatureOptions, true, minerOptionPackage.GeneralOptions);
                 var temp = Parse(setMiningPairs, minerOptionPackage.TemperatureOptions, false, minerOptionPackage.GeneralOptions, ignoreDcri);
 

@@ -60,6 +60,7 @@
             this.labelBitcoinAddressNew = new System.Windows.Forms.Label();
             this.textBoxBTCAddress_new = new System.Windows.Forms.TextBox();
             this.devicesListViewEnableControl1 = new NiceHashMiner.Forms.Components.DevicesListViewEnableControl();
+            this.toolStripStatusLabelBalanceDollarValue = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -117,7 +118,8 @@
             this.toolStripStatusLabelBalanceText,
             this.toolStripStatusLabelBalanceBTCValue,
             this.toolStripStatusLabelBalanceBTCCode,
-            this.toolStripStatusLabelBalanceDollarText});
+            this.toolStripStatusLabelBalanceDollarText,
+            this.toolStripStatusLabelBalanceDollarValue});
             this.statusStrip1.Location = new System.Drawing.Point(0, 333);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(729, 22);
@@ -378,6 +380,12 @@
             this.devicesListViewEnableControl1.TabIndex = 109;
             this.devicesListViewEnableControl1.Load += new System.EventHandler(this.devicesListViewEnableControl1_Load);
             // 
+            // toolStripStatusLabelBalanceDollarValue
+            // 
+            this.toolStripStatusLabelBalanceDollarValue.Name = "toolStripStatusLabelBalanceDollarValue";
+            this.toolStripStatusLabelBalanceDollarValue.Size = new System.Drawing.Size(16, 17);
+            this.toolStripStatusLabelBalanceDollarValue.Text = "...";
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -453,6 +461,7 @@
         private System.Windows.Forms.TextBox textBoxBTCAddress_new;
         private System.Windows.Forms.Button buttonStartMining;
         private Forms.Components.DevicesListViewEnableControl devicesListViewEnableControl1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelBalanceDollarValue;
     }
 }
 
