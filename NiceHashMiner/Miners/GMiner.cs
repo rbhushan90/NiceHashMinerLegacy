@@ -150,7 +150,7 @@ namespace NiceHashMiner.Miners
             var extra = "";
             foreach (var mPair in sortedMinerPairs)
             {
-                var id = mPair.Device.IDByBus + variables.mPairDeviceIDByBus_GMiner;
+                var id = mPair.Device.ID + variables.mPairDeviceIDByBus_GMiner;
                 /*
                 if (id < 0)
                 {
