@@ -122,7 +122,7 @@ namespace NiceHashMiner
 
         // TODO maybe set for individual miner cooldown/retries logic variables
         // this replaces MinerAPIGraceSeconds(AMD)
-        private const int MinCooldownTimeInMilliseconds = 5 * 1000; // 5 seconds
+        private const int MinCooldownTimeInMilliseconds = 30 * 1000; // 30 seconds for gminer
         //private const int _MIN_CooldownTimeInMilliseconds = 1000; // TESTING
 
         //private const int _MAX_CooldownTimeInMilliseconds = 60 * 1000; // 1 minute max, whole waiting time 75seconds
@@ -1643,11 +1643,13 @@ namespace NiceHashMiner
             {
                 _needsRestart = false;
                 Restart();
+                return;
             }
-            else
+            
                 switch (CurrentMinerReadStatus)
                 {
                     case MinerApiReadStatus.GOT_READ:
+                        Helpers.ConsolePrint(MinerTag(), ProcessTag() + "MinerApiReadStatus.GOT_READ");
                         CoolDown();
                         break;
                     case MinerApiReadStatus.READ_SPEED_ZERO:
@@ -1655,9 +1657,11 @@ namespace NiceHashMiner
                         CoolUp();
                         break;
                     case MinerApiReadStatus.RESTART:
+                        Helpers.ConsolePrint(MinerTag(), ProcessTag() + "MinerApiReadStatus.RESTART");
                         Restart();
                         break;
                     default:
+                        Helpers.ConsolePrint(MinerTag(), ProcessTag() + "MinerApiReadStatus.UNKNOWN");
                         CoolUp();
                         break;
                 }

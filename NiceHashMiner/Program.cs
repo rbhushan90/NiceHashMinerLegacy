@@ -11,6 +11,7 @@ using System.Threading;
 using System.Windows.Forms;
 using NiceHashMiner.Stats;
 using NiceHashMiner.Configs.Data;
+using System.Reflection;
 
 namespace NiceHashMiner
 {
@@ -386,13 +387,17 @@ namespace NiceHashMiner
                 }
                 //**
                 Thread.Sleep(100);
+
+                var version = Assembly.GetExecutingAssembly().GetName().Version;
+                var buildDate = new DateTime(2000, 1, 1).AddDays(version.Build).AddSeconds(version.Revision * 2);
+                Helpers.ConsolePrint("NICEHASH", "Starting up NiceHashMiner Legacy Fork Fix: Build date " + buildDate);
                 // init active display currency after config load
                 ExchangeRateApi.ActiveDisplayCurrency = ConfigManager.GeneralConfig.DisplayCurrency;
 
                 // #2 then parse args
                 var commandLineArgs = new CommandLineParser(argv);
 
-                Helpers.ConsolePrint("NICEHASH", "Starting up NiceHashMiner v" + Application.ProductVersion);
+               // Helpers.ConsolePrint("NICEHASH", "Starting up NiceHashMiner v" + Application.ProductVersion);
 
                 if (!pathSet)
                 {
