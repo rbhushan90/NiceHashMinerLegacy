@@ -14,7 +14,6 @@ namespace NiceHashMiner.Utils
             @"/phoenix/PhoenixMiner.exe",
             @"/t-rex/t-rex.exe",
             @"/teamredminer/teamredminer.exe",
-            @"/SRBMiner/SRBMiner-CN.exe",
             @"/gminer/miner.exe",
             @"/lolMiner/lolMiner.exe",
             @"/WildRig/wildrig.exe",
