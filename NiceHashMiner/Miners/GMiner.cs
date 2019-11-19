@@ -148,9 +148,18 @@ namespace NiceHashMiner.Miners
             var ids = new List<string>();
             var sortedMinerPairs = MiningSetup.MiningPairs.OrderBy(pair => pair.Device.DeviceType).ToList();
             var extra = "";
+            int id;
             foreach (var mPair in sortedMinerPairs)
             {
-                var id = mPair.Device.ID + variables.mPairDeviceIDByBus_GMiner;
+                if (ConfigManager.GeneralConfig.GMinerIDByBusEnumeration)
+                {
+                    id = mPair.Device.IDByBus + variables.mPairDeviceIDByBus_GMiner;
+                    Helpers.ConsolePrint("GMinerIndexing", "IDByBus: " + id);
+                } else
+                {
+                    id = mPair.Device.ID + variables.mPairDeviceIDByBus_GMiner;
+                    Helpers.ConsolePrint("GMinerIndexing", "ID: " + id);
+                }
                 /*
                 if (id < 0)
                 {
@@ -174,7 +183,7 @@ namespace NiceHashMiner.Miners
                     gminer_var = variables.gminer_var2;
                     extra = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.AMD);
                 }
-                    Helpers.ConsolePrint("GMinerIndexing", "ID: " + id);
+                    
                 {
                     ids.Add(id.ToString());
                 }
