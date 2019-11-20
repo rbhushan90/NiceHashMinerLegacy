@@ -243,10 +243,11 @@ namespace NiceHashMiner.Miners
                     var cpid = ProcessTag().Substring(k + 4, i - k - 4).Trim();
 
                     int pid = int.Parse(cpid, CultureInfo.InvariantCulture);
-
+                    Helpers.ConsolePrint("BENCHMARK", "gminer.exe PID: "+ pid.ToString());
                     KillProcessAndChildren(pid);
                     BenchmarkHandle.Kill();
                     BenchmarkHandle.Close();
+                    if (IsKillAllUsedMinerProcs) KillAllUsedMinerProcesses();
                 }
                 catch { }
                 finally
@@ -260,18 +261,30 @@ namespace NiceHashMiner.Miners
         }
         public void KillGminer()
         {
-            if (ProcessHandle != null)
+           // if (ProcessHandle != null)
             {
-                try { ProcessHandle.Kill(); }
-                catch { }
+                try
+                {
+                    //ProcessHandle.Kill();
+                    int k = ProcessTag().IndexOf("pid(");
+                    int i = ProcessTag().IndexOf(")|bin");
+                    var cpid = ProcessTag().Substring(k + 4, i - k - 4).Trim();
 
+                    int pid = int.Parse(cpid, CultureInfo.InvariantCulture);
+                    Helpers.ConsolePrint("GMINER", "gminer.exe PID: " + pid.ToString());
+                    KillProcessAndChildren(pid);
+                    ProcessHandle.Kill();
+                    ProcessHandle.Close();
+                }
+                catch { }
+                /*
                 try { ProcessHandle.SendCtrlC((uint)Process.GetCurrentProcess().Id); } catch { }
                 ProcessHandle.Close();
                 ProcessHandle = null;
-
+                */
                 if (IsKillAllUsedMinerProcs) KillAllUsedMinerProcesses();
             }
-            KillMinerBase("miner");
+            //KillMinerBase("miner");
             //foreach (Process process in Process.GetProcessesByName("miner")) { //kill ewbf to
             //     try { process.Kill(); } catch (Exception e) { Helpers.ConsolePrint(MinerDeviceName, e.ToString()); }
             //}
@@ -409,7 +422,7 @@ namespace NiceHashMiner.Miners
                         var imageName = MinerExeName.Replace(".exe", "");
                         // maybe will have to KILL process
                         EndBenchmarkProcces();
-                        KillMinerBase(imageName);
+                      //  KillMinerBase(imageName);
                         if (BenchmarkSignalTimedout)
                         {
                             throw new Exception("Benchmark timedout");

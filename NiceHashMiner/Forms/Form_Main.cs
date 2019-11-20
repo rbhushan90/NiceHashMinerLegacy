@@ -937,7 +937,7 @@ namespace NiceHashMiner
             if (flowLayoutPanelRates.Controls.Count > 0)
             {
                 var control = flowLayoutPanelRates.Controls[0];
-                var panelHeight = ((GroupProfitControl)control).Size.Height * 1.0f;
+                var panelHeight = ((GroupProfitControl)control).Size.Height * 1.1f;
                 groupBox1Height = (int)((visibleGroupCount) * panelHeight - panelHeight/3.0f);
             }
 
