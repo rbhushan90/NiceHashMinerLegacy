@@ -25,13 +25,13 @@ namespace NiceHashMiner.Miners
             {
                 public class DeviceModel
                 {
-                    public double hashrate { get; set; }
+                    public double hashrate_raw { get; set; }
                 }
                 public List<DeviceModel> devices { get; set; }
-                public double total_hashrate { get; set; }
+                public double total_hashrate_raw { get; set; }
             }
             public MinerModel miner { get; set; }
-            public double? TotalHashrate => miner?.total_hashrate;
+            public double? TotalHashrate => miner?.total_hashrate_raw;
         }
 
         private double _benchHashes;
@@ -264,10 +264,10 @@ namespace NiceHashMiner.Miners
             {
                 return null;
             }
-
+            Helpers.ConsolePrint("NBMiner:", ResponseFromNBMiner);
             dynamic resp = JsonConvert.DeserializeObject<JsonApiResponse>(ResponseFromNBMiner);
+            //Helpers.ConsolePrint("NBMiner-resp:", resp);
 
-            
             if (resp != null)
             {
                 ad.Speed = resp.TotalHashrate ?? 0;
