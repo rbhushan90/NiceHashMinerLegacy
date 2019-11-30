@@ -73,7 +73,7 @@ namespace NiceHashMiner.Miners
                 case MinerBaseType.Xmrig:
                     return new Xmrig();
                 case MinerBaseType.XmrigAMD:
-                    return new XmrigAMD();
+                    return new Xmrig();
                 case MinerBaseType.SRBMiner:
                     return new SRBMiner();
                 case MinerBaseType.dstm:
@@ -109,7 +109,7 @@ namespace NiceHashMiner.Miners
                 case MinerBaseType.TTMiner:
                     return new TTMiner();
                 case MinerBaseType.XmrigNVIDIA:
-                    return new XmrigNVIDIA();
+                    return new Xmrig();
                 case MinerBaseType.NBMiner:
                     return new NBMiner();
                 case MinerBaseType.miniZ:

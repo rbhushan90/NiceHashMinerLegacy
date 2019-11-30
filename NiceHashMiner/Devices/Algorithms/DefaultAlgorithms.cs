@@ -73,6 +73,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     //new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV7, ""),
                 //    new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightV8, ""),
                     new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightR, ""),
+                    new Algorithm(MinerBaseType.Xmrig, AlgorithmType.RandomX, ""),
                   //  new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNightHeavy, "")
                 }
             },
@@ -160,14 +161,17 @@ namespace NiceHashMiner.Devices.Algorithms
                             new Algorithm(MinerBaseType.lyclMiner, AlgorithmType.Lyra2REv3, "Lyra2REv3") { }
                         }
                     },
+                    
                     { MinerBaseType.XmrigAMD,
                         new List<Algorithm>() {
                            // new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV7, "CryptoNightV7") { },
                        //     new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightV8, "CryptoNightV8") { },
                          //   new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightHeavy, "CryptoNightHeavy") { },
+                            new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.RandomX, "RandomX") { },
                             new Algorithm(MinerBaseType.XmrigAMD, AlgorithmType.CryptoNightR, "CryptoNightR") { }
                         }
                     },
+                    
                     { MinerBaseType.SRBMiner,
                         new List<Algorithm>() {
                             /*
@@ -393,11 +397,14 @@ namespace NiceHashMiner.Devices.Algorithms
                         //    new Algorithm(MinerBaseType.ZEnemy, AlgorithmType.Skunk, "Skunk"),
                         }
                     },
+                        
                     { MinerBaseType.XmrigNVIDIA,
                         new List<Algorithm>() {
-                            new Algorithm(MinerBaseType.XmrigNVIDIA, AlgorithmType.CryptoNightR, "CryptoNightR") { }
+                            new Algorithm(MinerBaseType.XmrigNVIDIA, AlgorithmType.CryptoNightR, "CryptoNightR") { },
+                            new Algorithm(MinerBaseType.XmrigNVIDIA, AlgorithmType.RandomX, "RandomX") { }
                         }
                     },
+                    
                         { MinerBaseType.TTMiner,
                         new List<Algorithm>() {
                            // new Algorithm(MinerBaseType.TTMiner, AlgorithmType.Lyra2REv3, "Lyra2REv3"),

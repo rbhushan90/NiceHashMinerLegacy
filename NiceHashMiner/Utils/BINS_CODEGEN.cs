@@ -11,8 +11,6 @@ namespace NiceHashMiner.Utils
             @"/xmr-stak/xmrstak_opencl_backend.dll",
             @"/xmr-stak/xmr-stak.exe",
             @"/xmrig/xmrig.exe",
-            @"/xmrig-amd/xmrig-amd.exe",
-            @"/xmrig-nvidia/xmrig-nvidia.exe",
             @"/xmr-stak_heavy/xmr-stak.exe",
             @"/Fork_Fix_19.2.txt"
         };

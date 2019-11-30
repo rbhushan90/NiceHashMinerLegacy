@@ -61,7 +61,7 @@ namespace NiceHashMiner.Devices.Algorithms
                     }
                     */
                 }
-
+                /*
                 if (algoSettings.ContainsKey(MinerBaseType.XmrigAMD))
                 {
                     var XmrigAMDAlgos = algoSettings[MinerBaseType.XmrigAMD];
@@ -126,6 +126,7 @@ namespace NiceHashMiner.Devices.Algorithms
 
 
                 }
+                */
                 /*
                 if (algoSettings.ContainsKey(MinerBaseType.mkxminer))
                 {

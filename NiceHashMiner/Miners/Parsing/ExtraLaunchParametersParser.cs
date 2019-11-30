@@ -104,7 +104,7 @@ namespace NiceHashMiner.Miners.Parsing
                     return " " + pair.CurrentExtraLaunchParameters;
                 }
             }
-            
+
                 // init devs options, and defaults
                 foreach (var pair in miningPairs)
             {
@@ -405,7 +405,7 @@ namespace NiceHashMiner.Miners.Parsing
                 case MinerBaseType.Xmrig:
                     return MinerType.Xmrig;
                 case MinerBaseType.XmrigAMD:
-                    return MinerType.XmrigAMD;
+                    return MinerType.Xmrig;
                 case MinerBaseType.WildRig:
                     return MinerType.WildRig;
                 case MinerBaseType.SRBMiner:
@@ -413,7 +413,7 @@ namespace NiceHashMiner.Miners.Parsing
                 case MinerBaseType.dstm:
                     return MinerType.dstm;
                 case MinerBaseType.XmrigNVIDIA:
-                     return MinerType.XmrigNVIDIA;
+                    return MinerType.Xmrig;
             }
 
             return MinerType.NONE;

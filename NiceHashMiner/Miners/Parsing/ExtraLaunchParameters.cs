@@ -329,6 +329,7 @@ namespace NiceHashMiner.Miners.Parsing
                     new MinerOption("ClaymoreCryptoNight_fanmin", "-fanmin", "-fanmin", "0", MinerOptionFlagType.MultiParam, ","),
                 }
                 ),
+            /*
             new MinerOptionPackage(
                 MinerType.ClaymoreCryptoNight,
                 new List<MinerOption>
@@ -347,6 +348,7 @@ namespace NiceHashMiner.Miners.Parsing
                     new MinerOption("ClaymoreCryptoNight_cvddc", "-cvddc", "-cvddc", "0", MinerOptionFlagType.MultiParam, ","),
                     new MinerOption("ClaymoreCryptoNight_mvddc", "-mvddc", "-mvddc", "0", MinerOptionFlagType.MultiParam, ","),
                 },
+                /*
                new List<MinerOption>
                 {
                     // temperature stuff
@@ -357,6 +359,8 @@ namespace NiceHashMiner.Miners.Parsing
                     new MinerOption("ClaymoreCryptoNight_fanmin", "-fanmin", "-fanmin", "0", MinerOptionFlagType.MultiParam, ","),
                 }
             ),
+            */
+            
             new MinerOptionPackage(
                 MinerType.XmrigAMD,
                 new List<MinerOption>() {
@@ -369,6 +373,9 @@ namespace NiceHashMiner.Miners.Parsing
                 },
                 new List<MinerOption>(){ }
              ),
+             
+             
+             
             new MinerOptionPackage(
                 MinerType.XmrigNVIDIA,
                 new List<MinerOption>() {
@@ -381,6 +388,7 @@ namespace NiceHashMiner.Miners.Parsing
                 },
                 new List<MinerOption>(){ }
              ),
+             
             new MinerOptionPackage(
                 MinerType.WildRig,
                 new List<MinerOption>() {
@@ -578,12 +586,16 @@ namespace NiceHashMiner.Miners.Parsing
                     new MinerOption("Xmrig_fee", "--donate-level=", "0", MinerOptionFlagType.SingleParam),
                     new MinerOption("Xmrig_threads", "-t", "--threads=", null, MinerOptionFlagType.SingleParam),
                     new MinerOption("Xmrig_av", "-v", "--av=", "0", MinerOptionFlagType.SingleParam),
-                    new MinerOption("Xmrig_affinity", "--cpu-affinity=", null, MinerOptionFlagType.SingleParam),
                     new MinerOption("Xmrig_priority", "--cpu-priority=", null, MinerOptionFlagType.SingleParam),
                     new MinerOption("Xmrig_nohugepages", "--no-huge-pages", null, MinerOptionFlagType.Uni),
-                    new MinerOption("Xmrig_nocolor", "--no-color", null, MinerOptionFlagType.Uni),
                     new MinerOption("Xmrig_maxusage", "--max-cpu-usage=", "75", MinerOptionFlagType.SingleParam),
-                    new MinerOption("Xmrig_safe", "--safe", null, MinerOptionFlagType.Uni)
+                    new MinerOption("Xmrig_safe", "--safe", null, MinerOptionFlagType.Uni),
+                    new MinerOption("Xmrig_fee", "--donate-level=", "0", MinerOptionFlagType.SingleParam, " "),
+                    new MinerOption("Xmrig_variant", "--variant=", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("Xmrig_keepalive", "--keepalive", null, MinerOptionFlagType.Uni, " "),
+                    new MinerOption("Xmrig_affinity", "--opencl-affinity=", null, MinerOptionFlagType.SingleParam, ","),
+                    new MinerOption("Xmrig-intensity", "--opencl-launch=", null, MinerOptionFlagType.MultiParam, ","),
+                    new MinerOption("Xmrig_nocolor", "--no-color", null, MinerOptionFlagType.Uni, " ")
                 },
                 new List<MinerOption>()
             ),

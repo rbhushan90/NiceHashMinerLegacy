@@ -28,7 +28,7 @@ namespace NiceHashMiner.Miners
         private double _benchmarkSum;
         //|  GPU0 63 C  53.8 Sol/s    4/0 127 W 0.42 Sol/W |
       //  private const string LookForStart = "total speed: ";
-        private const string LookForStart = " c  ";
+        private const string LookForStart = " c ";
         private const string LookForEnd = "sol/s";
         private const double DevFee = 2.0;
         string  gminer_var = "";
