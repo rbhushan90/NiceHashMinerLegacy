@@ -14,7 +14,7 @@ namespace NiceHashMiner.Configs.Data
         public bool DecreasePowerCost;
         public bool NoShowApiInLog;
         public bool lolMinerOldEnumeration;
-        public bool GMinerIDByBusEnumeration = false;
+        public bool GMinerIDByBusEnumeration = true;
         public bool NoForceTRexClose;
         public bool UseNegativeProfit = false;
         public double DaggerOrderMaxPay = 0;

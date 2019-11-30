@@ -19,6 +19,8 @@ using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common.Enums;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Text.RegularExpressions;
+using static NiceHashMiner.Devices.ComputeDeviceManager;
 
 namespace NiceHashMiner.Miners
 {
@@ -123,7 +125,7 @@ namespace NiceHashMiner.Miners
                              " --devices ";
             }
 
-            LastCommandLine += GetDevicesCommandString() + " ";//amd карты перечисляются первыми
+            LastCommandLine += GetDevicesCommandString() + " ";//
             ProcessHandle = _Start();
         }
 
@@ -131,6 +133,7 @@ namespace NiceHashMiner.Miners
         #region Decoupled benchmarking routines
 
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time) {
+            //GetEnimeration();
             var CommandLine = "";
 
             string url = Globals.GetLocationUrl(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
@@ -149,8 +152,8 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.BeamV2)
             {
                 CommandLine = "--coin BEAM-II " +
-                " --pool beam-eu.sparkpool.com;beam-asia.sparkpool.com;beam.eu" + nhsuff + ".nicehash.com;beam.hk" + nhsuff + ".nicehash.com" +
-                " --port 2222;12222;3370;3370" +
+                " --pool beam-eu.sparkpool.com;beam-asia.sparkpool.com;beamv2.eu" + nhsuff + ".nicehash.com;beamv2.hk" + nhsuff + ".nicehash.com" +
+                " --port 2222;12222;3378;3378" +
                 " --user 2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + ";2c20485d95e81037ec2d0312b000b922f444c650496d600d64b256bdafa362bafc9." + worker + ";" + username + ";" + username +
                 " --pass x;x;x;x --tls 1;1;0;0 " +
                                               ExtraLaunchParametersParser.ParseForMiningSetup(
@@ -192,7 +195,127 @@ namespace NiceHashMiner.Miners
             return CommandLine;
 
         }
-        
+
+        protected void GetEnimeration()
+        {
+            var btcAddress = Globals.GetBitcoinUser();
+            var worker = ConfigManager.GeneralConfig.WorkerName.Trim();
+            string username = GetUsername(btcAddress, worker);
+
+            int edevice = 0;
+            double edeviceBus = 0;
+
+            var EnimerationHandle = new Process
+            {
+                StartInfo =
+                {
+                    FileName = MiningSetup.MinerPath
+                }
+            };
+
+            {
+                //BenchmarkProcessPath = EnimerationHandle.StartInfo.FileName;
+                Helpers.ConsolePrint(MinerTag(), "Using miner for enumeration: " + EnimerationHandle.StartInfo.FileName);
+                EnimerationHandle.StartInfo.WorkingDirectory = WorkingDirectory;
+            }
+            if (MinersSettingsManager.MinerSystemVariables.ContainsKey(Path))
+            {
+                foreach (var kvp in MinersSettingsManager.MinerSystemVariables[Path])
+                {
+                    var envName = kvp.Key;
+                    var envValue = kvp.Value;
+                    EnimerationHandle.StartInfo.EnvironmentVariables[envName] = envValue;
+                }
+            }
+
+            // Thread.Sleep(500);
+            var CommandLine = " --coin BEAM-II " +
+                 " --pool localhost --port fake --user " + username + " --pass x --tls 0 --devices 999";//fake port for enumeration
+
+            EnimerationHandle.StartInfo.Arguments = CommandLine;
+            EnimerationHandle.StartInfo.UseShellExecute = false;
+            EnimerationHandle.StartInfo.RedirectStandardError = true;
+            EnimerationHandle.StartInfo.RedirectStandardOutput = true;
+            EnimerationHandle.StartInfo.CreateNoWindow = true;
+            Thread.Sleep(250);
+            Helpers.ConsolePrint(MinerTag(), "Start enumeration: " + EnimerationHandle.StartInfo.FileName + EnimerationHandle.StartInfo.Arguments);
+            EnimerationHandle.Start();
+            var allDeviceCount = ComputeDeviceManager.Query.GpuCount;
+            var allDevices = Available.Devices;
+            try
+            {
+                string outdata = "";
+                while (IsActiveProcess(EnimerationHandle.Id))
+                {
+                    outdata = EnimerationHandle.StandardOutput.ReadLine();
+                    Helpers.ConsolePrint(MinerTag(), outdata);
+                    
+                    if (outdata.Contains("Device"))
+                    {
+                        string cdevice = Regex.Match(outdata, @"\d+").Value;
+                        if (int.TryParse(cdevice, out edevice))
+                        {
+                            Helpers.ConsolePrint(MinerTag(), edevice.ToString());
+                        }
+
+                    }
+                    
+                    if (outdata.Contains("Address:"))
+                    {
+                        string cdeviceBus = Regex.Match(outdata, @"\d+").Value;
+                        if (double.TryParse(cdeviceBus, out edeviceBus))
+                        {
+                            Helpers.ConsolePrint(MinerTag(), edeviceBus.ToString());
+                            // for (var i = 0; i < allDevices.Count; i++)
+                            var sortedMinerPairs = MiningSetup.MiningPairs.OrderBy(pair => pair.Device.ID).ToList();
+                            foreach (var mPair in sortedMinerPairs)
+                            {
+                                
+                                Helpers.ConsolePrint(MinerTag(), " IDByBus=" + mPair.Device.IDByBus.ToString() + " ID=" + mPair.Device.ID.ToString() + " edevice=" + edevice.ToString() + " edeviceBus=" + edeviceBus.ToString());
+                                if (mPair.Device.IDByBus == edeviceBus)
+                                {
+                                      //  mPair.Device.lolMinerBusID = edevice;
+                                }
+                            }
+
+                            // allDevices[edevice].lolMinerBusID = edeviceBus;
+                        }
+
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                //                Helpers.ConsolePrint(MinerTag(), ProcessTag() + " error: " + ex.Message);
+                //PidData is NULL error: Ссылка на объект не указывает на экземпляр объекта. 
+            }
+
+
+            try
+            {
+                if (!EnimerationHandle.WaitForExit(10 * 1000))
+                {
+                    EnimerationHandle.Kill();
+                    EnimerationHandle.WaitForExit(5 * 1000);
+                    EnimerationHandle.Close();
+                }
+            }
+            catch { }
+
+            Thread.Sleep(50);
+            
+            // string output = benchmarkconfigHandle.StandardOutput.ReadToEnd();
+
+
+            /*               
+                        if (outdata.Contains("Setup Miner..."))
+                        {
+
+                        }
+                        */
+        }
+
         protected override string GetDevicesCommandString()
         {
             var deviceStringCommand = " ";
@@ -202,24 +325,36 @@ namespace NiceHashMiner.Miners
             Helpers.ConsolePrint("lolMinerIndexing", $"Found {allDeviceCount} Total GPU devices");
             Helpers.ConsolePrint("lolMinerIndexing", $"Found {amdDeviceCount} AMD devices");
             //   var ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.ID.ToString()).ToList();
-            var sortedMinerPairs = MiningSetup.MiningPairs.OrderBy(pair => pair.Device.DeviceType).ToList();
+            //var sortedMinerPairs = MiningSetup.MiningPairs.OrderBy(pair => pair.Device.DeviceType).ToList();
+            var sortedMinerPairs = MiningSetup.MiningPairs.OrderBy(pair => pair.Device.Uuid).ToList();
             foreach (var mPair in sortedMinerPairs)
             {
-               // var id = mPair.Device.ID;
-                int id = mPair.Device.IDByBus + variables.mPairDeviceIDByBus_lolBeam;
+                // var id = mPair.Device.ID;
+                //int id = mPair.Device.IDByBus + variables.mPairDeviceIDByBus_lolBeam;
+                
+                Helpers.ConsolePrint("lolMinerIndexing", "ID: " + mPair.Device.ID);
+                Helpers.ConsolePrint("lolMinerIndexing", "IDbybus: " + mPair.Device.IDByBus);
+                Helpers.ConsolePrint("lolMinerIndexing", "busid: " + mPair.Device.BusID);
+                Helpers.ConsolePrint("lolMinerIndexing", "lol: " + mPair.Device.lolMinerBusID);
+                
+                //список карт выводить --devices 999
+                double id = mPair.Device.lolMinerBusID;
                 if (ConfigManager.GeneralConfig.lolMinerOldEnumeration)
+                {
                     id = mPair.Device.ID;
+                }
                 if (id < 0)
                 {
                     Helpers.ConsolePrint("lolMinerIndexing", "ID too low: " + id + " skipping device");
                     continue;
                 }
-
+                /*
                 if (mPair.Device.DeviceType == DeviceType.NVIDIA)
                 {
                     Helpers.ConsolePrint("lolMinerIndexing", "NVIDIA found. Increasing index");
                     id ++;
                 }
+                */
                 Helpers.ConsolePrint("lolMinerIndexing", "ID: " + id );
                 {
                     ids.Add(id.ToString());

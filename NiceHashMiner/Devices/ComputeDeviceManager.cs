@@ -344,6 +344,14 @@ namespace NiceHashMiner.Devices
                     nvDevices[i].IDByBus = i;
                 }
 
+                //create bus ordering for lolMiner
+                var allDevices = Available.Devices.FindAll((a) => a.DeviceType == DeviceType.NVIDIA || a.DeviceType == DeviceType.AMD);
+                allDevices.Sort((a, b) => a.BusID.CompareTo(b.BusID));
+                for (var i = 0; i < allDevices.Count; i++)
+                {
+                    allDevices[i].lolMinerBusID = i;
+                }
+
                 // get GPUs RAM sum
                 // bytes
                 Available.NvidiaRamSum = 0;

@@ -41,6 +41,8 @@ namespace NiceHashMiner.Devices
         public int BusID { get; protected set; } = -1;
         public int IDByBus = -1;
 
+        // used for lolMiner indexing
+        public double lolMinerBusID { get; set; } = -1;
 
         // CPU extras
         public int Threads { get; protected set; }

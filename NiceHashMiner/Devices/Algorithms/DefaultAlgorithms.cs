@@ -198,7 +198,7 @@ namespace NiceHashMiner.Devices.Algorithms
                    // },
                     new Algorithm(MinerBaseType.GMiner, AlgorithmType.BeamV2, "")
                     {
-                                ExtraLaunchParameters = "--asm 0 "
+//                                ExtraLaunchParameters = "--asm 0 "
                     },
                     new Algorithm(MinerBaseType.GMiner, AlgorithmType.ZHash, "")
                     {
