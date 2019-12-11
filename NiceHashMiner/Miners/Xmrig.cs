@@ -116,13 +116,13 @@ namespace NiceHashMiner.Miners
                 algo = "randomxmonero";
                 port = "3380";
                 variant = "";
-                return $" --algo=rx/0 -o stratum+tcp://{algo}.{myServers[0, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username}:x --nicehash {extras} --http-port {ApiPort} --donate-level=1 "
-               + $" -o stratum+tcp://{algo}.{myServers[1, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x "
-               + $" -o stratum+tcp://{algo}.{myServers[2, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x "
-               + $" -o stratum+tcp://{algo}.{myServers[3, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x "
-               + $" -o stratum+tcp://{algo}.{myServers[4, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x "
-               + $" -o stratum+tcp://{algo}.{myServers[5, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x "
-               + $" -o stratum+tcp://{algo}.{myServers[0, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x {platform}"
+                return $" --algo=rx/0 -o stratum+tcp://{algo}.{myServers[0, 0]}{nhsuff}.nicehash.com:{port} {variant} -u {username} -p x --nicehash {extras} --http-port {ApiPort} --donate-level=1 "
+               + $" -o stratum+tcp://{algo}.{myServers[1, 0]}{nhsuff}.nicehash.com:{port} -u {username} -p x "
+               + $" -o stratum+tcp://{algo}.{myServers[2, 0]}{nhsuff}.nicehash.com:{port} -u {username} -p x "
+               + $" -o stratum+tcp://{algo}.{myServers[3, 0]}{nhsuff}.nicehash.com:{port} -u {username} -p x "
+               + $" -o stratum+tcp://{algo}.{myServers[4, 0]}{nhsuff}.nicehash.com:{port} -u {username} -p x "
+               + $" -o stratum+tcp://{algo}.{myServers[5, 0]}{nhsuff}.nicehash.com:{port} -u {username} -p x "
+               + $" -o stratum+tcp://{algo}.{myServers[0, 0]}{nhsuff}.nicehash.com:{port} -u {username} -p x {platform}"
                + GetDevicesCommandString().TrimStart();
             }
             return "unsupported algo";
@@ -197,7 +197,7 @@ namespace NiceHashMiner.Miners
                 algo = "randomxmonero";
                 port = "3380";
                 variant = "";
-                return $" --algo=rx/0 -o stratum+tcp://xmr-eu1.nanopool.org:14444 -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1 "
+                return $" --algo=rx/0 -o stratum+tcp://xmr-eu1.nanopool.org:14444 -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --http-port {ApiPort} --donate-level=1 "
                 //return $" --algo=rx/0 {extras} --http-port {ApiPort} --donate-level=1 "
                 + $" -o stratum+tcp://{algo}.{myServers[0, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x {platform}"
                + GetDevicesCommandString().TrimStart();
@@ -296,7 +296,7 @@ namespace NiceHashMiner.Miners
                 ConectionType);
             benchmarkTimeWait = time;
             return GetStartBenchmarkCommand(server, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim())
-                + $" -l {platform_prefix}{GetLogFileName()} --print-time=2 --nicehash";
+                + $" -l {platform_prefix}{GetLogFileName()} --print-time=10 --nicehash";
         }
 
         protected override void BenchmarkThreadRoutine(object commandLine)
