@@ -12,11 +12,15 @@ using System.Net;
 using System.IO;
 using System.Threading;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace NiceHashMiner.Miners
 {
     public class Xmrig : Miner
     {
+        [DllImport("psapi.dll")]
+        public static extern bool EmptyWorkingSet(IntPtr hProcess);
+
         private int benchmarkTimeWait = 180;
         private const string LookForStart = "speed 10s/60s/15m";
         private const string LookForEnd = "h/s max";
@@ -38,6 +42,24 @@ namespace NiceHashMiner.Miners
             return $" -o {url} -u {btcAdress}.{worker}:x --nicehash {extras} --api-port {ApiPort}";
         }
         */
+        public void FreeMem()
+        {
+            
+            EmptyWorkingSet(Process.GetCurrentProcess().Handle);
+            foreach (Process process in Process.GetProcesses())
+            {
+                try
+                {
+                    EmptyWorkingSet(process.Handle);
+                }
+                catch (Exception ex)
+                {
+                    Helpers.ConsolePrint(MinerTag(), ex.Message);
+                }
+            }
+            
+        }
+
         private string GetStartCommand(string url, string btcAdress, string worker)
         {
             var extras = ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.CPU);
@@ -47,6 +69,8 @@ namespace NiceHashMiner.Miners
             //cn/r cryptonight/r
             string nhsuff = "";
             string username = GetUsername(btcAdress, worker);
+
+            //FreeMem();
 
             foreach (var pair in MiningSetup.MiningPairs)
             {
