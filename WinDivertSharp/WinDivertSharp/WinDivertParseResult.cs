@@ -160,6 +160,10 @@ namespace WinDivertSharp
             {
                 return _pdataPtr;
             }
+            set
+            {
+                _pdataPtr = PacketPayload;
+            }
         }
 
         /// <summary>
@@ -170,6 +174,10 @@ namespace WinDivertSharp
             get
             {
                 return _dataLen;
+            }
+            set
+            {
+                _dataLen = PacketPayloadLength;
             }
         }
     }

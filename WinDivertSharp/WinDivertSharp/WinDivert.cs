@@ -211,6 +211,7 @@ namespace WinDivertSharp
         /// ERROR_IO_PENDING indicates that the overlapped operation has been successfully initiated
         /// and that completion will be indicated at a later time. All other codes indicate an error.
         /// </returns>
+        /// 
         public static bool WinDivertRecvEx(IntPtr handle, WinDivertBuffer packet, uint flags, ref WinDivertAddress address, ref uint readLen, ref NativeOverlapped lpOverlapped)
         {
             fixed (WinDivertAddress* pAddress = &address)
@@ -500,6 +501,8 @@ namespace WinDivertSharp
         /// does not do any verification of the header/payload contents beyond checking the header
         /// length and any other minimal information required for parsing.
         /// </remarks>
+        /// 
+
         public static WinDivertParseResult WinDivertHelperParsePacket(WinDivertBuffer packet, uint packetDataLength)
         {
             IPv4Header* _pip4Header = null;
@@ -516,6 +519,7 @@ namespace WinDivertSharp
 
             WinDivertNative.WinDivertHelperParsePacket(packet.BufferPointer, packetDataLength, &_pip4Header, &_pip6Header, &_picmp4Header, &_picmp6Header, &_ptcpHdr, &_pudpHdr, &_pdataPtr, ref _dataLen);
 
+            
             retVal._pip4Header = _pip4Header;
             retVal._pip6Header = _pip6Header;
             retVal._picmp4Header = _picmp4Header;
@@ -527,7 +531,7 @@ namespace WinDivertSharp
 
             return retVal;
         }
-
+       
         /// <summary>
         /// (Re)calculates the checksum for any IPv4/ICMP/ICMPv6/TCP/UDP checksum present in the
         /// given packet. Individual checksum calculations may be disabled via the appropriate flag.

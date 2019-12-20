@@ -47,10 +47,12 @@ namespace WinDivertSharp
         /// </summary>
         public ushort SrcPort;
 
+
         /// <summary>
         /// Gets or sets the destination port.
         /// </summary>
         public ushort DstPort;
+
 
         /// <summary>
         /// Gets or sets the sequence number.

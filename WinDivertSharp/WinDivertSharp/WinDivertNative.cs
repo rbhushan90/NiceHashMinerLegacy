@@ -40,7 +40,7 @@ using System.Threading;
 
 namespace WinDivertSharp
 {
-    internal static unsafe class WinDivertNative
+    public static unsafe class WinDivertNative
     {
         /// <summary>
         /// Static initializer to get our paths correct.

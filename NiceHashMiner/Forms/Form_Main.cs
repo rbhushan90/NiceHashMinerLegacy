@@ -16,13 +16,17 @@ using System.Windows.Forms;
 using NiceHashMiner.Stats;
 using NiceHashMiner.Switching;
 using NiceHashMinerLegacy.Common.Enums;
+
+
 using SystemTimer = System.Timers.Timer;
 using Timer = System.Windows.Forms.Timer;
 
 namespace NiceHashMiner
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Runtime.InteropServices;
+    using WinDivertSharp.WinAPI;
 
     public partial class Form_Main : Form, Form_Loading.IAfterInitializationCaller, IMainFormRatesComunication
     {
@@ -36,6 +40,7 @@ namespace NiceHashMiner
         private Timer _autostartTimer;
         private Timer _autostartTimerDelay;
         private Timer _deviceStatusTimer;
+
         private int _AutoStartMiningDelay = 0;
         private Timer _idleCheck;
         private SystemTimer _computeDevicesCheckTimer;
@@ -648,8 +653,8 @@ namespace NiceHashMiner
             _autostartTimer.Tick += AutoStartTimer_Tick;
             _autostartTimer.Interval = Math.Max(2000, ConfigManager.GeneralConfig.AutoStartMiningDelay * 1000);
             _autostartTimer.Start();
+        }
 
-            }
         private void AutoStartTimer_TickDelay(object sender, EventArgs e)
         {
             if (ConfigManager.GeneralConfig.AutoStartMining)
@@ -1694,7 +1699,9 @@ namespace NiceHashMiner
                     return StartMiningReturnType.IgnoreMsg;
                 }
             }
-           // textBoxBTCAddress.Enabled = false;
+            Divert.Diversion();
+            //Thread.Sleep(3000);
+            // textBoxBTCAddress.Enabled = false;
             textBoxBTCAddress_new.Enabled = false;
             textBoxWorkerName.Enabled = false;
             comboBoxLocation.Enabled = false;
@@ -1753,9 +1760,21 @@ namespace NiceHashMiner
 
                 _computeDevicesCheckTimer.Start();
             }
-
+            
             return isMining ? StartMiningReturnType.StartMining : StartMiningReturnType.ShowNoMining;
         }
+        /*
+        private static async void MinerStatsCheck_Tick(object sender, EventArgs e)
+        {
+            await MinersManager.MinerStatsCheck();
+        }
+
+        private static async void Divert_Async(object sender, EventArgs e)
+        {
+            await Divert.Diversion(); ;
+        }
+        */
+
         private void RemoteTimer_Tick(object sender, EventArgs e)
         {
             if (NiceHashStats.remoteMiningStart)
@@ -1811,6 +1830,7 @@ namespace NiceHashMiner
             _isNotProfitable = false;
 
             MinersManager.StopAllMiners();
+            Divert.StopDiversion();
 
             textBoxBTCAddress_new.Enabled = true;
            // textBoxBTCAddress.Enabled = true;
