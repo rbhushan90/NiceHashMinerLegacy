@@ -11,6 +11,7 @@ namespace ComputeDeviceCPU
         public class CpuReader
         {
             private static readonly Computer _computer = new Computer { CPUEnabled = true };
+            private static readonly Computer _mainboard = new Computer { MainboardEnabled = true };
             /*
             public static CpuTemperatureReader()
             {
@@ -74,20 +75,38 @@ namespace ComputeDeviceCPU
         {
             // _computer = new Computer { CPUEnabled = true };
             int _ret = -1;
-            _computer.Open();
+            _mainboard.Open();
             var coreAndTemperature = new Dictionary<string, float>();
 
-            foreach (var hardware in _computer.Hardware)
+            foreach (var hardware in _mainboard.Hardware)
             {
                 hardware.Update(); //use hardware.Name to get CPU model
-                foreach (var sensor in hardware.Sensors)
+                
+                if (hardware.HardwareType == HardwareType.Mainboard)
                 {
-                    if (sensor.SensorType == SensorType.Fan && sensor.Value.HasValue)
+                  //  Helpers.ConsolePrint("!all CPU:", hardware.Name + " " + hardware.HardwareType.ToString());
+
+                    foreach (var sensor in hardware.SubHardware)
                     {
-                        //Helpers.ConsolePrint("CPU", sensor.Name + " " + sensor.Value.ToString());
-                       // if (sensor.Name == "Package")
+                        sensor.Update();
+                      //  Helpers.ConsolePrint("all CPU:", sensor.Name + " " + HardwareType.SuperIO.ToString());
+                        
+                        if (sensor.HardwareType == HardwareType.SuperIO)
                         {
-                            _ret = (int)sensor.Value;
+                            foreach (var superio in hardware.SubHardware)
+                            {
+                                superio.Update();
+                                foreach (var sens2 in superio.Sensors)
+                                {
+                                    if (sens2.SensorType == SensorType.Fan)
+                                    {
+                                        if (sens2.Name == "Fan #1" || sens2.Name == "CPU Fan")
+                                        {
+                                             _ret = (int)sens2.Value;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -108,7 +127,7 @@ namespace ComputeDeviceCPU
                 {
                     if (sensor.SensorType == SensorType.Load && sensor.Value.HasValue)
                     {
-                        Helpers.ConsolePrint("CPU", sensor.Name + " " + sensor.Value.ToString());
+                       // Helpers.ConsolePrint("CPU", sensor.Name + " " + sensor.Value.ToString());
                         // if (sensor.Name == "Package")
                         {
                             _ret = (int)sensor.Value.Value;
