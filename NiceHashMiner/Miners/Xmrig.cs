@@ -13,6 +13,7 @@ using System.IO;
 using System.Threading;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace NiceHashMiner.Miners
 {
@@ -58,6 +59,19 @@ namespace NiceHashMiner.Miners
                 }
             }
             
+        }
+
+        protected override string GetDevicesCommandString()
+        {
+            var deviceStringCommand = " ";
+            if (platform == "")//cpu
+            {
+                return "";
+            }
+            var ids = MiningSetup.MiningPairs.Select(mPair => mPair.Device.ID.ToString()).ToList();
+            deviceStringCommand += string.Join(",", ids);
+
+            return deviceStringCommand;
         }
 
         private string GetStartCommand(string url, string btcAdress, string worker)
