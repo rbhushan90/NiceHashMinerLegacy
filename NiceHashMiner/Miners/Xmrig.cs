@@ -235,7 +235,7 @@ namespace NiceHashMiner.Miners
                 algo = "randomxmonero";
                 port = "3380";
                 variant = "";
-                return $" --algo=rx/0 -o stratum+tcp://xmr-eu1.nanopool.org:14444 -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --http-port {ApiPort} --donate-level=1 "
+                return $" --algo=rx/0 -o stratum+tcp://pool.supportxmr.com:3333 -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.benchmark -p x {extras} --http-port {ApiPort} --donate-level=1 "
                 //return $" --algo=rx/0 {extras} --http-port {ApiPort} --donate-level=1 "
                 + $" -o stratum+tcp://{algo}.{myServers[0, 0]}{nhsuff}.nicehash.com:{port} -u {username}:x {platform}"
                + GetDevicesCommandString().TrimStart();

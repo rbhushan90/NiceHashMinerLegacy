@@ -319,7 +319,7 @@ namespace NiceHashMiner.Miners
 
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
             {
-                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --pers BgoldPoW --algo 144_5" +
+                ret = " --logfile " + suff + GetLogFileName() + " --color 0 --pec --pers auto --algo 144_5" +
                 " --server equihash144.eu.mine.zpool.ca --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2 --pass c=BTC --port 2144 " +
                 " --server zhash.eu" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3369" +
                 " --server zhash.hk" + nhsuff + ".nicehash.com --user " + username + " --pass x --port 3369" +
