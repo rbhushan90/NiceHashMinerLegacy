@@ -12,6 +12,9 @@ using System.Windows.Forms;
 using NiceHashMiner.Stats;
 using NiceHashMiner.Configs.Data;
 using System.Reflection;
+using System.Security.Principal;
+using System.ComponentModel;
+using System.Management;
 
 namespace NiceHashMiner
 {
@@ -23,6 +26,26 @@ namespace NiceHashMiner
         [STAThread]
         static void Main(string[] argv)
         {
+
+            WindowsPrincipal pricipal = new WindowsPrincipal(WindowsIdentity.GetCurrent());
+            bool hasAdministrativeRight = pricipal.IsInRole(WindowsBuiltInRole.Administrator);
+            var proc = Process.GetCurrentProcess();
+            if (hasAdministrativeRight == false)
+            {
+                ProcessStartInfo processInfo = new ProcessStartInfo(); 
+                processInfo.Verb = "runas"; 
+                processInfo.FileName = Application.ExecutablePath; 
+                try
+                {
+                    Process.Start(processInfo); 
+                }
+                catch (Win32Exception e)
+                {
+                    Helpers.ConsolePrint("Error start as Administrator: ", e.ToString());
+                }
+                proc.Kill();
+            }
+
             // Set working directory to exe
             var pathSet = false;
             var path = Path.GetDirectoryName(Application.ExecutablePath);

@@ -15,11 +15,60 @@ namespace NiceHashMiner.Devices
             {
                 try
                 {
-                    if (_cpuCounter != null) return _cpuCounter.NextValue();
+                    // if (_cpuCounter != null) return _cpuCounter.NextValue();
+                    return ComputeDeviceCPU.CpuReader.GetLoad();
                 }
                 catch (Exception e)
                 {
                 //    Helpers.ConsolePrint("CPUDIAG", e.ToString());
+                }
+                return -1;
+            }
+        }
+        
+        public override float Temp
+        {
+            get
+            {
+                try
+                {
+                    return ComputeDeviceCPU.CpuReader.GetTemperaturesInCelsius(); 
+                }
+                catch (Exception e)
+                {
+                    //    Helpers.ConsolePrint("CPUDIAG", e.ToString());
+                }
+                return -1;
+            }
+        }
+
+        public override int FanSpeed
+        {
+            get
+            {
+                try
+                {
+                    return ComputeDeviceCPU.CpuReader.GetFan();
+                }
+                catch (Exception e)
+                {
+                        Helpers.ConsolePrint("CPUDIAG", e.ToString());
+                }
+                return -1;
+            }
+        }
+
+        public override double PowerUsage
+        {
+            get
+            {
+                try
+                {
+                    return ComputeDeviceCPU.CpuReader.GetPower();
+                }
+                catch (Exception e)
+                {
+                        Helpers.ConsolePrint("CPUDIAG", e.ToString());
                 }
                 return -1;
             }
