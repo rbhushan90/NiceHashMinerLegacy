@@ -55,12 +55,13 @@ namespace ComputeDeviceCPU
                 hardware.Update(); //use hardware.Name to get CPU model
                 foreach (var sensor in hardware.Sensors)
                 {
+                    //Helpers.ConsolePrint("CPU", sensor.Name + " " + sensor.Value.ToString());
                     if (sensor.SensorType == SensorType.Power && sensor.Value.HasValue)
                     {
-                        //Helpers.ConsolePrint("CPU", sensor.Name + " " + sensor.Value.ToString());
-                          if (sensor.Name == "Package")
+                       // Helpers.ConsolePrint("CPU", sensor.Name + " " + sensor.Value.ToString());
+                          if (sensor.Name == "CPU Package")
                         {
-                            _ret = (int)sensor.Value.Value;
+                            _ret = (int)sensor.Value;
                         }
                     }
                 }
@@ -86,7 +87,7 @@ namespace ComputeDeviceCPU
                         //Helpers.ConsolePrint("CPU", sensor.Name + " " + sensor.Value.ToString());
                        // if (sensor.Name == "Package")
                         {
-                            _ret = (int)sensor.Value.Value;
+                            _ret = (int)sensor.Value;
                         }
                     }
                 }
