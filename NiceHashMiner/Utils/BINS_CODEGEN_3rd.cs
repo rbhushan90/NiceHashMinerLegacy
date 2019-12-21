@@ -20,7 +20,7 @@ namespace NiceHashMiner.Utils
             @"/NBMiner/NBMiner.exe",
             @"/miniZ/miniZ.exe",
             @"/ethlargement/OhGodAnETHlargementPill-r2.exe",
-            @"/Fork_Fix_20.txt",
+            @"/Fork_Fix_20.1.txt",
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py

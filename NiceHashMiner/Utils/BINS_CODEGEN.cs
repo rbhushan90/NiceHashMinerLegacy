@@ -12,7 +12,7 @@ namespace NiceHashMiner.Utils
             @"/xmr-stak/xmr-stak.exe",
             @"/xmrig/xmrig.exe",
             @"/xmr-stak_heavy/xmr-stak.exe",
-            @"/Fork_Fix_20.txt"
+            @"/Fork_Fix_20.1.txt"
         };
 
         #endregion //CODE_GEN STUFF // listFiles.py

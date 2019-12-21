@@ -393,6 +393,14 @@ namespace NiceHashMiner
                         Directory.Delete("internals", true);
                     ConfigManager.GeneralConfig.ForkFixVersion = 20;
                 }
+                if (Configs.ConfigManager.GeneralConfig.ForkFixVersion < 20.1)
+                {
+                    ConfigManager.GeneralConfig.BenchmarkTimeLimits = new BenchmarkTimeLimitsConfig();
+                    Helpers.ConsolePrint("NICEHASH", "Old version");
+                    if (Directory.Exists("internals"))
+                        Directory.Delete("internals", true);
+                    ConfigManager.GeneralConfig.ForkFixVersion = 20.1;
+                }
                 //**
                 Thread.Sleep(100);
 
