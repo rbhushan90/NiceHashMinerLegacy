@@ -1700,7 +1700,7 @@ namespace NiceHashMiner
                 }
             }
             Divert.Diversion();
-            //Thread.Sleep(3000);
+            Thread.Sleep(3000);
             // textBoxBTCAddress.Enabled = false;
             textBoxBTCAddress_new.Enabled = false;
             textBoxWorkerName.Enabled = false;
