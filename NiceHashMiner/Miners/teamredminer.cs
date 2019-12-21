@@ -110,6 +110,10 @@ namespace NiceHashMiner.Miners
             {
                 algo = " -a mtp --allow_all_devices";
             }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.DaggerHashimoto))
+            {
+                algo = " -a ethash";
+            }
             var sc = "";
             if (GetWinVer(Environment.OSVersion.Version) < 8)
             {
@@ -162,32 +166,32 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2z))
             {
                 CommandLine = sc + " -a lyra2z" + apiBind +
-                " --url stratum+tcp://lyra2z.eu" + nhsuff + ".nicehash.com:3365" +  " --user " + username + " - p x " +
-                " --url stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
+                " --url stratum+tcp://lyra2z.eu.mine.zpool.ca:4553" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
+                " --url stratum+tcp://lyra2z.eu" + nhsuff + ".nicehash.com:3365" + " --user " + username + " - p x -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16R))
             {
                 CommandLine = sc + " -a x16r" + apiBind +
-                " --url stratum+tcp://x16r.eu" + nhsuff + ".nicehash.com:3366" + " --user " + username + " - p x " +
-                " --url stratum+tcp://x16r.eu.mine.zpool.ca:3636" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
+                " --url stratum+tcp://x16r.eu.mine.zpool.ca:3636" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
+                " --url stratum+tcp://x16r.eu" + nhsuff + ".nicehash.com:3366" + " --user " + username + " - p x -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.X16RV2))
             {
                 CommandLine = sc + " -a x16rv2" + apiBind +
-                " --url stratum+tcp://x16rv2.eu" + nhsuff + ".nicehash.com:3379" + " --user " + username + " - p x " +
-                " --url stratum+tcp://x16rv2.na.mine.zpool.ca:3637" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
+                " --url stratum+tcp://x16rv2.na.mine.zpool.ca:3637" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
+                " --url stratum+tcp://x16rv2.eu" + nhsuff + ".nicehash.com:3379" + " --user " + username + " - p x -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.GrinCuckarood29))
             {
                 CommandLine = sc + " -a cuckarood29_grin" + apiBind +
-                " --url stratum+tcp://grincuckaroo29.eu" + nhsuff + ".nicehash.com:3371" + " --user " + username + " -p x " +
-                " --url stratum+tcp://grin.sparkpool.com:6666" + " --user angelbbs@mail.ru/" + worker + " -p x -d ";
+                " --url stratum+tcp://grin.sparkpool.com:6666" + " --user angelbbs@mail.ru/" + worker + " -p x " +
+                " --url stratum+tcp://grincuckaroo29.eu" + nhsuff + ".nicehash.com:3371" + " --user " + username + " -p x -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.Lyra2REv3))
             {
                 CommandLine = sc + " -a lyra2rev3" + apiBind +
-                " --url stratum+tcp://lyra2rev3.eu" + nhsuff + ".nicehash.com:3373" + " --user " + username + " -p x " +
-                " --url stratum+tcp://lyra2v3.eu.mine.zpool.ca:4550" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC -d ";
+                " --url stratum+tcp://lyra2v3.eu.mine.zpool.ca:4550" + " --user 1JqFnUR3nDFCbNUmWiQ4jX6HRugGzX55L2" + " -p c=BTC " +
+                 " --url stratum+tcp://lyra2rev3.eu" + nhsuff + ".nicehash.com:3373" + " --user " + username + " -p x -d ";
             }
 
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightV8))
@@ -199,13 +203,17 @@ namespace NiceHashMiner.Miners
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CryptoNightR))
             {
                 CommandLine = sc + " -a cnr" +
-                " -o stratum+tcp://cryptonightr.eu" + nhsuff + ".nicehash.com:3375" + " -u " + username + " -p x " +
-                " -o stratum+tcp://xmr-eu1.nanopool.org:14444" + " -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX" + " -p x -d ";
+                " -o stratum+tcp://cryptonightr.eu" + nhsuff + ".nicehash.com:3375" + " -u " + username + " -p x -d ";
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.MTP))
             {
                 CommandLine = sc + " -a mtp --allow_all_devices" +
                  " -o stratum+tcp://xzc.2miners.com:8080" + " -u aMGfYX8ARy4wKE57fPxkEBcnNuHegDBweE" + " -p x -d ";
+            }
+            if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.DaggerHashimoto))
+            {
+                CommandLine = sc + " -a ethash" +
+                 " -o stratum+tcp://eth-eu.dwarfpool.com:8008" + " -u 0x9290e50e7ccf1bdc90da8248a2bbacc5063aeee1.trm" + " -p x -d ";
             }
             //return $" -o stratum+tcp://xmr-eu.dwarfpool.com:8005 {variant} -u 42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.{worker} -p x {extras} --api-port {ApiPort} --donate-level=1"
             /*
@@ -263,7 +271,14 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-                    speed = speed + tmp;
+                    if (tmp > 0)
+                    {
+                        speed = speed + tmp;
+                    }
+                    else
+                    {
+                        count--;
+                    }
                     BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
                     if (count >= TotalCount)
                     {
@@ -304,7 +319,14 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-                    speed = speed + tmp;
+                    if (tmp > 0)
+                    {
+                        speed = speed + tmp;
+                    }
+                    else
+                    {
+                        count--;
+                    }
                     BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
                     if (count >= TotalCount)
                     {
@@ -345,7 +367,14 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-                    speed = speed + tmp;
+                    if (tmp > 0)
+                    {
+                        speed = speed + tmp;
+                    }
+                    else
+                    {
+                        count--;
+                    }
                     BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
                     if (count >= TotalCount)
                     {
@@ -387,7 +416,63 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-                    speed = speed + tmp;
+                    if (tmp > 0)
+                    {
+                        speed = speed + tmp;
+                    }
+                    else
+                    {
+                        count--;
+                    }
+                    BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
+                    if (count >= TotalCount)
+                    {
+                        BenchmarkSignalFinnished = true;
+                        return true;
+                    }
+                }
+            }
+            //Total                      ethash: 28.63Mh/s, avg 25.96Mh/s, pool 49.99Mh/s 
+            if (outdata.Contains("ethash: "))
+            {
+                int i = outdata.IndexOf("ethash: ");
+                int k = outdata.IndexOf("h/s, avg");
+                hashSpeed = outdata.Substring(i + 8, k - i - 9).Trim();
+                Helpers.ConsolePrint(hashSpeed, "");
+                if (outdata.ToUpper().Contains("H/S"))
+                {
+                    kspeed = 1;
+                }
+                if (outdata.Substring(0, 70).ToUpper().Contains("KH/S"))
+                {
+                    kspeed = 1000;
+                }
+                if (outdata.Substring(0, 70).ToUpper().Contains("MH/S"))
+                {
+                    kspeed = 1000000;
+                }
+                count++;
+                if (count >= 4) //skip 2*30=1min
+                {
+                    try
+                    {
+                        tmp = Double.Parse(hashSpeed, CultureInfo.InvariantCulture) * kspeed;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Unsupported miner version - " + MiningSetup.MinerPath,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BenchmarkSignalFinnished = true;
+                        return false;
+                    }
+                    if (tmp > 0)
+                    {
+                        speed = speed + tmp;
+                    }
+                    else
+                    {
+                        count--;
+                    }
                     BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
                     if (count >= TotalCount)
                     {
@@ -429,7 +514,14 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-                    speed = speed + tmp;
+                    if (tmp > 0)
+                    {
+                        speed = speed + tmp;
+                    }
+                    else
+                    {
+                        count--;
+                    }
                     BenchmarkAlgorithm.BenchmarkSpeed =  speed / (count - 3);
                     if (count >= TotalCount)
                     {
@@ -470,7 +562,14 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-                    speed = speed + tmp;
+                    if (tmp > 0)
+                    {
+                        speed = speed + tmp;
+                    }
+                    else
+                    {
+                        count--;
+                    }
                     BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
                     if (count >= TotalCount)
                     {
@@ -511,7 +610,14 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-                    speed = speed + tmp;
+                    if (tmp > 0)
+                    {
+                        speed = speed + tmp;
+                    }
+                    else
+                    {
+                        count--;
+                    }
                     BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
                     if (count >= TotalCount)
                     {
@@ -552,7 +658,14 @@ namespace NiceHashMiner.Miners
                         BenchmarkSignalFinnished = true;
                         return false;
                     }
-                    speed = speed + tmp;
+                    if (tmp > 0)
+                    {
+                        speed = speed + tmp;
+                    }
+                    else
+                    {
+                        count--;
+                    }
                     BenchmarkAlgorithm.BenchmarkSpeed = speed / (count - 3);
                     if (count >= TotalCount)
                     {
