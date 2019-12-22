@@ -936,7 +936,7 @@ namespace NiceHashMiner.Forms
                 textBox_APIBindPortStart.Text = ConfigManager.GeneralConfig.ApiBindPortPoolStart.ToString();
                 textBox_MinProfit.Text =
                     ConfigManager.GeneralConfig.MinimumProfit.ToString("F2").Replace(',', '.'); // force comma;
-                textBox_SwitchProfitabilityThreshold.Text = ConfigManager.GeneralConfig.SwitchProfitabilityThreshold
+                textBox_SwitchProfitabilityThreshold.Text = ((ConfigManager.GeneralConfig.SwitchProfitabilityThreshold)*100)
                     .ToString("F2").Replace(',', '.'); // force comma;
                 textBox_ElectricityCost.Text = ConfigManager.GeneralConfig.KwhPrice.ToString("0.0000");
             }
@@ -1168,7 +1168,7 @@ namespace NiceHashMiner.Forms
             // min profit
             ConfigManager.GeneralConfig.MinimumProfit = Helpers.ParseDouble(textBox_MinProfit.Text);
             ConfigManager.GeneralConfig.SwitchProfitabilityThreshold =
-                Helpers.ParseDouble(textBox_SwitchProfitabilityThreshold.Text);
+                Helpers.ParseDouble(textBox_SwitchProfitabilityThreshold.Text) / 100;
 
             ConfigManager.GeneralConfig.IFTTTKey = textBox_IFTTTKey.Text.Trim();
 
@@ -1179,7 +1179,7 @@ namespace NiceHashMiner.Forms
             // update strings
             textBox_MinProfit.Text =
                 ConfigManager.GeneralConfig.MinimumProfit.ToString("F2").Replace(',', '.'); // force comma
-            textBox_SwitchProfitabilityThreshold.Text = ConfigManager.GeneralConfig.SwitchProfitabilityThreshold
+            textBox_SwitchProfitabilityThreshold.Text = (ConfigManager.GeneralConfig.SwitchProfitabilityThreshold * 100)
                 .ToString("F2").Replace(',', '.'); // force comma
             textBox_SwitchMaxSeconds.Text = ConfigManager.GeneralConfig.SwitchSmaTimeChangeSeconds.Upper.ToString();
             textBox_SwitchMinSeconds.Text = ConfigManager.GeneralConfig.SwitchSmaTimeChangeSeconds.Lower.ToString();

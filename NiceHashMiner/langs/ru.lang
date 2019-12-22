@@ -388,8 +388,8 @@
     "Program_WMI_Error_Title": "Ошибка Инструментария управления Windows",
     "Form_Main_Accepted_Speed_Zero": "Предупреждение! Алгоритм {0} сообщает 0 принятых шар. Отключите, пожалуйста, этот алгоритм в Бенчмарке/Настройках и сообщите о данной проблеме на support-ru@nicehash.com!",
 
-    "Form_Settings_General_SwitchProfitabilityThreshold": "Порог переключ. прибыльн.:",
-    "Form_Settings_ToolTip_SwitchProfitabilityThreshold": "Майнер не будет переключаться, если разница между прибыльностью алгоритмов\nниже Порога переключения прибыльности. Значение в процентах [0 — 1]",
+    "Form_Settings_General_SwitchProfitabilityThreshold": "Порог перекл. прибыльн., %",
+    "Form_Settings_ToolTip_SwitchProfitabilityThreshold": "Майнер не будет переключаться, если разница между прибыльностью алгоритмов\nниже Порога переключения прибыльности. Значение в процентах [0 — 100]",
     "VirtualMemorySize_BAD": "NiceHash Miner Legacy рекомендует увеличить размер виртуальной памяти для нормальной работы всех алгоритмов.",
     "sgminer_precise_try": "Неудача — попробуйте Точный"
 

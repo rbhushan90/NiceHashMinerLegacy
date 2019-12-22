@@ -349,9 +349,10 @@ namespace NiceHashMiner.Miners
                 {
                     stringBuilderDevice.AppendLine(
                         $"\t\tPROFIT = {algo.CurrentProfit.ToString(DoubleFormat)}" +
-                        $"\t(SPEED = {algo.AvaragedSpeed:e5}" +
-                        $"\t\t| NHSMA = {algo.CurNhmSmaDataVal:e5})" +
-                        $"\t[{algo.AlgorithmStringID}]"
+                        $"\t(SPEED = {algo.AvaragedSpeed}" +
+                        $"\t\t| NHSMA = {algo.CurNhmSmaDataVal})" +
+                        $"\t[{algo.AlgorithmStringID}]" +
+                        $"\t less than {device.GetMostProfitableString()} {(((device.GetCurrentMostProfitValue - algo.CurrentProfit) / device.GetCurrentMostProfitValue) * 100):0.00}%"
                     );
                     if (algo is DualAlgorithm dualAlg)
                     {
@@ -388,11 +389,11 @@ namespace NiceHashMiner.Miners
                 var b = Math.Min(prevStateProfit, currentProfit);
                 //double percDiff = Math.Abs((PrevStateProfit / CurrentProfit) - 1);
                 var percDiff = ((a - b)) / b;
-                if (percDiff < ConfigManager.GeneralConfig.SwitchProfitabilityThreshold)
+                if (percDiff <= ConfigManager.GeneralConfig.SwitchProfitabilityThreshold)
                 {
                     // don't switch
                     Helpers.ConsolePrint(Tag,
-                        $"Will NOT switch profit diff is {percDiff}, current threshold {ConfigManager.GeneralConfig.SwitchProfitabilityThreshold}");
+                        $"Will NOT switch profit diff is {percDiff*100}%, current threshold {ConfigManager.GeneralConfig.SwitchProfitabilityThreshold*100}%");
                     // RESTORE OLD PROFITS STATE
                     foreach (var device in _miningDevices)
                     {
@@ -403,7 +404,7 @@ namespace NiceHashMiner.Miners
                 }
 
                 Helpers.ConsolePrint(Tag,
-                    $"Will SWITCH profit diff is {percDiff}, current threshold {ConfigManager.GeneralConfig.SwitchProfitabilityThreshold}");
+                    $"Will SWITCH profit diff is {percDiff*100}%, current threshold {ConfigManager.GeneralConfig.SwitchProfitabilityThreshold*100}%");
             }
 
             // group new miners 
