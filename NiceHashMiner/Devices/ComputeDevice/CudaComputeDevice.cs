@@ -1,4 +1,8 @@
-﻿using ManagedCuda.Nvml;
+﻿/*
+* This is an open source non-commercial project. Dear PVS-Studio, please check it.
+* PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+*/
+using ManagedCuda.Nvml;
 using NVIDIA.NVAPI;
 using System;
 using NiceHashMiner.Devices.Algorithms;
@@ -78,12 +82,12 @@ namespace NiceHashMiner.Devices
             if (_NvPhysicalGpuHandle.HasValue) return _NvPhysicalGpuHandle.Value;
             if (NVAPI.NvAPI_EnumPhysicalGPUs == null)
             {
-                Helpers.ConsolePrint("NVAPI", "NvAPI_EnumPhysicalGPUs unavailable", TimeSpan.FromMinutes(5));
+                Helpers.ConsolePrint("NVAPI", "NvAPI_EnumPhysicalGPUs unavailable", TimeSpan.FromMinutes(5).ToString());
                 return null;
             }
             if (NVAPI.NvAPI_GPU_GetBusID == null)
             {
-                Helpers.ConsolePrint("NVAPI", "NvAPI_GPU_GetBusID unavailable", TimeSpan.FromMinutes(5));
+                Helpers.ConsolePrint("NVAPI", "NvAPI_GPU_GetBusID unavailable", TimeSpan.FromMinutes(5).ToString());
                 return null;
             }
 

@@ -1,4 +1,8 @@
-﻿using NiceHashMiner.Miners.Grouping;
+﻿/*
+* This is an open source non-commercial project. Dear PVS-Studio, please check it.
+* PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+*/
+using NiceHashMiner.Miners.Grouping;
 using NiceHashMiner.Miners.Parsing;
 using System;
 using System.Diagnostics;
@@ -102,7 +106,7 @@ namespace NiceHashMiner.Miners
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
+                nhsuff = nhsuff + Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.NeoScrypt))
             {

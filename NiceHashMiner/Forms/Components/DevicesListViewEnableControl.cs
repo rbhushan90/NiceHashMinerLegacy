@@ -1,4 +1,8 @@
-﻿using NiceHashMiner.Configs;
+﻿/*
+* This is an open source non-commercial project. Dear PVS-Studio, please check it.
+* PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+*/
+using NiceHashMiner.Configs;
 using NiceHashMiner.Devices;
 using NiceHashMiner.Interfaces;
 using NiceHashMinerLegacy.Common.Enums;
@@ -475,9 +479,12 @@ namespace NiceHashMiner.Forms.Components
                         CDevice.CopyBenchmarkSettingsFrom(copyBenchCDev);
                     }
 
-                    _algorithmsListView.Update();
-                    _algorithmsListView.Refresh();
-                    _algorithmsListView?.RepaintStatus(CDevice.Enabled, CDevice.Uuid);
+                    if (_algorithmsListView != null)
+                    {
+                        _algorithmsListView.Update();
+                        _algorithmsListView.Refresh();
+                        _algorithmsListView?.RepaintStatus(CDevice.Enabled, CDevice.Uuid);
+                    }
                 }
             }
         }

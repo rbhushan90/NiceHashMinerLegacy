@@ -1,4 +1,8 @@
-﻿using NiceHashMiner.Devices;
+﻿/*
+* This is an open source non-commercial project. Dear PVS-Studio, please check it.
+* PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+*/
+using NiceHashMiner.Devices;
 using NiceHashMiner.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -328,7 +332,10 @@ namespace NiceHashMiner.Forms.Components
                     {
                      //   lvi.SubItems[SECSPEED].Text = dualAlg.SecondaryBenchmarkSpeedString();
                     }
-                    algo.PowerUsage = Math.Round(algo.PowerUsage, 0);
+                    if (algo != null)
+                    {
+                        algo.PowerUsage = Math.Round(algo.PowerUsage, 0);
+                    }
                     if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
                     {
                         lvi.SubItems[POWER].Text = algo?.PowerUsage.ToString() + " Вт";

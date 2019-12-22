@@ -1,4 +1,8 @@
-﻿#region Copyright
+﻿/*
+* This is an open source non-commercial project. Dear PVS-Studio, please check it.
+* PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+*/
+#region Copyright
 
 /*******************************************************************************
  Copyright(c) 2008 - 2009 Advanced Micro Devices, Inc. All Rights Reserved.

@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿/*
+* This is an open source non-commercial project. Dear PVS-Studio, please check it.
+* PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+*/
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NiceHashMiner.Configs;
 using NiceHashMiner.Interfaces;
@@ -1817,7 +1821,7 @@ namespace NiceHashMiner
 
         protected virtual void RunCMDAfterMining(string CMDparam, NiceHashProcess ProcessHandle)
         {
-            while (ProcessHandle != null)
+ //           while (ProcessHandle != null)
             {
             }
             bool CreateNoWindow = false;
