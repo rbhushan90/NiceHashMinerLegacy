@@ -172,7 +172,7 @@ namespace NiceHashMiner.Miners
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.CuckooCycle))
             {
-                cmd = $"-a {AlgoName} -o stratum+tcp://ae.f2pool.com:7898 -u ak_2f9AMwztStKs5roPmT592wTbUEeTyqRgYVZNrc5TyZfr94m7fM.{worker} -o1 stratum+tcp://cuckoocycle." + myServers[0, 0] + nhsuff + ".nicehash.com:3376 -u1 " + username +
+                cmd = $"-a {AlgoName} -o stratum+tcp://ae.2miners.com:4040 -u ak_2f9AMwztStKs5roPmT592wTbUEeTyqRgYVZNrc5TyZfr94m7fM.{worker} -o1 stratum+tcp://cuckoocycle." + myServers[0, 0] + nhsuff + ".nicehash.com:3376 -u1 " + username +
                     $" -o2 stratum+tcp://cuckoocycle." + myServers[1, 0] + nhsuff + ".nicehash.com:3376 -u2 " + username +
                     $" --api 127.0.0.1:{ApiPort} -d {devs} -RUN ";
             }
