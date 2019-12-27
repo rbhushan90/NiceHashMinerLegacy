@@ -1,4 +1,8 @@
-﻿using MyDownloader.Core;
+﻿/*
+* This is an open source non-commercial project. Dear PVS-Studio, please check it.
+* PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+*/
+using MyDownloader.Core;
 using MyDownloader.Core.Extensions;
 using MyDownloader.Core.UI;
 using MyDownloader.Extension.Protocols;
