@@ -612,7 +612,7 @@ namespace NiceHashMiner.Stats
                         }
                     }
                     outProf = outProf.Remove(outProf.Length - 2) + "]";
-
+                    
                    // Helpers.ConsolePrint("SMA-DATA-APICurrent: ", outProf);
                     JArray smadata = (JArray.Parse(outProf));
 

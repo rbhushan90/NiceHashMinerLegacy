@@ -19,9 +19,9 @@ namespace NiceHashMiner.Devices
             {
                 try
                 {
-                    if (_cpuCounter != null) return _cpuCounter.NextValue();
+                   // if (_cpuCounter != null) return _cpuCounter.NextValue();
                 }
-                catch (Exception e)
+                catch (ExecutionEngineException e)
                 {
                 //    Helpers.ConsolePrint("CPUDIAG", e.ToString());
                 }

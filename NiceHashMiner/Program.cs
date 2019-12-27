@@ -28,8 +28,10 @@ namespace NiceHashMiner
         static void Main(string[] argv)
         {
             // Set working directory to exe
+            bool IsRunned = false;
             var pathSet = false;
             var path = Path.GetDirectoryName(Application.ExecutablePath);
+            if (IsRunned == true) return; //
             if (path != null)
             {
                 Environment.CurrentDirectory = path;
@@ -439,6 +441,7 @@ namespace NiceHashMiner
                 {
                     if (ConfigManager.GeneralConfig.agreedWithTOS == Globals.CurrentTosVer)
                     {
+                        IsRunned = true;
                         Application.Run(new Form_Main());
                     }
                 }

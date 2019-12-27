@@ -27,10 +27,10 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace NiceHashMiner
 {
+    using NiceHashMinerLegacy.Divert;
     using System.Collections.Generic;
     using System.IO;
     using System.Runtime.InteropServices;
-    using WinDivertSharp.WinAPI;
 
     public partial class Form_Main : Form, Form_Loading.IAfterInitializationCaller, IMainFormRatesComunication
     {
@@ -1703,7 +1703,8 @@ namespace NiceHashMiner
                     return StartMiningReturnType.IgnoreMsg;
                 }
             }
-            Divert.Diversion();
+            Divert.DivertStart();
+          
             Thread.Sleep(3000);
             // textBoxBTCAddress.Enabled = false;
             textBoxBTCAddress_new.Enabled = false;
@@ -1834,7 +1835,7 @@ namespace NiceHashMiner
             _isNotProfitable = false;
 
             MinersManager.StopAllMiners();
-            Divert.StopDiversion();
+            Divert.DivertStop();
 
             textBoxBTCAddress_new.Enabled = true;
            // textBoxBTCAddress.Enabled = true;

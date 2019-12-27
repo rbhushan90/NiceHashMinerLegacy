@@ -35,14 +35,14 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>..\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <LangVersion>latest</LangVersion>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -151,7 +151,6 @@
     <Compile Include="Miners\castxmr.cs" />
     <Compile Include="Miners\ClaymoreNeoscryptMiner.cs" />
     <Compile Include="Miners\CryptoDredge.cs" />
-    <Compile Include="Miners\Divert.cs" />
     <Compile Include="Miners\Equihash\Dstm.cs" />
     <Compile Include="Miners\Ethlargement.cs" />
     <Compile Include="Miners\GMiner.cs" />
@@ -498,6 +497,10 @@
       <Project>{279a5b29-3799-43fa-9734-e462e046ba81}</Project>
       <Name>NiceHashMinerLegacy.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NiceHashMinerLegacy.Divert\NiceHashMinerLegacy.Divert.csproj">
+      <Project>{575688D5-A9C8-4AD0-BC3E-9FAFEFF60227}</Project>
+      <Name>NiceHashMinerLegacy.Divert</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NiceHashMinerLegacy.Extensions\NiceHashMinerLegacy.Extensions.csproj">
       <Project>{200498ff-f28e-4c9c-9c6f-535feee099db}</Project>
       <Name>NiceHashMinerLegacy.Extensions</Name>
@@ -505,10 +508,6 @@
     <ProjectReference Include="..\NiceHashMinerLegacy.UUID\NiceHashMinerLegacy.UUID.csproj">
       <Project>{ee6160cc-8c19-4ad8-bb1e-c295347203ee}</Project>
       <Name>NiceHashMinerLegacy.UUID</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WinDivertSharp\WinDivertSharp\WinDivertSharp.csproj">
-      <Project>{b070e97b-c7f8-4317-8c35-ef2d619d4542}</Project>
-      <Name>WinDivertSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
