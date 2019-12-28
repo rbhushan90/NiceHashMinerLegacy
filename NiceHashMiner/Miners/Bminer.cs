@@ -245,7 +245,7 @@ namespace NiceHashMiner.Miners
             string username = GetUsername(btcAddress, worker);
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
+                nhsuff = "";
             }
             if (MiningSetup.CurrentAlgorithmType == AlgorithmType.ZHash)
             {

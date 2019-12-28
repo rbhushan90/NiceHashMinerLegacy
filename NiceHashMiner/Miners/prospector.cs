@@ -78,7 +78,7 @@ namespace NiceHashMiner.Miners
             public ProspectorDatabase(string path)
                 : base(new SQLitePlatformWin32(), path)
             { }
-
+            /*
             public double QueryLastSpeed(string device)
             {
                 try
@@ -91,7 +91,7 @@ namespace NiceHashMiner.Miners
                     return 0;
                 }
             }
-
+            */
             public IEnumerable<hashrates> QuerySpeedsForSessionDev(int id, string device) 
             {
                 try 

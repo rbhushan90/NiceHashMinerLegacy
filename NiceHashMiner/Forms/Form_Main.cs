@@ -500,13 +500,14 @@ namespace NiceHashMiner
             NiceHashStats.OnVersionBurn += VersionBurnCallback;
             NiceHashStats.OnExchangeUpdate += ExchangeCallback;
             Thread.Sleep(50);
-
+            /*
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
                 NiceHashStats.StartConnection(Links.NhmSocketAddress);
                 //NiceHashStats.DeviceStatus_TickNew("PENDING");
             }
             else
+            */
             {
                 NiceHashStats.StartConnection(Links.NhmSocketAddress);
             }

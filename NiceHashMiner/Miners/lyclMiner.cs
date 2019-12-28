@@ -94,7 +94,7 @@ namespace NiceHashMiner.Miners
                         newconf = newconf + str + "\n";
                     }
 
-                if (str.Contains("DeviceIndex = ") & str.Contains("BinaryFormat ="))
+                if (str.Contains("DeviceIndex = ") && str.Contains("BinaryFormat ="))
                 {
                     Helpers.ConsolePrint("lyclminer3", "");
                     int st1 = str.IndexOf("DeviceIndex = ");
@@ -253,7 +253,7 @@ namespace NiceHashMiner.Miners
                     newconf = newconf + str + "\n";
                 }
 
-                if (str.Contains("DeviceIndex = ") & str.Contains("BinaryFormat ="))
+                if (str.Contains("DeviceIndex = ") && str.Contains("BinaryFormat ="))
                 {
                     Helpers.ConsolePrint("lyclminer3", "");
                     int st1 = str.IndexOf("DeviceIndex = ");

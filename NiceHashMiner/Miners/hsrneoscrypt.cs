@@ -24,8 +24,8 @@ namespace NiceHashMiner.Miners
         private int count = 0;
         double speed = 0;
         private int _benchmarkTimeWait = 240;
-        bool benchmarkException => MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt
-                                           || MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt;
+        bool benchmarkException => MiningSetup.MinerPath == MinerPaths.Data.hsrneoscrypt;
+                                           
 
         protected override int GetMaxCooldownTimeInMilliseconds()
         {

@@ -36,12 +36,12 @@ namespace NiceHashMiner.Miners
             LastCommandLine = " " + GetDevicesCommandString() + " -mport -" + ApiPort + " -xpool " + url +
               " -xwal " + username + " -xpsw x -dbg -1 -ftime 10 -retrydelay 5 -pow7 1";
 
-            epools = String.Format("POOL: stratum+ssl://cryptonightv7.usa.nicehash.com:33353, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, ApiPort) + "\n"
-           + String.Format("POOL: stratum+ssl://cryptonightv7.hk.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, ApiPort) + "\n"
-           + String.Format("POOL: stratum+ssl://cryptonightv7.jp.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, ApiPort) + "\n"
-           + String.Format("POOL: stratum+ssl://cryptonightv7.in.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, ApiPort) + "\n"
-           + String.Format("POOL: stratum+ssl://cryptonightv7.br.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, ApiPort) + "\n"
-           + String.Format("POOL: stratum+ssl://cryptonightv7.eu.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, ApiPort) + "\n";
+            epools = String.Format("POOL: stratum+ssl://cryptonightv7.usa.nicehash.com:33353, WALLET: {0}, PSW: x, ALLPOOLS: 0", username) + "\n"
+           + String.Format("POOL: stratum+ssl://cryptonightv7.hk.nicehash.com:33363, WALLET: {0}, PSW: x, ALLPOOLS: 0", username) + "\n"
+           + String.Format("POOL: stratum+ssl://cryptonightv7.jp.nicehash.com:33363, WALLET: {0}, PSW: x, ALLPOOLS: 0", username) + "\n"
+           + String.Format("POOL: stratum+ssl://cryptonightv7.in.nicehash.com:33363, WALLET: {0}, PSW: x, ALLPOOLS: 0", username) + "\n"
+           + String.Format("POOL: stratum+ssl://cryptonightv7.br.nicehash.com:33363, WALLET: {0}, PSW: x, ALLPOOLS: 0", username) + "\n"
+           + String.Format("POOL: stratum+ssl://cryptonightv7.eu.nicehash.com:33363, WALLET: {0}, PSW: x, ALLPOOLS: 0", username) + "\n";
 
             FileStream fs = new FileStream("bin_3rdparty\\claymore_cryptonight\\epools.txt", FileMode.Create, FileAccess.Write);
             StreamWriter w = new StreamWriter(fs);

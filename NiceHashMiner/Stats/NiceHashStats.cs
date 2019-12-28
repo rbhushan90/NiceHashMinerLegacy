@@ -501,11 +501,13 @@ namespace NiceHashMiner.Stats
                     }
 
                     dynamic list;
+                    /*
                     if (ConfigManager.GeneralConfig.NewPlatform)
                     {
                         list = JsonConvert.DeserializeObject<Rootobject>(resp);
                     }
                     else
+                    */
                     {
                         list = JsonConvert.DeserializeObject<Rootobject>(resp);
                     }
@@ -1260,12 +1262,13 @@ namespace NiceHashMiner.Stats
 
 
                     var speedsJson = new JArray();
-
+                    /*
                     if (rigStatus != "MINING")
                     {
                         speedsJson.Add(new JArray()); // все скорости
                     }
                     else
+                    */
                     {
                         speedsJson.Add(new JArray()); //  42, 55.0
                     }
@@ -1608,11 +1611,12 @@ namespace TimerDispose
             {
                 //First exit if the timer was stoped before calling callback. This info is saved in state
                 var canceller = (TimerCanceller)state;
+                /*
                 if (canceller.Cancelled)
                 {
                     return; //
                 }
-
+                */
                 //Your logic goes here. Please take care ! the callback might have already been called before stoping the timer
                 //and we might be already here after intending of stoping the timer. In most cases it is fine but try not to consume
                 //an object of this class because it might be already disposed. If you have to do that, hopefully it will be catched by

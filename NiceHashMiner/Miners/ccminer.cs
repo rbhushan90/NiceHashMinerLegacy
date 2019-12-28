@@ -53,7 +53,7 @@ namespace NiceHashMiner.Miners
             var apiBind = "";
             string alg = url.Substring(url.IndexOf("://") + 3, url.IndexOf(".") - url.IndexOf("://") - 3);
             string port = url.Substring(url.IndexOf(".com:") + 5, url.Length - url.IndexOf(".com:") - 5);
-            if (!IsApiReadException)
+ //           if (!IsApiReadException)
             {
                 algo = "--algo=" + MiningSetup.MinerName;
                 apiBind = " --api-bind=" + ApiPort;
@@ -106,7 +106,7 @@ namespace NiceHashMiner.Miners
             string nhsuff = "";
             if (Configs.ConfigManager.GeneralConfig.NewPlatform)
             {
-                nhsuff = nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
+               // nhsuff = nhsuff = Configs.ConfigManager.GeneralConfig.StratumSuff;
             }
             if (MiningSetup.CurrentAlgorithmType.Equals(AlgorithmType.NeoScrypt))
             {

@@ -326,27 +326,29 @@ namespace NiceHashMiner.Forms.Components
                 foreach (ListViewItem lvi in listViewAlgorithms.Items)
                 {
                     var algo = lvi.Tag as Algorithm;
-                    lvi.SubItems[SPEED].Text = algo?.BenchmarkSpeedString();
-                    lvi.Checked = algo.Enabled;
-                    if (algo is DualAlgorithm dualAlg)
+                    if (algo != null)
                     {
-                     //   lvi.SubItems[SECSPEED].Text = dualAlg.SecondaryBenchmarkSpeedString();
+                        lvi.SubItems[SPEED].Text = algo.BenchmarkSpeedString();
+                        lvi.Checked = algo.Enabled;
+                        if (algo is DualAlgorithm dualAlg)
+                        {
+                            //   lvi.SubItems[SECSPEED].Text = dualAlg.SecondaryBenchmarkSpeedString();
+                        }
+                        algo.PowerUsage = Math.Round(algo.PowerUsage, 0);
+                        if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
+                        {
+                            lvi.SubItems[POWER].Text = algo.PowerUsage.ToString() + " Вт";
+                        }
+                        else
+                        {
+                            lvi.SubItems[POWER].Text = algo.PowerUsage.ToString() + " W";
+                        }
+                        if (algo.PowerUsage <= 0)
+                        {
+                            lvi.SubItems[POWER].Text = "--";
+                        }
+                        _listItemCheckColorSetter.LviSetColor(lvi);
                     }
-                    algo.PowerUsage = Math.Round(algo.PowerUsage, 0);
-                    if (ConfigManager.GeneralConfig.Language == LanguageType.Ru)
-                    {
-                        lvi.SubItems[POWER].Text = algo?.PowerUsage.ToString() + " Вт";
-                    }
-                    else
-                    {
-                        lvi.SubItems[POWER].Text = algo?.PowerUsage.ToString() + " W";
-                    }
-                    if (algo.PowerUsage <=0)
-                    {
-                        lvi.SubItems[POWER].Text = "--";
-                    }
-
-                    _listItemCheckColorSetter.LviSetColor(lvi);
                 }
 
                 //Visible = isEnabled;

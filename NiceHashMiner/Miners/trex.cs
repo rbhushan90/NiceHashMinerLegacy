@@ -39,7 +39,7 @@ namespace NiceHashMiner.Miners
             }
             var username = GetUsername(btcAdress, worker);
 
-            IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.trex;
+           // IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.trex;
 
             var algo = "";
             var apiBind = "";
@@ -382,8 +382,7 @@ namespace NiceHashMiner.Miners
                                         speed += tmp * 1000;
                                     else if (line.ToLower().Contains("mh/s"))
                                         speed += tmp * 1000000;
-
-                                    BenchmarkAlgorithm.BenchmarkSpeed = speed / shares;
+                                    if (shares != 0) BenchmarkAlgorithm.BenchmarkSpeed = speed / shares;
                                     BenchmarkSignalFinnished = true;
 
                                 }

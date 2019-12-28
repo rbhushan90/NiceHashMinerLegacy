@@ -82,12 +82,12 @@ namespace NiceHashMiner.Devices
             if (_NvPhysicalGpuHandle.HasValue) return _NvPhysicalGpuHandle.Value;
             if (NVAPI.NvAPI_EnumPhysicalGPUs == null)
             {
-                Helpers.ConsolePrint("NVAPI", "NvAPI_EnumPhysicalGPUs unavailable", TimeSpan.FromMinutes(5));
+                Helpers.ConsolePrint("NVAPI", "NvAPI_EnumPhysicalGPUs unavailable ");
                 return null;
             }
             if (NVAPI.NvAPI_GPU_GetBusID == null)
             {
-                Helpers.ConsolePrint("NVAPI", "NvAPI_GPU_GetBusID unavailable", TimeSpan.FromMinutes(5));
+                Helpers.ConsolePrint("NVAPI", "NvAPI_GPU_GetBusID unavailable");
                 return null;
             }
 

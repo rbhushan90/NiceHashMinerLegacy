@@ -132,7 +132,7 @@ namespace NiceHashMiner
         //private const int _MAX_CooldownTimeInMilliseconds = 60 * 1000; // 1 minute max, whole waiting time 75seconds
         public int _maxCooldownTimeInMilliseconds; // = GetMaxCooldownTimeInMilliseconds();
 
-        protected abstract int GetMaxCooldownTimeInMilliseconds();
+       // protected abstract int GetMaxCooldownTimeInMilliseconds();
         public static Timer _cooldownCheckTimer;
         protected MinerApiReadStatus CurrentMinerReadStatus { get; set; }
         private int _currentCooldownTimeInSeconds = MinCooldownTimeInMilliseconds;
@@ -149,117 +149,12 @@ namespace NiceHashMiner
         protected bool IsMultiType;
         public static string BenchmarkStringAdd = "";
         public static string InBenchmark = "";
-        /*
-        string BeforeOrAfterMiningString = "@echo off\r\n" +
-    "\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "rem * Set RUN on TRUE to enable this command scrypt\r\n" +
-    "rem * Установите параметр RUN в TRUE, что бы включить выполнение этого коммандного файла\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "SET RUN=FALSE\r\n" +
-    "\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "rem * Установите параметр NOVISIBLE в TRUE, что бы скрыть окно выполнения этого коммандного файла\r\n" +
-    "rem * Set NOVISIBLE on TRUE to hide command window\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "SET NOVISIBLE=FALSE\r\n" +
-    "\r\n" +
-    "echo Current algo: %3\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "rem * Все команды в разделах приведены только для примера\r\n" +
-    "rem * All commands in sections are given for example only\r\n" +
-    "rem * Добавьте свои команды установки профилей разгона и т.п. в необходимые секции\r\n" +
-    "rem * Add your own commands to install overclocking profiles, etc. in necessary sections\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "cd..\r\n" +
-    "cd..\r\n" +
-    "if \"%1\" EQU \"AMD\" goto amd\r\n" +
-    "if \"%1\" EQU \"NVIDIA\" goto nvidia\r\n" +
-    "if \"%1\" EQU \"CPU\" goto end\r\n" +
-    "goto end\r\n" +
-    "\r\n" +
 
-    ":nvidia\r\n" +
-    "if \"%2\" EQU \"DUAL\" goto nvidiadual\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "rem * MSI Afterburner section for NVIDIA\r\n" +
-    "rem * MSI Afterburner раздел, для исполнения команд для NVIDIA\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "echo NVIDIA\r\n" +
-    "::start \"start \"\" \"C:\\Program Files(x86)\\MSI Afterburner\\MSIAfterburner.exe\" -Profile2\r\n" +
-    "\r\n" +
-    "rem NVIDIA Inspector section\r\n" +
-    "::utils\\nvidiaInspector.exe -setBaseClockOffset:0,0,100 -setMemoryClockOffset:0,0,500 -setPowerTarget:0,95 -setTempTarget:0,0,75 -setFanSpeed:0,-1\r\n" +
-    "::utils\\nvidiaInspector.exe -setBaseClockOffset:1,0,100 -setMemoryClockOffset:1,0,500 -setPowerTarget:1,95 -setTempTarget:1,0,75 -setFanSpeed:1,-1\r\n" +
-    "::utils\\nvidiaInspector.exe -setBaseClockOffset:2,0,100 -setMemoryClockOffset:2,0,500 -setPowerTarget:2,95 -setTempTarget:2,0,75 -setFanSpeed:2,-1\r\n" +
-    "::utils\\nvidiaInspector.exe -setBaseClockOffset:3,0,100 -setMemoryClockOffset:3,0,500 -setPowerTarget:3,95 -setTempTarget:3,0,75 -setFanSpeed:3,-1\r\n" +
-    "::utils\\nvidiaInspector.exe -setBaseClockOffset:4,0,100 -setMemoryClockOffset:4,0,500 -setPowerTarget:4,95 -setTempTarget:4,0,75 -setFanSpeed:4,-1\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "rem * End of MSI Afterburner section for NVIDIA\r\n" +
-    "rem * Конец MSI Afterburner раздела, для исполнения команд для NVIDIA\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "goto end\r\n" +
-    "\r\n" +
+        protected virtual int GetMaxCooldownTimeInMilliseconds()
+        {
+            return 60 * 1000 * 10;  // 10 min
+        }
 
-    ":nvidiadual\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "rem MSI Afterburner section for NVIDIA (claymore dual mode)\r\n" +
-    "rem * MSI Afterburner раздел, для исполнения команд для NVIDIA (claymore dual mode)\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "echo NVIDIA DUAL\r\n" +
-    "::start \"start \"\" \"C:\\Program Files(x86)\\MSI Afterburner\\MSIAfterburner.exe\" -Profile2\r\n" +
-    "\r\n" +
-    "rem NVIDIA Inspector section\r\n" +
-    "::utils\\nvidiaInspector.exe -setBaseClockOffset:0,0,100 -setMemoryClockOffset:0,0,500 -setPowerTarget:0,95 -setTempTarget:0,0,75 -setFanSpeed:0,-1\r\n" +
-    "::utils\\nvidiaInspector.exe -setBaseClockOffset:1,0,100 -setMemoryClockOffset:1,0,500 -setPowerTarget:1,95 -setTempTarget:1,0,75 -setFanSpeed:1,-1\r\n" +
-    "::utils\\nvidiaInspector.exe -setBaseClockOffset:2,0,100 -setMemoryClockOffset:2,0,500 -setPowerTarget:2,95 -setTempTarget:2,0,75 -setFanSpeed:2,-1\r\n" +
-    "::utils\\nvidiaInspector.exe -setBaseClockOffset:3,0,100 -setMemoryClockOffset:3,0,500 -setPowerTarget:3,95 -setTempTarget:3,0,75 -setFanSpeed:3,-1\r\n" +
-    "::utils\\nvidiaInspector.exe -setBaseClockOffset:4,0,100 -setMemoryClockOffset:4,0,500 -setPowerTarget:4,95 -setTempTarget:4,0,75 -setFanSpeed:4,-1\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "rem End of MSI Afterburner section for NVIDIA (claymore dual mode)\r\n" +
-    "rem * Конец MSI Afterburner раздела, для исполнения команд для NVIDIA (claymore dual mode)\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "goto end\r\n" +
-    "\r\n" +
-
-    ":amd\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "rem * MSI Afterburner section for AMD\r\n" +
-    "rem * MSI Afterburner раздел, для исполнения команд для AMD\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "if \"%2\" EQU \"DUAL\" goto amddual\r\n" +
-    "echo AMD\r\n" +
-    "rem AMD OverdriveNTool section for AMD only ETH mode\r\n" +
-    "::utils\\OverdriveNTool.exe -p0\"card0\"\r\n" +
-    "::utils\\OverdriveNTool.exe -p1\"card1\"\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "rem * End of MSI Afterburner section for AMD\r\n" +
-    "rem * Конец MSI Afterburner раздела, для исполнения команд для AMD\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "goto end\r\n" +
-    "\r\n" +
-
-    ":amddual\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "rem MSI Afterburner section for AMD (claymore dual mode)\r\n" +
-    "rem * MSI Afterburner раздел, для исполнения команд для AMD (claymore dual mode)\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "echo AMD DUAL\r\n" +
-    "rem AMD OverdriveNTool section for AMD dual mode\r\n" +
-    "::utils\\OverdriveNTool.exe -p0\"card0\"\r\n" +
-    "::utils\\OverdriveNTool.exe -p1\"card1\"\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "rem End of MSI Afterburner section for AMD (claymore dual mode)\r\n" +
-    "rem * Конец MSI Afterburner раздела, для исполнения команд для AMD (claymore dual mode)\r\n" +
-    "rem ****************************************************************************************\r\n" +
-    "goto end\r\n" +
-    "\r\n" +
-
-    ":end\r\n" +
-    "echo END\r\n" +
-    "rem Do NOT disable this delay\r\n" +
-    "timeout /t 1 /nobreak\r\n";
-    */
         protected Miner(string minerDeviceName)
         {
             ConectionType = NhmConectionType.STRATUM_TCP;
@@ -1821,7 +1716,7 @@ namespace NiceHashMiner
 
         protected virtual void RunCMDAfterMining(string CMDparam, NiceHashProcess ProcessHandle)
         {
-            while (ProcessHandle != null)
+ //           while (ProcessHandle != null)
             {
             }
             bool CreateNoWindow = false;

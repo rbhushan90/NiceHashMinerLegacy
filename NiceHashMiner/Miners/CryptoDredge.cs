@@ -52,7 +52,7 @@ namespace NiceHashMiner.Miners
             }
             var username = GetUsername(btcAdress, worker);
 
-             IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.CryptoDredge;
+         //    IsApiReadException = MiningSetup.MinerPath == MinerPaths.Data.CryptoDredge;
 
             var algo = "";
             var apiBind = "";

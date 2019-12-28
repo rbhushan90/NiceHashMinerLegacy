@@ -28,12 +28,12 @@ namespace NiceHashMiner.Miners
             LastCommandLine = " " + GetDevicesCommandString() + " -mport -" + ApiPort + " -zpool " + url +
               " -zwal " + username + " -zpsw x -dbg -1 -ftime 10 -retrydelay 5 ";
 
-            epools = String.Format("POOL: stratum+ssl://equihash.usa.nicehash.com:33353, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, ApiPort) + "\n"
-           + String.Format("POOL: stratum+ssl://equihash.hk.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, ApiPort) + "\n"
-           + String.Format("POOL: stratum+ssl://equihash.jp.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, ApiPort) + "\n"
-           + String.Format("POOL: stratum+ssl://equihash.in.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, ApiPort) + "\n"
-           + String.Format("POOL: stratum+ssl://equihash.br.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, ApiPort) + "\n"
-           + String.Format("POOL: stratum+ssl://equihash.eu.nicehash.com:33363, WALLET: {1}, PSW: x, ALLPOOLS: 0", url, username, ApiPort) + "\n";
+            epools = String.Format("POOL: stratum+ssl://equihash.usa.nicehash.com:33353, WALLET: {0}, PSW: x, ALLPOOLS: 0", username) + "\n"
+           + String.Format("POOL: stratum+ssl://equihash.hk.nicehash.com:33363, WALLET: {0}, PSW: x, ALLPOOLS: 0", username) + "\n"
+           + String.Format("POOL: stratum+ssl://equihash.jp.nicehash.com:33363, WALLET: {0}, PSW: x, ALLPOOLS: 0", username) + "\n"
+           + String.Format("POOL: stratum+ssl://equihash.in.nicehash.com:33363, WALLET: {0}, PSW: x, ALLPOOLS: 0", username) + "\n"
+           + String.Format("POOL: stratum+ssl://equihash.br.nicehash.com:33363, WALLET: {0}, PSW: x, ALLPOOLS: 0", username) + "\n"
+           + String.Format("POOL: stratum+ssl://equihash.eu.nicehash.com:33363, WALLET: {0}, PSW: x, ALLPOOLS: 0", username) + "\n";
 
             FileStream fs = new FileStream("bin_3rdparty\\claymore_zcash\\epools.txt", FileMode.Create, FileAccess.Write);
             StreamWriter w = new StreamWriter(fs);

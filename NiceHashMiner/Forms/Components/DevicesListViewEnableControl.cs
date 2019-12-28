@@ -477,10 +477,12 @@ namespace NiceHashMiner.Forms.Components
                         CDevice.BenchmarkCopyUuid = uuid;
                         CDevice.CopyBenchmarkSettingsFrom(copyBenchCDev);
                     }
-
-                    _algorithmsListView.Update();
-                    _algorithmsListView.Refresh();
-                    _algorithmsListView?.RepaintStatus(CDevice.Enabled, CDevice.Uuid);
+                    if (_algorithmsListView != null)
+                    {
+                        _algorithmsListView.Update();
+                        _algorithmsListView.Refresh();
+                        _algorithmsListView.RepaintStatus(CDevice.Enabled, CDevice.Uuid);
+                    }
                 }
             }
         }

@@ -42,7 +42,7 @@ namespace NiceHashMiner.Forms
         private bool IsChange
         {
             get => _isChange;
-            set => _isChange = _isChange || _isInitFinished && value;
+            set => _isChange = _isChange || (_isInitFinished && value);
         }
 
         private void InitLocale()
