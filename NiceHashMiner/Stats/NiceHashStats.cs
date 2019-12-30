@@ -1026,6 +1026,7 @@ namespace NiceHashMiner.Stats
         }
         private static void SetAlgorithmRates(JArray data, int mult = 1)
         {
+            bool bug = false;
             try
             {
                 var payingDict = new Dictionary<AlgorithmType, double>();
@@ -1033,6 +1034,7 @@ namespace NiceHashMiner.Stats
                 {
                     foreach (var algo in data)
                     {
+                        bug = false;
                         var algoKey = (AlgorithmType)algo[0].Value<int>();
                         if (!NHSmaData.TryGetPaying(algoKey, out double paying))
                         {
@@ -1042,30 +1044,31 @@ namespace NiceHashMiner.Stats
                         }
                         else
                         {
-                            if (paying != 0 && (paying * 8 < Math.Abs(algo[1].Value<double>()) * mult || (paying / 8 > Math.Abs(algo[1].Value<double>() * mult))))
+                            if (paying != 0 && (paying * 5 < Math.Abs(algo[1].Value<double>()) * mult || (paying / 5 > Math.Abs(algo[1].Value<double>() * mult))))
                             {
                                 Helpers.ConsolePrint("SMA API", "Bug found in: " + algoKey.ToString() + " " + paying.ToString() + "<>" + Math.Abs(algo[1].Value<double>() * mult));
+                                bug = true;
                             }
                             else if (ConfigManager.GeneralConfig.UseNegativeProfit)
                             {
                                 if (ConfigManager.GeneralConfig.MOPA5)
                                 {
-                                    payingDict[algoKey] = Math.Max(Math.Abs(algo[1].Value<double>()) * mult, paying);
+                                    if (bug == false) payingDict[algoKey] = Math.Max(Math.Abs(algo[1].Value<double>()) * mult, paying);
                                 }
                                 else
                                 {
-                                    payingDict[algoKey] = Math.Abs(algo[1].Value<double>()) * mult;
+                                    if (bug == false) payingDict[algoKey] = Math.Abs(algo[1].Value<double>()) * mult;
                                 }
                             }
                             else
                             {
                                 if (ConfigManager.GeneralConfig.MOPA5)
                                 {
-                                    payingDict[algoKey] = Math.Max(algo[1].Value<double>() * mult, paying);
+                                    if (bug == false) payingDict[algoKey] = Math.Max(algo[1].Value<double>() * mult, paying);
                                 }
                                 else
                                 {
-                                    payingDict[algoKey] = algo[1].Value<double>() * mult;
+                                    if (bug == false) payingDict[algoKey] = algo[1].Value<double>() * mult;
                                 }
                             }
                         }
